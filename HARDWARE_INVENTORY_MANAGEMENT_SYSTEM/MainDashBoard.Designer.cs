@@ -28,28 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
             this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
+            this.ucKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucKeyMetrics();
             this.SuspendLayout();
+            // 
+            // ucTopBar1
+            // 
+            this.ucTopBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.ucTopBar1.Location = new System.Drawing.Point(244, -2);
+            this.ucTopBar1.Name = "ucTopBar1";
+            this.ucTopBar1.Size = new System.Drawing.Size(965, 69);
+            this.ucTopBar1.TabIndex = 1;
             // 
             // sidePanel1
             // 
             this.sidePanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.sidePanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.sidePanel1.Location = new System.Drawing.Point(148, 24);
+            this.sidePanel1.Location = new System.Drawing.Point(22, 23);
             this.sidePanel1.Name = "sidePanel1";
-            this.sidePanel1.Size = new System.Drawing.Size(187, 713);
+            this.sidePanel1.Size = new System.Drawing.Size(202, 670);
             this.sidePanel1.TabIndex = 0;
+            // 
+            // ucKeyMetrics1
+            // 
+            this.ucKeyMetrics1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.ucKeyMetrics1.Location = new System.Drawing.Point(271, 88);
+            this.ucKeyMetrics1.Name = "ucKeyMetrics1";
+            this.ucKeyMetrics1.Size = new System.Drawing.Size(879, 93);
+            this.ucKeyMetrics1.TabIndex = 2;
             // 
             // MainDashBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._05_Dashboard;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(1210, 720);
+            this.Controls.Add(this.ucKeyMetrics1);
+            this.Controls.Add(this.ucTopBar1);
             this.Controls.Add(this.sidePanel1);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainDashBoard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainDashBoard";
             this.ResumeLayout(false);
 
@@ -58,5 +80,7 @@
         #endregion
 
         private SidePanel sidePanel1;
+        private ucTopBar ucTopBar1;
+        private ucKeyMetrics ucKeyMetrics1;
     }
 }

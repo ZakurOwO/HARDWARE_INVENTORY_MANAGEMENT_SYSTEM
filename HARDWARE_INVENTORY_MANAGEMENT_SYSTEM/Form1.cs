@@ -117,5 +117,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             mainDashBoard.Show();
             this.Hide();
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

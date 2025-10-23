@@ -75,6 +75,24 @@
     <Compile Include="SidePanel.Designer.cs">
       <DependentUpon>SidePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="ucKeyMetrics.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucKeyMetrics.Designer.cs">
+      <DependentUpon>ucKeyMetrics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucStockAlertTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucStockAlertTable.Designer.cs">
+      <DependentUpon>ucStockAlertTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ucTopBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucTopBar.Designer.cs">
+      <DependentUpon>ucTopBar.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -93,6 +111,15 @@
     </Compile>
     <EmbeddedResource Include="SidePanel.resx">
       <DependentUpon>SidePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucKeyMetrics.resx">
+      <DependentUpon>ucKeyMetrics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucStockAlertTable.resx">
+      <DependentUpon>ucStockAlertTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucTopBar.resx">
+      <DependentUpon>ucTopBar.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -167,6 +194,42 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Rectangle 7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\direction-down 01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UserProfile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\My Profile %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\My Profile %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\My Profile %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Categories.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sales Logo-6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Red Warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Quantity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Topaz Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Topaz Icon %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Topaz Icon %283%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
