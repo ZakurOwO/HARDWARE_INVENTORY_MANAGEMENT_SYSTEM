@@ -61,10 +61,25 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainDashBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainDashBoard.Designer.cs">
+      <DependentUpon>MainDashBoard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SidePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SidePanel.Designer.cs">
+      <DependentUpon>SidePanel.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainDashBoard.resx">
+      <DependentUpon>MainDashBoard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -76,6 +91,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SidePanel.resx">
+      <DependentUpon>SidePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -107,6 +125,45 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Enable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\05 Dashboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo + Text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Accounts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Auditlog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Customer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DashboardIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DashBoardSelected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Deliveries.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HistoryIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Inventory.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Reports.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Suppliers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Transaction.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
