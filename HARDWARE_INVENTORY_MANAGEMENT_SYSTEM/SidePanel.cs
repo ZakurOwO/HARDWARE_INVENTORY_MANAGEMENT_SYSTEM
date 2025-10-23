@@ -33,16 +33,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void SidePanel_Load(object sender, EventArgs e)
         {
-            // Attach paint event to all buttons
+            
             foreach (Control ctrl in this.Controls)
             {
                 if (ctrl is Button btn)
                 {
-                    btn.Paint += SidebarButton_Paint; // Attach paint handler
+                    btn.Paint += SidebarButton_Paint; 
                 }
             }
 
-            // Automatically highlight Dashboard when loaded
+           
             if (this.Controls.ContainsKey("DashboardBTN"))
             {
                 HighlightButton((Button)this.Controls["DashboardBTN"]);
@@ -55,7 +55,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             Color activeBack = Color.FromArgb(184, 213, 229);
             Color activeText = Color.FromArgb(0, 87, 158);
 
-            // Reset all buttons
+          
             foreach (Control ctrl in this.Controls)
             {
                 if (ctrl is Button btn)
@@ -68,14 +68,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 }
             }
 
-            // Highlight clicked button
+           
             clickedButton.BackColor = activeBack;
             clickedButton.ForeColor = activeText;
             clickedButton.Font = new Font("Lexend SemiBold", 9, FontStyle.Regular);
             clickedButton.Tag = "active";
             activeButton = clickedButton;
 
-            // Redraw everything
+           
             clickedButton.Invalidate();
             this.Invalidate();
         }
@@ -88,14 +88,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             {
                 using (SolidBrush brush = new SolidBrush(Color.FromArgb(0, 87, 158)))
                 {
-                    // Draw the vertical highlight line slightly inset
+                   
                     Rectangle lineRect = new Rectangle(0, 4, 4, btn.Height - 8);
                     e.Graphics.FillRectangle(brush, lineRect);
                 }
             }
         }
 
-        // Button click handlers
         private void DashboardBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
         private void AccountBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
         private void InventoryBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
