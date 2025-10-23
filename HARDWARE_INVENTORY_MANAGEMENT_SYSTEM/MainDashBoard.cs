@@ -22,9 +22,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         }
 
-        private void sidePanel1_Load_1(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }

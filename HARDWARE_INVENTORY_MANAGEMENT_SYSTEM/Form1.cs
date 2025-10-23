@@ -37,60 +37,56 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void pictureBoxEye_Click(object sender, EventArgs e)
         {
+           
             isEyeOpen = !isEyeOpen;
 
             if (isEyeOpen)
             {
+               
                 Password.Text = actualPassword;
                 pictureBoxEye.Image = Properties.Resources.EyeOpen;
             }
             else
             {
+               
                 Password.Text = new string('*', actualPassword.Length);
                 pictureBoxEye.Image = Properties.Resources.EyeClosed;
             }
 
+        
             Password.SelectionStart = Password.Text.Length;
-        }
-
-        private void PasswordTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)Keys.Back)
-            {
-                if (actualPassword.Length > 0)
-                    actualPassword = actualPassword.Substring(0, actualPassword.Length - 1);
-
-                if (Password.Text.Length > 0)
-                    Password.Text = Password.Text.Substring(0, Password.Text.Length - 1);
-
-                e.Handled = true;
-                Password.SelectionStart = Password.Text.Length;
-                return;
-            }
-
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                e.Handled = true;
-                return;
-            }
-
-            actualPassword += e.KeyChar;
-
-            if (isEyeOpen)
-            {
-                Password.Text = actualPassword;
-            }
-            else
-            {
-                Password.Text += "*";
-            }
-
-            e.Handled = true;
-            Password.SelectionStart = Password.Text.Length;
+            Password.SelectionLength = 0;
+            Password.Focus();
         }
 
         private void Password_TextChanged(object sender, EventArgs e)
         {
+        
+            if (isEyeOpen)
+            {
+             
+                actualPassword = Password.Text;
+            }
+            else
+            {
+              
+                int cursorPos = Password.SelectionStart;
+
+                if (Password.Text.Length < actualPassword.Length)
+                {
+                    actualPassword = actualPassword.Substring(0, Password.Text.Length);
+                }
+                else if (Password.Text.Length > actualPassword.Length)
+                {
+                    
+                    string added = Password.Text.Substring(actualPassword.Length);
+                    actualPassword += added;
+                }
+
+                
+                Password.Text = new string('*', actualPassword.Length);
+                Password.SelectionStart = cursorPos;
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             Krypton.Toolkit.KryptonRichTextBox Email;
-            this.guna2Shapes1 = new Guna.UI2.WinForms.Guna2Shapes();
             this.label1 = new System.Windows.Forms.Label();
             this.Password = new Krypton.Toolkit.KryptonRichTextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -39,6 +38,7 @@
             this.CheckBoxToggle = new System.Windows.Forms.PictureBox();
             this.pictureBoxEye = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.guna2Shapes1 = new Guna.UI2.WinForms.Guna2Shapes();
             Email = new Krypton.Toolkit.KryptonRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.CheckBoxToggle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEye)).BeginInit();
@@ -51,7 +51,7 @@
             Email.CueHint.Font = new System.Drawing.Font("Lexend Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             Email.CueHint.Padding = new System.Windows.Forms.Padding(6, 0, 25, 23);
             Email.InputControlStyle = Krypton.Toolkit.InputControlStyle.PanelClient;
-            Email.Location = new System.Drawing.Point(878, 417);
+            Email.Location = new System.Drawing.Point(768, 307);
             Email.Name = "Email";
             Email.PaletteMode = Krypton.Toolkit.PaletteMode.Microsoft365Blue;
             Email.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
@@ -68,28 +68,13 @@
             Email.Text = "";
             Email.TextChanged += new System.EventHandler(this.Email_TextChanged);
             // 
-            // guna2Shapes1
-            // 
-            this.guna2Shapes1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Shapes1.BorderColor = System.Drawing.Color.Transparent;
-            this.guna2Shapes1.FillColor = System.Drawing.Color.Silver;
-            this.guna2Shapes1.Location = new System.Drawing.Point(-53, -119);
-            this.guna2Shapes1.Name = "guna2Shapes1";
-            this.guna2Shapes1.PolygonSkip = 1;
-            this.guna2Shapes1.Rotate = 0F;
-            this.guna2Shapes1.Shape = Guna.UI2.WinForms.Enums.ShapeType.Rounded;
-            this.guna2Shapes1.Size = new System.Drawing.Size(991, 1204);
-            this.guna2Shapes1.TabIndex = 0;
-            this.guna2Shapes1.Text = "guna2Shapes1";
-            this.guna2Shapes1.Zoom = 80;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Gray;
-            this.label1.Location = new System.Drawing.Point(874, 366);
+            this.label1.Location = new System.Drawing.Point(764, 256);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(112, 21);
             this.label1.TabIndex = 2;
@@ -101,7 +86,7 @@
             this.Password.CueHint.Font = new System.Drawing.Font("Lexend Light", 11.25F);
             this.Password.CueHint.Padding = new System.Windows.Forms.Padding(10, 0, 25, 23);
             this.Password.InputControlStyle = Krypton.Toolkit.InputControlStyle.PanelClient;
-            this.Password.Location = new System.Drawing.Point(878, 490);
+            this.Password.Location = new System.Drawing.Point(768, 380);
             this.Password.Multiline = false;
             this.Password.Name = "Password";
             this.Password.PaletteMode = Krypton.Toolkit.PaletteMode.Microsoft365Blue;
@@ -118,7 +103,6 @@
             this.Password.TabIndex = 4;
             this.Password.Text = "";
             this.Password.TextChanged += new System.EventHandler(this.Password_TextChanged);
-            this.Password.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PasswordTextBox_KeyPress);
             // 
             // label2
             // 
@@ -126,7 +110,7 @@
             this.label2.BackColor = System.Drawing.Color.White;
             this.label2.Font = new System.Drawing.Font("Lexend Light", 11F);
             this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(914, 558);
+            this.label2.Location = new System.Drawing.Point(804, 448);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(112, 24);
             this.label2.TabIndex = 7;
@@ -135,7 +119,7 @@
             // 
             // LoginButton
             // 
-            this.LoginButton.Location = new System.Drawing.Point(878, 606);
+            this.LoginButton.Location = new System.Drawing.Point(768, 496);
             this.LoginButton.Name = "LoginButton";
             this.LoginButton.Size = new System.Drawing.Size(434, 59);
             this.LoginButton.StateCommon.Back.Color1 = System.Drawing.Color.DodgerBlue;
@@ -158,7 +142,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Lexend Light", 10F);
             this.label3.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label3.Location = new System.Drawing.Point(890, 424);
+            this.label3.Location = new System.Drawing.Point(780, 314);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 22);
             this.label3.TabIndex = 9;
@@ -170,7 +154,7 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Lexend Light", 10F);
             this.label4.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label4.Location = new System.Drawing.Point(890, 497);
+            this.label4.Location = new System.Drawing.Point(780, 387);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(79, 22);
             this.label4.TabIndex = 10;
@@ -180,7 +164,7 @@
             // 
             this.CheckBoxToggle.BackColor = System.Drawing.Color.White;
             this.CheckBoxToggle.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Disable;
-            this.CheckBoxToggle.Location = new System.Drawing.Point(878, 554);
+            this.CheckBoxToggle.Location = new System.Drawing.Point(772, 443);
             this.CheckBoxToggle.Name = "CheckBoxToggle";
             this.CheckBoxToggle.Size = new System.Drawing.Size(30, 30);
             this.CheckBoxToggle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -192,7 +176,7 @@
             // 
             this.pictureBoxEye.BackColor = System.Drawing.Color.White;
             this.pictureBoxEye.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.EyeClosed;
-            this.pictureBoxEye.Location = new System.Drawing.Point(1265, 500);
+            this.pictureBoxEye.Location = new System.Drawing.Point(1153, 390);
             this.pictureBoxEye.Name = "pictureBoxEye";
             this.pictureBoxEye.Size = new System.Drawing.Size(36, 36);
             this.pictureBoxEye.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -204,12 +188,27 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.WelcomebackFabiana;
-            this.pictureBox1.Location = new System.Drawing.Point(868, 313);
+            this.pictureBox1.Location = new System.Drawing.Point(758, 203);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(188, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
+            // 
+            // guna2Shapes1
+            // 
+            this.guna2Shapes1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Shapes1.BorderColor = System.Drawing.Color.Transparent;
+            this.guna2Shapes1.FillColor = System.Drawing.Color.Silver;
+            this.guna2Shapes1.Location = new System.Drawing.Point(44, -57);
+            this.guna2Shapes1.Name = "guna2Shapes1";
+            this.guna2Shapes1.PolygonSkip = 1;
+            this.guna2Shapes1.Rotate = 0F;
+            this.guna2Shapes1.Shape = Guna.UI2.WinForms.Enums.ShapeType.Rounded;
+            this.guna2Shapes1.Size = new System.Drawing.Size(708, 816);
+            this.guna2Shapes1.TabIndex = 12;
+            this.guna2Shapes1.Text = "guna2Shapes1";
+            this.guna2Shapes1.Zoom = 80;
             // 
             // LoginForm
             // 
@@ -217,7 +216,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(1534, 1061);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LoginButton);
@@ -243,8 +242,6 @@
         }
 
         #endregion
-
-        private Guna.UI2.WinForms.Guna2Shapes guna2Shapes1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
         private Krypton.Toolkit.KryptonRichTextBox Password;
@@ -254,6 +251,7 @@
         private Krypton.Toolkit.KryptonButton LoginButton;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private Guna.UI2.WinForms.Guna2Shapes guna2Shapes1;
     }
 }
 

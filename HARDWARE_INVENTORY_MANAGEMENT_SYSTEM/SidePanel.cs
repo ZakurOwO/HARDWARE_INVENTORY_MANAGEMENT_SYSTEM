@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 {
@@ -18,12 +12,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         public SidePanel()
         {
             InitializeComponent();
-            ApplyRoundedButtons();
+            this.Load += SidePanel_Load;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+
             int radius = 20;
             using (GraphicsPath path = new GraphicsPath())
             {
@@ -38,57 +33,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void SidePanel_Load(object sender, EventArgs e)
         {
-            HideAllHighlightLines();
-
-            // Default selection when dashboard is shown first
-            HighlightButton(DashboardBTN);
-            ShowHighlightLine("HighlightLine1");
-        }
-
-        private void ApplyRoundedButtons()
-        {
+            // Attach paint event to all buttons
             foreach (Control ctrl in this.Controls)
             {
                 if (ctrl is Button btn)
                 {
-                    btn.FlatStyle = FlatStyle.Flat;
-                    btn.FlatAppearance.BorderSize = 0;
-                    btn.Region = new Region(GetRoundRect(btn.ClientRectangle, 15));
-                    btn.Font = new Font("Lexend", 9, FontStyle.Regular);
-                    btn.ForeColor = Color.Black;
-                    btn.BackColor = Color.FromArgb(209, 228, 242);
-                    btn.Paint += SidebarButton_Paint;
+                    btn.Paint += SidebarButton_Paint; // Attach paint handler
                 }
             }
-        }
 
-        private GraphicsPath GetRoundRect(Rectangle rect, int radius)
-        {
-            GraphicsPath path = new GraphicsPath();
-            int d = radius * 2;
-            path.AddArc(rect.X, rect.Y, d, d, 180, 90);
-            path.AddArc(rect.Right - d, rect.Y, d, d, 270, 90);
-            path.AddArc(rect.Right - d, rect.Bottom - d, d, d, 0, 90);
-            path.AddArc(rect.X, rect.Bottom - d, d, d, 90, 90);
-            path.CloseFigure();
-            return path;
-        }
-
-        private void HideAllHighlightLines()
-        {
-            foreach (Control ctrl in this.Controls)
+            // Automatically highlight Dashboard when loaded
+            if (this.Controls.ContainsKey("DashboardBTN"))
             {
-                if (ctrl.Name.StartsWith("HighlightLine"))
-                    ctrl.Visible = false;
+                HighlightButton((Button)this.Controls["DashboardBTN"]);
             }
-        }
-
-        private void ShowHighlightLine(string name)
-        {
-            HideAllHighlightLines();
-            Control line = this.Controls[name];
-            if (line != null)
-                line.Visible = true;
         }
 
         private void HighlightButton(Button clickedButton)
@@ -97,100 +55,56 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             Color activeBack = Color.FromArgb(184, 213, 229);
             Color activeText = Color.FromArgb(0, 87, 158);
 
+            // Reset all buttons
             foreach (Control ctrl in this.Controls)
             {
                 if (ctrl is Button btn)
                 {
                     btn.BackColor = defaultBack;
                     btn.ForeColor = Color.Black;
-                    btn.Font = new Font("Lexend", 12, FontStyle.Regular);
+                    btn.Font = new Font("Lexend", 9, FontStyle.Regular);
                     btn.Tag = "inactive";
+                    btn.Invalidate();
                 }
             }
 
+            // Highlight clicked button
             clickedButton.BackColor = activeBack;
             clickedButton.ForeColor = activeText;
-            clickedButton.Font = new Font("Lexend SemiBold", 12, FontStyle.Regular);
+            clickedButton.Font = new Font("Lexend SemiBold", 9, FontStyle.Regular);
             clickedButton.Tag = "active";
-
             activeButton = clickedButton;
-        }
 
+            // Redraw everything
+            clickedButton.Invalidate();
+            this.Invalidate();
+        }
 
         private void SidebarButton_Paint(object sender, PaintEventArgs e)
         {
             Button btn = (Button)sender;
+
             if (btn.Tag != null && btn.Tag.ToString() == "active")
             {
                 using (SolidBrush brush = new SolidBrush(Color.FromArgb(0, 87, 158)))
                 {
-                 
-                    Rectangle lineRect = new Rectangle(2, 0, 5, btn.Height);
+                    // Draw the vertical highlight line slightly inset
+                    Rectangle lineRect = new Rectangle(0, 4, 4, btn.Height - 8);
                     e.Graphics.FillRectangle(brush, lineRect);
                 }
             }
         }
 
-
-
-        private void DashboardBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            ShowHighlightLine("HighlightLine1");
-        }
-
-        private void AccountBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            ShowHighlightLine("HighlightLine2");
-        }
-
-        private void InventoryBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            ShowHighlightLine("HighlightLine3");
-        }
-
-        private void TransactionBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            ShowHighlightLine("HighlightLine4");
-        }
-
-        private void CustomerBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            ShowHighlightLine("HighlightLine5");
-        }
-
-        private void SupplierBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            ShowHighlightLine("HighlightLine6");
-        }
-
-        private void DeliveriesBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            ShowHighlightLine("HighlightLine7");
-        }
-
-        private void ReportBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            ShowHighlightLine("HighlightLine8");
-        }
-
-        private void HistoryBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            ShowHighlightLine("HighlightLine9");
-        }
-
-        private void AuditlogBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            ShowHighlightLine("HighlightLine10");
-        }
+        // Button click handlers
+        private void DashboardBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
+        private void AccountBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
+        private void InventoryBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
+        private void TransactionBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
+        private void CustomerBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
+        private void SupplierBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
+        private void DeliveriesBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
+        private void ReportBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
+        private void HistoryBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
+        private void AuditlogBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
     }
 }
