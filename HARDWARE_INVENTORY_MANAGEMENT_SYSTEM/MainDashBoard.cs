@@ -16,5 +16,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
             InitializeComponent();
         }
+
+        private void sidePanel1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sidePanel1_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

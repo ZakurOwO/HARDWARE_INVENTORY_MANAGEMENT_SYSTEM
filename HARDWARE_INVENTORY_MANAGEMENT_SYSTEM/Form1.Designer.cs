@@ -30,19 +30,19 @@
         {
             Krypton.Toolkit.KryptonRichTextBox Email;
             this.guna2Shapes1 = new Guna.UI2.WinForms.Guna2Shapes();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Password = new Krypton.Toolkit.KryptonRichTextBox();
-            this.pictureBoxEye = new System.Windows.Forms.PictureBox();
-            this.CheckBoxToggle = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.LoginButton = new Krypton.Toolkit.KryptonButton();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.CheckBoxToggle = new System.Windows.Forms.PictureBox();
+            this.pictureBoxEye = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             Email = new Krypton.Toolkit.KryptonRichTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEye)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CheckBoxToggle)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEye)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // Email
@@ -83,17 +83,6 @@
             this.guna2Shapes1.Text = "guna2Shapes1";
             this.guna2Shapes1.Zoom = 80;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.WelcomebackFabiana;
-            this.pictureBox1.Location = new System.Drawing.Point(868, 313);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(188, 50);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -131,30 +120,6 @@
             this.Password.TextChanged += new System.EventHandler(this.Password_TextChanged);
             this.Password.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PasswordTextBox_KeyPress);
             // 
-            // pictureBoxEye
-            // 
-            this.pictureBoxEye.BackColor = System.Drawing.Color.White;
-            this.pictureBoxEye.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.EyeClosed;
-            this.pictureBoxEye.Location = new System.Drawing.Point(1265, 500);
-            this.pictureBoxEye.Name = "pictureBoxEye";
-            this.pictureBoxEye.Size = new System.Drawing.Size(36, 36);
-            this.pictureBoxEye.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBoxEye.TabIndex = 5;
-            this.pictureBoxEye.TabStop = false;
-            this.pictureBoxEye.Click += new System.EventHandler(this.pictureBoxEye_Click);
-            // 
-            // CheckBoxToggle
-            // 
-            this.CheckBoxToggle.BackColor = System.Drawing.Color.White;
-            this.CheckBoxToggle.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Disable;
-            this.CheckBoxToggle.Location = new System.Drawing.Point(878, 554);
-            this.CheckBoxToggle.Name = "CheckBoxToggle";
-            this.CheckBoxToggle.Size = new System.Drawing.Size(30, 30);
-            this.CheckBoxToggle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.CheckBoxToggle.TabIndex = 6;
-            this.CheckBoxToggle.TabStop = false;
-            this.CheckBoxToggle.Click += new System.EventHandler(this.CheckBoxToggle_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -185,6 +150,7 @@
             this.LoginButton.UseMnemonic = false;
             this.LoginButton.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.LoginButton.Values.Text = "Login";
+            this.LoginButton.Click += new System.EventHandler(this.LoginButton_Click);
             // 
             // label3
             // 
@@ -210,6 +176,41 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Password:";
             // 
+            // CheckBoxToggle
+            // 
+            this.CheckBoxToggle.BackColor = System.Drawing.Color.White;
+            this.CheckBoxToggle.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Disable;
+            this.CheckBoxToggle.Location = new System.Drawing.Point(878, 554);
+            this.CheckBoxToggle.Name = "CheckBoxToggle";
+            this.CheckBoxToggle.Size = new System.Drawing.Size(30, 30);
+            this.CheckBoxToggle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.CheckBoxToggle.TabIndex = 6;
+            this.CheckBoxToggle.TabStop = false;
+            this.CheckBoxToggle.Click += new System.EventHandler(this.CheckBoxToggle_Click);
+            // 
+            // pictureBoxEye
+            // 
+            this.pictureBoxEye.BackColor = System.Drawing.Color.White;
+            this.pictureBoxEye.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.EyeClosed;
+            this.pictureBoxEye.Location = new System.Drawing.Point(1265, 500);
+            this.pictureBoxEye.Name = "pictureBoxEye";
+            this.pictureBoxEye.Size = new System.Drawing.Size(36, 36);
+            this.pictureBoxEye.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxEye.TabIndex = 5;
+            this.pictureBoxEye.TabStop = false;
+            this.pictureBoxEye.Click += new System.EventHandler(this.pictureBoxEye_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.WelcomebackFabiana;
+            this.pictureBox1.Location = new System.Drawing.Point(868, 313);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(188, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -233,9 +234,9 @@
             this.Name = "LoginForm";
             this.Text = "LoginForm";
             this.Load += new System.EventHandler(this.LoginForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEye)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CheckBoxToggle)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEye)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

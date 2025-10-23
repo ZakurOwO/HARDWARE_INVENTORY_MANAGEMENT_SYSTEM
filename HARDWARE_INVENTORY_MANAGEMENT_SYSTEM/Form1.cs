@@ -114,5 +114,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         private void Email_TextChanged(object sender, EventArgs e)
         {
         }
+
+        private void LoginButton_Click(object sender, EventArgs e)
+        {
+            MainDashBoard mainDashBoard = new MainDashBoard();
+            mainDashBoard.Show();
+            this.Hide();
+        }
     }
 }
