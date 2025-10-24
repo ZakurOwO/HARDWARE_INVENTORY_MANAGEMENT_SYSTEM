@@ -21,5 +21,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
 
         }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
