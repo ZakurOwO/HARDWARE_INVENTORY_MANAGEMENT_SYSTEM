@@ -211,6 +211,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ucStockAlertTable";
             this.Size = new System.Drawing.Size(858, 220);
+            this.Load += new System.EventHandler(this.ucStockAlertTable_Load);
             this.pnlTableHeader.ResumeLayout(false);
             this.pnlTableHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

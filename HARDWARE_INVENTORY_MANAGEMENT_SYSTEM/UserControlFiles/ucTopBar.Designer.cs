@@ -81,6 +81,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ucTopBar";
             this.Size = new System.Drawing.Size(965, 69);
+            this.Load += new System.EventHandler(this.ucTopBar_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

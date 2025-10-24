@@ -21,5 +21,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
 
         }
+
+        private void ucTopBar_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

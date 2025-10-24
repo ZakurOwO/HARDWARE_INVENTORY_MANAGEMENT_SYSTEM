@@ -16,5 +16,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
             InitializeComponent();
         }
+
+        private void ucStockAlertTable_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

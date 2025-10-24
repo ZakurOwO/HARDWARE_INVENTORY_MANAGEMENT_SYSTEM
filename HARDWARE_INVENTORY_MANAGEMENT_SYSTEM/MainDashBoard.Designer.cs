@@ -28,10 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.ucKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucKeyMetrics();
             this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
             this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
-            this.ucKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucKeyMetrics();
             this.SuspendLayout();
+            // 
+            // ucKeyMetrics1
+            // 
+            this.ucKeyMetrics1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.ucKeyMetrics1.Location = new System.Drawing.Point(271, 88);
+            this.ucKeyMetrics1.Name = "ucKeyMetrics1";
+            this.ucKeyMetrics1.Size = new System.Drawing.Size(879, 93);
+            this.ucKeyMetrics1.TabIndex = 2;
             // 
             // ucTopBar1
             // 
@@ -49,14 +57,6 @@
             this.sidePanel1.Name = "sidePanel1";
             this.sidePanel1.Size = new System.Drawing.Size(202, 670);
             this.sidePanel1.TabIndex = 0;
-            // 
-            // ucKeyMetrics1
-            // 
-            this.ucKeyMetrics1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.ucKeyMetrics1.Location = new System.Drawing.Point(271, 88);
-            this.ucKeyMetrics1.Name = "ucKeyMetrics1";
-            this.ucKeyMetrics1.Size = new System.Drawing.Size(879, 93);
-            this.ucKeyMetrics1.TabIndex = 2;
             // 
             // MainDashBoard
             // 
