@@ -41,7 +41,6 @@
             this.CheckBoxToggle = new System.Windows.Forms.PictureBox();
             this.pictureBoxEye = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.dataGridTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.DataGridTable();
             Email = new Krypton.Toolkit.KryptonRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CheckBoxToggle)).BeginInit();
@@ -237,14 +236,6 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // dataGridTable1
-            // 
-            this.dataGridTable1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.dataGridTable1.Location = new System.Drawing.Point(108, 87);
-            this.dataGridTable1.Name = "dataGridTable1";
-            this.dataGridTable1.Size = new System.Drawing.Size(790, 398);
-            this.dataGridTable1.TabIndex = 15;
-            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,7 +243,6 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1194, 711);
-            this.Controls.Add(this.dataGridTable1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -294,7 +284,6 @@
         private Guna.UI2.WinForms.Guna2Shapes guna2Shapes1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label5;
-        private DataGridTable dataGridTable1;
     }
 }
 
