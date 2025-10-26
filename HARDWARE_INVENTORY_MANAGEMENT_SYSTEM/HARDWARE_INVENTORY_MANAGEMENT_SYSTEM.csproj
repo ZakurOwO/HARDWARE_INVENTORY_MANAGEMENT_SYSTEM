@@ -67,6 +67,12 @@
     <Compile Include="Accounts Module\AccountsTopBar.Designer.cs">
       <DependentUpon>AccountsTopBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Accounts Module\SearchField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Accounts Module\SearchField.Designer.cs">
+      <DependentUpon>SearchField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Customer Module\AddCustomerForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -170,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Accounts Module\AccountsTopBar.resx">
       <DependentUpon>AccountsTopBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Accounts Module\SearchField.resx">
+      <DependentUpon>SearchField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\AddCustomerForm.resx">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
@@ -377,6 +386,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Accounts1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search 02.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

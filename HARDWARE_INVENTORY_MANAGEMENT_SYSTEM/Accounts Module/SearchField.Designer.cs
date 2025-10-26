@@ -1,13 +1,13 @@
-﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
+﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 {
-    partial class Test
+    partial class SearchField
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,37 +20,16 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.tbxSearchField = new Guna.UI2.WinForms.Guna2TextBox();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.panel2);
-            this.panel1.Location = new System.Drawing.Point(234, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(960, 680);
-            this.panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.tbxSearchField);
-            this.panel2.Location = new System.Drawing.Point(19, 73);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(915, 580);
-            this.panel2.TabIndex = 0;
             // 
             // tbxSearchField
             // 
@@ -67,37 +46,29 @@
             this.tbxSearchField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.tbxSearchField.IconLeft = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.search_02;
             this.tbxSearchField.IconLeftOffset = new System.Drawing.Point(5, 0);
-            this.tbxSearchField.Location = new System.Drawing.Point(27, 73);
+            this.tbxSearchField.Location = new System.Drawing.Point(13, 13);
             this.tbxSearchField.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbxSearchField.Name = "tbxSearchField";
             this.tbxSearchField.PlaceholderText = "";
             this.tbxSearchField.SelectedText = "";
             this.tbxSearchField.Size = new System.Drawing.Size(291, 40);
-            this.tbxSearchField.TabIndex = 0;
+            this.tbxSearchField.TabIndex = 1;
             this.tbxSearchField.TextOffset = new System.Drawing.Point(3, 0);
             // 
-            // Test
+            // SearchField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Accounts1;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1194, 681);
-            this.Controls.Add(this.panel1);
-            this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Test";
-            this.Text = "Test";
-            this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.tbxSearchField);
+            this.Name = "SearchField";
+            this.Size = new System.Drawing.Size(320, 63);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private Guna.UI2.WinForms.Guna2TextBox tbxSearchField;
     }
 }

@@ -31,6 +31,7 @@
             this.ucKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucKeyMetrics();
             this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
             this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.SuspendLayout();
             // 
             // ucKeyMetrics1
@@ -58,6 +59,16 @@
             this.sidePanel1.Size = new System.Drawing.Size(202, 670);
             this.sidePanel1.TabIndex = 0;
             // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.BorderColor = System.Drawing.Color.Silver;
+            this.guna2Panel1.BorderRadius = 10;
+            this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Location = new System.Drawing.Point(257, 88);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(915, 580);
+            this.guna2Panel1.TabIndex = 3;
+            // 
             // MainDashBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -65,6 +76,7 @@
             this.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._05_Dashboard;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1210, 720);
+            this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.ucKeyMetrics1);
             this.Controls.Add(this.ucTopBar1);
             this.Controls.Add(this.sidePanel1);
@@ -82,5 +94,6 @@
         private SidePanel sidePanel1;
         private ucTopBar ucTopBar1;
         private ucKeyMetrics ucKeyMetrics1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
     }
 }

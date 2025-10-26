@@ -28,8 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.accountsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.AccountsTopBar();
             this.SuspendLayout();
+            // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.BorderColor = System.Drawing.Color.Silver;
+            this.guna2Panel1.BorderRadius = 15;
+            this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Location = new System.Drawing.Point(19, 73);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(915, 580);
+            this.guna2Panel1.TabIndex = 0;
             // 
             // accountsTopBar1
             // 
@@ -45,6 +56,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.accountsTopBar1);
             this.Name = "AccountsMainPage";
             this.Size = new System.Drawing.Size(960, 680);
@@ -55,5 +67,6 @@
         #endregion
 
         private AccountsTopBar accountsTopBar1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
     }
 }
