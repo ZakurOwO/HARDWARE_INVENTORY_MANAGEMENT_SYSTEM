@@ -124,6 +124,9 @@
   <data name="Auditlog" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Auditlog.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Logo + Text" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Logo + Text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Customer details (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Customer details (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -139,8 +142,11 @@
   <data name="Disable" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Disable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="UserProfile" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UserProfile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Customer details1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Customer details1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DashboardIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DashboardIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Customer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Customer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -151,11 +157,14 @@
   <data name="Red Warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Red Warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="trash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\trash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="My Profile (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\My Profile (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Customer details1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Customer details1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="UserProfile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UserProfile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Quantity" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Quantity.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -175,14 +184,11 @@
   <data name="Inventory" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Inventory.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Reports" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Reports.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Categories" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Categories.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="DashboardIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DashboardIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Reports" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Reports.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DashBoardSelected" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DashBoardSelected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -202,14 +208,17 @@
   <data name="WelcomebackFabiana" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WelcomebackFabiana.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Customer details (4)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Customer details (4).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Customer details" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Customer details.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Deliveries" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Deliveries.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Logo + Text" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Logo + Text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Delete Confirmation Popup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete Confirmation Popup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="EyeClosed" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EyeClosed.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -226,10 +235,16 @@
   <data name="05 Dashboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\05 Dashboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Add Stock Popup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add Stock Popup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="HistoryIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\HistoryIcon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Add Stock Popup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Add Stock Popup.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="check-circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\check-circle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Delete Confirmation Popup (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete Confirmation Popup (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

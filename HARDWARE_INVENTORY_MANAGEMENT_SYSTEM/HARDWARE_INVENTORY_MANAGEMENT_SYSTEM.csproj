@@ -73,11 +73,23 @@
     <Compile Include="Customer Module\DataGridTable.Designer.cs">
       <DependentUpon>DataGridTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Customer Module\DeletePrompt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Customer Module\DeletePrompt.Designer.cs">
+      <DependentUpon>DeletePrompt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Customer Module\EditCustomerDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Customer Module\EditCustomerDetails.Designer.cs">
       <DependentUpon>EditCustomerDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Customer Module\SuccessfullyDeleted.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Customer Module\SuccessfullyDeleted.Designer.cs">
+      <DependentUpon>SuccessfullyDeleted.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -144,8 +156,14 @@
     <EmbeddedResource Include="Customer Module\DataGridTable.resx">
       <DependentUpon>DataGridTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Customer Module\DeletePrompt.resx">
+      <DependentUpon>DeletePrompt.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\EditCustomerDetails.resx">
       <DependentUpon>EditCustomerDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Customer Module\SuccessfullyDeleted.resx">
+      <DependentUpon>SuccessfullyDeleted.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -311,6 +329,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Add Stock Popup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Customer details %284%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete Confirmation Popup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check-circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete Confirmation Popup %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
