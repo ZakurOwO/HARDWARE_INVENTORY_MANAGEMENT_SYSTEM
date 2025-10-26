@@ -37,7 +37,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button1.Location = new System.Drawing.Point(874, 87);
+            this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(196, 44);
             this.button1.TabIndex = 0;
@@ -49,13 +49,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Customer_details;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.button1);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.Name = "AddCustomerDetailsButton";
-            this.Size = new System.Drawing.Size(1210, 720);
+            this.Size = new System.Drawing.Size(196, 44);
             this.ResumeLayout(false);
 
         }
