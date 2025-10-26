@@ -55,6 +55,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts Module\AccountsMainPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Accounts Module\AccountsMainPage.Designer.cs">
+      <DependentUpon>AccountsMainPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts Module\AccountsTopBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Accounts Module\AccountsTopBar.Designer.cs">
+      <DependentUpon>AccountsTopBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Customer Module\AddCustomerForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -153,6 +165,12 @@
     <Compile Include="UserControlFiles\ucTopBar.Designer.cs">
       <DependentUpon>ucTopBar.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Accounts Module\AccountsMainPage.resx">
+      <DependentUpon>AccountsMainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Accounts Module\AccountsTopBar.resx">
+      <DependentUpon>AccountsTopBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\AddCustomerForm.resx">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -356,6 +374,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GlassIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Accounts1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
