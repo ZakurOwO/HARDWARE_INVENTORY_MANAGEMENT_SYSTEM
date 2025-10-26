@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
+namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 {
-    public partial class SearchField : UserControl
+    public partial class DeliveriesTable: UserControl
     {
-        public SearchField()
+        public DeliveriesTable()
         {
             InitializeComponent();
-        }
-
-        private void tbxSearchField_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

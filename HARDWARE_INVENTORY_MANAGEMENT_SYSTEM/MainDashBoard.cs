@@ -22,6 +22,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         }
 
-       
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

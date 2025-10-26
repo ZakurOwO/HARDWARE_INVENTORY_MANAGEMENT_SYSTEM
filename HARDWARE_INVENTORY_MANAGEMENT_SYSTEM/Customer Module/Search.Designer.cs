@@ -28,55 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.kryptonRichTextBox1 = new Krypton.Toolkit.KryptonRichTextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tbxSearchField = new Guna.UI2.WinForms.Guna2TextBox();
             this.SuspendLayout();
             // 
-            // kryptonRichTextBox1
+            // tbxSearchField
             // 
-            this.kryptonRichTextBox1.Location = new System.Drawing.Point(0, 0);
-            this.kryptonRichTextBox1.Name = "kryptonRichTextBox1";
-            this.kryptonRichTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.kryptonRichTextBox1.Size = new System.Drawing.Size(236, 37);
-            this.kryptonRichTextBox1.StateCommon.Border.Rounding = 7F;
-            this.kryptonRichTextBox1.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.kryptonRichTextBox1.StateCommon.Content.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonRichTextBox1.StateCommon.Content.Padding = new System.Windows.Forms.Padding(30, 8, -1, -1);
-            this.kryptonRichTextBox1.TabIndex = 1;
-            this.kryptonRichTextBox1.Text = "Search";
-            this.kryptonRichTextBox1.TextChanged += new System.EventHandler(this.kryptonRichTextBox1_TextChanged);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.GlassIcon;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 8);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 20);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.tbxSearchField.BorderRadius = 8;
+            this.tbxSearchField.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbxSearchField.DefaultText = "Search User";
+            this.tbxSearchField.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.tbxSearchField.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.tbxSearchField.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbxSearchField.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbxSearchField.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbxSearchField.Font = new System.Drawing.Font("Lexend Light", 9F);
+            this.tbxSearchField.ForeColor = System.Drawing.Color.DimGray;
+            this.tbxSearchField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbxSearchField.IconLeft = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.search_02;
+            this.tbxSearchField.IconLeftOffset = new System.Drawing.Point(5, 0);
+            this.tbxSearchField.Location = new System.Drawing.Point(0, 0);
+            this.tbxSearchField.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tbxSearchField.Name = "tbxSearchField";
+            this.tbxSearchField.PlaceholderText = "";
+            this.tbxSearchField.SelectedText = "";
+            this.tbxSearchField.Size = new System.Drawing.Size(291, 40);
+            this.tbxSearchField.TabIndex = 2;
+            this.tbxSearchField.TextOffset = new System.Drawing.Point(3, 0);
             // 
             // Search
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Customer_details;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.kryptonRichTextBox1);
+            this.Controls.Add(this.tbxSearchField);
             this.DoubleBuffered = true;
             this.Name = "Search";
-            this.Size = new System.Drawing.Size(236, 37);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.Size = new System.Drawing.Size(288, 37);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private Krypton.Toolkit.KryptonRichTextBox kryptonRichTextBox1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+
+        private Guna.UI2.WinForms.Guna2TextBox tbxSearchField;
     }
 }

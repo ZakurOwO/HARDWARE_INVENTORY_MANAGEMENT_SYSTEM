@@ -115,6 +115,12 @@
     <Compile Include="Customer Module\SuccessfullyDeleted.Designer.cs">
       <DependentUpon>SuccessfullyDeleted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Deliveries\DeliveriesTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\DeliveriesTable.Designer.cs">
+      <DependentUpon>DeliveriesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\SuccessfullyDeleted.resx">
       <DependentUpon>SuccessfullyDeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\DeliveriesTable.resx">
+      <DependentUpon>DeliveriesTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -389,6 +398,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\search 02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Trucks.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

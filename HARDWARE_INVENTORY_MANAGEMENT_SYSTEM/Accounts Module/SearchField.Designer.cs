@@ -41,7 +41,7 @@
             this.tbxSearchField.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.tbxSearchField.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.tbxSearchField.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tbxSearchField.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxSearchField.Font = new System.Drawing.Font("Lexend Light", 9F);
             this.tbxSearchField.ForeColor = System.Drawing.Color.DimGray;
             this.tbxSearchField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.tbxSearchField.IconLeft = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.search_02;
@@ -54,6 +54,7 @@
             this.tbxSearchField.Size = new System.Drawing.Size(291, 40);
             this.tbxSearchField.TabIndex = 1;
             this.tbxSearchField.TextOffset = new System.Drawing.Point(3, 0);
+            this.tbxSearchField.TextChanged += new System.EventHandler(this.tbxSearchField_TextChanged);
             // 
             // SearchField
             // 
