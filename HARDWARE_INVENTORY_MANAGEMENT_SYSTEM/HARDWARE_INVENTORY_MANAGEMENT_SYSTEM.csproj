@@ -55,10 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataGridTable.cs">
+    <Compile Include="UserControlFiles\DataGridTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DataGridTable.Designer.cs">
+    <Compile Include="UserControlFiles\DataGridTable.Designer.cs">
       <DependentUpon>DataGridTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
@@ -105,7 +105,7 @@
     <Compile Include="UserControlFiles\ucTopBar.Designer.cs">
       <DependentUpon>ucTopBar.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DataGridTable.resx">
+    <EmbeddedResource Include="UserControlFiles\DataGridTable.resx">
       <DependentUpon>DataGridTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
