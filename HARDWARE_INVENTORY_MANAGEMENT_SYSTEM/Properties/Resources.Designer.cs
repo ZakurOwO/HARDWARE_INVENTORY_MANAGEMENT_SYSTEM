@@ -133,6 +133,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Customer_details__2_ {
+            get {
+                object obj = ResourceManager.GetObject("Customer details (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Customer_details1 {
             get {
                 object obj = ResourceManager.GetObject("Customer details1", resourceCulture);
@@ -276,6 +286,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap My_Profile__3_ {
             get {
                 object obj = ResourceManager.GetObject("My Profile (3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Polygon_1__1_ {
+            get {
+                object obj = ResourceManager.GetObject("Polygon 1 (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -93,6 +93,12 @@
     <Compile Include="UserControlFiles\AddCustomerDetailsButton.Designer.cs">
       <DependentUpon>AddCustomerDetailsButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControlFiles\Edit &amp; Delete Button.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlFiles\Edit &amp; Delete Button.Designer.cs">
+      <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControlFiles\SidePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\AddCustomerDetailsButton.resx">
       <DependentUpon>AddCustomerDetailsButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlFiles\Edit &amp; Delete Button.resx">
+      <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\SidePanel.resx">
       <DependentUpon>SidePanel.cs</DependentUpon>
@@ -272,6 +281,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Customer details1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Customer details %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Polygon 1 %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
