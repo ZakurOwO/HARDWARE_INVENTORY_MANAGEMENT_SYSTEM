@@ -55,16 +55,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UserControlFiles\CustomerTopBar.cs">
+    <Compile Include="Customer Module\AddCustomerForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControlFiles\CustomerTopBar.Designer.cs">
+    <Compile Include="Customer Module\AddCustomerForm.Designer.cs">
+      <DependentUpon>AddCustomerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Customer Module\CustomerTopBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Customer Module\CustomerTopBar.Designer.cs">
       <DependentUpon>CustomerTopBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControlFiles\DataGridTable.cs">
+    <Compile Include="Customer Module\DataGridTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControlFiles\DataGridTable.Designer.cs">
+    <Compile Include="Customer Module\DataGridTable.Designer.cs">
       <DependentUpon>DataGridTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
@@ -87,16 +93,16 @@
     <Compile Include="Test.Designer.cs">
       <DependentUpon>Test.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControlFiles\AddCustomerDetailsButton.cs">
+    <Compile Include="Customer Module\AddCustomerDetailsButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControlFiles\AddCustomerDetailsButton.Designer.cs">
+    <Compile Include="Customer Module\AddCustomerDetailsButton.Designer.cs">
       <DependentUpon>AddCustomerDetailsButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControlFiles\Edit &amp; Delete Button.cs">
+    <Compile Include="Customer Module\Edit &amp; Delete Button.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControlFiles\Edit &amp; Delete Button.Designer.cs">
+    <Compile Include="Customer Module\Edit &amp; Delete Button.Designer.cs">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControlFiles\SidePanel.cs">
@@ -123,10 +129,13 @@
     <Compile Include="UserControlFiles\ucTopBar.Designer.cs">
       <DependentUpon>ucTopBar.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UserControlFiles\CustomerTopBar.resx">
+    <EmbeddedResource Include="Customer Module\AddCustomerForm.resx">
+      <DependentUpon>AddCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Customer Module\CustomerTopBar.resx">
       <DependentUpon>CustomerTopBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControlFiles\DataGridTable.resx">
+    <EmbeddedResource Include="Customer Module\DataGridTable.resx">
       <DependentUpon>DataGridTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
@@ -148,10 +157,10 @@
     <EmbeddedResource Include="Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControlFiles\AddCustomerDetailsButton.resx">
+    <EmbeddedResource Include="Customer Module\AddCustomerDetailsButton.resx">
       <DependentUpon>AddCustomerDetailsButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControlFiles\Edit &amp; Delete Button.resx">
+    <EmbeddedResource Include="Customer Module\Edit &amp; Delete Button.resx">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\SidePanel.resx">
@@ -287,6 +296,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Polygon 1 %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Customer details %283%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add Stock Popup.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

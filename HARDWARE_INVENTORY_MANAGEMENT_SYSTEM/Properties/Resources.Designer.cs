@@ -93,6 +93,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Add_Stock_Popup {
+            get {
+                object obj = ResourceManager.GetObject("Add Stock Popup", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Auditlog {
             get {
                 object obj = ResourceManager.GetObject("Auditlog", resourceCulture);
@@ -136,6 +146,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap Customer_details__2_ {
             get {
                 object obj = ResourceManager.GetObject("Customer details (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Customer_details__3_ {
+            get {
+                object obj = ResourceManager.GetObject("Customer details (3)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
