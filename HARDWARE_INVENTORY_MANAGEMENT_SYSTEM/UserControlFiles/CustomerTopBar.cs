@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 {
-    public partial class Customer: UserControl
+    public partial class CustomerTopBar: UserControl
     {
-        public Customer()
+        public CustomerTopBar()
         {
             InitializeComponent();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
