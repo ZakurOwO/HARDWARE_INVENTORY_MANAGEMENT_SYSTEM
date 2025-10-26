@@ -46,7 +46,7 @@
             this.tbxSearchField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.tbxSearchField.IconLeft = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.search_02;
             this.tbxSearchField.IconLeftOffset = new System.Drawing.Point(5, 0);
-            this.tbxSearchField.Location = new System.Drawing.Point(13, 13);
+            this.tbxSearchField.Location = new System.Drawing.Point(3, 4);
             this.tbxSearchField.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbxSearchField.Name = "tbxSearchField";
             this.tbxSearchField.PlaceholderText = "";
@@ -63,7 +63,7 @@
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.tbxSearchField);
             this.Name = "SearchField";
-            this.Size = new System.Drawing.Size(320, 63);
+            this.Size = new System.Drawing.Size(299, 54);
             this.ResumeLayout(false);
 
         }

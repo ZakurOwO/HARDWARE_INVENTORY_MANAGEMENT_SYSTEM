@@ -67,11 +67,23 @@
     <Compile Include="Accounts Module\AccountsTopBar.Designer.cs">
       <DependentUpon>AccountsTopBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Accounts Module\AddNewUserButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Accounts Module\AddNewUserButton.Designer.cs">
+      <DependentUpon>AddNewUserButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Accounts Module\SearchField.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Accounts Module\SearchField.Designer.cs">
       <DependentUpon>SearchField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts Module\UserAccountsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Accounts Module\UserAccountsPanel.Designer.cs">
+      <DependentUpon>UserAccountsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Customer Module\AddCustomerForm.cs">
       <SubType>UserControl</SubType>
@@ -189,8 +201,14 @@
     <EmbeddedResource Include="Accounts Module\AccountsTopBar.resx">
       <DependentUpon>AccountsTopBar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Accounts Module\AddNewUserButton.resx">
+      <DependentUpon>AddNewUserButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Accounts Module\SearchField.resx">
       <DependentUpon>SearchField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Accounts Module\UserAccountsPanel.resx">
+      <DependentUpon>UserAccountsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\AddCustomerForm.resx">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
@@ -422,6 +440,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\OutOfServiceStatus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add User.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\User-Cirle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shield.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shield1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shield2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

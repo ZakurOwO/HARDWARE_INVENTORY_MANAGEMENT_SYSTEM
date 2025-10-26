@@ -8,15 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
+namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 {
-    public partial class Test : Form
+    public partial class UserAccountsPanel : UserControl
     {
-        public Test()
+        public UserAccountsPanel()
         {
             InitializeComponent();
         }
-
-        
     }
 }
