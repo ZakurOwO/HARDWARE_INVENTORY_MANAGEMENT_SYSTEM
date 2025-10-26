@@ -123,6 +123,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AvailableStatus {
+            get {
+                object obj = ResourceManager.GetObject("AvailableStatus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Categories {
             get {
                 object obj = ResourceManager.GetObject("Categories", resourceCulture);
@@ -343,6 +353,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap MaintenanceStatus {
+            get {
+                object obj = ResourceManager.GetObject("MaintenanceStatus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap My_Profile__1_ {
             get {
                 object obj = ResourceManager.GetObject("My Profile (1)", resourceCulture);
@@ -366,6 +386,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap My_Profile__3_ {
             get {
                 object obj = ResourceManager.GetObject("My Profile (3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OutOfServiceStatus {
+            get {
+                object obj = ResourceManager.GetObject("OutOfServiceStatus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -506,6 +536,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap Trucks {
             get {
                 object obj = ResourceManager.GetObject("Trucks", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Trucks1 {
+            get {
+                object obj = ResourceManager.GetObject("Trucks1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
