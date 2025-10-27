@@ -91,6 +91,12 @@
     <Compile Include="Customer Module\AddCustomerForm.Designer.cs">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Customer Module\CustomerMainPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Customer Module\CustomerMainPage.Designer.cs">
+      <DependentUpon>CustomerMainPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Customer Module\CustomerTopBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,11 +121,11 @@
     <Compile Include="Customer Module\EditCustomerDetails.Designer.cs">
       <DependentUpon>EditCustomerDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Customer Module\Search.cs">
+    <Compile Include="Customer Module\PageNumber.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Customer Module\Search.Designer.cs">
-      <DependentUpon>Search.cs</DependentUpon>
+    <Compile Include="Customer Module\PageNumber.Designer.cs">
+      <DependentUpon>PageNumber.cs</DependentUpon>
     </Compile>
     <Compile Include="Customer Module\SuccessfullyDeleted.cs">
       <SubType>UserControl</SubType>
@@ -213,6 +219,9 @@
     <EmbeddedResource Include="Customer Module\AddCustomerForm.resx">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Customer Module\CustomerMainPage.resx">
+      <DependentUpon>CustomerMainPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\CustomerTopBar.resx">
       <DependentUpon>CustomerTopBar.cs</DependentUpon>
     </EmbeddedResource>
@@ -225,8 +234,8 @@
     <EmbeddedResource Include="Customer Module\EditCustomerDetails.resx">
       <DependentUpon>EditCustomerDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Customer Module\Search.resx">
-      <DependentUpon>Search.cs</DependentUpon>
+    <EmbeddedResource Include="Customer Module\PageNumber.resx">
+      <DependentUpon>PageNumber.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\SuccessfullyDeleted.resx">
       <DependentUpon>SuccessfullyDeleted.cs</DependentUpon>

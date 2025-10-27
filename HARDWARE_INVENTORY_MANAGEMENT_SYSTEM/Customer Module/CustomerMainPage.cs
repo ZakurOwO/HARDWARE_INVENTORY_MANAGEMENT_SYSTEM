@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 {
-    public partial class Search: UserControl
+    public partial class CustomerMainPage: UserControl
     {
-        public Search()
+        public CustomerMainPage()
         {
             InitializeComponent();
-        }
-
-        private void kryptonRichTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
