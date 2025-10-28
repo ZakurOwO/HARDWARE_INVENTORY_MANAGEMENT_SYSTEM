@@ -145,6 +145,12 @@
     <Compile Include="Deliveries\DeliveriesTable.Designer.cs">
       <DependentUpon>DeliveriesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Deliveries\EditVehicle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\EditVehicle.Designer.cs">
+      <DependentUpon>EditVehicle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deliveries\VehiclesInfoBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -281,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\DeliveriesTable.resx">
       <DependentUpon>DeliveriesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\EditVehicle.resx">
+      <DependentUpon>EditVehicle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\VehiclesInfoBox.resx">
       <DependentUpon>VehiclesInfoBox.cs</DependentUpon>
