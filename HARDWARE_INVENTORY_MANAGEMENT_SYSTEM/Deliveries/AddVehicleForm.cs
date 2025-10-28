@@ -16,5 +16,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         {
             InitializeComponent();
         }
+
+        private void kryptonPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddressTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
