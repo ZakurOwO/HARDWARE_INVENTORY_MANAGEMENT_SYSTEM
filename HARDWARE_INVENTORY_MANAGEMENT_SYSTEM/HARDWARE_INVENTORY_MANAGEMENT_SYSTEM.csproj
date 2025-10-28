@@ -183,6 +183,36 @@
     <Compile Include="Customer Module\Edit &amp; Delete Button.Designer.cs">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transactions Module\Products.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\Products.Designer.cs">
+      <DependentUpon>Products.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions Module\TransactionsFilterButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\TransactionsFilterButton.Designer.cs">
+      <DependentUpon>TransactionsFilterButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions Module\TransactionsMainPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\TransactionsMainPage.Designer.cs">
+      <DependentUpon>TransactionsMainPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions Module\TransactionsSearchBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\TransactionsSearchBar.Designer.cs">
+      <DependentUpon>TransactionsSearchBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions Module\TransactionsTopBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\TransactionsTopBar.Designer.cs">
+      <DependentUpon>TransactionsTopBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControlFiles\SidePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -279,6 +309,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\Edit &amp; Delete Button.resx">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\Products.resx">
+      <DependentUpon>Products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\TransactionsFilterButton.resx">
+      <DependentUpon>TransactionsFilterButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\TransactionsMainPage.resx">
+      <DependentUpon>TransactionsMainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\TransactionsSearchBar.resx">
+      <DependentUpon>TransactionsSearchBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\TransactionsTopBar.resx">
+      <DependentUpon>TransactionsTopBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\SidePanel.resx">
       <DependentUpon>SidePanel.cs</DependentUpon>
@@ -488,6 +533,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\edit-rectangle1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Transactions.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shopping basket-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unsplash_tpuAo8gVs58.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unsplash_tpuAo8gVs581.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\unsplash_tpuAo8gVs582.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
