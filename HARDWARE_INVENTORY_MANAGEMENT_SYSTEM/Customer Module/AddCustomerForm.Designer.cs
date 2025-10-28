@@ -43,11 +43,9 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.CompanyNameTextBox = new Krypton.Toolkit.KryptonRichTextBox();
             this.ContactPersonTextBox = new Krypton.Toolkit.KryptonRichTextBox();
             this.EmailAddressTextBox = new Krypton.Toolkit.KryptonRichTextBox();
@@ -56,11 +54,13 @@
             this.CityComboBox = new Krypton.Toolkit.KryptonComboBox();
             this.ProvinceComboBox = new Krypton.Toolkit.KryptonComboBox();
             this.ZipCodeTextBox = new Krypton.Toolkit.KryptonTextBox();
-            this.RemarkBTN = new Krypton.Toolkit.KryptonRichTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.CustomerRemarkTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.CityComboBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProvinceComboBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -258,16 +258,6 @@
             this.label16.Text = "*";
             this.label16.Click += new System.EventHandler(this.label16_Click);
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Location = new System.Drawing.Point(0, 3);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(575, 550);
-            this.pictureBox2.TabIndex = 16;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
             // label18
             // 
             this.label18.AutoSize = true;
@@ -306,17 +296,6 @@
             this.label20.TabIndex = 21;
             this.label20.Text = "Remarks";
             this.label20.Click += new System.EventHandler(this.label20_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Add_Stock_Popup;
-            this.pictureBox1.Location = new System.Drawing.Point(-3, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(578, 550);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // CompanyNameTextBox
             // 
@@ -665,27 +644,48 @@
             this.ZipCodeTextBox.Text = "Enter Zip Code";
             this.ZipCodeTextBox.TextChanged += new System.EventHandler(this.kryptonTextBox1_TextChanged);
             // 
-            // RemarkBTN
+            // CustomerRemarkTextBox
             // 
-            this.RemarkBTN.Location = new System.Drawing.Point(18, 379);
-            this.RemarkBTN.Name = "RemarkBTN";
-            this.RemarkBTN.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.RemarkBTN.Size = new System.Drawing.Size(497, 124);
-            this.RemarkBTN.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.RemarkBTN.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.RemarkBTN.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.RemarkBTN.StateCommon.Border.Rounding = 7F;
-            this.RemarkBTN.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.RemarkBTN.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.RemarkBTN.TabIndex = 30;
-            this.RemarkBTN.Text = "";
+            this.CustomerRemarkTextBox.Location = new System.Drawing.Point(18, 379);
+            this.CustomerRemarkTextBox.Name = "CustomerRemarkTextBox";
+            this.CustomerRemarkTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.CustomerRemarkTextBox.Size = new System.Drawing.Size(497, 124);
+            this.CustomerRemarkTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.CustomerRemarkTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.CustomerRemarkTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.CustomerRemarkTextBox.StateCommon.Border.Rounding = 7F;
+            this.CustomerRemarkTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.CustomerRemarkTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.CustomerRemarkTextBox.TabIndex = 30;
+            this.CustomerRemarkTextBox.Text = "";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Add_Stock_Popup;
+            this.pictureBox1.Location = new System.Drawing.Point(-3, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(578, 550);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Location = new System.Drawing.Point(0, 3);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(575, 550);
+            this.pictureBox2.TabIndex = 16;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // AddCustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Controls.Add(this.RemarkBTN);
+            this.Controls.Add(this.CustomerRemarkTextBox);
             this.Controls.Add(this.ZipCodeTextBox);
             this.Controls.Add(this.ProvinceComboBox);
             this.Controls.Add(this.CityComboBox);
@@ -717,10 +717,10 @@
             this.DoubleBuffered = true;
             this.Name = "AddCustomerForm";
             this.Size = new System.Drawing.Size(575, 550);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CityComboBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProvinceComboBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -755,6 +755,6 @@
         private Krypton.Toolkit.KryptonComboBox CityComboBox;
         private Krypton.Toolkit.KryptonComboBox ProvinceComboBox;
         private Krypton.Toolkit.KryptonTextBox ZipCodeTextBox;
-        private Krypton.Toolkit.KryptonRichTextBox RemarkBTN;
+        private Krypton.Toolkit.KryptonRichTextBox CustomerRemarkTextBox;
     }
 }

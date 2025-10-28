@@ -573,6 +573,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap System_Icons {
+            get {
+                object obj = ResourceManager.GetObject("System Icons", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap System_Icons__1_ {
+            get {
+                object obj = ResourceManager.GetObject("System Icons (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Topaz_Icon {
             get {
                 object obj = ResourceManager.GetObject("Topaz Icon", resourceCulture);

@@ -28,19 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.RemarkBTN = new Krypton.Toolkit.KryptonRichTextBox();
-            this.AddressTextBox = new Krypton.Toolkit.KryptonRichTextBox();
-            this.PhoneNumberTextBox = new Krypton.Toolkit.KryptonRichTextBox();
-            this.EmailAddressTextBox = new Krypton.Toolkit.KryptonRichTextBox();
-            this.CompanyNameTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.VehicleRemarkTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.PlateNumberTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.YearBoughtTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.VehicleModelTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.VehiclesNameTextBox = new Krypton.Toolkit.KryptonRichTextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -48,102 +46,96 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.guna2ComboBox1 = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.VehicleStatusComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
-            this.kryptonPictureBox1 = new Krypton.Toolkit.KryptonPictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.guna2Shapes1 = new Guna.UI2.WinForms.Guna2Shapes();
+            this.kryptonRichTextBox1 = new Krypton.Toolkit.KryptonRichTextBox();
+            this.UploadImageButton = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UploadImageButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // VehicleRemarkTextBox
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Add_Stock_Popup;
-            this.pictureBox1.Location = new System.Drawing.Point(-19, -297);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(581, 553);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            this.VehicleRemarkTextBox.Location = new System.Drawing.Point(21, 379);
+            this.VehicleRemarkTextBox.Name = "VehicleRemarkTextBox";
+            this.VehicleRemarkTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.VehicleRemarkTextBox.Size = new System.Drawing.Size(497, 124);
+            this.VehicleRemarkTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.VehicleRemarkTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.VehicleRemarkTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.VehicleRemarkTextBox.StateCommon.Border.Rounding = 7F;
+            this.VehicleRemarkTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.VehicleRemarkTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.VehicleRemarkTextBox.TabIndex = 49;
+            this.VehicleRemarkTextBox.Text = "";
             // 
-            // RemarkBTN
+            // PlateNumberTextBox
             // 
-            this.RemarkBTN.Location = new System.Drawing.Point(21, 379);
-            this.RemarkBTN.Name = "RemarkBTN";
-            this.RemarkBTN.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.RemarkBTN.Size = new System.Drawing.Size(497, 124);
-            this.RemarkBTN.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.RemarkBTN.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.RemarkBTN.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.RemarkBTN.StateCommon.Border.Rounding = 7F;
-            this.RemarkBTN.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.RemarkBTN.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.RemarkBTN.TabIndex = 49;
-            this.RemarkBTN.Text = "";
+            this.PlateNumberTextBox.Location = new System.Drawing.Point(21, 224);
+            this.PlateNumberTextBox.Name = "PlateNumberTextBox";
+            this.PlateNumberTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.PlateNumberTextBox.Size = new System.Drawing.Size(193, 41);
+            this.PlateNumberTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.PlateNumberTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.PlateNumberTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.PlateNumberTextBox.StateCommon.Border.Rounding = 7F;
+            this.PlateNumberTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.PlateNumberTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.PlateNumberTextBox.TabIndex = 45;
+            this.PlateNumberTextBox.Text = "Enter Plate Number";
+            this.PlateNumberTextBox.TextChanged += new System.EventHandler(this.AddressTextBox_TextChanged);
             // 
-            // AddressTextBox
+            // YearBoughtTextBox
             // 
-            this.AddressTextBox.Location = new System.Drawing.Point(21, 224);
-            this.AddressTextBox.Name = "AddressTextBox";
-            this.AddressTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.AddressTextBox.Size = new System.Drawing.Size(193, 41);
-            this.AddressTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.AddressTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.AddressTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.AddressTextBox.StateCommon.Border.Rounding = 7F;
-            this.AddressTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.AddressTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.AddressTextBox.TabIndex = 45;
-            this.AddressTextBox.Text = "Enter Plate Number";
-            this.AddressTextBox.TextChanged += new System.EventHandler(this.AddressTextBox_TextChanged);
+            this.YearBoughtTextBox.Location = new System.Drawing.Point(293, 154);
+            this.YearBoughtTextBox.Name = "YearBoughtTextBox";
+            this.YearBoughtTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.YearBoughtTextBox.Size = new System.Drawing.Size(193, 41);
+            this.YearBoughtTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.YearBoughtTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.YearBoughtTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.YearBoughtTextBox.StateCommon.Border.Rounding = 7F;
+            this.YearBoughtTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.YearBoughtTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.YearBoughtTextBox.TabIndex = 44;
+            this.YearBoughtTextBox.Text = "Enter Year";
             // 
-            // PhoneNumberTextBox
+            // VehicleModelTextBox
             // 
-            this.PhoneNumberTextBox.Location = new System.Drawing.Point(293, 154);
-            this.PhoneNumberTextBox.Name = "PhoneNumberTextBox";
-            this.PhoneNumberTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.PhoneNumberTextBox.Size = new System.Drawing.Size(193, 41);
-            this.PhoneNumberTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.PhoneNumberTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.PhoneNumberTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.PhoneNumberTextBox.StateCommon.Border.Rounding = 7F;
-            this.PhoneNumberTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.PhoneNumberTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.PhoneNumberTextBox.TabIndex = 44;
-            this.PhoneNumberTextBox.Text = "Enter Year";
+            this.VehicleModelTextBox.Location = new System.Drawing.Point(21, 154);
+            this.VehicleModelTextBox.Name = "VehicleModelTextBox";
+            this.VehicleModelTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.VehicleModelTextBox.Size = new System.Drawing.Size(193, 41);
+            this.VehicleModelTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.VehicleModelTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.VehicleModelTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.VehicleModelTextBox.StateCommon.Border.Rounding = 7F;
+            this.VehicleModelTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.VehicleModelTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.VehicleModelTextBox.TabIndex = 43;
+            this.VehicleModelTextBox.Text = "Enter Vehicle Model";
             // 
-            // EmailAddressTextBox
+            // VehiclesNameTextBox
             // 
-            this.EmailAddressTextBox.Location = new System.Drawing.Point(21, 154);
-            this.EmailAddressTextBox.Name = "EmailAddressTextBox";
-            this.EmailAddressTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.EmailAddressTextBox.Size = new System.Drawing.Size(193, 41);
-            this.EmailAddressTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.EmailAddressTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.EmailAddressTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.EmailAddressTextBox.StateCommon.Border.Rounding = 7F;
-            this.EmailAddressTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.EmailAddressTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.EmailAddressTextBox.TabIndex = 43;
-            this.EmailAddressTextBox.Text = "Enter Vehicle Model";
-            // 
-            // CompanyNameTextBox
-            // 
-            this.CompanyNameTextBox.Location = new System.Drawing.Point(21, 90);
-            this.CompanyNameTextBox.Name = "CompanyNameTextBox";
-            this.CompanyNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.CompanyNameTextBox.Size = new System.Drawing.Size(465, 41);
-            this.CompanyNameTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.CompanyNameTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.CompanyNameTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.CompanyNameTextBox.StateCommon.Border.Rounding = 7F;
-            this.CompanyNameTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.CompanyNameTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.CompanyNameTextBox.TabIndex = 41;
-            this.CompanyNameTextBox.Text = "Enter Vehicle Name";
+            this.VehiclesNameTextBox.Location = new System.Drawing.Point(21, 90);
+            this.VehiclesNameTextBox.Name = "VehiclesNameTextBox";
+            this.VehiclesNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.VehiclesNameTextBox.Size = new System.Drawing.Size(465, 41);
+            this.VehiclesNameTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.VehiclesNameTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.VehiclesNameTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.VehiclesNameTextBox.StateCommon.Border.Rounding = 7F;
+            this.VehiclesNameTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.VehiclesNameTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.VehiclesNameTextBox.TabIndex = 41;
+            this.VehiclesNameTextBox.Text = "Enter Vehicle Name";
             // 
             // label13
             // 
@@ -216,17 +208,6 @@
             this.label1.Size = new System.Drawing.Size(113, 25);
             this.label1.TabIndex = 32;
             this.label1.Text = "Add Vehicles";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.White;
-            this.pictureBox2.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Add_Stock_Popup;
-            this.pictureBox2.Location = new System.Drawing.Point(-14, 0);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(578, 550);
-            this.pictureBox2.TabIndex = 31;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // label12
             // 
@@ -312,28 +293,31 @@
             this.label5.TabIndex = 58;
             this.label5.Text = "*";
             // 
-            // guna2ComboBox1
+            // VehicleStatusComboBox
             // 
-            this.guna2ComboBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ComboBox1.BorderRadius = 7;
-            this.guna2ComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.guna2ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.guna2ComboBox1.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox1.Font = new System.Drawing.Font("Lexend", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2ComboBox1.ForeColor = System.Drawing.Color.DimGray;
-            this.guna2ComboBox1.ItemHeight = 30;
-            this.guna2ComboBox1.Items.AddRange(new object[] {
+            this.VehicleStatusComboBox.BackColor = System.Drawing.Color.Transparent;
+            this.VehicleStatusComboBox.BorderRadius = 7;
+            this.VehicleStatusComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.VehicleStatusComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.VehicleStatusComboBox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.VehicleStatusComboBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.VehicleStatusComboBox.Font = new System.Drawing.Font("Lexend", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleStatusComboBox.ForeColor = System.Drawing.Color.DimGray;
+            this.VehicleStatusComboBox.ItemHeight = 30;
+            this.VehicleStatusComboBox.Items.AddRange(new object[] {
             "Available",
             "Maintenance",
             "Out of Service"});
-            this.guna2ComboBox1.Location = new System.Drawing.Point(293, 224);
-            this.guna2ComboBox1.Name = "guna2ComboBox1";
-            this.guna2ComboBox1.Size = new System.Drawing.Size(193, 36);
-            this.guna2ComboBox1.TabIndex = 59;
+            this.VehicleStatusComboBox.Location = new System.Drawing.Point(293, 224);
+            this.VehicleStatusComboBox.Name = "VehicleStatusComboBox";
+            this.VehicleStatusComboBox.Size = new System.Drawing.Size(193, 36);
+            this.VehicleStatusComboBox.TabIndex = 59;
             // 
             // kryptonPanel1
             // 
+            this.kryptonPanel1.Controls.Add(this.UploadImageButton);
+            this.kryptonPanel1.Controls.Add(this.kryptonRichTextBox1);
+            this.kryptonPanel1.Controls.Add(this.guna2Shapes1);
             this.kryptonPanel1.Controls.Add(this.pictureBox1);
             this.kryptonPanel1.Location = new System.Drawing.Point(22, 294);
             this.kryptonPanel1.Name = "kryptonPanel1";
@@ -341,20 +325,85 @@
             this.kryptonPanel1.TabIndex = 61;
             this.kryptonPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.kryptonPanel1_Paint);
             // 
-            // kryptonPictureBox1
+            // guna2Shapes1
             // 
-            this.kryptonPictureBox1.Location = new System.Drawing.Point(21, 297);
-            this.kryptonPictureBox1.Name = "kryptonPictureBox1";
-            this.kryptonPictureBox1.Size = new System.Drawing.Size(192, 50);
-            this.kryptonPictureBox1.TabIndex = 2;
-            this.kryptonPictureBox1.TabStop = false;
+            this.guna2Shapes1.Location = new System.Drawing.Point(143, 114);
+            this.guna2Shapes1.Name = "guna2Shapes1";
+            this.guna2Shapes1.PolygonSkip = 1;
+            this.guna2Shapes1.Rotate = 0F;
+            this.guna2Shapes1.Size = new System.Drawing.Size(200, 90);
+            this.guna2Shapes1.TabIndex = 2;
+            this.guna2Shapes1.Text = "guna2Shapes1";
+            this.guna2Shapes1.Zoom = 80;
+            // 
+            // kryptonRichTextBox1
+            // 
+            this.kryptonRichTextBox1.Location = new System.Drawing.Point(3, 2);
+            this.kryptonRichTextBox1.Name = "kryptonRichTextBox1";
+            this.kryptonRichTextBox1.ReadOnly = true;
+            this.kryptonRichTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.kryptonRichTextBox1.Size = new System.Drawing.Size(191, 41);
+            this.kryptonRichTextBox1.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.kryptonRichTextBox1.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.kryptonRichTextBox1.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.kryptonRichTextBox1.StateCommon.Border.Rounding = 7F;
+            this.kryptonRichTextBox1.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.kryptonRichTextBox1.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.kryptonRichTextBox1.TabIndex = 62;
+            this.kryptonRichTextBox1.Text = "";
+            this.kryptonRichTextBox1.TextChanged += new System.EventHandler(this.kryptonRichTextBox1_TextChanged);
+            // 
+            // UploadImageButton
+            // 
+            this.UploadImageButton.BackColor = System.Drawing.Color.White;
+            this.UploadImageButton.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.System_Icons__1_;
+            this.UploadImageButton.Location = new System.Drawing.Point(160, 11);
+            this.UploadImageButton.Name = "UploadImageButton";
+            this.UploadImageButton.Size = new System.Drawing.Size(24, 24);
+            this.UploadImageButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.UploadImageButton.TabIndex = 63;
+            this.UploadImageButton.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Add_Stock_Popup;
+            this.pictureBox1.Location = new System.Drawing.Point(-19, -297);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(581, 553);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.White;
+            this.pictureBox2.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Add_Stock_Popup;
+            this.pictureBox2.Location = new System.Drawing.Point(3, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(578, 550);
+            this.pictureBox2.TabIndex = 31;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.White;
+            this.label14.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
+            this.label14.ForeColor = System.Drawing.Color.DimGray;
+            this.label14.Location = new System.Drawing.Point(22, 359);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(51, 17);
+            this.label14.TabIndex = 62;
+            this.label14.Text = "Remark";
             // 
             // AddVehicleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.kryptonPictureBox1);
-            this.Controls.Add(this.guna2ComboBox1);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.VehicleStatusComboBox);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label12);
@@ -362,11 +411,11 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.RemarkBTN);
-            this.Controls.Add(this.AddressTextBox);
-            this.Controls.Add(this.PhoneNumberTextBox);
-            this.Controls.Add(this.EmailAddressTextBox);
-            this.Controls.Add(this.CompanyNameTextBox);
+            this.Controls.Add(this.VehicleRemarkTextBox);
+            this.Controls.Add(this.PlateNumberTextBox);
+            this.Controls.Add(this.YearBoughtTextBox);
+            this.Controls.Add(this.VehicleModelTextBox);
+            this.Controls.Add(this.VehiclesNameTextBox);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label9);
@@ -377,11 +426,11 @@
             this.Controls.Add(this.pictureBox2);
             this.Name = "AddVehicleForm";
             this.Size = new System.Drawing.Size(578, 550);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UploadImageButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -390,11 +439,11 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private Krypton.Toolkit.KryptonRichTextBox RemarkBTN;
-        private Krypton.Toolkit.KryptonRichTextBox AddressTextBox;
-        private Krypton.Toolkit.KryptonRichTextBox PhoneNumberTextBox;
-        private Krypton.Toolkit.KryptonRichTextBox EmailAddressTextBox;
-        private Krypton.Toolkit.KryptonRichTextBox CompanyNameTextBox;
+        private Krypton.Toolkit.KryptonRichTextBox VehicleRemarkTextBox;
+        private Krypton.Toolkit.KryptonRichTextBox PlateNumberTextBox;
+        private Krypton.Toolkit.KryptonRichTextBox YearBoughtTextBox;
+        private Krypton.Toolkit.KryptonRichTextBox VehicleModelTextBox;
+        private Krypton.Toolkit.KryptonRichTextBox VehiclesNameTextBox;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
@@ -409,8 +458,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox1;
+        private Guna.UI2.WinForms.Guna2ComboBox VehicleStatusComboBox;
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private Krypton.Toolkit.KryptonPictureBox kryptonPictureBox1;
+        private Guna.UI2.WinForms.Guna2Shapes guna2Shapes1;
+        private Krypton.Toolkit.KryptonRichTextBox kryptonRichTextBox1;
+        private System.Windows.Forms.PictureBox UploadImageButton;
+        private System.Windows.Forms.Label label14;
     }
 }

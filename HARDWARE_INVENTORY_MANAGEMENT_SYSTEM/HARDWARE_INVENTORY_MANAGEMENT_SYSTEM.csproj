@@ -552,5 +552,11 @@
   <ItemGroup>
     <None Include="Resources\unsplash_tpuAo8gVs582.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\System Icons.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\System Icons %281%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

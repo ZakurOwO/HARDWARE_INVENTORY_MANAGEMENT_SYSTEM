@@ -41,5 +41,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         {
 
         }
+
+        private void kryptonPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void kryptonRichTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

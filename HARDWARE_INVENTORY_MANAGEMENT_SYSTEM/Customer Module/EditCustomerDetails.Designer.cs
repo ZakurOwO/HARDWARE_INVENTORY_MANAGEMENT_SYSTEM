@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.RemarkBTN = new Krypton.Toolkit.KryptonRichTextBox();
-            this.ZipCodeTextBox = new Krypton.Toolkit.KryptonTextBox();
-            this.ProvinceComboBox = new Krypton.Toolkit.KryptonComboBox();
-            this.CityComboBox = new Krypton.Toolkit.KryptonComboBox();
-            this.AddressTextBox = new Krypton.Toolkit.KryptonRichTextBox();
-            this.PhoneNumberTextBox = new Krypton.Toolkit.KryptonRichTextBox();
-            this.EmailAddressTextBox = new Krypton.Toolkit.KryptonRichTextBox();
-            this.ContactPersonTextBox = new Krypton.Toolkit.KryptonRichTextBox();
-            this.CompanyNameTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.EditCustomerRemarkTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.EditCustomerZipCodeTextBox = new Krypton.Toolkit.KryptonTextBox();
+            this.EditCustomerProvinceComboBox = new Krypton.Toolkit.KryptonComboBox();
+            this.EditCustomerCityComboBox = new Krypton.Toolkit.KryptonComboBox();
+            this.EditCustomerAddressTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.EditCustomerPhoneNumberTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.EditCustomerEmailAddressTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.EditCustomerContactPersonTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.EditCompanyNameTextBox = new Krypton.Toolkit.KryptonRichTextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -57,42 +57,42 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.ProvinceComboBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CityComboBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditCustomerProvinceComboBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditCustomerCityComboBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
-            // RemarkBTN
+            // EditCustomerRemarkTextBox
             // 
-            this.RemarkBTN.Location = new System.Drawing.Point(21, 378);
-            this.RemarkBTN.Name = "RemarkBTN";
-            this.RemarkBTN.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.RemarkBTN.Size = new System.Drawing.Size(497, 124);
-            this.RemarkBTN.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.RemarkBTN.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.RemarkBTN.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.RemarkBTN.StateCommon.Border.Rounding = 7F;
-            this.RemarkBTN.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.RemarkBTN.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.RemarkBTN.TabIndex = 59;
-            this.RemarkBTN.Text = "";
+            this.EditCustomerRemarkTextBox.Location = new System.Drawing.Point(21, 378);
+            this.EditCustomerRemarkTextBox.Name = "EditCustomerRemarkTextBox";
+            this.EditCustomerRemarkTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.EditCustomerRemarkTextBox.Size = new System.Drawing.Size(497, 124);
+            this.EditCustomerRemarkTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.EditCustomerRemarkTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.EditCustomerRemarkTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.EditCustomerRemarkTextBox.StateCommon.Border.Rounding = 7F;
+            this.EditCustomerRemarkTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.EditCustomerRemarkTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.EditCustomerRemarkTextBox.TabIndex = 59;
+            this.EditCustomerRemarkTextBox.Text = "";
             // 
-            // ZipCodeTextBox
+            // EditCustomerZipCodeTextBox
             // 
-            this.ZipCodeTextBox.Location = new System.Drawing.Point(380, 293);
-            this.ZipCodeTextBox.Name = "ZipCodeTextBox";
-            this.ZipCodeTextBox.Size = new System.Drawing.Size(138, 27);
-            this.ZipCodeTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.ZipCodeTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.ZipCodeTextBox.StateCommon.Border.Rounding = 7F;
-            this.ZipCodeTextBox.TabIndex = 58;
-            this.ZipCodeTextBox.Text = "Enter Zip Code";
+            this.EditCustomerZipCodeTextBox.Location = new System.Drawing.Point(380, 293);
+            this.EditCustomerZipCodeTextBox.Name = "EditCustomerZipCodeTextBox";
+            this.EditCustomerZipCodeTextBox.Size = new System.Drawing.Size(138, 27);
+            this.EditCustomerZipCodeTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.EditCustomerZipCodeTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.EditCustomerZipCodeTextBox.StateCommon.Border.Rounding = 7F;
+            this.EditCustomerZipCodeTextBox.TabIndex = 58;
+            this.EditCustomerZipCodeTextBox.Text = "Enter Zip Code";
             // 
-            // ProvinceComboBox
+            // EditCustomerProvinceComboBox
             // 
-            this.ProvinceComboBox.DropDownWidth = 126;
-            this.ProvinceComboBox.Items.AddRange(new object[] {
+            this.EditCustomerProvinceComboBox.DropDownWidth = 126;
+            this.EditCustomerProvinceComboBox.Items.AddRange(new object[] {
             "Abra",
             "Agusan del Norte",
             "Agusan del Sur",
@@ -176,18 +176,18 @@
             "Zamboanga del Norte",
             "Zamboanga del Sur",
             "Zamboanga Sibugay"});
-            this.ProvinceComboBox.Location = new System.Drawing.Point(204, 298);
-            this.ProvinceComboBox.Name = "ProvinceComboBox";
-            this.ProvinceComboBox.Size = new System.Drawing.Size(130, 26);
-            this.ProvinceComboBox.StateCommon.ComboBox.Border.Rounding = 7F;
-            this.ProvinceComboBox.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.ProvinceComboBox.TabIndex = 57;
-            this.ProvinceComboBox.Text = "Enter Province";
+            this.EditCustomerProvinceComboBox.Location = new System.Drawing.Point(204, 298);
+            this.EditCustomerProvinceComboBox.Name = "EditCustomerProvinceComboBox";
+            this.EditCustomerProvinceComboBox.Size = new System.Drawing.Size(130, 26);
+            this.EditCustomerProvinceComboBox.StateCommon.ComboBox.Border.Rounding = 7F;
+            this.EditCustomerProvinceComboBox.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.EditCustomerProvinceComboBox.TabIndex = 57;
+            this.EditCustomerProvinceComboBox.Text = "Enter Province";
             // 
-            // CityComboBox
+            // EditCustomerCityComboBox
             // 
-            this.CityComboBox.DropDownWidth = 126;
-            this.CityComboBox.Items.AddRange(new object[] {
+            this.EditCustomerCityComboBox.DropDownWidth = 126;
+            this.EditCustomerCityComboBox.Items.AddRange(new object[] {
             "Manila",
             "Quezon City",
             "Caloocan",
@@ -334,88 +334,88 @@
             "Marawi",
             "Basilan City",
             "Zamboanga Sibugay"});
-            this.CityComboBox.Location = new System.Drawing.Point(22, 298);
-            this.CityComboBox.Name = "CityComboBox";
-            this.CityComboBox.Size = new System.Drawing.Size(130, 26);
-            this.CityComboBox.StateCommon.ComboBox.Border.Rounding = 7F;
-            this.CityComboBox.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.CityComboBox.TabIndex = 56;
-            this.CityComboBox.Text = "Enter City";
+            this.EditCustomerCityComboBox.Location = new System.Drawing.Point(22, 298);
+            this.EditCustomerCityComboBox.Name = "EditCustomerCityComboBox";
+            this.EditCustomerCityComboBox.Size = new System.Drawing.Size(130, 26);
+            this.EditCustomerCityComboBox.StateCommon.ComboBox.Border.Rounding = 7F;
+            this.EditCustomerCityComboBox.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
+            this.EditCustomerCityComboBox.TabIndex = 56;
+            this.EditCustomerCityComboBox.Text = "Enter City";
             // 
-            // AddressTextBox
+            // EditCustomerAddressTextBox
             // 
-            this.AddressTextBox.Location = new System.Drawing.Point(21, 223);
-            this.AddressTextBox.Name = "AddressTextBox";
-            this.AddressTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.AddressTextBox.Size = new System.Drawing.Size(497, 41);
-            this.AddressTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.AddressTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.AddressTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.AddressTextBox.StateCommon.Border.Rounding = 7F;
-            this.AddressTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.AddressTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.AddressTextBox.TabIndex = 55;
-            this.AddressTextBox.Text = "Enter Full Address";
+            this.EditCustomerAddressTextBox.Location = new System.Drawing.Point(21, 223);
+            this.EditCustomerAddressTextBox.Name = "EditCustomerAddressTextBox";
+            this.EditCustomerAddressTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.EditCustomerAddressTextBox.Size = new System.Drawing.Size(497, 41);
+            this.EditCustomerAddressTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.EditCustomerAddressTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.EditCustomerAddressTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.EditCustomerAddressTextBox.StateCommon.Border.Rounding = 7F;
+            this.EditCustomerAddressTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.EditCustomerAddressTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.EditCustomerAddressTextBox.TabIndex = 55;
+            this.EditCustomerAddressTextBox.Text = "Enter Full Address";
             // 
-            // PhoneNumberTextBox
+            // EditCustomerPhoneNumberTextBox
             // 
-            this.PhoneNumberTextBox.Location = new System.Drawing.Point(293, 153);
-            this.PhoneNumberTextBox.Name = "PhoneNumberTextBox";
-            this.PhoneNumberTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.PhoneNumberTextBox.Size = new System.Drawing.Size(193, 41);
-            this.PhoneNumberTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.PhoneNumberTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.PhoneNumberTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.PhoneNumberTextBox.StateCommon.Border.Rounding = 7F;
-            this.PhoneNumberTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.PhoneNumberTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.PhoneNumberTextBox.TabIndex = 54;
-            this.PhoneNumberTextBox.Text = "Enter Phone Number";
+            this.EditCustomerPhoneNumberTextBox.Location = new System.Drawing.Point(293, 153);
+            this.EditCustomerPhoneNumberTextBox.Name = "EditCustomerPhoneNumberTextBox";
+            this.EditCustomerPhoneNumberTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.EditCustomerPhoneNumberTextBox.Size = new System.Drawing.Size(193, 41);
+            this.EditCustomerPhoneNumberTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.EditCustomerPhoneNumberTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.EditCustomerPhoneNumberTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.EditCustomerPhoneNumberTextBox.StateCommon.Border.Rounding = 7F;
+            this.EditCustomerPhoneNumberTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.EditCustomerPhoneNumberTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.EditCustomerPhoneNumberTextBox.TabIndex = 54;
+            this.EditCustomerPhoneNumberTextBox.Text = "Enter Phone Number";
             // 
-            // EmailAddressTextBox
+            // EditCustomerEmailAddressTextBox
             // 
-            this.EmailAddressTextBox.Location = new System.Drawing.Point(21, 153);
-            this.EmailAddressTextBox.Name = "EmailAddressTextBox";
-            this.EmailAddressTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.EmailAddressTextBox.Size = new System.Drawing.Size(193, 41);
-            this.EmailAddressTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.EmailAddressTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.EmailAddressTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.EmailAddressTextBox.StateCommon.Border.Rounding = 7F;
-            this.EmailAddressTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.EmailAddressTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.EmailAddressTextBox.TabIndex = 53;
-            this.EmailAddressTextBox.Text = "Enter Email Address";
+            this.EditCustomerEmailAddressTextBox.Location = new System.Drawing.Point(21, 153);
+            this.EditCustomerEmailAddressTextBox.Name = "EditCustomerEmailAddressTextBox";
+            this.EditCustomerEmailAddressTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.EditCustomerEmailAddressTextBox.Size = new System.Drawing.Size(193, 41);
+            this.EditCustomerEmailAddressTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.EditCustomerEmailAddressTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.EditCustomerEmailAddressTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.EditCustomerEmailAddressTextBox.StateCommon.Border.Rounding = 7F;
+            this.EditCustomerEmailAddressTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.EditCustomerEmailAddressTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.EditCustomerEmailAddressTextBox.TabIndex = 53;
+            this.EditCustomerEmailAddressTextBox.Text = "Enter Email Address";
             // 
-            // ContactPersonTextBox
+            // EditCustomerContactPersonTextBox
             // 
-            this.ContactPersonTextBox.Location = new System.Drawing.Point(293, 88);
-            this.ContactPersonTextBox.Name = "ContactPersonTextBox";
-            this.ContactPersonTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.ContactPersonTextBox.Size = new System.Drawing.Size(225, 41);
-            this.ContactPersonTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.ContactPersonTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.ContactPersonTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.ContactPersonTextBox.StateCommon.Border.Rounding = 7F;
-            this.ContactPersonTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.ContactPersonTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.ContactPersonTextBox.TabIndex = 52;
-            this.ContactPersonTextBox.Text = "Enter Contact Person";
+            this.EditCustomerContactPersonTextBox.Location = new System.Drawing.Point(293, 88);
+            this.EditCustomerContactPersonTextBox.Name = "EditCustomerContactPersonTextBox";
+            this.EditCustomerContactPersonTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.EditCustomerContactPersonTextBox.Size = new System.Drawing.Size(225, 41);
+            this.EditCustomerContactPersonTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.EditCustomerContactPersonTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.EditCustomerContactPersonTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.EditCustomerContactPersonTextBox.StateCommon.Border.Rounding = 7F;
+            this.EditCustomerContactPersonTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.EditCustomerContactPersonTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.EditCustomerContactPersonTextBox.TabIndex = 52;
+            this.EditCustomerContactPersonTextBox.Text = "Enter Contact Person";
             // 
-            // CompanyNameTextBox
+            // EditCompanyNameTextBox
             // 
-            this.CompanyNameTextBox.Location = new System.Drawing.Point(21, 89);
-            this.CompanyNameTextBox.Name = "CompanyNameTextBox";
-            this.CompanyNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.CompanyNameTextBox.Size = new System.Drawing.Size(193, 41);
-            this.CompanyNameTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.CompanyNameTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
-            this.CompanyNameTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
-            this.CompanyNameTextBox.StateCommon.Border.Rounding = 7F;
-            this.CompanyNameTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
-            this.CompanyNameTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
-            this.CompanyNameTextBox.TabIndex = 51;
-            this.CompanyNameTextBox.Text = "Enter Company Name\n";
+            this.EditCompanyNameTextBox.Location = new System.Drawing.Point(21, 89);
+            this.EditCompanyNameTextBox.Name = "EditCompanyNameTextBox";
+            this.EditCompanyNameTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+            this.EditCompanyNameTextBox.Size = new System.Drawing.Size(193, 41);
+            this.EditCompanyNameTextBox.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.EditCompanyNameTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
+            this.EditCompanyNameTextBox.StateCommon.Border.Color2 = System.Drawing.Color.DimGray;
+            this.EditCompanyNameTextBox.StateCommon.Border.Rounding = 7F;
+            this.EditCompanyNameTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
+            this.EditCompanyNameTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
+            this.EditCompanyNameTextBox.TabIndex = 51;
+            this.EditCompanyNameTextBox.Text = "Enter Company Name\n";
             // 
             // label20
             // 
@@ -656,15 +656,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.RemarkBTN);
-            this.Controls.Add(this.ZipCodeTextBox);
-            this.Controls.Add(this.ProvinceComboBox);
-            this.Controls.Add(this.CityComboBox);
-            this.Controls.Add(this.AddressTextBox);
-            this.Controls.Add(this.PhoneNumberTextBox);
-            this.Controls.Add(this.EmailAddressTextBox);
-            this.Controls.Add(this.ContactPersonTextBox);
-            this.Controls.Add(this.CompanyNameTextBox);
+            this.Controls.Add(this.EditCustomerRemarkTextBox);
+            this.Controls.Add(this.EditCustomerZipCodeTextBox);
+            this.Controls.Add(this.EditCustomerProvinceComboBox);
+            this.Controls.Add(this.EditCustomerCityComboBox);
+            this.Controls.Add(this.EditCustomerAddressTextBox);
+            this.Controls.Add(this.EditCustomerPhoneNumberTextBox);
+            this.Controls.Add(this.EditCustomerEmailAddressTextBox);
+            this.Controls.Add(this.EditCustomerContactPersonTextBox);
+            this.Controls.Add(this.EditCompanyNameTextBox);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.label19);
@@ -687,8 +687,8 @@
             this.Controls.Add(this.pictureBox2);
             this.Name = "EditCustomerDetails";
             this.Size = new System.Drawing.Size(578, 550);
-            ((System.ComponentModel.ISupportInitialize)(this.ProvinceComboBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.CityComboBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditCustomerProvinceComboBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditCustomerCityComboBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
@@ -698,15 +698,15 @@
 
         #endregion
 
-        private Krypton.Toolkit.KryptonRichTextBox RemarkBTN;
-        private Krypton.Toolkit.KryptonTextBox ZipCodeTextBox;
-        private Krypton.Toolkit.KryptonComboBox ProvinceComboBox;
-        private Krypton.Toolkit.KryptonComboBox CityComboBox;
-        private Krypton.Toolkit.KryptonRichTextBox AddressTextBox;
-        private Krypton.Toolkit.KryptonRichTextBox PhoneNumberTextBox;
-        private Krypton.Toolkit.KryptonRichTextBox EmailAddressTextBox;
-        private Krypton.Toolkit.KryptonRichTextBox ContactPersonTextBox;
-        private Krypton.Toolkit.KryptonRichTextBox CompanyNameTextBox;
+        private Krypton.Toolkit.KryptonRichTextBox EditCustomerRemarkTextBox;
+        private Krypton.Toolkit.KryptonTextBox EditCustomerZipCodeTextBox;
+        private Krypton.Toolkit.KryptonComboBox EditCustomerProvinceComboBox;
+        private Krypton.Toolkit.KryptonComboBox EditCustomerCityComboBox;
+        private Krypton.Toolkit.KryptonRichTextBox EditCustomerAddressTextBox;
+        private Krypton.Toolkit.KryptonRichTextBox EditCustomerPhoneNumberTextBox;
+        private Krypton.Toolkit.KryptonRichTextBox EditCustomerEmailAddressTextBox;
+        private Krypton.Toolkit.KryptonRichTextBox EditCustomerContactPersonTextBox;
+        private Krypton.Toolkit.KryptonRichTextBox EditCompanyNameTextBox;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
