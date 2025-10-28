@@ -550,7 +550,7 @@
             "Zamboanga Sibugay"});
             this.CityComboBox.Location = new System.Drawing.Point(19, 299);
             this.CityComboBox.Name = "CityComboBox";
-            this.CityComboBox.Size = new System.Drawing.Size(130, 22);
+            this.CityComboBox.Size = new System.Drawing.Size(130, 26);
             this.CityComboBox.StateCommon.ComboBox.Border.Rounding = 7F;
             this.CityComboBox.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.CityComboBox.TabIndex = 27;
@@ -646,7 +646,7 @@
             "Zamboanga Sibugay"});
             this.ProvinceComboBox.Location = new System.Drawing.Point(201, 299);
             this.ProvinceComboBox.Name = "ProvinceComboBox";
-            this.ProvinceComboBox.Size = new System.Drawing.Size(130, 22);
+            this.ProvinceComboBox.Size = new System.Drawing.Size(130, 26);
             this.ProvinceComboBox.StateCommon.ComboBox.Border.Rounding = 7F;
             this.ProvinceComboBox.StateCommon.ComboBox.Content.TextH = Krypton.Toolkit.PaletteRelativeAlign.Near;
             this.ProvinceComboBox.TabIndex = 28;

@@ -133,6 +133,12 @@
     <Compile Include="Customer Module\SuccessfullyDeleted.Designer.cs">
       <DependentUpon>SuccessfullyDeleted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Deliveries\AddVehicleForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\AddVehicleForm.Designer.cs">
+      <DependentUpon>AddVehicleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deliveries\DeliveriesTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -239,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\SuccessfullyDeleted.resx">
       <DependentUpon>SuccessfullyDeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\AddVehicleForm.resx">
+      <DependentUpon>AddVehicleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\DeliveriesTable.resx">
       <DependentUpon>DeliveriesTable.cs</DependentUpon>
