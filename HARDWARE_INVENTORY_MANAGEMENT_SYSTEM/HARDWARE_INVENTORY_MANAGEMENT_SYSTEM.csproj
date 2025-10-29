@@ -133,11 +133,29 @@
     <Compile Include="Customer Module\SuccessfullyDeleted.Designer.cs">
       <DependentUpon>SuccessfullyDeleted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Deliveries\Add New Truck Button.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\Add New Truck Button.Designer.cs">
+      <DependentUpon>Add New Truck Button.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deliveries\AddVehicleForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Deliveries\AddVehicleForm.Designer.cs">
       <DependentUpon>AddVehicleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Deliveries\DeletePrompInDeliveries.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\DeletePrompInDeliveries.Designer.cs">
+      <DependentUpon>DeletePrompInDeliveries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Deliveries\DeliveriesMainPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\DeliveriesMainPage.Designer.cs">
+      <DependentUpon>DeliveriesMainPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Deliveries\DeliveriesTable.cs">
       <SubType>UserControl</SubType>
@@ -145,11 +163,23 @@
     <Compile Include="Deliveries\DeliveriesTable.Designer.cs">
       <DependentUpon>DeliveriesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Deliveries\DeliveriesTopBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\DeliveriesTopBar.Designer.cs">
+      <DependentUpon>DeliveriesTopBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deliveries\EditVehicle.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Deliveries\EditVehicle.Designer.cs">
       <DependentUpon>EditVehicle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Deliveries\SuccessfullyDeletedDeliveries.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\SuccessfullyDeletedDeliveries.Designer.cs">
+      <DependentUpon>SuccessfullyDeletedDeliveries.cs</DependentUpon>
     </Compile>
     <Compile Include="Deliveries\VehiclesInfoBox.cs">
       <SubType>UserControl</SubType>
@@ -282,14 +312,29 @@
     <EmbeddedResource Include="Customer Module\SuccessfullyDeleted.resx">
       <DependentUpon>SuccessfullyDeleted.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\Add New Truck Button.resx">
+      <DependentUpon>Add New Truck Button.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\AddVehicleForm.resx">
       <DependentUpon>AddVehicleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\DeletePrompInDeliveries.resx">
+      <DependentUpon>DeletePrompInDeliveries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\DeliveriesMainPage.resx">
+      <DependentUpon>DeliveriesMainPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\DeliveriesTable.resx">
       <DependentUpon>DeliveriesTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\DeliveriesTopBar.resx">
+      <DependentUpon>DeliveriesTopBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\EditVehicle.resx">
       <DependentUpon>EditVehicle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\SuccessfullyDeletedDeliveries.resx">
+      <DependentUpon>SuccessfullyDeletedDeliveries.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\VehiclesInfoBox.resx">
       <DependentUpon>VehiclesInfoBox.cs</DependentUpon>
