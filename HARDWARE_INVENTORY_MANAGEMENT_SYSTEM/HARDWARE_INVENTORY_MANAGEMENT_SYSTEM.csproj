@@ -181,6 +181,12 @@
     <Compile Include="Deliveries\DeliveriesTopBar.Designer.cs">
       <DependentUpon>DeliveriesTopBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Deliveries\EditDeliveryDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\EditDeliveryDetails.Designer.cs">
+      <DependentUpon>EditDeliveryDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deliveries\EditVehicle.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -353,6 +359,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\DeliveriesTopBar.resx">
       <DependentUpon>DeliveriesTopBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\EditDeliveryDetails.resx">
+      <DependentUpon>EditDeliveryDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\EditVehicle.resx">
       <DependentUpon>EditVehicle.cs</DependentUpon>
@@ -659,6 +668,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Deliveries TAB.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Deliveries TAB %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
