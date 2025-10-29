@@ -33,13 +33,13 @@
             // 
             // guna2Panel1
             // 
-            this.guna2Panel1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.guna2Panel1.BorderColor = System.Drawing.Color.Silver;
+            this.guna2Panel1.BackColor = System.Drawing.Color.White;
+            this.guna2Panel1.BorderColor = System.Drawing.Color.White;
             this.guna2Panel1.BorderRadius = 20;
             this.guna2Panel1.BorderThickness = 1;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(818, 632);
+            this.guna2Panel1.Size = new System.Drawing.Size(965, 680);
             this.guna2Panel1.TabIndex = 4;
             // 
             // DeliveriesTable
@@ -50,7 +50,7 @@
             this.Controls.Add(this.guna2Panel1);
             this.DoubleBuffered = true;
             this.Name = "DeliveriesTable";
-            this.Size = new System.Drawing.Size(818, 632);
+            this.Size = new System.Drawing.Size(965, 680);
             this.ResumeLayout(false);
 
         }
