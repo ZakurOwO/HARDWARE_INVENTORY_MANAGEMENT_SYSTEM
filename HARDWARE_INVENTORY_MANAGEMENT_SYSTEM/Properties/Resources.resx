@@ -130,6 +130,9 @@
   <data name="WelcomebackFabiana" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WelcomebackFabiana.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="direction-right 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\direction-right 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Logo + Text" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo + Text.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -192,6 +195,9 @@
   </data>
   <data name="Polygon 1 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Polygon 1 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Trucks2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Trucks2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="search 02" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\search 02.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -256,8 +262,8 @@
   <data name="Customer details (4)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Customer details (4).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="direction-right 2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\direction-right 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="AvailableStatus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\AvailableStatus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Transactions" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Transactions.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -282,6 +288,9 @@
   </data>
   <data name="Customer details" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Customer details.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scroll2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scroll2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Customer details (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Customer details (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -322,9 +331,6 @@
   <data name="User-Cirle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\User-Cirle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="AvailableStatus" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AvailableStatus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="trash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\trash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -337,7 +343,7 @@
   <data name="Rectangle 7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Rectangle 7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="scroll2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\scroll2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Deliveries TAB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Deliveries TAB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

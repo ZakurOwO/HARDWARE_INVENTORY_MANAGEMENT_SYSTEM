@@ -273,6 +273,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Deliveries_TAB {
+            get {
+                object obj = ResourceManager.GetObject("Deliveries TAB", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap direction_down_01 {
             get {
                 object obj = ResourceManager.GetObject("direction-down 01", resourceCulture);
@@ -726,6 +736,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap Trucks1 {
             get {
                 object obj = ResourceManager.GetObject("Trucks1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Trucks2 {
+            get {
+                object obj = ResourceManager.GetObject("Trucks2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

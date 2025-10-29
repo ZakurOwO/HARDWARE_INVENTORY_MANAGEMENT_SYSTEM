@@ -157,11 +157,23 @@
     <Compile Include="Deliveries\DeliveriesMainPage.Designer.cs">
       <DependentUpon>DeliveriesMainPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Deliveries\DeliveriesSlideButtons.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\DeliveriesSlideButtons.Designer.cs">
+      <DependentUpon>DeliveriesSlideButtons.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deliveries\DeliveriesTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Deliveries\DeliveriesTable.Designer.cs">
       <DependentUpon>DeliveriesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Deliveries\DeliveriesTables.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\DeliveriesTables.Designer.cs">
+      <DependentUpon>DeliveriesTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Deliveries\DeliveriesTopBar.cs">
       <SubType>UserControl</SubType>
@@ -330,8 +342,14 @@
     <EmbeddedResource Include="Deliveries\DeliveriesMainPage.resx">
       <DependentUpon>DeliveriesMainPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\DeliveriesSlideButtons.resx">
+      <DependentUpon>DeliveriesSlideButtons.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\DeliveriesTable.resx">
       <DependentUpon>DeliveriesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\DeliveriesTables.resx">
+      <DependentUpon>DeliveriesTables.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\DeliveriesTopBar.resx">
       <DependentUpon>DeliveriesTopBar.cs</DependentUpon>
@@ -635,6 +653,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\scroll2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Trucks2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Deliveries TAB.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
