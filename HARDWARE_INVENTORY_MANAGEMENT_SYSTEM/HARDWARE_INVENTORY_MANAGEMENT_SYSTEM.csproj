@@ -157,6 +157,12 @@
     <Compile Include="Deliveries\DeliveriesMainPage.Designer.cs">
       <DependentUpon>DeliveriesMainPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Deliveries\DeliveriesMainPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\DeliveriesMainPage2.Designer.cs">
+      <DependentUpon>DeliveriesMainPage2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deliveries\DeliveriesSlideButtons.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -347,6 +353,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\DeliveriesMainPage.resx">
       <DependentUpon>DeliveriesMainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\DeliveriesMainPage2.resx">
+      <DependentUpon>DeliveriesMainPage2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\DeliveriesSlideButtons.resx">
       <DependentUpon>DeliveriesSlideButtons.cs</DependentUpon>
