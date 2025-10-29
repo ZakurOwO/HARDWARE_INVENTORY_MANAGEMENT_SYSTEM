@@ -219,6 +219,12 @@
     <Compile Include="Customer Module\Edit &amp; Delete Button.Designer.cs">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transactions Module\Pagination.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\Pagination.Designer.cs">
+      <DependentUpon>Pagination.cs</DependentUpon>
+    </Compile>
     <Compile Include="Transactions Module\Products.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -363,6 +369,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\Edit &amp; Delete Button.resx">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\Pagination.resx">
+      <DependentUpon>Pagination.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\Products.resx">
       <DependentUpon>Products.cs</DependentUpon>
@@ -611,6 +620,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\System Icons %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scroll.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\direction-right 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\direction-right 01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scroll1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scroll2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
