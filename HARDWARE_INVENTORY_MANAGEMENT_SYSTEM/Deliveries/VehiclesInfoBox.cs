@@ -21,5 +21,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         {
 
         }
+
+        private void VehicleModel4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

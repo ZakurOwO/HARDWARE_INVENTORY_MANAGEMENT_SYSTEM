@@ -28,177 +28,177 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.Status1 = new System.Windows.Forms.PictureBox();
+            this.VehicleName1 = new System.Windows.Forms.Label();
+            this.VehicleBrandModel1 = new System.Windows.Forms.Label();
+            this.PlatenumberLabel1 = new System.Windows.Forms.Label();
+            this.VehicleModel1 = new System.Windows.Forms.Label();
+            this.VehiclePicBox1 = new System.Windows.Forms.PictureBox();
+            this.EditBtn1 = new System.Windows.Forms.PictureBox();
+            this.DeleteBtn1 = new System.Windows.Forms.PictureBox();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
+            this.DeleteBtn2 = new System.Windows.Forms.PictureBox();
+            this.EditBtn2 = new System.Windows.Forms.PictureBox();
+            this.VehiclePicBox2 = new System.Windows.Forms.PictureBox();
+            this.VehicleModel2 = new System.Windows.Forms.Label();
+            this.PlatenumberLabel2 = new System.Windows.Forms.Label();
+            this.VehicleBrandModel2 = new System.Windows.Forms.Label();
+            this.VehicleName2 = new System.Windows.Forms.Label();
+            this.Status2 = new System.Windows.Forms.PictureBox();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
-            this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
+            this.DeleteBtn3 = new System.Windows.Forms.PictureBox();
+            this.EditBtn3 = new System.Windows.Forms.PictureBox();
+            this.VehiclePicBox3 = new System.Windows.Forms.PictureBox();
+            this.VehicleModel3 = new System.Windows.Forms.Label();
+            this.PlatenumberLabel3 = new System.Windows.Forms.Label();
+            this.VehicleBrandModel3 = new System.Windows.Forms.Label();
+            this.VehicleName3 = new System.Windows.Forms.Label();
+            this.Status3 = new System.Windows.Forms.PictureBox();
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            this.pictureBox13 = new System.Windows.Forms.PictureBox();
-            this.pictureBox14 = new System.Windows.Forms.PictureBox();
-            this.pictureBox15 = new System.Windows.Forms.PictureBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.pictureBox16 = new System.Windows.Forms.PictureBox();
+            this.DeleteBtn4 = new System.Windows.Forms.PictureBox();
+            this.EditBtn4 = new System.Windows.Forms.PictureBox();
+            this.VehiclePicBox4 = new System.Windows.Forms.PictureBox();
+            this.VehicleModel4 = new System.Windows.Forms.Label();
+            this.PlatenumberLabel4 = new System.Windows.Forms.Label();
+            this.VehicleBrandModel4 = new System.Windows.Forms.Label();
+            this.VehicleName4 = new System.Windows.Forms.Label();
+            this.Status4 = new System.Windows.Forms.PictureBox();
             this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
-            this.pictureBox17 = new System.Windows.Forms.PictureBox();
-            this.pictureBox18 = new System.Windows.Forms.PictureBox();
-            this.pictureBox19 = new System.Windows.Forms.PictureBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.pictureBox20 = new System.Windows.Forms.PictureBox();
+            this.DeleteBtn5 = new System.Windows.Forms.PictureBox();
+            this.EditBtn5 = new System.Windows.Forms.PictureBox();
+            this.VehiclePicBox5 = new System.Windows.Forms.PictureBox();
+            this.VehicleModel5 = new System.Windows.Forms.Label();
+            this.PlatenumberLabel5 = new System.Windows.Forms.Label();
+            this.VehicleBrandModel5 = new System.Windows.Forms.Label();
+            this.VehicleName5 = new System.Windows.Forms.Label();
+            this.Status5 = new System.Windows.Forms.PictureBox();
             this.guna2Panel6 = new Guna.UI2.WinForms.Guna2Panel();
-            this.pictureBox21 = new System.Windows.Forms.PictureBox();
-            this.pictureBox22 = new System.Windows.Forms.PictureBox();
-            this.pictureBox23 = new System.Windows.Forms.PictureBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.pictureBox24 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
+            this.DeleteBtn6 = new System.Windows.Forms.PictureBox();
+            this.EditBtn6 = new System.Windows.Forms.PictureBox();
+            this.VehiclePicBox6 = new System.Windows.Forms.PictureBox();
+            this.VehicleModel6 = new System.Windows.Forms.Label();
+            this.PlatenumberLabel6 = new System.Windows.Forms.Label();
+            this.VehicleBrandModel6 = new System.Windows.Forms.Label();
+            this.VehicleName6 = new System.Windows.Forms.Label();
+            this.Status6 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.Status1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn1)).BeginInit();
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status2)).BeginInit();
             this.guna2Panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status3)).BeginInit();
             this.guna2Panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status4)).BeginInit();
             this.guna2Panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status5)).BeginInit();
             this.guna2Panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox24)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status6)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // Status1
             // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
-            this.pictureBox1.Location = new System.Drawing.Point(167, 146);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(69, 16);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.Status1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Status1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
+            this.Status1.Location = new System.Drawing.Point(167, 146);
+            this.Status1.Name = "Status1";
+            this.Status1.Size = new System.Drawing.Size(69, 16);
+            this.Status1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Status1.TabIndex = 0;
+            this.Status1.TabStop = false;
             // 
-            // label1
+            // VehicleName1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(17, 140);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 22);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "label1";
+            this.VehicleName1.AutoSize = true;
+            this.VehicleName1.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
+            this.VehicleName1.ForeColor = System.Drawing.Color.Black;
+            this.VehicleName1.Location = new System.Drawing.Point(17, 140);
+            this.VehicleName1.Name = "VehicleName1";
+            this.VehicleName1.Size = new System.Drawing.Size(52, 22);
+            this.VehicleName1.TabIndex = 6;
+            this.VehicleName1.Text = "label1";
             // 
-            // label2
+            // VehicleBrandModel1
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(18, 162);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 17);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "label2";
+            this.VehicleBrandModel1.AutoSize = true;
+            this.VehicleBrandModel1.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleBrandModel1.ForeColor = System.Drawing.Color.Black;
+            this.VehicleBrandModel1.Location = new System.Drawing.Point(18, 162);
+            this.VehicleBrandModel1.Name = "VehicleBrandModel1";
+            this.VehicleBrandModel1.Size = new System.Drawing.Size(38, 17);
+            this.VehicleBrandModel1.TabIndex = 7;
+            this.VehicleBrandModel1.Text = "label2";
             // 
-            // label3
+            // PlatenumberLabel1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(18, 200);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 17);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "label3";
+            this.PlatenumberLabel1.AutoSize = true;
+            this.PlatenumberLabel1.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlatenumberLabel1.ForeColor = System.Drawing.Color.Black;
+            this.PlatenumberLabel1.Location = new System.Drawing.Point(18, 200);
+            this.PlatenumberLabel1.Name = "PlatenumberLabel1";
+            this.PlatenumberLabel1.Size = new System.Drawing.Size(38, 17);
+            this.PlatenumberLabel1.TabIndex = 8;
+            this.PlatenumberLabel1.Text = "label3";
             // 
-            // label4
+            // VehicleModel1
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(18, 217);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(39, 17);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "label4";
+            this.VehicleModel1.AutoSize = true;
+            this.VehicleModel1.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleModel1.ForeColor = System.Drawing.Color.Black;
+            this.VehicleModel1.Location = new System.Drawing.Point(18, 217);
+            this.VehicleModel1.Name = "VehicleModel1";
+            this.VehicleModel1.Size = new System.Drawing.Size(39, 17);
+            this.VehicleModel1.TabIndex = 9;
+            this.VehicleModel1.Text = "label4";
             // 
-            // pictureBox2
+            // VehiclePicBox1
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.White;
-            this.pictureBox2.Location = new System.Drawing.Point(21, 14);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(215, 123);
-            this.pictureBox2.TabIndex = 10;
-            this.pictureBox2.TabStop = false;
+            this.VehiclePicBox1.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox1.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox1.Name = "VehiclePicBox1";
+            this.VehiclePicBox1.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox1.TabIndex = 10;
+            this.VehiclePicBox1.TabStop = false;
             // 
-            // pictureBox3
+            // EditBtn1
             // 
-            this.pictureBox3.BackColor = System.Drawing.Color.White;
-            this.pictureBox3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.pictureBox3.Location = new System.Drawing.Point(170, 217);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 11;
-            this.pictureBox3.TabStop = false;
+            this.EditBtn1.BackColor = System.Drawing.Color.White;
+            this.EditBtn1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn1.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn1.Name = "EditBtn1";
+            this.EditBtn1.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn1.TabIndex = 11;
+            this.EditBtn1.TabStop = false;
             // 
-            // pictureBox4
+            // DeleteBtn1
             // 
-            this.pictureBox4.BackColor = System.Drawing.Color.White;
-            this.pictureBox4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.pictureBox4.Location = new System.Drawing.Point(206, 217);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox4.TabIndex = 12;
-            this.pictureBox4.TabStop = false;
+            this.DeleteBtn1.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn1.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn1.Name = "DeleteBtn1";
+            this.DeleteBtn1.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn1.TabIndex = 12;
+            this.DeleteBtn1.TabStop = false;
             // 
             // guna2Panel1
             // 
@@ -206,14 +206,14 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Silver;
             this.guna2Panel1.BorderRadius = 20;
             this.guna2Panel1.BorderThickness = 1;
-            this.guna2Panel1.Controls.Add(this.pictureBox4);
-            this.guna2Panel1.Controls.Add(this.pictureBox3);
-            this.guna2Panel1.Controls.Add(this.pictureBox2);
-            this.guna2Panel1.Controls.Add(this.label4);
-            this.guna2Panel1.Controls.Add(this.label3);
-            this.guna2Panel1.Controls.Add(this.label2);
-            this.guna2Panel1.Controls.Add(this.label1);
-            this.guna2Panel1.Controls.Add(this.pictureBox1);
+            this.guna2Panel1.Controls.Add(this.DeleteBtn1);
+            this.guna2Panel1.Controls.Add(this.EditBtn1);
+            this.guna2Panel1.Controls.Add(this.VehiclePicBox1);
+            this.guna2Panel1.Controls.Add(this.VehicleModel1);
+            this.guna2Panel1.Controls.Add(this.PlatenumberLabel1);
+            this.guna2Panel1.Controls.Add(this.VehicleBrandModel1);
+            this.guna2Panel1.Controls.Add(this.VehicleName1);
+            this.guna2Panel1.Controls.Add(this.Status1);
             this.guna2Panel1.Location = new System.Drawing.Point(3, 3);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(254, 248);
@@ -225,104 +225,104 @@
             this.guna2Panel2.BorderColor = System.Drawing.Color.Silver;
             this.guna2Panel2.BorderRadius = 20;
             this.guna2Panel2.BorderThickness = 1;
-            this.guna2Panel2.Controls.Add(this.pictureBox5);
-            this.guna2Panel2.Controls.Add(this.pictureBox6);
-            this.guna2Panel2.Controls.Add(this.pictureBox7);
-            this.guna2Panel2.Controls.Add(this.label5);
-            this.guna2Panel2.Controls.Add(this.label6);
-            this.guna2Panel2.Controls.Add(this.label7);
-            this.guna2Panel2.Controls.Add(this.label8);
-            this.guna2Panel2.Controls.Add(this.pictureBox8);
+            this.guna2Panel2.Controls.Add(this.DeleteBtn2);
+            this.guna2Panel2.Controls.Add(this.EditBtn2);
+            this.guna2Panel2.Controls.Add(this.VehiclePicBox2);
+            this.guna2Panel2.Controls.Add(this.VehicleModel2);
+            this.guna2Panel2.Controls.Add(this.PlatenumberLabel2);
+            this.guna2Panel2.Controls.Add(this.VehicleBrandModel2);
+            this.guna2Panel2.Controls.Add(this.VehicleName2);
+            this.guna2Panel2.Controls.Add(this.Status2);
             this.guna2Panel2.Location = new System.Drawing.Point(274, 3);
             this.guna2Panel2.Name = "guna2Panel2";
             this.guna2Panel2.Size = new System.Drawing.Size(254, 248);
             this.guna2Panel2.TabIndex = 13;
             // 
-            // pictureBox5
+            // DeleteBtn2
             // 
-            this.pictureBox5.BackColor = System.Drawing.Color.White;
-            this.pictureBox5.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.pictureBox5.Location = new System.Drawing.Point(206, 217);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox5.TabIndex = 12;
-            this.pictureBox5.TabStop = false;
+            this.DeleteBtn2.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn2.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn2.Name = "DeleteBtn2";
+            this.DeleteBtn2.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn2.TabIndex = 12;
+            this.DeleteBtn2.TabStop = false;
             // 
-            // pictureBox6
+            // EditBtn2
             // 
-            this.pictureBox6.BackColor = System.Drawing.Color.White;
-            this.pictureBox6.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.pictureBox6.Location = new System.Drawing.Point(170, 217);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox6.TabIndex = 11;
-            this.pictureBox6.TabStop = false;
+            this.EditBtn2.BackColor = System.Drawing.Color.White;
+            this.EditBtn2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn2.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn2.Name = "EditBtn2";
+            this.EditBtn2.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn2.TabIndex = 11;
+            this.EditBtn2.TabStop = false;
             // 
-            // pictureBox7
+            // VehiclePicBox2
             // 
-            this.pictureBox7.BackColor = System.Drawing.Color.White;
-            this.pictureBox7.Location = new System.Drawing.Point(21, 14);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(215, 123);
-            this.pictureBox7.TabIndex = 10;
-            this.pictureBox7.TabStop = false;
+            this.VehiclePicBox2.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox2.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox2.Name = "VehiclePicBox2";
+            this.VehiclePicBox2.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox2.TabIndex = 10;
+            this.VehiclePicBox2.TabStop = false;
             // 
-            // label5
+            // VehicleModel2
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(18, 217);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 17);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "label5";
+            this.VehicleModel2.AutoSize = true;
+            this.VehicleModel2.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleModel2.ForeColor = System.Drawing.Color.Black;
+            this.VehicleModel2.Location = new System.Drawing.Point(18, 217);
+            this.VehicleModel2.Name = "VehicleModel2";
+            this.VehicleModel2.Size = new System.Drawing.Size(38, 17);
+            this.VehicleModel2.TabIndex = 9;
+            this.VehicleModel2.Text = "label5";
             // 
-            // label6
+            // PlatenumberLabel2
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(18, 200);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(38, 17);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "label6";
+            this.PlatenumberLabel2.AutoSize = true;
+            this.PlatenumberLabel2.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlatenumberLabel2.ForeColor = System.Drawing.Color.Black;
+            this.PlatenumberLabel2.Location = new System.Drawing.Point(18, 200);
+            this.PlatenumberLabel2.Name = "PlatenumberLabel2";
+            this.PlatenumberLabel2.Size = new System.Drawing.Size(38, 17);
+            this.PlatenumberLabel2.TabIndex = 8;
+            this.PlatenumberLabel2.Text = "label6";
             // 
-            // label7
+            // VehicleBrandModel2
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(18, 162);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 17);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "label7";
+            this.VehicleBrandModel2.AutoSize = true;
+            this.VehicleBrandModel2.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleBrandModel2.ForeColor = System.Drawing.Color.Black;
+            this.VehicleBrandModel2.Location = new System.Drawing.Point(18, 162);
+            this.VehicleBrandModel2.Name = "VehicleBrandModel2";
+            this.VehicleBrandModel2.Size = new System.Drawing.Size(38, 17);
+            this.VehicleBrandModel2.TabIndex = 7;
+            this.VehicleBrandModel2.Text = "label7";
             // 
-            // label8
+            // VehicleName2
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
-            this.label8.ForeColor = System.Drawing.Color.Black;
-            this.label8.Location = new System.Drawing.Point(17, 140);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 22);
-            this.label8.TabIndex = 6;
-            this.label8.Text = "label8";
+            this.VehicleName2.AutoSize = true;
+            this.VehicleName2.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
+            this.VehicleName2.ForeColor = System.Drawing.Color.Black;
+            this.VehicleName2.Location = new System.Drawing.Point(17, 140);
+            this.VehicleName2.Name = "VehicleName2";
+            this.VehicleName2.Size = new System.Drawing.Size(52, 22);
+            this.VehicleName2.TabIndex = 6;
+            this.VehicleName2.Text = "label8";
             // 
-            // pictureBox8
+            // Status2
             // 
-            this.pictureBox8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox8.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
-            this.pictureBox8.Location = new System.Drawing.Point(167, 146);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(69, 16);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox8.TabIndex = 0;
-            this.pictureBox8.TabStop = false;
+            this.Status2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Status2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
+            this.Status2.Location = new System.Drawing.Point(167, 146);
+            this.Status2.Name = "Status2";
+            this.Status2.Size = new System.Drawing.Size(69, 16);
+            this.Status2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Status2.TabIndex = 0;
+            this.Status2.TabStop = false;
             // 
             // guna2Panel3
             // 
@@ -330,104 +330,104 @@
             this.guna2Panel3.BorderColor = System.Drawing.Color.Silver;
             this.guna2Panel3.BorderRadius = 20;
             this.guna2Panel3.BorderThickness = 1;
-            this.guna2Panel3.Controls.Add(this.pictureBox9);
-            this.guna2Panel3.Controls.Add(this.pictureBox10);
-            this.guna2Panel3.Controls.Add(this.pictureBox11);
-            this.guna2Panel3.Controls.Add(this.label9);
-            this.guna2Panel3.Controls.Add(this.label10);
-            this.guna2Panel3.Controls.Add(this.label11);
-            this.guna2Panel3.Controls.Add(this.label12);
-            this.guna2Panel3.Controls.Add(this.pictureBox12);
+            this.guna2Panel3.Controls.Add(this.DeleteBtn3);
+            this.guna2Panel3.Controls.Add(this.EditBtn3);
+            this.guna2Panel3.Controls.Add(this.VehiclePicBox3);
+            this.guna2Panel3.Controls.Add(this.VehicleModel3);
+            this.guna2Panel3.Controls.Add(this.PlatenumberLabel3);
+            this.guna2Panel3.Controls.Add(this.VehicleBrandModel3);
+            this.guna2Panel3.Controls.Add(this.VehicleName3);
+            this.guna2Panel3.Controls.Add(this.Status3);
             this.guna2Panel3.Location = new System.Drawing.Point(545, 3);
             this.guna2Panel3.Name = "guna2Panel3";
             this.guna2Panel3.Size = new System.Drawing.Size(254, 248);
             this.guna2Panel3.TabIndex = 14;
             // 
-            // pictureBox9
+            // DeleteBtn3
             // 
-            this.pictureBox9.BackColor = System.Drawing.Color.White;
-            this.pictureBox9.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.pictureBox9.Location = new System.Drawing.Point(206, 217);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox9.TabIndex = 12;
-            this.pictureBox9.TabStop = false;
+            this.DeleteBtn3.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn3.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn3.Name = "DeleteBtn3";
+            this.DeleteBtn3.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn3.TabIndex = 12;
+            this.DeleteBtn3.TabStop = false;
             // 
-            // pictureBox10
+            // EditBtn3
             // 
-            this.pictureBox10.BackColor = System.Drawing.Color.White;
-            this.pictureBox10.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.pictureBox10.Location = new System.Drawing.Point(170, 217);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox10.TabIndex = 11;
-            this.pictureBox10.TabStop = false;
+            this.EditBtn3.BackColor = System.Drawing.Color.White;
+            this.EditBtn3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn3.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn3.Name = "EditBtn3";
+            this.EditBtn3.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn3.TabIndex = 11;
+            this.EditBtn3.TabStop = false;
             // 
-            // pictureBox11
+            // VehiclePicBox3
             // 
-            this.pictureBox11.BackColor = System.Drawing.Color.White;
-            this.pictureBox11.Location = new System.Drawing.Point(21, 14);
-            this.pictureBox11.Name = "pictureBox11";
-            this.pictureBox11.Size = new System.Drawing.Size(215, 123);
-            this.pictureBox11.TabIndex = 10;
-            this.pictureBox11.TabStop = false;
+            this.VehiclePicBox3.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox3.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox3.Name = "VehiclePicBox3";
+            this.VehiclePicBox3.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox3.TabIndex = 10;
+            this.VehiclePicBox3.TabStop = false;
             // 
-            // label9
+            // VehicleModel3
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(18, 217);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(38, 17);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "label9";
+            this.VehicleModel3.AutoSize = true;
+            this.VehicleModel3.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleModel3.ForeColor = System.Drawing.Color.Black;
+            this.VehicleModel3.Location = new System.Drawing.Point(18, 217);
+            this.VehicleModel3.Name = "VehicleModel3";
+            this.VehicleModel3.Size = new System.Drawing.Size(38, 17);
+            this.VehicleModel3.TabIndex = 9;
+            this.VehicleModel3.Text = "label9";
             // 
-            // label10
+            // PlatenumberLabel3
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(18, 200);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(44, 17);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "label10";
+            this.PlatenumberLabel3.AutoSize = true;
+            this.PlatenumberLabel3.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlatenumberLabel3.ForeColor = System.Drawing.Color.Black;
+            this.PlatenumberLabel3.Location = new System.Drawing.Point(18, 200);
+            this.PlatenumberLabel3.Name = "PlatenumberLabel3";
+            this.PlatenumberLabel3.Size = new System.Drawing.Size(44, 17);
+            this.PlatenumberLabel3.TabIndex = 8;
+            this.PlatenumberLabel3.Text = "label10";
             // 
-            // label11
+            // VehicleBrandModel3
             // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(18, 162);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(42, 17);
-            this.label11.TabIndex = 7;
-            this.label11.Text = "label11";
+            this.VehicleBrandModel3.AutoSize = true;
+            this.VehicleBrandModel3.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleBrandModel3.ForeColor = System.Drawing.Color.Black;
+            this.VehicleBrandModel3.Location = new System.Drawing.Point(18, 162);
+            this.VehicleBrandModel3.Name = "VehicleBrandModel3";
+            this.VehicleBrandModel3.Size = new System.Drawing.Size(42, 17);
+            this.VehicleBrandModel3.TabIndex = 7;
+            this.VehicleBrandModel3.Text = "label11";
             // 
-            // label12
+            // VehicleName3
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
-            this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(17, 140);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(60, 22);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "label12";
+            this.VehicleName3.AutoSize = true;
+            this.VehicleName3.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
+            this.VehicleName3.ForeColor = System.Drawing.Color.Black;
+            this.VehicleName3.Location = new System.Drawing.Point(17, 140);
+            this.VehicleName3.Name = "VehicleName3";
+            this.VehicleName3.Size = new System.Drawing.Size(60, 22);
+            this.VehicleName3.TabIndex = 6;
+            this.VehicleName3.Text = "label12";
             // 
-            // pictureBox12
+            // Status3
             // 
-            this.pictureBox12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox12.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
-            this.pictureBox12.Location = new System.Drawing.Point(167, 146);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(69, 16);
-            this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox12.TabIndex = 0;
-            this.pictureBox12.TabStop = false;
+            this.Status3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Status3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
+            this.Status3.Location = new System.Drawing.Point(167, 146);
+            this.Status3.Name = "Status3";
+            this.Status3.Size = new System.Drawing.Size(69, 16);
+            this.Status3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Status3.TabIndex = 0;
+            this.Status3.TabStop = false;
             // 
             // guna2Panel4
             // 
@@ -435,104 +435,105 @@
             this.guna2Panel4.BorderColor = System.Drawing.Color.Silver;
             this.guna2Panel4.BorderRadius = 20;
             this.guna2Panel4.BorderThickness = 1;
-            this.guna2Panel4.Controls.Add(this.pictureBox13);
-            this.guna2Panel4.Controls.Add(this.pictureBox14);
-            this.guna2Panel4.Controls.Add(this.pictureBox15);
-            this.guna2Panel4.Controls.Add(this.label13);
-            this.guna2Panel4.Controls.Add(this.label14);
-            this.guna2Panel4.Controls.Add(this.label15);
-            this.guna2Panel4.Controls.Add(this.label16);
-            this.guna2Panel4.Controls.Add(this.pictureBox16);
+            this.guna2Panel4.Controls.Add(this.DeleteBtn4);
+            this.guna2Panel4.Controls.Add(this.EditBtn4);
+            this.guna2Panel4.Controls.Add(this.VehiclePicBox4);
+            this.guna2Panel4.Controls.Add(this.VehicleModel4);
+            this.guna2Panel4.Controls.Add(this.PlatenumberLabel4);
+            this.guna2Panel4.Controls.Add(this.VehicleBrandModel4);
+            this.guna2Panel4.Controls.Add(this.VehicleName4);
+            this.guna2Panel4.Controls.Add(this.Status4);
             this.guna2Panel4.Location = new System.Drawing.Point(3, 269);
             this.guna2Panel4.Name = "guna2Panel4";
             this.guna2Panel4.Size = new System.Drawing.Size(254, 248);
             this.guna2Panel4.TabIndex = 15;
             // 
-            // pictureBox13
+            // DeleteBtn4
             // 
-            this.pictureBox13.BackColor = System.Drawing.Color.White;
-            this.pictureBox13.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.pictureBox13.Location = new System.Drawing.Point(206, 217);
-            this.pictureBox13.Name = "pictureBox13";
-            this.pictureBox13.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox13.TabIndex = 12;
-            this.pictureBox13.TabStop = false;
+            this.DeleteBtn4.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn4.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn4.Name = "DeleteBtn4";
+            this.DeleteBtn4.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn4.TabIndex = 12;
+            this.DeleteBtn4.TabStop = false;
             // 
-            // pictureBox14
+            // EditBtn4
             // 
-            this.pictureBox14.BackColor = System.Drawing.Color.White;
-            this.pictureBox14.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.pictureBox14.Location = new System.Drawing.Point(170, 217);
-            this.pictureBox14.Name = "pictureBox14";
-            this.pictureBox14.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox14.TabIndex = 11;
-            this.pictureBox14.TabStop = false;
+            this.EditBtn4.BackColor = System.Drawing.Color.White;
+            this.EditBtn4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn4.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn4.Name = "EditBtn4";
+            this.EditBtn4.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn4.TabIndex = 11;
+            this.EditBtn4.TabStop = false;
             // 
-            // pictureBox15
+            // VehiclePicBox4
             // 
-            this.pictureBox15.BackColor = System.Drawing.Color.White;
-            this.pictureBox15.Location = new System.Drawing.Point(21, 14);
-            this.pictureBox15.Name = "pictureBox15";
-            this.pictureBox15.Size = new System.Drawing.Size(215, 123);
-            this.pictureBox15.TabIndex = 10;
-            this.pictureBox15.TabStop = false;
+            this.VehiclePicBox4.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox4.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox4.Name = "VehiclePicBox4";
+            this.VehiclePicBox4.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox4.TabIndex = 10;
+            this.VehiclePicBox4.TabStop = false;
             // 
-            // label13
+            // VehicleModel4
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.Black;
-            this.label13.Location = new System.Drawing.Point(18, 217);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(43, 17);
-            this.label13.TabIndex = 9;
-            this.label13.Text = "label13";
+            this.VehicleModel4.AutoSize = true;
+            this.VehicleModel4.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleModel4.ForeColor = System.Drawing.Color.Black;
+            this.VehicleModel4.Location = new System.Drawing.Point(18, 217);
+            this.VehicleModel4.Name = "VehicleModel4";
+            this.VehicleModel4.Size = new System.Drawing.Size(43, 17);
+            this.VehicleModel4.TabIndex = 9;
+            this.VehicleModel4.Text = "label13";
+            this.VehicleModel4.Click += new System.EventHandler(this.VehicleModel4_Click);
             // 
-            // label14
+            // PlatenumberLabel4
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.Black;
-            this.label14.Location = new System.Drawing.Point(18, 200);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(44, 17);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "label14";
+            this.PlatenumberLabel4.AutoSize = true;
+            this.PlatenumberLabel4.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlatenumberLabel4.ForeColor = System.Drawing.Color.Black;
+            this.PlatenumberLabel4.Location = new System.Drawing.Point(18, 200);
+            this.PlatenumberLabel4.Name = "PlatenumberLabel4";
+            this.PlatenumberLabel4.Size = new System.Drawing.Size(44, 17);
+            this.PlatenumberLabel4.TabIndex = 8;
+            this.PlatenumberLabel4.Text = "label14";
             // 
-            // label15
+            // VehicleBrandModel4
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.Black;
-            this.label15.Location = new System.Drawing.Point(18, 162);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(43, 17);
-            this.label15.TabIndex = 7;
-            this.label15.Text = "label15";
+            this.VehicleBrandModel4.AutoSize = true;
+            this.VehicleBrandModel4.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleBrandModel4.ForeColor = System.Drawing.Color.Black;
+            this.VehicleBrandModel4.Location = new System.Drawing.Point(18, 162);
+            this.VehicleBrandModel4.Name = "VehicleBrandModel4";
+            this.VehicleBrandModel4.Size = new System.Drawing.Size(43, 17);
+            this.VehicleBrandModel4.TabIndex = 7;
+            this.VehicleBrandModel4.Text = "label15";
             // 
-            // label16
+            // VehicleName4
             // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
-            this.label16.ForeColor = System.Drawing.Color.Black;
-            this.label16.Location = new System.Drawing.Point(17, 140);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(60, 22);
-            this.label16.TabIndex = 6;
-            this.label16.Text = "label16";
+            this.VehicleName4.AutoSize = true;
+            this.VehicleName4.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
+            this.VehicleName4.ForeColor = System.Drawing.Color.Black;
+            this.VehicleName4.Location = new System.Drawing.Point(17, 140);
+            this.VehicleName4.Name = "VehicleName4";
+            this.VehicleName4.Size = new System.Drawing.Size(60, 22);
+            this.VehicleName4.TabIndex = 6;
+            this.VehicleName4.Text = "label16";
             // 
-            // pictureBox16
+            // Status4
             // 
-            this.pictureBox16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox16.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
-            this.pictureBox16.Location = new System.Drawing.Point(167, 146);
-            this.pictureBox16.Name = "pictureBox16";
-            this.pictureBox16.Size = new System.Drawing.Size(69, 16);
-            this.pictureBox16.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox16.TabIndex = 0;
-            this.pictureBox16.TabStop = false;
+            this.Status4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Status4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
+            this.Status4.Location = new System.Drawing.Point(167, 146);
+            this.Status4.Name = "Status4";
+            this.Status4.Size = new System.Drawing.Size(69, 16);
+            this.Status4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Status4.TabIndex = 0;
+            this.Status4.TabStop = false;
             // 
             // guna2Panel5
             // 
@@ -540,104 +541,104 @@
             this.guna2Panel5.BorderColor = System.Drawing.Color.Silver;
             this.guna2Panel5.BorderRadius = 20;
             this.guna2Panel5.BorderThickness = 1;
-            this.guna2Panel5.Controls.Add(this.pictureBox17);
-            this.guna2Panel5.Controls.Add(this.pictureBox18);
-            this.guna2Panel5.Controls.Add(this.pictureBox19);
-            this.guna2Panel5.Controls.Add(this.label17);
-            this.guna2Panel5.Controls.Add(this.label18);
-            this.guna2Panel5.Controls.Add(this.label19);
-            this.guna2Panel5.Controls.Add(this.label20);
-            this.guna2Panel5.Controls.Add(this.pictureBox20);
+            this.guna2Panel5.Controls.Add(this.DeleteBtn5);
+            this.guna2Panel5.Controls.Add(this.EditBtn5);
+            this.guna2Panel5.Controls.Add(this.VehiclePicBox5);
+            this.guna2Panel5.Controls.Add(this.VehicleModel5);
+            this.guna2Panel5.Controls.Add(this.PlatenumberLabel5);
+            this.guna2Panel5.Controls.Add(this.VehicleBrandModel5);
+            this.guna2Panel5.Controls.Add(this.VehicleName5);
+            this.guna2Panel5.Controls.Add(this.Status5);
             this.guna2Panel5.Location = new System.Drawing.Point(274, 269);
             this.guna2Panel5.Name = "guna2Panel5";
             this.guna2Panel5.Size = new System.Drawing.Size(254, 248);
             this.guna2Panel5.TabIndex = 16;
             // 
-            // pictureBox17
+            // DeleteBtn5
             // 
-            this.pictureBox17.BackColor = System.Drawing.Color.White;
-            this.pictureBox17.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.pictureBox17.Location = new System.Drawing.Point(206, 217);
-            this.pictureBox17.Name = "pictureBox17";
-            this.pictureBox17.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox17.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox17.TabIndex = 12;
-            this.pictureBox17.TabStop = false;
+            this.DeleteBtn5.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn5.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn5.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn5.Name = "DeleteBtn5";
+            this.DeleteBtn5.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn5.TabIndex = 12;
+            this.DeleteBtn5.TabStop = false;
             // 
-            // pictureBox18
+            // EditBtn5
             // 
-            this.pictureBox18.BackColor = System.Drawing.Color.White;
-            this.pictureBox18.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.pictureBox18.Location = new System.Drawing.Point(170, 217);
-            this.pictureBox18.Name = "pictureBox18";
-            this.pictureBox18.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox18.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox18.TabIndex = 11;
-            this.pictureBox18.TabStop = false;
+            this.EditBtn5.BackColor = System.Drawing.Color.White;
+            this.EditBtn5.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn5.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn5.Name = "EditBtn5";
+            this.EditBtn5.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn5.TabIndex = 11;
+            this.EditBtn5.TabStop = false;
             // 
-            // pictureBox19
+            // VehiclePicBox5
             // 
-            this.pictureBox19.BackColor = System.Drawing.Color.White;
-            this.pictureBox19.Location = new System.Drawing.Point(21, 14);
-            this.pictureBox19.Name = "pictureBox19";
-            this.pictureBox19.Size = new System.Drawing.Size(215, 123);
-            this.pictureBox19.TabIndex = 10;
-            this.pictureBox19.TabStop = false;
+            this.VehiclePicBox5.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox5.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox5.Name = "VehiclePicBox5";
+            this.VehiclePicBox5.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox5.TabIndex = 10;
+            this.VehiclePicBox5.TabStop = false;
             // 
-            // label17
+            // VehicleModel5
             // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.Black;
-            this.label17.Location = new System.Drawing.Point(18, 217);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(43, 17);
-            this.label17.TabIndex = 9;
-            this.label17.Text = "label17";
+            this.VehicleModel5.AutoSize = true;
+            this.VehicleModel5.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleModel5.ForeColor = System.Drawing.Color.Black;
+            this.VehicleModel5.Location = new System.Drawing.Point(18, 217);
+            this.VehicleModel5.Name = "VehicleModel5";
+            this.VehicleModel5.Size = new System.Drawing.Size(43, 17);
+            this.VehicleModel5.TabIndex = 9;
+            this.VehicleModel5.Text = "label17";
             // 
-            // label18
+            // PlatenumberLabel5
             // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.Black;
-            this.label18.Location = new System.Drawing.Point(18, 200);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(43, 17);
-            this.label18.TabIndex = 8;
-            this.label18.Text = "label18";
+            this.PlatenumberLabel5.AutoSize = true;
+            this.PlatenumberLabel5.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlatenumberLabel5.ForeColor = System.Drawing.Color.Black;
+            this.PlatenumberLabel5.Location = new System.Drawing.Point(18, 200);
+            this.PlatenumberLabel5.Name = "PlatenumberLabel5";
+            this.PlatenumberLabel5.Size = new System.Drawing.Size(43, 17);
+            this.PlatenumberLabel5.TabIndex = 8;
+            this.PlatenumberLabel5.Text = "label18";
             // 
-            // label19
+            // VehicleBrandModel5
             // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.Color.Black;
-            this.label19.Location = new System.Drawing.Point(18, 162);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(43, 17);
-            this.label19.TabIndex = 7;
-            this.label19.Text = "label19";
+            this.VehicleBrandModel5.AutoSize = true;
+            this.VehicleBrandModel5.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleBrandModel5.ForeColor = System.Drawing.Color.Black;
+            this.VehicleBrandModel5.Location = new System.Drawing.Point(18, 162);
+            this.VehicleBrandModel5.Name = "VehicleBrandModel5";
+            this.VehicleBrandModel5.Size = new System.Drawing.Size(43, 17);
+            this.VehicleBrandModel5.TabIndex = 7;
+            this.VehicleBrandModel5.Text = "label19";
             // 
-            // label20
+            // VehicleName5
             // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
-            this.label20.ForeColor = System.Drawing.Color.Black;
-            this.label20.Location = new System.Drawing.Point(17, 140);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(61, 22);
-            this.label20.TabIndex = 6;
-            this.label20.Text = "label20";
+            this.VehicleName5.AutoSize = true;
+            this.VehicleName5.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
+            this.VehicleName5.ForeColor = System.Drawing.Color.Black;
+            this.VehicleName5.Location = new System.Drawing.Point(17, 140);
+            this.VehicleName5.Name = "VehicleName5";
+            this.VehicleName5.Size = new System.Drawing.Size(61, 22);
+            this.VehicleName5.TabIndex = 6;
+            this.VehicleName5.Text = "label20";
             // 
-            // pictureBox20
+            // Status5
             // 
-            this.pictureBox20.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox20.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
-            this.pictureBox20.Location = new System.Drawing.Point(167, 146);
-            this.pictureBox20.Name = "pictureBox20";
-            this.pictureBox20.Size = new System.Drawing.Size(69, 16);
-            this.pictureBox20.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox20.TabIndex = 0;
-            this.pictureBox20.TabStop = false;
+            this.Status5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Status5.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
+            this.Status5.Location = new System.Drawing.Point(167, 146);
+            this.Status5.Name = "Status5";
+            this.Status5.Size = new System.Drawing.Size(69, 16);
+            this.Status5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Status5.TabIndex = 0;
+            this.Status5.TabStop = false;
             // 
             // guna2Panel6
             // 
@@ -645,104 +646,104 @@
             this.guna2Panel6.BorderColor = System.Drawing.Color.Silver;
             this.guna2Panel6.BorderRadius = 20;
             this.guna2Panel6.BorderThickness = 1;
-            this.guna2Panel6.Controls.Add(this.pictureBox21);
-            this.guna2Panel6.Controls.Add(this.pictureBox22);
-            this.guna2Panel6.Controls.Add(this.pictureBox23);
-            this.guna2Panel6.Controls.Add(this.label21);
-            this.guna2Panel6.Controls.Add(this.label22);
-            this.guna2Panel6.Controls.Add(this.label23);
-            this.guna2Panel6.Controls.Add(this.label24);
-            this.guna2Panel6.Controls.Add(this.pictureBox24);
+            this.guna2Panel6.Controls.Add(this.DeleteBtn6);
+            this.guna2Panel6.Controls.Add(this.EditBtn6);
+            this.guna2Panel6.Controls.Add(this.VehiclePicBox6);
+            this.guna2Panel6.Controls.Add(this.VehicleModel6);
+            this.guna2Panel6.Controls.Add(this.PlatenumberLabel6);
+            this.guna2Panel6.Controls.Add(this.VehicleBrandModel6);
+            this.guna2Panel6.Controls.Add(this.VehicleName6);
+            this.guna2Panel6.Controls.Add(this.Status6);
             this.guna2Panel6.Location = new System.Drawing.Point(545, 269);
             this.guna2Panel6.Name = "guna2Panel6";
             this.guna2Panel6.Size = new System.Drawing.Size(254, 248);
             this.guna2Panel6.TabIndex = 17;
             // 
-            // pictureBox21
+            // DeleteBtn6
             // 
-            this.pictureBox21.BackColor = System.Drawing.Color.White;
-            this.pictureBox21.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.pictureBox21.Location = new System.Drawing.Point(206, 217);
-            this.pictureBox21.Name = "pictureBox21";
-            this.pictureBox21.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox21.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox21.TabIndex = 12;
-            this.pictureBox21.TabStop = false;
+            this.DeleteBtn6.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn6.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn6.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn6.Name = "DeleteBtn6";
+            this.DeleteBtn6.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn6.TabIndex = 12;
+            this.DeleteBtn6.TabStop = false;
             // 
-            // pictureBox22
+            // EditBtn6
             // 
-            this.pictureBox22.BackColor = System.Drawing.Color.White;
-            this.pictureBox22.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.pictureBox22.Location = new System.Drawing.Point(170, 217);
-            this.pictureBox22.Name = "pictureBox22";
-            this.pictureBox22.Size = new System.Drawing.Size(30, 20);
-            this.pictureBox22.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox22.TabIndex = 11;
-            this.pictureBox22.TabStop = false;
+            this.EditBtn6.BackColor = System.Drawing.Color.White;
+            this.EditBtn6.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn6.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn6.Name = "EditBtn6";
+            this.EditBtn6.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn6.TabIndex = 11;
+            this.EditBtn6.TabStop = false;
             // 
-            // pictureBox23
+            // VehiclePicBox6
             // 
-            this.pictureBox23.BackColor = System.Drawing.Color.White;
-            this.pictureBox23.Location = new System.Drawing.Point(21, 14);
-            this.pictureBox23.Name = "pictureBox23";
-            this.pictureBox23.Size = new System.Drawing.Size(215, 123);
-            this.pictureBox23.TabIndex = 10;
-            this.pictureBox23.TabStop = false;
+            this.VehiclePicBox6.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox6.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox6.Name = "VehiclePicBox6";
+            this.VehiclePicBox6.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox6.TabIndex = 10;
+            this.VehiclePicBox6.TabStop = false;
             // 
-            // label21
+            // VehicleModel6
             // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.Black;
-            this.label21.Location = new System.Drawing.Point(18, 217);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(43, 17);
-            this.label21.TabIndex = 9;
-            this.label21.Text = "label21";
+            this.VehicleModel6.AutoSize = true;
+            this.VehicleModel6.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleModel6.ForeColor = System.Drawing.Color.Black;
+            this.VehicleModel6.Location = new System.Drawing.Point(18, 217);
+            this.VehicleModel6.Name = "VehicleModel6";
+            this.VehicleModel6.Size = new System.Drawing.Size(43, 17);
+            this.VehicleModel6.TabIndex = 9;
+            this.VehicleModel6.Text = "label21";
             // 
-            // label22
+            // PlatenumberLabel6
             // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.ForeColor = System.Drawing.Color.Black;
-            this.label22.Location = new System.Drawing.Point(18, 200);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(44, 17);
-            this.label22.TabIndex = 8;
-            this.label22.Text = "label22";
+            this.PlatenumberLabel6.AutoSize = true;
+            this.PlatenumberLabel6.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlatenumberLabel6.ForeColor = System.Drawing.Color.Black;
+            this.PlatenumberLabel6.Location = new System.Drawing.Point(18, 200);
+            this.PlatenumberLabel6.Name = "PlatenumberLabel6";
+            this.PlatenumberLabel6.Size = new System.Drawing.Size(44, 17);
+            this.PlatenumberLabel6.TabIndex = 8;
+            this.PlatenumberLabel6.Text = "label22";
             // 
-            // label23
+            // VehicleBrandModel6
             // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.ForeColor = System.Drawing.Color.Black;
-            this.label23.Location = new System.Drawing.Point(18, 162);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(44, 17);
-            this.label23.TabIndex = 7;
-            this.label23.Text = "label23";
+            this.VehicleBrandModel6.AutoSize = true;
+            this.VehicleBrandModel6.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VehicleBrandModel6.ForeColor = System.Drawing.Color.Black;
+            this.VehicleBrandModel6.Location = new System.Drawing.Point(18, 162);
+            this.VehicleBrandModel6.Name = "VehicleBrandModel6";
+            this.VehicleBrandModel6.Size = new System.Drawing.Size(44, 17);
+            this.VehicleBrandModel6.TabIndex = 7;
+            this.VehicleBrandModel6.Text = "label23";
             // 
-            // label24
+            // VehicleName6
             // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
-            this.label24.ForeColor = System.Drawing.Color.Black;
-            this.label24.Location = new System.Drawing.Point(17, 140);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(61, 22);
-            this.label24.TabIndex = 6;
-            this.label24.Text = "label24";
+            this.VehicleName6.AutoSize = true;
+            this.VehicleName6.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
+            this.VehicleName6.ForeColor = System.Drawing.Color.Black;
+            this.VehicleName6.Location = new System.Drawing.Point(17, 140);
+            this.VehicleName6.Name = "VehicleName6";
+            this.VehicleName6.Size = new System.Drawing.Size(61, 22);
+            this.VehicleName6.TabIndex = 6;
+            this.VehicleName6.Text = "label24";
             // 
-            // pictureBox24
+            // Status6
             // 
-            this.pictureBox24.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox24.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
-            this.pictureBox24.Location = new System.Drawing.Point(167, 146);
-            this.pictureBox24.Name = "pictureBox24";
-            this.pictureBox24.Size = new System.Drawing.Size(69, 16);
-            this.pictureBox24.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox24.TabIndex = 0;
-            this.pictureBox24.TabStop = false;
+            this.Status6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Status6.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
+            this.Status6.Location = new System.Drawing.Point(167, 146);
+            this.Status6.Name = "Status6";
+            this.Status6.Size = new System.Drawing.Size(69, 16);
+            this.Status6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Status6.TabIndex = 0;
+            this.Status6.TabStop = false;
             // 
             // VehiclesInfoBox
             // 
@@ -759,101 +760,101 @@
             this.ForeColor = System.Drawing.Color.LawnGreen;
             this.Name = "VehiclesInfoBox";
             this.Size = new System.Drawing.Size(801, 525);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn1)).EndInit();
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
             this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status2)).EndInit();
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status3)).EndInit();
             this.guna2Panel4.ResumeLayout(false);
             this.guna2Panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status4)).EndInit();
             this.guna2Panel5.ResumeLayout(false);
             this.guna2Panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox17)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox18)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox20)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status5)).EndInit();
             this.guna2Panel6.ResumeLayout(false);
             this.guna2Panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox24)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status6)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox Status1;
+        private System.Windows.Forms.Label VehicleName1;
+        private System.Windows.Forms.Label VehicleBrandModel1;
+        private System.Windows.Forms.Label PlatenumberLabel1;
+        private System.Windows.Forms.Label VehicleModel1;
+        private System.Windows.Forms.PictureBox VehiclePicBox1;
+        private System.Windows.Forms.PictureBox EditBtn1;
+        private System.Windows.Forms.PictureBox DeleteBtn1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel2;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox6;
-        private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.PictureBox pictureBox8;
+        private System.Windows.Forms.PictureBox DeleteBtn2;
+        private System.Windows.Forms.PictureBox EditBtn2;
+        private System.Windows.Forms.PictureBox VehiclePicBox2;
+        private System.Windows.Forms.Label VehicleModel2;
+        private System.Windows.Forms.Label PlatenumberLabel2;
+        private System.Windows.Forms.Label VehicleBrandModel2;
+        private System.Windows.Forms.Label VehicleName2;
+        private System.Windows.Forms.PictureBox Status2;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
-        private System.Windows.Forms.PictureBox pictureBox9;
-        private System.Windows.Forms.PictureBox pictureBox10;
-        private System.Windows.Forms.PictureBox pictureBox11;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.PictureBox pictureBox12;
+        private System.Windows.Forms.PictureBox DeleteBtn3;
+        private System.Windows.Forms.PictureBox EditBtn3;
+        private System.Windows.Forms.PictureBox VehiclePicBox3;
+        private System.Windows.Forms.Label VehicleModel3;
+        private System.Windows.Forms.Label PlatenumberLabel3;
+        private System.Windows.Forms.Label VehicleBrandModel3;
+        private System.Windows.Forms.Label VehicleName3;
+        private System.Windows.Forms.PictureBox Status3;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
-        private System.Windows.Forms.PictureBox pictureBox13;
-        private System.Windows.Forms.PictureBox pictureBox14;
-        private System.Windows.Forms.PictureBox pictureBox15;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.PictureBox pictureBox16;
+        private System.Windows.Forms.PictureBox DeleteBtn4;
+        private System.Windows.Forms.PictureBox EditBtn4;
+        private System.Windows.Forms.PictureBox VehiclePicBox4;
+        private System.Windows.Forms.Label VehicleModel4;
+        private System.Windows.Forms.Label PlatenumberLabel4;
+        private System.Windows.Forms.Label VehicleBrandModel4;
+        private System.Windows.Forms.Label VehicleName4;
+        private System.Windows.Forms.PictureBox Status4;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel5;
-        private System.Windows.Forms.PictureBox pictureBox17;
-        private System.Windows.Forms.PictureBox pictureBox18;
-        private System.Windows.Forms.PictureBox pictureBox19;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.PictureBox pictureBox20;
+        private System.Windows.Forms.PictureBox DeleteBtn5;
+        private System.Windows.Forms.PictureBox EditBtn5;
+        private System.Windows.Forms.PictureBox VehiclePicBox5;
+        private System.Windows.Forms.Label VehicleModel5;
+        private System.Windows.Forms.Label PlatenumberLabel5;
+        private System.Windows.Forms.Label VehicleBrandModel5;
+        private System.Windows.Forms.Label VehicleName5;
+        private System.Windows.Forms.PictureBox Status5;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel6;
-        private System.Windows.Forms.PictureBox pictureBox21;
-        private System.Windows.Forms.PictureBox pictureBox22;
-        private System.Windows.Forms.PictureBox pictureBox23;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.PictureBox pictureBox24;
+        private System.Windows.Forms.PictureBox DeleteBtn6;
+        private System.Windows.Forms.PictureBox EditBtn6;
+        private System.Windows.Forms.PictureBox VehiclePicBox6;
+        private System.Windows.Forms.Label VehicleModel6;
+        private System.Windows.Forms.Label PlatenumberLabel6;
+        private System.Windows.Forms.Label VehicleBrandModel6;
+        private System.Windows.Forms.Label VehicleName6;
+        private System.Windows.Forms.PictureBox Status6;
     }
 }
