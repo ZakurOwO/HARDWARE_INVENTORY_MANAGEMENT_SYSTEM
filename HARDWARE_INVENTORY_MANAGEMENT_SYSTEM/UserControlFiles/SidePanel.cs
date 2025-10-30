@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -100,7 +101,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         
         
         }
-        private void AccountBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void AccountBTN_Click(object sender, EventArgs e)
+        {
+            HighlightButton((Button)sender);
+
+            // Access the parent form
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                // Clear the main panel
+                mainForm.MainContentPanelAccess.Controls.Clear();
+
+                // Create the AccountsMainPage control
+                AccountsMainPage accountPage = new AccountsMainPage();
+
+                // Add it to the panel
+                mainForm.MainContentPanelAccess.Controls.Add(accountPage);
+            }
+        }
         private void InventoryBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
         private void TransactionBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
         private void CustomerBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }

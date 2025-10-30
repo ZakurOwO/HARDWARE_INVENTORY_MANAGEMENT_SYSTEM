@@ -36,5 +36,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
 
         }
+        public Panel MainContentPanelAccess
+        {
+            get { return MainContentPanel; }
+        }
     }
 }
