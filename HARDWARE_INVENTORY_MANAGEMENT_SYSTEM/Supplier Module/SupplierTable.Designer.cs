@@ -36,6 +36,7 @@
             this.Contact = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastDeliveryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Actions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSupplier)).BeginInit();
             this.SuspendLayout();
@@ -60,6 +61,7 @@
             this.Contact,
             this.Location,
             this.LastDeliveryDate,
+            this.Status,
             this.Actions});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -90,31 +92,37 @@
             // 
             this.CompanyName.HeaderText = "Company Name";
             this.CompanyName.Name = "CompanyName";
-            this.CompanyName.Width = 165;
+            this.CompanyName.Width = 145;
             // 
             // Contact
             // 
             this.Contact.HeaderText = "Contact";
             this.Contact.Name = "Contact";
-            this.Contact.Width = 165;
+            this.Contact.Width = 145;
             // 
             // Location
             // 
             this.Location.HeaderText = "Location";
             this.Location.Name = "Location";
-            this.Location.Width = 165;
+            this.Location.Width = 145;
             // 
             // LastDeliveryDate
             // 
             this.LastDeliveryDate.HeaderText = "Last Delivery Date";
             this.LastDeliveryDate.Name = "LastDeliveryDate";
-            this.LastDeliveryDate.Width = 165;
+            this.LastDeliveryDate.Width = 145;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.Width = 145;
             // 
             // Actions
             // 
             this.Actions.HeaderText = "Actions";
             this.Actions.Name = "Actions";
-            this.Actions.Width = 165;
+            this.Actions.Width = 145;
             // 
             // SupplierTable
             // 
@@ -137,6 +145,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Contact;
         private System.Windows.Forms.DataGridViewTextBoxColumn Location;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastDeliveryDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn Actions;
     }
 }
