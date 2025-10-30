@@ -31,6 +31,8 @@
             this.ucKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucKeyMetrics();
             this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
             this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
+            this.MainContentPanel = new Krypton.Toolkit.KryptonPanel();
+            ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).BeginInit();
             this.SuspendLayout();
             // 
             // ucKeyMetrics1
@@ -57,6 +59,16 @@
             this.sidePanel1.Name = "sidePanel1";
             this.sidePanel1.Size = new System.Drawing.Size(202, 670);
             this.sidePanel1.TabIndex = 0;
+            this.sidePanel1.Load += new System.EventHandler(this.sidePanel1_Load_1);
+            // 
+            // MainContentPanel
+            // 
+            this.MainContentPanel.Location = new System.Drawing.Point(244, 12);
+            this.MainContentPanel.Name = "MainContentPanel";
+            this.MainContentPanel.Size = new System.Drawing.Size(906, 696);
+            this.MainContentPanel.StateCommon.Color1 = System.Drawing.Color.Transparent;
+            this.MainContentPanel.StateCommon.Color2 = System.Drawing.Color.Transparent;
+            this.MainContentPanel.TabIndex = 3;
             // 
             // MainDashBoard
             // 
@@ -65,6 +77,7 @@
             this.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._05_Dashboard;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1210, 720);
+            this.Controls.Add(this.MainContentPanel);
             this.Controls.Add(this.ucKeyMetrics1);
             this.Controls.Add(this.ucTopBar1);
             this.Controls.Add(this.sidePanel1);
@@ -73,6 +86,8 @@
             this.Name = "MainDashBoard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MainDashBoard";
+            this.Load += new System.EventHandler(this.MainDashBoard_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -82,5 +97,6 @@
         private SidePanel sidePanel1;
         private ucTopBar ucTopBar1;
         private ucKeyMetrics ucKeyMetrics1;
+        private Krypton.Toolkit.KryptonPanel MainContentPanel;
     }
 }
