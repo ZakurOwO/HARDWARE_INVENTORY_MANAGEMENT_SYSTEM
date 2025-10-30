@@ -217,6 +217,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="History Module\DatGridTableHistory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History Module\DatGridTableHistory.Designer.cs">
+      <DependentUpon>DatGridTableHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainDashBoard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -437,6 +443,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History Module\DatGridTableHistory.resx">
+      <DependentUpon>DatGridTableHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainDashBoard.resx">
       <DependentUpon>MainDashBoard.cs</DependentUpon>
@@ -782,6 +791,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\fast delivery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\History.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\History %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
