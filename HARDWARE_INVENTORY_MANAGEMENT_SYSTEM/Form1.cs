@@ -122,5 +122,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
 
         }
+
+        private void guna2Shapes1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

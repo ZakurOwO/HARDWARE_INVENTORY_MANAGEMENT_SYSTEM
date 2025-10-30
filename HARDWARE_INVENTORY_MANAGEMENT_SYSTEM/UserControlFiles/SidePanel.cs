@@ -95,15 +95,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             }
         }
 
-        private void DashboardBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
-        private void AccountBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
-        private void InventoryBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
-        private void TransactionBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
-        private void CustomerBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
-        private void SupplierBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
-        private void DeliveriesBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
-        private void ReportBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
-        private void HistoryBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
-        private void AuditlogBTN_Click(object sender, EventArgs e) => HighlightButton((Button)sender);
+        private void DashboardBTN_Click(object sender, EventArgs e) 
+        { HighlightButton((Button)sender); 
+        
+        
+        }
+        private void AccountBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void InventoryBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void TransactionBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void CustomerBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void SupplierBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void DeliveriesBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void ReportBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void HistoryBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void AuditlogBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
     }
 }

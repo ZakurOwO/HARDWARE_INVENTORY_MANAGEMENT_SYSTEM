@@ -177,6 +177,7 @@
             this.guna2Shapes1.TabIndex = 12;
             this.guna2Shapes1.Text = "guna2Shapes1";
             this.guna2Shapes1.Zoom = 80;
+            this.guna2Shapes1.Click += new System.EventHandler(this.guna2Shapes1_Click);
             // 
             // label5
             // 

@@ -225,6 +225,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Supplier Module\SearchFieldForSupplier.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Supplier Module\SearchFieldForSupplier.Designer.cs">
+      <DependentUpon>SearchFieldForSupplier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier Module\SupplierAddForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Supplier Module\SupplierAddForm.Designer.cs">
+      <DependentUpon>SupplierAddForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Supplier Module\SupplierButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -236,6 +248,24 @@
     </Compile>
     <Compile Include="Supplier Module\SupplierTable.Designer.cs">
       <DependentUpon>SupplierTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier Module\SupplierTopBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Supplier Module\SupplierTopBar.Designer.cs">
+      <DependentUpon>SupplierTopBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier Module\SuppplierMainPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Supplier Module\SuppplierMainPage.Designer.cs">
+      <DependentUpon>SuppplierMainPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier Module\TableSupplier.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Supplier Module\TableSupplier.Designer.cs">
+      <DependentUpon>TableSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="Test.cs">
       <SubType>Form</SubType>
@@ -409,11 +439,26 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Supplier Module\SearchFieldForSupplier.resx">
+      <DependentUpon>SearchFieldForSupplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supplier Module\SupplierAddForm.resx">
+      <DependentUpon>SupplierAddForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\SupplierButton.resx">
       <DependentUpon>SupplierButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\SupplierTable.resx">
       <DependentUpon>SupplierTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supplier Module\SupplierTopBar.resx">
+      <DependentUpon>SupplierTopBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supplier Module\SuppplierMainPage.resx">
+      <DependentUpon>SuppplierMainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supplier Module\TableSupplier.resx">
+      <DependentUpon>TableSupplier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Test.resx">
       <DependentUpon>Test.cs</DependentUpon>
