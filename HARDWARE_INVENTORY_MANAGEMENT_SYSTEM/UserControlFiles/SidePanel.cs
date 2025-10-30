@@ -1,4 +1,7 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -105,25 +108,46 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
             HighlightButton((Button)sender);
 
-            // Access the parent form
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
-                // Clear the main panel
                 mainForm.MainContentPanelAccess.Controls.Clear();
-
-                // Create the AccountsMainPage control
                 AccountsMainPage accountPage = new AccountsMainPage();
-
-                // Add it to the panel
                 mainForm.MainContentPanelAccess.Controls.Add(accountPage);
             }
         }
         private void InventoryBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
         private void TransactionBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
-        private void CustomerBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
-        private void SupplierBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
-        private void DeliveriesBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void CustomerBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                mainForm.MainContentPanelAccess.Controls.Clear();
+                CustomerMainPage customerForm = new CustomerMainPage();
+                mainForm.MainContentPanelAccess.Controls.Add(customerForm);
+            }
+        }
+        private void SupplierBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                mainForm.MainContentPanelAccess.Controls.Clear();
+                SuppplierMainPage supplierForm = new SuppplierMainPage();
+                mainForm.MainContentPanelAccess.Controls.Add(supplierForm);
+            }
+        }
+        private void DeliveriesBTN_Click(object sender, EventArgs e)
+        {
+            HighlightButton((Button)sender);
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                mainForm.MainContentPanelAccess.Controls.Clear();
+                DeliveriesMainPage vehicleForm = new DeliveriesMainPage();
+                mainForm.MainContentPanelAccess.Controls.Add(vehicleForm);
+            }
+            
+        }
         private void ReportBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
         private void HistoryBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
         private void AuditlogBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }

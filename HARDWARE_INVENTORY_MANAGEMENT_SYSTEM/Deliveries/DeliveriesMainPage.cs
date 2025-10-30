@@ -12,6 +12,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 {
     public partial class DeliveriesMainPage: UserControl
     {
+        internal static readonly object MainContentPanelAccess;
+
         public DeliveriesMainPage()
         {
             InitializeComponent();

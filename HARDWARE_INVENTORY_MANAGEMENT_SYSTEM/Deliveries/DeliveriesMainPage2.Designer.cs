@@ -59,6 +59,7 @@
             this.deliveriesSlideButtons2.Name = "deliveriesSlideButtons2";
             this.deliveriesSlideButtons2.Size = new System.Drawing.Size(267, 37);
             this.deliveriesSlideButtons2.TabIndex = 13;
+            this.deliveriesSlideButtons2.Load += new System.EventHandler(this.deliveriesSlideButtons2_Load);
             // 
             // searchField1
             // 
