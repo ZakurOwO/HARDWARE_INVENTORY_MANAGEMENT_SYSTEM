@@ -327,6 +327,12 @@
     <Compile Include="Transactions Module\TransactionsTopBar.Designer.cs">
       <DependentUpon>TransactionsTopBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transactions Module\CartDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\CartDetails.Designer.cs">
+      <DependentUpon>CartDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControlFiles\SidePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -495,6 +501,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\TransactionsTopBar.resx">
       <DependentUpon>TransactionsTopBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\CartDetails.resx">
+      <DependentUpon>CartDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\SidePanel.resx">
       <DependentUpon>SidePanel.cs</DependentUpon>
@@ -767,6 +776,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Inactive.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\users 02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fast delivery.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
