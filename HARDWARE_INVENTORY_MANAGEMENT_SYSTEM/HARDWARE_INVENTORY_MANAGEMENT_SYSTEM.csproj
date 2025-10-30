@@ -223,6 +223,18 @@
     <Compile Include="History Module\DatGridTableHistory.Designer.cs">
       <DependentUpon>DatGridTableHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="History Module\HistoryTopBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History Module\HistoryTopBar.Designer.cs">
+      <DependentUpon>HistoryTopBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="History Module\PageNumber.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History Module\PageNumber.Designer.cs">
+      <DependentUpon>PageNumber.cs</DependentUpon>
+    </Compile>
     <Compile Include="History Module\UpperPanels.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -452,6 +464,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="History Module\DatGridTableHistory.resx">
       <DependentUpon>DatGridTableHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History Module\HistoryTopBar.resx">
+      <DependentUpon>HistoryTopBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History Module\PageNumber.resx">
+      <DependentUpon>PageNumber.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="History Module\UpperPanels.resx">
       <DependentUpon>UpperPanels.cs</DependentUpon>
