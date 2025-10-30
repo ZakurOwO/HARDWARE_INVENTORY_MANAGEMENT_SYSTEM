@@ -16,5 +16,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         {
             InitializeComponent();
         }
+
+        private void customerTopBar1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
