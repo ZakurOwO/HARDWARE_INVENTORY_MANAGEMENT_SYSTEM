@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.customerTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.CustomerTopBar();
             this.pageNumber1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module.PageNumber();
             this.dataGridTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.DataGridTable();
             this.addCustomerDetailsButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.AddCustomerDetailsButton();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
+            this.customerTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.CustomerTopBar();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,13 +54,6 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(920, 568);
             this.guna2Panel1.TabIndex = 1;
-            // 
-            // customerTopBar1
-            // 
-            this.customerTopBar1.Location = new System.Drawing.Point(0, 3);
-            this.customerTopBar1.Name = "customerTopBar1";
-            this.customerTopBar1.Size = new System.Drawing.Size(965, 69);
-            this.customerTopBar1.TabIndex = 2;
             // 
             // pageNumber1
             // 
@@ -93,6 +86,13 @@
             this.searchField1.Name = "searchField1";
             this.searchField1.Size = new System.Drawing.Size(299, 44);
             this.searchField1.TabIndex = 3;
+            // 
+            // customerTopBar1
+            // 
+            this.customerTopBar1.Location = new System.Drawing.Point(0, 3);
+            this.customerTopBar1.Name = "customerTopBar1";
+            this.customerTopBar1.Size = new System.Drawing.Size(965, 69);
+            this.customerTopBar1.TabIndex = 2;
             // 
             // CustomerMainPage
             // 

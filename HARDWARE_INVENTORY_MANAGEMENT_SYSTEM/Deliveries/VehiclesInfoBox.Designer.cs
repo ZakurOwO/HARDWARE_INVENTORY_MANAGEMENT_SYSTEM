@@ -28,102 +28,92 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Status1 = new System.Windows.Forms.PictureBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VehiclesInfoBox));
             this.VehicleName1 = new System.Windows.Forms.Label();
             this.VehicleBrandModel1 = new System.Windows.Forms.Label();
             this.PlatenumberLabel1 = new System.Windows.Forms.Label();
             this.VehicleModel1 = new System.Windows.Forms.Label();
-            this.VehiclePicBox1 = new System.Windows.Forms.PictureBox();
-            this.EditBtn1 = new System.Windows.Forms.PictureBox();
-            this.DeleteBtn1 = new System.Windows.Forms.PictureBox();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.DeleteBtn2 = new System.Windows.Forms.PictureBox();
-            this.EditBtn2 = new System.Windows.Forms.PictureBox();
-            this.VehiclePicBox2 = new System.Windows.Forms.PictureBox();
             this.VehicleModel2 = new System.Windows.Forms.Label();
             this.PlatenumberLabel2 = new System.Windows.Forms.Label();
             this.VehicleBrandModel2 = new System.Windows.Forms.Label();
             this.VehicleName2 = new System.Windows.Forms.Label();
-            this.Status2 = new System.Windows.Forms.PictureBox();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            this.DeleteBtn3 = new System.Windows.Forms.PictureBox();
-            this.EditBtn3 = new System.Windows.Forms.PictureBox();
-            this.VehiclePicBox3 = new System.Windows.Forms.PictureBox();
             this.VehicleModel3 = new System.Windows.Forms.Label();
             this.PlatenumberLabel3 = new System.Windows.Forms.Label();
             this.VehicleBrandModel3 = new System.Windows.Forms.Label();
             this.VehicleName3 = new System.Windows.Forms.Label();
-            this.Status3 = new System.Windows.Forms.PictureBox();
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            this.DeleteBtn4 = new System.Windows.Forms.PictureBox();
-            this.EditBtn4 = new System.Windows.Forms.PictureBox();
-            this.VehiclePicBox4 = new System.Windows.Forms.PictureBox();
             this.VehicleModel4 = new System.Windows.Forms.Label();
             this.PlatenumberLabel4 = new System.Windows.Forms.Label();
             this.VehicleBrandModel4 = new System.Windows.Forms.Label();
             this.VehicleName4 = new System.Windows.Forms.Label();
-            this.Status4 = new System.Windows.Forms.PictureBox();
             this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
-            this.DeleteBtn5 = new System.Windows.Forms.PictureBox();
-            this.EditBtn5 = new System.Windows.Forms.PictureBox();
-            this.VehiclePicBox5 = new System.Windows.Forms.PictureBox();
             this.VehicleModel5 = new System.Windows.Forms.Label();
             this.PlatenumberLabel5 = new System.Windows.Forms.Label();
             this.VehicleBrandModel5 = new System.Windows.Forms.Label();
             this.VehicleName5 = new System.Windows.Forms.Label();
-            this.Status5 = new System.Windows.Forms.PictureBox();
             this.guna2Panel6 = new Guna.UI2.WinForms.Guna2Panel();
-            this.DeleteBtn6 = new System.Windows.Forms.PictureBox();
-            this.EditBtn6 = new System.Windows.Forms.PictureBox();
-            this.VehiclePicBox6 = new System.Windows.Forms.PictureBox();
             this.VehicleModel6 = new System.Windows.Forms.Label();
             this.PlatenumberLabel6 = new System.Windows.Forms.Label();
             this.VehicleBrandModel6 = new System.Windows.Forms.Label();
             this.VehicleName6 = new System.Windows.Forms.Label();
+            this.DeleteBtn6 = new System.Windows.Forms.PictureBox();
+            this.EditBtn6 = new System.Windows.Forms.PictureBox();
+            this.VehiclePicBox6 = new System.Windows.Forms.PictureBox();
             this.Status6 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.Status1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditBtn1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn1)).BeginInit();
+            this.DeleteBtn5 = new System.Windows.Forms.PictureBox();
+            this.EditBtn5 = new System.Windows.Forms.PictureBox();
+            this.VehiclePicBox5 = new System.Windows.Forms.PictureBox();
+            this.Status5 = new System.Windows.Forms.PictureBox();
+            this.DeleteBtn4 = new System.Windows.Forms.PictureBox();
+            this.EditBtn4 = new System.Windows.Forms.PictureBox();
+            this.VehiclePicBox4 = new System.Windows.Forms.PictureBox();
+            this.Status4 = new System.Windows.Forms.PictureBox();
+            this.DeleteBtn3 = new System.Windows.Forms.PictureBox();
+            this.EditBtn3 = new System.Windows.Forms.PictureBox();
+            this.VehiclePicBox3 = new System.Windows.Forms.PictureBox();
+            this.Status3 = new System.Windows.Forms.PictureBox();
+            this.DeleteBtn2 = new System.Windows.Forms.PictureBox();
+            this.EditBtn2 = new System.Windows.Forms.PictureBox();
+            this.VehiclePicBox2 = new System.Windows.Forms.PictureBox();
+            this.Status2 = new System.Windows.Forms.PictureBox();
+            this.DeleteBtn1 = new System.Windows.Forms.PictureBox();
+            this.EditBtn1 = new System.Windows.Forms.PictureBox();
+            this.VehiclePicBox1 = new System.Windows.Forms.PictureBox();
+            this.Status1 = new System.Windows.Forms.PictureBox();
             this.guna2Panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditBtn2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Status2)).BeginInit();
             this.guna2Panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditBtn3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Status3)).BeginInit();
             this.guna2Panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditBtn4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Status4)).BeginInit();
             this.guna2Panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditBtn5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Status5)).BeginInit();
             this.guna2Panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditBtn6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Status6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // Status1
-            // 
-            this.Status1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Status1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
-            this.Status1.Location = new System.Drawing.Point(167, 146);
-            this.Status1.Name = "Status1";
-            this.Status1.Size = new System.Drawing.Size(69, 16);
-            this.Status1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Status1.TabIndex = 0;
-            this.Status1.TabStop = false;
             // 
             // VehicleName1
             // 
@@ -169,37 +159,6 @@
             this.VehicleModel1.TabIndex = 9;
             this.VehicleModel1.Text = "label4";
             // 
-            // VehiclePicBox1
-            // 
-            this.VehiclePicBox1.BackColor = System.Drawing.Color.White;
-            this.VehiclePicBox1.Location = new System.Drawing.Point(21, 14);
-            this.VehiclePicBox1.Name = "VehiclePicBox1";
-            this.VehiclePicBox1.Size = new System.Drawing.Size(215, 123);
-            this.VehiclePicBox1.TabIndex = 10;
-            this.VehiclePicBox1.TabStop = false;
-            // 
-            // EditBtn1
-            // 
-            this.EditBtn1.BackColor = System.Drawing.Color.White;
-            this.EditBtn1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.EditBtn1.Location = new System.Drawing.Point(170, 217);
-            this.EditBtn1.Name = "EditBtn1";
-            this.EditBtn1.Size = new System.Drawing.Size(30, 20);
-            this.EditBtn1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.EditBtn1.TabIndex = 11;
-            this.EditBtn1.TabStop = false;
-            // 
-            // DeleteBtn1
-            // 
-            this.DeleteBtn1.BackColor = System.Drawing.Color.White;
-            this.DeleteBtn1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.DeleteBtn1.Location = new System.Drawing.Point(206, 217);
-            this.DeleteBtn1.Name = "DeleteBtn1";
-            this.DeleteBtn1.Size = new System.Drawing.Size(30, 20);
-            this.DeleteBtn1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.DeleteBtn1.TabIndex = 12;
-            this.DeleteBtn1.TabStop = false;
-            // 
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.White;
@@ -237,37 +196,6 @@
             this.guna2Panel2.Name = "guna2Panel2";
             this.guna2Panel2.Size = new System.Drawing.Size(254, 248);
             this.guna2Panel2.TabIndex = 13;
-            // 
-            // DeleteBtn2
-            // 
-            this.DeleteBtn2.BackColor = System.Drawing.Color.White;
-            this.DeleteBtn2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.DeleteBtn2.Location = new System.Drawing.Point(206, 217);
-            this.DeleteBtn2.Name = "DeleteBtn2";
-            this.DeleteBtn2.Size = new System.Drawing.Size(30, 20);
-            this.DeleteBtn2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.DeleteBtn2.TabIndex = 12;
-            this.DeleteBtn2.TabStop = false;
-            // 
-            // EditBtn2
-            // 
-            this.EditBtn2.BackColor = System.Drawing.Color.White;
-            this.EditBtn2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.EditBtn2.Location = new System.Drawing.Point(170, 217);
-            this.EditBtn2.Name = "EditBtn2";
-            this.EditBtn2.Size = new System.Drawing.Size(30, 20);
-            this.EditBtn2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.EditBtn2.TabIndex = 11;
-            this.EditBtn2.TabStop = false;
-            // 
-            // VehiclePicBox2
-            // 
-            this.VehiclePicBox2.BackColor = System.Drawing.Color.White;
-            this.VehiclePicBox2.Location = new System.Drawing.Point(21, 14);
-            this.VehiclePicBox2.Name = "VehiclePicBox2";
-            this.VehiclePicBox2.Size = new System.Drawing.Size(215, 123);
-            this.VehiclePicBox2.TabIndex = 10;
-            this.VehiclePicBox2.TabStop = false;
             // 
             // VehicleModel2
             // 
@@ -313,17 +241,6 @@
             this.VehicleName2.TabIndex = 6;
             this.VehicleName2.Text = "label8";
             // 
-            // Status2
-            // 
-            this.Status2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Status2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
-            this.Status2.Location = new System.Drawing.Point(167, 146);
-            this.Status2.Name = "Status2";
-            this.Status2.Size = new System.Drawing.Size(69, 16);
-            this.Status2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Status2.TabIndex = 0;
-            this.Status2.TabStop = false;
-            // 
             // guna2Panel3
             // 
             this.guna2Panel3.BackColor = System.Drawing.Color.White;
@@ -342,37 +259,6 @@
             this.guna2Panel3.Name = "guna2Panel3";
             this.guna2Panel3.Size = new System.Drawing.Size(254, 248);
             this.guna2Panel3.TabIndex = 14;
-            // 
-            // DeleteBtn3
-            // 
-            this.DeleteBtn3.BackColor = System.Drawing.Color.White;
-            this.DeleteBtn3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.DeleteBtn3.Location = new System.Drawing.Point(206, 217);
-            this.DeleteBtn3.Name = "DeleteBtn3";
-            this.DeleteBtn3.Size = new System.Drawing.Size(30, 20);
-            this.DeleteBtn3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.DeleteBtn3.TabIndex = 12;
-            this.DeleteBtn3.TabStop = false;
-            // 
-            // EditBtn3
-            // 
-            this.EditBtn3.BackColor = System.Drawing.Color.White;
-            this.EditBtn3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.EditBtn3.Location = new System.Drawing.Point(170, 217);
-            this.EditBtn3.Name = "EditBtn3";
-            this.EditBtn3.Size = new System.Drawing.Size(30, 20);
-            this.EditBtn3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.EditBtn3.TabIndex = 11;
-            this.EditBtn3.TabStop = false;
-            // 
-            // VehiclePicBox3
-            // 
-            this.VehiclePicBox3.BackColor = System.Drawing.Color.White;
-            this.VehiclePicBox3.Location = new System.Drawing.Point(21, 14);
-            this.VehiclePicBox3.Name = "VehiclePicBox3";
-            this.VehiclePicBox3.Size = new System.Drawing.Size(215, 123);
-            this.VehiclePicBox3.TabIndex = 10;
-            this.VehiclePicBox3.TabStop = false;
             // 
             // VehicleModel3
             // 
@@ -418,17 +304,6 @@
             this.VehicleName3.TabIndex = 6;
             this.VehicleName3.Text = "label12";
             // 
-            // Status3
-            // 
-            this.Status3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Status3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
-            this.Status3.Location = new System.Drawing.Point(167, 146);
-            this.Status3.Name = "Status3";
-            this.Status3.Size = new System.Drawing.Size(69, 16);
-            this.Status3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Status3.TabIndex = 0;
-            this.Status3.TabStop = false;
-            // 
             // guna2Panel4
             // 
             this.guna2Panel4.BackColor = System.Drawing.Color.White;
@@ -447,37 +322,6 @@
             this.guna2Panel4.Name = "guna2Panel4";
             this.guna2Panel4.Size = new System.Drawing.Size(254, 248);
             this.guna2Panel4.TabIndex = 15;
-            // 
-            // DeleteBtn4
-            // 
-            this.DeleteBtn4.BackColor = System.Drawing.Color.White;
-            this.DeleteBtn4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.DeleteBtn4.Location = new System.Drawing.Point(206, 217);
-            this.DeleteBtn4.Name = "DeleteBtn4";
-            this.DeleteBtn4.Size = new System.Drawing.Size(30, 20);
-            this.DeleteBtn4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.DeleteBtn4.TabIndex = 12;
-            this.DeleteBtn4.TabStop = false;
-            // 
-            // EditBtn4
-            // 
-            this.EditBtn4.BackColor = System.Drawing.Color.White;
-            this.EditBtn4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.EditBtn4.Location = new System.Drawing.Point(170, 217);
-            this.EditBtn4.Name = "EditBtn4";
-            this.EditBtn4.Size = new System.Drawing.Size(30, 20);
-            this.EditBtn4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.EditBtn4.TabIndex = 11;
-            this.EditBtn4.TabStop = false;
-            // 
-            // VehiclePicBox4
-            // 
-            this.VehiclePicBox4.BackColor = System.Drawing.Color.White;
-            this.VehiclePicBox4.Location = new System.Drawing.Point(21, 14);
-            this.VehiclePicBox4.Name = "VehiclePicBox4";
-            this.VehiclePicBox4.Size = new System.Drawing.Size(215, 123);
-            this.VehiclePicBox4.TabIndex = 10;
-            this.VehiclePicBox4.TabStop = false;
             // 
             // VehicleModel4
             // 
@@ -524,17 +368,6 @@
             this.VehicleName4.TabIndex = 6;
             this.VehicleName4.Text = "label16";
             // 
-            // Status4
-            // 
-            this.Status4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Status4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
-            this.Status4.Location = new System.Drawing.Point(167, 146);
-            this.Status4.Name = "Status4";
-            this.Status4.Size = new System.Drawing.Size(69, 16);
-            this.Status4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Status4.TabIndex = 0;
-            this.Status4.TabStop = false;
-            // 
             // guna2Panel5
             // 
             this.guna2Panel5.BackColor = System.Drawing.Color.White;
@@ -553,37 +386,6 @@
             this.guna2Panel5.Name = "guna2Panel5";
             this.guna2Panel5.Size = new System.Drawing.Size(254, 248);
             this.guna2Panel5.TabIndex = 16;
-            // 
-            // DeleteBtn5
-            // 
-            this.DeleteBtn5.BackColor = System.Drawing.Color.White;
-            this.DeleteBtn5.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.DeleteBtn5.Location = new System.Drawing.Point(206, 217);
-            this.DeleteBtn5.Name = "DeleteBtn5";
-            this.DeleteBtn5.Size = new System.Drawing.Size(30, 20);
-            this.DeleteBtn5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.DeleteBtn5.TabIndex = 12;
-            this.DeleteBtn5.TabStop = false;
-            // 
-            // EditBtn5
-            // 
-            this.EditBtn5.BackColor = System.Drawing.Color.White;
-            this.EditBtn5.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.EditBtn5.Location = new System.Drawing.Point(170, 217);
-            this.EditBtn5.Name = "EditBtn5";
-            this.EditBtn5.Size = new System.Drawing.Size(30, 20);
-            this.EditBtn5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.EditBtn5.TabIndex = 11;
-            this.EditBtn5.TabStop = false;
-            // 
-            // VehiclePicBox5
-            // 
-            this.VehiclePicBox5.BackColor = System.Drawing.Color.White;
-            this.VehiclePicBox5.Location = new System.Drawing.Point(21, 14);
-            this.VehiclePicBox5.Name = "VehiclePicBox5";
-            this.VehiclePicBox5.Size = new System.Drawing.Size(215, 123);
-            this.VehiclePicBox5.TabIndex = 10;
-            this.VehiclePicBox5.TabStop = false;
             // 
             // VehicleModel5
             // 
@@ -629,17 +431,6 @@
             this.VehicleName5.TabIndex = 6;
             this.VehicleName5.Text = "label20";
             // 
-            // Status5
-            // 
-            this.Status5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Status5.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
-            this.Status5.Location = new System.Drawing.Point(167, 146);
-            this.Status5.Name = "Status5";
-            this.Status5.Size = new System.Drawing.Size(69, 16);
-            this.Status5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.Status5.TabIndex = 0;
-            this.Status5.TabStop = false;
-            // 
             // guna2Panel6
             // 
             this.guna2Panel6.BackColor = System.Drawing.Color.White;
@@ -658,37 +449,6 @@
             this.guna2Panel6.Name = "guna2Panel6";
             this.guna2Panel6.Size = new System.Drawing.Size(254, 248);
             this.guna2Panel6.TabIndex = 17;
-            // 
-            // DeleteBtn6
-            // 
-            this.DeleteBtn6.BackColor = System.Drawing.Color.White;
-            this.DeleteBtn6.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
-            this.DeleteBtn6.Location = new System.Drawing.Point(206, 217);
-            this.DeleteBtn6.Name = "DeleteBtn6";
-            this.DeleteBtn6.Size = new System.Drawing.Size(30, 20);
-            this.DeleteBtn6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.DeleteBtn6.TabIndex = 12;
-            this.DeleteBtn6.TabStop = false;
-            // 
-            // EditBtn6
-            // 
-            this.EditBtn6.BackColor = System.Drawing.Color.White;
-            this.EditBtn6.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.EditBtn6.Location = new System.Drawing.Point(170, 217);
-            this.EditBtn6.Name = "EditBtn6";
-            this.EditBtn6.Size = new System.Drawing.Size(30, 20);
-            this.EditBtn6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.EditBtn6.TabIndex = 11;
-            this.EditBtn6.TabStop = false;
-            // 
-            // VehiclePicBox6
-            // 
-            this.VehiclePicBox6.BackColor = System.Drawing.Color.White;
-            this.VehiclePicBox6.Location = new System.Drawing.Point(21, 14);
-            this.VehiclePicBox6.Name = "VehiclePicBox6";
-            this.VehiclePicBox6.Size = new System.Drawing.Size(215, 123);
-            this.VehiclePicBox6.TabIndex = 10;
-            this.VehiclePicBox6.TabStop = false;
             // 
             // VehicleModel6
             // 
@@ -734,16 +494,262 @@
             this.VehicleName6.TabIndex = 6;
             this.VehicleName6.Text = "label24";
             // 
+            // DeleteBtn6
+            // 
+            this.DeleteBtn6.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn6.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn6.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn6.Name = "DeleteBtn6";
+            this.DeleteBtn6.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn6.TabIndex = 12;
+            this.DeleteBtn6.TabStop = false;
+            // 
+            // EditBtn6
+            // 
+            this.EditBtn6.BackColor = System.Drawing.Color.White;
+            this.EditBtn6.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn6.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn6.Name = "EditBtn6";
+            this.EditBtn6.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn6.TabIndex = 11;
+            this.EditBtn6.TabStop = false;
+            // 
+            // VehiclePicBox6
+            // 
+            this.VehiclePicBox6.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox6.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox6.Name = "VehiclePicBox6";
+            this.VehiclePicBox6.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox6.TabIndex = 10;
+            this.VehiclePicBox6.TabStop = false;
+            // 
             // Status6
             // 
+            this.Status6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Status6.BackgroundImage")));
             this.Status6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Status6.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.OutOfServiceStatus;
+            this.Status6.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Employees_2;
             this.Status6.Location = new System.Drawing.Point(167, 146);
             this.Status6.Name = "Status6";
             this.Status6.Size = new System.Drawing.Size(69, 16);
             this.Status6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Status6.TabIndex = 0;
             this.Status6.TabStop = false;
+            // 
+            // DeleteBtn5
+            // 
+            this.DeleteBtn5.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn5.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn5.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn5.Name = "DeleteBtn5";
+            this.DeleteBtn5.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn5.TabIndex = 12;
+            this.DeleteBtn5.TabStop = false;
+            // 
+            // EditBtn5
+            // 
+            this.EditBtn5.BackColor = System.Drawing.Color.White;
+            this.EditBtn5.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn5.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn5.Name = "EditBtn5";
+            this.EditBtn5.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn5.TabIndex = 11;
+            this.EditBtn5.TabStop = false;
+            // 
+            // VehiclePicBox5
+            // 
+            this.VehiclePicBox5.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox5.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox5.Name = "VehiclePicBox5";
+            this.VehiclePicBox5.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox5.TabIndex = 10;
+            this.VehiclePicBox5.TabStop = false;
+            // 
+            // Status5
+            // 
+            this.Status5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Status5.BackgroundImage")));
+            this.Status5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Status5.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Inactive;
+            this.Status5.Location = new System.Drawing.Point(167, 146);
+            this.Status5.Name = "Status5";
+            this.Status5.Size = new System.Drawing.Size(69, 16);
+            this.Status5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Status5.TabIndex = 0;
+            this.Status5.TabStop = false;
+            // 
+            // DeleteBtn4
+            // 
+            this.DeleteBtn4.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn4.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn4.Name = "DeleteBtn4";
+            this.DeleteBtn4.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn4.TabIndex = 12;
+            this.DeleteBtn4.TabStop = false;
+            // 
+            // EditBtn4
+            // 
+            this.EditBtn4.BackColor = System.Drawing.Color.White;
+            this.EditBtn4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn4.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn4.Name = "EditBtn4";
+            this.EditBtn4.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn4.TabIndex = 11;
+            this.EditBtn4.TabStop = false;
+            // 
+            // VehiclePicBox4
+            // 
+            this.VehiclePicBox4.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox4.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox4.Name = "VehiclePicBox4";
+            this.VehiclePicBox4.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox4.TabIndex = 10;
+            this.VehiclePicBox4.TabStop = false;
+            // 
+            // Status4
+            // 
+            this.Status4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Status4.BackgroundImage")));
+            this.Status4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Status4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Inactive;
+            this.Status4.Location = new System.Drawing.Point(167, 146);
+            this.Status4.Name = "Status4";
+            this.Status4.Size = new System.Drawing.Size(69, 16);
+            this.Status4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Status4.TabIndex = 0;
+            this.Status4.TabStop = false;
+            // 
+            // DeleteBtn3
+            // 
+            this.DeleteBtn3.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn3.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn3.Name = "DeleteBtn3";
+            this.DeleteBtn3.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn3.TabIndex = 12;
+            this.DeleteBtn3.TabStop = false;
+            // 
+            // EditBtn3
+            // 
+            this.EditBtn3.BackColor = System.Drawing.Color.White;
+            this.EditBtn3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn3.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn3.Name = "EditBtn3";
+            this.EditBtn3.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn3.TabIndex = 11;
+            this.EditBtn3.TabStop = false;
+            // 
+            // VehiclePicBox3
+            // 
+            this.VehiclePicBox3.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox3.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox3.Name = "VehiclePicBox3";
+            this.VehiclePicBox3.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox3.TabIndex = 10;
+            this.VehiclePicBox3.TabStop = false;
+            // 
+            // Status3
+            // 
+            this.Status3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Status3.BackgroundImage")));
+            this.Status3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Status3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Inactive;
+            this.Status3.Location = new System.Drawing.Point(167, 146);
+            this.Status3.Name = "Status3";
+            this.Status3.Size = new System.Drawing.Size(69, 16);
+            this.Status3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Status3.TabIndex = 0;
+            this.Status3.TabStop = false;
+            // 
+            // DeleteBtn2
+            // 
+            this.DeleteBtn2.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn2.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn2.Name = "DeleteBtn2";
+            this.DeleteBtn2.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn2.TabIndex = 12;
+            this.DeleteBtn2.TabStop = false;
+            // 
+            // EditBtn2
+            // 
+            this.EditBtn2.BackColor = System.Drawing.Color.White;
+            this.EditBtn2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn2.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn2.Name = "EditBtn2";
+            this.EditBtn2.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn2.TabIndex = 11;
+            this.EditBtn2.TabStop = false;
+            // 
+            // VehiclePicBox2
+            // 
+            this.VehiclePicBox2.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox2.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox2.Name = "VehiclePicBox2";
+            this.VehiclePicBox2.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox2.TabIndex = 10;
+            this.VehiclePicBox2.TabStop = false;
+            // 
+            // Status2
+            // 
+            this.Status2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Status2.BackgroundImage")));
+            this.Status2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Status2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Inactive;
+            this.Status2.Location = new System.Drawing.Point(167, 146);
+            this.Status2.Name = "Status2";
+            this.Status2.Size = new System.Drawing.Size(69, 16);
+            this.Status2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Status2.TabIndex = 0;
+            this.Status2.TabStop = false;
+            // 
+            // DeleteBtn1
+            // 
+            this.DeleteBtn1.BackColor = System.Drawing.Color.White;
+            this.DeleteBtn1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.trash;
+            this.DeleteBtn1.Location = new System.Drawing.Point(206, 217);
+            this.DeleteBtn1.Name = "DeleteBtn1";
+            this.DeleteBtn1.Size = new System.Drawing.Size(30, 20);
+            this.DeleteBtn1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.DeleteBtn1.TabIndex = 12;
+            this.DeleteBtn1.TabStop = false;
+            // 
+            // EditBtn1
+            // 
+            this.EditBtn1.BackColor = System.Drawing.Color.White;
+            this.EditBtn1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditBtn1.Location = new System.Drawing.Point(170, 217);
+            this.EditBtn1.Name = "EditBtn1";
+            this.EditBtn1.Size = new System.Drawing.Size(30, 20);
+            this.EditBtn1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.EditBtn1.TabIndex = 11;
+            this.EditBtn1.TabStop = false;
+            // 
+            // VehiclePicBox1
+            // 
+            this.VehiclePicBox1.BackColor = System.Drawing.Color.White;
+            this.VehiclePicBox1.Location = new System.Drawing.Point(21, 14);
+            this.VehiclePicBox1.Name = "VehiclePicBox1";
+            this.VehiclePicBox1.Size = new System.Drawing.Size(215, 123);
+            this.VehiclePicBox1.TabIndex = 10;
+            this.VehiclePicBox1.TabStop = false;
+            // 
+            // Status1
+            // 
+            this.Status1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Status1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Inactive;
+            this.Status1.Location = new System.Drawing.Point(167, 146);
+            this.Status1.Name = "Status1";
+            this.Status1.Size = new System.Drawing.Size(69, 16);
+            this.Status1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.Status1.TabIndex = 0;
+            this.Status1.TabStop = false;
             // 
             // VehiclesInfoBox
             // 
@@ -760,42 +766,42 @@
             this.ForeColor = System.Drawing.Color.LawnGreen;
             this.Name = "VehiclesInfoBox";
             this.Size = new System.Drawing.Size(801, 525);
-            ((System.ComponentModel.ISupportInitialize)(this.Status1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditBtn1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn1)).EndInit();
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
             this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditBtn2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Status2)).EndInit();
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditBtn3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Status3)).EndInit();
             this.guna2Panel4.ResumeLayout(false);
             this.guna2Panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditBtn4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Status4)).EndInit();
             this.guna2Panel5.ResumeLayout(false);
             this.guna2Panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EditBtn5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Status5)).EndInit();
             this.guna2Panel6.ResumeLayout(false);
             this.guna2Panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.EditBtn6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Status6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DeleteBtn1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditBtn1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.VehiclePicBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Status1)).EndInit();
             this.ResumeLayout(false);
 
         }

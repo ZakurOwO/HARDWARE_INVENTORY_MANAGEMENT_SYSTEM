@@ -32,11 +32,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvSupplier = new System.Windows.Forms.DataGridView();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CompanyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Contact = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastDeliveryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Actions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSupplier)).BeginInit();
             this.SuspendLayout();
@@ -57,11 +57,11 @@
             this.dgvSupplier.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvSupplier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSupplier.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Status,
             this.CompanyName,
             this.Contact,
             this.Location,
             this.LastDeliveryDate,
-            this.Status,
             this.Actions});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -88,6 +88,12 @@
             this.dgvSupplier.TabIndex = 2;
             this.dgvSupplier.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDeliveries_CellContentClick);
             // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.Width = 145;
+            // 
             // CompanyName
             // 
             this.CompanyName.HeaderText = "Company Name";
@@ -112,12 +118,6 @@
             this.LastDeliveryDate.Name = "LastDeliveryDate";
             this.LastDeliveryDate.Width = 145;
             // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            this.Status.Width = 145;
-            // 
             // Actions
             // 
             this.Actions.HeaderText = "Actions";
@@ -141,11 +141,11 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvSupplier;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn CompanyName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Contact;
         private System.Windows.Forms.DataGridViewTextBoxColumn Location;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastDeliveryDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn Actions;
     }
 }

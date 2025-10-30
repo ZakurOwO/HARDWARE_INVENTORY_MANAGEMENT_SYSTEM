@@ -363,6 +363,36 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Employees {
+            get {
+                object obj = ResourceManager.GetObject("Employees", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Employees_1 {
+            get {
+                object obj = ResourceManager.GetObject("Employees-1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Employees_2 {
+            get {
+                object obj = ResourceManager.GetObject("Employees-2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Enable {
             get {
                 object obj = ResourceManager.GetObject("Enable", resourceCulture);
@@ -416,6 +446,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap HistoryIcon {
             get {
                 object obj = ResourceManager.GetObject("HistoryIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Inactive {
+            get {
+                object obj = ResourceManager.GetObject("Inactive", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
