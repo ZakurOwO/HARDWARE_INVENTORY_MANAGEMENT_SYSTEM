@@ -16,5 +16,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         {
             InitializeComponent();
         }
+
+        private void deliveriesSlideButtons2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

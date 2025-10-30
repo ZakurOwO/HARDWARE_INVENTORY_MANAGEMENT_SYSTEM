@@ -10,19 +10,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         public DeliveriesSlideButtons()
         {
             InitializeComponent();
-            
+
         }
+       
 
         private void BTNVehicles_Click(object sender, EventArgs e)
         {
             SetActiveButton(BTNVehicles);
             SetInactiveButton(BTNDeliveries);
+
+            
+            
         }
 
         private void BTNDeliveries_Click(object sender, EventArgs e)
         {
             SetActiveButton(BTNDeliveries);
             SetInactiveButton(BTNVehicles);
+
+           
+
         }
 
         private void SetActiveButton(KryptonButton button)
@@ -53,5 +60,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         {
             SetActiveButton(BTNVehicles);
         }
+        
     }
 }
