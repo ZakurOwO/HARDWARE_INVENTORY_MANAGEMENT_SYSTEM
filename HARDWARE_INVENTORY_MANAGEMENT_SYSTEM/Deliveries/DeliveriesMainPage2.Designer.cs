@@ -30,7 +30,7 @@
         {
             this.deliveriesTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.DeliveriesTable();
             this.deliveriesTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.DeliveriesTopBar();
-            this.deliveriesSlideButtons1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.DeliveriesSlideButtons();
+            this.deliveriesSlideButtons2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.DeliveriesSlideButtons();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.deliveriesTables1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.DeliveriesTables();
             this.SuspendLayout();
@@ -51,14 +51,14 @@
             this.deliveriesTopBar1.Size = new System.Drawing.Size(965, 60);
             this.deliveriesTopBar1.TabIndex = 8;
             // 
-            // deliveriesSlideButtons1
+            // deliveriesSlideButtons2
             // 
-            this.deliveriesSlideButtons1.BackColor = System.Drawing.Color.White;
-            this.deliveriesSlideButtons1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.deliveriesSlideButtons1.Location = new System.Drawing.Point(362, 84);
-            this.deliveriesSlideButtons1.Name = "deliveriesSlideButtons1";
-            this.deliveriesSlideButtons1.Size = new System.Drawing.Size(267, 37);
-            this.deliveriesSlideButtons1.TabIndex = 13;
+            this.deliveriesSlideButtons2.BackColor = System.Drawing.Color.White;
+            this.deliveriesSlideButtons2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.deliveriesSlideButtons2.Location = new System.Drawing.Point(362, 84);
+            this.deliveriesSlideButtons2.Name = "deliveriesSlideButtons2";
+            this.deliveriesSlideButtons2.Size = new System.Drawing.Size(267, 37);
+            this.deliveriesSlideButtons2.TabIndex = 13;
             // 
             // searchField1
             // 
@@ -81,7 +81,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.deliveriesTables1);
-            this.Controls.Add(this.deliveriesSlideButtons1);
+            this.Controls.Add(this.deliveriesSlideButtons2);
             this.Controls.Add(this.searchField1);
             this.Controls.Add(this.deliveriesTopBar1);
             this.Controls.Add(this.deliveriesTable1);
@@ -95,7 +95,7 @@
 
         private DeliveriesTable deliveriesTable1;
         private DeliveriesTopBar deliveriesTopBar1;
-        private DeliveriesSlideButtons deliveriesSlideButtons1;
+        private DeliveriesSlideButtons deliveriesSlideButtons2;
         private Accounts_Module.SearchField searchField1;
         private DeliveriesTables deliveriesTables1;
     }
