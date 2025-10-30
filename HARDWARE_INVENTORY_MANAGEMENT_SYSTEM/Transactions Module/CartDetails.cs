@@ -50,5 +50,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         {
             SelectTab(btnDelivery);
         }
+
+        private void dgvCartDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+
+            
+
+           
+        }
     }
 }
