@@ -247,6 +247,42 @@
     <Compile Include="History Module\UpperPanels.Designer.cs">
       <DependentUpon>UpperPanels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inventory Module\Add_ItemButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Inventory Module\Add_ItemButton.Designer.cs">
+      <DependentUpon>Add_ItemButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory Module\InventoryFilter_Button.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Inventory Module\InventoryFilter_Button.Designer.cs">
+      <DependentUpon>InventoryFilter_Button.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory Module\InventoryList_Panel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Inventory Module\InventoryList_Panel.Designer.cs">
+      <DependentUpon>InventoryList_Panel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory Module\InventoryMainPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Inventory Module\InventoryMainPage.Designer.cs">
+      <DependentUpon>InventoryMainPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory Module\InventoryTopBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Inventory Module\InventoryTopBar.Designer.cs">
+      <DependentUpon>InventoryTopBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory Module\Inventory_SearchField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Inventory Module\Inventory_SearchField.Designer.cs">
+      <DependentUpon>Inventory_SearchField.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainDashBoard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -530,6 +566,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="History Module\UpperPanels.resx">
       <DependentUpon>UpperPanels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory Module\Add_ItemButton.resx">
+      <DependentUpon>Add_ItemButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory Module\InventoryFilter_Button.resx">
+      <DependentUpon>InventoryFilter_Button.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory Module\InventoryList_Panel.resx">
+      <DependentUpon>InventoryList_Panel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory Module\InventoryMainPage.resx">
+      <DependentUpon>InventoryMainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory Module\InventoryTopBar.resx">
+      <DependentUpon>InventoryTopBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory Module\Inventory_SearchField.resx">
+      <DependentUpon>Inventory_SearchField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainDashBoard.resx">
       <DependentUpon>MainDashBoard.cs</DependentUpon>
@@ -911,6 +965,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\History %281%291.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Inventory main.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Vector.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -29,11 +29,12 @@
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.pagination1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Pagination();
             this.products1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Products();
             this.transactionsFilterButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.TransactionsFilterButton();
             this.transactionsSearchBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.TransactionsSearchBar();
             this.transactionsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.TransactionsTopBar();
-            this.pagination1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Pagination();
+            this.cartDetails1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.CartDetails();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,8 +50,15 @@
             this.guna2Panel1.Controls.Add(this.transactionsSearchBar1);
             this.guna2Panel1.Location = new System.Drawing.Point(8, 64);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(630, 590);
+            this.guna2Panel1.Size = new System.Drawing.Size(630, 624);
             this.guna2Panel1.TabIndex = 1;
+            // 
+            // pagination1
+            // 
+            this.pagination1.Location = new System.Drawing.Point(7, 554);
+            this.pagination1.Name = "pagination1";
+            this.pagination1.Size = new System.Drawing.Size(615, 58);
+            this.pagination1.TabIndex = 3;
             // 
             // products1
             // 
@@ -85,22 +93,24 @@
             this.transactionsTopBar1.Size = new System.Drawing.Size(960, 60);
             this.transactionsTopBar1.TabIndex = 0;
             // 
-            // pagination1
+            // cartDetails1
             // 
-            this.pagination1.Location = new System.Drawing.Point(7, 530);
-            this.pagination1.Name = "pagination1";
-            this.pagination1.Size = new System.Drawing.Size(615, 58);
-            this.pagination1.TabIndex = 3;
+            this.cartDetails1.BackColor = System.Drawing.Color.Transparent;
+            this.cartDetails1.Location = new System.Drawing.Point(652, 64);
+            this.cartDetails1.Name = "cartDetails1";
+            this.cartDetails1.Size = new System.Drawing.Size(295, 624);
+            this.cartDetails1.TabIndex = 2;
             // 
             // TransactionsMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.Controls.Add(this.cartDetails1);
             this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.transactionsTopBar1);
             this.Name = "TransactionsMainPage";
-            this.Size = new System.Drawing.Size(960, 680);
+            this.Size = new System.Drawing.Size(960, 720);
             this.guna2Panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -114,5 +124,6 @@
         private TransactionsSearchBar transactionsSearchBar1;
         private Products products1;
         private Pagination pagination1;
+        private CartDetails cartDetails1;
     }
 }

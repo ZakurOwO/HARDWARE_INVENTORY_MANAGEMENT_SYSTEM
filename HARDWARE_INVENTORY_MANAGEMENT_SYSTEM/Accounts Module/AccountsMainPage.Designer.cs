@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.accountsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.AccountsTopBar();
-            this.addNewUserButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.AddNewUserButton();
-            this.userAccountsPanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.UserAccountsPanel();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
+            this.userAccountsPanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.UserAccountsPanel();
+            this.addNewUserButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.AddNewUserButton();
+            this.accountsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.AccountsTopBar();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,8 +50,33 @@
             this.guna2Panel1.Controls.Add(this.addNewUserButton1);
             this.guna2Panel1.Location = new System.Drawing.Point(19, 73);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(915, 580);
+            this.guna2Panel1.Size = new System.Drawing.Size(915, 620);
             this.guna2Panel1.TabIndex = 0;
+            // 
+            // searchField1
+            // 
+            this.searchField1.BackColor = System.Drawing.Color.Transparent;
+            this.searchField1.Location = new System.Drawing.Point(27, 23);
+            this.searchField1.Name = "searchField1";
+            this.searchField1.Size = new System.Drawing.Size(299, 54);
+            this.searchField1.TabIndex = 3;
+            // 
+            // userAccountsPanel1
+            // 
+            this.userAccountsPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.userAccountsPanel1.Location = new System.Drawing.Point(26, 84);
+            this.userAccountsPanel1.Name = "userAccountsPanel1";
+            this.userAccountsPanel1.Size = new System.Drawing.Size(590, 128);
+            this.userAccountsPanel1.TabIndex = 2;
+            // 
+            // addNewUserButton1
+            // 
+            this.addNewUserButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.addNewUserButton1.BackColor = System.Drawing.Color.Transparent;
+            this.addNewUserButton1.Location = new System.Drawing.Point(749, 23);
+            this.addNewUserButton1.Name = "addNewUserButton1";
+            this.addNewUserButton1.Size = new System.Drawing.Size(147, 47);
+            this.addNewUserButton1.TabIndex = 1;
             // 
             // accountsTopBar1
             // 
@@ -63,31 +88,6 @@
             this.accountsTopBar1.Size = new System.Drawing.Size(960, 69);
             this.accountsTopBar1.TabIndex = 0;
             // 
-            // addNewUserButton1
-            // 
-            this.addNewUserButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addNewUserButton1.BackColor = System.Drawing.Color.Transparent;
-            this.addNewUserButton1.Location = new System.Drawing.Point(749, 23);
-            this.addNewUserButton1.Name = "addNewUserButton1";
-            this.addNewUserButton1.Size = new System.Drawing.Size(147, 47);
-            this.addNewUserButton1.TabIndex = 1;
-            // 
-            // userAccountsPanel1
-            // 
-            this.userAccountsPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.userAccountsPanel1.Location = new System.Drawing.Point(26, 84);
-            this.userAccountsPanel1.Name = "userAccountsPanel1";
-            this.userAccountsPanel1.Size = new System.Drawing.Size(590, 128);
-            this.userAccountsPanel1.TabIndex = 2;
-            // 
-            // searchField1
-            // 
-            this.searchField1.BackColor = System.Drawing.Color.Transparent;
-            this.searchField1.Location = new System.Drawing.Point(27, 23);
-            this.searchField1.Name = "searchField1";
-            this.searchField1.Size = new System.Drawing.Size(299, 54);
-            this.searchField1.TabIndex = 3;
-            // 
             // AccountsMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -96,7 +96,7 @@
             this.Controls.Add(this.guna2Panel1);
             this.Controls.Add(this.accountsTopBar1);
             this.Name = "AccountsMainPage";
-            this.Size = new System.Drawing.Size(960, 680);
+            this.Size = new System.Drawing.Size(960, 720);
             this.guna2Panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
