@@ -16,6 +16,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module
                 return;
 
             Load += DatGridTableHistory_Load;
+
         }
 
         private void DatGridTableHistory_Load(object sender, EventArgs e)

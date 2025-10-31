@@ -41,7 +41,6 @@
             this.CheckBoxToggle = new System.Windows.Forms.PictureBox();
             this.pictureBoxEye = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.datGridTableHistory1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module.DatGridTableHistory();
             Email = new Krypton.Toolkit.KryptonRichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CheckBoxToggle)).BeginInit();
@@ -238,15 +237,6 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // datGridTableHistory1
-            // 
-            this.datGridTableHistory1.BackColor = System.Drawing.Color.White;
-            this.datGridTableHistory1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.datGridTableHistory1.Location = new System.Drawing.Point(179, 80);
-            this.datGridTableHistory1.Name = "datGridTableHistory1";
-            this.datGridTableHistory1.Size = new System.Drawing.Size(749, 285);
-            this.datGridTableHistory1.TabIndex = 15;
-            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -254,7 +244,6 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1194, 711);
-            this.Controls.Add(this.datGridTableHistory1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -296,7 +285,6 @@
         private Guna.UI2.WinForms.Guna2Shapes guna2Shapes1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label5;
-        private History_Module.DatGridTableHistory datGridTableHistory1;
     }
 }
 
