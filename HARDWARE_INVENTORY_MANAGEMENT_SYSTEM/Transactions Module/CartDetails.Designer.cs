@@ -30,9 +30,10 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.btnDelivery = new Guna.UI2.WinForms.Guna2Button();
             this.btnWalkIn = new Guna.UI2.WinForms.Guna2Button();
@@ -46,21 +47,23 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2Panel1.SuspendLayout();
+            this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
+            this.walkinOrDeliveryButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.WalkinOrDeliveryButton();
+            this.panelContainer = new System.Windows.Forms.Panel();
             this.guna2Panel2.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCartDetails)).BeginInit();
+            this.guna2Panel4.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panelContainer
+            // guna2Panel1
             // 
-            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelContainer.Location = new System.Drawing.Point(0, 64);
-            this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(295, 560);
-            this.panelContainer.TabIndex = 1;
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(200, 100);
+            this.guna2Panel1.TabIndex = 0;
             // 
-            // walkinOrDeliveryButton1
+            // btnDelivery
             // 
             this.btnDelivery.BorderRadius = 3;
             this.btnDelivery.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
@@ -76,7 +79,6 @@
             this.btnDelivery.Size = new System.Drawing.Size(95, 28);
             this.btnDelivery.TabIndex = 4;
             this.btnDelivery.Text = "Delivery";
-            this.btnDelivery.Click += new System.EventHandler(this.btnDelivery_Click);
             // 
             // btnWalkIn
             // 
@@ -94,7 +96,6 @@
             this.btnWalkIn.Size = new System.Drawing.Size(95, 28);
             this.btnWalkIn.TabIndex = 3;
             this.btnWalkIn.Text = "Walk-In";
-            this.btnWalkIn.Click += new System.EventHandler(this.btnWalkIn_Click);
             // 
             // guna2Panel2
             // 
@@ -139,36 +140,29 @@
             this.Quantity,
             this.Price,
             this.Delete});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCartDetails.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCartDetails.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvCartDetails.Location = new System.Drawing.Point(1, 40);
             this.dgvCartDetails.Name = "dgvCartDetails";
             this.dgvCartDetails.ReadOnly = true;
             this.dgvCartDetails.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCartDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvCartDetails.RowHeadersVisible = false;
-            this.dgvCartDetails.RowHeadersWidth = 10;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCartDetails.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvCartDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvCartDetails.RowHeadersVisible = false;
+            this.dgvCartDetails.RowHeadersWidth = 10;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCartDetails.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCartDetails.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.dgvCartDetails.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvCartDetails.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -202,22 +196,36 @@
             this.dgvCartDetails.ThemeStyle.RowsStyle.Height = 40;
             this.dgvCartDetails.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvCartDetails.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgvCartDetails.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCartDetails_CellContentClick);
             // 
             // ItemName
             // 
+            this.ItemName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ItemName.DefaultCellStyle = dataGridViewCellStyle3;
             this.ItemName.FillWeight = 173.2845F;
+            this.ItemName.Frozen = true;
             this.ItemName.HeaderText = "Items Name";
             this.ItemName.Name = "ItemName";
             this.ItemName.ReadOnly = true;
+            this.ItemName.Width = 127;
             // 
             // Quantity
             // 
+            this.Quantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Quantity.DefaultCellStyle = dataGridViewCellStyle4;
             this.Quantity.FillWeight = 81.00632F;
             this.Quantity.HeaderText = "QTY";
             this.Quantity.Name = "Quantity";
             this.Quantity.ReadOnly = true;
             this.Quantity.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Quantity.Width = 60;
             // 
             // Price
             // 
@@ -275,55 +283,52 @@
             this.guna2TextBox1.Size = new System.Drawing.Size(228, 35);
             this.guna2TextBox1.TabIndex = 2;
             // 
-            // ItemName
+            // guna2Panel4
             // 
-            this.ItemName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ItemName.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ItemName.FillWeight = 173.2845F;
-            this.ItemName.Frozen = true;
-            this.ItemName.HeaderText = "Items Name";
-            this.ItemName.Name = "ItemName";
-            this.ItemName.ReadOnly = true;
-            this.ItemName.Width = 127;
+            this.guna2Panel4.BackColor = System.Drawing.Color.White;
+            this.guna2Panel4.BorderColor = System.Drawing.Color.Silver;
+            this.guna2Panel4.BorderRadius = 15;
+            this.guna2Panel4.BorderThickness = 1;
+            this.guna2Panel4.Controls.Add(this.panelContainer);
+            this.guna2Panel4.Controls.Add(this.walkinOrDeliveryButton1);
+            this.guna2Panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel4.Location = new System.Drawing.Point(0, 0);
+            this.guna2Panel4.Name = "guna2Panel4";
+            this.guna2Panel4.Size = new System.Drawing.Size(295, 624);
+            this.guna2Panel4.TabIndex = 0;
             // 
-            // Quantity
+            // walkinOrDeliveryButton1
             // 
-            this.Quantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Quantity.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Quantity.FillWeight = 81.00632F;
-            this.Quantity.HeaderText = "QTY";
-            this.Quantity.Name = "Quantity";
-            this.Quantity.ReadOnly = true;
-            this.Quantity.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Quantity.Width = 60;
+            this.walkinOrDeliveryButton1.BackColor = System.Drawing.Color.Transparent;
+            this.walkinOrDeliveryButton1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.walkinOrDeliveryButton1.Location = new System.Drawing.Point(0, 0);
+            this.walkinOrDeliveryButton1.Name = "walkinOrDeliveryButton1";
+            this.walkinOrDeliveryButton1.Size = new System.Drawing.Size(295, 60);
+            this.walkinOrDeliveryButton1.TabIndex = 0;
             // 
-            // Price
+            // panelContainer
             // 
-            this.Price.FillWeight = 84.79551F;
-            this.Price.HeaderText = "Price";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            // 
-            // Delete
-            // 
-            this.Delete.FillWeight = 60.9137F;
-            this.Delete.HeaderText = "";
-            this.Delete.Name = "Delete";
-            this.Delete.ReadOnly = true;
-            this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.panelContainer.BackColor = System.Drawing.Color.Transparent;
+            this.panelContainer.Location = new System.Drawing.Point(0, 63);
+            this.panelContainer.Name = "panelContainer";
+            this.panelContainer.Size = new System.Drawing.Size(295, 561);
+            this.panelContainer.TabIndex = 1;
             // 
             // CartDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.walkinOrDeliveryButton1);
-            this.Controls.Add(this.panelContainer);
+            this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.guna2Panel4);
             this.Name = "CartDetails";
             this.Size = new System.Drawing.Size(295, 624);
             this.Load += new System.EventHandler(this.CartDetails_Load);
+            this.guna2Panel2.ResumeLayout(false);
+            this.guna2Panel2.PerformLayout();
+            this.guna2Panel3.ResumeLayout(false);
+            this.guna2Panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCartDetails)).EndInit();
+            this.guna2Panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -343,5 +348,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
+        private System.Windows.Forms.Panel panelContainer;
+        private WalkinOrDeliveryButton walkinOrDeliveryButton1;
     }
 }

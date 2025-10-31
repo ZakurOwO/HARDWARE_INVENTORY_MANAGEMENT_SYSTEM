@@ -76,7 +76,7 @@
             // cartDetails1
             // 
             this.cartDetails1.BackColor = System.Drawing.Color.White;
-            this.cartDetails1.Location = new System.Drawing.Point(159, 57);
+            this.cartDetails1.Location = new System.Drawing.Point(196, 61);
             this.cartDetails1.Name = "cartDetails1";
             this.cartDetails1.Size = new System.Drawing.Size(295, 624);
             this.cartDetails1.TabIndex = 0;
