@@ -28,134 +28,155 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.NumberPageNext = new Krypton.Toolkit.KryptonButton();
-            this.NextPageBtn = new Krypton.Toolkit.KryptonButton();
-            this.NumberPagePrev = new Krypton.Toolkit.KryptonButton();
-            this.PrevPageBtn = new Krypton.Toolkit.KryptonButton();
-            this.kryptonButton1 = new Krypton.Toolkit.KryptonButton();
-            this.kryptonButton2 = new Krypton.Toolkit.KryptonButton();
+            this.FirstNumberBtn = new Guna.UI2.WinForms.Guna2Button();
+            this.NextBtnInHistory = new Guna.UI2.WinForms.Guna2Button();
+            this.FourthNumberBtn = new Guna.UI2.WinForms.Guna2Button();
+            this.ThirdNumberBtn = new Guna.UI2.WinForms.Guna2Button();
+            this.SecondNumberBtn = new Guna.UI2.WinForms.Guna2Button();
+            this.PrevBtnInHistory = new Guna.UI2.WinForms.Guna2Button();
             this.SuspendLayout();
             // 
-            // NumberPageNext
+            // FirstNumberBtn
             // 
-            this.NumberPageNext.Location = new System.Drawing.Point(811, 616);
-            this.NumberPageNext.Name = "NumberPageNext";
-            this.NumberPageNext.Size = new System.Drawing.Size(25, 15);
-            this.NumberPageNext.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
-            this.NumberPageNext.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
-            this.NumberPageNext.StateCommon.Border.Color1 = System.Drawing.Color.Transparent;
-            this.NumberPageNext.StateCommon.Border.Color2 = System.Drawing.Color.Transparent;
-            this.NumberPageNext.StateCommon.Border.Rounding = 3F;
-            this.NumberPageNext.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-2, -1, -1, 7);
-            this.NumberPageNext.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumberPageNext.TabIndex = 8;
-            this.NumberPageNext.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.NumberPageNext.Values.Text = "2";
+            this.FirstNumberBtn.BackColor = System.Drawing.Color.White;
+            this.FirstNumberBtn.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.FirstNumberBtn.BorderRadius = 5;
+            this.FirstNumberBtn.BorderThickness = 1;
+            this.FirstNumberBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.FirstNumberBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.FirstNumberBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.FirstNumberBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.FirstNumberBtn.FillColor = System.Drawing.Color.Transparent;
+            this.FirstNumberBtn.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FirstNumberBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
+            this.FirstNumberBtn.Location = new System.Drawing.Point(28, 0);
+            this.FirstNumberBtn.Name = "FirstNumberBtn";
+            this.FirstNumberBtn.Size = new System.Drawing.Size(29, 29);
+            this.FirstNumberBtn.TabIndex = 12;
+            this.FirstNumberBtn.Text = "1";
             // 
-            // NextPageBtn
+            // NextBtnInHistory
             // 
-            this.NextPageBtn.Location = new System.Drawing.Point(910, 616);
-            this.NextPageBtn.Name = "NextPageBtn";
-            this.NextPageBtn.Size = new System.Drawing.Size(25, 15);
-            this.NextPageBtn.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
-            this.NextPageBtn.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
-            this.NextPageBtn.StateCommon.Border.Color1 = System.Drawing.Color.Transparent;
-            this.NextPageBtn.StateCommon.Border.Color2 = System.Drawing.Color.Transparent;
-            this.NextPageBtn.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-1, -1, -1, 7);
-            this.NextPageBtn.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NextPageBtn.TabIndex = 7;
-            this.NextPageBtn.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.NextPageBtn.Values.Text = ">";
+            this.NextBtnInHistory.BackColor = System.Drawing.Color.White;
+            this.NextBtnInHistory.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.direction_right_01;
+            this.NextBtnInHistory.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.NextBtnInHistory.BorderColor = System.Drawing.Color.LightGray;
+            this.NextBtnInHistory.BorderRadius = 5;
+            this.NextBtnInHistory.BorderThickness = 1;
+            this.NextBtnInHistory.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.NextBtnInHistory.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.NextBtnInHistory.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.NextBtnInHistory.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.NextBtnInHistory.FillColor = System.Drawing.Color.Transparent;
+            this.NextBtnInHistory.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NextBtnInHistory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
+            this.NextBtnInHistory.Location = new System.Drawing.Point(140, 0);
+            this.NextBtnInHistory.Name = "NextBtnInHistory";
+            this.NextBtnInHistory.Size = new System.Drawing.Size(29, 29);
+            this.NextBtnInHistory.TabIndex = 10;
             // 
-            // NumberPagePrev
+            // FourthNumberBtn
             // 
-            this.NumberPagePrev.Location = new System.Drawing.Point(775, 616);
-            this.NumberPagePrev.Name = "NumberPagePrev";
-            this.NumberPagePrev.Size = new System.Drawing.Size(25, 15);
-            this.NumberPagePrev.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
-            this.NumberPagePrev.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
-            this.NumberPagePrev.StateCommon.Border.Color1 = System.Drawing.Color.DodgerBlue;
-            this.NumberPagePrev.StateCommon.Border.Color2 = System.Drawing.Color.DodgerBlue;
-            this.NumberPagePrev.StateCommon.Border.Rounding = 3F;
-            this.NumberPagePrev.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-2, -1, -1, 7);
-            this.NumberPagePrev.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NumberPagePrev.TabIndex = 6;
-            this.NumberPagePrev.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.NumberPagePrev.Values.Text = "1";
+            this.FourthNumberBtn.BackColor = System.Drawing.Color.White;
+            this.FourthNumberBtn.BorderColor = System.Drawing.Color.LightGray;
+            this.FourthNumberBtn.BorderRadius = 5;
+            this.FourthNumberBtn.BorderThickness = 1;
+            this.FourthNumberBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.FourthNumberBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.FourthNumberBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.FourthNumberBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.FourthNumberBtn.FillColor = System.Drawing.Color.Transparent;
+            this.FourthNumberBtn.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FourthNumberBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
+            this.FourthNumberBtn.Location = new System.Drawing.Point(112, 0);
+            this.FourthNumberBtn.Name = "FourthNumberBtn";
+            this.FourthNumberBtn.Size = new System.Drawing.Size(29, 29);
+            this.FourthNumberBtn.TabIndex = 9;
+            this.FourthNumberBtn.Text = "4";
             // 
-            // PrevPageBtn
+            // ThirdNumberBtn
             // 
-            this.PrevPageBtn.Location = new System.Drawing.Point(739, 616);
-            this.PrevPageBtn.Name = "PrevPageBtn";
-            this.PrevPageBtn.Size = new System.Drawing.Size(25, 15);
-            this.PrevPageBtn.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
-            this.PrevPageBtn.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
-            this.PrevPageBtn.StateCommon.Border.Color1 = System.Drawing.Color.Transparent;
-            this.PrevPageBtn.StateCommon.Border.Color2 = System.Drawing.Color.Transparent;
-            this.PrevPageBtn.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-1, -1, -1, 7);
-            this.PrevPageBtn.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PrevPageBtn.TabIndex = 5;
-            this.PrevPageBtn.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.PrevPageBtn.Values.Text = "<";
+            this.ThirdNumberBtn.BackColor = System.Drawing.Color.White;
+            this.ThirdNumberBtn.BorderColor = System.Drawing.Color.LightGray;
+            this.ThirdNumberBtn.BorderRadius = 5;
+            this.ThirdNumberBtn.BorderThickness = 1;
+            this.ThirdNumberBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.ThirdNumberBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.ThirdNumberBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.ThirdNumberBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.ThirdNumberBtn.FillColor = System.Drawing.Color.Transparent;
+            this.ThirdNumberBtn.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ThirdNumberBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
+            this.ThirdNumberBtn.Location = new System.Drawing.Point(84, 0);
+            this.ThirdNumberBtn.Name = "ThirdNumberBtn";
+            this.ThirdNumberBtn.Size = new System.Drawing.Size(29, 29);
+            this.ThirdNumberBtn.TabIndex = 8;
+            this.ThirdNumberBtn.Text = "3";
             // 
-            // kryptonButton1
+            // SecondNumberBtn
             // 
-            this.kryptonButton1.Location = new System.Drawing.Point(847, 616);
-            this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.Size = new System.Drawing.Size(25, 15);
-            this.kryptonButton1.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
-            this.kryptonButton1.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
-            this.kryptonButton1.StateCommon.Border.Color1 = System.Drawing.Color.Transparent;
-            this.kryptonButton1.StateCommon.Border.Color2 = System.Drawing.Color.Transparent;
-            this.kryptonButton1.StateCommon.Border.Rounding = 3F;
-            this.kryptonButton1.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-2, -1, -1, 7);
-            this.kryptonButton1.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonButton1.TabIndex = 9;
-            this.kryptonButton1.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.kryptonButton1.Values.Text = "3";
+            this.SecondNumberBtn.BackColor = System.Drawing.Color.White;
+            this.SecondNumberBtn.BorderColor = System.Drawing.Color.LightGray;
+            this.SecondNumberBtn.BorderRadius = 5;
+            this.SecondNumberBtn.BorderThickness = 1;
+            this.SecondNumberBtn.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.SecondNumberBtn.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.SecondNumberBtn.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.SecondNumberBtn.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.SecondNumberBtn.FillColor = System.Drawing.Color.Transparent;
+            this.SecondNumberBtn.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SecondNumberBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
+            this.SecondNumberBtn.Location = new System.Drawing.Point(56, 0);
+            this.SecondNumberBtn.Name = "SecondNumberBtn";
+            this.SecondNumberBtn.Size = new System.Drawing.Size(29, 29);
+            this.SecondNumberBtn.TabIndex = 7;
+            this.SecondNumberBtn.Text = "2";
             // 
-            // kryptonButton2
+            // PrevBtnInHistory
             // 
-            this.kryptonButton2.Location = new System.Drawing.Point(883, 616);
-            this.kryptonButton2.Name = "kryptonButton2";
-            this.kryptonButton2.Size = new System.Drawing.Size(25, 15);
-            this.kryptonButton2.StateCommon.Back.Color1 = System.Drawing.Color.Transparent;
-            this.kryptonButton2.StateCommon.Back.Color2 = System.Drawing.Color.Transparent;
-            this.kryptonButton2.StateCommon.Border.Color1 = System.Drawing.Color.Transparent;
-            this.kryptonButton2.StateCommon.Border.Color2 = System.Drawing.Color.Transparent;
-            this.kryptonButton2.StateCommon.Border.Rounding = 3F;
-            this.kryptonButton2.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-2, -1, -1, 7);
-            this.kryptonButton2.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonButton2.TabIndex = 10;
-            this.kryptonButton2.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.kryptonButton2.Values.Text = "4";
+            this.PrevBtnInHistory.BackColor = System.Drawing.Color.White;
+            this.PrevBtnInHistory.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.direction_right_2;
+            this.PrevBtnInHistory.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.PrevBtnInHistory.BorderColor = System.Drawing.Color.LightGray;
+            this.PrevBtnInHistory.BorderRadius = 5;
+            this.PrevBtnInHistory.BorderThickness = 1;
+            this.PrevBtnInHistory.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.PrevBtnInHistory.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.PrevBtnInHistory.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.PrevBtnInHistory.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.PrevBtnInHistory.FillColor = System.Drawing.Color.Transparent;
+            this.PrevBtnInHistory.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PrevBtnInHistory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
+            this.PrevBtnInHistory.Location = new System.Drawing.Point(0, 0);
+            this.PrevBtnInHistory.Name = "PrevBtnInHistory";
+            this.PrevBtnInHistory.Size = new System.Drawing.Size(29, 29);
+            this.PrevBtnInHistory.TabIndex = 11;
             // 
             // PageNumber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.History__1_;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Controls.Add(this.kryptonButton2);
-            this.Controls.Add(this.kryptonButton1);
-            this.Controls.Add(this.NumberPageNext);
-            this.Controls.Add(this.NextPageBtn);
-            this.Controls.Add(this.NumberPagePrev);
-            this.Controls.Add(this.PrevPageBtn);
+            this.Controls.Add(this.FirstNumberBtn);
+            this.Controls.Add(this.PrevBtnInHistory);
+            this.Controls.Add(this.NextBtnInHistory);
+            this.Controls.Add(this.FourthNumberBtn);
+            this.Controls.Add(this.ThirdNumberBtn);
+            this.Controls.Add(this.SecondNumberBtn);
             this.DoubleBuffered = true;
             this.Name = "PageNumber";
-            this.Size = new System.Drawing.Size(965, 680);
+            this.Size = new System.Drawing.Size(169, 29);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Krypton.Toolkit.KryptonButton NumberPageNext;
-        private Krypton.Toolkit.KryptonButton NextPageBtn;
-        private Krypton.Toolkit.KryptonButton NumberPagePrev;
-        private Krypton.Toolkit.KryptonButton PrevPageBtn;
-        private Krypton.Toolkit.KryptonButton kryptonButton1;
-        private Krypton.Toolkit.KryptonButton kryptonButton2;
+        private Guna.UI2.WinForms.Guna2Button FirstNumberBtn;
+        private Guna.UI2.WinForms.Guna2Button NextBtnInHistory;
+        private Guna.UI2.WinForms.Guna2Button ThirdNumberBtn;
+        private Guna.UI2.WinForms.Guna2Button SecondNumberBtn;
+        private Guna.UI2.WinForms.Guna2Button FourthNumberBtn;
+        private Guna.UI2.WinForms.Guna2Button PrevBtnInHistory;
     }
 }

@@ -86,44 +86,52 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvHistory.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvHistory.RowHeadersVisible = false;
-            this.dgvHistory.Size = new System.Drawing.Size(689, 285);
+            this.dgvHistory.Size = new System.Drawing.Size(789, 285);
             this.dgvHistory.TabIndex = 2;
             this.dgvHistory.VirtualMode = true;
+            this.dgvHistory.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistory_CellContentClick);
             // 
             // TransactionNumber
             // 
             this.TransactionNumber.HeaderText = "Transaction #";
             this.TransactionNumber.Name = "TransactionNumber";
+            this.TransactionNumber.Width = 110;
             // 
             // Type
             // 
             this.Type.HeaderText = "Type";
             this.Type.Name = "Type";
+            this.Type.Width = 110;
             // 
             // Date
             // 
             this.Date.HeaderText = "Date";
             this.Date.Name = "Date";
+            this.Date.Width = 110;
             // 
             // Customer
             // 
             this.Customer.HeaderText = "Customer Items";
             this.Customer.Name = "Customer";
+            this.Customer.Width = 110;
             // 
             // SupplierItems
             // 
             this.SupplierItems.HeaderText = "Supplier Items";
             this.SupplierItems.Name = "SupplierItems";
+            this.SupplierItems.Width = 110;
             // 
             // Amount
             // 
             this.Amount.HeaderText = "Amount";
             this.Amount.Name = "Amount";
+            this.Amount.Width = 110;
             // 
             // Status
             // 
             this.Status.HeaderText = "Status";
             this.Status.Name = "Status";
+            this.Status.Width = 150;
             // 
             // DatGridTableHistory
             // 
@@ -134,7 +142,7 @@
             this.Controls.Add(this.dgvHistory);
             this.DoubleBuffered = true;
             this.Name = "DatGridTableHistory";
-            this.Size = new System.Drawing.Size(689, 285);
+            this.Size = new System.Drawing.Size(788, 285);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
             this.ResumeLayout(false);
 

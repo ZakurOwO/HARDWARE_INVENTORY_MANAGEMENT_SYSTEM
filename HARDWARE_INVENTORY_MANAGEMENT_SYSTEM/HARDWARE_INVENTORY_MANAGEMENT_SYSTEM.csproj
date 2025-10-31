@@ -223,6 +223,12 @@
     <Compile Include="History Module\DatGridTableHistory.Designer.cs">
       <DependentUpon>DatGridTableHistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="History Module\HistoryMainPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="History Module\HistoryMainPage.Designer.cs">
+      <DependentUpon>HistoryMainPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="History Module\HistoryTopBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -512,6 +518,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="History Module\DatGridTableHistory.resx">
       <DependentUpon>DatGridTableHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="History Module\HistoryMainPage.resx">
+      <DependentUpon>HistoryMainPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="History Module\HistoryTopBar.resx">
       <DependentUpon>HistoryTopBar.cs</DependentUpon>
@@ -899,6 +908,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Transactions %28Delivery%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\History %281%291.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
