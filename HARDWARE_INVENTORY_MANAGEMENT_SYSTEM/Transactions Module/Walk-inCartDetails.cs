@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
-    public partial class DeliveryCartDetails : UserControl
+    public partial class Walk_inCartDetails : UserControl
     {
-        public DeliveryCartDetails()
+        
+        public Walk_inCartDetails()
         {
             InitializeComponent();
+
+        }
+
+        private void Walk_inCartDetails_Load(object sender, EventArgs e)
+        {
+            
         }
 
         

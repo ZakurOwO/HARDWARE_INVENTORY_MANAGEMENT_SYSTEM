@@ -315,6 +315,12 @@
     <Compile Include="Customer Module\Edit &amp; Delete Button.Designer.cs">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transactions Module\AddedToCartTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\AddedToCartTable.Designer.cs">
+      <DependentUpon>AddedToCartTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Transactions Module\DeliveryCartDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -386,6 +392,18 @@
     </Compile>
     <Compile Include="Transactions Module\CartDetails.Designer.cs">
       <DependentUpon>CartDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions Module\Walk-inCartDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\Walk-inCartDetails.Designer.cs">
+      <DependentUpon>Walk-inCartDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions Module\WalkinOrDeliveryButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\WalkinOrDeliveryButton.Designer.cs">
+      <DependentUpon>WalkinOrDeliveryButton.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControlFiles\SidePanel.cs">
       <SubType>UserControl</SubType>
@@ -550,6 +568,9 @@
     <EmbeddedResource Include="Customer Module\Edit &amp; Delete Button.resx">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\AddedToCartTable.resx">
+      <DependentUpon>AddedToCartTable.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\DeliveryCartDetails.resx">
       <DependentUpon>DeliveryCartDetails.cs</DependentUpon>
     </EmbeddedResource>
@@ -585,6 +606,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\CartDetails.resx">
       <DependentUpon>CartDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\Walk-inCartDetails.resx">
+      <DependentUpon>Walk-inCartDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\WalkinOrDeliveryButton.resx">
+      <DependentUpon>WalkinOrDeliveryButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\SidePanel.resx">
       <DependentUpon>SidePanel.cs</DependentUpon>

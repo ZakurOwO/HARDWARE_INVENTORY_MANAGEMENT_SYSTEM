@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Menu;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
@@ -21,9 +22,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void DeliveryComboBoxes_Load(object sender, EventArgs e)
         {
-            cbxChooseCustomer.ForeColor = Color.Gray;
-            cbxChooseCustomer.Text = "Choose Customer";
+            
         }
 
-          }
+        
+    }
 }

@@ -13,126 +13,47 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
     public partial class CartDetails : UserControl
     {
-        NumericUpDown qtyUpDown = new NumericUpDown();
+        
         public CartDetails()
         {
             InitializeComponent();
-        }
-
-        private void Walk_inCartDetails_Load(object sender, EventArgs e)
-        {
             
-            SelectTab(btnWalkIn);
-            dgvCartDetails.Rows.Add("Roofing Shingles", 1, "₱125.00");
-            dgvCartDetails.Rows.Add("Cement", 1, "₱230.00");
-            dgvCartDetails.Rows.Add("Paint", 2, "₱350.00");
-
-            dgvCartDetails.Columns["Price"].ReadOnly = true;
-
-            // Add the NumericUpDown control (initially hidden)
-
-            qtyUpDown.Minimum = 1;
-            qtyUpDown.Maximum = 1000;
-            qtyUpDown.Visible = false;
-
-            // Style
-            qtyUpDown.BorderStyle = BorderStyle.None;
-            qtyUpDown.TextAlign = HorizontalAlignment.Center;
-            qtyUpDown.Font = dgvCartDetails.DefaultCellStyle.Font;
-            qtyUpDown.BackColor = dgvCartDetails.DefaultCellStyle.BackColor;
-            qtyUpDown.ForeColor = dgvCartDetails.DefaultCellStyle.ForeColor;
-
-            // Ensure manual sizing and positioning
-            qtyUpDown.AutoSize = false;
-            dgvCartDetails.Controls.Add(qtyUpDown);
-
-            // Event handlers
-            dgvCartDetails.CellClick += dgvCartDetails_CellClick;
-            qtyUpDown.Leave += qtyUpDown_Leave;
-            qtyUpDown.ValueChanged += qtyUpDown_ValueChanged;
-
         }
 
-        private void SelectTab(Guna2Button selectedButton)
+        private void CartDetails_Load(object sender, EventArgs e)
         {
-            //reset buttons
-            btnWalkIn.FillColor = Color.White;
-            btnWalkIn.ForeColor = Color.Black;
-            btnWalkIn.Font = new Font (btnWalkIn.Font, FontStyle.Regular);
+            walkinOrDeliveryButton1.ShowWalkIn += WalkinOrDeliveryButton_ShowWalkIn;
+            walkinOrDeliveryButton1.ShowDelivery += WalkinOrDeliveryButton_ShowDelivery;
 
-            btnDelivery.FillColor = Color.White;
-            btnDelivery.ForeColor = Color.Black;
-            btnDelivery.Font = new Font(btnWalkIn.Font, FontStyle.Regular);
-
-            
-            selectedButton.FillColor = Color.FromArgb(229, 240, 249); //light blue
-            selectedButton.ForeColor = Color.FromArgb(42, 134, 205);   //dark blue
-            selectedButton.Font = new Font (selectedButton.Font, FontStyle.Bold);
-            selectedButton.BorderRadius = 3;
+            // Show Walk-In by default
+            ShowWalkInControl();
         }
 
-        private void btnWalkIn_Click(object sender, EventArgs e)
+        private void WalkinOrDeliveryButton_ShowWalkIn(object sender, EventArgs e)
         {
-            SelectTab(btnWalkIn);
+            ShowWalkInControl();
         }
 
-        private void btnDelivery_Click(object sender, EventArgs e)
+        private void WalkinOrDeliveryButton_ShowDelivery(object sender, EventArgs e)
         {
-            SelectTab(btnDelivery);
+            ShowDeliveryControl();
         }
 
-        private void dgvCartDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ShowWalkInControl()
         {
-           
+            panelContainer.Controls.Clear();
+            var walkInUC = new Walk_inCartDetails();
+            walkInUC.Dock = DockStyle.Fill;
+            panelContainer.Controls.Add(walkInUC);
         }
 
-        private void dgvCartDetails_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void ShowDeliveryControl()
         {
-            // Only show NumericUpDown for the QTY column
-            if (e.RowIndex >= 0 && dgvCartDetails.Columns[e.ColumnIndex].HeaderText == "QTY")
-            {
-                Rectangle rect = dgvCartDetails.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
-                // Calculate perfect fit
-                int cellHeight = rect.Height;
-                qtyUpDown.Height = cellHeight - 2;     // match cell height closely
-                qtyUpDown.Width = rect.Width - 4;      // avoid touching borders
-
-                qtyUpDown.Location = new Point(rect.X + 2, rect.Y + (rect.Height - qtyUpDown.Height) / 2);
-
-
-                // Set current value
-                qtyUpDown.Value = Convert.ToDecimal(dgvCartDetails.Rows[e.RowIndex].Cells[e.ColumnIndex].Value ?? 1);
-
-                qtyUpDown.Tag = e; // store which cell is active
-                qtyUpDown.Visible = true;
-                qtyUpDown.BringToFront();
-                qtyUpDown.Focus();
-                
-            }
-            else
-            {
-                qtyUpDown.Visible = false;
-            }
+            panelContainer.Controls.Clear();
+            var deliveryUC = new DeliveryCartDetails();
+            deliveryUC.Dock = DockStyle.Fill;
+            panelContainer.Controls.Add(deliveryUC);
         }
 
-        private void qtyUpDown_Leave(object sender, EventArgs e)
-        {
-            SaveNumericValue();
-        }
-
-        private void qtyUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            SaveNumericValue();
-        }
-
-        private void SaveNumericValue()
-        {
-            if (qtyUpDown.Tag is DataGridViewCellEventArgs cell)
-            {
-                dgvCartDetails.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = qtyUpDown.Value;
-            }
-        }
-    
-
-}
+    }
 }
