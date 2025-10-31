@@ -321,11 +321,23 @@
     <Compile Include="Transactions Module\Pagination.Designer.cs">
       <DependentUpon>Pagination.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transactions Module\Proceed&amp;ClearButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\Proceed&amp;ClearButton.Designer.cs">
+      <DependentUpon>Proceed&amp;ClearButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Transactions Module\Products.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Transactions Module\Products.Designer.cs">
       <DependentUpon>Products.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions Module\SubtotalPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\SubtotalPanel.Designer.cs">
+      <DependentUpon>SubtotalPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Transactions Module\TransactionsFilterButton.cs">
       <SubType>UserControl</SubType>
@@ -523,8 +535,14 @@
     <EmbeddedResource Include="Transactions Module\Pagination.resx">
       <DependentUpon>Pagination.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\Proceed&amp;ClearButton.resx">
+      <DependentUpon>Proceed&amp;ClearButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\Products.resx">
       <DependentUpon>Products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\SubtotalPanel.resx">
+      <DependentUpon>SubtotalPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\TransactionsFilterButton.resx">
       <DependentUpon>TransactionsFilterButton.cs</DependentUpon>
