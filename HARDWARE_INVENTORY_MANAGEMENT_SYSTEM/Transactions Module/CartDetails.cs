@@ -94,7 +94,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 Rectangle rect = dgvCartDetails.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
                 // Calculate perfect fit
                 int cellHeight = rect.Height;
-                qtyUpDown.Height = cellHeight - 2;     // match cell height closely
+                qtyUpDown.Height = cellHeight - 9;     // match cell height closely
                 qtyUpDown.Width = rect.Width - 4;      // avoid touching borders
 
                 qtyUpDown.Location = new Point(rect.X + 2, rect.Y + (rect.Height - qtyUpDown.Height) / 2);

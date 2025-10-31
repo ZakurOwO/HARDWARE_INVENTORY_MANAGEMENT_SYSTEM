@@ -86,9 +86,10 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvHistory.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvHistory.RowHeadersVisible = false;
-            this.dgvHistory.Size = new System.Drawing.Size(689, 285);
+            this.dgvHistory.Size = new System.Drawing.Size(749, 285);
             this.dgvHistory.TabIndex = 2;
             this.dgvHistory.VirtualMode = true;
+            this.dgvHistory.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistory_CellContentClick);
             // 
             // TransactionNumber
             // 
@@ -124,6 +125,7 @@
             // 
             this.Status.HeaderText = "Status";
             this.Status.Name = "Status";
+            this.Status.Width = 150;
             // 
             // DatGridTableHistory
             // 
@@ -134,7 +136,7 @@
             this.Controls.Add(this.dgvHistory);
             this.DoubleBuffered = true;
             this.Name = "DatGridTableHistory";
-            this.Size = new System.Drawing.Size(689, 285);
+            this.Size = new System.Drawing.Size(749, 285);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
             this.ResumeLayout(false);
 
