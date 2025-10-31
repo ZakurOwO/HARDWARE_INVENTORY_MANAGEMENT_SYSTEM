@@ -315,6 +315,18 @@
     <Compile Include="Customer Module\Edit &amp; Delete Button.Designer.cs">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transactions Module\DeliveryCartDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\DeliveryCartDetails.Designer.cs">
+      <DependentUpon>DeliveryCartDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions Module\DeliveryComboBoxes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\DeliveryComboBoxes.Designer.cs">
+      <DependentUpon>DeliveryComboBoxes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Transactions Module\Pagination.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -332,6 +344,12 @@
     </Compile>
     <Compile Include="Transactions Module\Products.Designer.cs">
       <DependentUpon>Products.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions Module\SubtotalDeliveryPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\SubtotalDeliveryPanel.Designer.cs">
+      <DependentUpon>SubtotalDeliveryPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Transactions Module\SubtotalPanel.cs">
       <SubType>UserControl</SubType>
@@ -532,6 +550,12 @@
     <EmbeddedResource Include="Customer Module\Edit &amp; Delete Button.resx">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\DeliveryCartDetails.resx">
+      <DependentUpon>DeliveryCartDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\DeliveryComboBoxes.resx">
+      <DependentUpon>DeliveryComboBoxes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\Pagination.resx">
       <DependentUpon>Pagination.cs</DependentUpon>
     </EmbeddedResource>
@@ -540,6 +564,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\Products.resx">
       <DependentUpon>Products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\SubtotalDeliveryPanel.resx">
+      <DependentUpon>SubtotalDeliveryPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\SubtotalPanel.resx">
       <DependentUpon>SubtotalPanel.cs</DependentUpon>
@@ -842,6 +869,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\History %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Transactions %28Delivery%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

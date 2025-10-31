@@ -32,11 +32,14 @@
             this.ucKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucKeyMetrics();
             this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
             this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
+            this.deliveryComboBoxes1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.DeliveryComboBoxes();
             ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).BeginInit();
+            this.MainContentPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainContentPanel
             // 
+            this.MainContentPanel.Controls.Add(this.deliveryComboBoxes1);
             this.MainContentPanel.Location = new System.Drawing.Point(233, 12);
             this.MainContentPanel.Name = "MainContentPanel";
             this.MainContentPanel.Size = new System.Drawing.Size(965, 696);
@@ -70,6 +73,14 @@
             this.sidePanel1.TabIndex = 0;
             this.sidePanel1.Load += new System.EventHandler(this.sidePanel1_Load_1);
             // 
+            // deliveryComboBoxes1
+            // 
+            this.deliveryComboBoxes1.BackColor = System.Drawing.Color.White;
+            this.deliveryComboBoxes1.Location = new System.Drawing.Point(219, 146);
+            this.deliveryComboBoxes1.Name = "deliveryComboBoxes1";
+            this.deliveryComboBoxes1.Size = new System.Drawing.Size(293, 135);
+            this.deliveryComboBoxes1.TabIndex = 0;
+            // 
             // MainDashBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -88,6 +99,7 @@
             this.Text = "MainDashBoard";
             this.Load += new System.EventHandler(this.MainDashBoard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).EndInit();
+            this.MainContentPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -98,5 +110,6 @@
         private ucTopBar ucTopBar1;
         private ucKeyMetrics ucKeyMetrics1;
         private Krypton.Toolkit.KryptonPanel MainContentPanel;
+        private Transactions_Module.DeliveryComboBoxes deliveryComboBoxes1;
     }
 }
