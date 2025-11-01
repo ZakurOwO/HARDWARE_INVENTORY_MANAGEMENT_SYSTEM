@@ -265,6 +265,12 @@
     <Compile Include="Inventory Module\InventoryList_Panel.Designer.cs">
       <DependentUpon>InventoryList_Panel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inventory Module\InventoryList_Table.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Inventory Module\InventoryList_Table.Designer.cs">
+      <DependentUpon>InventoryList_Table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Inventory Module\InventoryMainPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -276,6 +282,12 @@
     </Compile>
     <Compile Include="Inventory Module\InventoryTopBar.Designer.cs">
       <DependentUpon>InventoryTopBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inventory Module\Inventory_Pagination.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Inventory Module\Inventory_Pagination.Designer.cs">
+      <DependentUpon>Inventory_Pagination.cs</DependentUpon>
     </Compile>
     <Compile Include="Inventory Module\Inventory_SearchField.cs">
       <SubType>UserControl</SubType>
@@ -576,11 +588,17 @@
     <EmbeddedResource Include="Inventory Module\InventoryList_Panel.resx">
       <DependentUpon>InventoryList_Panel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Inventory Module\InventoryList_Table.resx">
+      <DependentUpon>InventoryList_Table.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Inventory Module\InventoryMainPage.resx">
       <DependentUpon>InventoryMainPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventory Module\InventoryTopBar.resx">
       <DependentUpon>InventoryTopBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory Module\Inventory_Pagination.resx">
+      <DependentUpon>Inventory_Pagination.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventory Module\Inventory_SearchField.resx">
       <DependentUpon>Inventory_SearchField.cs</DependentUpon>

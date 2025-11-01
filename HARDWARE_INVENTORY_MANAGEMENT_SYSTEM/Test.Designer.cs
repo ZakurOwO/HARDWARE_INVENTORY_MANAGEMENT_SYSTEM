@@ -33,12 +33,16 @@
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.guna2TextBox1);
             this.panel1.Controls.Add(this.guna2Button2);
             this.panel1.Controls.Add(this.guna2Button1);
@@ -110,10 +114,25 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.panel3);
             this.panel2.Location = new System.Drawing.Point(15, 14);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(920, 618);
             this.panel2.TabIndex = 3;
+            // 
+            // panel3
+            // 
+            this.panel3.Location = new System.Drawing.Point(18, 70);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(886, 495);
+            this.panel3.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            this.panel4.Location = new System.Drawing.Point(15, 576);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(920, 55);
+            this.panel4.TabIndex = 1;
             // 
             // Test
             // 
@@ -128,6 +147,7 @@
             this.Name = "Test";
             this.Text = " ";
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -139,5 +159,7 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
     }
 }
