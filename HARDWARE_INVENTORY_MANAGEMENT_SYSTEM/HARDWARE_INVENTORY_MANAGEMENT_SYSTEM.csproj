@@ -303,6 +303,36 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports Module\GenerateReport_Button.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\GenerateReport_Button.Designer.cs">
+      <DependentUpon>GenerateReport_Button.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Inventory_KeyMetrics.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Inventory_KeyMetrics.Designer.cs">
+      <DependentUpon>Inventory_KeyMetrics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\ReportsNavigationBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\ReportsNavigationBar.Designer.cs">
+      <DependentUpon>ReportsNavigationBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\ReportsTopBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\ReportsTopBar.Designer.cs">
+      <DependentUpon>ReportsTopBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\ReportsMainPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\ReportsMainPage.Designer.cs">
+      <DependentUpon>ReportsMainPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Supplier Module\EditFormSupplier.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -616,6 +646,21 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports Module\GenerateReport_Button.resx">
+      <DependentUpon>GenerateReport_Button.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Inventory_KeyMetrics.resx">
+      <DependentUpon>Inventory_KeyMetrics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\ReportsNavigationBar.resx">
+      <DependentUpon>ReportsNavigationBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\ReportsTopBar.resx">
+      <DependentUpon>ReportsTopBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\ReportsMainPage.resx">
+      <DependentUpon>ReportsMainPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\EditFormSupplier.resx">
       <DependentUpon>EditFormSupplier.cs</DependentUpon>
     </EmbeddedResource>
@@ -989,6 +1034,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Vector.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Inventory Main Report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shopping bag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bill.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\users 021.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fast delivery1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\open box-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fast delivery2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Quantity1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Group 1000004200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sales Logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
