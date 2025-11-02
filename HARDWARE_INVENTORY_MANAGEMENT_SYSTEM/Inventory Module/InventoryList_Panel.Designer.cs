@@ -32,6 +32,8 @@
             this.inventory_SearchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.Inventory_SearchField();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.add_ItemButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.Add_ItemButton();
+            this.inventoryList_Table1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryList_Table();
+            this.inventory_Pagination1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.Inventory_Pagination();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,6 +43,8 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Gainsboro;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.inventory_Pagination1);
+            this.guna2Panel1.Controls.Add(this.inventoryList_Table1);
             this.guna2Panel1.Controls.Add(this.inventory_SearchField1);
             this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Controls.Add(this.add_ItemButton1);
@@ -73,6 +77,22 @@
             this.add_ItemButton1.Size = new System.Drawing.Size(127, 47);
             this.add_ItemButton1.TabIndex = 0;
             // 
+            // inventoryList_Table1
+            // 
+            this.inventoryList_Table1.BackColor = System.Drawing.Color.Transparent;
+            this.inventoryList_Table1.Location = new System.Drawing.Point(18, 68);
+            this.inventoryList_Table1.Name = "inventoryList_Table1";
+            this.inventoryList_Table1.Size = new System.Drawing.Size(886, 472);
+            this.inventoryList_Table1.TabIndex = 3;
+            // 
+            // inventory_Pagination1
+            // 
+            this.inventory_Pagination1.BackColor = System.Drawing.Color.White;
+            this.inventory_Pagination1.Location = new System.Drawing.Point(-2, 560);
+            this.inventory_Pagination1.Name = "inventory_Pagination1";
+            this.inventory_Pagination1.Size = new System.Drawing.Size(920, 55);
+            this.inventory_Pagination1.TabIndex = 4;
+            // 
             // InventoryList_Panel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -92,5 +112,7 @@
         private Add_ItemButton add_ItemButton1;
         private Inventory_SearchField inventory_SearchField1;
         private InventoryFilter_Button inventoryFilter_Button1;
+        private Inventory_Pagination inventory_Pagination1;
+        private InventoryList_Table inventoryList_Table1;
     }
 }

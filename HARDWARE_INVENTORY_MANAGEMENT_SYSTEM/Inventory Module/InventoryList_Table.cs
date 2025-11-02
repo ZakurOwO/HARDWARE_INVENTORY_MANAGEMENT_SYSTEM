@@ -16,5 +16,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             InitializeComponent();
         }
+
+        private void InventoryList_Table_Load(object sender, EventArgs e)
+        {
+            dgvInventoryList.Rows.Add("0938", "Hammer Solid", null, "Solid lamang", "bente pi", "isa");
+        }
     }
 }
