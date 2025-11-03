@@ -122,7 +122,7 @@
             this.TransactionBTN.TabIndex = 4;
             this.TransactionBTN.Text = "     Transactions";
             this.TransactionBTN.UseVisualStyleBackColor = false;
-            this.TransactionBTN.Click += new System.EventHandler(this.SupplierBTN_Click);
+            this.TransactionBTN.Click += new System.EventHandler(this.TransactionBTN_Click);
             // 
             // CustomerBTN
             // 
