@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 {
-    public partial class MainDashBoard: Form
+    public partial class MainDashBoard : Form
     {
         public MainDashBoard()
         {
@@ -36,10 +36,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
 
         }
+        
+
         public Panel MainContentPanelAccess
         {
             get { return MainContentPanel; }
         }
         
+
+
     }
 }

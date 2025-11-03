@@ -1,7 +1,11 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -100,9 +104,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         }
 
         private void DashboardBTN_Click(object sender, EventArgs e) 
-        { HighlightButton((Button)sender); 
-        
-        
+        { HighlightButton((Button)sender);
+            
         }
         private void AccountBTN_Click(object sender, EventArgs e)
         {
@@ -116,8 +119,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 mainForm.MainContentPanelAccess.Controls.Add(accountPage);
             }
         }
-        private void InventoryBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
-        private void TransactionBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void InventoryBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                mainForm.MainContentPanelAccess.Controls.Clear();
+                InventoryMainPage inventory = new InventoryMainPage();
+                mainForm.MainContentPanelAccess.Controls.Add(inventory);
+            }
+
+
+        }
+        private void TransactionBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                mainForm.MainContentPanelAccess.Controls.Clear();
+                TransactionsMainPage transation = new TransactionsMainPage();
+                mainForm.MainContentPanelAccess.Controls.Add(transation);
+            }
+        }
+            
+
         private void CustomerBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
@@ -148,8 +171,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             }
             
         }
-        private void ReportBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
-        private void HistoryBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
-        private void AuditlogBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); }
+        private void ReportBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                mainForm.MainContentPanelAccess.Controls.Clear();
+                ReportsMainPage reports = new ReportsMainPage();
+                mainForm.MainContentPanelAccess.Controls.Add(reports);
+            }
+        }
+        private void HistoryBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                mainForm.MainContentPanelAccess.Controls.Clear();
+                HistoryMainPage history = new HistoryMainPage();
+                mainForm.MainContentPanelAccess.Controls.Add(history);
+            }
+        }
+        private void AuditlogBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); 
+        
+        }
     }
 }
