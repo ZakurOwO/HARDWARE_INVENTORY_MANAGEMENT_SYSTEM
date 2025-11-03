@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
-    public partial class Inventory_KeyMetrics : UserControl
+    public partial class ReportsMainPanel : UserControl
     {
-        public Inventory_KeyMetrics()
+        public ReportsMainPanel()
         {
             InitializeComponent();
         }

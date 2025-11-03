@@ -309,17 +309,23 @@
     <Compile Include="Reports Module\GenerateReport_Button.Designer.cs">
       <DependentUpon>GenerateReport_Button.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\Inventory_KeyMetrics.cs">
+    <Compile Include="Reports Module\ReportsKeyMetrics.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\Inventory_KeyMetrics.Designer.cs">
-      <DependentUpon>Inventory_KeyMetrics.cs</DependentUpon>
+    <Compile Include="Reports Module\ReportsKeyMetrics.Designer.cs">
+      <DependentUpon>ReportsKeyMetrics.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports Module\ReportsNavigationBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Reports Module\ReportsNavigationBar.Designer.cs">
       <DependentUpon>ReportsNavigationBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\ReportsTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\ReportsTable.Designer.cs">
+      <DependentUpon>ReportsTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports Module\ReportsTopBar.cs">
       <SubType>UserControl</SubType>
@@ -332,6 +338,12 @@
     </Compile>
     <Compile Include="Reports Module\ReportsMainPage.Designer.cs">
       <DependentUpon>ReportsMainPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\ReportsMainPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\ReportsMainPanel.Designer.cs">
+      <DependentUpon>ReportsMainPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Supplier Module\EditFormSupplier.cs">
       <SubType>UserControl</SubType>
@@ -488,6 +500,12 @@
     </Compile>
     <Compile Include="Transactions Module\WalkinOrDeliveryButton.Designer.cs">
       <DependentUpon>WalkinOrDeliveryButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControlFiles\MainButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlFiles\MainButton.Designer.cs">
+      <DependentUpon>MainButton.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControlFiles\SidePanel.cs">
       <SubType>UserControl</SubType>
@@ -649,17 +667,23 @@
     <EmbeddedResource Include="Reports Module\GenerateReport_Button.resx">
       <DependentUpon>GenerateReport_Button.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports Module\Inventory_KeyMetrics.resx">
-      <DependentUpon>Inventory_KeyMetrics.cs</DependentUpon>
+    <EmbeddedResource Include="Reports Module\ReportsKeyMetrics.resx">
+      <DependentUpon>ReportsKeyMetrics.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports Module\ReportsNavigationBar.resx">
       <DependentUpon>ReportsNavigationBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\ReportsTable.resx">
+      <DependentUpon>ReportsTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports Module\ReportsTopBar.resx">
       <DependentUpon>ReportsTopBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports Module\ReportsMainPage.resx">
       <DependentUpon>ReportsMainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\ReportsMainPanel.resx">
+      <DependentUpon>ReportsMainPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\EditFormSupplier.resx">
       <DependentUpon>EditFormSupplier.cs</DependentUpon>
@@ -738,6 +762,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\WalkinOrDeliveryButton.resx">
       <DependentUpon>WalkinOrDeliveryButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlFiles\MainButton.resx">
+      <DependentUpon>MainButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\SidePanel.resx">
       <DependentUpon>SidePanel.cs</DependentUpon>

@@ -16,5 +16,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             InitializeComponent();
         }
+
+        private void inventory_KeyMetrics1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
