@@ -28,5 +28,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             dgvCurrentStockReport.Rows.Add("PLM-089", "PVC Plumbing Pipe 3/4”", "Plumbing Supplies", 90, 40, "pieces", 150.00);
             dgvCurrentStockReport.Rows.Add("ELC-101", "Electrical Wire 14 AWG", "Electrical Supplies", 300, 150, "meters", 20.00);
         }
+
+        private void ReportsTable_Load(object sender, EventArgs e)
+        {
+            dgvCurrentStockReport.ClearSelection();
+        }
     }
 }

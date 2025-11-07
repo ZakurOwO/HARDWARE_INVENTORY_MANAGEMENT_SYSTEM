@@ -28,18 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.generateReport_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.GenerateReport_Button();
             this.reportsNavigationBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsNavigationBar();
             this.reportsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsTopBar();
+            this.pnlMainPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.SuspendLayout();
-            // 
-            // generateReport_Button1
-            // 
-            this.generateReport_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.generateReport_Button1.Location = new System.Drawing.Point(799, 119);
-            this.generateReport_Button1.Name = "generateReport_Button1";
-            this.generateReport_Button1.Size = new System.Drawing.Size(141, 40);
-            this.generateReport_Button1.TabIndex = 2;
             // 
             // reportsNavigationBar1
             // 
@@ -57,12 +49,22 @@
             this.reportsTopBar1.Size = new System.Drawing.Size(974, 70);
             this.reportsTopBar1.TabIndex = 0;
             // 
+            // pnlMainPanel
+            // 
+            this.pnlMainPanel.BorderColor = System.Drawing.Color.LightGray;
+            this.pnlMainPanel.BorderRadius = 13;
+            this.pnlMainPanel.BorderThickness = 1;
+            this.pnlMainPanel.Location = new System.Drawing.Point(18, 124);
+            this.pnlMainPanel.Name = "pnlMainPanel";
+            this.pnlMainPanel.Size = new System.Drawing.Size(937, 570);
+            this.pnlMainPanel.TabIndex = 3;
+            // 
             // ReportsMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.Controls.Add(this.generateReport_Button1);
+            this.Controls.Add(this.pnlMainPanel);
             this.Controls.Add(this.reportsNavigationBar1);
             this.Controls.Add(this.reportsTopBar1);
             this.Name = "ReportsMainPage";
@@ -75,6 +77,6 @@
 
         private ReportsTopBar reportsTopBar1;
         private ReportsNavigationBar reportsNavigationBar1;
-        private GenerateReport_Button generateReport_Button1;
+        private Guna.UI2.WinForms.Guna2Panel pnlMainPanel;
     }
 }

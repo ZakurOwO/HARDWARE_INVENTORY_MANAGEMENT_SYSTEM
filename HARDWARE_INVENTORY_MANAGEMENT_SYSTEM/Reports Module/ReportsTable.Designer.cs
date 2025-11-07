@@ -32,7 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
-            this.label2 = new System.Windows.Forms.Label();
             this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
             this.SKU = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,6 +40,7 @@
             this.AlertLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
             this.pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
             this.SuspendLayout();
@@ -59,22 +59,11 @@
             this.pnlTable.Size = new System.Drawing.Size(900, 365);
             this.pnlTable.TabIndex = 0;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Lexend SemiBold", 11F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(27, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(169, 24);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Current Stock Report";
-            // 
             // dgvCurrentStockReport
             // 
             this.dgvCurrentStockReport.AllowUserToAddRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             this.dgvCurrentStockReport.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvCurrentStockReport.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dgvCurrentStockReport.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
@@ -166,6 +155,16 @@
             this.Price.HeaderText = "Price";
             this.Price.Name = "Price";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Lexend SemiBold", 11F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(27, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(169, 24);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Current Stock Report";
+            // 
             // ReportsTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -174,6 +173,7 @@
             this.Controls.Add(this.pnlTable);
             this.Name = "ReportsTable";
             this.Size = new System.Drawing.Size(910, 385);
+            this.Load += new System.EventHandler(this.ReportsTable_Load);
             this.pnlTable.ResumeLayout(false);
             this.pnlTable.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).EndInit();
