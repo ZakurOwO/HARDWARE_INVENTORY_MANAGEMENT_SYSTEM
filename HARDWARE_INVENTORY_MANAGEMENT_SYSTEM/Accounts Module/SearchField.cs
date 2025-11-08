@@ -21,5 +21,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         {
 
         }
+
+        #region Properties
+
+        private string promptMsg;
+
+        [Category("Custom Properties")]
+        public string PromptMessage
+        {
+            get { return promptMsg; }
+            set { promptMsg = value; tbxSearchField.Text = value; }
+        }
+
+        #endregion
     }
 }

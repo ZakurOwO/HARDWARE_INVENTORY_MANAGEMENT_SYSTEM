@@ -16,5 +16,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
             InitializeComponent();
         }
+
+        private void deliveriesTables1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

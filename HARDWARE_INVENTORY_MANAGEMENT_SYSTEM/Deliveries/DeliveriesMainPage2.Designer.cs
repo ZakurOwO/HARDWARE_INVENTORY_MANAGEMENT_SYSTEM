@@ -28,76 +28,80 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.deliveriesTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.DeliveriesTable();
-            this.deliveriesTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.DeliveriesTopBar();
-            this.deliveriesSlideButtons2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.DeliveriesSlideButtons();
+            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
-            this.deliveriesTables1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.DeliveriesTables();
+            this.vehiclesInfoBox1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
+            this.add_New_Truck_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.Add_New_Truck_Button();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // deliveriesTable1
+            // inventoryFilter_Button1
             // 
-            this.deliveriesTable1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.deliveriesTable1.Location = new System.Drawing.Point(-2, 0);
-            this.deliveriesTable1.Name = "deliveriesTable1";
-            this.deliveriesTable1.Size = new System.Drawing.Size(965, 680);
-            this.deliveriesTable1.TabIndex = 12;
-            // 
-            // deliveriesTopBar1
-            // 
-            this.deliveriesTopBar1.BackColor = System.Drawing.Color.White;
-            this.deliveriesTopBar1.Location = new System.Drawing.Point(1, 3);
-            this.deliveriesTopBar1.Name = "deliveriesTopBar1";
-            this.deliveriesTopBar1.Size = new System.Drawing.Size(965, 60);
-            this.deliveriesTopBar1.TabIndex = 8;
-            // 
-            // deliveriesSlideButtons2
-            // 
-            this.deliveriesSlideButtons2.BackColor = System.Drawing.Color.White;
-            this.deliveriesSlideButtons2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.deliveriesSlideButtons2.Location = new System.Drawing.Point(362, 84);
-            this.deliveriesSlideButtons2.Name = "deliveriesSlideButtons2";
-            this.deliveriesSlideButtons2.Size = new System.Drawing.Size(267, 37);
-            this.deliveriesSlideButtons2.TabIndex = 13;
-            this.deliveriesSlideButtons2.Load += new System.EventHandler(this.deliveriesSlideButtons2_Load);
+            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(338, 21);
+            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
+            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
+            this.inventoryFilter_Button1.TabIndex = 6;
             // 
             // searchField1
             // 
-            this.searchField1.BackColor = System.Drawing.Color.White;
-            this.searchField1.Location = new System.Drawing.Point(25, 121);
+            this.searchField1.BackColor = System.Drawing.Color.Transparent;
+            this.searchField1.Location = new System.Drawing.Point(25, 18);
             this.searchField1.Name = "searchField1";
-            this.searchField1.Size = new System.Drawing.Size(295, 44);
-            this.searchField1.TabIndex = 10;
+            this.searchField1.PromptMessage = "Search Deliveries";
+            this.searchField1.Size = new System.Drawing.Size(299, 54);
+            this.searchField1.TabIndex = 5;
             // 
-            // deliveriesTables1
+            // vehiclesInfoBox1
             // 
-            this.deliveriesTables1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.deliveriesTables1.Location = new System.Drawing.Point(98, 224);
-            this.deliveriesTables1.Name = "deliveriesTables1";
-            this.deliveriesTables1.Size = new System.Drawing.Size(790, 395);
-            this.deliveriesTables1.TabIndex = 14;
+            this.vehiclesInfoBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.vehiclesInfoBox1.ForeColor = System.Drawing.Color.LawnGreen;
+            this.vehiclesInfoBox1.Location = new System.Drawing.Point(25, 78);
+            this.vehiclesInfoBox1.Name = "vehiclesInfoBox1";
+            this.vehiclesInfoBox1.Size = new System.Drawing.Size(801, 525);
+            this.vehiclesInfoBox1.TabIndex = 7;
+            // 
+            // add_New_Truck_Button1
+            // 
+            this.add_New_Truck_Button1.Location = new System.Drawing.Point(714, 19);
+            this.add_New_Truck_Button1.Name = "add_New_Truck_Button1";
+            this.add_New_Truck_Button1.Size = new System.Drawing.Size(173, 44);
+            this.add_New_Truck_Button1.TabIndex = 8;
+            // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.BorderColor = System.Drawing.Color.LightGray;
+            this.guna2Panel1.BorderRadius = 10;
+            this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.vehiclesInfoBox1);
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(935, 570);
+            this.guna2Panel1.TabIndex = 9;
             // 
             // DeliveriesMainPage2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.deliveriesTables1);
-            this.Controls.Add(this.deliveriesSlideButtons2);
+            this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.add_New_Truck_Button1);
+            this.Controls.Add(this.inventoryFilter_Button1);
             this.Controls.Add(this.searchField1);
-            this.Controls.Add(this.deliveriesTopBar1);
-            this.Controls.Add(this.deliveriesTable1);
+            this.Controls.Add(this.guna2Panel1);
             this.Name = "DeliveriesMainPage2";
-            this.Size = new System.Drawing.Size(965, 680);
+            this.Size = new System.Drawing.Size(935, 550);
+            this.guna2Panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private DeliveriesTable deliveriesTable1;
-        private DeliveriesTopBar deliveriesTopBar1;
-        private DeliveriesSlideButtons deliveriesSlideButtons2;
+        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private Accounts_Module.SearchField searchField1;
-        private DeliveriesTables deliveriesTables1;
+        private VehiclesInfoBox vehiclesInfoBox1;
+        private Add_New_Truck_Button add_New_Truck_Button1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
     }
 }

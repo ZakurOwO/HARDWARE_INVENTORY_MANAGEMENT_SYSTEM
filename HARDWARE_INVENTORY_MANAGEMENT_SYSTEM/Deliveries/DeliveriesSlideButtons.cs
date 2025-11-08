@@ -1,65 +1,57 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module;
+using Krypton.Toolkit;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Krypton.Toolkit;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 {
     public partial class DeliveriesSlideButtons : UserControl
     {
+        public event EventHandler ShowDeliveries;
+        public event EventHandler ShowVehicles;
         public DeliveriesSlideButtons()
         {
             InitializeComponent();
 
         }
-       
 
-        private void BTNVehicles_Click(object sender, EventArgs e)
+        private void btnDeliveries_Click(object sender, EventArgs e)
         {
-            SetActiveButton(BTNVehicles);
-            SetInactiveButton(BTNDeliveries);
-
-            
-            
+            SelectTab(btnDeliveries);
+            ShowDeliveries?.Invoke(this, EventArgs.Empty);
         }
 
-        private void BTNDeliveries_Click(object sender, EventArgs e)
+        private void btnVehicles_Click(object sender, EventArgs e)
         {
-            SetActiveButton(BTNDeliveries);
-            SetInactiveButton(BTNVehicles);
-
-           
-
+            SelectTab(btnVehicles);
+            ShowVehicles?.Invoke(this, EventArgs.Empty);
         }
 
-        private void SetActiveButton(KryptonButton button)
+        private void SelectTab(Guna2Button selectedButton)
         {
-            button.StateCommon.Back.Color1 = Color.FromArgb(227, 242, 253);
-            button.StateCommon.Back.Color2 = Color.FromArgb(227, 242, 253);
-            button.StateCommon.Border.Color1 = Color.DodgerBlue;
-            button.StateCommon.Border.Color2 = Color.DodgerBlue;
-            button.StateCommon.Content.ShortText.Color1 = Color.DodgerBlue;
-          
-        }
+            //reset buttons
+            btnDeliveries.FillColor = Color.White;
+            btnDeliveries.ForeColor = Color.Black;
+            btnDeliveries.Font = new Font(btnDeliveries.Font, FontStyle.Regular);
 
-        private void SetInactiveButton(KryptonButton button)
-        {
-            button.StateCommon.Back.Color1 = Color.White;
-            button.StateCommon.Back.Color2 = Color.White;
-            button.StateCommon.Border.Color1 = Color.Silver;
-            button.StateCommon.Border.Color2 = Color.Silver;
-            button.StateCommon.Content.ShortText.Color1 = Color.Black;
-           
-        }
+            btnVehicles.FillColor = Color.White;
+            btnVehicles.ForeColor = Color.Black;
+            btnVehicles.Font = new Font(btnVehicles.Font, FontStyle.Regular);
 
-        private void PanelTabs_Paint(object sender, PaintEventArgs e)
-        {
+
+            selectedButton.FillColor = Color.FromArgb(229, 240, 249); //light blue
+            selectedButton.ForeColor = Color.FromArgb(42, 134, 205);   //dark blue
+            selectedButton.Font = new Font(selectedButton.Font, FontStyle.Bold);
+            selectedButton.BorderRadius = 3;
         }
 
         private void DeliveriesSlideButtons_Load(object sender, EventArgs e)
         {
-            SetActiveButton(BTNVehicles);
+            SelectTab(btnDeliveries);
         }
+
         
     }
 }

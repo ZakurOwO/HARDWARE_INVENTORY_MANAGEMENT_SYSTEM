@@ -36,7 +36,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
             btnDelivery.FillColor = Color.White;
             btnDelivery.ForeColor = Color.Black;
-            btnDelivery.Font = new Font(btnWalkIn.Font, FontStyle.Regular);
+            btnDelivery.Font = new Font(btnDelivery.Font, FontStyle.Regular);
 
 
             selectedButton.FillColor = Color.FromArgb(229, 240, 249); //light blue
@@ -56,5 +56,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             SelectTab(btnWalkIn);
             ShowWalkIn?.Invoke(this, EventArgs.Empty);
         }
+
+        
     }
 }

@@ -48,8 +48,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            this.walkinOrDeliveryButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.WalkinOrDeliveryButton();
             this.panelContainer = new System.Windows.Forms.Panel();
+            this.walkinOrDeliveryButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.WalkinOrDeliveryButton();
             this.guna2Panel2.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCartDetails)).BeginInit();
@@ -297,6 +297,14 @@
             this.guna2Panel4.Size = new System.Drawing.Size(295, 624);
             this.guna2Panel4.TabIndex = 0;
             // 
+            // panelContainer
+            // 
+            this.panelContainer.BackColor = System.Drawing.Color.Transparent;
+            this.panelContainer.Location = new System.Drawing.Point(0, 63);
+            this.panelContainer.Name = "panelContainer";
+            this.panelContainer.Size = new System.Drawing.Size(295, 561);
+            this.panelContainer.TabIndex = 1;
+            // 
             // walkinOrDeliveryButton1
             // 
             this.walkinOrDeliveryButton1.BackColor = System.Drawing.Color.Transparent;
@@ -305,14 +313,7 @@
             this.walkinOrDeliveryButton1.Name = "walkinOrDeliveryButton1";
             this.walkinOrDeliveryButton1.Size = new System.Drawing.Size(295, 60);
             this.walkinOrDeliveryButton1.TabIndex = 0;
-            // 
-            // panelContainer
-            // 
-            this.panelContainer.BackColor = System.Drawing.Color.Transparent;
-            this.panelContainer.Location = new System.Drawing.Point(0, 63);
-            this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(295, 561);
-            this.panelContainer.TabIndex = 1;
+            this.walkinOrDeliveryButton1.Load += new System.EventHandler(this.walkinOrDeliveryButton1_Load);
             // 
             // CartDetails
             // 

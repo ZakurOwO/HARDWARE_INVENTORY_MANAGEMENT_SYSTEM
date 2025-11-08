@@ -41,7 +41,7 @@
             this.guna2Panel1.BorderThickness = 1;
             this.guna2Panel1.Controls.Add(this.btnDelivery);
             this.guna2Panel1.Controls.Add(this.btnWalkIn);
-            this.guna2Panel1.Location = new System.Drawing.Point(35, 11);
+            this.guna2Panel1.Location = new System.Drawing.Point(3, 0);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(225, 38);
             this.guna2Panel1.TabIndex = 1;
@@ -89,7 +89,7 @@
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.guna2Panel1);
             this.Name = "WalkinOrDeliveryButton";
-            this.Size = new System.Drawing.Size(295, 60);
+            this.Size = new System.Drawing.Size(231, 43);
             this.Load += new System.EventHandler(this.WalkinOrDeliveryButton_Load);
             this.guna2Panel1.ResumeLayout(false);
             this.ResumeLayout(false);

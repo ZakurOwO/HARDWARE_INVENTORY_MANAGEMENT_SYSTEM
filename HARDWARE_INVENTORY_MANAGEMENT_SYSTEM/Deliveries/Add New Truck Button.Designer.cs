@@ -35,14 +35,14 @@
             // 
             this.AddVehicleButton.Location = new System.Drawing.Point(0, 0);
             this.AddVehicleButton.Name = "AddVehicleButton";
-            this.AddVehicleButton.Size = new System.Drawing.Size(196, 44);
-            this.AddVehicleButton.StateCommon.Border.Color1 = System.Drawing.Color.DodgerBlue;
-            this.AddVehicleButton.StateCommon.Border.Color2 = System.Drawing.Color.DodgerBlue;
-            this.AddVehicleButton.StateCommon.Border.Rounding = 10F;
+            this.AddVehicleButton.Size = new System.Drawing.Size(169, 44);
+            this.AddVehicleButton.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.AddVehicleButton.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.AddVehicleButton.StateCommon.Border.Rounding = 8F;
             this.AddVehicleButton.StateCommon.Content.LongText.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddVehicleButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.WhiteSmoke;
             this.AddVehicleButton.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.WhiteSmoke;
-            this.AddVehicleButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddVehicleButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddVehicleButton.StateNormal.Back.Color1 = System.Drawing.Color.DodgerBlue;
             this.AddVehicleButton.StateNormal.Back.Color2 = System.Drawing.Color.DodgerBlue;
             this.AddVehicleButton.TabIndex = 1;
@@ -55,7 +55,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.AddVehicleButton);
             this.Name = "Add_New_Truck_Button";
-            this.Size = new System.Drawing.Size(196, 44);
+            this.Size = new System.Drawing.Size(172, 44);
             this.ResumeLayout(false);
 
         }
