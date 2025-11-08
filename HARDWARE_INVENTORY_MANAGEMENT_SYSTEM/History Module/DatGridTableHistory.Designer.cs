@@ -35,7 +35,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
             this.dgvHistory = new System.Windows.Forms.DataGridView();
             this.TransactionNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,24 +43,8 @@
             this.Item = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewImageColumn();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pnlTable
-            // 
-            this.pnlTable.AutoScroll = true;
-            this.pnlTable.BackColor = System.Drawing.Color.White;
-            this.pnlTable.BorderColor = System.Drawing.Color.LightGray;
-            this.pnlTable.BorderRadius = 10;
-            this.pnlTable.BorderThickness = 1;
-            this.pnlTable.Controls.Add(this.pictureBox1);
-            this.pnlTable.Location = new System.Drawing.Point(5, 5);
-            this.pnlTable.Name = "pnlTable";
-            this.pnlTable.Size = new System.Drawing.Size(900, 365);
-            this.pnlTable.TabIndex = 1;
             // 
             // dgvHistory
             // 
@@ -138,7 +121,7 @@
             this.dgvHistory.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
             this.dgvHistory.RowTemplate.Height = 40;
             this.dgvHistory.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.dgvHistory.Size = new System.Drawing.Size(781, 442);
+            this.dgvHistory.Size = new System.Drawing.Size(763, 442);
             this.dgvHistory.TabIndex = 4;
             this.dgvHistory.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHistory_CellContentClick_1);
             // 
@@ -199,15 +182,6 @@
             this.Status.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Status.Width = 150;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Pending;
-            this.pictureBox1.Location = new System.Drawing.Point(265, 160);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            // 
             // DatGridTableHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -215,21 +189,16 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.dgvHistory);
-            this.Controls.Add(this.pnlTable);
             this.DoubleBuffered = true;
             this.Name = "DatGridTableHistory";
-            this.Size = new System.Drawing.Size(781, 442);
+            this.Size = new System.Drawing.Size(763, 442);
             this.Load += new System.EventHandler(this.DatGridTableHistory_Load);
-            this.pnlTable.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHistory)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private Guna.UI2.WinForms.Guna2Panel pnlTable;
         public System.Windows.Forms.DataGridView dgvHistory;
         private System.Windows.Forms.DataGridViewTextBoxColumn TransactionNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn Type;
@@ -238,6 +207,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Item;
         private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
         private System.Windows.Forms.DataGridViewImageColumn Status;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.supplierTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SupplierTopBar();
-            this.supplierTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SupplierTable();
             this.tableSupplier1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.TableSupplier();
             this.searchFieldForSupplier1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SearchFieldForSupplier();
             this.supplierButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SupplierButton();
+            this.supplierTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SupplierTable();
             this.SuspendLayout();
             // 
             // supplierTopBar1
@@ -42,14 +42,6 @@
             this.supplierTopBar1.Name = "supplierTopBar1";
             this.supplierTopBar1.Size = new System.Drawing.Size(965, 69);
             this.supplierTopBar1.TabIndex = 0;
-            // 
-            // supplierTable1
-            // 
-            this.supplierTable1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.supplierTable1.Location = new System.Drawing.Point(77, 181);
-            this.supplierTable1.Name = "supplierTable1";
-            this.supplierTable1.Size = new System.Drawing.Size(820, 395);
-            this.supplierTable1.TabIndex = 1;
             // 
             // tableSupplier1
             // 
@@ -72,13 +64,21 @@
             this.supplierButton1.Size = new System.Drawing.Size(150, 44);
             this.supplierButton1.TabIndex = 4;
             // 
+            // supplierTable1
+            // 
+            this.supplierTable1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.supplierTable1.Location = new System.Drawing.Point(103, 203);
+            this.supplierTable1.Name = "supplierTable1";
+            this.supplierTable1.Size = new System.Drawing.Size(781, 395);
+            this.supplierTable1.TabIndex = 5;
+            // 
             // SuppplierMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.supplierTable1);
             this.Controls.Add(this.supplierButton1);
             this.Controls.Add(this.searchFieldForSupplier1);
-            this.Controls.Add(this.supplierTable1);
             this.Controls.Add(this.supplierTopBar1);
             this.Controls.Add(this.tableSupplier1);
             this.Name = "SuppplierMainPage";
@@ -90,9 +90,9 @@
         #endregion
 
         private SupplierTopBar supplierTopBar1;
-        private SupplierTable supplierTable1;
         private TableSupplier tableSupplier1;
         private SearchFieldForSupplier searchFieldForSupplier1;
         private SupplierButton supplierButton1;
+        private SupplierTable supplierTable1;
     }
 }

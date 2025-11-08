@@ -17,12 +17,43 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             InitializeComponent();
         }
 
-        private void deliveriesTables1_Load(object sender, EventArgs e)
+        private Image Action_Set(string Action)
         {
+            switch (Action)
+            {
+                case "menu_circle_vertical":
+                default:
+                    return Properties.Resources.menu_circle_vertical;
+            }
+           
+
 
         }
 
-        private void dgvDeliveries_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private Image status_set(string status)
+        {
+            switch (status)
+            {
+                case "Available":
+                    return Properties.Resources.AvailableStatus;
+                case "Pending":
+                    return Properties.Resources.Pending;
+                case "Canceled":
+                    return Properties.Resources.Canceled;
+                default:
+                    return Properties.Resources.AvailableStatus;
+            }
+
+        }
+
+        private void SupplierTable_Load(object sender, EventArgs e)
+        {
+
+            dgvSupplier.Rows.Add(status_set("Available"),Action_Set("menu_circle_vertical"));
+        }
+        
+
+        private void dgvSupplier_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

@@ -16,5 +16,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
         {
             InitializeComponent();
         }
+
+        private void dgvCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

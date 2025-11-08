@@ -78,7 +78,8 @@
             this.dgvDeliveries.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDeliveries.EnableHeadersVisualStyles = false;
             this.dgvDeliveries.GridColor = System.Drawing.Color.WhiteSmoke;
-            this.dgvDeliveries.Location = new System.Drawing.Point(3, 3);
+            this.dgvDeliveries.Location = new System.Drawing.Point(0, 0);
+            this.dgvDeliveries.Margin = new System.Windows.Forms.Padding(0);
             this.dgvDeliveries.Name = "dgvDeliveries";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -91,7 +92,7 @@
             this.dgvDeliveries.RowHeadersVisible = false;
             this.dgvDeliveries.RowTemplate.Height = 45;
             this.dgvDeliveries.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvDeliveries.Size = new System.Drawing.Size(879, 449);
+            this.dgvDeliveries.Size = new System.Drawing.Size(932, 580);
             this.dgvDeliveries.TabIndex = 1;
             this.dgvDeliveries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDeliveries_CellContentClick);
             // 
@@ -99,13 +100,13 @@
             // 
             this.DeliveryOrder.HeaderText = "Delivery Order #";
             this.DeliveryOrder.Name = "DeliveryOrder";
-            this.DeliveryOrder.Width = 130;
+            this.DeliveryOrder.Width = 140;
             // 
             // TrackingNumber
             // 
             this.TrackingNumber.HeaderText = "Tracking Number";
             this.TrackingNumber.Name = "TrackingNumber";
-            this.TrackingNumber.Width = 130;
+            this.TrackingNumber.Width = 140;
             // 
             // Location
             // 
@@ -117,7 +118,7 @@
             // 
             this.TransactionType.HeaderText = "Transaction Type";
             this.TransactionType.Name = "TransactionType";
-            this.TransactionType.Width = 130;
+            this.TransactionType.Width = 140;
             // 
             // VehicleType
             // 
@@ -137,13 +138,13 @@
             // 
             this.DateCreated.HeaderText = "Date Created";
             this.DateCreated.Name = "DateCreated";
-            this.DateCreated.Width = 110;
+            this.DateCreated.Width = 120;
             // 
             // Action
             // 
             this.Action.HeaderText = "";
             this.Action.Name = "Action";
-            this.Action.Width = 30;
+            this.Action.Width = 42;
             // 
             // DeliveriesTables
             // 
@@ -154,7 +155,7 @@
             this.Controls.Add(this.dgvDeliveries);
             this.DoubleBuffered = true;
             this.Name = "DeliveriesTables";
-            this.Size = new System.Drawing.Size(885, 455);
+            this.Size = new System.Drawing.Size(935, 580);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDeliveries)).EndInit();
             this.ResumeLayout(false);
 

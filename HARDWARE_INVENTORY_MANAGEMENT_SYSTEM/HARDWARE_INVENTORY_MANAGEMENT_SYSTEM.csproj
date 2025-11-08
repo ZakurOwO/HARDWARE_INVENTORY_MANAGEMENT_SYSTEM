@@ -169,12 +169,6 @@
     <Compile Include="Deliveries\DeliveriesSlideButtons.Designer.cs">
       <DependentUpon>DeliveriesSlideButtons.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deliveries\DeliveriesTable.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Deliveries\DeliveriesTable.Designer.cs">
-      <DependentUpon>DeliveriesTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Deliveries\DeliveriesTables.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -707,9 +701,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\DeliveriesSlideButtons.resx">
       <DependentUpon>DeliveriesSlideButtons.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Deliveries\DeliveriesTable.resx">
-      <DependentUpon>DeliveriesTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\DeliveriesTables.resx">
       <DependentUpon>DeliveriesTables.cs</DependentUpon>
@@ -1303,6 +1294,7 @@
     <Content Include="Resources\Canceled.png" />
     <None Include="Resources\Pending1.png" />
     <None Include="Resources\Canceled1.png" />
+    <None Include="Resources\menu-circle-vertical.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

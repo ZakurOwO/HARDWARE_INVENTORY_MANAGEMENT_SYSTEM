@@ -33,7 +33,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         private void ShowDeliveries()
         {
             pnlPanelContainer.Controls.Clear();
-            var deliveriesTable = new DeliveriesTable();
+            var deliveriesTable = new DeliveriesTables();
             deliveriesTable.Dock = DockStyle.Fill;
             pnlPanelContainer.Controls.Add(deliveriesTable);
         }

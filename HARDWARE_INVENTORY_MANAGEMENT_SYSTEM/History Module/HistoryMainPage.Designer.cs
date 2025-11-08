@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
+            this.datGridTableHistory1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module.DatGridTableHistory();
             this.upperPanels1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module.UpperPanels();
             this.historyTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module.HistoryTopBar();
-            this.datGridTableHistory1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module.DatGridTableHistory();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -46,6 +46,15 @@
             this.kryptonPanel1.Size = new System.Drawing.Size(886, 732);
             this.kryptonPanel1.StateNormal.Color1 = System.Drawing.Color.Transparent;
             this.kryptonPanel1.TabIndex = 0;
+            // 
+            // datGridTableHistory1
+            // 
+            this.datGridTableHistory1.BackColor = System.Drawing.Color.White;
+            this.datGridTableHistory1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.datGridTableHistory1.Location = new System.Drawing.Point(64, 205);
+            this.datGridTableHistory1.Name = "datGridTableHistory1";
+            this.datGridTableHistory1.Size = new System.Drawing.Size(781, 442);
+            this.datGridTableHistory1.TabIndex = 3;
             // 
             // upperPanels1
             // 
@@ -62,15 +71,6 @@
             this.historyTopBar1.Name = "historyTopBar1";
             this.historyTopBar1.Size = new System.Drawing.Size(792, 69);
             this.historyTopBar1.TabIndex = 1;
-            // 
-            // datGridTableHistory1
-            // 
-            this.datGridTableHistory1.BackColor = System.Drawing.Color.White;
-            this.datGridTableHistory1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.datGridTableHistory1.Location = new System.Drawing.Point(53, 239);
-            this.datGridTableHistory1.Name = "datGridTableHistory1";
-            this.datGridTableHistory1.Size = new System.Drawing.Size(781, 442);
-            this.datGridTableHistory1.TabIndex = 3;
             // 
             // HistoryMainPage
             // 
