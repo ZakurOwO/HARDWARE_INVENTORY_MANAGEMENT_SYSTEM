@@ -21,5 +21,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module
         {
 
         }
+
+        private void datGridTableHistory2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

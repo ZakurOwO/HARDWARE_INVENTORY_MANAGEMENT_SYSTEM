@@ -597,6 +597,12 @@
     <Compile Include="UserControlFiles\SidePanel.Designer.cs">
       <DependentUpon>SidePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControlFiles\TestingUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlFiles\TestingUserControl.Designer.cs">
+      <DependentUpon>TestingUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControlFiles\ucKeyMetrics.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -894,6 +900,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\SidePanel.resx">
       <DependentUpon>SidePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlFiles\TestingUserControl.resx">
+      <DependentUpon>TestingUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\ucKeyMetrics.resx">
       <DependentUpon>ucKeyMetrics.cs</DependentUpon>
@@ -1244,6 +1253,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\peso orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Canceled.png" />
+    <None Include="Resources\Pending1.png" />
+    <None Include="Resources\Canceled1.png" />
+    <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

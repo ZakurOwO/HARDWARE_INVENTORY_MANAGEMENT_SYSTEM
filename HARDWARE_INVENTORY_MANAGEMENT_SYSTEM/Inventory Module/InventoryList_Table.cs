@@ -21,5 +21,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             dgvInventoryList.Rows.Add("0938", "Hammer Solid", null, "Solid lamang", "bente pi", "isa");
         }
+
+        private void dgvInventoryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

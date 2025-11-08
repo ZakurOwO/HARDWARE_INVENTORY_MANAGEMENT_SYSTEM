@@ -95,5 +95,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 dgvCartDetails.Rows[cell.RowIndex].Cells[cell.ColumnIndex].Value = qtyUpDown.Value;
             }
         }
+
+        private void dgvCartDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(dgvCartDetails.Columns[e.ColumnIndex].Name == "Delete")
+            { if(MessageBox.Show("Are you sure you want to remove this item from the cart?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    dgvCartDetails.Rows.RemoveAt(e.RowIndex);
+                }
+                    
+            }
+        }
     }
 }
