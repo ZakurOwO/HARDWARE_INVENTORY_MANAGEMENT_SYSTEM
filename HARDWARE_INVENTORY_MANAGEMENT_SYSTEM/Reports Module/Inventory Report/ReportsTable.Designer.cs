@@ -122,36 +122,43 @@
             // 
             // SKU
             // 
+            this.SKU.FillWeight = 48.8629F;
             this.SKU.HeaderText = "SKU";
             this.SKU.Name = "SKU";
             // 
             // Item
             // 
+            this.Item.FillWeight = 80.52284F;
             this.Item.HeaderText = "Item";
             this.Item.Name = "Item";
             // 
             // Category
             // 
+            this.Category.FillWeight = 70.52284F;
             this.Category.HeaderText = "Category";
             this.Category.Name = "Category";
             // 
             // Stock
             // 
+            this.Stock.FillWeight = 40.52285F;
             this.Stock.HeaderText = "Stock";
             this.Stock.Name = "Stock";
             // 
             // AlertLevel
             // 
+            this.AlertLevel.FillWeight = 40.52285F;
             this.AlertLevel.HeaderText = "Alert Level";
             this.AlertLevel.Name = "AlertLevel";
             // 
             // Unit
             // 
+            this.Unit.FillWeight = 35.52285F;
             this.Unit.HeaderText = "Unit";
             this.Unit.Name = "Unit";
             // 
             // Price
             // 
+            this.Price.FillWeight = 45.52285F;
             this.Price.HeaderText = "Price";
             this.Price.Name = "Price";
             // 
@@ -172,7 +179,7 @@
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.pnlTable);
             this.Name = "ReportsTable";
-            this.Size = new System.Drawing.Size(910, 385);
+            this.Size = new System.Drawing.Size(910, 374);
             this.Load += new System.EventHandler(this.ReportsTable_Load);
             this.pnlTable.ResumeLayout(false);
             this.pnlTable.PerformLayout();

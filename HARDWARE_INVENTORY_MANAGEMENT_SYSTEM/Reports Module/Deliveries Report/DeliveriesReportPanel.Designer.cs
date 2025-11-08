@@ -1,6 +1,6 @@
 ﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
-    partial class SalesPage
+    partial class DeliveriesReportPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,16 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.mainButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButton();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.reportsKeyMetrics4 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics3 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // inventoryFilter_Button1
+            // 
+            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(661, 11);
+            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
+            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
+            this.inventoryFilter_Button1.TabIndex = 14;
             // 
             // mainButton1
             // 
@@ -45,7 +53,7 @@
             this.mainButton1.Location = new System.Drawing.Point(764, 11);
             this.mainButton1.Name = "mainButton1";
             this.mainButton1.Size = new System.Drawing.Size(149, 44);
-            this.mainButton1.TabIndex = 9;
+            this.mainButton1.TabIndex = 13;
             // 
             // panel3
             // 
@@ -56,25 +64,7 @@
             this.panel3.Location = new System.Drawing.Point(18, 56);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(900, 90);
-            this.panel3.TabIndex = 8;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Lexend SemiBold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(21, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 24);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Sales Reports";
-            // 
-            // inventoryFilter_Button1
-            // 
-            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(661, 11);
-            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
-            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
-            this.inventoryFilter_Button1.TabIndex = 10;
+            this.panel3.TabIndex = 12;
             // 
             // reportsKeyMetrics4
             // 
@@ -120,7 +110,17 @@
             this.reportsKeyMetrics1.Title = "Total Revenue";
             this.reportsKeyMetrics1.Value = 1234;
             // 
-            // SalesPage
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Lexend SemiBold", 11.25F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(21, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(148, 24);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Deliveries Reports";
+            // 
+            // DeliveriesReportPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -129,7 +129,7 @@
             this.Controls.Add(this.mainButton1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.label1);
-            this.Name = "SalesPage";
+            this.Name = "DeliveriesReportPanel";
             this.Size = new System.Drawing.Size(937, 570);
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -139,13 +139,13 @@
 
         #endregion
 
+        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private UserControlFiles.MainButton mainButton1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label label1;
         private ReportsKeyMetrics reportsKeyMetrics4;
         private ReportsKeyMetrics reportsKeyMetrics3;
         private ReportsKeyMetrics reportsKeyMetrics2;
         private ReportsKeyMetrics reportsKeyMetrics1;
-        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
+        private System.Windows.Forms.Label label1;
     }
 }

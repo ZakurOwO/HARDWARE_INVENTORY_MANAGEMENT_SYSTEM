@@ -1,6 +1,6 @@
-﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
+﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
 {
-    partial class ReportsMainPanel
+    partial class InventoryPage1
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,26 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.reportsTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsTable();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.mainButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButton();
             this.reportsKeyMetrics4 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics3 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
-            this.reportsTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsTable();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // reportsTable1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Lexend SemiBold", 11.25F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(21, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 24);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Inventory Reports";
+            this.reportsTable1.BackColor = System.Drawing.Color.Transparent;
+            this.reportsTable1.Location = new System.Drawing.Point(2, 101);
+            this.reportsTable1.Name = "reportsTable1";
+            this.reportsTable1.Size = new System.Drawing.Size(910, 373);
+            this.reportsTable1.TabIndex = 9;
             // 
             // panel3
             // 
@@ -55,18 +51,10 @@
             this.panel3.Controls.Add(this.reportsKeyMetrics3);
             this.panel3.Controls.Add(this.reportsKeyMetrics2);
             this.panel3.Controls.Add(this.reportsKeyMetrics1);
-            this.panel3.Location = new System.Drawing.Point(18, 56);
+            this.panel3.Location = new System.Drawing.Point(2, 3);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(900, 90);
-            this.panel3.TabIndex = 5;
-            // 
-            // mainButton1
-            // 
-            this.mainButton1.ButtonName = "Generate Report";
-            this.mainButton1.Location = new System.Drawing.Point(764, 11);
-            this.mainButton1.Name = "mainButton1";
-            this.mainButton1.Size = new System.Drawing.Size(149, 44);
-            this.mainButton1.TabIndex = 6;
+            this.panel3.TabIndex = 8;
             // 
             // reportsKeyMetrics4
             // 
@@ -112,40 +100,27 @@
             this.reportsKeyMetrics1.Title = "Total Products";
             this.reportsKeyMetrics1.Value = 1234;
             // 
-            // reportsTable1
-            // 
-            this.reportsTable1.BackColor = System.Drawing.Color.Transparent;
-            this.reportsTable1.Location = new System.Drawing.Point(18, 151);
-            this.reportsTable1.Name = "reportsTable1";
-            this.reportsTable1.Size = new System.Drawing.Size(910, 385);
-            this.reportsTable1.TabIndex = 7;
-            // 
-            // ReportsMainPanel
+            // InventoryPage1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.reportsTable1);
-            this.Controls.Add(this.mainButton1);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.label1);
-            this.Name = "ReportsMainPanel";
-            this.Size = new System.Drawing.Size(937, 570);
+            this.Name = "InventoryPage1";
+            this.Size = new System.Drawing.Size(905, 470);
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private ReportsTable reportsTable1;
         private System.Windows.Forms.Panel panel3;
         private ReportsKeyMetrics reportsKeyMetrics4;
         private ReportsKeyMetrics reportsKeyMetrics3;
         private ReportsKeyMetrics reportsKeyMetrics2;
         private ReportsKeyMetrics reportsKeyMetrics1;
-        private UserControlFiles.MainButton mainButton1;
-        private ReportsTable reportsTable1;
     }
 }

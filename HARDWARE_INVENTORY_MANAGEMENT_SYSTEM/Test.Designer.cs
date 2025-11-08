@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel11 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
@@ -36,20 +37,25 @@
             this.label1 = new System.Windows.Forms.Label();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.panel11);
             this.panel1.Controls.Add(this.panel6);
             this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.panel2);
@@ -57,6 +63,13 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(975, 720);
             this.panel1.TabIndex = 0;
+            // 
+            // panel11
+            // 
+            this.panel11.Location = new System.Drawing.Point(18, 653);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(937, 41);
+            this.panel11.TabIndex = 4;
             // 
             // panel6
             // 
@@ -130,6 +143,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.panel9);
             this.panel4.Controls.Add(this.panel8);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Location = new System.Drawing.Point(17, 155);
@@ -137,20 +151,30 @@
             this.panel4.Size = new System.Drawing.Size(903, 375);
             this.panel4.TabIndex = 1;
             // 
-            // panel3
+            // panel9
             // 
-            this.panel3.Controls.Add(this.panel7);
-            this.panel3.Location = new System.Drawing.Point(18, 59);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(900, 90);
-            this.panel3.TabIndex = 0;
+            this.panel9.Controls.Add(this.label3);
+            this.panel9.Location = new System.Drawing.Point(0, -96);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(905, 470);
+            this.panel9.TabIndex = 3;
             // 
-            // panel7
+            // label3
             // 
-            this.panel7.Location = new System.Drawing.Point(697, 5);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(193, 85);
-            this.panel7.TabIndex = 0;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Lexend SemiBold", 11F, System.Drawing.FontStyle.Bold);
+            this.label3.Location = new System.Drawing.Point(41, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(169, 24);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Current Stock Report";
+            // 
+            // panel8
+            // 
+            this.panel8.Location = new System.Drawing.Point(27, 53);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(855, 309);
+            this.panel8.TabIndex = 2;
             // 
             // label2
             // 
@@ -162,12 +186,28 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Current Stock Report";
             // 
-            // panel8
+            // panel3
             // 
-            this.panel8.Location = new System.Drawing.Point(27, 53);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(855, 309);
-            this.panel8.TabIndex = 2;
+            this.panel3.Controls.Add(this.panel10);
+            this.panel3.Controls.Add(this.panel7);
+            this.panel3.Location = new System.Drawing.Point(18, 59);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(900, 90);
+            this.panel3.TabIndex = 0;
+            // 
+            // panel10
+            // 
+            this.panel10.Location = new System.Drawing.Point(23, 155);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(855, 309);
+            this.panel10.TabIndex = 2;
+            // 
+            // panel7
+            // 
+            this.panel7.Location = new System.Drawing.Point(697, 5);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(193, 85);
+            this.panel7.TabIndex = 0;
             // 
             // Test
             // 
@@ -187,6 +227,8 @@
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -206,5 +248,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel11;
     }
 }

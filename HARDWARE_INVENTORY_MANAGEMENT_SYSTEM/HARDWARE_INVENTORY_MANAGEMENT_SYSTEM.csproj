@@ -303,64 +303,118 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reports Module\CustomersReportPanel.cs">
+    <Compile Include="Reports Module\Customers Report\CustomersReportPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\CustomersReportPanel.Designer.cs">
+    <Compile Include="Reports Module\Customers Report\CustomersReportPanel.Designer.cs">
       <DependentUpon>CustomersReportPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\GenerateReport_Button.cs">
+    <Compile Include="Reports Module\Deliveries Report\DeliveriesReportPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\GenerateReport_Button.Designer.cs">
+    <Compile Include="Reports Module\Deliveries Report\DeliveriesReportPanel.Designer.cs">
+      <DependentUpon>DeliveriesReportPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Inventory Report\InventoryPage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Inventory Report\InventoryPage1.Designer.cs">
+      <DependentUpon>InventoryPage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Inventory Report\InventoryPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Inventory Report\InventoryPage2.Designer.cs">
+      <DependentUpon>InventoryPage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Inventory Report\InventoryPage3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Inventory Report\InventoryPage3.Designer.cs">
+      <DependentUpon>InventoryPage3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Inventory Report\InventoryPage4.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Inventory Report\InventoryPage4.Designer.cs">
+      <DependentUpon>InventoryPage4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Reports\GenerateReport_Button.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Reports\GenerateReport_Button.Designer.cs">
       <DependentUpon>GenerateReport_Button.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\ReportsKeyMetrics.cs">
+    <Compile Include="Reports Module\Reports\ReportsKeyMetrics.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\ReportsKeyMetrics.Designer.cs">
+    <Compile Include="Reports Module\Reports\ReportsKeyMetrics.Designer.cs">
       <DependentUpon>ReportsKeyMetrics.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\ReportsNavigationBar.cs">
+    <Compile Include="Reports Module\Reports\ReportsNavigationBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\ReportsNavigationBar.Designer.cs">
+    <Compile Include="Reports Module\Reports\ReportsNavigationBar.Designer.cs">
       <DependentUpon>ReportsNavigationBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\ReportsTable.cs">
+    <Compile Include="Reports Module\Inventory Report\ReportsTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\ReportsTable.Designer.cs">
+    <Compile Include="Reports Module\Inventory Report\ReportsTable.Designer.cs">
       <DependentUpon>ReportsTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\ReportsTopBar.cs">
+    <Compile Include="Reports Module\Reports\ReportsPagination.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\ReportsTopBar.Designer.cs">
+    <Compile Include="Reports Module\Reports\ReportsPagination.Designer.cs">
+      <DependentUpon>ReportsPagination.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Reports\ReportsTopBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Reports\ReportsTopBar.Designer.cs">
       <DependentUpon>ReportsTopBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\ReportsMainPage.cs">
+    <Compile Include="Reports Module\Inventory Report\ReportsMainPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\ReportsMainPage.Designer.cs">
+    <Compile Include="Reports Module\Inventory Report\ReportsMainPage.Designer.cs">
       <DependentUpon>ReportsMainPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\ReportsMainPanel.cs">
+    <Compile Include="Reports Module\Inventory Report\ReportsMainPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\ReportsMainPanel.Designer.cs">
+    <Compile Include="Reports Module\Inventory Report\ReportsMainPanel.Designer.cs">
       <DependentUpon>ReportsMainPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\SalesReportPanel.cs">
+    <Compile Include="Reports Module\Sales Report\SalesPage1.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\SalesReportPanel.Designer.cs">
+    <Compile Include="Reports Module\Sales Report\SalesPage1.Designer.cs">
+      <DependentUpon>SalesPage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Sales Report\SalesPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Sales Report\SalesPage2.Designer.cs">
+      <DependentUpon>SalesPage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Sales Report\SalesPage3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Sales Report\SalesPage3.Designer.cs">
+      <DependentUpon>SalesPage3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Sales Report\SalesReportPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Sales Report\SalesReportPanel.Designer.cs">
       <DependentUpon>SalesReportPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\SupplierReportsPanel.cs">
+    <Compile Include="Reports Module\Supplier Reports\SupplierReportsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\SupplierReportsPanel.Designer.cs">
+    <Compile Include="Reports Module\Supplier Reports\SupplierReportsPanel.Designer.cs">
       <DependentUpon>SupplierReportsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Supplier Module\EditFormSupplier.cs">
@@ -682,34 +736,61 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Reports Module\CustomersReportPanel.resx">
+    <EmbeddedResource Include="Reports Module\Customers Report\CustomersReportPanel.resx">
       <DependentUpon>CustomersReportPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports Module\GenerateReport_Button.resx">
+    <EmbeddedResource Include="Reports Module\Deliveries Report\DeliveriesReportPanel.resx">
+      <DependentUpon>DeliveriesReportPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Inventory Report\InventoryPage1.resx">
+      <DependentUpon>InventoryPage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Inventory Report\InventoryPage2.resx">
+      <DependentUpon>InventoryPage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Inventory Report\InventoryPage3.resx">
+      <DependentUpon>InventoryPage3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Inventory Report\InventoryPage4.resx">
+      <DependentUpon>InventoryPage4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Reports\GenerateReport_Button.resx">
       <DependentUpon>GenerateReport_Button.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports Module\ReportsKeyMetrics.resx">
+    <EmbeddedResource Include="Reports Module\Reports\ReportsKeyMetrics.resx">
       <DependentUpon>ReportsKeyMetrics.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports Module\ReportsNavigationBar.resx">
+    <EmbeddedResource Include="Reports Module\Reports\ReportsNavigationBar.resx">
       <DependentUpon>ReportsNavigationBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports Module\ReportsTable.resx">
+    <EmbeddedResource Include="Reports Module\Inventory Report\ReportsTable.resx">
       <DependentUpon>ReportsTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports Module\ReportsTopBar.resx">
+    <EmbeddedResource Include="Reports Module\Reports\ReportsPagination.resx">
+      <DependentUpon>ReportsPagination.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Reports\ReportsTopBar.resx">
       <DependentUpon>ReportsTopBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports Module\ReportsMainPage.resx">
+    <EmbeddedResource Include="Reports Module\Inventory Report\ReportsMainPage.resx">
       <DependentUpon>ReportsMainPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports Module\ReportsMainPanel.resx">
+    <EmbeddedResource Include="Reports Module\Inventory Report\ReportsMainPanel.resx">
       <DependentUpon>ReportsMainPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports Module\SalesReportPanel.resx">
+    <EmbeddedResource Include="Reports Module\Sales Report\SalesPage1.resx">
+      <DependentUpon>SalesPage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Sales Report\SalesPage2.resx">
+      <DependentUpon>SalesPage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Sales Report\SalesPage3.resx">
+      <DependentUpon>SalesPage3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Sales Report\SalesReportPanel.resx">
       <DependentUpon>SalesReportPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports Module\SupplierReportsPanel.resx">
+    <EmbeddedResource Include="Reports Module\Supplier Reports\SupplierReportsPanel.resx">
       <DependentUpon>SupplierReportsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\EditFormSupplier.resx">
