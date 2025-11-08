@@ -303,6 +303,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports Module\Customers Report\CustomersPage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Customers Report\CustomersPage1.Designer.cs">
+      <DependentUpon>CustomersPage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Customers Report\CustomersPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Customers Report\CustomersPage2.Designer.cs">
+      <DependentUpon>CustomersPage2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports Module\Customers Report\CustomersReportPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -736,6 +748,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Reports Module\Customers Report\CustomersPage1.resx">
+      <DependentUpon>CustomersPage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Customers Report\CustomersPage2.resx">
+      <DependentUpon>CustomersPage2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports Module\Customers Report\CustomersReportPanel.resx">
       <DependentUpon>CustomersReportPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1223,6 +1241,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\time clock yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
