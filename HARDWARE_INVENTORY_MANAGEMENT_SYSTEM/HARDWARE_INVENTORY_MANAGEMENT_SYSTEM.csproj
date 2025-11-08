@@ -321,6 +321,18 @@
     <Compile Include="Reports Module\Customers Report\CustomersReportPanel.Designer.cs">
       <DependentUpon>CustomersReportPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports Module\Deliveries Report\DeliveriesPage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Deliveries Report\DeliveriesPage1.Designer.cs">
+      <DependentUpon>DeliveriesPage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Deliveries Report\DeliveriesPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Deliveries Report\DeliveriesPage2.Designer.cs">
+      <DependentUpon>DeliveriesPage2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports Module\Deliveries Report\DeliveriesReportPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -422,6 +434,24 @@
     </Compile>
     <Compile Include="Reports Module\Sales Report\SalesReportPanel.Designer.cs">
       <DependentUpon>SalesReportPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Supplier Reports\SupplierPage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Supplier Reports\SupplierPage1.Designer.cs">
+      <DependentUpon>SupplierPage1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Supplier Reports\SupplierPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Supplier Reports\SupplierPage2.Designer.cs">
+      <DependentUpon>SupplierPage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports Module\Supplier Reports\SupplierPage3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports Module\Supplier Reports\SupplierPage3.Designer.cs">
+      <DependentUpon>SupplierPage3.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports Module\Supplier Reports\SupplierReportsPanel.cs">
       <SubType>UserControl</SubType>
@@ -763,6 +793,12 @@
     <EmbeddedResource Include="Reports Module\Customers Report\CustomersReportPanel.resx">
       <DependentUpon>CustomersReportPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Deliveries Report\DeliveriesPage1.resx">
+      <DependentUpon>DeliveriesPage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Deliveries Report\DeliveriesPage2.resx">
+      <DependentUpon>DeliveriesPage2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports Module\Deliveries Report\DeliveriesReportPanel.resx">
       <DependentUpon>DeliveriesReportPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -813,6 +849,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports Module\Sales Report\SalesReportPanel.resx">
       <DependentUpon>SalesReportPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Supplier Reports\SupplierPage1.resx">
+      <DependentUpon>SupplierPage1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Supplier Reports\SupplierPage2.resx">
+      <DependentUpon>SupplierPage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports Module\Supplier Reports\SupplierPage3.resx">
+      <DependentUpon>SupplierPage3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports Module\Supplier Reports\SupplierReportsPanel.resx">
       <DependentUpon>SupplierReportsPanel.cs</DependentUpon>
