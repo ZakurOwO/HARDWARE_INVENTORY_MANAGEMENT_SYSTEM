@@ -16,5 +16,37 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         {
             InitializeComponent();
         }
+
+        #region MyRegion
+
+        private Image image;
+        private string productName;
+        private int price;
+
+        [Category("Custom Properties")]
+        public Image Image
+        {
+            get { return image; }
+            set { image = value; pbxProductImage.BackgroundImage = value; }
+        }
+
+
+        [Category("Custom Properties")]
+        public string Product_Name
+        {
+            get { return productName; }
+            set { productName = value; lblProductName.Text = value; }
+        }
+
+
+        [Category("Custom Properties")]
+        public int Price
+        {
+            get { return price; }
+            set { price = value; lblPrice.Text = $"₱{value:N2}"; }
+        }
+
+        #endregion
+
     }
 }

@@ -30,9 +30,10 @@
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
-            this.userAccountsPanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.UserAccountsPanel();
             this.addNewUserButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.AddNewUserButton();
             this.accountsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.AccountsTopBar();
+            this.userAccountsPanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.UserAccountsPanel();
+            this.userAccountsPanel2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.UserAccountsPanel();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,8 +46,9 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Silver;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
-            this.guna2Panel1.Controls.Add(this.searchField1);
+            this.guna2Panel1.Controls.Add(this.userAccountsPanel2);
             this.guna2Panel1.Controls.Add(this.userAccountsPanel1);
+            this.guna2Panel1.Controls.Add(this.searchField1);
             this.guna2Panel1.Controls.Add(this.addNewUserButton1);
             this.guna2Panel1.Location = new System.Drawing.Point(19, 73);
             this.guna2Panel1.Name = "guna2Panel1";
@@ -61,14 +63,6 @@
             this.searchField1.PromptMessage = null;
             this.searchField1.Size = new System.Drawing.Size(299, 54);
             this.searchField1.TabIndex = 3;
-            // 
-            // userAccountsPanel1
-            // 
-            this.userAccountsPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.userAccountsPanel1.Location = new System.Drawing.Point(26, 84);
-            this.userAccountsPanel1.Name = "userAccountsPanel1";
-            this.userAccountsPanel1.Size = new System.Drawing.Size(590, 128);
-            this.userAccountsPanel1.TabIndex = 2;
             // 
             // addNewUserButton1
             // 
@@ -89,6 +83,32 @@
             this.accountsTopBar1.Size = new System.Drawing.Size(960, 69);
             this.accountsTopBar1.TabIndex = 0;
             // 
+            // userAccountsPanel1
+            // 
+            this.userAccountsPanel1._Name = "Richard Faulkerson";
+            this.userAccountsPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.userAccountsPanel1.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.shield1;
+            this.userAccountsPanel1.Location = new System.Drawing.Point(28, 89);
+            this.userAccountsPanel1.Name = "userAccountsPanel1";
+            this.userAccountsPanel1.Position = "Manager";
+            this.userAccountsPanel1.Role = "Admin";
+            this.userAccountsPanel1.Size = new System.Drawing.Size(284, 128);
+            this.userAccountsPanel1.Status = "Active";
+            this.userAccountsPanel1.TabIndex = 4;
+            // 
+            // userAccountsPanel2
+            // 
+            this.userAccountsPanel2._Name = "Dimpol Navarro";
+            this.userAccountsPanel2.BackColor = System.Drawing.Color.Transparent;
+            this.userAccountsPanel2.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.user1;
+            this.userAccountsPanel2.Location = new System.Drawing.Point(318, 89);
+            this.userAccountsPanel2.Name = "userAccountsPanel2";
+            this.userAccountsPanel2.Position = "Sales Representative";
+            this.userAccountsPanel2.Role = "User";
+            this.userAccountsPanel2.Size = new System.Drawing.Size(284, 128);
+            this.userAccountsPanel2.Status = "Active";
+            this.userAccountsPanel2.TabIndex = 5;
+            // 
             // AccountsMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -108,7 +128,8 @@
         private AccountsTopBar accountsTopBar1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private AddNewUserButton addNewUserButton1;
-        private UserAccountsPanel userAccountsPanel1;
         private SearchField searchField1;
+        private UserAccountsPanel userAccountsPanel2;
+        private UserAccountsPanel userAccountsPanel1;
     }
 }

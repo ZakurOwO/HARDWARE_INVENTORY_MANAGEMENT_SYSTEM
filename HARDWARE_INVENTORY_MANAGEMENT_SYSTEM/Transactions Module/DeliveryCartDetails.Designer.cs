@@ -49,7 +49,7 @@
             // 
             // deliveryComboBoxes1
             // 
-            this.deliveryComboBoxes1.BackColor = System.Drawing.Color.White;
+            this.deliveryComboBoxes1.BackColor = System.Drawing.Color.Transparent;
             this.deliveryComboBoxes1.Location = new System.Drawing.Point(1, -4);
             this.deliveryComboBoxes1.Name = "deliveryComboBoxes1";
             this.deliveryComboBoxes1.Size = new System.Drawing.Size(293, 135);
@@ -59,14 +59,13 @@
             // 
             this.guna2Panel3.BackColor = System.Drawing.Color.Transparent;
             this.guna2Panel3.BorderColor = System.Drawing.Color.Silver;
-            this.guna2Panel3.BorderThickness = 1;
             this.guna2Panel3.Controls.Add(this.subtotalDeliveryPanel1);
             this.guna2Panel3.Controls.Add(this.proceed_ClearButton1);
             this.guna2Panel3.Controls.Add(this.dgvCartDetails);
             this.guna2Panel3.Controls.Add(this.label2);
-            this.guna2Panel3.Location = new System.Drawing.Point(0, 130);
+            this.guna2Panel3.Location = new System.Drawing.Point(-1, 130);
             this.guna2Panel3.Name = "guna2Panel3";
-            this.guna2Panel3.Size = new System.Drawing.Size(294, 435);
+            this.guna2Panel3.Size = new System.Drawing.Size(293, 435);
             this.guna2Panel3.TabIndex = 5;
             // 
             // subtotalDeliveryPanel1
@@ -216,11 +215,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.guna2Panel3);
             this.Controls.Add(this.deliveryComboBoxes1);
             this.Name = "DeliveryCartDetails";
-            this.Size = new System.Drawing.Size(295, 565);
+            this.Size = new System.Drawing.Size(293, 565);
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCartDetails)).EndInit();

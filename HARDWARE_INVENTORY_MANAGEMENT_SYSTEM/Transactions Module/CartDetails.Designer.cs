@@ -46,7 +46,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
-            this.panelContainer = new System.Windows.Forms.Panel();
+            this.panelContainer = new Guna.UI2.WinForms.Guna2Panel();
             this.walkinOrDeliveryButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.WalkinOrDeliveryButton();
             this.guna2Panel2.SuspendLayout();
             this.guna2Panel3.SuspendLayout();
@@ -273,10 +273,10 @@
             // 
             this.guna2Panel4.BackColor = System.Drawing.Color.White;
             this.guna2Panel4.BorderColor = System.Drawing.Color.Silver;
-            this.guna2Panel4.BorderRadius = 15;
+            this.guna2Panel4.BorderRadius = 13;
             this.guna2Panel4.BorderThickness = 1;
-            this.guna2Panel4.Controls.Add(this.walkinOrDeliveryButton1);
             this.guna2Panel4.Controls.Add(this.panelContainer);
+            this.guna2Panel4.Controls.Add(this.walkinOrDeliveryButton1);
             this.guna2Panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel4.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel4.Name = "guna2Panel4";
@@ -286,10 +286,12 @@
             // panelContainer
             // 
             this.panelContainer.BackColor = System.Drawing.Color.Transparent;
-            this.panelContainer.Location = new System.Drawing.Point(0, 63);
+            this.panelContainer.BorderColor = System.Drawing.Color.Silver;
+            this.panelContainer.BorderRadius = 15;
+            this.panelContainer.Location = new System.Drawing.Point(1, 62);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(295, 561);
-            this.panelContainer.TabIndex = 1;
+            this.panelContainer.Size = new System.Drawing.Size(293, 562);
+            this.panelContainer.TabIndex = 3;
             // 
             // walkinOrDeliveryButton1
             // 
@@ -334,7 +336,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewButtonColumn Delete;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel4;
-        private System.Windows.Forms.Panel panelContainer;
         private WalkinOrDeliveryButton walkinOrDeliveryButton1;
+        private Guna.UI2.WinForms.Guna2Panel panelContainer;
     }
 }

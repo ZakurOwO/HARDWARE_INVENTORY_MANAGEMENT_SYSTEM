@@ -1345,6 +1345,11 @@
     <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Siamese Cable.png" />
+    <None Include="Resources\Rotary Hammer.png" />
+    <None Include="Resources\Walkin Hand Riveter.png" />
+    <None Include="Resources\plywood.png" />
+    <None Include="Resources\user1.png" />
     <None Include="Resources\setting1.png" />
     <None Include="Resources\setting.png" />
     <None Include="Resources\sign out %281%291.png" />
@@ -1353,12 +1358,16 @@
     <None Include="Resources\task-search.png" />
     <None Include="Resources\user-rectangle.png" />
     <None Include="Resources\Audit main.png" />
+    <None Include="Resources\Boysen.png" />
+    <None Include="Resources\Angle Grinder.png" />
     <Content Include="Resources\Canceled.png" />
     <None Include="Resources\Pending1.png" />
     <None Include="Resources\Canceled1.png" />
     <None Include="Resources\menu-circle-vertical.png" />
     <None Include="Resources\Group 1000004218.png" />
     <None Include="Resources\clipboard.png" />
+    <None Include="Resources\Davies.png" />
+    <None Include="Resources\Circular Saw.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

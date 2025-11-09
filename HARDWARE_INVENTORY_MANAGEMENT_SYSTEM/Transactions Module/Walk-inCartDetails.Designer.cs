@@ -29,51 +29,27 @@
         private void InitializeComponent()
         {
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
-            this.addedToCartTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.AddedToCartTable();
-            this.proceed_ClearButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Proceed_ClearButton();
-            this.subtotalPanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.SubtotalPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.addedToCartTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.AddedToCartTable();
+            this.proceed_ClearButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Proceed_ClearButton();
+            this.subtotalPanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.SubtotalPanel();
             this.guna2Panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Panel3
             // 
+            this.guna2Panel3.BackColor = System.Drawing.Color.Transparent;
             this.guna2Panel3.BorderColor = System.Drawing.Color.Silver;
-            this.guna2Panel3.BorderThickness = 1;
             this.guna2Panel3.Controls.Add(this.addedToCartTable1);
             this.guna2Panel3.Controls.Add(this.proceed_ClearButton1);
             this.guna2Panel3.Controls.Add(this.subtotalPanel1);
             this.guna2Panel3.Controls.Add(this.label2);
-            this.guna2Panel3.Location = new System.Drawing.Point(0, 55);
+            this.guna2Panel3.Location = new System.Drawing.Point(1, 55);
             this.guna2Panel3.Name = "guna2Panel3";
-            this.guna2Panel3.Size = new System.Drawing.Size(295, 510);
+            this.guna2Panel3.Size = new System.Drawing.Size(292, 510);
             this.guna2Panel3.TabIndex = 7;
-            // 
-            // addedToCartTable1
-            // 
-            this.addedToCartTable1.BackColor = System.Drawing.Color.Transparent;
-            this.addedToCartTable1.Location = new System.Drawing.Point(1, 39);
-            this.addedToCartTable1.Name = "addedToCartTable1";
-            this.addedToCartTable1.Size = new System.Drawing.Size(293, 311);
-            this.addedToCartTable1.TabIndex = 4;
-            // 
-            // proceed_ClearButton1
-            // 
-            this.proceed_ClearButton1.BackColor = System.Drawing.Color.Transparent;
-            this.proceed_ClearButton1.Location = new System.Drawing.Point(19, 453);
-            this.proceed_ClearButton1.Name = "proceed_ClearButton1";
-            this.proceed_ClearButton1.Size = new System.Drawing.Size(256, 45);
-            this.proceed_ClearButton1.TabIndex = 3;
-            // 
-            // subtotalPanel1
-            // 
-            this.subtotalPanel1.BackColor = System.Drawing.Color.White;
-            this.subtotalPanel1.Location = new System.Drawing.Point(1, 356);
-            this.subtotalPanel1.Name = "subtotalPanel1";
-            this.subtotalPanel1.Size = new System.Drawing.Size(293, 86);
-            this.subtotalPanel1.TabIndex = 2;
             // 
             // label2
             // 
@@ -115,16 +91,40 @@
             this.guna2TextBox1.Size = new System.Drawing.Size(200, 33);
             this.guna2TextBox1.TabIndex = 5;
             // 
+            // addedToCartTable1
+            // 
+            this.addedToCartTable1.BackColor = System.Drawing.Color.White;
+            this.addedToCartTable1.Location = new System.Drawing.Point(1, 39);
+            this.addedToCartTable1.Name = "addedToCartTable1";
+            this.addedToCartTable1.Size = new System.Drawing.Size(293, 311);
+            this.addedToCartTable1.TabIndex = 4;
+            // 
+            // proceed_ClearButton1
+            // 
+            this.proceed_ClearButton1.BackColor = System.Drawing.Color.Transparent;
+            this.proceed_ClearButton1.Location = new System.Drawing.Point(19, 453);
+            this.proceed_ClearButton1.Name = "proceed_ClearButton1";
+            this.proceed_ClearButton1.Size = new System.Drawing.Size(256, 45);
+            this.proceed_ClearButton1.TabIndex = 3;
+            // 
+            // subtotalPanel1
+            // 
+            this.subtotalPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.subtotalPanel1.Location = new System.Drawing.Point(1, 356);
+            this.subtotalPanel1.Name = "subtotalPanel1";
+            this.subtotalPanel1.Size = new System.Drawing.Size(293, 86);
+            this.subtotalPanel1.TabIndex = 2;
+            // 
             // Walk_inCartDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.guna2Panel3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.guna2TextBox1);
             this.Name = "Walk_inCartDetails";
-            this.Size = new System.Drawing.Size(295, 565);
+            this.Size = new System.Drawing.Size(293, 565);
             this.Load += new System.EventHandler(this.Walk_inCartDetails_Load);
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel3.PerformLayout();
