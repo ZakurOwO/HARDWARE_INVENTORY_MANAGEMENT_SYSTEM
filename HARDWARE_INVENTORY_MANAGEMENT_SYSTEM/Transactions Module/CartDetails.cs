@@ -55,14 +55,5 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             panelContainer.Controls.Add(deliveryUC);
         }
 
-        private void walkinOrDeliveryButton1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelContainer_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

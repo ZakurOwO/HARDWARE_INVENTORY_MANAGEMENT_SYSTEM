@@ -10,46 +10,32 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             InitializeComponent();
         }
 
-        private void ReportsMainPage_Load(object sender, EventArgs e)
-        {
-            reportsNavigationBar1.ShowInventory += PnlNavBar_ShowInventory;
-            reportsNavigationBar1.ShowSales += PnlNavBar_ShowSales;
-            reportsNavigationBar1.ShowCustomers += PnlNavBar_ShowCustomers;
-            reportsNavigationBar1.ShowSuppliers += PnlNavBar_ShowSuppliers;
-            reportsNavigationBar1.ShowDeliveries += PnlNavBar_ShowDeliveries;
-            
-            ShowInventoryControl();
-        }
-        private void inventory_KeyMetrics1_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void PnlNavBar_ShowInventory(object sender, EventArgs e)
         {
             ShowInventoryControl();
         }
         private void PnlNavBar_ShowSales(object sender, EventArgs e)
         {
-            ShowInventoryControl();
+            ShowSales();
         }
         private void PnlNavBar_ShowCustomers(object sender, EventArgs e)
         {
-            ShowInventoryControl();
+            ShowCustomers();
         }
         private void PnlNavBar_ShowSuppliers(object sender, EventArgs e)
         {
-            ShowInventoryControl();
+            ShowSuppliers();
         }
         private void PnlNavBar_ShowDeliveries(object sender, EventArgs e)
         {
-            ShowInventoryControl();
+            ShowDeliveries();
         }
 
         private void ShowInventoryControl()
         {
             pnlMainPanel.Controls.Clear();
-            var inventoryReportUC = new ReportsTable();
+            var inventoryReportUC = new InventoryReportsPanel();
             inventoryReportUC.Dock = DockStyle.Fill;
             pnlMainPanel.Controls.Add(inventoryReportUC);
         }
@@ -57,7 +43,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void ShowSales()
         {
             pnlMainPanel.Controls.Clear();
-            var salesReportUC = new ReportsTable();
+            var salesReportUC = new SalesPage();
             salesReportUC.Dock = DockStyle.Fill;
             pnlMainPanel.Controls.Add(salesReportUC);
         }
@@ -65,7 +51,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void ShowCustomers()
         {
             pnlMainPanel.Controls.Clear();
-            var customersReportUC = new ReportsTable();
+            var customersReportUC = new CustomersReportPanel();
             customersReportUC.Dock = DockStyle.Fill;
             pnlMainPanel.Controls.Add(customersReportUC);
         }
@@ -73,7 +59,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void ShowSuppliers()
         {
             pnlMainPanel.Controls.Clear();
-            var suppliersReportUC = new ReportsTable();
+            var suppliersReportUC = new SupplierReportsPanel();
             suppliersReportUC.Dock = DockStyle.Fill;
             pnlMainPanel.Controls.Add(suppliersReportUC);
         }
@@ -81,14 +67,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void ShowDeliveries()
         {
             pnlMainPanel.Controls.Clear();
-            var deliveriesReportUC = new ReportsTable();
+            var deliveriesReportUC = new DeliveriesReportPanel();
             deliveriesReportUC.Dock = DockStyle.Fill;
             pnlMainPanel.Controls.Add(deliveriesReportUC);
         }
 
-        private void pnlMainPanel_Paint(object sender, PaintEventArgs e)
+        private void ReportsMainPage_Load(object sender, EventArgs e)
         {
+            reportsNavigationBar1.ShowInventory += PnlNavBar_ShowInventory;
+            reportsNavigationBar1.ShowSales += PnlNavBar_ShowSales;
+            reportsNavigationBar1.ShowCustomers += PnlNavBar_ShowCustomers;
+            reportsNavigationBar1.ShowSuppliers += PnlNavBar_ShowSuppliers;
+            reportsNavigationBar1.ShowDeliveries += PnlNavBar_ShowDeliveries;
 
+            ShowInventoryControl();
         }
     }
 }

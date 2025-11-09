@@ -1,6 +1,6 @@
 ﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
-    partial class ReportsMainPanel
+    partial class InventoryReportsPanel
     {
         /// <summary> 
         /// Required designer variable.

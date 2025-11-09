@@ -28,52 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.pnlMainPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.reportsNavigationBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsNavigationBar();
             this.reportsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsTopBar();
-            this.pnlMainPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.SuspendLayout();
-            // 
-            // reportsNavigationBar1
-            // 
-            this.reportsNavigationBar1.BackColor = System.Drawing.Color.White;
-            this.reportsNavigationBar1.Location = new System.Drawing.Point(169, 82);
-            this.reportsNavigationBar1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.reportsNavigationBar1.Name = "reportsNavigationBar1";
-            this.reportsNavigationBar1.Size = new System.Drawing.Size(944, 57);
-            this.reportsNavigationBar1.TabIndex = 1;
-            // 
-            // reportsTopBar1
-            // 
-            this.reportsTopBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.reportsTopBar1.Location = new System.Drawing.Point(0, 0);
-            this.reportsTopBar1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.reportsTopBar1.Name = "reportsTopBar1";
-            this.reportsTopBar1.Size = new System.Drawing.Size(1299, 86);
-            this.reportsTopBar1.TabIndex = 0;
             // 
             // pnlMainPanel
             // 
             this.pnlMainPanel.BorderColor = System.Drawing.Color.LightGray;
             this.pnlMainPanel.BorderRadius = 13;
             this.pnlMainPanel.BorderThickness = 1;
-            this.pnlMainPanel.Location = new System.Drawing.Point(24, 153);
-            this.pnlMainPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlMainPanel.Location = new System.Drawing.Point(18, 124);
             this.pnlMainPanel.Name = "pnlMainPanel";
-            this.pnlMainPanel.Size = new System.Drawing.Size(1249, 702);
+            this.pnlMainPanel.Size = new System.Drawing.Size(937, 570);
             this.pnlMainPanel.TabIndex = 3;
-            this.pnlMainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMainPanel_Paint);
+            // 
+            // reportsNavigationBar1
+            // 
+            this.reportsNavigationBar1.BackColor = System.Drawing.Color.White;
+            this.reportsNavigationBar1.Location = new System.Drawing.Point(127, 67);
+            this.reportsNavigationBar1.Margin = new System.Windows.Forms.Padding(4);
+            this.reportsNavigationBar1.Name = "reportsNavigationBar1";
+            this.reportsNavigationBar1.Size = new System.Drawing.Size(708, 46);
+            this.reportsNavigationBar1.TabIndex = 1;
+            // 
+            // reportsTopBar1
+            // 
+            this.reportsTopBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.reportsTopBar1.Location = new System.Drawing.Point(0, 0);
+            this.reportsTopBar1.Margin = new System.Windows.Forms.Padding(4);
+            this.reportsTopBar1.Name = "reportsTopBar1";
+            this.reportsTopBar1.Size = new System.Drawing.Size(974, 70);
+            this.reportsTopBar1.TabIndex = 0;
             // 
             // ReportsMainPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.Controls.Add(this.pnlMainPanel);
             this.Controls.Add(this.reportsNavigationBar1);
             this.Controls.Add(this.reportsTopBar1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ReportsMainPage";
-            this.Size = new System.Drawing.Size(1300, 886);
+            this.Size = new System.Drawing.Size(975, 720);
+            this.Load += new System.EventHandler(this.ReportsMainPage_Load);
             this.ResumeLayout(false);
 
         }
