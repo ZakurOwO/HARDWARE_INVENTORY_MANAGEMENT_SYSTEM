@@ -17,14 +17,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             InitializeComponent();
         }
 
-        private void kryptonLabel1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void VehicleModel4_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
