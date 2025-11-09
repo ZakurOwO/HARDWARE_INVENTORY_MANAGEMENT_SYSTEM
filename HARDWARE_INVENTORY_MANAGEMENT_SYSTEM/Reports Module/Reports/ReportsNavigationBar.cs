@@ -1,17 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
     public partial class ReportsNavigationBar : UserControl
     {
+        public event EventHandler ShowInventory;
+        public event EventHandler ShowSales;
+        public event EventHandler ShowCustomers;
+        public event EventHandler ShowSuppliers;
+        public event EventHandler ShowDeliveries;
+
         public ReportsNavigationBar()
         {
             InitializeComponent();
@@ -55,26 +57,31 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void btnInventory_Click(object sender, EventArgs e)
         {
             SelectedTab(btnInventory);
+            ShowInventory?.Invoke(this, EventArgs.Empty);
         }
 
         private void btnSales_Click(object sender, EventArgs e)
         {
             SelectedTab(btnSales);
+            ShowSales?.Invoke(this, EventArgs.Empty);
         }
 
         private void btnCustomers_Click(object sender, EventArgs e)
         {
             SelectedTab(btnCustomers);
+            ShowCustomers?.Invoke(this, EventArgs.Empty);
         }
 
         private void btnSuppliers_Click(object sender, EventArgs e)
         {
             SelectedTab(btnSuppliers);
+            ShowSuppliers?.Invoke(this, EventArgs.Empty);
         }
 
         private void btnDeliveries_Click(object sender, EventArgs e)
         {
             SelectedTab(btnDeliveries);
+            ShowDeliveries?.Invoke(this, EventArgs.Empty);
         }
     }
 }
