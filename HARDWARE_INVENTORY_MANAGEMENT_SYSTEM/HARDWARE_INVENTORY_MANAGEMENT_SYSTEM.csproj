@@ -417,11 +417,11 @@
     <Compile Include="Reports Module\Inventory Report\ReportsMainPage.Designer.cs">
       <DependentUpon>ReportsMainPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\Inventory Report\ReportsMainPanel.cs">
+    <Compile Include="Reports Module\Inventory Report\InventoryReportsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Reports Module\Inventory Report\ReportsMainPanel.Designer.cs">
-      <DependentUpon>ReportsMainPanel.cs</DependentUpon>
+    <Compile Include="Reports Module\Inventory Report\InventoryReportsPanel.Designer.cs">
+      <DependentUpon>InventoryReportsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports Module\Sales Report\SalesPage1.cs">
       <SubType>UserControl</SubType>
@@ -871,8 +871,8 @@
     <EmbeddedResource Include="Reports Module\Inventory Report\ReportsMainPage.resx">
       <DependentUpon>ReportsMainPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports Module\Inventory Report\ReportsMainPanel.resx">
-      <DependentUpon>ReportsMainPanel.cs</DependentUpon>
+    <EmbeddedResource Include="Reports Module\Inventory Report\InventoryReportsPanel.resx">
+      <DependentUpon>InventoryReportsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports Module\Sales Report\SalesPage1.resx">
       <DependentUpon>SalesPage1.cs</DependentUpon>

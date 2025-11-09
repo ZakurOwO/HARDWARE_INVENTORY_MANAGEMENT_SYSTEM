@@ -1,6 +1,6 @@
 ﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
-    partial class SalesPage
+    partial class InventoryReportsPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,25 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.mainButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.mainButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButton();
+            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.label2 = new System.Windows.Forms.Label();
             this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.SuspendLayout();
-            // 
-            // mainButton1
-            // 
-            this.mainButton1.ButtonName = "Generate Report";
-            this.mainButton1.Location = new System.Drawing.Point(764, 11);
-            this.mainButton1.Name = "mainButton1";
-            this.mainButton1.Size = new System.Drawing.Size(149, 44);
-            this.mainButton1.TabIndex = 9;
             // 
             // label1
             // 
@@ -54,9 +47,24 @@
             this.label1.Font = new System.Drawing.Font("Lexend SemiBold", 11.25F, System.Drawing.FontStyle.Bold);
             this.label1.Location = new System.Drawing.Point(21, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 24);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Sales Reports";
+            this.label1.Size = new System.Drawing.Size(148, 24);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Inventory Reports";
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(18, 58);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(905, 470);
+            this.panel1.TabIndex = 7;
+            // 
+            // mainButton1
+            // 
+            this.mainButton1.ButtonName = "Generate Report";
+            this.mainButton1.Location = new System.Drawing.Point(764, 11);
+            this.mainButton1.Name = "mainButton1";
+            this.mainButton1.Size = new System.Drawing.Size(149, 44);
+            this.mainButton1.TabIndex = 6;
             // 
             // inventoryFilter_Button1
             // 
@@ -64,14 +72,7 @@
             this.inventoryFilter_Button1.Location = new System.Drawing.Point(661, 11);
             this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
             this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
-            this.inventoryFilter_Button1.TabIndex = 10;
-            // 
-            // panel1
-            // 
-            this.panel1.Location = new System.Drawing.Point(18, 58);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(905, 470);
-            this.panel1.TabIndex = 11;
+            this.inventoryFilter_Button1.TabIndex = 11;
             // 
             // label2
             // 
@@ -95,7 +96,7 @@
             this.guna2Button5.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button5.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
-            this.guna2Button5.Location = new System.Drawing.Point(811, 536);
+            this.guna2Button5.Location = new System.Drawing.Point(783, 536);
             this.guna2Button5.Name = "guna2Button5";
             this.guna2Button5.Size = new System.Drawing.Size(29, 29);
             this.guna2Button5.TabIndex = 29;
@@ -115,7 +116,7 @@
             this.guna2Button6.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button6.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
-            this.guna2Button6.Location = new System.Drawing.Point(783, 536);
+            this.guna2Button6.Location = new System.Drawing.Point(755, 536);
             this.guna2Button6.Name = "guna2Button6";
             this.guna2Button6.Size = new System.Drawing.Size(29, 29);
             this.guna2Button6.TabIndex = 28;
@@ -139,6 +140,24 @@
             this.guna2Button4.Size = new System.Drawing.Size(29, 29);
             this.guna2Button4.TabIndex = 27;
             // 
+            // guna2Button3
+            // 
+            this.guna2Button3.BorderColor = System.Drawing.Color.LightGray;
+            this.guna2Button3.BorderRadius = 5;
+            this.guna2Button3.BorderThickness = 1;
+            this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button3.FillColor = System.Drawing.Color.Transparent;
+            this.guna2Button3.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2Button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
+            this.guna2Button3.Location = new System.Drawing.Point(867, 536);
+            this.guna2Button3.Name = "guna2Button3";
+            this.guna2Button3.Size = new System.Drawing.Size(29, 29);
+            this.guna2Button3.TabIndex = 26;
+            this.guna2Button3.Text = "4";
+            // 
             // guna2Button1
             // 
             this.guna2Button1.BorderColor = System.Drawing.Color.LightGray;
@@ -151,7 +170,7 @@
             this.guna2Button1.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button1.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
-            this.guna2Button1.Location = new System.Drawing.Point(867, 536);
+            this.guna2Button1.Location = new System.Drawing.Point(839, 536);
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(29, 29);
             this.guna2Button1.TabIndex = 25;
@@ -169,13 +188,13 @@
             this.guna2Button2.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button2.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
-            this.guna2Button2.Location = new System.Drawing.Point(839, 536);
+            this.guna2Button2.Location = new System.Drawing.Point(811, 536);
             this.guna2Button2.Name = "guna2Button2";
             this.guna2Button2.Size = new System.Drawing.Size(29, 29);
             this.guna2Button2.TabIndex = 24;
             this.guna2Button2.Text = "2";
             // 
-            // SalesPage
+            // InventoryReportsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -184,13 +203,14 @@
             this.Controls.Add(this.guna2Button5);
             this.Controls.Add(this.guna2Button6);
             this.Controls.Add(this.guna2Button4);
+            this.Controls.Add(this.guna2Button3);
             this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.guna2Button2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.inventoryFilter_Button1);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.mainButton1);
             this.Controls.Add(this.label1);
-            this.Name = "SalesPage";
+            this.Name = "InventoryReportsPanel";
             this.Size = new System.Drawing.Size(937, 570);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -199,14 +219,15 @@
 
         #endregion
 
-        private UserControlFiles.MainButton mainButton1;
         private System.Windows.Forms.Label label1;
-        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
+        private UserControlFiles.MainButton mainButton1;
         private System.Windows.Forms.Panel panel1;
+        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2Button guna2Button5;
         private Guna.UI2.WinForms.Guna2Button guna2Button6;
         private Guna.UI2.WinForms.Guna2Button guna2Button4;
+        private Guna.UI2.WinForms.Guna2Button guna2Button3;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
     }

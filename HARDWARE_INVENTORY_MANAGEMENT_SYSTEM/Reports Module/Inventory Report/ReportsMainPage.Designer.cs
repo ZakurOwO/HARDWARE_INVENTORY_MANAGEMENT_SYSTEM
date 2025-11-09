@@ -28,26 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.pnlMainPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.reportsNavigationBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsNavigationBar();
             this.reportsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsTopBar();
-            this.pnlMainPanel = new Guna.UI2.WinForms.Guna2Panel();
             this.SuspendLayout();
-            // 
-            // reportsNavigationBar1
-            // 
-            this.reportsNavigationBar1.BackColor = System.Drawing.Color.White;
-            this.reportsNavigationBar1.Location = new System.Drawing.Point(127, 67);
-            this.reportsNavigationBar1.Name = "reportsNavigationBar1";
-            this.reportsNavigationBar1.Size = new System.Drawing.Size(708, 46);
-            this.reportsNavigationBar1.TabIndex = 1;
-            // 
-            // reportsTopBar1
-            // 
-            this.reportsTopBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.reportsTopBar1.Location = new System.Drawing.Point(0, 0);
-            this.reportsTopBar1.Name = "reportsTopBar1";
-            this.reportsTopBar1.Size = new System.Drawing.Size(974, 70);
-            this.reportsTopBar1.TabIndex = 0;
             // 
             // pnlMainPanel
             // 
@@ -59,6 +43,24 @@
             this.pnlMainPanel.Size = new System.Drawing.Size(937, 570);
             this.pnlMainPanel.TabIndex = 3;
             // 
+            // reportsNavigationBar1
+            // 
+            this.reportsNavigationBar1.BackColor = System.Drawing.Color.White;
+            this.reportsNavigationBar1.Location = new System.Drawing.Point(127, 67);
+            this.reportsNavigationBar1.Margin = new System.Windows.Forms.Padding(4);
+            this.reportsNavigationBar1.Name = "reportsNavigationBar1";
+            this.reportsNavigationBar1.Size = new System.Drawing.Size(708, 46);
+            this.reportsNavigationBar1.TabIndex = 1;
+            // 
+            // reportsTopBar1
+            // 
+            this.reportsTopBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.reportsTopBar1.Location = new System.Drawing.Point(0, 0);
+            this.reportsTopBar1.Margin = new System.Windows.Forms.Padding(4);
+            this.reportsTopBar1.Name = "reportsTopBar1";
+            this.reportsTopBar1.Size = new System.Drawing.Size(974, 70);
+            this.reportsTopBar1.TabIndex = 0;
+            // 
             // ReportsMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -69,6 +71,7 @@
             this.Controls.Add(this.reportsTopBar1);
             this.Name = "ReportsMainPage";
             this.Size = new System.Drawing.Size(975, 720);
+            this.Load += new System.EventHandler(this.ReportsMainPage_Load);
             this.ResumeLayout(false);
 
         }

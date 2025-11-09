@@ -66,7 +66,7 @@
             this.guna2Panel3.Controls.Add(this.label2);
             this.guna2Panel3.Location = new System.Drawing.Point(0, 130);
             this.guna2Panel3.Name = "guna2Panel3";
-            this.guna2Panel3.Size = new System.Drawing.Size(295, 435);
+            this.guna2Panel3.Size = new System.Drawing.Size(294, 435);
             this.guna2Panel3.TabIndex = 5;
             // 
             // subtotalDeliveryPanel1
@@ -116,7 +116,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCartDetails.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCartDetails.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvCartDetails.Location = new System.Drawing.Point(1, 33);
+            this.dgvCartDetails.Location = new System.Drawing.Point(2, 33);
             this.dgvCartDetails.Name = "dgvCartDetails";
             this.dgvCartDetails.ReadOnly = true;
             this.dgvCartDetails.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -147,7 +147,7 @@
             this.dgvCartDetails.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvCartDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvCartDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvCartDetails.Size = new System.Drawing.Size(294, 233);
+            this.dgvCartDetails.Size = new System.Drawing.Size(291, 233);
             this.dgvCartDetails.TabIndex = 1;
             this.dgvCartDetails.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvCartDetails.ThemeStyle.AlternatingRowsStyle.Font = null;
