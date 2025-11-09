@@ -58,6 +58,7 @@
             this.searchField1.BackColor = System.Drawing.Color.Transparent;
             this.searchField1.Location = new System.Drawing.Point(27, 23);
             this.searchField1.Name = "searchField1";
+            this.searchField1.PromptMessage = null;
             this.searchField1.Size = new System.Drawing.Size(299, 54);
             this.searchField1.TabIndex = 3;
             // 

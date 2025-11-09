@@ -30,7 +30,6 @@
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.DashboardBTN = new System.Windows.Forms.Button();
-            this.AccountBTN = new System.Windows.Forms.Button();
             this.InventoryBTN = new System.Windows.Forms.Button();
             this.TransactionBTN = new System.Windows.Forms.Button();
             this.CustomerBTN = new System.Windows.Forms.Button();
@@ -39,6 +38,7 @@
             this.ReportBTN = new System.Windows.Forms.Button();
             this.HistoryBTN = new System.Windows.Forms.Button();
             this.AuditlogBTN = new System.Windows.Forms.Button();
+            this.AccountBTN = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,24 +69,6 @@
             this.DashboardBTN.Text = "   Dashboard";
             this.DashboardBTN.UseVisualStyleBackColor = false;
             this.DashboardBTN.Click += new System.EventHandler(this.DashboardBTN_Click);
-            // 
-            // AccountBTN
-            // 
-            this.AccountBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.AccountBTN.FlatAppearance.BorderSize = 0;
-            this.AccountBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AccountBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.AccountBTN.ForeColor = System.Drawing.Color.Black;
-            this.AccountBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Accounts;
-            this.AccountBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AccountBTN.Location = new System.Drawing.Point(9, 114);
-            this.AccountBTN.Name = "AccountBTN";
-            this.AccountBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.AccountBTN.Size = new System.Drawing.Size(188, 39);
-            this.AccountBTN.TabIndex = 2;
-            this.AccountBTN.Text = " Accounts";
-            this.AccountBTN.UseVisualStyleBackColor = false;
-            this.AccountBTN.Click += new System.EventHandler(this.AccountBTN_Click);
             // 
             // InventoryBTN
             // 
@@ -232,6 +214,24 @@
             this.AuditlogBTN.UseVisualStyleBackColor = false;
             this.AuditlogBTN.Click += new System.EventHandler(this.AuditlogBTN_Click);
             // 
+            // AccountBTN
+            // 
+            this.AccountBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.AccountBTN.FlatAppearance.BorderSize = 0;
+            this.AccountBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AccountBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.AccountBTN.ForeColor = System.Drawing.Color.Black;
+            this.AccountBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Accounts;
+            this.AccountBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AccountBTN.Location = new System.Drawing.Point(9, 114);
+            this.AccountBTN.Name = "AccountBTN";
+            this.AccountBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.AccountBTN.Size = new System.Drawing.Size(188, 39);
+            this.AccountBTN.TabIndex = 2;
+            this.AccountBTN.Text = " Accounts";
+            this.AccountBTN.UseVisualStyleBackColor = false;
+            this.AccountBTN.Click += new System.EventHandler(this.AccountBTN_Click);
+            // 
             // SidePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,7 +262,6 @@
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button DashboardBTN;
-        private System.Windows.Forms.Button AccountBTN;
         private System.Windows.Forms.Button InventoryBTN;
         private System.Windows.Forms.Button TransactionBTN;
         private System.Windows.Forms.Button CustomerBTN;
@@ -271,5 +270,6 @@
         private System.Windows.Forms.Button ReportBTN;
         private System.Windows.Forms.Button HistoryBTN;
         private System.Windows.Forms.Button AuditlogBTN;
+        private System.Windows.Forms.Button AccountBTN;
     }
 }

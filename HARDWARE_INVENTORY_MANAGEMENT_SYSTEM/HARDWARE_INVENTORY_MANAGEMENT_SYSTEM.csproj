@@ -471,6 +471,12 @@
     <Compile Include="Reports Module\Supplier Reports\SupplierReportsPanel.Designer.cs">
       <DependentUpon>SupplierReportsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="SettingsTab\TabModules.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SettingsTab\TabModules.Designer.cs">
+      <DependentUpon>TabModules.cs</DependentUpon>
+    </Compile>
     <Compile Include="Supplier Module\EditFormSupplier.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -632,6 +638,18 @@
     </Compile>
     <Compile Include="UserControlFiles\MainButton.Designer.cs">
       <DependentUpon>MainButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsTab\Settings&amp;Signout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SettingsTab\Settings&amp;Signout.Designer.cs">
+      <DependentUpon>Settings&amp;Signout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsTab\SettingsMainPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SettingsTab\SettingsMainPage.Designer.cs">
+      <DependentUpon>SettingsMainPage.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControlFiles\SidePanel.cs">
       <SubType>UserControl</SubType>
@@ -880,6 +898,9 @@
     <EmbeddedResource Include="Reports Module\Supplier Reports\SupplierReportsPanel.resx">
       <DependentUpon>SupplierReportsPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SettingsTab\TabModules.resx">
+      <DependentUpon>TabModules.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\EditFormSupplier.resx">
       <DependentUpon>EditFormSupplier.cs</DependentUpon>
     </EmbeddedResource>
@@ -960,6 +981,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\MainButton.resx">
       <DependentUpon>MainButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsTab\Settings&amp;Signout.resx">
+      <DependentUpon>Settings&amp;Signout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsTab\SettingsMainPage.resx">
+      <DependentUpon>SettingsMainPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\SidePanel.resx">
       <DependentUpon>SidePanel.cs</DependentUpon>
@@ -1318,11 +1345,20 @@
     <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\setting1.png" />
+    <None Include="Resources\setting.png" />
+    <None Include="Resources\sign out %281%291.png" />
+    <None Include="Resources\sign out %281%29.png" />
+    <None Include="Resources\sign out.png" />
+    <None Include="Resources\task-search.png" />
+    <None Include="Resources\user-rectangle.png" />
     <None Include="Resources\Audit main.png" />
     <Content Include="Resources\Canceled.png" />
     <None Include="Resources\Pending1.png" />
     <None Include="Resources\Canceled1.png" />
     <None Include="Resources\menu-circle-vertical.png" />
+    <None Include="Resources\Group 1000004218.png" />
+    <None Include="Resources\clipboard.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

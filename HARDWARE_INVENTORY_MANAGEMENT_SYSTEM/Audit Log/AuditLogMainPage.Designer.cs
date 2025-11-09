@@ -28,9 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.auditLogTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditLogTopBar();
+            
             this.auditDataGrid1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditDataGrid();
+            this.auditLogTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditLogTopBar();
             this.SuspendLayout();
+            // 
+            // settingsButtons1
+            // 
+            
+            //
+            // auditDataGrid1
+            // 
+            this.auditDataGrid1.Location = new System.Drawing.Point(103, 115);
+            this.auditDataGrid1.Name = "auditDataGrid1";
+            this.auditDataGrid1.Size = new System.Drawing.Size(778, 442);
+            this.auditDataGrid1.TabIndex = 1;
             // 
             // auditLogTopBar1
             // 
@@ -40,19 +52,13 @@
             this.auditLogTopBar1.Size = new System.Drawing.Size(965, 69);
             this.auditLogTopBar1.TabIndex = 0;
             // 
-            // auditDataGrid1
-            // 
-            this.auditDataGrid1.Location = new System.Drawing.Point(103, 115);
-            this.auditDataGrid1.Name = "auditDataGrid1";
-            this.auditDataGrid1.Size = new System.Drawing.Size(778, 442);
-            this.auditDataGrid1.TabIndex = 1;
-            // 
             // AuditLogMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            
             this.Controls.Add(this.auditDataGrid1);
             this.Controls.Add(this.auditLogTopBar1);
             this.DoubleBuffered = true;
@@ -67,5 +73,6 @@
 
         private AuditLogTopBar auditLogTopBar1;
         private AuditDataGrid auditDataGrid1;
+        
     }
 }
