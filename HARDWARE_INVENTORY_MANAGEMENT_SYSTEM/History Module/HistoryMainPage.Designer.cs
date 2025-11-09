@@ -38,12 +38,14 @@
             // 
             // kryptonPanel1
             // 
+            this.kryptonPanel1.Controls.Add(this.historyTopBar1);
             this.kryptonPanel1.Controls.Add(this.datGridTableHistory1);
             this.kryptonPanel1.Controls.Add(this.upperPanels1);
-            this.kryptonPanel1.Controls.Add(this.historyTopBar1);
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(886, 732);
+            this.kryptonPanel1.Size = new System.Drawing.Size(965, 732);
+            this.kryptonPanel1.StateCommon.Color1 = System.Drawing.Color.White;
+            this.kryptonPanel1.StateCommon.Color2 = System.Drawing.Color.White;
             this.kryptonPanel1.StateNormal.Color1 = System.Drawing.Color.Transparent;
             this.kryptonPanel1.TabIndex = 0;
             // 
@@ -51,7 +53,7 @@
             // 
             this.datGridTableHistory1.BackColor = System.Drawing.Color.White;
             this.datGridTableHistory1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.datGridTableHistory1.Location = new System.Drawing.Point(64, 205);
+            this.datGridTableHistory1.Location = new System.Drawing.Point(89, 202);
             this.datGridTableHistory1.Name = "datGridTableHistory1";
             this.datGridTableHistory1.Size = new System.Drawing.Size(781, 442);
             this.datGridTableHistory1.TabIndex = 3;
@@ -66,11 +68,12 @@
             // 
             // historyTopBar1
             // 
+            this.historyTopBar1.BackColor = System.Drawing.Color.White;
             this.historyTopBar1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.historyTopBar1.Location = new System.Drawing.Point(53, 21);
+            this.historyTopBar1.Location = new System.Drawing.Point(0, 0);
             this.historyTopBar1.Name = "historyTopBar1";
-            this.historyTopBar1.Size = new System.Drawing.Size(792, 69);
-            this.historyTopBar1.TabIndex = 1;
+            this.historyTopBar1.Size = new System.Drawing.Size(965, 69);
+            this.historyTopBar1.TabIndex = 4;
             // 
             // HistoryMainPage
             // 
@@ -81,7 +84,7 @@
             this.Controls.Add(this.kryptonPanel1);
             this.DoubleBuffered = true;
             this.Name = "HistoryMainPage";
-            this.Size = new System.Drawing.Size(886, 732);
+            this.Size = new System.Drawing.Size(965, 696);
             this.Load += new System.EventHandler(this.HistoryMainPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
@@ -92,8 +95,8 @@
         #endregion
 
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
-        private HistoryTopBar historyTopBar1;
         private UpperPanels upperPanels1;
         private DatGridTableHistory datGridTableHistory1;
+        private HistoryTopBar historyTopBar1;
     }
 }

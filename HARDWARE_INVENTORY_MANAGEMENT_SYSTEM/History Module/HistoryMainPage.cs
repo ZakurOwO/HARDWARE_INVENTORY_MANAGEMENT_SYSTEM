@@ -26,5 +26,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module
         {
 
         }
+
+        private void historyTopBar1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

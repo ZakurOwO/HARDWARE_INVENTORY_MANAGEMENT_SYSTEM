@@ -41,16 +41,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void SidePanel_Load(object sender, EventArgs e)
         {
-            
+
             foreach (Control ctrl in this.Controls)
             {
                 if (ctrl is Button btn)
                 {
-                    btn.Paint += SidebarButton_Paint; 
+                    btn.Paint += SidebarButton_Paint;
                 }
             }
 
-           
+
             if (this.Controls.ContainsKey("DashboardBTN"))
             {
                 HighlightButton((Button)this.Controls["DashboardBTN"]);
@@ -63,7 +63,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             Color activeBack = Color.FromArgb(184, 213, 229);
             Color activeText = Color.FromArgb(0, 87, 158);
 
-          
+
             foreach (Control ctrl in this.Controls)
             {
                 if (ctrl is Button btn)
@@ -76,14 +76,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 }
             }
 
-           
+
             clickedButton.BackColor = activeBack;
             clickedButton.ForeColor = activeText;
             clickedButton.Font = new Font("Lexend SemiBold", 9, FontStyle.Regular);
             clickedButton.Tag = "active";
             activeButton = clickedButton;
 
-           
+
             clickedButton.Invalidate();
             this.Invalidate();
         }
@@ -96,16 +96,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             {
                 using (SolidBrush brush = new SolidBrush(Color.FromArgb(0, 87, 158)))
                 {
-                   
+
                     Rectangle lineRect = new Rectangle(0, 4, 4, btn.Height - 8);
                     e.Graphics.FillRectangle(brush, lineRect);
                 }
             }
         }
 
-        private void DashboardBTN_Click(object sender, EventArgs e) 
-        { HighlightButton((Button)sender);
-            
+        private void DashboardBTN_Click(object sender, EventArgs e)
+        {
+            HighlightButton((Button)sender);
+
         }
         private void AccountBTN_Click(object sender, EventArgs e)
         {
@@ -119,7 +120,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 mainForm.MainContentPanelAccess.Controls.Add(accountPage);
             }
         }
-        private void InventoryBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+        private void InventoryBTN_Click(object sender, EventArgs e)
+        {
+            HighlightButton((Button)sender);
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -130,7 +133,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
 
         }
-        private void TransactionBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+        private void TransactionBTN_Click(object sender, EventArgs e)
+        {
+            HighlightButton((Button)sender);
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -139,9 +144,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 mainForm.MainContentPanelAccess.Controls.Add(transation);
             }
         }
-            
 
-        private void CustomerBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+
+        private void CustomerBTN_Click(object sender, EventArgs e)
+        {
+            HighlightButton((Button)sender);
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -150,7 +157,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 mainForm.MainContentPanelAccess.Controls.Add(customerForm);
             }
         }
-        private void SupplierBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+        private void SupplierBTN_Click(object sender, EventArgs e)
+        {
+            HighlightButton((Button)sender);
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -169,9 +178,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 DeliveriesMainPage vehicleForm = new DeliveriesMainPage();
                 mainForm.MainContentPanelAccess.Controls.Add(vehicleForm);
             }
-            
+
         }
-        private void ReportBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+        private void ReportBTN_Click(object sender, EventArgs e)
+        {
+            HighlightButton((Button)sender);
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -180,7 +191,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 mainForm.MainContentPanelAccess.Controls.Add(reports);
             }
         }
-        private void HistoryBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender);
+        private void HistoryBTN_Click(object sender, EventArgs e)
+        {
+            HighlightButton((Button)sender);
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -189,8 +202,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 mainForm.MainContentPanelAccess.Controls.Add(history);
             }
         }
-        private void AuditlogBTN_Click(object sender, EventArgs e) { HighlightButton((Button)sender); 
-        
+        private void AuditlogBTN_Click(object sender, EventArgs e)
+        {
+            HighlightButton((Button)sender);
+            {
+                var mainForm = this.FindForm() as MainDashBoard;
+                if (mainForm != null)
+                {
+                    mainForm.MainContentPanelAccess.Controls.Clear();
+                    Audit_Log.AuditLogMainPage auditlog = new Audit_Log.AuditLogMainPage();
+                    mainForm.MainContentPanelAccess.Controls.Add(auditlog);
+                }
+            }
         }
     }
 }

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.MainContentPanel = new Krypton.Toolkit.KryptonPanel();
+            this.reportsTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsTable();
             this.ucKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucKeyMetrics();
             this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
             this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
-            this.reportsTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsTable();
             ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).BeginInit();
             this.MainContentPanel.SuspendLayout();
             this.SuspendLayout();
@@ -46,6 +46,14 @@
             this.MainContentPanel.StateCommon.Color1 = System.Drawing.Color.Transparent;
             this.MainContentPanel.StateCommon.Color2 = System.Drawing.Color.Transparent;
             this.MainContentPanel.TabIndex = 3;
+            // 
+            // reportsTable1
+            // 
+            this.reportsTable1.BackColor = System.Drawing.Color.Transparent;
+            this.reportsTable1.Location = new System.Drawing.Point(38, 119);
+            this.reportsTable1.Name = "reportsTable1";
+            this.reportsTable1.Size = new System.Drawing.Size(910, 385);
+            this.reportsTable1.TabIndex = 0;
             // 
             // ucKeyMetrics1
             // 
@@ -72,14 +80,6 @@
             this.sidePanel1.Size = new System.Drawing.Size(202, 670);
             this.sidePanel1.TabIndex = 0;
             this.sidePanel1.Load += new System.EventHandler(this.sidePanel1_Load_1);
-            // 
-            // reportsTable1
-            // 
-            this.reportsTable1.BackColor = System.Drawing.Color.Transparent;
-            this.reportsTable1.Location = new System.Drawing.Point(38, 119);
-            this.reportsTable1.Name = "reportsTable1";
-            this.reportsTable1.Size = new System.Drawing.Size(910, 385);
-            this.reportsTable1.TabIndex = 0;
             // 
             // MainDashBoard
             // 

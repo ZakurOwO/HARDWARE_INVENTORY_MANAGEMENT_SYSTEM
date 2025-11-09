@@ -1,6 +1,6 @@
-﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module
+﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
 {
-    partial class HistoryTopBar
+    partial class AuditLogTopBar
     {
         /// <summary> 
         /// Required designer variable.
@@ -40,20 +40,19 @@
             this.label2.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.label2.Location = new System.Drawing.Point(33, 36);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 17);
-            this.label2.TabIndex = 26;
-            this.label2.Text = "View All History";
+            this.label2.Size = new System.Drawing.Size(96, 17);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "View All Activities";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.White;
             this.label1.Font = new System.Drawing.Font("Lexend SemiBold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(32, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 24);
-            this.label1.TabIndex = 25;
-            this.label1.Text = "History";
+            this.label1.Size = new System.Drawing.Size(83, 24);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Audit Log";
             // 
             // btnProfileMenu
             // 
@@ -70,19 +69,17 @@
             this.btnProfileMenu.Location = new System.Drawing.Point(787, 15);
             this.btnProfileMenu.Name = "btnProfileMenu";
             this.btnProfileMenu.Size = new System.Drawing.Size(146, 38);
-            this.btnProfileMenu.TabIndex = 24;
+            this.btnProfileMenu.TabIndex = 21;
             // 
-            // HistoryTopBar
+            // AuditLogTopBar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnProfileMenu);
-            this.DoubleBuffered = true;
-            this.Name = "HistoryTopBar";
+            this.Name = "AuditLogTopBar";
             this.Size = new System.Drawing.Size(965, 69);
             this.ResumeLayout(false);
             this.PerformLayout();
