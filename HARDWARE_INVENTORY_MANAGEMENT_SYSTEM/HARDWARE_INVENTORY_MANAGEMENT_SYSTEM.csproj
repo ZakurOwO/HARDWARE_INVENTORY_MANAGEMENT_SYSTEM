@@ -639,11 +639,11 @@
     <Compile Include="UserControlFiles\MainButton.Designer.cs">
       <DependentUpon>MainButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsTab\Settings&amp;Signout.cs">
+    <Compile Include="SettingsTab\SettingsAndSignout.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="SettingsTab\Settings&amp;Signout.Designer.cs">
-      <DependentUpon>Settings&amp;Signout.cs</DependentUpon>
+    <Compile Include="SettingsTab\SettingsAndSignout.Designer.cs">
+      <DependentUpon>SettingsAndSignout.cs</DependentUpon>
     </Compile>
     <Compile Include="SettingsTab\SettingsMainPage.cs">
       <SubType>UserControl</SubType>
@@ -982,8 +982,8 @@
     <EmbeddedResource Include="UserControlFiles\MainButton.resx">
       <DependentUpon>MainButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsTab\Settings&amp;Signout.resx">
-      <DependentUpon>Settings&amp;Signout.cs</DependentUpon>
+    <EmbeddedResource Include="SettingsTab\SettingsAndSignout.resx">
+      <DependentUpon>SettingsAndSignout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsTab\SettingsMainPage.resx">
       <DependentUpon>SettingsMainPage.cs</DependentUpon>

@@ -1,23 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 {
-    public partial class CustomerTopBar: UserControl
+    public partial class CustomerTopBar : UserControl
     {
         public CustomerTopBar()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void btnProfileMenu_Click(object sender, EventArgs e)
         {
 
         }
