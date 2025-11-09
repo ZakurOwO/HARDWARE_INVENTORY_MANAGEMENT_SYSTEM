@@ -42,8 +42,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
             get { return MainContentPanel; }
         }
-        
 
+        private void MainContentPanel_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
     }
 }

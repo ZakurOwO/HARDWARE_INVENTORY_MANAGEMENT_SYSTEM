@@ -13,24 +13,33 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void DataGridTable_Load(object sender, EventArgs e)
         {
-            dgvCustomer.Rows.Add(Action_Set("menu_circle_vertical"));
+            dgvCustomer.Rows.Add(Action_Set("EditBtn"), Action_Set1("DeactivateBtn"));
         }
 
 
 
-        private Image Action_Set(string Action)
+        private Image Action_Set(string EditColBtn)
         {
             
-                  return Properties.Resources.menu_circle_vertical;
+                  return Properties.Resources.edit_rectangle1;
               
 
         }
 
+        private Image Action_Set1(string DeActiColBtn)
+        {
+
+            return Properties.Resources.do_not_disturb;
+
+        }
 
 
-        
 
-      
+
+
+
+
+
 
         private void dgvCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {

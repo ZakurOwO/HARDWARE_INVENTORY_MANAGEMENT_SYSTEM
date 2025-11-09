@@ -46,6 +46,7 @@
             this.MainContentPanel.StateCommon.Color1 = System.Drawing.Color.Transparent;
             this.MainContentPanel.StateCommon.Color2 = System.Drawing.Color.Transparent;
             this.MainContentPanel.TabIndex = 3;
+            this.MainContentPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MainContentPanel_Paint);
             // 
             // reportsTable1
             // 

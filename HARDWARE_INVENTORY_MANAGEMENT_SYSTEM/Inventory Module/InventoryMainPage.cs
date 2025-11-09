@@ -16,5 +16,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             InitializeComponent();
         }
+
+        private void inventoryList_Panel1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

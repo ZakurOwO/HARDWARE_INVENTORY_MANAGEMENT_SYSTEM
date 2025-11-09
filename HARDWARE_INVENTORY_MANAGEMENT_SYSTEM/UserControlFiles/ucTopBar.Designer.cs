@@ -70,6 +70,7 @@
             this.btnProfileMenu.Name = "btnProfileMenu";
             this.btnProfileMenu.Size = new System.Drawing.Size(146, 38);
             this.btnProfileMenu.TabIndex = 11;
+            this.btnProfileMenu.Click += new System.EventHandler(this.btnProfileMenu_Click);
             // 
             // ucTopBar
             // 

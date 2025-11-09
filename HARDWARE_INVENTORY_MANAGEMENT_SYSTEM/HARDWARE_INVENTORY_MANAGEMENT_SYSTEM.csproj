@@ -1368,6 +1368,7 @@
     <None Include="Resources\clipboard.png" />
     <None Include="Resources\Davies.png" />
     <None Include="Resources\Circular Saw.png" />
+    <None Include="Resources\do not disturb.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

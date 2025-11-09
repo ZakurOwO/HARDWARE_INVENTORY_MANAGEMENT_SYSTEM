@@ -30,10 +30,10 @@
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.customerTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.CustomerTopBar();
-            this.pageNumber1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module.PageNumber();
+            this.dataGridTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.DataGridTable();
             this.addCustomerDetailsButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.AddCustomerDetailsButton();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
-            this.dataGridTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.DataGridTable();
+            this.pageNumber2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module.PageNumber();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,8 +46,8 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Silver;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.pageNumber2);
             this.guna2Panel1.Controls.Add(this.dataGridTable1);
-            this.guna2Panel1.Controls.Add(this.pageNumber1);
             this.guna2Panel1.Controls.Add(this.addCustomerDetailsButton1);
             this.guna2Panel1.Controls.Add(this.searchField1);
             this.guna2Panel1.Location = new System.Drawing.Point(22, 74);
@@ -64,12 +64,13 @@
             this.customerTopBar1.TabIndex = 2;
             this.customerTopBar1.Load += new System.EventHandler(this.customerTopBar1_Load);
             // 
-            // pageNumber1
+            // dataGridTable1
             // 
-            this.pageNumber1.Location = new System.Drawing.Point(737, 516);
-            this.pageNumber1.Name = "pageNumber1";
-            this.pageNumber1.Size = new System.Drawing.Size(149, 44);
-            this.pageNumber1.TabIndex = 6;
+            this.dataGridTable1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.dataGridTable1.Location = new System.Drawing.Point(63, 68);
+            this.dataGridTable1.Name = "dataGridTable1";
+            this.dataGridTable1.Size = new System.Drawing.Size(795, 442);
+            this.dataGridTable1.TabIndex = 7;
             // 
             // addCustomerDetailsButton1
             // 
@@ -89,13 +90,13 @@
             this.searchField1.Size = new System.Drawing.Size(299, 44);
             this.searchField1.TabIndex = 3;
             // 
-            // dataGridTable1
+            // pageNumber2
             // 
-            this.dataGridTable1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.dataGridTable1.Location = new System.Drawing.Point(63, 68);
-            this.dataGridTable1.Name = "dataGridTable1";
-            this.dataGridTable1.Size = new System.Drawing.Size(795, 442);
-            this.dataGridTable1.TabIndex = 7;
+            this.pageNumber2.BackColor = System.Drawing.Color.Transparent;
+            this.pageNumber2.Location = new System.Drawing.Point(648, 521);
+            this.pageNumber2.Name = "pageNumber2";
+            this.pageNumber2.Size = new System.Drawing.Size(269, 44);
+            this.pageNumber2.TabIndex = 9;
             // 
             // CustomerMainPage
             // 
@@ -116,8 +117,8 @@
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private UserControlFiles.AddCustomerDetailsButton addCustomerDetailsButton1;
         private Accounts_Module.SearchField searchField1;
-        private PageNumber pageNumber1;
         private CustomerTopBar customerTopBar1;
         private DataGridTable dataGridTable1;
+        private PageNumber pageNumber2;
     }
 }

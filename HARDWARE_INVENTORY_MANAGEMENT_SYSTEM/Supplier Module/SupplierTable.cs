@@ -17,15 +17,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             InitializeComponent();
         }
 
-        private Image Action_Set(string Action)
+        private Image Action_Set(string EditColBtn)
         {
-            switch (Action)
+            switch (EditColBtn)
             {
-                case "menu_circle_vertical":
+                case "EditBtn":
                 default:
-                    return Properties.Resources.menu_circle_vertical;
+                    return Properties.Resources.edit_rectangle1;
             }
            
+
+
+        }
+
+        private Image Action_Set1(string DeActiColBtn)
+        {
+            switch (DeActiColBtn)
+            {
+                case "DeactivateBtn":
+                default:
+                    return Properties.Resources.edit_rectangle1;
+            }
+
 
 
         }
@@ -49,7 +62,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         private void SupplierTable_Load(object sender, EventArgs e)
         {
 
-            dgvSupplier.Rows.Add(status_set("Available"),Action_Set("menu_circle_vertical"));
+            dgvSupplier.Rows.Add(status_set("Available"), Action_Set("EditBtn"), Action_Set1("DeactivateBtn"));
         }
         
 

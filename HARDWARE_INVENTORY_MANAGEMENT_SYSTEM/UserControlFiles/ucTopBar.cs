@@ -26,5 +26,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
 
         }
+
+        private void btnProfileMenu_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

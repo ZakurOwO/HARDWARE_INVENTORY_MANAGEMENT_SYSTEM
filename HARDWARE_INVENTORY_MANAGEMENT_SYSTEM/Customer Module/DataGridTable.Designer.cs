@@ -36,12 +36,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvCustomer = new System.Windows.Forms.DataGridView();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.CompanyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PersonContact = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Action = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.EditColBtn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DeActiColBtn = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,7 +81,8 @@
             this.PersonContact,
             this.Email,
             this.Number,
-            this.Action});
+            this.EditColBtn,
+            this.DeActiColBtn});
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold);
@@ -122,6 +124,16 @@
             this.dgvCustomer.TabIndex = 6;
             this.dgvCustomer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCustomer_CellContentClick);
             // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.HeaderText = "Action";
+            this.dataGridViewImageColumn1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.menu_circle_vertical;
+            this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewImageColumn1.Width = 160;
+            // 
             // CompanyName
             // 
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
@@ -133,7 +145,7 @@
             this.CompanyName.HeaderText = "Company Name";
             this.CompanyName.Name = "CompanyName";
             this.CompanyName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.CompanyName.Width = 160;
+            this.CompanyName.Width = 195;
             // 
             // PersonContact
             // 
@@ -142,41 +154,39 @@
             this.PersonContact.HeaderText = "Person Contact";
             this.PersonContact.Name = "PersonContact";
             this.PersonContact.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.PersonContact.Width = 160;
+            this.PersonContact.Width = 180;
             // 
             // Email
             // 
             this.Email.HeaderText = "Email";
             this.Email.Name = "Email";
             this.Email.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Email.Width = 160;
+            this.Email.Width = 190;
             // 
             // Number
             // 
             this.Number.HeaderText = "Number";
             this.Number.Name = "Number";
             this.Number.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Number.Width = 160;
+            this.Number.Width = 190;
             // 
-            // Action
+            // EditColBtn
             // 
-            this.Action.HeaderText = "Action";
-            this.Action.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.menu_circle_vertical;
-            this.Action.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.Action.Name = "Action";
-            this.Action.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Action.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Action.Width = 160;
+            this.EditColBtn.HeaderText = "";
+            this.EditColBtn.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
+            this.EditColBtn.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.EditColBtn.Name = "EditColBtn";
+            this.EditColBtn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.EditColBtn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.EditColBtn.Width = 20;
             // 
-            // dataGridViewImageColumn1
+            // DeActiColBtn
             // 
-            this.dataGridViewImageColumn1.HeaderText = "Action";
-            this.dataGridViewImageColumn1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.menu_circle_vertical;
-            this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewImageColumn1.Width = 160;
+            this.DeActiColBtn.HeaderText = "";
+            this.DeActiColBtn.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.do_not_disturb;
+            this.DeActiColBtn.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.DeActiColBtn.Name = "DeActiColBtn";
+            this.DeActiColBtn.Width = 20;
             // 
             // DataGridTable
             // 
@@ -195,11 +205,12 @@
 
         #endregion
         public System.Windows.Forms.DataGridView dgvCustomer;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CompanyName;
         private System.Windows.Forms.DataGridViewTextBoxColumn PersonContact;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
-        private System.Windows.Forms.DataGridViewImageColumn Action;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
+        private System.Windows.Forms.DataGridViewImageColumn EditColBtn;
+        private System.Windows.Forms.DataGridViewImageColumn DeActiColBtn;
     }
 }

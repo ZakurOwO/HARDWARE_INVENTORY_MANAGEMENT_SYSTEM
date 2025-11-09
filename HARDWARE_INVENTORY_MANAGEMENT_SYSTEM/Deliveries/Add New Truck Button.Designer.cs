@@ -43,8 +43,8 @@
             this.AddVehicleButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.WhiteSmoke;
             this.AddVehicleButton.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.WhiteSmoke;
             this.AddVehicleButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddVehicleButton.StateNormal.Back.Color1 = System.Drawing.Color.DodgerBlue;
-            this.AddVehicleButton.StateNormal.Back.Color2 = System.Drawing.Color.DodgerBlue;
+            this.AddVehicleButton.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.AddVehicleButton.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
             this.AddVehicleButton.TabIndex = 1;
             this.AddVehicleButton.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.AddVehicleButton.Values.Text = "Add Vehicle";

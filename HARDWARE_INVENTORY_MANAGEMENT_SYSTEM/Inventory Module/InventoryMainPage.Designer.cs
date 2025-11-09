@@ -48,6 +48,7 @@
             this.inventoryList_Panel1.Name = "inventoryList_Panel1";
             this.inventoryList_Panel1.Size = new System.Drawing.Size(975, 656);
             this.inventoryList_Panel1.TabIndex = 1;
+            this.inventoryList_Panel1.Load += new System.EventHandler(this.inventoryList_Panel1_Load);
             // 
             // InventoryMainPage
             // 

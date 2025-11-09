@@ -43,8 +43,11 @@
             this.AddSupplierButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.WhiteSmoke;
             this.AddSupplierButton.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.WhiteSmoke;
             this.AddSupplierButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddSupplierButton.StateNormal.Back.Color1 = System.Drawing.Color.DodgerBlue;
-            this.AddSupplierButton.StateNormal.Back.Color2 = System.Drawing.Color.DodgerBlue;
+            this.AddSupplierButton.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.AddSupplierButton.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.AddSupplierButton.StateNormal.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.AddSupplierButton.StateNormal.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.AddSupplierButton.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddSupplierButton.TabIndex = 2;
             this.AddSupplierButton.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.AddSupplierButton.Values.Text = "Add Supplier";

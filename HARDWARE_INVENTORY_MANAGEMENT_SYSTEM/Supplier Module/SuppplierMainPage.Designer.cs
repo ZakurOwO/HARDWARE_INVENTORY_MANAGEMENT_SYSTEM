@@ -28,17 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.supplierTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SupplierTable();
+            this.supplierButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SupplierButton();
+            this.searchFieldForSupplier1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SearchFieldForSupplier();
             this.supplierTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SupplierTopBar();
             this.tableSupplier1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.TableSupplier();
-            this.searchFieldForSupplier1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SearchFieldForSupplier();
-            this.supplierButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SupplierButton();
-            this.supplierTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SupplierTable();
             this.SuspendLayout();
+            // 
+            // supplierTable1
+            // 
+            this.supplierTable1.BackColor = System.Drawing.Color.White;
+            this.supplierTable1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.supplierTable1.Location = new System.Drawing.Point(103, 203);
+            this.supplierTable1.Name = "supplierTable1";
+            this.supplierTable1.Size = new System.Drawing.Size(781, 395);
+            this.supplierTable1.TabIndex = 5;
+            // 
+            // supplierButton1
+            // 
+            this.supplierButton1.Location = new System.Drawing.Point(734, 98);
+            this.supplierButton1.Name = "supplierButton1";
+            this.supplierButton1.Size = new System.Drawing.Size(150, 44);
+            this.supplierButton1.TabIndex = 4;
+            // 
+            // searchFieldForSupplier1
+            // 
+            this.searchFieldForSupplier1.Location = new System.Drawing.Point(76, 98);
+            this.searchFieldForSupplier1.Name = "searchFieldForSupplier1";
+            this.searchFieldForSupplier1.Size = new System.Drawing.Size(291, 40);
+            this.searchFieldForSupplier1.TabIndex = 3;
             // 
             // supplierTopBar1
             // 
             this.supplierTopBar1.BackColor = System.Drawing.Color.White;
-            this.supplierTopBar1.Location = new System.Drawing.Point(-3, 0);
+            this.supplierTopBar1.Location = new System.Drawing.Point(0, 0);
             this.supplierTopBar1.Name = "supplierTopBar1";
             this.supplierTopBar1.Size = new System.Drawing.Size(965, 69);
             this.supplierTopBar1.TabIndex = 0;
@@ -49,28 +72,6 @@
             this.tableSupplier1.Name = "tableSupplier1";
             this.tableSupplier1.Size = new System.Drawing.Size(965, 680);
             this.tableSupplier1.TabIndex = 2;
-            // 
-            // searchFieldForSupplier1
-            // 
-            this.searchFieldForSupplier1.Location = new System.Drawing.Point(26, 98);
-            this.searchFieldForSupplier1.Name = "searchFieldForSupplier1";
-            this.searchFieldForSupplier1.Size = new System.Drawing.Size(291, 40);
-            this.searchFieldForSupplier1.TabIndex = 3;
-            // 
-            // supplierButton1
-            // 
-            this.supplierButton1.Location = new System.Drawing.Point(747, 98);
-            this.supplierButton1.Name = "supplierButton1";
-            this.supplierButton1.Size = new System.Drawing.Size(150, 44);
-            this.supplierButton1.TabIndex = 4;
-            // 
-            // supplierTable1
-            // 
-            this.supplierTable1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.supplierTable1.Location = new System.Drawing.Point(103, 203);
-            this.supplierTable1.Name = "supplierTable1";
-            this.supplierTable1.Size = new System.Drawing.Size(781, 395);
-            this.supplierTable1.TabIndex = 5;
             // 
             // SuppplierMainPage
             // 

@@ -250,8 +250,8 @@
             this.EditSupplierButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.WhiteSmoke;
             this.EditSupplierButton.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.WhiteSmoke;
             this.EditSupplierButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditSupplierButton.StateNormal.Back.Color1 = System.Drawing.Color.DodgerBlue;
-            this.EditSupplierButton.StateNormal.Back.Color2 = System.Drawing.Color.DodgerBlue;
+            this.EditSupplierButton.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.EditSupplierButton.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
             this.EditSupplierButton.TabIndex = 26;
             this.EditSupplierButton.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.EditSupplierButton.Values.Text = "Add Supplier";
