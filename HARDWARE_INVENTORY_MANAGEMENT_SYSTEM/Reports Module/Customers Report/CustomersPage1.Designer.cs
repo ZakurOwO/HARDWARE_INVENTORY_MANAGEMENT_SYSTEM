@@ -75,7 +75,6 @@
             // reportsKeyMetrics3
             // 
             this.reportsKeyMetrics3.BackColor = System.Drawing.Color.Transparent;
-            this.reportsKeyMetrics3.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.people_green;
             this.reportsKeyMetrics3.Location = new System.Drawing.Point(468, 2);
             this.reportsKeyMetrics3.Name = "reportsKeyMetrics3";
             this.reportsKeyMetrics3.Size = new System.Drawing.Size(201, 86);

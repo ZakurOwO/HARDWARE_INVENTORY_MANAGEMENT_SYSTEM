@@ -123,7 +123,6 @@
             // 
             // btnEditIcon
             // 
-            this.btnEditIcon.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Edit_Icon;
             this.btnEditIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnEditIcon.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnEditIcon.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;

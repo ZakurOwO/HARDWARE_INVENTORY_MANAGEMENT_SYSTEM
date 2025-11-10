@@ -29,7 +29,12 @@
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.products4 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Products();
+            this.pagination1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Pagination();
+            this.transactionsFilterButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.TransactionsFilterButton();
+            this.transactionsSearchBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.TransactionsSearchBar();
             this.cartDetails1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.CartDetails();
+            this.transactionsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.TransactionsTopBar();
             this.products3 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Products();
             this.products2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Products();
             this.products12 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Products();
@@ -40,12 +45,7 @@
             this.products7 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Products();
             this.products6 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Products();
             this.products5 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Products();
-            this.products4 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Products();
             this.products1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Products();
-            this.pagination1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Pagination();
-            this.transactionsFilterButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.TransactionsFilterButton();
-            this.transactionsSearchBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.TransactionsSearchBar();
-            this.transactionsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.TransactionsTopBar();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,6 +75,40 @@
             this.guna2Panel1.Size = new System.Drawing.Size(630, 624);
             this.guna2Panel1.TabIndex = 1;
             // 
+            // products4
+            // 
+            this.products4.BackColor = System.Drawing.Color.Transparent;
+            this.products4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Davies;
+            this.products4.Location = new System.Drawing.Point(471, 85);
+            this.products4.Name = "products4";
+            this.products4.Price = 598;
+            this.products4.Product_Name = "Davies Paint -  Sun &..";
+            this.products4.Size = new System.Drawing.Size(146, 136);
+            this.products4.TabIndex = 7;
+            // 
+            // pagination1
+            // 
+            this.pagination1.Location = new System.Drawing.Point(7, 554);
+            this.pagination1.Name = "pagination1";
+            this.pagination1.Size = new System.Drawing.Size(615, 58);
+            this.pagination1.TabIndex = 3;
+            // 
+            // transactionsFilterButton1
+            // 
+            this.transactionsFilterButton1.BackColor = System.Drawing.Color.Transparent;
+            this.transactionsFilterButton1.Location = new System.Drawing.Point(315, 20);
+            this.transactionsFilterButton1.Name = "transactionsFilterButton1";
+            this.transactionsFilterButton1.Size = new System.Drawing.Size(113, 47);
+            this.transactionsFilterButton1.TabIndex = 1;
+            // 
+            // transactionsSearchBar1
+            // 
+            this.transactionsSearchBar1.BackColor = System.Drawing.Color.Transparent;
+            this.transactionsSearchBar1.Location = new System.Drawing.Point(13, 20);
+            this.transactionsSearchBar1.Name = "transactionsSearchBar1";
+            this.transactionsSearchBar1.Size = new System.Drawing.Size(299, 48);
+            this.transactionsSearchBar1.TabIndex = 0;
+            // 
             // cartDetails1
             // 
             this.cartDetails1.BackColor = System.Drawing.Color.Transparent;
@@ -82,6 +116,15 @@
             this.cartDetails1.Name = "cartDetails1";
             this.cartDetails1.Size = new System.Drawing.Size(295, 624);
             this.cartDetails1.TabIndex = 2;
+            // 
+            // transactionsTopBar1
+            // 
+            this.transactionsTopBar1.BackColor = System.Drawing.Color.White;
+            this.transactionsTopBar1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.transactionsTopBar1.Location = new System.Drawing.Point(0, 0);
+            this.transactionsTopBar1.Name = "transactionsTopBar1";
+            this.transactionsTopBar1.Size = new System.Drawing.Size(960, 60);
+            this.transactionsTopBar1.TabIndex = 0;
             // 
             // products3
             // 
@@ -120,7 +163,7 @@
             // 
             this.products11.BackColor = System.Drawing.Color.Transparent;
             this.products11.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Siamese_Cable;
-            this.products11.Location = new System.Drawing.Point(317, 393);
+            this.products11.Location = new System.Drawing.Point(319, 393);
             this.products11.Name = "products11";
             this.products11.Price = 17;
             this.products11.Product_Name = "Siamese Cable 300m";
@@ -193,17 +236,6 @@
             this.products5.Size = new System.Drawing.Size(146, 136);
             this.products5.TabIndex = 8;
             // 
-            // products4
-            // 
-            this.products4.BackColor = System.Drawing.Color.Transparent;
-            this.products4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Davies;
-            this.products4.Location = new System.Drawing.Point(471, 85);
-            this.products4.Name = "products4";
-            this.products4.Price = 598;
-            this.products4.Product_Name = "Davies Paint -  Sun &..";
-            this.products4.Size = new System.Drawing.Size(146, 136);
-            this.products4.TabIndex = 7;
-            // 
             // products1
             // 
             this.products1.BackColor = System.Drawing.Color.Transparent;
@@ -214,38 +246,6 @@
             this.products1.Product_Name = "Deformed Bar G33  - ";
             this.products1.Size = new System.Drawing.Size(146, 136);
             this.products1.TabIndex = 4;
-            // 
-            // pagination1
-            // 
-            this.pagination1.Location = new System.Drawing.Point(7, 554);
-            this.pagination1.Name = "pagination1";
-            this.pagination1.Size = new System.Drawing.Size(615, 58);
-            this.pagination1.TabIndex = 3;
-            // 
-            // transactionsFilterButton1
-            // 
-            this.transactionsFilterButton1.BackColor = System.Drawing.Color.Transparent;
-            this.transactionsFilterButton1.Location = new System.Drawing.Point(315, 20);
-            this.transactionsFilterButton1.Name = "transactionsFilterButton1";
-            this.transactionsFilterButton1.Size = new System.Drawing.Size(113, 47);
-            this.transactionsFilterButton1.TabIndex = 1;
-            // 
-            // transactionsSearchBar1
-            // 
-            this.transactionsSearchBar1.BackColor = System.Drawing.Color.Transparent;
-            this.transactionsSearchBar1.Location = new System.Drawing.Point(13, 20);
-            this.transactionsSearchBar1.Name = "transactionsSearchBar1";
-            this.transactionsSearchBar1.Size = new System.Drawing.Size(299, 48);
-            this.transactionsSearchBar1.TabIndex = 0;
-            // 
-            // transactionsTopBar1
-            // 
-            this.transactionsTopBar1.BackColor = System.Drawing.Color.White;
-            this.transactionsTopBar1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.transactionsTopBar1.Location = new System.Drawing.Point(0, 0);
-            this.transactionsTopBar1.Name = "transactionsTopBar1";
-            this.transactionsTopBar1.Size = new System.Drawing.Size(960, 60);
-            this.transactionsTopBar1.TabIndex = 0;
             // 
             // TransactionsMainPage
             // 

@@ -138,7 +138,6 @@
             this.btnInventory.FillColor = System.Drawing.Color.White;
             this.btnInventory.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInventory.ForeColor = System.Drawing.Color.Black;
-            this.btnInventory.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.shopping_bag;
             this.btnInventory.ImageOffset = new System.Drawing.Point(-1, 0);
             this.btnInventory.Location = new System.Drawing.Point(14, 4);
             this.btnInventory.Name = "btnInventory";

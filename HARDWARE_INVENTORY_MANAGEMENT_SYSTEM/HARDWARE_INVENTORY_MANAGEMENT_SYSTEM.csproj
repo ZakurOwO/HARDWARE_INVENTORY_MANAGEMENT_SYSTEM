@@ -1355,6 +1355,7 @@
     <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Siamese Cable1.png" />
     <None Include="Resources\user-circle.png" />
     <None Include="Resources\Siamese Cable.png" />
     <None Include="Resources\Rotary Hammer.png" />
@@ -1401,6 +1402,7 @@
     <None Include="Resources\Group 10471.png" />
     <None Include="Resources\Group 10481.png" />
     <None Include="Resources\direction-right 011.png" />
+    <None Include="Resources\Davies1.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -87,7 +87,6 @@
             this.guna2Button3.FillColor = System.Drawing.Color.White;
             this.guna2Button3.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button3.ForeColor = System.Drawing.Color.Black;
-            this.guna2Button3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.user_rectangle;
             this.guna2Button3.ImageOffset = new System.Drawing.Point(-1, 0);
             this.guna2Button3.Location = new System.Drawing.Point(13, 8);
             this.guna2Button3.Name = "guna2Button3";

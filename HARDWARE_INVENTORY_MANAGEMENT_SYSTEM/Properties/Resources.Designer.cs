@@ -363,6 +363,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Davies {
+            get {
+                object obj = ResourceManager.GetObject("Davies", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Deactivate {
             get {
                 object obj = ResourceManager.GetObject("Deactivate", resourceCulture);
@@ -1066,6 +1076,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap shopping_cart_icon {
             get {
                 object obj = ResourceManager.GetObject("shopping cart icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Siamese_Cable {
+            get {
+                object obj = ResourceManager.GetObject("Siamese Cable", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

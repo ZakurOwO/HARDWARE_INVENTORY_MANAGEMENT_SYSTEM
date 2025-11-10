@@ -59,7 +59,6 @@
             this.DashboardBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DashboardBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
             this.DashboardBTN.ForeColor = System.Drawing.Color.Black;
-            this.DashboardBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.DashboardIcon;
             this.DashboardBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.DashboardBTN.Location = new System.Drawing.Point(9, 67);
             this.DashboardBTN.Name = "DashboardBTN";
@@ -95,7 +94,6 @@
             this.TransactionBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TransactionBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
             this.TransactionBTN.ForeColor = System.Drawing.Color.Black;
-            this.TransactionBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Transaction;
             this.TransactionBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.TransactionBTN.Location = new System.Drawing.Point(9, 208);
             this.TransactionBTN.Name = "TransactionBTN";
@@ -131,7 +129,6 @@
             this.SupplierBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SupplierBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
             this.SupplierBTN.ForeColor = System.Drawing.Color.Black;
-            this.SupplierBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Suppliers;
             this.SupplierBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.SupplierBTN.Location = new System.Drawing.Point(9, 302);
             this.SupplierBTN.Name = "SupplierBTN";
@@ -185,7 +182,6 @@
             this.HistoryBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.HistoryBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
             this.HistoryBTN.ForeColor = System.Drawing.Color.Black;
-            this.HistoryBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.HistoryIcon;
             this.HistoryBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.HistoryBTN.Location = new System.Drawing.Point(9, 447);
             this.HistoryBTN.Name = "HistoryBTN";
