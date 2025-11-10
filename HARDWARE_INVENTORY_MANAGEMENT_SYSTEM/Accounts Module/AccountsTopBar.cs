@@ -16,5 +16,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         {
             InitializeComponent();
         }
+
+        private void AccountsTopBar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnProfileMenu_Click(object sender, EventArgs e)
+        {
+            var mainForm = this.FindForm() as MainDashBoard;
+
+            if (mainForm != null)
+            {
+               
+                mainForm.ShowSettingsPanel(mainForm.MainContentPanelAccess);
+            }
+        }
+
     }
 }
