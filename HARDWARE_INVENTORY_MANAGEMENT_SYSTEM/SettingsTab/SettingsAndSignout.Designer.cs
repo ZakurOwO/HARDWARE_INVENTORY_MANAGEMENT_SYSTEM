@@ -32,8 +32,10 @@
             this.kryptonButton1 = new Krypton.Toolkit.KryptonButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.kryptonButton2 = new Krypton.Toolkit.KryptonButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox2
@@ -49,7 +51,7 @@
             // 
             // kryptonButton1
             // 
-            this.kryptonButton1.Location = new System.Drawing.Point(0, 3);
+            this.kryptonButton1.Location = new System.Drawing.Point(6, 3);
             this.kryptonButton1.Name = "kryptonButton1";
             this.kryptonButton1.Size = new System.Drawing.Size(146, 35);
             this.kryptonButton1.StateCommon.Back.Color1 = System.Drawing.Color.White;
@@ -78,7 +80,7 @@
             // 
             // kryptonButton2
             // 
-            this.kryptonButton2.Location = new System.Drawing.Point(0, 44);
+            this.kryptonButton2.Location = new System.Drawing.Point(6, 44);
             this.kryptonButton2.Name = "kryptonButton2";
             this.kryptonButton2.Size = new System.Drawing.Size(146, 35);
             this.kryptonButton2.StateCommon.Back.Color1 = System.Drawing.Color.White;
@@ -94,19 +96,29 @@
             this.kryptonButton2.Values.DropDownArrowColor = System.Drawing.Color.Empty;
             this.kryptonButton2.Values.Text = "Sign Out";
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.kryptonButton1);
+            this.panel1.Controls.Add(this.kryptonButton2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(155, 88);
+            this.panel1.TabIndex = 11;
+            // 
             // Settings_Signout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.kryptonButton2);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.kryptonButton1);
+            this.Controls.Add(this.panel1);
             this.Name = "Settings_Signout";
-            this.Size = new System.Drawing.Size(146, 83);
+            this.Size = new System.Drawing.Size(155, 88);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -117,5 +129,6 @@
         private Krypton.Toolkit.KryptonButton kryptonButton1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private Krypton.Toolkit.KryptonButton kryptonButton2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

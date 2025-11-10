@@ -31,6 +31,7 @@
             this.btnProfileMenu = new Guna.UI2.WinForms.Guna2Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.kryptonButton1 = new Krypton.Toolkit.KryptonButton();
             this.SuspendLayout();
             // 
             // btnProfileMenu
@@ -49,6 +50,7 @@
             this.btnProfileMenu.Name = "btnProfileMenu";
             this.btnProfileMenu.Size = new System.Drawing.Size(146, 38);
             this.btnProfileMenu.TabIndex = 12;
+            this.btnProfileMenu.Click += new System.EventHandler(this.btnProfileMenu_Click);
             // 
             // label2
             // 
@@ -71,16 +73,27 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "Accounts";
             // 
+            // kryptonButton1
+            // 
+            this.kryptonButton1.Location = new System.Drawing.Point(473, 14);
+            this.kryptonButton1.Name = "kryptonButton1";
+            this.kryptonButton1.Size = new System.Drawing.Size(173, 40);
+            this.kryptonButton1.TabIndex = 15;
+            this.kryptonButton1.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.kryptonButton1.Values.Text = "kryptonButton1";
+            // 
             // AccountsTopBar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.Controls.Add(this.kryptonButton1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnProfileMenu);
             this.Name = "AccountsTopBar";
             this.Size = new System.Drawing.Size(960, 69);
+            this.Click += new System.EventHandler(this.AccountsTopBar_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -91,5 +104,6 @@
         private Guna.UI2.WinForms.Guna2Button btnProfileMenu;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private Krypton.Toolkit.KryptonButton kryptonButton1;
     }
 }
