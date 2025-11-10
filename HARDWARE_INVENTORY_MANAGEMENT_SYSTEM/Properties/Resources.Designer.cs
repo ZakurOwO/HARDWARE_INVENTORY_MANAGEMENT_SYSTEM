@@ -1493,6 +1493,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap user_circle {
+            get {
+                object obj = ResourceManager.GetObject("user-circle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap User_Cirle {
             get {
                 object obj = ResourceManager.GetObject("User-Cirle", resourceCulture);
