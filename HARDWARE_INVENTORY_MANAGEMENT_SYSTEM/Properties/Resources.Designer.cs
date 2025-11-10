@@ -93,16 +93,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _2000_Isuzu_mini_dump_truck_970_3730728_1_11 {
-            get {
-                object obj = ResourceManager.GetObject("2000-Isuzu-mini-dump-truck-970-3730728_1 11", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Accounts {
             get {
                 object obj = ResourceManager.GetObject("Accounts", resourceCulture);
@@ -133,29 +123,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Add_Stock_Popup {
-            get {
-                object obj = ResourceManager.GetObject("Add Stock Popup", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Add_User {
             get {
                 object obj = ResourceManager.GetObject("Add User", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Add_Vehicle {
-            get {
-                object obj = ResourceManager.GetObject("Add Vehicle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -343,16 +313,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Customer_details {
-            get {
-                object obj = ResourceManager.GetObject("Customer details", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Customer_details__2_ {
             get {
                 object obj = ResourceManager.GetObject("Customer details (2)", resourceCulture);
@@ -393,29 +353,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DashboardIcon {
-            get {
-                object obj = ResourceManager.GetObject("DashboardIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap DashBoardSelected {
             get {
                 object obj = ResourceManager.GetObject("DashBoardSelected", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Davies {
-            get {
-                object obj = ResourceManager.GetObject("Davies", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -563,16 +503,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Edit_Icon {
-            get {
-                object obj = ResourceManager.GetObject("Edit Icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap edit_rectangle {
             get {
                 object obj = ResourceManager.GetObject("edit-rectangle", resourceCulture);
@@ -606,16 +536,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap Employees_1 {
             get {
                 object obj = ResourceManager.GetObject("Employees-1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Employees_2 {
-            get {
-                object obj = ResourceManager.GetObject("Employees-2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -683,16 +603,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap filter {
-            get {
-                object obj = ResourceManager.GetObject("filter", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap GlassIcon {
             get {
                 object obj = ResourceManager.GetObject("GlassIcon", resourceCulture);
@@ -736,36 +646,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap Group_1000004219__1_ {
             get {
                 object obj = ResourceManager.GetObject("Group 1000004219 (1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Group_1045 {
-            get {
-                object obj = ResourceManager.GetObject("Group 1045", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Group_1046 {
-            get {
-                object obj = ResourceManager.GetObject("Group 1046", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Group_1047 {
-            get {
-                object obj = ResourceManager.GetObject("Group 1047", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -833,16 +713,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap HistoryIcon {
-            get {
-                object obj = ResourceManager.GetObject("HistoryIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Inactive {
             get {
                 object obj = ResourceManager.GetObject("Inactive", resourceCulture);
@@ -896,16 +766,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap Logo___Text {
             get {
                 object obj = ResourceManager.GetObject("Logo + Text", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap MaintenanceStatus {
-            get {
-                object obj = ResourceManager.GetObject("MaintenanceStatus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -993,16 +853,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap people_green {
-            get {
-                object obj = ResourceManager.GetObject("people green", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap peso_orange {
             get {
                 object obj = ResourceManager.GetObject("peso orange", resourceCulture);
@@ -1026,16 +876,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap plywood {
             get {
                 object obj = ResourceManager.GetObject("plywood", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Polygon_1__1_ {
-            get {
-                object obj = ResourceManager.GetObject("Polygon 1 (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1213,16 +1053,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap shopping_bag {
-            get {
-                object obj = ResourceManager.GetObject("shopping bag", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap shopping_basket_add {
             get {
                 object obj = ResourceManager.GetObject("shopping basket-add", resourceCulture);
@@ -1236,16 +1066,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap shopping_cart_icon {
             get {
                 object obj = ResourceManager.GetObject("shopping cart icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Siamese_Cable {
-            get {
-                object obj = ResourceManager.GetObject("Siamese Cable", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1276,36 +1096,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap sign_out__1_1 {
             get {
                 object obj = ResourceManager.GetObject("sign out (1)1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Suppliers {
-            get {
-                object obj = ResourceManager.GetObject("Suppliers", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Suppliers1 {
-            get {
-                object obj = ResourceManager.GetObject("Suppliers1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap System_Icons {
-            get {
-                object obj = ResourceManager.GetObject("System Icons", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1373,16 +1163,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Transaction {
-            get {
-                object obj = ResourceManager.GetObject("Transaction", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Transactions {
             get {
                 object obj = ResourceManager.GetObject("Transactions", resourceCulture);
@@ -1406,16 +1186,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap trash {
             get {
                 object obj = ResourceManager.GetObject("trash", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap trash1 {
-            get {
-                object obj = ResourceManager.GetObject("trash1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1463,16 +1233,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap unsplash_tpuAo8gVs581 {
-            get {
-                object obj = ResourceManager.GetObject("unsplash_tpuAo8gVs581", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap unsplash_tpuAo8gVs582 {
             get {
                 object obj = ResourceManager.GetObject("unsplash_tpuAo8gVs582", resourceCulture);
@@ -1493,16 +1253,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap user_circle {
-            get {
-                object obj = ResourceManager.GetObject("user-circle", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap User_Cirle {
             get {
                 object obj = ResourceManager.GetObject("User-Cirle", resourceCulture);
@@ -1513,29 +1263,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap user_rectangle {
-            get {
-                object obj = ResourceManager.GetObject("user-rectangle", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap user1 {
             get {
                 object obj = ResourceManager.GetObject("user1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap UserProfile {
-            get {
-                object obj = ResourceManager.GetObject("UserProfile", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

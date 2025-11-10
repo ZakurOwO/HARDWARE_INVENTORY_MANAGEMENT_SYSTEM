@@ -1400,6 +1400,7 @@
     <None Include="Resources\Group 1047.png" />
     <None Include="Resources\Group 10471.png" />
     <None Include="Resources\Group 10481.png" />
+    <None Include="Resources\direction-right 011.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
