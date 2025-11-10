@@ -31,42 +31,52 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvInventoryList = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.Actions = new System.Windows.Forms.Label();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewImageColumn3 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewImageColumn4 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Image = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ManageStock = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReorderLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AdjustStock = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Deactivate = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ViewDetails = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventoryList)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvInventoryList
             // 
+            this.dgvInventoryList.AllowUserToAddRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             this.dgvInventoryList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvInventoryList.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvInventoryList.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Gainsboro;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.DimGray;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvInventoryList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvInventoryList.ColumnHeadersHeight = 40;
+            this.dgvInventoryList.ColumnHeadersHeight = 45;
             this.dgvInventoryList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgvInventoryList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ProductID,
-            this.ItemName,
+            this.ProductName,
             this.Image,
-            this.Type,
-            this.Price,
-            this.Amount,
-            this.ManageStock});
+            this.Category,
+            this.Quantity,
+            this.ReorderLevel,
+            this.Status,
+            this.AdjustStock,
+            this.Deactivate,
+            this.ViewDetails});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -75,99 +85,187 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvInventoryList.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvInventoryList.GridColor = System.Drawing.Color.Gainsboro;
-            this.dgvInventoryList.Location = new System.Drawing.Point(0, 0);
+            this.dgvInventoryList.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvInventoryList.Location = new System.Drawing.Point(0, 2);
             this.dgvInventoryList.Name = "dgvInventoryList";
-            this.dgvInventoryList.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dgvInventoryList.RowHeadersVisible = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.dgvInventoryList.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvInventoryList.RowTemplate.Height = 40;
-            this.dgvInventoryList.Size = new System.Drawing.Size(886, 495);
-            this.dgvInventoryList.TabIndex = 4;
+            this.dgvInventoryList.RowTemplate.Height = 45;
+            this.dgvInventoryList.Size = new System.Drawing.Size(886, 510);
+            this.dgvInventoryList.TabIndex = 3;
             this.dgvInventoryList.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvInventoryList.ThemeStyle.AlternatingRowsStyle.Font = null;
             this.dgvInventoryList.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
             this.dgvInventoryList.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
             this.dgvInventoryList.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
             this.dgvInventoryList.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.dgvInventoryList.ThemeStyle.GridColor = System.Drawing.Color.Gainsboro;
+            this.dgvInventoryList.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvInventoryList.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
             this.dgvInventoryList.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgvInventoryList.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgvInventoryList.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.dgvInventoryList.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvInventoryList.ThemeStyle.HeaderStyle.Height = 40;
+            this.dgvInventoryList.ThemeStyle.HeaderStyle.Height = 45;
             this.dgvInventoryList.ThemeStyle.ReadOnly = false;
             this.dgvInventoryList.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvInventoryList.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvInventoryList.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgvInventoryList.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgvInventoryList.ThemeStyle.RowsStyle.Height = 40;
+            this.dgvInventoryList.ThemeStyle.RowsStyle.Height = 45;
             this.dgvInventoryList.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvInventoryList.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            this.dgvInventoryList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInventoryList_CellContentClick);
             // 
-            // ProductID
+            // panel1
             // 
-            this.ProductID.HeaderText = "Product ID";
-            this.ProductID.Name = "ProductID";
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            this.panel1.Controls.Add(this.Actions);
+            this.panel1.Location = new System.Drawing.Point(780, 2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(106, 45);
+            this.panel1.TabIndex = 4;
             // 
-            // ItemName
+            // Actions
             // 
-            this.ItemName.FillWeight = 160.9183F;
-            this.ItemName.HeaderText = "Item Name";
-            this.ItemName.Name = "ItemName";
+            this.Actions.AutoSize = true;
+            this.Actions.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold);
+            this.Actions.ForeColor = System.Drawing.Color.DimGray;
+            this.Actions.Location = new System.Drawing.Point(9, 13);
+            this.Actions.Name = "Actions";
+            this.Actions.Size = new System.Drawing.Size(54, 19);
+            this.Actions.TabIndex = 0;
+            this.Actions.Text = "Actions";
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.FillWeight = 80F;
+            this.dataGridViewImageColumn1.HeaderText = "Image";
+            this.dataGridViewImageColumn1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Boysen1;
+            this.dataGridViewImageColumn1.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewImageColumn1.Width = 107;
+            // 
+            // dataGridViewImageColumn2
+            // 
+            this.dataGridViewImageColumn2.FillWeight = 30F;
+            this.dataGridViewImageColumn2.HeaderText = "";
+            this.dataGridViewImageColumn2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Group_1046;
+            this.dataGridViewImageColumn2.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
+            this.dataGridViewImageColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewImageColumn2.ToolTipText = "Adjust Stock";
+            this.dataGridViewImageColumn2.Width = 41;
+            // 
+            // dataGridViewImageColumn3
+            // 
+            this.dataGridViewImageColumn3.FillWeight = 30F;
+            this.dataGridViewImageColumn3.HeaderText = "";
+            this.dataGridViewImageColumn3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Group_1047;
+            this.dataGridViewImageColumn3.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dataGridViewImageColumn3.Name = "dataGridViewImageColumn3";
+            this.dataGridViewImageColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewImageColumn3.ToolTipText = "Deactivate";
+            this.dataGridViewImageColumn3.Width = 41;
+            // 
+            // dataGridViewImageColumn4
+            // 
+            this.dataGridViewImageColumn4.FillWeight = 30F;
+            this.dataGridViewImageColumn4.HeaderText = "";
+            this.dataGridViewImageColumn4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Group_1048;
+            this.dataGridViewImageColumn4.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.dataGridViewImageColumn4.Name = "dataGridViewImageColumn4";
+            this.dataGridViewImageColumn4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewImageColumn4.ToolTipText = "View Details";
+            this.dataGridViewImageColumn4.Width = 41;
+            // 
+            // ProductName
+            // 
+            this.ProductName.FillWeight = 120F;
+            this.ProductName.HeaderText = "Product Name";
+            this.ProductName.Name = "ProductName";
             // 
             // Image
             // 
-            this.Image.FillWeight = 100.9968F;
+            this.Image.FillWeight = 80F;
             this.Image.HeaderText = "Image";
+            this.Image.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Boysen1;
+            this.Image.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
             this.Image.Name = "Image";
             this.Image.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Image.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // Type
+            // Category
             // 
-            this.Type.FillWeight = 120.2891F;
-            this.Type.HeaderText = "Type";
-            this.Type.Name = "Type";
+            this.Category.FillWeight = 120F;
+            this.Category.HeaderText = "Category";
+            this.Category.Name = "Category";
             // 
-            // Price
+            // Quantity
             // 
-            this.Price.FillWeight = 93.6694F;
-            this.Price.HeaderText = "Price per unit";
-            this.Price.Name = "Price";
+            this.Quantity.FillWeight = 70F;
+            this.Quantity.HeaderText = "Quantity";
+            this.Quantity.Name = "Quantity";
             // 
-            // Amount
+            // ReorderLevel
             // 
-            this.Amount.FillWeight = 93.6694F;
-            this.Amount.HeaderText = "Amount";
-            this.Amount.Name = "Amount";
+            this.ReorderLevel.FillWeight = 70F;
+            this.ReorderLevel.HeaderText = "Reorder Level";
+            this.ReorderLevel.Name = "ReorderLevel";
             // 
-            // ManageStock
+            // Status
             // 
-            this.ManageStock.FillWeight = 30.45685F;
-            this.ManageStock.HeaderText = "";
-            this.ManageStock.Name = "ManageStock";
-            this.ManageStock.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ManageStock.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            // 
+            // AdjustStock
+            // 
+            this.AdjustStock.FillWeight = 25F;
+            this.AdjustStock.HeaderText = "";
+            this.AdjustStock.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Adjust_Stock2;
+            this.AdjustStock.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.AdjustStock.Name = "AdjustStock";
+            this.AdjustStock.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.AdjustStock.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.AdjustStock.ToolTipText = "Adjust Stock";
+            // 
+            // Deactivate
+            // 
+            this.Deactivate.FillWeight = 25F;
+            this.Deactivate.HeaderText = "";
+            this.Deactivate.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Group_10471;
+            this.Deactivate.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.Deactivate.Name = "Deactivate";
+            this.Deactivate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Deactivate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Deactivate.ToolTipText = "Deactivate";
+            // 
+            // ViewDetails
+            // 
+            this.ViewDetails.FillWeight = 25F;
+            this.ViewDetails.HeaderText = "";
+            this.ViewDetails.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Group_10481;
+            this.ViewDetails.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.ViewDetails.Name = "ViewDetails";
+            this.ViewDetails.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ViewDetails.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ViewDetails.ToolTipText = "View Details";
             // 
             // InventoryList_Table
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.dgvInventoryList);
             this.Name = "InventoryList_Table";
-            this.Size = new System.Drawing.Size(886, 496);
+            this.Size = new System.Drawing.Size(886, 510);
             this.Load += new System.EventHandler(this.InventoryList_Table_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventoryList)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -175,12 +273,20 @@
         #endregion
 
         private Guna.UI2.WinForms.Guna2DataGridView dgvInventoryList;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProductID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ItemName;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label Actions;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn3;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
         private System.Windows.Forms.DataGridViewImageColumn Image;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
-        private System.Windows.Forms.DataGridViewButtonColumn ManageStock;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ReorderLevel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.DataGridViewImageColumn AdjustStock;
+        private System.Windows.Forms.DataGridViewImageColumn Deactivate;
+        private System.Windows.Forms.DataGridViewImageColumn ViewDetails;
     }
 }

@@ -1374,6 +1374,10 @@
     <None Include="Resources\add-circle.png" />
     <None Include="Resources\2000-Isuzu-mini-dump-truck-970-3730728_1 1.png" />
     <None Include="Resources\2000-Isuzu-mini-dump-truck-970-3730728_1 11.png" />
+    <None Include="Resources\Boysen1.png" />
+    <None Include="Resources\Adjust Stock.png" />
+    <None Include="Resources\Adjust Stock1.png" />
+    <None Include="Resources\Adjust Stock2.png" />
     <Content Include="Resources\Canceled.png" />
     <None Include="Resources\Pending1.png" />
     <None Include="Resources\Canceled1.png" />
@@ -1388,6 +1392,12 @@
     <None Include="Resources\Group 1000004219 %281%29.png" />
     <None Include="Resources\Delete %282%29.png" />
     <None Include="Resources\Group 1045.png" />
+    <None Include="Resources\Group 1046.png" />
+    <None Include="Resources\Deactivate.png" />
+    <None Include="Resources\Group 1048.png" />
+    <None Include="Resources\Group 1047.png" />
+    <None Include="Resources\Group 10471.png" />
+    <None Include="Resources\Group 10481.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
