@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report;
+
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
@@ -9,7 +11,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             InitializeComponent();
         }
-
         
         private void PnlNavBar_ShowInventory(object sender, EventArgs e)
         {
