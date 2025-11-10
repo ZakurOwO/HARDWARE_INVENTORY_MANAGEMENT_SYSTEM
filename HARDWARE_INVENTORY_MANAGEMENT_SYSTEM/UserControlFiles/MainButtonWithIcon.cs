@@ -10,24 +10,33 @@ using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
 {
-    public partial class MainButton : UserControl
+    public partial class MainButtonWithIcon : UserControl
     {
-        public MainButton()
+        public MainButtonWithIcon()
         {
             InitializeComponent();
         }
 
         #region Properties
 
-        [Category("Custom Properties")]
         private string btnName;
+        private Image icon;
+
+        [Category("Custom Properties")]
 
         public string ButtonName
         {
             get { return btnName; }
-            set { btnName = value; btnMainButton.Text = value; }
+            set { btnName = value; btnMainButtonIcon.Text = value; }
         }
 
+
+        [Category("Custom Properties")]
+        public Image Icon
+        {
+            get { return icon; }
+            set { icon = value; btnMainButtonIcon.Image = value; }
+        }
 
         #endregion
     }

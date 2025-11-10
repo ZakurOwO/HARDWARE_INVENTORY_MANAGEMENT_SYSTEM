@@ -651,6 +651,12 @@
     <Compile Include="SettingsTab\SettingsMainPage.Designer.cs">
       <DependentUpon>SettingsMainPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControlFiles\MainButtonWithIcon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlFiles\MainButtonWithIcon.Designer.cs">
+      <DependentUpon>MainButtonWithIcon.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControlFiles\SidePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -987,6 +993,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsTab\SettingsMainPage.resx">
       <DependentUpon>SettingsMainPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlFiles\MainButtonWithIcon.resx">
+      <DependentUpon>MainButtonWithIcon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\SidePanel.resx">
       <DependentUpon>SidePanel.cs</DependentUpon>
@@ -1360,6 +1369,11 @@
     <None Include="Resources\Audit main.png" />
     <None Include="Resources\Boysen.png" />
     <None Include="Resources\Angle Grinder.png" />
+    <None Include="Resources\Add Vehicle.png" />
+    <None Include="Resources\Add vehicle %282%29.png" />
+    <None Include="Resources\add-circle.png" />
+    <None Include="Resources\2000-Isuzu-mini-dump-truck-970-3730728_1 1.png" />
+    <None Include="Resources\2000-Isuzu-mini-dump-truck-970-3730728_1 11.png" />
     <Content Include="Resources\Canceled.png" />
     <None Include="Resources\Pending1.png" />
     <None Include="Resources\Canceled1.png" />
@@ -1369,6 +1383,11 @@
     <None Include="Resources\Davies.png" />
     <None Include="Resources\Circular Saw.png" />
     <None Include="Resources\do not disturb.png" />
+    <None Include="Resources\Delete.png" />
+    <None Include="Resources\Group 1000004219.png" />
+    <None Include="Resources\Group 1000004219 %281%29.png" />
+    <None Include="Resources\Delete %282%29.png" />
+    <None Include="Resources\Group 1045.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

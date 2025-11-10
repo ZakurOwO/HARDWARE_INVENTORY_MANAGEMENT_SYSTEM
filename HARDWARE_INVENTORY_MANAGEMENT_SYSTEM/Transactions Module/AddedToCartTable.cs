@@ -26,6 +26,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
             dgvCartDetails.Columns["Price"].ReadOnly = true;
 
+            dgvCartDetails.ClearSelection();
+
             // Add the NumericUpDown control (initially hidden)
 
             qtyUpDown.Minimum = 1;
