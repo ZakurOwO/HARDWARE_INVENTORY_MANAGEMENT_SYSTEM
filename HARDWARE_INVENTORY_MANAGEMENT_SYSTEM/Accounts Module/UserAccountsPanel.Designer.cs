@@ -100,8 +100,6 @@
             this.lblUserName.Size = new System.Drawing.Size(136, 21);
             this.lblUserName.TabIndex = 9;
             this.lblUserName.Text = "Richard Faulkerson";
-            this.lblUserName.MouseEnter += new System.EventHandler(this.lblUserName_MouseEnter);
-            this.lblUserName.MouseLeave += new System.EventHandler(this.lblUserName_MouseLeave);
             // 
             // btnRole
             // 

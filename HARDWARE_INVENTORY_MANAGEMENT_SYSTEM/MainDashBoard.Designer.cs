@@ -29,32 +29,21 @@
         private void InitializeComponent()
         {
             this.MainContentPanel = new Krypton.Toolkit.KryptonPanel();
-            this.reportsTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsTable();
             this.ucKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucKeyMetrics();
             this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
             this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
             ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).BeginInit();
-            this.MainContentPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainContentPanel
             // 
-            this.MainContentPanel.Controls.Add(this.reportsTable1);
-            this.MainContentPanel.Location = new System.Drawing.Point(233, 12);
+            this.MainContentPanel.Location = new System.Drawing.Point(234, 0);
             this.MainContentPanel.Name = "MainContentPanel";
-            this.MainContentPanel.Size = new System.Drawing.Size(965, 696);
+            this.MainContentPanel.Size = new System.Drawing.Size(976, 720);
             this.MainContentPanel.StateCommon.Color1 = System.Drawing.Color.Transparent;
             this.MainContentPanel.StateCommon.Color2 = System.Drawing.Color.Transparent;
             this.MainContentPanel.TabIndex = 3;
             this.MainContentPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MainContentPanel_Paint);
-            // 
-            // reportsTable1
-            // 
-            this.reportsTable1.BackColor = System.Drawing.Color.Transparent;
-            this.reportsTable1.Location = new System.Drawing.Point(38, 119);
-            this.reportsTable1.Name = "reportsTable1";
-            this.reportsTable1.Size = new System.Drawing.Size(910, 385);
-            this.reportsTable1.TabIndex = 0;
             // 
             // ucKeyMetrics1
             // 
@@ -100,7 +89,6 @@
             this.Text = "MainDashBoard";
             this.Load += new System.EventHandler(this.MainDashBoard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).EndInit();
-            this.MainContentPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -111,6 +99,5 @@
         private ucTopBar ucTopBar1;
         private ucKeyMetrics ucKeyMetrics1;
         private Krypton.Toolkit.KryptonPanel MainContentPanel;
-        private Reports_Module.ReportsTable reportsTable1;
     }
 }

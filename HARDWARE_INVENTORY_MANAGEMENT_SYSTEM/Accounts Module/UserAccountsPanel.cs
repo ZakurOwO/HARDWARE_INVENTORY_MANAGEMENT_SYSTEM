@@ -116,14 +116,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
         }
 
-        private void lblUserName_MouseEnter(object sender, EventArgs e)
-        {
-            this.BackColor = Color.FromArgb(245, 245, 255);
-        }
-
-        private void lblUserName_MouseLeave(object sender, EventArgs e)
-        {
-            this.BackColor = Color.White;
-        }
+        
     }
 }
