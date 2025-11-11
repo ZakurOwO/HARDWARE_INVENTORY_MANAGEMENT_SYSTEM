@@ -32,14 +32,11 @@
             this.ucKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucKeyMetrics();
             this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
             this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
-            this.checkout_PopUp1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Checkout_PopUp();
             ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).BeginInit();
-            this.MainContentPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainContentPanel
             // 
-            this.MainContentPanel.Controls.Add(this.checkout_PopUp1);
             this.MainContentPanel.Location = new System.Drawing.Point(234, 0);
             this.MainContentPanel.Name = "MainContentPanel";
             this.MainContentPanel.Size = new System.Drawing.Size(976, 720);
@@ -74,14 +71,6 @@
             this.sidePanel1.TabIndex = 0;
             this.sidePanel1.Load += new System.EventHandler(this.sidePanel1_Load_1);
             // 
-            // checkout_PopUp1
-            // 
-            this.checkout_PopUp1.BackColor = System.Drawing.Color.White;
-            this.checkout_PopUp1.Location = new System.Drawing.Point(148, 188);
-            this.checkout_PopUp1.Name = "checkout_PopUp1";
-            this.checkout_PopUp1.Size = new System.Drawing.Size(515, 402);
-            this.checkout_PopUp1.TabIndex = 0;
-            // 
             // MainDashBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -100,7 +89,6 @@
             this.Text = "MainDashBoard";
             this.Load += new System.EventHandler(this.MainDashBoard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).EndInit();
-            this.MainContentPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -111,6 +99,5 @@
         private ucTopBar ucTopBar1;
         private ucKeyMetrics ucKeyMetrics1;
         private Krypton.Toolkit.KryptonPanel MainContentPanel;
-        private Transactions_Module.Checkout_PopUp checkout_PopUp1;
     }
 }

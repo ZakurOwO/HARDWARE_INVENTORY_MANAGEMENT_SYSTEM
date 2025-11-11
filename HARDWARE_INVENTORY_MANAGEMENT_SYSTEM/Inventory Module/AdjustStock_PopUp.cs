@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
+namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
-    public partial class Proceed_ClearButton : UserControl
+    public partial class AdjustStock_PopUp : UserControl
     {
-        public Proceed_ClearButton()
+        public AdjustStock_PopUp()
         {
             InitializeComponent();
         }
