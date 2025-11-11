@@ -70,7 +70,7 @@
             this.btnProfileMenu.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnProfileMenu.ImageOffset = new System.Drawing.Point(-5, -3);
             this.btnProfileMenu.ImageSize = new System.Drawing.Size(35, 35);
-            this.btnProfileMenu.Location = new System.Drawing.Point(789, 16);
+            this.btnProfileMenu.Location = new System.Drawing.Point(780, 16);
             this.btnProfileMenu.Name = "btnProfileMenu";
             this.btnProfileMenu.Size = new System.Drawing.Size(146, 38);
             this.btnProfileMenu.TabIndex = 12;
