@@ -17,6 +17,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         public SupplierReportsPanel()
         {
             InitializeComponent();
+            this.Load += SupplierReportsPanel_load;
         }
 
         private void guna2Button5_Click(object sender, EventArgs e)

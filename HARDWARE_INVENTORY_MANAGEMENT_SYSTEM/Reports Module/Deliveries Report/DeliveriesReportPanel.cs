@@ -17,6 +17,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         public DeliveriesReportPanel()
         {
             InitializeComponent();
+            this.Load += DeliveriesReportPanel_load;
         }
 
         private void DeliveriesReportPanel_Load(object sender, EventArgs e)
@@ -54,7 +55,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             page2Deliveries.Dock = DockStyle.Fill;
             panel1.Controls.Add(page2Deliveries);
         }
-        private void DeliveriesRepoerPanel_load(object sender, EventArgs e)
+        private void DeliveriesReportPanel_load(object sender, EventArgs e)
         {
             Showpage1Deliveries();
         }
