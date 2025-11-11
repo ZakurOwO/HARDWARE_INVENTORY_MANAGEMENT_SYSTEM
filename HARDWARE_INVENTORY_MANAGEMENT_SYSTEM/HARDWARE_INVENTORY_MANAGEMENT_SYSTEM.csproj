@@ -562,6 +562,12 @@
     <Compile Include="Transactions Module\Cart User controls\DeliveryComboBoxes.Designer.cs">
       <DependentUpon>DeliveryComboBoxes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transactions Module\Checkout_PopUp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\Checkout_PopUp.Designer.cs">
+      <DependentUpon>Checkout_PopUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Transactions Module\General user control\Pagination.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -955,6 +961,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\Cart User controls\DeliveryComboBoxes.resx">
       <DependentUpon>DeliveryComboBoxes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\Checkout_PopUp.resx">
+      <DependentUpon>Checkout_PopUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\General user control\Pagination.resx">
       <DependentUpon>Pagination.cs</DependentUpon>
@@ -1421,6 +1430,7 @@
     <None Include="Resources\Overlay %282%29.png" />
     <None Include="Resources\Overlay %283%29.png" />
     <None Include="Resources\Group 1000004222.png" />
+    <None Include="Resources\Checkout.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
