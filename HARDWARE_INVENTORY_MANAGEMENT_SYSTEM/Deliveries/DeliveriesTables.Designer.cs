@@ -76,6 +76,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvDeliveries.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvDeliveries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDeliveries.EnableHeadersVisualStyles = false;
             this.dgvDeliveries.GridColor = System.Drawing.Color.WhiteSmoke;
             this.dgvDeliveries.Location = new System.Drawing.Point(0, 0);
@@ -92,7 +93,7 @@
             this.dgvDeliveries.RowHeadersVisible = false;
             this.dgvDeliveries.RowTemplate.Height = 45;
             this.dgvDeliveries.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvDeliveries.Size = new System.Drawing.Size(932, 580);
+            this.dgvDeliveries.Size = new System.Drawing.Size(935, 580);
             this.dgvDeliveries.TabIndex = 1;
             this.dgvDeliveries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDeliveries_CellContentClick);
             // 

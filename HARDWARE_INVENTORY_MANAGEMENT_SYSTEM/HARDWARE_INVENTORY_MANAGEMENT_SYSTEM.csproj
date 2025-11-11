@@ -1374,6 +1374,7 @@
     <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\setting2.png" />
     <None Include="Resources\user-circle1.png" />
     <None Include="Resources\Suppliers2.png" />
     <None Include="Resources\Transaction1.png" />

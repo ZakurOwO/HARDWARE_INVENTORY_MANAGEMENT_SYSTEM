@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.customerTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.CustomerTopBar();
+            this.pageNumber2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module.PageNumber();
             this.dataGridTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.DataGridTable();
             this.addCustomerDetailsButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.AddCustomerDetailsButton();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
-            this.pageNumber2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module.PageNumber();
+            this.customerTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.CustomerTopBar();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,22 +55,22 @@
             this.guna2Panel1.Size = new System.Drawing.Size(920, 568);
             this.guna2Panel1.TabIndex = 1;
             // 
-            // customerTopBar1
+            // pageNumber2
             // 
-            this.customerTopBar1.BackColor = System.Drawing.Color.White;
-            this.customerTopBar1.Location = new System.Drawing.Point(0, 3);
-            this.customerTopBar1.Name = "customerTopBar1";
-            this.customerTopBar1.Size = new System.Drawing.Size(965, 69);
-            this.customerTopBar1.TabIndex = 2;
-            this.customerTopBar1.Load += new System.EventHandler(this.customerTopBar1_Load);
+            this.pageNumber2.BackColor = System.Drawing.Color.Transparent;
+            this.pageNumber2.Location = new System.Drawing.Point(648, 521);
+            this.pageNumber2.Name = "pageNumber2";
+            this.pageNumber2.Size = new System.Drawing.Size(269, 44);
+            this.pageNumber2.TabIndex = 9;
             // 
             // dataGridTable1
             // 
             this.dataGridTable1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.dataGridTable1.Location = new System.Drawing.Point(63, 68);
+            this.dataGridTable1.Location = new System.Drawing.Point(63, 78);
             this.dataGridTable1.Name = "dataGridTable1";
             this.dataGridTable1.Size = new System.Drawing.Size(795, 442);
             this.dataGridTable1.TabIndex = 7;
+            this.dataGridTable1.Load += new System.EventHandler(this.dataGridTable1_Load);
             // 
             // addCustomerDetailsButton1
             // 
@@ -90,13 +90,14 @@
             this.searchField1.Size = new System.Drawing.Size(299, 44);
             this.searchField1.TabIndex = 3;
             // 
-            // pageNumber2
+            // customerTopBar1
             // 
-            this.pageNumber2.BackColor = System.Drawing.Color.Transparent;
-            this.pageNumber2.Location = new System.Drawing.Point(648, 521);
-            this.pageNumber2.Name = "pageNumber2";
-            this.pageNumber2.Size = new System.Drawing.Size(269, 44);
-            this.pageNumber2.TabIndex = 9;
+            this.customerTopBar1.BackColor = System.Drawing.Color.White;
+            this.customerTopBar1.Location = new System.Drawing.Point(0, 3);
+            this.customerTopBar1.Name = "customerTopBar1";
+            this.customerTopBar1.Size = new System.Drawing.Size(965, 69);
+            this.customerTopBar1.TabIndex = 2;
+            this.customerTopBar1.Load += new System.EventHandler(this.customerTopBar1_Load);
             // 
             // CustomerMainPage
             // 

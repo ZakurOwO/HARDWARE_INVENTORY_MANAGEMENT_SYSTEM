@@ -21,5 +21,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         {
 
         }
+
+        private void dataGridTable1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
