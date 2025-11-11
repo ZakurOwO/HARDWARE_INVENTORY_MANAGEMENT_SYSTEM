@@ -544,59 +544,65 @@
     <Compile Include="Customer Module\Edit &amp; Delete Button.Designer.cs">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\AddedToCartTable.cs">
+    <Compile Include="Transactions Module\Cart User controls\AddedToCartTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\AddedToCartTable.Designer.cs">
+    <Compile Include="Transactions Module\Cart User controls\AddedToCartTable.Designer.cs">
       <DependentUpon>AddedToCartTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\DeliveryCartDetails.cs">
+    <Compile Include="Transactions Module\Cart User controls\DeliveryCartDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\DeliveryCartDetails.Designer.cs">
+    <Compile Include="Transactions Module\Cart User controls\DeliveryCartDetails.Designer.cs">
       <DependentUpon>DeliveryCartDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\DeliveryComboBoxes.cs">
+    <Compile Include="Transactions Module\Cart User controls\DeliveryComboBoxes.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\DeliveryComboBoxes.Designer.cs">
+    <Compile Include="Transactions Module\Cart User controls\DeliveryComboBoxes.Designer.cs">
       <DependentUpon>DeliveryComboBoxes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\Pagination.cs">
+    <Compile Include="Transactions Module\General user control\Pagination.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\Pagination.Designer.cs">
+    <Compile Include="Transactions Module\General user control\Pagination.Designer.cs">
       <DependentUpon>Pagination.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\Proceed&amp;ClearButton.cs">
+    <Compile Include="Transactions Module\Cart User controls\Proceed&amp;ClearButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\Proceed&amp;ClearButton.Designer.cs">
+    <Compile Include="Transactions Module\Cart User controls\Proceed&amp;ClearButton.Designer.cs">
       <DependentUpon>Proceed&amp;ClearButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\Products.cs">
+    <Compile Include="Transactions Module\General user control\Products.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\Products.Designer.cs">
+    <Compile Include="Transactions Module\General user control\Products.Designer.cs">
       <DependentUpon>Products.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\SubtotalDeliveryPanel.cs">
+    <Compile Include="Transactions Module\Cart User controls\SubtotalDeliveryPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\SubtotalDeliveryPanel.Designer.cs">
+    <Compile Include="Transactions Module\Cart User controls\SubtotalDeliveryPanel.Designer.cs">
       <DependentUpon>SubtotalDeliveryPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\SubtotalPanel.cs">
+    <Compile Include="Transactions Module\Cart User controls\SubtotalPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\SubtotalPanel.Designer.cs">
+    <Compile Include="Transactions Module\Cart User controls\SubtotalPanel.Designer.cs">
       <DependentUpon>SubtotalPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\TransactionsFilterButton.cs">
+    <Compile Include="Transactions Module\General user control\TransactionsFilterButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\TransactionsFilterButton.Designer.cs">
+    <Compile Include="Transactions Module\General user control\TransactionsFilterButton.Designer.cs">
       <DependentUpon>TransactionsFilterButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions Module\ItemDescription_PopUp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\ItemDescription_PopUp.Designer.cs">
+      <DependentUpon>ItemDescription_PopUp.cs</DependentUpon>
     </Compile>
     <Compile Include="Transactions Module\TransactionsMainPage.cs">
       <SubType>UserControl</SubType>
@@ -604,34 +610,34 @@
     <Compile Include="Transactions Module\TransactionsMainPage.Designer.cs">
       <DependentUpon>TransactionsMainPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\TransactionsSearchBar.cs">
+    <Compile Include="Transactions Module\General user control\TransactionsSearchBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\TransactionsSearchBar.Designer.cs">
+    <Compile Include="Transactions Module\General user control\TransactionsSearchBar.Designer.cs">
       <DependentUpon>TransactionsSearchBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\TransactionsTopBar.cs">
+    <Compile Include="Transactions Module\General user control\TransactionsTopBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\TransactionsTopBar.Designer.cs">
+    <Compile Include="Transactions Module\General user control\TransactionsTopBar.Designer.cs">
       <DependentUpon>TransactionsTopBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\CartDetails.cs">
+    <Compile Include="Transactions Module\Cart User controls\CartDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\CartDetails.Designer.cs">
+    <Compile Include="Transactions Module\Cart User controls\CartDetails.Designer.cs">
       <DependentUpon>CartDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\Walk-inCartDetails.cs">
+    <Compile Include="Transactions Module\Cart User controls\Walk-inCartDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\Walk-inCartDetails.Designer.cs">
+    <Compile Include="Transactions Module\Cart User controls\Walk-inCartDetails.Designer.cs">
       <DependentUpon>Walk-inCartDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\WalkinOrDeliveryButton.cs">
+    <Compile Include="Transactions Module\Cart User controls\WalkinOrDeliveryButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\WalkinOrDeliveryButton.Designer.cs">
+    <Compile Include="Transactions Module\Cart User controls\WalkinOrDeliveryButton.Designer.cs">
       <DependentUpon>WalkinOrDeliveryButton.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControlFiles\MainButton.cs">
@@ -941,49 +947,52 @@
     <EmbeddedResource Include="Customer Module\Edit &amp; Delete Button.resx">
       <DependentUpon>Edit &amp; Delete Button.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\AddedToCartTable.resx">
+    <EmbeddedResource Include="Transactions Module\Cart User controls\AddedToCartTable.resx">
       <DependentUpon>AddedToCartTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\DeliveryCartDetails.resx">
+    <EmbeddedResource Include="Transactions Module\Cart User controls\DeliveryCartDetails.resx">
       <DependentUpon>DeliveryCartDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\DeliveryComboBoxes.resx">
+    <EmbeddedResource Include="Transactions Module\Cart User controls\DeliveryComboBoxes.resx">
       <DependentUpon>DeliveryComboBoxes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\Pagination.resx">
+    <EmbeddedResource Include="Transactions Module\General user control\Pagination.resx">
       <DependentUpon>Pagination.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\Proceed&amp;ClearButton.resx">
+    <EmbeddedResource Include="Transactions Module\Cart User controls\Proceed&amp;ClearButton.resx">
       <DependentUpon>Proceed&amp;ClearButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\Products.resx">
+    <EmbeddedResource Include="Transactions Module\General user control\Products.resx">
       <DependentUpon>Products.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\SubtotalDeliveryPanel.resx">
+    <EmbeddedResource Include="Transactions Module\Cart User controls\SubtotalDeliveryPanel.resx">
       <DependentUpon>SubtotalDeliveryPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\SubtotalPanel.resx">
+    <EmbeddedResource Include="Transactions Module\Cart User controls\SubtotalPanel.resx">
       <DependentUpon>SubtotalPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\TransactionsFilterButton.resx">
+    <EmbeddedResource Include="Transactions Module\General user control\TransactionsFilterButton.resx">
       <DependentUpon>TransactionsFilterButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\ItemDescription_PopUp.resx">
+      <DependentUpon>ItemDescription_PopUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\TransactionsMainPage.resx">
       <DependentUpon>TransactionsMainPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\TransactionsSearchBar.resx">
+    <EmbeddedResource Include="Transactions Module\General user control\TransactionsSearchBar.resx">
       <DependentUpon>TransactionsSearchBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\TransactionsTopBar.resx">
+    <EmbeddedResource Include="Transactions Module\General user control\TransactionsTopBar.resx">
       <DependentUpon>TransactionsTopBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\CartDetails.resx">
+    <EmbeddedResource Include="Transactions Module\Cart User controls\CartDetails.resx">
       <DependentUpon>CartDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\Walk-inCartDetails.resx">
+    <EmbeddedResource Include="Transactions Module\Cart User controls\Walk-inCartDetails.resx">
       <DependentUpon>Walk-inCartDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\WalkinOrDeliveryButton.resx">
+    <EmbeddedResource Include="Transactions Module\Cart User controls\WalkinOrDeliveryButton.resx">
       <DependentUpon>WalkinOrDeliveryButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\MainButton.resx">
@@ -1355,6 +1364,10 @@
     <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\plywood1.png" />
+    <None Include="Resources\shopping basket-add2.png" />
+    <None Include="Resources\shopping basket-add1.png" />
+    <None Include="Resources\Transactions %28Delivery%29 %281%29.png" />
     <None Include="Resources\Siamese Cable1.png" />
     <None Include="Resources\user-circle.png" />
     <None Include="Resources\Siamese Cable.png" />
@@ -1403,6 +1416,11 @@
     <None Include="Resources\Group 10481.png" />
     <None Include="Resources\direction-right 011.png" />
     <None Include="Resources\Davies1.png" />
+    <None Include="Resources\Overlay.png" />
+    <None Include="Resources\Overlay %281%29.png" />
+    <None Include="Resources\Overlay %282%29.png" />
+    <None Include="Resources\Overlay %283%29.png" />
+    <None Include="Resources\Group 1000004222.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
