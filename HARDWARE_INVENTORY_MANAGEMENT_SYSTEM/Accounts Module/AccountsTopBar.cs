@@ -1,4 +1,5 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 {
     public partial class AccountsTopBar : UserControl
     {
-        private ProfileMenuPainter profileMenuPainter = new ProfileMenuPainter();
+      
         public AccountsTopBar()
         {
             InitializeComponent();
@@ -25,16 +26,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         }
 
 
-        private void btnProfileMenu_Click(object sender, EventArgs e)
-        {
-            var mainForm = this.FindForm() as MainDashBoard;
-
-            if (mainForm != null)
-            {
-
-                mainForm.ShowSettingsPanel(mainForm.MainContentPanelAccess);
-            }
-        }
+       
 
         private void AccountsTopBar_Load(object sender, EventArgs e)
         {
@@ -46,6 +38,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
         }
 
+        private void btnProfileMenu_Click(object sender, EventArgs e)
+        {
+            var mainForm = this.FindForm() as MainDashBoard;
+
+            if (mainForm != null)
+            {
+                SettingsMainClass.ShowSettingsPanel(mainForm.MainContentPanelAccess);
+            }
+        }
+        private ProfileMenuPainter profileMenuPainter = new ProfileMenuPainter();
         private void btnProfileMenu_Paint(object sender, PaintEventArgs e)
         {
 

@@ -57,29 +57,35 @@
             // btnProfileMenu
             // 
             this.btnProfileMenu.BackColor = System.Drawing.Color.Transparent;
-            this.btnProfileMenu.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.My_Profile__3_;
-            this.btnProfileMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnProfileMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnProfileMenu.BorderRadius = 5;
+            this.btnProfileMenu.BorderThickness = 1;
             this.btnProfileMenu.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnProfileMenu.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnProfileMenu.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnProfileMenu.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnProfileMenu.FillColor = System.Drawing.Color.Transparent;
-            this.btnProfileMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnProfileMenu.ForeColor = System.Drawing.Color.White;
+            this.btnProfileMenu.Font = new System.Drawing.Font("Lexend", 9F);
+            this.btnProfileMenu.ForeColor = System.Drawing.Color.Black;
+            this.btnProfileMenu.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.user_circle;
+            this.btnProfileMenu.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnProfileMenu.ImageOffset = new System.Drawing.Point(-5, -3);
+            this.btnProfileMenu.ImageSize = new System.Drawing.Size(35, 35);
             this.btnProfileMenu.Location = new System.Drawing.Point(787, 15);
             this.btnProfileMenu.Name = "btnProfileMenu";
             this.btnProfileMenu.Size = new System.Drawing.Size(146, 38);
-            this.btnProfileMenu.TabIndex = 18;
+            this.btnProfileMenu.TabIndex = 25;
             this.btnProfileMenu.Click += new System.EventHandler(this.btnProfileMenu_Click);
+            this.btnProfileMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.btnProfileMenu_Paint);
             // 
             // CustomerTopBar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.btnProfileMenu);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnProfileMenu);
             this.Name = "CustomerTopBar";
             this.Size = new System.Drawing.Size(965, 69);
             this.ResumeLayout(false);

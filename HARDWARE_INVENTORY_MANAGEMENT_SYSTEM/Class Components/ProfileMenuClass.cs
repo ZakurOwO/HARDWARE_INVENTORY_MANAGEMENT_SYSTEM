@@ -28,7 +28,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components
                 g.DrawString("Store Manager", roleFont, roleBrush, textX, textY + spacing);
             }
 
-            //
+           
         }
     }
 }

@@ -50,31 +50,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         }
 
 
-        public void ShowSettingsPanel(Panel parent)
-        {
-            // Toggle behavior
-            var existing = parent.Controls.OfType<Settings_Signout>().FirstOrDefault();
-            if (existing != null) 
-            {
-                parent.Controls.Remove(existing);
-
-                foreach (Control c in parent.Controls)
-                    c.BringToFront();
-
-                return;
-            }
-
-            Settings_Signout settings = new Settings_Signout();
-         
-            settings.Location = new Point(parent.Width - settings.Width - 25, 60);
-
-            parent.Controls.Add(settings);
-
-            foreach (Control c in parent.Controls)
-                c.SendToBack();
-
-            settings.BringToFront();
-        }
+      
 
 
 

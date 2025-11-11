@@ -67,6 +67,7 @@
             this.btnProfileMenu.FillColor = System.Drawing.Color.Transparent;
             this.btnProfileMenu.Font = new System.Drawing.Font("Lexend", 9F);
             this.btnProfileMenu.ForeColor = System.Drawing.Color.Black;
+            this.btnProfileMenu.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.user_circle;
             this.btnProfileMenu.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnProfileMenu.ImageOffset = new System.Drawing.Point(-5, -3);
             this.btnProfileMenu.ImageSize = new System.Drawing.Size(35, 35);
