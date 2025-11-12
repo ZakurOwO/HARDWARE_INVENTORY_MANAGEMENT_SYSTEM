@@ -14,50 +14,72 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
     public partial class DeliveriesReportPanel : UserControl
     {
+        private int currentPage = 1;
+        private int totalPages = 2;
+
         public DeliveriesReportPanel()
         {
             InitializeComponent();
-            this.Load += DeliveriesReportPanel_load;
+            this.Load += DeliveriesReportPanel_Load;
         }
 
         private void DeliveriesReportPanel_Load(object sender, EventArgs e)
         {
-
+            ShowPage(currentPage);
         }
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
             //Page 2
-            Showpage2Deliveries();
+            ShowPage(2);
         }
 
         private void guna2Button5_Click(object sender, EventArgs e)
         {
             //Page 1
-            Showpage1Deliveries();
+            ShowPage(1);
         }
 
-        private void guna2Button6_Click(object sender, EventArgs e)
+        private void guna2Button6_Click(object sender, EventArgs e) // "<"
         {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                ShowPage(currentPage);
+            }
+        }
 
+        private void guna2Button4_Click(object sender, EventArgs e) // ">"
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                ShowPage(currentPage);
+            }
         }
-        private void Showpage1Deliveries()
+
+        private void ShowPage(int page)
         {
             panel1.Controls.Clear();
-            var page1Deliveries = new DeliveriesPage1();
-            page1Deliveries.Dock = DockStyle.Fill;
-            panel1.Controls.Add(page1Deliveries);
-        }
-        private void Showpage2Deliveries()
-        {
-            panel1.Controls.Clear();
-            var page2Deliveries = new DeliveriesPage2();
-            page2Deliveries.Dock = DockStyle.Fill;
-            panel1.Controls.Add(page2Deliveries);
-        }
-        private void DeliveriesReportPanel_load(object sender, EventArgs e)
-        {
-            Showpage1Deliveries();
+            UserControl pageControl = null;
+
+            switch (page)
+            {
+                case 1:
+                    pageControl = new DeliveriesPage1();
+                    break;
+                case 2:
+                    pageControl = new DeliveriesPage2();
+                    break;
+            }
+
+            if (pageControl != null)
+            {
+                pageControl.Dock = DockStyle.Fill;
+                panel1.Controls.Add(pageControl);
+            }
+
+            currentPage = page;
         }
     }
 }

@@ -14,6 +14,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
     public partial class CustomersReportPanel : UserControl
     {
+        private int currentPage = 1;
+        private int totalPages = 2;
+
         public CustomersReportPanel()
         {
             InitializeComponent();
@@ -23,33 +26,60 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void guna2Button5_Click(object sender, EventArgs e)
         {
             //Page 1
-            Showpage1Customers();
+            ShowPage(1);
         }
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
             //Page 2
-            Showpage2Customers();
+            ShowPage(2);
         }
 
-        private void Showpage1Customers()
+        private void guna2Button6_Click(object sender, EventArgs e) // "<"
         {
-            panel1.Controls.Clear();
-            var page1Customers = new CustomersPage1();
-            page1Customers.Dock = DockStyle.Fill;
-            panel1.Controls.Add(page1Customers);
+            if (currentPage > 1)
+            {
+                currentPage--;
+                ShowPage(currentPage);
+            }
         }
-        private void Showpage2Customers()
+
+        private void guna2Button4_Click(object sender, EventArgs e) // ">"
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                ShowPage(currentPage);
+            }
+        }
+
+        private void ShowPage(int page)
         {
             panel1.Controls.Clear();
-            var page2Customers = new CustomersPage2();
-            page2Customers.Dock = DockStyle.Fill;
-            panel1.Controls.Add(page2Customers);
+            UserControl pageControl = null;
+
+            switch (page)
+            {
+                case 1:
+                    pageControl = new CustomersPage1();
+                    break;
+                case 2:
+                    pageControl = new CustomersPage2();
+                    break;
+            }
+
+            if (pageControl != null)
+            {
+                pageControl.Dock = DockStyle.Fill;
+                panel1.Controls.Add(pageControl);
+            }
+
+            currentPage = page;
         }
 
         private void CustomersReportPanel_load(object sender, EventArgs e)
         {
-            Showpage1Customers();
+            ShowPage(currentPage);
         }
     }
 }

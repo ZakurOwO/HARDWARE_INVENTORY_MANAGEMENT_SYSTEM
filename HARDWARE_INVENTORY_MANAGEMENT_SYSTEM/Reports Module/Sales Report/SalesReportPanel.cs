@@ -14,6 +14,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
     public partial class SalesPage : UserControl
     {
+        private int currentPage = 1;
+        private int totalPages = 3;
+
         public SalesPage()
         {
             InitializeComponent();
@@ -23,45 +26,69 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void guna2Button5_Click(object sender, EventArgs e)
         {
             //page 1
-            Showpage1Sales();
+            ShowPage(1);
         }
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
             //page 2
-            Showpage2Sales();
+            ShowPage(2);
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             //page 3
-            Showpage3Sales();
+            ShowPage(3);
         }
-        private void Showpage1Sales()
+
+        private void guna2Button6_Click(object sender, EventArgs e) // "<"
+        {
+            if (currentPage > 1)
+            {
+                currentPage--;
+                ShowPage(currentPage);
+            }
+        }
+
+        private void guna2Button4_Click(object sender, EventArgs e) // ">"
+        {
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                ShowPage(currentPage);
+            }
+        }
+
+        private void ShowPage(int page)
         {
             panel1.Controls.Clear();
-            var page1Sales = new SalesPage1();
-            page1Sales.Dock = DockStyle.Fill;
-            panel1.Controls.Add(page1Sales);
+            UserControl pageControl = null;
+
+            switch (page)
+            {
+                case 1:
+                    pageControl = new SalesPage1();
+                    break;
+                case 2:
+                    pageControl = new SalesPage2();
+                    break;
+                case 3:
+                    pageControl = new SalesPage3();
+                    break;
+            }
+
+            if (pageControl != null)
+            {
+                pageControl.Dock = DockStyle.Fill;
+                panel1.Controls.Add(pageControl);
+            }
+
+            currentPage = page;
         }
-        private void Showpage2Sales()
-        {
-            panel1.Controls.Clear();
-            var page2Sales = new SalesPage2();
-            page2Sales.Dock = DockStyle.Fill;
-            panel1.Controls.Add(page2Sales);
-        }
-        private void Showpage3Sales()
-        {
-            panel1.Controls.Clear();
-            var page3Sales = new SalesPage3();
-            page3Sales.Dock = DockStyle.Fill;
-            panel1.Controls.Add(page3Sales);
-        }
-        
+
         private void SalesReportPanel_load(object sender, EventArgs e)
         {
-            Showpage1Sales();
+            ShowPage(currentPage);
         }
     }
 }

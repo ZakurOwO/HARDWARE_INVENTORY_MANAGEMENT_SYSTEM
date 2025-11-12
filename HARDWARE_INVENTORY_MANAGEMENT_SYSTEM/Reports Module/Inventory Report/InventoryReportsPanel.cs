@@ -13,6 +13,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
     public partial class InventoryReportsPanel : UserControl
     {
+        private int currentPage = 1;
+        private int totalPages = 4;
+
         public InventoryReportsPanel()
         {
             InitializeComponent();
@@ -22,60 +25,80 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void guna2Button5_Click(object sender, EventArgs e)
         {
             //page 1
-            ShowPage1Inventory();
+            ShowPage(1);
         }
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
             //page 2
-            ShowPage2Inventory();
+            ShowPage(2);
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
             //page 3
-            ShowPage3Inventory();
+            ShowPage(3);
         }
 
         private void guna2Button3_Click(object sender, EventArgs e)
         {
             //page 4
-            ShowPage4Inventory();
+            ShowPage(4);
         }
 
-        private void ShowPage1Inventory()
+        private void guna2Button6_Click(object sender, EventArgs e) // "<"
         {
-            panel1.Controls.Clear();
-            var page1Inventory = new InventoryPage1();
-            page1Inventory.Dock = DockStyle.Fill;
-            panel1.Controls.Add(page1Inventory);
+            if (currentPage > 1)
+            {
+                currentPage--;
+                ShowPage(currentPage);
+            }
         }
-        private void ShowPage2Inventory()
+
+        private void guna2Button4_Click(object sender, EventArgs e) // ">"
         {
-            panel1.Controls.Clear();
-            var page2Inventory = new InventoryPage2();
-            page2Inventory.Dock = DockStyle.Fill;
-            panel1.Controls.Add(page2Inventory);
+            if (currentPage < totalPages)
+            {
+                currentPage++;
+                ShowPage(currentPage);
+            }
         }
-        private void ShowPage3Inventory()
+
+        private void ShowPage(int page)
         {
             panel1.Controls.Clear();
-            var page3Inventory = new InventoryPage3();
-            page3Inventory.Dock = DockStyle.Fill;
-            panel1.Controls.Add(page3Inventory);
-        }
-        private void ShowPage4Inventory()
-        {
-            panel1.Controls.Clear();
-            var page4Inventory = new InventoryPage4();
-            page4Inventory.Dock = DockStyle.Fill;
-            panel1.Controls.Add(page4Inventory);
+            UserControl pageControl = null;
+
+            switch (page)
+            {
+                case 1:
+                    pageControl = new InventoryPage1();
+                    break;
+                case 2:
+                    pageControl = new InventoryPage2();
+                    break;
+                case 3:
+                    pageControl = new InventoryPage3();
+                    break;
+                case 4:
+                    pageControl = new InventoryPage4();
+                    break;
+            }
+
+            if (pageControl != null)
+            {
+                pageControl.Dock = DockStyle.Fill;
+                panel1.Controls.Add(pageControl);
+            }
+
+            currentPage = page;
         }
 
         private void InventoryReportsPanel_Load(object sender, EventArgs e)
         {
-            ShowPage1Inventory();
+            ShowPage(currentPage);
         }
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
