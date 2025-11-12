@@ -85,6 +85,12 @@
     <Compile Include="Accounts Module\UserAccountsPanel.Designer.cs">
       <DependentUpon>UserAccountsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Accounts Module\ViewAccountsDetail_PopUp.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Accounts Module\ViewAccountsDetail_PopUp.Designer.cs">
+      <DependentUpon>ViewAccountsDetail_PopUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Audit Log\AuditDataGrid.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -653,6 +659,12 @@
     <Compile Include="Transactions Module\Cart User controls\WalkinOrDeliveryButton.Designer.cs">
       <DependentUpon>WalkinOrDeliveryButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControlFiles\CloseButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlFiles\CloseButton.Designer.cs">
+      <DependentUpon>CloseButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControlFiles\MainButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -721,6 +733,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Accounts Module\UserAccountsPanel.resx">
       <DependentUpon>UserAccountsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Accounts Module\ViewAccountsDetail_PopUp.resx">
+      <DependentUpon>ViewAccountsDetail_PopUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Audit Log\AuditDataGrid.resx">
       <DependentUpon>AuditDataGrid.cs</DependentUpon>
@@ -1013,6 +1028,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\Cart User controls\WalkinOrDeliveryButton.resx">
       <DependentUpon>WalkinOrDeliveryButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlFiles\CloseButton.resx">
+      <DependentUpon>CloseButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\MainButton.resx">
       <DependentUpon>MainButton.cs</DependentUpon>
@@ -1421,6 +1439,7 @@
     <None Include="Resources\Adjust Stock1.png" />
     <None Include="Resources\Adjust Stock2.png" />
     <None Include="Resources\Add Stock.png" />
+    <None Include="Resources\Admin info.png" />
     <Content Include="Resources\Canceled.png" />
     <None Include="Resources\Pending1.png" />
     <None Include="Resources\Canceled1.png" />
