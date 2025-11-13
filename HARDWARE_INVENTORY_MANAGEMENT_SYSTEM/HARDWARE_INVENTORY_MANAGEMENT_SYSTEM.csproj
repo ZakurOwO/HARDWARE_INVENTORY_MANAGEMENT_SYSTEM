@@ -1464,6 +1464,8 @@
     <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\upload.png" />
+    <None Include="Resources\setting3.png" />
     <None Include="Resources\remove.png" />
     <None Include="Resources\plus1.png" />
     <None Include="Resources\plus.png" />
@@ -1504,6 +1506,8 @@
     <None Include="Resources\Add Stock.png" />
     <None Include="Resources\Admin info.png" />
     <None Include="Resources\Add User1.png" />
+    <None Include="Resources\Audit main1.png" />
+    <None Include="Resources\Audit main2.png" />
     <Content Include="Resources\Canceled.png" />
     <None Include="Resources\Pending1.png" />
     <None Include="Resources\Canceled1.png" />
@@ -1539,6 +1543,8 @@
     <None Include="Resources\Nag delete.png" />
     <None Include="Resources\Edit user info.png" />
     <None Include="Resources\Item Details.png" />
+    <None Include="Resources\filter1.png" />
+    <None Include="Resources\download.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

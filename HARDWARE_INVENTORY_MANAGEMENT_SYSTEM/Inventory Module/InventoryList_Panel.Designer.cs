@@ -73,7 +73,7 @@
             // inventory_SearchField1
             // 
             this.inventory_SearchField1.BackColor = System.Drawing.Color.Transparent;
-            this.inventory_SearchField1.Location = new System.Drawing.Point(44, 18);
+            this.inventory_SearchField1.Location = new System.Drawing.Point(17, 18);
             this.inventory_SearchField1.Name = "inventory_SearchField1";
             this.inventory_SearchField1.Size = new System.Drawing.Size(336, 47);
             this.inventory_SearchField1.TabIndex = 2;
@@ -81,7 +81,7 @@
             // inventoryFilter_Button1
             // 
             this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(392, 18);
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(365, 18);
             this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
             this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
             this.inventoryFilter_Button1.TabIndex = 1;

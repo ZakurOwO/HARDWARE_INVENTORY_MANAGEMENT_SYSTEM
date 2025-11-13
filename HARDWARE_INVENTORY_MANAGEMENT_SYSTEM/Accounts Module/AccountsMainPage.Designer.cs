@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.userAccountsPanel2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.UserAccountsPanel();
+            this.userAccountsPanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.UserAccountsPanel();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.addNewUserButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.AddNewUserButton();
             this.accountsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.AccountsTopBar();
-            this.userAccountsPanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.UserAccountsPanel();
-            this.userAccountsPanel2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.UserAccountsPanel();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +43,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Panel1.BackColor = System.Drawing.Color.White;
-            this.guna2Panel1.BorderColor = System.Drawing.Color.Silver;
+            this.guna2Panel1.BorderColor = System.Drawing.Color.Gainsboro;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
             this.guna2Panel1.Controls.Add(this.userAccountsPanel2);
@@ -54,6 +54,32 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(915, 620);
             this.guna2Panel1.TabIndex = 0;
+            // 
+            // userAccountsPanel2
+            // 
+            this.userAccountsPanel2._Name = "Dimpol Navarro";
+            this.userAccountsPanel2.BackColor = System.Drawing.Color.Transparent;
+            this.userAccountsPanel2.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.user1;
+            this.userAccountsPanel2.Location = new System.Drawing.Point(318, 89);
+            this.userAccountsPanel2.Name = "userAccountsPanel2";
+            this.userAccountsPanel2.Position = "Sales Representative";
+            this.userAccountsPanel2.Role = "User";
+            this.userAccountsPanel2.Size = new System.Drawing.Size(284, 128);
+            this.userAccountsPanel2.Status = "Active";
+            this.userAccountsPanel2.TabIndex = 5;
+            // 
+            // userAccountsPanel1
+            // 
+            this.userAccountsPanel1._Name = "Richard Faulkerson";
+            this.userAccountsPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.userAccountsPanel1.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.shield1;
+            this.userAccountsPanel1.Location = new System.Drawing.Point(28, 89);
+            this.userAccountsPanel1.Name = "userAccountsPanel1";
+            this.userAccountsPanel1.Position = "Manager";
+            this.userAccountsPanel1.Role = "Admin";
+            this.userAccountsPanel1.Size = new System.Drawing.Size(284, 128);
+            this.userAccountsPanel1.Status = "Active";
+            this.userAccountsPanel1.TabIndex = 4;
             // 
             // searchField1
             // 
@@ -82,32 +108,6 @@
             this.accountsTopBar1.Name = "accountsTopBar1";
             this.accountsTopBar1.Size = new System.Drawing.Size(960, 69);
             this.accountsTopBar1.TabIndex = 0;
-            // 
-            // userAccountsPanel1
-            // 
-            this.userAccountsPanel1._Name = "Richard Faulkerson";
-            this.userAccountsPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.userAccountsPanel1.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.shield1;
-            this.userAccountsPanel1.Location = new System.Drawing.Point(28, 89);
-            this.userAccountsPanel1.Name = "userAccountsPanel1";
-            this.userAccountsPanel1.Position = "Manager";
-            this.userAccountsPanel1.Role = "Admin";
-            this.userAccountsPanel1.Size = new System.Drawing.Size(284, 128);
-            this.userAccountsPanel1.Status = "Active";
-            this.userAccountsPanel1.TabIndex = 4;
-            // 
-            // userAccountsPanel2
-            // 
-            this.userAccountsPanel2._Name = "Dimpol Navarro";
-            this.userAccountsPanel2.BackColor = System.Drawing.Color.Transparent;
-            this.userAccountsPanel2.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.user1;
-            this.userAccountsPanel2.Location = new System.Drawing.Point(318, 89);
-            this.userAccountsPanel2.Name = "userAccountsPanel2";
-            this.userAccountsPanel2.Position = "Sales Representative";
-            this.userAccountsPanel2.Role = "User";
-            this.userAccountsPanel2.Size = new System.Drawing.Size(284, 128);
-            this.userAccountsPanel2.Status = "Active";
-            this.userAccountsPanel2.TabIndex = 5;
             // 
             // AccountsMainPage
             // 
