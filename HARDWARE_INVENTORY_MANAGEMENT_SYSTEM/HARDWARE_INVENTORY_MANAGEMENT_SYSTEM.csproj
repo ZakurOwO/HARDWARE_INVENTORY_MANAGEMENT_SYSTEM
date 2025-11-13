@@ -333,6 +333,12 @@
     <Compile Include="Inventory Module\Inventory_SearchField.Designer.cs">
       <DependentUpon>Inventory_SearchField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inventory Module\ItemDescription_Form.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Inventory Module\ItemDescription_Form.Designer.cs">
+      <DependentUpon>ItemDescription_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainDashBoard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -892,6 +898,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inventory Module\Inventory_SearchField.resx">
       <DependentUpon>Inventory_SearchField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory Module\ItemDescription_Form.resx">
+      <DependentUpon>ItemDescription_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainDashBoard.resx">
       <DependentUpon>MainDashBoard.cs</DependentUpon>
@@ -1529,6 +1538,7 @@
     <None Include="Resources\minus1.png" />
     <None Include="Resources\Nag delete.png" />
     <None Include="Resources\Edit user info.png" />
+    <None Include="Resources\Item Details.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
