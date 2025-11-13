@@ -13,8 +13,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 {
     public partial class AddCustomerForm : UserControl
     {
-        // 🔹 Connection string for your InventoryCapstone database
-        // ⚠️ Change Data Source if your SQL instance is different
+        // Connection string to InventoryCapstone
         private string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=InventoryCapstone;Integrated Security=True";
 
         public AddCustomerForm()
@@ -22,61 +21,75 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             InitializeComponent();
         }
 
-        // 🟢 Main method to insert customer into the database
+        // Method to add a customer using SqlDataAdapter
         private void AddCustomer()
         {
+            string customerName = CompanyNameCustomerTextBox.Text.Trim();
+            string contactNumber = EmailAddressTextBox.Text.Trim();
+            string address = LocationTextBox.Text.Trim();
+
+            if (string.IsNullOrEmpty(customerName))
+            {
+                MessageBox.Show("Please enter the customer name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
-                // Use your actual textbox names
-                string customerName = CompanyNameCustomerTextBox.Text.Trim();
-                string contactNumber = EmailAddressTextBox.Text.Trim();
-                string address = LocationTextBox.Text.Trim();
-
-                if (string.IsNullOrEmpty(customerName))
-                {
-                    MessageBox.Show("Please enter the customer name.", "Validation Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                string query = "INSERT INTO Customers (customer_name, contact_number, address) VALUES (@name, @contact, @address)";
-
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    // Create a DataTable to hold new customer row
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("customer_name", typeof(string));
+                    dt.Columns.Add("contact_number", typeof(string));
+                    dt.Columns.Add("address", typeof(string));
+
+                    // Add a new row to the DataTable
+                    DataRow newRow = dt.NewRow();
+                    newRow["customer_name"] = customerName;
+                    newRow["contact_number"] = contactNumber;
+                    newRow["address"] = address;
+                    dt.Rows.Add(newRow);
+
+                    // Create SqlDataAdapter
+                    using (SqlDataAdapter da = new SqlDataAdapter())
                     {
-                        cmd.Parameters.AddWithValue("@name", customerName);
-                        cmd.Parameters.AddWithValue("@contact", contactNumber);
-                        cmd.Parameters.AddWithValue("@address", address);
+                        // Define the InsertCommand
+                        da.InsertCommand = new SqlCommand(
+                            "INSERT INTO Customers (customer_name, contact_number, address) VALUES (@name, @contact, @address)",
+                            con
+                        );
+
+                        da.InsertCommand.Parameters.Add("@name", SqlDbType.NVarChar, 100, "customer_name");
+                        da.InsertCommand.Parameters.Add("@contact", SqlDbType.NVarChar, 20, "contact_number");
+                        da.InsertCommand.Parameters.Add("@address", SqlDbType.NVarChar, 255, "address");
 
                         con.Open();
-                        cmd.ExecuteNonQuery();
+                        da.Update(dt); // This inserts the new row
                         con.Close();
                     }
                 }
 
-                MessageBox.Show("Customer added successfully!", "Success",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Customer added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Clear input fields after saving
+                // Clear the textboxes
                 CompanyNameCustomerTextBox.Clear();
                 EmailAddressTextBox.Clear();
                 LocationTextBox.Clear();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error adding customer: " + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error adding customer: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // 🖼️ This will act as your Add Customer trigger (PictureBox click)
+        // Trigger AddCustomer when the PictureBox is clicked
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             AddCustomer();
         }
 
-        // 🔹 The rest of your original empty event handlers stay as-is
+        // Leave other event handlers empty (original code)
         private void pictureBox2_Click(object sender, EventArgs e) { }
         private void kryptonComboBox1_SelectedIndexChanged(object sender, EventArgs e) { }
         private void kryptonComboBox2_SelectedIndexChanged(object sender, EventArgs e) { }
