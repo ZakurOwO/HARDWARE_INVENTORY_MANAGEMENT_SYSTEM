@@ -35,9 +35,11 @@
             // 
             // pnlMainPanel
             // 
+            this.pnlMainPanel.BackColor = System.Drawing.Color.Transparent;
             this.pnlMainPanel.BorderColor = System.Drawing.Color.LightGray;
             this.pnlMainPanel.BorderRadius = 13;
             this.pnlMainPanel.BorderThickness = 1;
+            this.pnlMainPanel.FillColor = System.Drawing.Color.White;
             this.pnlMainPanel.Location = new System.Drawing.Point(18, 124);
             this.pnlMainPanel.Name = "pnlMainPanel";
             this.pnlMainPanel.Size = new System.Drawing.Size(937, 570);

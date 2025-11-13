@@ -143,6 +143,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Add_User1 {
+            get {
+                object obj = ResourceManager.GetObject("Add User1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Add_vehicle__2_ {
             get {
                 object obj = ResourceManager.GetObject("Add vehicle (2)", resourceCulture);
@@ -573,6 +583,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Edit_user_info {
+            get {
+                object obj = ResourceManager.GetObject("Edit user info", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Employees {
             get {
                 object obj = ResourceManager.GetObject("Employees", resourceCulture);
@@ -896,6 +916,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         internal static System.Drawing.Bitmap My_Profile__3_ {
             get {
                 object obj = ResourceManager.GetObject("My Profile (3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Nag_delete {
+            get {
+                object obj = ResourceManager.GetObject("Nag delete", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
