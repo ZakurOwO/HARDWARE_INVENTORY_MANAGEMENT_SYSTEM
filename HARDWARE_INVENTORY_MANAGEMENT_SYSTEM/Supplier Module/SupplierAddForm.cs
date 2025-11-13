@@ -1,165 +1,119 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 {
-    public partial class SupplierAddForm: UserControl
+    public partial class SupplierAddForm : UserControl
     {
+        private SqlConnection con;
+        private SqlDataAdapter da;
+        private DataTable dt;
+
         public SupplierAddForm()
         {
             InitializeComponent();
+            con = new SqlConnection(@"Data Source=.;Initial Catalog=InventoryCapstone;Integrated Security=True");
+            LoadSuppliers();
         }
 
-        private void ContactPersonTextBox_TextChanged(object sender, EventArgs e)
+        private void LoadSuppliers()
         {
-
+            dt = new DataTable();
+            da = new SqlDataAdapter("SELECT * FROM Suppliers", con);
+            SqlCommandBuilder cb = new SqlCommandBuilder(da);
+            da.Fill(dt);
         }
 
-        private void ZipCodeTextBox_TextChanged(object sender, EventArgs e)
+        private void AddSupplier()
         {
+            try
+            {
+                DataRow newRow = dt.NewRow();
+                newRow["supplier_name"] = CompanyNameTextBoxSupplier.Text;
+                newRow["contact_number"] = ContactTxtBoxSupplier.Text;
+                newRow["address"] = LocationSupplierTextBox.Text;
+                dt.Rows.Add(newRow);
 
+                da.Update(dt);
+                MessageBox.Show("Supplier added successfully!");
+                ClearFields();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
 
-        private void ProvinceComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void ClearFields()
         {
-
+            CompanyNameTextBoxSupplier.Clear();
+            ContactTxtBoxSupplier.Clear();
+            LocationSupplierTextBox.Clear();
         }
 
-        private void CityComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
-
+            AddSupplier();
         }
 
-        private void AddressTextBox_TextChanged(object sender, EventArgs e)
-        {
+        private void ContactPersonTextBox_TextChanged(object sender, EventArgs e) { }
 
-        }
+        private void ZipCodeTextBox_TextChanged(object sender, EventArgs e) { }
 
-        private void PhoneNumberTextBox_TextChanged(object sender, EventArgs e)
-        {
+        private void ProvinceComboBox_SelectedIndexChanged(object sender, EventArgs e) { }
 
-        }
+        private void CityComboBox_SelectedIndexChanged(object sender, EventArgs e) { }
 
-        private void label7_Click(object sender, EventArgs e)
-        {
+        private void AddressTextBox_TextChanged(object sender, EventArgs e) { }
 
-        }
+        private void PhoneNumberTextBox_TextChanged(object sender, EventArgs e) { }
 
-        private void EmailAddressTextBox_TextChanged(object sender, EventArgs e)
-        {
+        private void label7_Click(object sender, EventArgs e) { }
 
-        }
+        private void EmailAddressTextBox_TextChanged(object sender, EventArgs e) { }
 
-        private void label20_Click(object sender, EventArgs e)
-        {
+        private void label20_Click(object sender, EventArgs e) { }
 
-        }
+        private void label18_Click(object sender, EventArgs e) { }
 
-        private void label18_Click(object sender, EventArgs e)
-        {
+        private void label19_Click(object sender, EventArgs e) { }
 
-        }
+        private void label16_Click(object sender, EventArgs e) { }
 
-        private void label19_Click(object sender, EventArgs e)
-        {
+        private void label15_Click(object sender, EventArgs e) { }
 
-        }
+        private void label12_Click(object sender, EventArgs e) { }
 
-        private void label16_Click(object sender, EventArgs e)
-        {
+        private void label13_Click(object sender, EventArgs e) { }
 
-        }
+        private void label10_Click(object sender, EventArgs e) { }
 
-        private void label15_Click(object sender, EventArgs e)
-        {
+        private void label11_Click(object sender, EventArgs e) { }
 
-        }
+        private void label8_Click(object sender, EventArgs e) { }
 
-        private void label12_Click(object sender, EventArgs e)
-        {
+        private void label9_Click(object sender, EventArgs e) { }
 
-        }
+        private void label6_Click(object sender, EventArgs e) { }
 
-        private void label13_Click(object sender, EventArgs e)
-        {
+        private void CompanyNameTextBox_TextChanged(object sender, EventArgs e) { }
 
-        }
+        private void label4_Click(object sender, EventArgs e) { }
 
-        private void label10_Click(object sender, EventArgs e)
-        {
+        private void label5_Click(object sender, EventArgs e) { }
 
-        }
+        private void label3_Click(object sender, EventArgs e) { }
 
-        private void label11_Click(object sender, EventArgs e)
-        {
+        private void label2_Click(object sender, EventArgs e) { }
 
-        }
+        private void label1_Click(object sender, EventArgs e) { }
 
-        private void label8_Click(object sender, EventArgs e)
-        {
+        private void CustomerRemarkTextBox_TextChanged(object sender, EventArgs e) { }
 
-        }
+        private void pictureBox2_Click(object sender, EventArgs e) { }
 
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CompanyNameTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CustomerRemarkTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void pictureBox1_Click(object sender, EventArgs e) { }
     }
 }
