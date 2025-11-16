@@ -1464,6 +1464,7 @@
     <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Pending2.png" />
     <None Include="Resources\upload.png" />
     <None Include="Resources\setting3.png" />
     <None Include="Resources\remove.png" />
@@ -1508,6 +1509,9 @@
     <None Include="Resources\Add User1.png" />
     <None Include="Resources\Audit main1.png" />
     <None Include="Resources\Audit main2.png" />
+    <None Include="Resources\Active.png" />
+    <None Include="Resources\ActiveStatus.png" />
+    <None Include="Resources\Active1.png" />
     <Content Include="Resources\Canceled.png" />
     <None Include="Resources\Pending1.png" />
     <None Include="Resources\Canceled1.png" />
@@ -1545,6 +1549,14 @@
     <None Include="Resources\Item Details.png" />
     <None Include="Resources\filter1.png" />
     <None Include="Resources\download.png" />
+    <None Include="Resources\Completed.png" />
+    <None Include="Resources\Canceled2.png" />
+    <None Include="Resources\Group 1050.png" />
+    <None Include="Resources\Edit Blue.png" />
+    <None Include="Resources\Deactivate Circle.png" />
+    <None Include="Resources\Inactive1.png" />
+    <None Include="Resources\InactiveStatus.png" />
+    <None Include="Resources\Inactive2.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

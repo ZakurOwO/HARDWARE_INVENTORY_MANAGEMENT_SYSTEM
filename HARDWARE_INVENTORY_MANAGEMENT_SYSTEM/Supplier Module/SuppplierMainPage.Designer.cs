@@ -32,28 +32,30 @@
             this.supplierButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SupplierButton();
             this.searchFieldForSupplier1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SearchFieldForSupplier();
             this.supplierTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SupplierTopBar();
-            this.tableSupplier1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.TableSupplier();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
+            this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // supplierTable1
             // 
             this.supplierTable1.BackColor = System.Drawing.Color.White;
             this.supplierTable1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.supplierTable1.Location = new System.Drawing.Point(103, 203);
+            this.supplierTable1.Location = new System.Drawing.Point(17, 88);
             this.supplierTable1.Name = "supplierTable1";
-            this.supplierTable1.Size = new System.Drawing.Size(781, 395);
+            this.supplierTable1.Size = new System.Drawing.Size(893, 500);
             this.supplierTable1.TabIndex = 5;
             // 
             // supplierButton1
             // 
-            this.supplierButton1.Location = new System.Drawing.Point(734, 98);
+            this.supplierButton1.Location = new System.Drawing.Point(747, 23);
             this.supplierButton1.Name = "supplierButton1";
             this.supplierButton1.Size = new System.Drawing.Size(150, 44);
             this.supplierButton1.TabIndex = 4;
             // 
             // searchFieldForSupplier1
             // 
-            this.searchFieldForSupplier1.Location = new System.Drawing.Point(76, 98);
+            this.searchFieldForSupplier1.Location = new System.Drawing.Point(17, 23);
             this.searchFieldForSupplier1.Name = "searchFieldForSupplier1";
             this.searchFieldForSupplier1.Size = new System.Drawing.Size(291, 40);
             this.searchFieldForSupplier1.TabIndex = 3;
@@ -66,24 +68,40 @@
             this.supplierTopBar1.Size = new System.Drawing.Size(965, 69);
             this.supplierTopBar1.TabIndex = 0;
             // 
-            // tableSupplier1
+            // guna2Panel1
             // 
-            this.tableSupplier1.Location = new System.Drawing.Point(-3, 0);
-            this.tableSupplier1.Name = "tableSupplier1";
-            this.tableSupplier1.Size = new System.Drawing.Size(965, 680);
-            this.tableSupplier1.TabIndex = 2;
+            this.guna2Panel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Panel1.BorderColor = System.Drawing.Color.Gainsboro;
+            this.guna2Panel1.BorderRadius = 15;
+            this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
+            this.guna2Panel1.Controls.Add(this.supplierButton1);
+            this.guna2Panel1.Controls.Add(this.supplierTable1);
+            this.guna2Panel1.Controls.Add(this.searchFieldForSupplier1);
+            this.guna2Panel1.FillColor = System.Drawing.Color.White;
+            this.guna2Panel1.Location = new System.Drawing.Point(18, 75);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(927, 620);
+            this.guna2Panel1.TabIndex = 6;
+            // 
+            // inventoryFilter_Button1
+            // 
+            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(315, 22);
+            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
+            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
+            this.inventoryFilter_Button1.TabIndex = 6;
             // 
             // SuppplierMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.supplierTable1);
-            this.Controls.Add(this.supplierButton1);
-            this.Controls.Add(this.searchFieldForSupplier1);
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.supplierTopBar1);
-            this.Controls.Add(this.tableSupplier1);
+            this.Controls.Add(this.guna2Panel1);
             this.Name = "SuppplierMainPage";
-            this.Size = new System.Drawing.Size(965, 680);
+            this.Size = new System.Drawing.Size(965, 712);
+            this.guna2Panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -91,9 +109,10 @@
         #endregion
 
         private SupplierTopBar supplierTopBar1;
-        private TableSupplier tableSupplier1;
         private SearchFieldForSupplier searchFieldForSupplier1;
         private SupplierButton supplierButton1;
         private SupplierTable supplierTable1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
     }
 }

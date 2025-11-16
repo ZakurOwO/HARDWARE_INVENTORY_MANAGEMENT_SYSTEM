@@ -23,7 +23,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             {
                 case "EditBtn":
                 default:
-                    return Properties.Resources.edit_rectangle1;
+                    return Properties.Resources.Edit_Blue;
             }
            
 
@@ -36,7 +36,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             {
                 case "DeactivateBtn":
                 default:
-                    return Properties.Resources.edit_rectangle1;
+                    return Properties.Resources.Deactivate_Circle;
             }
 
 
@@ -47,14 +47,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         {
             switch (status)
             {
-                case "Available":
-                    return Properties.Resources.AvailableStatus;
-                case "Pending":
-                    return Properties.Resources.Pending;
-                case "Canceled":
-                    return Properties.Resources.Canceled;
+                case "Active":
+                    return Properties.Resources.Active1;
+                case "Inactive":
+                    return Properties.Resources.Inactive2;
                 default:
-                    return Properties.Resources.AvailableStatus;
+                    return Properties.Resources.ActiveStatus;
             }
 
         }
@@ -62,13 +60,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         private void SupplierTable_Load(object sender, EventArgs e)
         {
 
-            dgvSupplier.Rows.Add(status_set("Available"), Action_Set("EditBtn"), Action_Set1("DeactivateBtn"));
+            dgvSupplier.Rows.Add(status_set("Active"),"DPWH","dpwhgmail.com","Quezon City, Manila", "2023-05-21", Action_Set("EditBtn"), Action_Set1("DeactivateBtn"));
+            dgvSupplier.Rows.Add(status_set("Active"), "Department of Agriculture", "doagmail.com", "Makati City, Manila", "2023-05-21", Action_Set("EditBtn"), Action_Set1("DeactivateBtn"));
+            dgvSupplier.Rows.Add(status_set("Active"), "Department of Education", "doedgmail.com", "Pasig City, Manila", "2023-05-21", Action_Set("EditBtn"), Action_Set1("DeactivateBtn"));
+            dgvSupplier.Rows.Add(status_set("Active"), "Department of Health", "dohgmail.com", "Taguig City, Manila", "2023-05-21", Action_Set("EditBtn"), Action_Set1("DeactivateBtn"));
+            dgvSupplier.Rows.Add(status_set("Active"), "Department of Interior and Local Government", "dilgmail.com", "Caloocan City, Manila", "2023-05-21", Action_Set("EditBtn"), Action_Set1("DeactivateBtn"));
+            dgvSupplier.Rows.Add(status_set("Inactive"), "Department of Transportation", "dotrgmail.com", "Pasay City, Manila", "2023-05-21", Action_Set("EditBtn"), Action_Set1("DeactivateBtn"));
+            dgvSupplier.ClearSelection();
         }
         
-
-        private void dgvSupplier_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }
