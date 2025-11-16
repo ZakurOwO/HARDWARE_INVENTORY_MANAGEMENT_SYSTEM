@@ -30,10 +30,11 @@
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.btnMainButtonIcon = new Guna.UI2.WinForms.Guna2Button();
-            this.auditDataGrid1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditDataGrid();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
+            this.auditDataGrid1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditDataGrid();
             this.auditLogTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditLogTopBar();
+            this.auditDataGrid2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditDataGrid();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,7 +43,7 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Gainsboro;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
-            this.guna2Panel1.Controls.Add(this.auditDataGrid1);
+            this.guna2Panel1.Controls.Add(this.auditDataGrid2);
             this.guna2Panel1.Controls.Add(this.btnMainButtonIcon);
             this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Controls.Add(this.searchField1);
@@ -68,13 +69,6 @@
             this.btnMainButtonIcon.TabIndex = 7;
             this.btnMainButtonIcon.Text = "Download as CSV";
             // 
-            // auditDataGrid1
-            // 
-            this.auditDataGrid1.Location = new System.Drawing.Point(21, 80);
-            this.auditDataGrid1.Name = "auditDataGrid1";
-            this.auditDataGrid1.Size = new System.Drawing.Size(887, 505);
-            this.auditDataGrid1.TabIndex = 8;
-            // 
             // inventoryFilter_Button1
             // 
             this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
@@ -92,6 +86,13 @@
             this.searchField1.Size = new System.Drawing.Size(299, 54);
             this.searchField1.TabIndex = 5;
             // 
+            // auditDataGrid1
+            // 
+            this.auditDataGrid1.Location = new System.Drawing.Point(21, 80);
+            this.auditDataGrid1.Name = "auditDataGrid1";
+            this.auditDataGrid1.Size = new System.Drawing.Size(887, 505);
+            this.auditDataGrid1.TabIndex = 8;
+            // 
             // auditLogTopBar1
             // 
             this.auditLogTopBar1.BackColor = System.Drawing.Color.White;
@@ -100,6 +101,13 @@
             this.auditLogTopBar1.Name = "auditLogTopBar1";
             this.auditLogTopBar1.Size = new System.Drawing.Size(965, 69);
             this.auditLogTopBar1.TabIndex = 0;
+            // 
+            // auditDataGrid2
+            // 
+            this.auditDataGrid2.Location = new System.Drawing.Point(17, 84);
+            this.auditDataGrid2.Name = "auditDataGrid2";
+            this.auditDataGrid2.Size = new System.Drawing.Size(887, 478);
+            this.auditDataGrid2.TabIndex = 8;
             // 
             // AuditLogMainPage
             // 
@@ -126,5 +134,6 @@
         private Guna.UI2.WinForms.Guna2Button btnMainButtonIcon;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private Accounts_Module.SearchField searchField1;
+        private AuditDataGrid auditDataGrid2;
     }
 }

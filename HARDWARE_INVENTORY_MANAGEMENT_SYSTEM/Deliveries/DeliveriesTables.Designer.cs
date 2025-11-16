@@ -40,7 +40,11 @@
             this.DeliveryStatus = new Krypton.Toolkit.KryptonDataGridViewComboBoxColumn();
             this.DateCreated = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Action = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
+            this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDeliveries)).BeginInit();
+            this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvDeliveries
@@ -76,10 +80,9 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvDeliveries.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvDeliveries.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDeliveries.EnableHeadersVisualStyles = false;
             this.dgvDeliveries.GridColor = System.Drawing.Color.WhiteSmoke;
-            this.dgvDeliveries.Location = new System.Drawing.Point(0, 0);
+            this.dgvDeliveries.Location = new System.Drawing.Point(17, 66);
             this.dgvDeliveries.Margin = new System.Windows.Forms.Padding(0);
             this.dgvDeliveries.Name = "dgvDeliveries";
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -93,7 +96,7 @@
             this.dgvDeliveries.RowHeadersVisible = false;
             this.dgvDeliveries.RowTemplate.Height = 45;
             this.dgvDeliveries.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dgvDeliveries.Size = new System.Drawing.Size(935, 580);
+            this.dgvDeliveries.Size = new System.Drawing.Size(902, 512);
             this.dgvDeliveries.TabIndex = 1;
             this.dgvDeliveries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDeliveries_CellContentClick);
             // 
@@ -147,17 +150,49 @@
             this.Action.Name = "Action";
             this.Action.Width = 42;
             // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.BorderColor = System.Drawing.Color.Gainsboro;
+            this.guna2Panel1.BorderRadius = 15;
+            this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
+            this.guna2Panel1.Controls.Add(this.searchField1);
+            this.guna2Panel1.Controls.Add(this.dgvDeliveries);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(935, 593);
+            this.guna2Panel1.TabIndex = 2;
+            // 
+            // inventoryFilter_Button1
+            // 
+            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(330, 14);
+            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
+            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
+            this.inventoryFilter_Button1.TabIndex = 8;
+            // 
+            // searchField1
+            // 
+            this.searchField1.BackColor = System.Drawing.Color.Transparent;
+            this.searchField1.Location = new System.Drawing.Point(25, 11);
+            this.searchField1.Name = "searchField1";
+            this.searchField1.PromptMessage = "Search Deliveries";
+            this.searchField1.Size = new System.Drawing.Size(299, 54);
+            this.searchField1.TabIndex = 7;
+            // 
             // DeliveriesTables
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Controls.Add(this.dgvDeliveries);
+            this.Controls.Add(this.guna2Panel1);
             this.DoubleBuffered = true;
             this.Name = "DeliveriesTables";
-            this.Size = new System.Drawing.Size(935, 580);
+            this.Size = new System.Drawing.Size(935, 593);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDeliveries)).EndInit();
+            this.guna2Panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -173,5 +208,8 @@
         private Krypton.Toolkit.KryptonDataGridViewComboBoxColumn DeliveryStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateCreated;
         private System.Windows.Forms.DataGridViewTextBoxColumn Action;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
+        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
+        private Accounts_Module.SearchField searchField1;
     }
 }

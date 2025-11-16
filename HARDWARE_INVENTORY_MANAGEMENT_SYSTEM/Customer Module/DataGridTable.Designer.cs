@@ -30,158 +30,39 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dgvCustomer = new System.Windows.Forms.DataGridView();
-            this.CompanyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PersonContact = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.Actions = new System.Windows.Forms.Label();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.EditColBtn = new System.Windows.Forms.DataGridViewImageColumn();
-            this.DeActiColBtn = new System.Windows.Forms.DataGridViewImageColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomer)).BeginInit();
+            this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.CompanyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PersonContact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Email = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EditBtn = new System.Windows.Forms.DataGridViewImageColumn();
+            this.DeactivateBtn = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
             this.SuspendLayout();
-            // 
-            // dgvCustomer
-            // 
-            this.dgvCustomer.AllowUserToAddRows = false;
-            this.dgvCustomer.AllowUserToDeleteRows = false;
-            this.dgvCustomer.AllowUserToResizeColumns = false;
-            this.dgvCustomer.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Lexend SemiBold", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.DimGray;
-            this.dgvCustomer.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvCustomer.BackgroundColor = System.Drawing.Color.White;
-            this.dgvCustomer.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvCustomer.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dgvCustomer.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            this.dgvCustomer.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCustomer.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvCustomer.ColumnHeadersHeight = 35;
-            this.dgvCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvCustomer.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.CompanyName,
-            this.PersonContact,
-            this.Email,
-            this.Number,
-            this.EditColBtn,
-            this.DeActiColBtn});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCustomer.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvCustomer.Dock = System.Windows.Forms.DockStyle.Left;
-            this.dgvCustomer.EnableHeadersVisualStyles = false;
-            this.dgvCustomer.GridColor = System.Drawing.Color.White;
-            this.dgvCustomer.Location = new System.Drawing.Point(0, 0);
-            this.dgvCustomer.MultiSelect = false;
-            this.dgvCustomer.Name = "dgvCustomer";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCustomer.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvCustomer.RowHeadersVisible = false;
-            this.dgvCustomer.RowHeadersWidth = 15;
-            this.dgvCustomer.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Lexend Light", 10F);
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.DimGray;
-            this.dgvCustomer.RowsDefaultCellStyle = dataGridViewCellStyle7;
-            this.dgvCustomer.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.dgvCustomer.RowTemplate.Height = 40;
-            this.dgvCustomer.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.dgvCustomer.Size = new System.Drawing.Size(795, 442);
-            this.dgvCustomer.TabIndex = 6;
-            this.dgvCustomer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCustomer_CellContentClick);
-            // 
-            // CompanyName
-            // 
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.DimGray;
-            this.CompanyName.DefaultCellStyle = dataGridViewCellStyle3;
-            this.CompanyName.HeaderText = "Company Name";
-            this.CompanyName.Name = "CompanyName";
-            this.CompanyName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.CompanyName.Width = 195;
-            // 
-            // PersonContact
-            // 
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PersonContact.DefaultCellStyle = dataGridViewCellStyle4;
-            this.PersonContact.HeaderText = "Person Contact";
-            this.PersonContact.Name = "PersonContact";
-            this.PersonContact.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.PersonContact.Width = 180;
-            // 
-            // Email
-            // 
-            this.Email.HeaderText = "Email";
-            this.Email.Name = "Email";
-            this.Email.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Email.Width = 190;
-            // 
-            // Number
-            // 
-            this.Number.HeaderText = "Number";
-            this.Number.Name = "Number";
-            this.Number.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Number.Width = 190;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
             this.panel1.Controls.Add(this.Actions);
-            this.panel1.Location = new System.Drawing.Point(723, 0);
+            this.panel1.Location = new System.Drawing.Point(803, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(72, 35);
+            this.panel1.Size = new System.Drawing.Size(78, 42);
             this.panel1.TabIndex = 10;
             // 
             // Actions
             // 
             this.Actions.AutoSize = true;
-            this.Actions.Font = new System.Drawing.Font("Lexend SemiBold", 10F, System.Drawing.FontStyle.Bold);
+            this.Actions.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold);
             this.Actions.ForeColor = System.Drawing.Color.DimGray;
-            this.Actions.Location = new System.Drawing.Point(5, 6);
+            this.Actions.Location = new System.Drawing.Point(3, 11);
             this.Actions.Name = "Actions";
-            this.Actions.Size = new System.Drawing.Size(63, 22);
+            this.Actions.Size = new System.Drawing.Size(54, 19);
             this.Actions.TabIndex = 0;
             this.Actions.Text = "Actions";
             this.Actions.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -204,23 +85,101 @@
             this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
             this.dataGridViewImageColumn2.Width = 20;
             // 
-            // EditColBtn
+            // dgvCurrentStockReport
             // 
-            this.EditColBtn.HeaderText = "";
-            this.EditColBtn.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle1;
-            this.EditColBtn.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.EditColBtn.Name = "EditColBtn";
-            this.EditColBtn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.EditColBtn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.EditColBtn.Width = 20;
+            this.dgvCurrentStockReport.AllowUserToAddRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvCurrentStockReport.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvCurrentStockReport.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCurrentStockReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvCurrentStockReport.ColumnHeadersHeight = 45;
+            this.dgvCurrentStockReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvCurrentStockReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CompanyName,
+            this.PersonContact,
+            this.Email,
+            this.Number,
+            this.EditBtn,
+            this.DeactivateBtn});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCurrentStockReport.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvCurrentStockReport.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvCurrentStockReport.Location = new System.Drawing.Point(-3, 1);
+            this.dgvCurrentStockReport.Name = "dgvCurrentStockReport";
+            this.dgvCurrentStockReport.RowHeadersVisible = false;
+            this.dgvCurrentStockReport.RowTemplate.Height = 45;
+            this.dgvCurrentStockReport.Size = new System.Drawing.Size(884, 442);
+            this.dgvCurrentStockReport.TabIndex = 11;
+            this.dgvCurrentStockReport.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvCurrentStockReport.ThemeStyle.AlternatingRowsStyle.Font = null;
+            this.dgvCurrentStockReport.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Empty;
+            this.dgvCurrentStockReport.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.Empty;
+            this.dgvCurrentStockReport.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.Empty;
+            this.dgvCurrentStockReport.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.dgvCurrentStockReport.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvCurrentStockReport.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            this.dgvCurrentStockReport.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgvCurrentStockReport.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvCurrentStockReport.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.dgvCurrentStockReport.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.dgvCurrentStockReport.ThemeStyle.HeaderStyle.Height = 45;
+            this.dgvCurrentStockReport.ThemeStyle.ReadOnly = false;
+            this.dgvCurrentStockReport.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.dgvCurrentStockReport.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvCurrentStockReport.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvCurrentStockReport.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgvCurrentStockReport.ThemeStyle.RowsStyle.Height = 45;
+            this.dgvCurrentStockReport.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.dgvCurrentStockReport.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
-            // DeActiColBtn
+            // CompanyName
             // 
-            this.DeActiColBtn.HeaderText = "";
-            this.DeActiColBtn.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.do_not_disturb;
-            this.DeActiColBtn.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.DeActiColBtn.Name = "DeActiColBtn";
-            this.DeActiColBtn.Width = 20;
+            this.CompanyName.HeaderText = "Company Name";
+            this.CompanyName.Name = "CompanyName";
+            // 
+            // PersonContact
+            // 
+            this.PersonContact.HeaderText = "Person Contact";
+            this.PersonContact.Name = "PersonContact";
+            // 
+            // Email
+            // 
+            this.Email.HeaderText = "E-mail";
+            this.Email.Name = "Email";
+            // 
+            // Number
+            // 
+            this.Number.HeaderText = "Number";
+            this.Number.Name = "Number";
+            // 
+            // EditBtn
+            // 
+            this.EditBtn.FillWeight = 20F;
+            this.EditBtn.HeaderText = "";
+            this.EditBtn.Name = "EditBtn";
+            this.EditBtn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.EditBtn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // DeactivateBtn
+            // 
+            this.DeactivateBtn.FillWeight = 20F;
+            this.DeactivateBtn.HeaderText = "";
+            this.DeactivateBtn.Name = "DeactivateBtn";
+            this.DeactivateBtn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.DeactivateBtn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // DataGridTable
             // 
@@ -228,29 +187,29 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dgvCustomer);
+            this.Controls.Add(this.dgvCurrentStockReport);
             this.DoubleBuffered = true;
             this.Name = "DataGridTable";
-            this.Size = new System.Drawing.Size(795, 442);
+            this.Size = new System.Drawing.Size(884, 442);
             this.Load += new System.EventHandler(this.DataGridTable_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomer)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        public System.Windows.Forms.DataGridView dgvCustomer;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label Actions;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvCurrentStockReport;
         private System.Windows.Forms.DataGridViewTextBoxColumn CompanyName;
         private System.Windows.Forms.DataGridViewTextBoxColumn PersonContact;
         private System.Windows.Forms.DataGridViewTextBoxColumn Email;
         private System.Windows.Forms.DataGridViewTextBoxColumn Number;
-        private System.Windows.Forms.DataGridViewImageColumn EditColBtn;
-        private System.Windows.Forms.DataGridViewImageColumn DeActiColBtn;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label Actions;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
+        private System.Windows.Forms.DataGridViewImageColumn EditBtn;
+        private System.Windows.Forms.DataGridViewImageColumn DeactivateBtn;
     }
 }

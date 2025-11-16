@@ -35,7 +35,7 @@
             // 
             this.kryptonButton1.Location = new System.Drawing.Point(0, 0);
             this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.Size = new System.Drawing.Size(196, 44);
+            this.kryptonButton1.Size = new System.Drawing.Size(175, 44);
             this.kryptonButton1.StateCommon.Border.Color1 = System.Drawing.Color.DodgerBlue;
             this.kryptonButton1.StateCommon.Border.Color2 = System.Drawing.Color.DodgerBlue;
             this.kryptonButton1.StateCommon.Border.Rounding = 10F;
@@ -50,7 +50,7 @@
             this.kryptonButton1.StateNormal.Content.ShortText.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kryptonButton1.TabIndex = 0;
             this.kryptonButton1.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.kryptonButton1.Values.Text = "Add Customer Details";
+            this.kryptonButton1.Values.Text = "Add Customer";
             this.kryptonButton1.Click += new System.EventHandler(this.kryptonButton1_Click);
             // 
             // AddCustomerDetailsButton
@@ -62,7 +62,7 @@
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.Name = "AddCustomerDetailsButton";
-            this.Size = new System.Drawing.Size(196, 44);
+            this.Size = new System.Drawing.Size(175, 44);
             this.ResumeLayout(false);
 
         }

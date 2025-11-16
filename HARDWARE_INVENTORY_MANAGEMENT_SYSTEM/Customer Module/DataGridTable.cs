@@ -13,7 +13,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void DataGridTable_Load(object sender, EventArgs e)
         {
-            dgvCustomer.Rows.Add("TechWorld Corp", "Danielle Rivera", "danielle@techworld.com", "09171234567", Action_Set("EditBtn"),Action_Set1("DeactivateBtn"));
+            //dgvCustomer.Rows.Add("TechWorld Corp", "Danielle Rivera", "danielle@techworld.com", "09171234567", Action_Set("EditBtn"),Action_Set1("DeactivateBtn"));
         }
 
 
@@ -34,16 +34,5 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         }
 
 
-
-
-
-
-
-
-
-        private void dgvCustomer_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-         
-        }
     }
 }

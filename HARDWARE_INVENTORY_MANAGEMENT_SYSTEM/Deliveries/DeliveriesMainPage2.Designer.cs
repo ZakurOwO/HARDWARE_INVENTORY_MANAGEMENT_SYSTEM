@@ -47,6 +47,7 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.LightGray;
             this.guna2Panel1.BorderRadius = 10;
             this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Controls.Add(this.vehiclesInfoBox4);
             this.guna2Panel1.Controls.Add(this.vehiclesInfoBox5);
             this.guna2Panel1.Controls.Add(this.vehiclesInfoBox6);
@@ -169,7 +170,7 @@
             // inventoryFilter_Button1
             // 
             this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(338, 13);
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(330, 13);
             this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
             this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
             this.inventoryFilter_Button1.TabIndex = 6;
@@ -188,7 +189,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.inventoryFilter_Button1);
             this.Controls.Add(this.searchField1);
             this.Controls.Add(this.guna2Panel1);
             this.Name = "DeliveriesMainPage2";

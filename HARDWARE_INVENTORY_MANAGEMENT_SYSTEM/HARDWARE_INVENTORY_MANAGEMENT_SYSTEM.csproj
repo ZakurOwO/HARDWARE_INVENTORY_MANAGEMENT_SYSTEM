@@ -177,16 +177,16 @@
     <Compile Include="Deliveries\Add New Truck Button.Designer.cs">
       <DependentUpon>Add New Truck Button.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deliveries\AddVehicleForm.cs">
+    <Compile Include="Deliveries\PopUp Forms\AddVehicleForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Deliveries\AddVehicleForm.Designer.cs">
+    <Compile Include="Deliveries\PopUp Forms\AddVehicleForm.Designer.cs">
       <DependentUpon>AddVehicleForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deliveries\DeletePrompInDeliveries.cs">
+    <Compile Include="Deliveries\PopUp Forms\DeletePrompInDeliveries.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Deliveries\DeletePrompInDeliveries.Designer.cs">
+    <Compile Include="Deliveries\PopUp Forms\DeletePrompInDeliveries.Designer.cs">
       <DependentUpon>DeletePrompInDeliveries.cs</DependentUpon>
     </Compile>
     <Compile Include="Deliveries\DeliveriesMainPage.cs">
@@ -219,22 +219,22 @@
     <Compile Include="Deliveries\DeliveriesTopBar.Designer.cs">
       <DependentUpon>DeliveriesTopBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deliveries\EditDeliveryDetails.cs">
+    <Compile Include="Deliveries\PopUp Forms\EditDeliveryDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Deliveries\EditDeliveryDetails.Designer.cs">
+    <Compile Include="Deliveries\PopUp Forms\EditDeliveryDetails.Designer.cs">
       <DependentUpon>EditDeliveryDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deliveries\EditVehicle.cs">
+    <Compile Include="Deliveries\PopUp Forms\EditVehicle.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Deliveries\EditVehicle.Designer.cs">
+    <Compile Include="Deliveries\PopUp Forms\EditVehicle.Designer.cs">
       <DependentUpon>EditVehicle.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deliveries\SuccessfullyDeletedDeliveries.cs">
+    <Compile Include="Deliveries\PopUp Forms\SuccessfullyDeletedDeliveries.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Deliveries\SuccessfullyDeletedDeliveries.Designer.cs">
+    <Compile Include="Deliveries\PopUp Forms\SuccessfullyDeletedDeliveries.Designer.cs">
       <DependentUpon>SuccessfullyDeletedDeliveries.cs</DependentUpon>
     </Compile>
     <Compile Include="Deliveries\VehiclesInfoBox.cs">
@@ -821,10 +821,10 @@
     <EmbeddedResource Include="Deliveries\Add New Truck Button.resx">
       <DependentUpon>Add New Truck Button.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Deliveries\AddVehicleForm.resx">
+    <EmbeddedResource Include="Deliveries\PopUp Forms\AddVehicleForm.resx">
       <DependentUpon>AddVehicleForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Deliveries\DeletePrompInDeliveries.resx">
+    <EmbeddedResource Include="Deliveries\PopUp Forms\DeletePrompInDeliveries.resx">
       <DependentUpon>DeletePrompInDeliveries.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\DeliveriesMainPage.resx">
@@ -842,13 +842,13 @@
     <EmbeddedResource Include="Deliveries\DeliveriesTopBar.resx">
       <DependentUpon>DeliveriesTopBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Deliveries\EditDeliveryDetails.resx">
+    <EmbeddedResource Include="Deliveries\PopUp Forms\EditDeliveryDetails.resx">
       <DependentUpon>EditDeliveryDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Deliveries\EditVehicle.resx">
+    <EmbeddedResource Include="Deliveries\PopUp Forms\EditVehicle.resx">
       <DependentUpon>EditVehicle.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Deliveries\SuccessfullyDeletedDeliveries.resx">
+    <EmbeddedResource Include="Deliveries\PopUp Forms\SuccessfullyDeletedDeliveries.resx">
       <DependentUpon>SuccessfullyDeletedDeliveries.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\VehiclesInfoBox.resx">
