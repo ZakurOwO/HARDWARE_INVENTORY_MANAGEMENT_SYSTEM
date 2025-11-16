@@ -16,5 +16,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             InitializeComponent();
         }
+
     }
 }

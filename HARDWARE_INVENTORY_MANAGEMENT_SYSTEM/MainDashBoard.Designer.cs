@@ -29,10 +29,12 @@
         private void InitializeComponent()
         {
             this.MainContentPanel = new Krypton.Toolkit.KryptonPanel();
+            this.pcbBlurOverlay = new System.Windows.Forms.PictureBox();
             this.ucKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucKeyMetrics();
             this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
             this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
             ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbBlurOverlay)).BeginInit();
             this.SuspendLayout();
             // 
             // MainContentPanel
@@ -44,6 +46,17 @@
             this.MainContentPanel.StateCommon.Color2 = System.Drawing.Color.Transparent;
             this.MainContentPanel.TabIndex = 3;
             this.MainContentPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MainContentPanel_Paint);
+            // 
+            // pcbBlurOverlay
+            // 
+            this.pcbBlurOverlay.BackColor = System.Drawing.Color.Transparent;
+            this.pcbBlurOverlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pcbBlurOverlay.Location = new System.Drawing.Point(0, 0);
+            this.pcbBlurOverlay.Name = "pcbBlurOverlay";
+            this.pcbBlurOverlay.Size = new System.Drawing.Size(1210, 720);
+            this.pcbBlurOverlay.TabIndex = 4;
+            this.pcbBlurOverlay.TabStop = false;
+            this.pcbBlurOverlay.Visible = false;
             // 
             // ucKeyMetrics1
             // 
@@ -78,6 +91,7 @@
             this.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._05_Dashboard;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1210, 720);
+            this.Controls.Add(this.pcbBlurOverlay);
             this.Controls.Add(this.MainContentPanel);
             this.Controls.Add(this.ucKeyMetrics1);
             this.Controls.Add(this.ucTopBar1);
@@ -89,6 +103,7 @@
             this.Text = "MainDashBoard";
             this.Load += new System.EventHandler(this.MainDashBoard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbBlurOverlay)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -99,5 +114,6 @@
         private ucTopBar ucTopBar1;
         private ucKeyMetrics ucKeyMetrics1;
         private Krypton.Toolkit.KryptonPanel MainContentPanel;
+        public System.Windows.Forms.PictureBox pcbBlurOverlay;
     }
 }

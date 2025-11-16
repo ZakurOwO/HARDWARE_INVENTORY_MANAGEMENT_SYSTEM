@@ -21,5 +21,39 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
 
         }
+
+        private void btnAddItem_Click(object sender, EventArgs e)
+        {
+            var main = this.FindForm() as MainDashBoard;
+            if (main != null)
+            {
+                
+                main.pcbBlurOverlay.BackgroundImage = Properties.Resources.InventoryOverlay;
+                main.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch; // 
+                main.pcbBlurOverlay.Visible = true;
+                main.pcbBlurOverlay.BringToFront();
+
+                panelAddItem.Visible = true;
+                panelAddItem.BringToFront();
+            }
+
+            if (panelAddItem.Parent != main)
+            {
+                // Remove from current parent (this UserControl) and add to main
+                panelAddItem.Parent?.Controls.Remove(panelAddItem);
+                main.Controls.Add(panelAddItem);
+
+                // Position the panel (centered example). Adjust as needed.
+                panelAddItem.Anchor = AnchorStyles.None;
+                panelAddItem.Location = new Point(
+                    Math.Max(0, (main.ClientSize.Width - panelAddItem.Width) / 2),
+                    Math.Max(0, (main.ClientSize.Height - panelAddItem.Height) / 2)
+                );
+            }
+
+            // Show panel and bring it above the overlay
+            panelAddItem.Visible = true;
+            panelAddItem.BringToFront();
+        }
     }
 }

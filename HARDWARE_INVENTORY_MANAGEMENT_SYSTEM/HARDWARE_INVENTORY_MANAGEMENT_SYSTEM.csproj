@@ -279,6 +279,12 @@
     <Compile Include="History Module\UpperPanels.Designer.cs">
       <DependentUpon>UpperPanels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inventory Module\AddNewItem_Form.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Inventory Module\AddNewItem_Form.Designer.cs">
+      <DependentUpon>AddNewItem_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Inventory Module\Add_ItemButton.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -605,10 +611,10 @@
     <Compile Include="Transactions Module\General user control\Pagination.Designer.cs">
       <DependentUpon>Pagination.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\Cart User controls\BlueAndWhite_Button.cs">
+    <Compile Include="UserControlFiles\BlueAndWhite_Button.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\Cart User controls\BlueAndWhite_Button.Designer.cs">
+    <Compile Include="UserControlFiles\BlueAndWhite_Button.Designer.cs">
       <DependentUpon>BlueAndWhite_Button.cs</DependentUpon>
     </Compile>
     <Compile Include="Transactions Module\General user control\Products.cs">
@@ -872,6 +878,9 @@
     <EmbeddedResource Include="History Module\UpperPanels.resx">
       <DependentUpon>UpperPanels.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Inventory Module\AddNewItem_Form.resx">
+      <DependentUpon>AddNewItem_Form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Inventory Module\Add_ItemButton.resx">
       <DependentUpon>Add_ItemButton.cs</DependentUpon>
     </EmbeddedResource>
@@ -1044,7 +1053,7 @@
     <EmbeddedResource Include="Transactions Module\General user control\Pagination.resx">
       <DependentUpon>Pagination.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\Cart User controls\BlueAndWhite_Button.resx">
+    <EmbeddedResource Include="UserControlFiles\BlueAndWhite_Button.resx">
       <DependentUpon>BlueAndWhite_Button.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\General user control\Products.resx">
@@ -1512,6 +1521,7 @@
     <None Include="Resources\Active.png" />
     <None Include="Resources\ActiveStatus.png" />
     <None Include="Resources\Active1.png" />
+    <None Include="Resources\AdjustStock.png" />
     <Content Include="Resources\Canceled.png" />
     <None Include="Resources\Pending1.png" />
     <None Include="Resources\Canceled1.png" />
@@ -1557,6 +1567,10 @@
     <None Include="Resources\Inactive1.png" />
     <None Include="Resources\InactiveStatus.png" />
     <None Include="Resources\Inactive2.png" />
+    <None Include="Resources\Deactivate Circle1.png" />
+    <None Include="Resources\Create Item.png" />
+    <None Include="Resources\File upload.png" />
+    <None Include="Resources\InventoryOverlay.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

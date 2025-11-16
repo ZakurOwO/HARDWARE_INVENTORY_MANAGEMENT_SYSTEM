@@ -15,6 +15,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
         public CloseButton()
         {
             InitializeComponent();
+
+            this.guna2Button3.Click += (s, e) => OnClick(e);
         }
     }
 }

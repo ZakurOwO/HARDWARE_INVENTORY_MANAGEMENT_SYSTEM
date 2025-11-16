@@ -1,13 +1,13 @@
-﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
+﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
-    partial class Test
+    partial class AddNewItem_Form
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,15 +20,19 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
+            this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.proceed_ClearButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.Proceed_ClearButton();
+            this.guna2ComboBox3 = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.guna2ComboBox2 = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -40,16 +44,12 @@
             this.label10 = new System.Windows.Forms.Label();
             this.guna2ComboBox1 = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.guna2TextBox7 = new Guna.UI2.WinForms.Guna2TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cbxCombobox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.guna2TextBox5 = new Guna.UI2.WinForms.Guna2TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.guna2TextBox4 = new Guna.UI2.WinForms.Guna2TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.guna2TextBox3 = new Guna.UI2.WinForms.Guna2TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.guna2TextBox2 = new Guna.UI2.WinForms.Guna2TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -57,14 +57,37 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbxTextBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.guna2ComboBox3 = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
+            this.nudCurrentStock = new Guna.UI2.WinForms.Guna2NumericUpDown();
+            this.guna2NumericUpDown1 = new Guna.UI2.WinForms.Guna2NumericUpDown();
+            this.guna2NumericUpDown2 = new Guna.UI2.WinForms.Guna2NumericUpDown();
+            this.guna2NumericUpDown3 = new Guna.UI2.WinForms.Guna2NumericUpDown();
+            this.guna2Panel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCurrentStock)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2NumericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2NumericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2NumericUpDown3)).BeginInit();
             this.SuspendLayout();
+            // 
+            // guna2Panel1
+            // 
+            this.guna2Panel1.AutoScroll = true;
+            this.guna2Panel1.BorderRadius = 15;
+            this.guna2Panel1.Controls.Add(this.panel1);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(600, 505);
+            this.guna2Panel1.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.guna2NumericUpDown3);
+            this.panel1.Controls.Add(this.guna2NumericUpDown2);
+            this.panel1.Controls.Add(this.guna2NumericUpDown1);
+            this.panel1.Controls.Add(this.nudCurrentStock);
+            this.panel1.Controls.Add(this.proceed_ClearButton1);
             this.panel1.Controls.Add(this.guna2ComboBox3);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.label13);
@@ -78,16 +101,12 @@
             this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.guna2ComboBox1);
             this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.guna2TextBox7);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.cbxCombobox);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.guna2TextBox5);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.guna2TextBox4);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.guna2TextBox3);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.guna2TextBox2);
             this.panel1.Controls.Add(this.label2);
@@ -95,10 +114,51 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.tbxTextBox);
             this.panel1.Controls.Add(this.lblTitle);
-            this.panel1.Location = new System.Drawing.Point(85, -51);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(583, 769);
-            this.panel1.TabIndex = 0;
+            this.panel1.Size = new System.Drawing.Size(583, 813);
+            this.panel1.TabIndex = 1;
+            // 
+            // proceed_ClearButton1
+            // 
+            this.proceed_ClearButton1.BackColor = System.Drawing.Color.Transparent;
+            this.proceed_ClearButton1.Blue_Button_Name = "Add";
+            this.proceed_ClearButton1.Location = new System.Drawing.Point(311, 753);
+            this.proceed_ClearButton1.Name = "proceed_ClearButton1";
+            this.proceed_ClearButton1.Size = new System.Drawing.Size(256, 45);
+            this.proceed_ClearButton1.TabIndex = 35;
+            this.proceed_ClearButton1.White_Button_Name = "Cancel";
+            // 
+            // guna2ComboBox3
+            // 
+            this.guna2ComboBox3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ComboBox3.BorderRadius = 8;
+            this.guna2ComboBox3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.guna2ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.guna2ComboBox3.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox3.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2ComboBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.guna2ComboBox3.ItemHeight = 30;
+            this.guna2ComboBox3.Items.AddRange(new object[] {
+            "BuildRight Supplies",
+            "Hardware Pro",
+            "Furniture Construction Supplies"});
+            this.guna2ComboBox3.Location = new System.Drawing.Point(30, 690);
+            this.guna2ComboBox3.Name = "guna2ComboBox3";
+            this.guna2ComboBox3.Size = new System.Drawing.Size(525, 36);
+            this.guna2ComboBox3.TabIndex = 34;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(27, 666);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(120, 21);
+            this.label14.TabIndex = 33;
+            this.label14.Text = "Primary Supplier";
             // 
             // label13
             // 
@@ -121,6 +181,10 @@
             this.guna2ComboBox2.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2ComboBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.guna2ComboBox2.ItemHeight = 30;
+            this.guna2ComboBox2.Items.AddRange(new object[] {
+            "Active",
+            "Inactive",
+            "Out of Stock"});
             this.guna2ComboBox2.Location = new System.Drawing.Point(28, 618);
             this.guna2ComboBox2.Name = "guna2ComboBox2";
             this.guna2ComboBox2.Size = new System.Drawing.Size(228, 36);
@@ -163,6 +227,7 @@
             this.closeButton1.Name = "closeButton1";
             this.closeButton1.Size = new System.Drawing.Size(35, 35);
             this.closeButton1.TabIndex = 28;
+            this.closeButton1.Click += new System.EventHandler(this.closeButton1_Click);
             // 
             // label11
             // 
@@ -178,7 +243,7 @@
             // 
             this.kryptonRichTextBox1.Location = new System.Drawing.Point(30, 253);
             this.kryptonRichTextBox1.Name = "kryptonRichTextBox1";
-            this.kryptonRichTextBox1.Size = new System.Drawing.Size(528, 96);
+            this.kryptonRichTextBox1.Size = new System.Drawing.Size(528, 94);
             this.kryptonRichTextBox1.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
             this.kryptonRichTextBox1.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
             this.kryptonRichTextBox1.StateCommon.Border.Rounding = 8F;
@@ -206,6 +271,7 @@
             this.tbxImageUpload.SelectedText = "";
             this.tbxImageUpload.Size = new System.Drawing.Size(228, 36);
             this.tbxImageUpload.TabIndex = 25;
+            this.tbxImageUpload.Click += new System.EventHandler(this.tbxImageUpload_Click);
             // 
             // label10
             // 
@@ -242,26 +308,6 @@
             this.label9.Size = new System.Drawing.Size(71, 21);
             this.label9.TabIndex = 22;
             this.label9.Text = "Category";
-            // 
-            // guna2TextBox7
-            // 
-            this.guna2TextBox7.BorderRadius = 8;
-            this.guna2TextBox7.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox7.DefaultText = "";
-            this.guna2TextBox7.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox7.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox7.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox7.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox7.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox7.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2TextBox7.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox7.Location = new System.Drawing.Point(330, 456);
-            this.guna2TextBox7.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2TextBox7.Name = "guna2TextBox7";
-            this.guna2TextBox7.PlaceholderText = "";
-            this.guna2TextBox7.SelectedText = "";
-            this.guna2TextBox7.Size = new System.Drawing.Size(228, 36);
-            this.guna2TextBox7.TabIndex = 21;
             // 
             // label8
             // 
@@ -309,26 +355,6 @@
             this.label6.TabIndex = 16;
             this.label6.Text = "Status";
             // 
-            // guna2TextBox5
-            // 
-            this.guna2TextBox5.BorderRadius = 8;
-            this.guna2TextBox5.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox5.DefaultText = "";
-            this.guna2TextBox5.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox5.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox5.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox5.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2TextBox5.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox5.Location = new System.Drawing.Point(332, 537);
-            this.guna2TextBox5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2TextBox5.Name = "guna2TextBox5";
-            this.guna2TextBox5.PlaceholderText = "";
-            this.guna2TextBox5.SelectedText = "";
-            this.guna2TextBox5.Size = new System.Drawing.Size(228, 36);
-            this.guna2TextBox5.TabIndex = 15;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -339,26 +365,6 @@
             this.label5.TabIndex = 14;
             this.label5.Text = "Selling Price";
             // 
-            // guna2TextBox4
-            // 
-            this.guna2TextBox4.BorderRadius = 8;
-            this.guna2TextBox4.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox4.DefaultText = "";
-            this.guna2TextBox4.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox4.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox4.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox4.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2TextBox4.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox4.Location = new System.Drawing.Point(29, 537);
-            this.guna2TextBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2TextBox4.Name = "guna2TextBox4";
-            this.guna2TextBox4.PlaceholderText = "";
-            this.guna2TextBox4.SelectedText = "";
-            this.guna2TextBox4.Size = new System.Drawing.Size(228, 36);
-            this.guna2TextBox4.TabIndex = 13;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -368,26 +374,6 @@
             this.label4.Size = new System.Drawing.Size(75, 21);
             this.label4.TabIndex = 12;
             this.label4.Text = "Cost Price";
-            // 
-            // guna2TextBox3
-            // 
-            this.guna2TextBox3.BorderRadius = 8;
-            this.guna2TextBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox3.DefaultText = "";
-            this.guna2TextBox3.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox3.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox3.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2TextBox3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox3.Location = new System.Drawing.Point(29, 456);
-            this.guna2TextBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2TextBox3.Name = "guna2TextBox3";
-            this.guna2TextBox3.PlaceholderText = "";
-            this.guna2TextBox3.SelectedText = "";
-            this.guna2TextBox3.Size = new System.Drawing.Size(228, 36);
-            this.guna2TextBox3.TabIndex = 11;
             // 
             // label3
             // 
@@ -489,82 +475,111 @@
             this.lblTitle.TabIndex = 4;
             this.lblTitle.Text = "Product Name";
             // 
-            // guna2ComboBox3
+            // nudCurrentStock
             // 
-            this.guna2ComboBox3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ComboBox3.BorderRadius = 8;
-            this.guna2ComboBox3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.guna2ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.guna2ComboBox3.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox3.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2ComboBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.guna2ComboBox3.ItemHeight = 30;
-            this.guna2ComboBox3.Location = new System.Drawing.Point(30, 690);
-            this.guna2ComboBox3.Name = "guna2ComboBox3";
-            this.guna2ComboBox3.Size = new System.Drawing.Size(525, 36);
-            this.guna2ComboBox3.TabIndex = 34;
+            this.nudCurrentStock.BackColor = System.Drawing.Color.Transparent;
+            this.nudCurrentStock.BorderRadius = 8;
+            this.nudCurrentStock.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.nudCurrentStock.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudCurrentStock.ForeColor = System.Drawing.Color.DimGray;
+            this.nudCurrentStock.Location = new System.Drawing.Point(30, 456);
+            this.nudCurrentStock.Name = "nudCurrentStock";
+            this.nudCurrentStock.Size = new System.Drawing.Size(228, 36);
+            this.nudCurrentStock.TabIndex = 36;
+            this.nudCurrentStock.UpDownButtonFillColor = System.Drawing.Color.White;
             // 
-            // label14
+            // guna2NumericUpDown1
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(27, 666);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(120, 21);
-            this.label14.TabIndex = 33;
-            this.label14.Text = "Primary Supplier";
+            this.guna2NumericUpDown1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2NumericUpDown1.BorderRadius = 8;
+            this.guna2NumericUpDown1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.guna2NumericUpDown1.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2NumericUpDown1.ForeColor = System.Drawing.Color.DimGray;
+            this.guna2NumericUpDown1.Location = new System.Drawing.Point(30, 538);
+            this.guna2NumericUpDown1.Name = "guna2NumericUpDown1";
+            this.guna2NumericUpDown1.Size = new System.Drawing.Size(228, 36);
+            this.guna2NumericUpDown1.TabIndex = 37;
+            this.guna2NumericUpDown1.UpDownButtonFillColor = System.Drawing.Color.White;
             // 
-            // Test
+            // guna2NumericUpDown2
+            // 
+            this.guna2NumericUpDown2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2NumericUpDown2.BorderRadius = 8;
+            this.guna2NumericUpDown2.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.guna2NumericUpDown2.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2NumericUpDown2.ForeColor = System.Drawing.Color.DimGray;
+            this.guna2NumericUpDown2.Location = new System.Drawing.Point(330, 456);
+            this.guna2NumericUpDown2.Name = "guna2NumericUpDown2";
+            this.guna2NumericUpDown2.Size = new System.Drawing.Size(228, 36);
+            this.guna2NumericUpDown2.TabIndex = 38;
+            this.guna2NumericUpDown2.UpDownButtonFillColor = System.Drawing.Color.White;
+            // 
+            // guna2NumericUpDown3
+            // 
+            this.guna2NumericUpDown3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2NumericUpDown3.BorderRadius = 8;
+            this.guna2NumericUpDown3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.guna2NumericUpDown3.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2NumericUpDown3.ForeColor = System.Drawing.Color.DimGray;
+            this.guna2NumericUpDown3.Location = new System.Drawing.Point(329, 537);
+            this.guna2NumericUpDown3.Name = "guna2NumericUpDown3";
+            this.guna2NumericUpDown3.Size = new System.Drawing.Size(228, 36);
+            this.guna2NumericUpDown3.TabIndex = 39;
+            this.guna2NumericUpDown3.UpDownButtonFillColor = System.Drawing.Color.White;
+            // 
+            // AddNewItem_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Create_Item;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1210, 720);
-            this.Controls.Add(this.panel1);
-            this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Test";
-            this.Text = " ";
+            this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.guna2Panel1);
+            this.Name = "AddNewItem_Form";
+            this.Size = new System.Drawing.Size(600, 505);
+            this.guna2Panel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudCurrentStock)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2NumericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2NumericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2NumericUpDown3)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private System.Windows.Forms.Panel panel1;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
-        private System.Windows.Forms.Label label1;
-        private Guna.UI2.WinForms.Guna2TextBox tbxTextBox;
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label label6;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox5;
-        private System.Windows.Forms.Label label5;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox4;
-        private System.Windows.Forms.Label label4;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox3;
-        private System.Windows.Forms.Label label3;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox2;
-        private System.Windows.Forms.Label label2;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox7;
-        private System.Windows.Forms.Label label8;
-        private Guna.UI2.WinForms.Guna2ComboBox cbxCombobox;
-        private System.Windows.Forms.Label label7;
+        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox3;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox2;
+        private Guna.UI2.WinForms.Guna2DateTimePicker guna2DateTimePicker1;
+        private System.Windows.Forms.Label label12;
+        private UserControlFiles.CloseButton closeButton1;
+        private System.Windows.Forms.Label label11;
+        private Krypton.Toolkit.KryptonRichTextBox kryptonRichTextBox1;
         private Guna.UI2.WinForms.Guna2TextBox tbxImageUpload;
         private System.Windows.Forms.Label label10;
         private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox1;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label11;
-        private Krypton.Toolkit.KryptonRichTextBox kryptonRichTextBox1;
-        private System.Windows.Forms.Label label12;
-        private UserControlFiles.CloseButton closeButton1;
-        private Guna.UI2.WinForms.Guna2DateTimePicker guna2DateTimePicker1;
-        private System.Windows.Forms.Label label13;
-        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox2;
-        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox3;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label8;
+        private Guna.UI2.WinForms.Guna2ComboBox cbxCombobox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox2;
+        private System.Windows.Forms.Label label2;
+        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
+        private System.Windows.Forms.Label label1;
+        private Guna.UI2.WinForms.Guna2TextBox tbxTextBox;
+        private System.Windows.Forms.Label lblTitle;
+        private Transactions_Module.Proceed_ClearButton proceed_ClearButton1;
+        private Guna.UI2.WinForms.Guna2NumericUpDown nudCurrentStock;
+        private Guna.UI2.WinForms.Guna2NumericUpDown guna2NumericUpDown3;
+        private Guna.UI2.WinForms.Guna2NumericUpDown guna2NumericUpDown2;
+        private Guna.UI2.WinForms.Guna2NumericUpDown guna2NumericUpDown1;
     }
 }
