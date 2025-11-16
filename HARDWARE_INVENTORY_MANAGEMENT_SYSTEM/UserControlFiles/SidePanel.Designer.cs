@@ -28,66 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.HistoryBTN = new System.Windows.Forms.Button();
-            this.AuditlogBTN = new System.Windows.Forms.Button();
             this.ReportBTN = new System.Windows.Forms.Button();
             this.DeliveriesBTN = new System.Windows.Forms.Button();
             this.SupplierBTN = new System.Windows.Forms.Button();
             this.CustomerBTN = new System.Windows.Forms.Button();
             this.TransactionBTN = new System.Windows.Forms.Button();
             this.InventoryBTN = new System.Windows.Forms.Button();
-            this.AccountBTN = new System.Windows.Forms.Button();
             this.DashboardBTN = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // HistoryBTN
-            // 
-            this.HistoryBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.HistoryBTN.FlatAppearance.BorderSize = 0;
-            this.HistoryBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.HistoryBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.HistoryBTN.ForeColor = System.Drawing.Color.Black;
-            this.HistoryBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.HistoryIcon;
-            this.HistoryBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.HistoryBTN.Location = new System.Drawing.Point(9, 447);
-            this.HistoryBTN.Name = "HistoryBTN";
-            this.HistoryBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.HistoryBTN.Size = new System.Drawing.Size(188, 39);
-            this.HistoryBTN.TabIndex = 9;
-            this.HistoryBTN.Text = "History";
-            this.HistoryBTN.UseVisualStyleBackColor = false;
-            this.HistoryBTN.Click += new System.EventHandler(this.HistoryBTN_Click);
-            // 
-            // AuditlogBTN
-            // 
-            this.AuditlogBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.AuditlogBTN.FlatAppearance.BorderSize = 0;
-            this.AuditlogBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AuditlogBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.AuditlogBTN.ForeColor = System.Drawing.Color.Black;
-            this.AuditlogBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Auditlog;
-            this.AuditlogBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AuditlogBTN.Location = new System.Drawing.Point(9, 495);
-            this.AuditlogBTN.Name = "AuditlogBTN";
-            this.AuditlogBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.AuditlogBTN.Size = new System.Drawing.Size(188, 39);
-            this.AuditlogBTN.TabIndex = 10;
-            this.AuditlogBTN.Text = "  Audit log";
-            this.AuditlogBTN.UseVisualStyleBackColor = false;
-            this.AuditlogBTN.Click += new System.EventHandler(this.AuditlogBTN_Click);
-            // 
             // ReportBTN
             // 
-            this.ReportBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.ReportBTN.BackColor = System.Drawing.Color.Transparent;
             this.ReportBTN.FlatAppearance.BorderSize = 0;
             this.ReportBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ReportBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
             this.ReportBTN.ForeColor = System.Drawing.Color.Black;
             this.ReportBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Reports;
             this.ReportBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ReportBTN.Location = new System.Drawing.Point(9, 398);
+            this.ReportBTN.Location = new System.Drawing.Point(9, 371);
             this.ReportBTN.Name = "ReportBTN";
             this.ReportBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.ReportBTN.Size = new System.Drawing.Size(188, 39);
@@ -98,14 +59,14 @@
             // 
             // DeliveriesBTN
             // 
-            this.DeliveriesBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.DeliveriesBTN.BackColor = System.Drawing.Color.Transparent;
             this.DeliveriesBTN.FlatAppearance.BorderSize = 0;
             this.DeliveriesBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeliveriesBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
             this.DeliveriesBTN.ForeColor = System.Drawing.Color.Black;
             this.DeliveriesBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Deliveries;
             this.DeliveriesBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DeliveriesBTN.Location = new System.Drawing.Point(9, 350);
+            this.DeliveriesBTN.Location = new System.Drawing.Point(9, 320);
             this.DeliveriesBTN.Name = "DeliveriesBTN";
             this.DeliveriesBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.DeliveriesBTN.Size = new System.Drawing.Size(188, 39);
@@ -116,14 +77,14 @@
             // 
             // SupplierBTN
             // 
-            this.SupplierBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.SupplierBTN.BackColor = System.Drawing.Color.Transparent;
             this.SupplierBTN.FlatAppearance.BorderSize = 0;
             this.SupplierBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SupplierBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
             this.SupplierBTN.ForeColor = System.Drawing.Color.Black;
             this.SupplierBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Suppliers;
             this.SupplierBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SupplierBTN.Location = new System.Drawing.Point(9, 302);
+            this.SupplierBTN.Location = new System.Drawing.Point(9, 268);
             this.SupplierBTN.Name = "SupplierBTN";
             this.SupplierBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.SupplierBTN.Size = new System.Drawing.Size(188, 39);
@@ -134,14 +95,14 @@
             // 
             // CustomerBTN
             // 
-            this.CustomerBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.CustomerBTN.BackColor = System.Drawing.Color.Transparent;
             this.CustomerBTN.FlatAppearance.BorderSize = 0;
             this.CustomerBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CustomerBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
             this.CustomerBTN.ForeColor = System.Drawing.Color.Black;
             this.CustomerBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Customer;
             this.CustomerBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CustomerBTN.Location = new System.Drawing.Point(9, 255);
+            this.CustomerBTN.Location = new System.Drawing.Point(9, 218);
             this.CustomerBTN.Name = "CustomerBTN";
             this.CustomerBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.CustomerBTN.Size = new System.Drawing.Size(188, 39);
@@ -152,14 +113,14 @@
             // 
             // TransactionBTN
             // 
-            this.TransactionBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.TransactionBTN.BackColor = System.Drawing.Color.Transparent;
             this.TransactionBTN.FlatAppearance.BorderSize = 0;
             this.TransactionBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.TransactionBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
             this.TransactionBTN.ForeColor = System.Drawing.Color.Black;
             this.TransactionBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Transaction;
             this.TransactionBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.TransactionBTN.Location = new System.Drawing.Point(9, 208);
+            this.TransactionBTN.Location = new System.Drawing.Point(9, 168);
             this.TransactionBTN.Name = "TransactionBTN";
             this.TransactionBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.TransactionBTN.Size = new System.Drawing.Size(188, 39);
@@ -170,14 +131,14 @@
             // 
             // InventoryBTN
             // 
-            this.InventoryBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.InventoryBTN.BackColor = System.Drawing.Color.Transparent;
             this.InventoryBTN.FlatAppearance.BorderSize = 0;
             this.InventoryBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.InventoryBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
             this.InventoryBTN.ForeColor = System.Drawing.Color.Black;
             this.InventoryBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Inventory;
             this.InventoryBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.InventoryBTN.Location = new System.Drawing.Point(9, 161);
+            this.InventoryBTN.Location = new System.Drawing.Point(9, 118);
             this.InventoryBTN.Name = "InventoryBTN";
             this.InventoryBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.InventoryBTN.Size = new System.Drawing.Size(188, 39);
@@ -186,27 +147,9 @@
             this.InventoryBTN.UseVisualStyleBackColor = false;
             this.InventoryBTN.Click += new System.EventHandler(this.InventoryBTN_Click);
             // 
-            // AccountBTN
-            // 
-            this.AccountBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.AccountBTN.FlatAppearance.BorderSize = 0;
-            this.AccountBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AccountBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.AccountBTN.ForeColor = System.Drawing.Color.Black;
-            this.AccountBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Accounts;
-            this.AccountBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AccountBTN.Location = new System.Drawing.Point(9, 114);
-            this.AccountBTN.Name = "AccountBTN";
-            this.AccountBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.AccountBTN.Size = new System.Drawing.Size(188, 39);
-            this.AccountBTN.TabIndex = 2;
-            this.AccountBTN.Text = " Accounts";
-            this.AccountBTN.UseVisualStyleBackColor = false;
-            this.AccountBTN.Click += new System.EventHandler(this.AccountBTN_Click);
-            // 
             // DashboardBTN
             // 
-            this.DashboardBTN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.DashboardBTN.BackColor = System.Drawing.Color.Transparent;
             this.DashboardBTN.FlatAppearance.BorderSize = 0;
             this.DashboardBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DashboardBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
@@ -238,15 +181,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.Controls.Add(this.AuditlogBTN);
-            this.Controls.Add(this.HistoryBTN);
             this.Controls.Add(this.ReportBTN);
             this.Controls.Add(this.DeliveriesBTN);
             this.Controls.Add(this.SupplierBTN);
             this.Controls.Add(this.CustomerBTN);
             this.Controls.Add(this.TransactionBTN);
             this.Controls.Add(this.InventoryBTN);
-            this.Controls.Add(this.AccountBTN);
             this.Controls.Add(this.DashboardBTN);
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
@@ -268,8 +208,5 @@
         private System.Windows.Forms.Button SupplierBTN;
         private System.Windows.Forms.Button DeliveriesBTN;
         private System.Windows.Forms.Button ReportBTN;
-        private System.Windows.Forms.Button HistoryBTN;
-        private System.Windows.Forms.Button AuditlogBTN;
-        private System.Windows.Forms.Button AccountBTN;
     }
 }

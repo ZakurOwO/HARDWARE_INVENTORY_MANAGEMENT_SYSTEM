@@ -24,7 +24,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
             // Create and position the new settings panel
             Settings_Signout settings = new Settings_Signout();
-            settings.Location = new Point(parent.Width - settings.Width - 25, 60);
+            settings.Location = new Point(parent.Width - settings.Width - 40, 60);
 
             parent.Controls.Add(settings);
 
@@ -33,6 +33,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 c.SendToBack();
 
             settings.BringToFront();
+
         }
+
     }
 }

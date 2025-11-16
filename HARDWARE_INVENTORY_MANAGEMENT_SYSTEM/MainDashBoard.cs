@@ -18,20 +18,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             InitializeComponent();
         }
 
-        private void sidePanel1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void sidePanel1_Load_1(object sender, EventArgs e)
-        {
-
-        }
 
         private void MainDashBoard_Load(object sender, EventArgs e)
         {

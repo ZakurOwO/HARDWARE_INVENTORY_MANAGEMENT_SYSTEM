@@ -29,26 +29,18 @@
         private void InitializeComponent()
         {
             this.pnlDisplaySettings = new System.Windows.Forms.Panel();
-            this.tabModules1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SettingsTab.TabModules();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnProfileMenu = new Guna.UI2.WinForms.Guna2Button();
+            this.tabModules1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SettingsTab.TabModules();
             this.SuspendLayout();
             // 
             // pnlDisplaySettings
             // 
-            this.pnlDisplaySettings.Location = new System.Drawing.Point(3, 115);
+            this.pnlDisplaySettings.Location = new System.Drawing.Point(14, 116);
             this.pnlDisplaySettings.Name = "pnlDisplaySettings";
-            this.pnlDisplaySettings.Size = new System.Drawing.Size(959, 525);
+            this.pnlDisplaySettings.Size = new System.Drawing.Size(945, 580);
             this.pnlDisplaySettings.TabIndex = 3;
-            // 
-            // tabModules1
-            // 
-            this.tabModules1.BackColor = System.Drawing.Color.White;
-            this.tabModules1.Location = new System.Drawing.Point(147, 63);
-            this.tabModules1.Name = "tabModules1";
-            this.tabModules1.Size = new System.Drawing.Size(681, 46);
-            this.tabModules1.TabIndex = 4;
             // 
             // label2
             // 
@@ -60,7 +52,6 @@
             this.label2.Size = new System.Drawing.Size(226, 17);
             this.label2.TabIndex = 23;
             this.label2.Text = "View for Accounts, History, and Customers";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label1
             // 
@@ -89,6 +80,14 @@
             this.btnProfileMenu.Size = new System.Drawing.Size(146, 38);
             this.btnProfileMenu.TabIndex = 21;
             // 
+            // tabModules1
+            // 
+            this.tabModules1.BackColor = System.Drawing.Color.White;
+            this.tabModules1.Location = new System.Drawing.Point(203, 63);
+            this.tabModules1.Name = "tabModules1";
+            this.tabModules1.Size = new System.Drawing.Size(599, 46);
+            this.tabModules1.TabIndex = 4;
+            // 
             // SettingsMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -100,7 +99,8 @@
             this.Controls.Add(this.tabModules1);
             this.Controls.Add(this.pnlDisplaySettings);
             this.Name = "SettingsMainPage";
-            this.Size = new System.Drawing.Size(965, 680);
+            this.Size = new System.Drawing.Size(975, 720);
+            this.Load += new System.EventHandler(this.SettingsMainPage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

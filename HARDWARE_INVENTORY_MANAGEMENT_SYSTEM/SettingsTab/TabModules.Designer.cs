@@ -28,104 +28,110 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.pnlTab = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnAccounts = new Guna.UI2.WinForms.Guna2Button();
+            this.btnHistory = new Guna.UI2.WinForms.Guna2Button();
+            this.btnAuditLog = new Guna.UI2.WinForms.Guna2Button();
+            this.pnlTab.SuspendLayout();
             this.SuspendLayout();
             // 
-            // guna2Button1
+            // pnlTab
             // 
-            this.guna2Button1.BorderColor = System.Drawing.Color.DimGray;
-            this.guna2Button1.BorderRadius = 5;
-            this.guna2Button1.BorderThickness = 1;
-            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.FillColor = System.Drawing.Color.White;
-            this.guna2Button1.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button1.ForeColor = System.Drawing.Color.Black;
-            this.guna2Button1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.task_search;
-            this.guna2Button1.ImageOffset = new System.Drawing.Point(-1, 0);
-            this.guna2Button1.Location = new System.Drawing.Point(453, 8);
-            this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(214, 30);
-            this.guna2Button1.TabIndex = 18;
-            this.guna2Button1.Text = "Customers";
+            this.pnlTab.BackColor = System.Drawing.Color.Transparent;
+            this.pnlTab.BorderColor = System.Drawing.Color.LightGray;
+            this.pnlTab.BorderRadius = 8;
+            this.pnlTab.BorderThickness = 1;
+            this.pnlTab.Controls.Add(this.btnAccounts);
+            this.pnlTab.Controls.Add(this.btnHistory);
+            this.pnlTab.Controls.Add(this.btnAuditLog);
+            this.pnlTab.FillColor = System.Drawing.Color.White;
+            this.pnlTab.Location = new System.Drawing.Point(1, 1);
+            this.pnlTab.Name = "pnlTab";
+            this.pnlTab.Size = new System.Drawing.Size(593, 43);
+            this.pnlTab.TabIndex = 20;
             // 
-            // guna2Button2
+            // btnAccounts
             // 
-            this.guna2Button2.BorderColor = System.Drawing.Color.DimGray;
-            this.guna2Button2.BorderRadius = 5;
-            this.guna2Button2.BorderThickness = 1;
-            this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button2.FillColor = System.Drawing.Color.White;
-            this.guna2Button2.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button2.ForeColor = System.Drawing.Color.Black;
-            this.guna2Button2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.clipboard;
-            this.guna2Button2.ImageOffset = new System.Drawing.Point(-1, 0);
-            this.guna2Button2.Location = new System.Drawing.Point(233, 8);
-            this.guna2Button2.Name = "guna2Button2";
-            this.guna2Button2.Size = new System.Drawing.Size(214, 31);
-            this.guna2Button2.TabIndex = 17;
-            this.guna2Button2.Text = "History";
+            this.btnAccounts.BackColor = System.Drawing.Color.Transparent;
+            this.btnAccounts.BorderColor = System.Drawing.Color.White;
+            this.btnAccounts.BorderRadius = 5;
+            this.btnAccounts.BorderThickness = 1;
+            this.btnAccounts.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAccounts.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAccounts.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAccounts.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAccounts.FillColor = System.Drawing.Color.White;
+            this.btnAccounts.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAccounts.ForeColor = System.Drawing.Color.Black;
+            this.btnAccounts.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Customer;
+            this.btnAccounts.ImageOffset = new System.Drawing.Point(-1, 0);
+            this.btnAccounts.Location = new System.Drawing.Point(14, 7);
+            this.btnAccounts.Name = "btnAccounts";
+            this.btnAccounts.Size = new System.Drawing.Size(185, 30);
+            this.btnAccounts.TabIndex = 19;
+            this.btnAccounts.Text = "Accounts";
+            this.btnAccounts.Click += new System.EventHandler(this.btnAccounts_Click);
             // 
-            // guna2Button3
+            // btnHistory
             // 
-            this.guna2Button3.BorderColor = System.Drawing.Color.DimGray;
-            this.guna2Button3.BorderRadius = 5;
-            this.guna2Button3.BorderThickness = 1;
-            this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button3.FillColor = System.Drawing.Color.White;
-            this.guna2Button3.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button3.ForeColor = System.Drawing.Color.Black;
-            this.guna2Button3.ImageOffset = new System.Drawing.Point(-1, 0);
-            this.guna2Button3.Location = new System.Drawing.Point(13, 8);
-            this.guna2Button3.Name = "guna2Button3";
-            this.guna2Button3.Size = new System.Drawing.Size(214, 30);
-            this.guna2Button3.TabIndex = 16;
-            this.guna2Button3.Text = "Account";
-            this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
+            this.btnHistory.BackColor = System.Drawing.Color.Transparent;
+            this.btnHistory.BorderColor = System.Drawing.Color.White;
+            this.btnHistory.BorderRadius = 5;
+            this.btnHistory.BorderThickness = 1;
+            this.btnHistory.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnHistory.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnHistory.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnHistory.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnHistory.FillColor = System.Drawing.Color.White;
+            this.btnHistory.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistory.ForeColor = System.Drawing.Color.Black;
+            this.btnHistory.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.clipboard;
+            this.btnHistory.ImageOffset = new System.Drawing.Point(-1, 0);
+            this.btnHistory.Location = new System.Drawing.Point(205, 7);
+            this.btnHistory.Name = "btnHistory";
+            this.btnHistory.Size = new System.Drawing.Size(185, 30);
+            this.btnHistory.TabIndex = 20;
+            this.btnHistory.Text = "History";
+            this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
             // 
-            // flowLayoutPanel1
+            // btnAuditLog
             // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.guna2Button3);
-            this.flowLayoutPanel1.Controls.Add(this.guna2Button2);
-            this.flowLayoutPanel1.Controls.Add(this.guna2Button1);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(681, 46);
-            this.flowLayoutPanel1.TabIndex = 19;
-            this.flowLayoutPanel1.WrapContents = false;
+            this.btnAuditLog.BackColor = System.Drawing.Color.Transparent;
+            this.btnAuditLog.BorderColor = System.Drawing.Color.White;
+            this.btnAuditLog.BorderRadius = 5;
+            this.btnAuditLog.BorderThickness = 1;
+            this.btnAuditLog.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnAuditLog.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnAuditLog.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnAuditLog.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnAuditLog.FillColor = System.Drawing.Color.White;
+            this.btnAuditLog.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAuditLog.ForeColor = System.Drawing.Color.Black;
+            this.btnAuditLog.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.task_search;
+            this.btnAuditLog.ImageOffset = new System.Drawing.Point(-1, 0);
+            this.btnAuditLog.Location = new System.Drawing.Point(396, 7);
+            this.btnAuditLog.Name = "btnAuditLog";
+            this.btnAuditLog.Size = new System.Drawing.Size(185, 30);
+            this.btnAuditLog.TabIndex = 21;
+            this.btnAuditLog.Text = "Audit Log";
+            this.btnAuditLog.Click += new System.EventHandler(this.btnAuditLog_Click);
             // 
             // TabModules
             // 
-            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.pnlTab);
             this.Name = "TabModules";
-            this.Size = new System.Drawing.Size(681, 46);
+            this.Size = new System.Drawing.Size(595, 46);
             this.Load += new System.EventHandler(this.TabModules_Load);
-            this.flowLayoutPanel1.ResumeLayout(false);
+            this.pnlTab.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
-        private Guna.UI2.WinForms.Guna2Button guna2Button2;
-        private Guna.UI2.WinForms.Guna2Button guna2Button3;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private Guna.UI2.WinForms.Guna2Panel pnlTab;
+        private Guna.UI2.WinForms.Guna2Button btnAccounts;
+        private Guna.UI2.WinForms.Guna2Button btnHistory;
+        private Guna.UI2.WinForms.Guna2Button btnAuditLog;
     }
 }
