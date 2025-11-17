@@ -20,10 +20,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
         private void LoadUsers()
         {
-            dt = new DataTable();
-            da = new SqlDataAdapter("SELECT * FROM Users", con);
-            SqlCommandBuilder cb = new SqlCommandBuilder(da);
-            da.Fill(dt);
+            //dt = new DataTable();
+            //da = new SqlDataAdapter("SELECT * FROM Users", con);
+            //SqlCommandBuilder cb = new SqlCommandBuilder(da);
+            //da.Fill(dt);
         }
 
         private void AddUser()
@@ -45,6 +45,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                 da.Update(dt);
                 MessageBox.Show("User added successfully!");
                 ClearFields();
+
+                // Notify that user was added and form should close
+                OnUserAdded();
             }
             catch (Exception ex)
             {
@@ -68,6 +71,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         private void SaveButton_Click(object sender, EventArgs e)
         {
             AddUser();
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            OnUserAdded();
+        }
+
+        private void closeButton1_Click(object sender, EventArgs e)
+        {
+            OnUserAdded();
+        }
+
+        public event EventHandler UserAdded;
+
+        protected virtual void OnUserAdded()
+        {
+            UserAdded?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void closeButton1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

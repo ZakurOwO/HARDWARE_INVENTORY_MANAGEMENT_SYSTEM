@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.guna2ComboBox1 = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cbxCombobox = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -50,15 +49,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnWhite = new Guna.UI2.WinForms.Guna2Button();
             this.btnBlue = new Guna.UI2.WinForms.Guna2Button();
+            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.SuspendLayout();
-            // 
-            // closeButton1
-            // 
-            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton1.Location = new System.Drawing.Point(524, 14);
-            this.closeButton1.Name = "closeButton1";
-            this.closeButton1.Size = new System.Drawing.Size(35, 35);
-            this.closeButton1.TabIndex = 61;
             // 
             // guna2ComboBox1
             // 
@@ -373,6 +365,16 @@
             this.btnBlue.Size = new System.Drawing.Size(120, 40);
             this.btnBlue.TabIndex = 62;
             this.btnBlue.Text = "Proceed";
+            // 
+            // closeButton1
+            // 
+            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
+            this.closeButton1.Location = new System.Drawing.Point(524, 14);
+            this.closeButton1.Name = "closeButton1";
+            this.closeButton1.Size = new System.Drawing.Size(35, 35);
+            this.closeButton1.TabIndex = 61;
+            this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
+            this.closeButton1.Click += new System.EventHandler(this.closeButton1_Click);
             // 
             // AddNewUser_Form
             // 

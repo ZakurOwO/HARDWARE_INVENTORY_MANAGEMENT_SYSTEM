@@ -47,6 +47,7 @@
             this.btnAddNewUser.Size = new System.Drawing.Size(141, 40);
             this.btnAddNewUser.TabIndex = 2;
             this.btnAddNewUser.Text = "Add New User";
+            this.btnAddNewUser.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // AddNewUserButton
             // 
@@ -56,6 +57,7 @@
             this.Controls.Add(this.btnAddNewUser);
             this.Name = "AddNewUserButton";
             this.Size = new System.Drawing.Size(147, 47);
+            this.Click += new System.EventHandler(this.AddButton_Click);
             this.ResumeLayout(false);
 
         }

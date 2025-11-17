@@ -37,6 +37,7 @@
             // 
             // pnlDisplaySettings
             // 
+            this.pnlDisplaySettings.BackColor = System.Drawing.Color.Transparent;
             this.pnlDisplaySettings.Location = new System.Drawing.Point(14, 116);
             this.pnlDisplaySettings.Name = "pnlDisplaySettings";
             this.pnlDisplaySettings.Size = new System.Drawing.Size(945, 580);
