@@ -73,9 +73,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 MessageBox.Show("Customer added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Clear the textboxes
-                CompanyNameCustomerTextBox.Clear();
-                EmailAddressTextBox.Clear();
-                LocationTextBox.Clear();
+                tbxCompanyName.Clear();
+                tbxEmail.Clear();
+                tbxAddress.Clear();
+                tbxCityMunicipality.Clear();
+                tbxProvince.Clear();
+                tbxContactNumber.Clear();
+                tbxContactPerson.Clear();
             }
             catch (Exception ex)
             {

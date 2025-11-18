@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.pageNumber2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module.PageNumber();
             this.dataGridTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.DataGridTable();
-            this.addCustomerDetailsButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.AddCustomerDetailsButton();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.customerTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.CustomerTopBar();
-            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
+            this.mainButtonWithIcon1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButtonWithIcon();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,15 +47,23 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Silver;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.mainButtonWithIcon1);
             this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Controls.Add(this.pageNumber2);
             this.guna2Panel1.Controls.Add(this.dataGridTable1);
-            this.guna2Panel1.Controls.Add(this.addCustomerDetailsButton1);
             this.guna2Panel1.Controls.Add(this.searchField1);
             this.guna2Panel1.Location = new System.Drawing.Point(22, 74);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(920, 617);
             this.guna2Panel1.TabIndex = 1;
+            // 
+            // inventoryFilter_Button1
+            // 
+            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(319, 13);
+            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
+            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
+            this.inventoryFilter_Button1.TabIndex = 10;
             // 
             // pageNumber2
             // 
@@ -73,15 +81,6 @@
             this.dataGridTable1.Size = new System.Drawing.Size(884, 442);
             this.dataGridTable1.TabIndex = 7;
             this.dataGridTable1.Load += new System.EventHandler(this.dataGridTable1_Load);
-            // 
-            // addCustomerDetailsButton1
-            // 
-            this.addCustomerDetailsButton1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.addCustomerDetailsButton1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.addCustomerDetailsButton1.Location = new System.Drawing.Point(704, 13);
-            this.addCustomerDetailsButton1.Name = "addCustomerDetailsButton1";
-            this.addCustomerDetailsButton1.Size = new System.Drawing.Size(196, 44);
-            this.addCustomerDetailsButton1.TabIndex = 4;
             // 
             // searchField1
             // 
@@ -101,13 +100,15 @@
             this.customerTopBar1.TabIndex = 2;
             this.customerTopBar1.Load += new System.EventHandler(this.customerTopBar1_Load);
             // 
-            // inventoryFilter_Button1
+            // mainButtonWithIcon1
             // 
-            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(319, 13);
-            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
-            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
-            this.inventoryFilter_Button1.TabIndex = 10;
+            this.mainButtonWithIcon1.BackColor = System.Drawing.Color.Transparent;
+            this.mainButtonWithIcon1.ButtonName = "Add Customer";
+            this.mainButtonWithIcon1.Icon = null;
+            this.mainButtonWithIcon1.Location = new System.Drawing.Point(743, 13);
+            this.mainButtonWithIcon1.Name = "mainButtonWithIcon1";
+            this.mainButtonWithIcon1.Size = new System.Drawing.Size(157, 47);
+            this.mainButtonWithIcon1.TabIndex = 11;
             // 
             // CustomerMainPage
             // 
@@ -126,11 +127,11 @@
         #endregion
 
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private UserControlFiles.AddCustomerDetailsButton addCustomerDetailsButton1;
         private Accounts_Module.SearchField searchField1;
         private CustomerTopBar customerTopBar1;
         private DataGridTable dataGridTable1;
         private PageNumber pageNumber2;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
+        private UserControlFiles.MainButtonWithIcon mainButtonWithIcon1;
     }
 }
