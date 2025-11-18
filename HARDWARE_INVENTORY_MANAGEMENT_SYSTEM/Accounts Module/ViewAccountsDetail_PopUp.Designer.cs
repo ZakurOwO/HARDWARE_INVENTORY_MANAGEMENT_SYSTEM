@@ -39,8 +39,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnStatus = new Guna.UI2.WinForms.Guna2Button();
-            this.btnRole = new Guna.UI2.WinForms.Guna2Button();
+            this.PictureboxStatus = new Guna.UI2.WinForms.Guna2Button();
+            this.AdministratorPictureboxRole = new Guna.UI2.WinForms.Guna2Button();
             this.lblPosition = new System.Windows.Forms.Label();
             this.lblUserName = new System.Windows.Forms.Label();
             this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
@@ -65,6 +65,7 @@
             this.lblPhoneNo.Size = new System.Drawing.Size(95, 19);
             this.lblPhoneNo.TabIndex = 41;
             this.lblPhoneNo.Text = "0967-765-8375";
+            this.lblPhoneNo.Click += new System.EventHandler(this.lblPhoneNo_Click);
             // 
             // lblDateCreated
             // 
@@ -76,6 +77,7 @@
             this.lblDateCreated.Size = new System.Drawing.Size(129, 19);
             this.lblDateCreated.TabIndex = 40;
             this.lblDateCreated.Text = "Septermber 21, 2025";
+            this.lblDateCreated.Click += new System.EventHandler(this.lblDateCreated_Click);
             // 
             // lblAddress
             // 
@@ -87,6 +89,7 @@
             this.lblAddress.Size = new System.Drawing.Size(123, 19);
             this.lblAddress.TabIndex = 39;
             this.lblAddress.Text = "Quezon City, Manila";
+            this.lblAddress.Click += new System.EventHandler(this.lblAddress_Click);
             // 
             // lblEmail
             // 
@@ -98,6 +101,7 @@
             this.lblEmail.Size = new System.Drawing.Size(185, 19);
             this.lblEmail.TabIndex = 38;
             this.lblEmail.Text = "faulkersonrichard@gmail.com";
+            this.lblEmail.Click += new System.EventHandler(this.lblEmail_Click);
             // 
             // lblAccountID
             // 
@@ -109,6 +113,7 @@
             this.lblAccountID.Size = new System.Drawing.Size(89, 19);
             this.lblAccountID.TabIndex = 37;
             this.lblAccountID.Text = "ACC-MGR-001";
+            this.lblAccountID.Click += new System.EventHandler(this.lblAccountID_Click);
             // 
             // label5
             // 
@@ -165,43 +170,45 @@
             this.label1.TabIndex = 32;
             this.label1.Text = "Account ID";
             // 
-            // btnStatus
+            // PictureboxStatus
             // 
-            this.btnStatus.BorderRadius = 5;
-            this.btnStatus.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnStatus.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnStatus.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnStatus.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnStatus.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.btnStatus.Font = new System.Drawing.Font("Lexend SemiBold", 8.5F, System.Drawing.FontStyle.Bold);
-            this.btnStatus.ForeColor = System.Drawing.Color.MediumSeaGreen;
-            this.btnStatus.ImageOffset = new System.Drawing.Point(-1, 0);
-            this.btnStatus.ImageSize = new System.Drawing.Size(15, 15);
-            this.btnStatus.Location = new System.Drawing.Point(164, 86);
-            this.btnStatus.Name = "btnStatus";
-            this.btnStatus.Size = new System.Drawing.Size(68, 20);
-            this.btnStatus.TabIndex = 31;
-            this.btnStatus.Text = "Active";
-            this.btnStatus.TextOffset = new System.Drawing.Point(0, -1);
+            this.PictureboxStatus.BorderRadius = 5;
+            this.PictureboxStatus.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.PictureboxStatus.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.PictureboxStatus.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.PictureboxStatus.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.PictureboxStatus.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.PictureboxStatus.Font = new System.Drawing.Font("Lexend SemiBold", 8.5F, System.Drawing.FontStyle.Bold);
+            this.PictureboxStatus.ForeColor = System.Drawing.Color.MediumSeaGreen;
+            this.PictureboxStatus.ImageOffset = new System.Drawing.Point(-1, 0);
+            this.PictureboxStatus.ImageSize = new System.Drawing.Size(15, 15);
+            this.PictureboxStatus.Location = new System.Drawing.Point(164, 86);
+            this.PictureboxStatus.Name = "PictureboxStatus";
+            this.PictureboxStatus.Size = new System.Drawing.Size(68, 20);
+            this.PictureboxStatus.TabIndex = 31;
+            this.PictureboxStatus.Text = "Active";
+            this.PictureboxStatus.TextOffset = new System.Drawing.Point(0, -1);
+            this.PictureboxStatus.Click += new System.EventHandler(this.PictureboxStatus_Click);
             // 
-            // btnRole
+            // AdministratorPictureboxRole
             // 
-            this.btnRole.BorderRadius = 5;
-            this.btnRole.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnRole.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnRole.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnRole.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnRole.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(206)))), ((int)(((byte)(255)))));
-            this.btnRole.Font = new System.Drawing.Font("Lexend SemiBold", 8.5F, System.Drawing.FontStyle.Bold);
-            this.btnRole.ForeColor = System.Drawing.Color.DarkViolet;
-            this.btnRole.ImageOffset = new System.Drawing.Point(-1, 0);
-            this.btnRole.ImageSize = new System.Drawing.Size(15, 15);
-            this.btnRole.Location = new System.Drawing.Point(25, 86);
-            this.btnRole.Name = "btnRole";
-            this.btnRole.Size = new System.Drawing.Size(133, 20);
-            this.btnRole.TabIndex = 30;
-            this.btnRole.Text = " Administrator";
-            this.btnRole.TextOffset = new System.Drawing.Point(0, -1);
+            this.AdministratorPictureboxRole.BorderRadius = 5;
+            this.AdministratorPictureboxRole.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.AdministratorPictureboxRole.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.AdministratorPictureboxRole.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.AdministratorPictureboxRole.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.AdministratorPictureboxRole.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(206)))), ((int)(((byte)(255)))));
+            this.AdministratorPictureboxRole.Font = new System.Drawing.Font("Lexend SemiBold", 8.5F, System.Drawing.FontStyle.Bold);
+            this.AdministratorPictureboxRole.ForeColor = System.Drawing.Color.DarkViolet;
+            this.AdministratorPictureboxRole.ImageOffset = new System.Drawing.Point(-1, 0);
+            this.AdministratorPictureboxRole.ImageSize = new System.Drawing.Size(15, 15);
+            this.AdministratorPictureboxRole.Location = new System.Drawing.Point(25, 86);
+            this.AdministratorPictureboxRole.Name = "AdministratorPictureboxRole";
+            this.AdministratorPictureboxRole.Size = new System.Drawing.Size(133, 20);
+            this.AdministratorPictureboxRole.TabIndex = 30;
+            this.AdministratorPictureboxRole.Text = " Administrator";
+            this.AdministratorPictureboxRole.TextOffset = new System.Drawing.Point(0, -1);
+            this.AdministratorPictureboxRole.Click += new System.EventHandler(this.AdministratorPictureboxRole_Click);
             // 
             // lblPosition
             // 
@@ -213,6 +220,7 @@
             this.lblPosition.Size = new System.Drawing.Size(64, 21);
             this.lblPosition.TabIndex = 29;
             this.lblPosition.Text = "Manager";
+            this.lblPosition.Click += new System.EventHandler(this.lblPosition_Click);
             // 
             // lblUserName
             // 
@@ -223,6 +231,7 @@
             this.lblUserName.Size = new System.Drawing.Size(191, 29);
             this.lblUserName.TabIndex = 28;
             this.lblUserName.Text = "Richard Faulkerson";
+            this.lblUserName.Click += new System.EventHandler(this.lblUserName_Click);
             // 
             // guna2CirclePictureBox1
             // 
@@ -253,8 +262,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnStatus);
-            this.Controls.Add(this.btnRole);
+            this.Controls.Add(this.PictureboxStatus);
+            this.Controls.Add(this.AdministratorPictureboxRole);
             this.Controls.Add(this.lblPosition);
             this.Controls.Add(this.lblUserName);
             this.Controls.Add(this.guna2CirclePictureBox1);
@@ -279,8 +288,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private Guna.UI2.WinForms.Guna2Button btnStatus;
-        private Guna.UI2.WinForms.Guna2Button btnRole;
+        private Guna.UI2.WinForms.Guna2Button PictureboxStatus;
+        private Guna.UI2.WinForms.Guna2Button AdministratorPictureboxRole;
         private System.Windows.Forms.Label lblPosition;
         private System.Windows.Forms.Label lblUserName;
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox1;

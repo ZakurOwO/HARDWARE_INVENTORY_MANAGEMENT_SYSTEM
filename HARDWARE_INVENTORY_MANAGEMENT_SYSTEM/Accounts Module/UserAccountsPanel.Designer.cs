@@ -41,7 +41,7 @@
             // 
             // pnlUserAccount
             // 
-            this.pnlUserAccount.BackColor = System.Drawing.Color.White;
+            this.pnlUserAccount.BackColor = System.Drawing.Color.Transparent;
             this.pnlUserAccount.Controls.Add(this.btnStatus);
             this.pnlUserAccount.Controls.Add(this.btnRole);
             this.pnlUserAccount.Controls.Add(this.btnEditIcon);
@@ -61,7 +61,7 @@
             this.pnlUserAccount.ShadowStyle = Guna.UI2.WinForms.Guna2ShadowPanel.ShadowMode.ForwardDiagonal;
             this.pnlUserAccount.Size = new System.Drawing.Size(284, 128);
             this.pnlUserAccount.TabIndex = 4;
-            this.pnlUserAccount.Click += new System.EventHandler(this.pnlUserAccount_Click);
+            this.pnlUserAccount.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlUserAccount_Paint);
             // 
             // btnStatus
             // 
@@ -77,10 +77,11 @@
             this.btnStatus.ImageSize = new System.Drawing.Size(15, 15);
             this.btnStatus.Location = new System.Drawing.Point(167, 75);
             this.btnStatus.Name = "btnStatus";
-            this.btnStatus.Size = new System.Drawing.Size(68, 20);
+            this.btnStatus.Size = new System.Drawing.Size(89, 20);
             this.btnStatus.TabIndex = 13;
             this.btnStatus.Text = "Active";
             this.btnStatus.TextOffset = new System.Drawing.Point(0, -1);
+            this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
             // 
             // btnRole
             // 
@@ -101,6 +102,7 @@
             this.btnRole.TabIndex = 12;
             this.btnRole.Text = " ";
             this.btnRole.TextOffset = new System.Drawing.Point(0, -1);
+            this.btnRole.Click += new System.EventHandler(this.btnRole_Click);
             // 
             // btnEditIcon
             // 
@@ -137,7 +139,6 @@
             this.lblUserName.Size = new System.Drawing.Size(136, 21);
             this.lblUserName.TabIndex = 9;
             this.lblUserName.Text = "Richard Faulkerson";
-            this.lblUserName.Click += new System.EventHandler(this.lblUserName_Click);
             // 
             // pictureBox2
             // 

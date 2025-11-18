@@ -16,7 +16,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         private Panel overlayPanel;
         private Panel userDetailOverlayPanel;
         private ViewAccountsDetail_PopUp userDetailPopup;
-        private Panel mainContentPanel; // Reference to your main content panel
+        private Panel mainContentPanel;
+        private List<UserAccountsPanel> userPanels = new List<UserAccountsPanel>();
 
         public AccountsMainPage()
         {
@@ -24,55 +25,129 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             InitializeOverlay();
             InitializeUserDetailOverlay();
             InitializeSearch();
-            WireUpUserPanelEvents();
 
-            // Find the main content panel (guna2Panel1 from your designer)
+            LoadExistingUsersFromDatabase(); // Load from database on startup
+
             mainContentPanel = guna2Panel1;
 
             addNewUserButton1.AddUserClicked += (s, e) => ShowAddUserForm();
         }
 
-        private void InitializeUserDetailOverlay()
+        private void LoadExistingUsersFromDatabase()
         {
-            userDetailOverlayPanel = new Panel();
-            userDetailOverlayPanel.Dock = DockStyle.Fill;
-            userDetailOverlayPanel.BackColor = Color.White;
-            userDetailOverlayPanel.Visible = false;
-            userDetailOverlayPanel.Click += (s, e) => HideUserDetails();
+            LayoutAccounts.Controls.Clear();
+            userPanels.Clear();
 
-            this.Controls.Add(userDetailOverlayPanel);
-            userDetailOverlayPanel.SendToBack();
+            // Load users from database as DataTable
+            DataTable existingUsers = AddNewUser_Form.LoadExistingUsersFromDatabase();
+
+            if (existingUsers != null && existingUsers.Rows.Count > 0)
+            {
+                foreach (DataRow userRow in existingUsers.Rows)
+                {
+                    // Create UserAccountsPanel for each user
+                    UserAccountsPanel userPanel = CreateUserPanel(userRow);
+
+                    // Store the DataRow on the panel so details can use it
+                    userPanel.Tag = userRow;
+
+                    // Add to collection and your existing flow layout
+                    userPanels.Add(userPanel);
+                    LayoutAccounts.Controls.Add(userPanel);
+                }
+
+                // Wire up events for all panels
+                WireUpUserPanelEvents();
+            }
+            else
+            {
+                Console.WriteLine("No users found in database.");
+            }
+        }
+
+        private UserAccountsPanel CreateUserPanel(DataRow userRow)
+        {
+            UserAccountsPanel panel = new UserAccountsPanel();
+
+            // Set properties based on database row
+            panel._Name = userRow.Field<string>("Fullname") ?? "N/A";
+            panel.Position = userRow.Field<string>("Role") ?? "N/A";
+            panel.Role = userRow.Field<string>("Role") ?? "N/A";
+            panel.Status = userRow.Field<string>("Account_status") ?? "N/A";
+
+            // Set icon based on status
+            SetPanelIconByStatus(panel, userRow.Field<string>("Account_status"));
+
+            // Set size to 284, 128 and margin
+            panel.Size = new Size(284, 128);
+            panel.Margin = new Padding(5);
+
+            return panel;
+        }
+
+        private void SetPanelIconByStatus(UserAccountsPanel panel, string status)
+        {
+            try
+            {
+                string resourceName = status?.ToLower() == "active"
+                    ? "Employees_1"
+                    : "Employees_2";
+
+                var image = Properties.Resources.ResourceManager.GetObject(resourceName) as Image;
+
+                if (image == null)
+                {
+                    resourceName = status?.ToLower() == "active"
+                        ? "Employees1"
+                        : "Employees2";
+                    image = Properties.Resources.ResourceManager.GetObject(resourceName) as Image;
+                }
+
+                if (image != null)
+                {
+                  
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading panel icon: {ex.Message}");
+            }
         }
 
         private void WireUpUserPanelEvents()
         {
-            userAccountsPanel1.UserPanelClicked += (s, e) => ShowUserDetails(userAccountsPanel1);
-            userAccountsPanel2.UserPanelClicked += (s, e) => ShowUserDetails(userAccountsPanel2);
+            foreach (var panel in userPanels)
+            {
+                panel.UserPanelClicked += (s, e) => ShowUserDetails((UserAccountsPanel)s);
+            }
         }
 
         private void ShowUserDetails(UserAccountsPanel clickedPanel)
         {
+            if (clickedPanel == null || clickedPanel.Tag == null) return;
+
+            DataRow userData = clickedPanel.Tag as DataRow;
+
+            // Try to refresh this single user's data from the DB (best-effort)
+            DataRow latestData = TryReloadUserData(userData);
+
             if (userDetailPopup == null)
             {
                 userDetailPopup = new ViewAccountsDetail_PopUp();
                 userDetailPopup.Size = new Size(600, 400);
                 userDetailPopup.Visible = false;
-                userDetailPopup.ClosePopup += (s, e) => HideUserDetails();
+               
                 userDetailOverlayPanel.Controls.Add(userDetailPopup);
             }
 
-            // HIDE the main content panel completely
             if (mainContentPanel != null)
             {
                 mainContentPanel.Visible = false;
             }
 
-            // Set user data
-            userDetailPopup.UserName = clickedPanel._Name;
-            userDetailPopup.Position = clickedPanel.Position;
-            userDetailPopup.UserIcon = clickedPanel.Icon;
+            // Populate popup from the (possibly refreshed) user data
+            userDetailPopup.PopulateFromDataRow(latestData ?? userData);
 
-            // Center the popup
             userDetailPopup.Location = new Point(
                 (this.Width - userDetailPopup.Width) / 2,
                 (this.Height - userDetailPopup.Height) / 2
@@ -84,20 +159,56 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             userDetailPopup.BringToFront();
         }
 
-        private void HideUserDetails()
+        /// <summary>
+        /// Try to reload a single user's data from database by matching AccountID.
+        /// </summary>
+        private DataRow TryReloadUserData(DataRow currentData)
         {
-            if (userDetailPopup != null)
+            try
             {
-                userDetailPopup.Visible = false;
+                if (currentData == null) return currentData;
+
+                string accountId = currentData.Field<string>("AccountID");
+                if (string.IsNullOrEmpty(accountId))
+                    return currentData;
+
+                DataTable all = AddNewUser_Form.LoadExistingUsersFromDatabase();
+                if (all == null || all.Rows.Count == 0) return currentData;
+
+                var found = all.AsEnumerable()
+                    .FirstOrDefault(row => string.Equals(row.Field<string>("AccountID"), accountId, StringComparison.OrdinalIgnoreCase));
+
+                return found ?? currentData;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error reloading user data: " + ex.Message);
+                return currentData;
+            }
+        }
+
+        // NEW METHOD: Handle when a new user is added
+        private void OnUserAdded(object sender, (string AccountID, string FullName, string Role, string Status) userInfo)
+        {
+            if (!string.IsNullOrEmpty(userInfo.AccountID))
+            {
+                // Reload all users from database to get the new user with all fields
+                LoadExistingUsersFromDatabase();
             }
 
-            // SHOW the main content panel again
-            if (mainContentPanel != null)
-            {
-                mainContentPanel.Visible = true;
-            }
+            // Hide the add user form
+            HideAddUserForm();
+        }
 
+        private void InitializeUserDetailOverlay()
+        {
+            userDetailOverlayPanel = new Panel();
+            userDetailOverlayPanel.Dock = DockStyle.Fill;
+            userDetailOverlayPanel.BackColor = Color.White;
             userDetailOverlayPanel.Visible = false;
+          
+
+            this.Controls.Add(userDetailOverlayPanel);
             userDetailOverlayPanel.SendToBack();
         }
 
@@ -123,7 +234,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                     (this.Width - addUserForm.Width) / 2,
                     (this.Height - addUserForm.Height) / 2
                 );
-                addUserForm.UserAdded += (s, e) => HideAddUserForm();
+                addUserForm.UserAdded += OnUserAdded; // Connect the new event
                 overlayPanel.Controls.Add(addUserForm);
             }
 
@@ -211,42 +322,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
             string searchText = GetSearchText().ToLower().Trim();
 
-            if (string.IsNullOrEmpty(searchText))
+            // Update search to work with all panels
+            foreach (UserAccountsPanel panel in userPanels)
             {
-                userAccountsPanel1.Visible = true;
-                userAccountsPanel2.Visible = true;
-                ResetPanelPositions();
-            }
-            else
-            {
-                string user1Name = "richard faulkerson";
-                string user2Name = "dimpol navarro";
-                bool user1Matches = user1Name.Contains(searchText);
-                bool user2Matches = user2Name.Contains(searchText);
-                userAccountsPanel1.Visible = user1Matches;
-                userAccountsPanel2.Visible = user2Matches;
-                ReorderPanels(user1Matches, user2Matches);
-            }
-        }
-
-        private void ResetPanelPositions()
-        {
-            userAccountsPanel1.Location = new Point(28, 100);
-            userAccountsPanel2.Location = new Point(318, 100);
-        }
-
-        private void ReorderPanels(bool user1Matches, bool user2Matches)
-        {
-            int xStart = 28, yPosition = 100, xSpacing = 290, currentX = xStart;
-            if (user1Matches)
-            {
-                userAccountsPanel1.Location = new Point(currentX, yPosition);
-                currentX += xSpacing;
-            }
-            if (user2Matches)
-            {
-                userAccountsPanel2.Location = new Point(currentX, yPosition);
-                currentX += xSpacing;
+                bool matches = panel._Name.ToLower().Contains(searchText) ||
+                              panel.Position.ToLower().Contains(searchText) ||
+                              panel.Role.ToLower().Contains(searchText);
+                panel.Visible = matches;
             }
         }
 

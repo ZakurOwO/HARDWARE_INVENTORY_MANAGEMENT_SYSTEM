@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.label8 = new System.Windows.Forms.Label();
-            this.EditSupplierButton = new Krypton.Toolkit.KryptonButton();
-            this.SupplierEditFormCancelButton = new Krypton.Toolkit.KryptonButton();
+            this.AddFormButton = new Krypton.Toolkit.KryptonButton();
+            this.FormCancelButton = new Krypton.Toolkit.KryptonButton();
             this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.label1 = new System.Windows.Forms.Label();
             this.tbxCompanyName = new Guna.UI2.WinForms.Guna2TextBox();
@@ -65,47 +65,48 @@
             this.label8.Text = "*";
             this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
-            // EditSupplierButton
+            // AddFormButton
             // 
-            this.EditSupplierButton.Location = new System.Drawing.Point(395, 433);
-            this.EditSupplierButton.Name = "EditSupplierButton";
-            this.EditSupplierButton.Size = new System.Drawing.Size(150, 44);
-            this.EditSupplierButton.StateCommon.Border.Color1 = System.Drawing.Color.DodgerBlue;
-            this.EditSupplierButton.StateCommon.Border.Color2 = System.Drawing.Color.DodgerBlue;
-            this.EditSupplierButton.StateCommon.Border.Rounding = 10F;
-            this.EditSupplierButton.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditSupplierButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.WhiteSmoke;
-            this.EditSupplierButton.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.WhiteSmoke;
-            this.EditSupplierButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditSupplierButton.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
-            this.EditSupplierButton.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
-            this.EditSupplierButton.TabIndex = 26;
-            this.EditSupplierButton.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.EditSupplierButton.Values.Text = "Add Supplier";
-            this.EditSupplierButton.Click += new System.EventHandler(this.EditSupplierButton_Click);
+            this.AddFormButton.Location = new System.Drawing.Point(395, 433);
+            this.AddFormButton.Name = "AddFormButton";
+            this.AddFormButton.Size = new System.Drawing.Size(150, 44);
+            this.AddFormButton.StateCommon.Border.Color1 = System.Drawing.Color.DodgerBlue;
+            this.AddFormButton.StateCommon.Border.Color2 = System.Drawing.Color.DodgerBlue;
+            this.AddFormButton.StateCommon.Border.Rounding = 10F;
+            this.AddFormButton.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddFormButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.WhiteSmoke;
+            this.AddFormButton.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.WhiteSmoke;
+            this.AddFormButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AddFormButton.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.AddFormButton.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.AddFormButton.TabIndex = 26;
+            this.AddFormButton.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.AddFormButton.Values.Text = "Add";
+            this.AddFormButton.Click += new System.EventHandler(this.AddFormButton_Click);
             // 
-            // SupplierEditFormCancelButton
+            // FormCancelButton
             // 
-            this.SupplierEditFormCancelButton.Location = new System.Drawing.Point(263, 433);
-            this.SupplierEditFormCancelButton.Name = "SupplierEditFormCancelButton";
-            this.SupplierEditFormCancelButton.Size = new System.Drawing.Size(126, 44);
-            this.SupplierEditFormCancelButton.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.SupplierEditFormCancelButton.StateCommon.Back.Color2 = System.Drawing.Color.White;
-            this.SupplierEditFormCancelButton.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
-            this.SupplierEditFormCancelButton.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
-            this.SupplierEditFormCancelButton.StateCommon.Border.ColorAlign = Krypton.Toolkit.PaletteRectangleAlign.Local;
-            this.SupplierEditFormCancelButton.StateCommon.Border.Rounding = 10F;
-            this.SupplierEditFormCancelButton.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SupplierEditFormCancelButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.WhiteSmoke;
-            this.SupplierEditFormCancelButton.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.WhiteSmoke;
-            this.SupplierEditFormCancelButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SupplierEditFormCancelButton.StateNormal.Back.Color1 = System.Drawing.Color.White;
-            this.SupplierEditFormCancelButton.StateNormal.Back.Color2 = System.Drawing.Color.White;
-            this.SupplierEditFormCancelButton.StateNormal.Content.ShortText.Color1 = System.Drawing.Color.Black;
-            this.SupplierEditFormCancelButton.StateNormal.Content.ShortText.Color2 = System.Drawing.Color.Black;
-            this.SupplierEditFormCancelButton.TabIndex = 27;
-            this.SupplierEditFormCancelButton.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.SupplierEditFormCancelButton.Values.Text = "Cancel";
+            this.FormCancelButton.Location = new System.Drawing.Point(263, 433);
+            this.FormCancelButton.Name = "FormCancelButton";
+            this.FormCancelButton.Size = new System.Drawing.Size(126, 44);
+            this.FormCancelButton.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.FormCancelButton.StateCommon.Back.Color2 = System.Drawing.Color.White;
+            this.FormCancelButton.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
+            this.FormCancelButton.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
+            this.FormCancelButton.StateCommon.Border.ColorAlign = Krypton.Toolkit.PaletteRectangleAlign.Local;
+            this.FormCancelButton.StateCommon.Border.Rounding = 10F;
+            this.FormCancelButton.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormCancelButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.WhiteSmoke;
+            this.FormCancelButton.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.WhiteSmoke;
+            this.FormCancelButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormCancelButton.StateNormal.Back.Color1 = System.Drawing.Color.White;
+            this.FormCancelButton.StateNormal.Back.Color2 = System.Drawing.Color.White;
+            this.FormCancelButton.StateNormal.Content.ShortText.Color1 = System.Drawing.Color.Black;
+            this.FormCancelButton.StateNormal.Content.ShortText.Color2 = System.Drawing.Color.Black;
+            this.FormCancelButton.TabIndex = 27;
+            this.FormCancelButton.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.FormCancelButton.Values.Text = "Cancel";
+            this.FormCancelButton.Click += new System.EventHandler(this.FormCancelButton_Click);
             // 
             // closeButton1
             // 
@@ -138,7 +139,7 @@
             this.tbxCompanyName.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.tbxCompanyName.Font = new System.Drawing.Font("Lexend Light", 9F);
             this.tbxCompanyName.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tbxCompanyName.Location = new System.Drawing.Point(25, 94);
+            this.tbxCompanyName.Location = new System.Drawing.Point(26, 95);
             this.tbxCompanyName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbxCompanyName.Name = "tbxCompanyName";
             this.tbxCompanyName.PlaceholderForeColor = System.Drawing.Color.Gainsboro;
@@ -147,6 +148,7 @@
             this.tbxCompanyName.Size = new System.Drawing.Size(228, 36);
             this.tbxCompanyName.TabIndex = 33;
             this.tbxCompanyName.TextOffset = new System.Drawing.Point(0, -2);
+            this.tbxCompanyName.TextChanged += new System.EventHandler(this.tbxCompanyName_TextChanged);
             // 
             // lblTitle
             // 
@@ -179,6 +181,7 @@
             this.tbxContactNumber.Size = new System.Drawing.Size(228, 36);
             this.tbxContactNumber.TabIndex = 35;
             this.tbxContactNumber.TextOffset = new System.Drawing.Point(0, -2);
+            this.tbxContactNumber.TextChanged += new System.EventHandler(this.tbxContactNumber_TextChanged);
             // 
             // label2
             // 
@@ -211,6 +214,7 @@
             this.tbxContactPerson.Size = new System.Drawing.Size(221, 36);
             this.tbxContactPerson.TabIndex = 37;
             this.tbxContactPerson.TextOffset = new System.Drawing.Point(0, -2);
+            this.tbxContactPerson.TextChanged += new System.EventHandler(this.tbxContactPerson_TextChanged);
             // 
             // label3
             // 
@@ -265,6 +269,7 @@
             this.tbxEmail.Size = new System.Drawing.Size(228, 36);
             this.tbxEmail.TabIndex = 41;
             this.tbxEmail.TextOffset = new System.Drawing.Point(0, -2);
+            this.tbxEmail.TextChanged += new System.EventHandler(this.tbxEmail_TextChanged);
             // 
             // label4
             // 
@@ -297,6 +302,7 @@
             this.tbxAddress.Size = new System.Drawing.Size(518, 36);
             this.tbxAddress.TabIndex = 43;
             this.tbxAddress.TextOffset = new System.Drawing.Point(0, -2);
+            this.tbxAddress.TextChanged += new System.EventHandler(this.tbxAddress_TextChanged);
             // 
             // label6
             // 
@@ -329,6 +335,7 @@
             this.tbxProvince.Size = new System.Drawing.Size(228, 36);
             this.tbxProvince.TabIndex = 47;
             this.tbxProvince.TextOffset = new System.Drawing.Point(0, -2);
+            this.tbxProvince.TextChanged += new System.EventHandler(this.tbxProvince_TextChanged);
             // 
             // label7
             // 
@@ -361,6 +368,7 @@
             this.tbxCityMunicipality.Size = new System.Drawing.Size(228, 36);
             this.tbxCityMunicipality.TabIndex = 45;
             this.tbxCityMunicipality.TextOffset = new System.Drawing.Point(0, -2);
+            this.tbxCityMunicipality.TextChanged += new System.EventHandler(this.tbxCityMunicipality_TextChanged);
             // 
             // label9
             // 
@@ -395,8 +403,8 @@
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.closeButton1);
-            this.Controls.Add(this.SupplierEditFormCancelButton);
-            this.Controls.Add(this.EditSupplierButton);
+            this.Controls.Add(this.FormCancelButton);
+            this.Controls.Add(this.AddFormButton);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
@@ -410,8 +418,8 @@
 
         #endregion
         private System.Windows.Forms.Label label8;
-        private Krypton.Toolkit.KryptonButton EditSupplierButton;
-        private Krypton.Toolkit.KryptonButton SupplierEditFormCancelButton;
+        private Krypton.Toolkit.KryptonButton AddFormButton;
+        private Krypton.Toolkit.KryptonButton FormCancelButton;
         private UserControlFiles.CloseButton closeButton1;
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2TextBox tbxCompanyName;

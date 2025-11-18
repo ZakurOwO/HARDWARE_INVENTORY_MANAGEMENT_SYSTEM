@@ -24,9 +24,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         // Method to add a customer using SqlDataAdapter
         private void AddCustomer()
         {
-            string customerName = CompanyNameCustomerTextBox.Text.Trim();
-            string contactNumber = EmailAddressTextBox.Text.Trim();
-            string address = LocationTextBox.Text.Trim();
+            string customerName = tbxCompanyName.Text.Trim();
+            string contactNumber = tbxEmail.Text.Trim();
+            string address = tbxAddress.Text.Trim();
 
             if (string.IsNullOrEmpty(customerName))
             {
@@ -121,6 +121,46 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         private void kryptonRichTextBox3_TextChanged(object sender, EventArgs e) { }
         private void kryptonRichTextBox4_TextChanged(object sender, EventArgs e) { }
         private void kryptonTextBox1_TextChanged(object sender, EventArgs e) { }
-        private void EditSupplierButton_Click(object sender, EventArgs e) { }
+        private void AddFormButton_Click(object sender, EventArgs e) { }
+
+        private void tbxCompanyName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbxContactPerson_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbxContactNumber_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbxEmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbxAddress_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbxCityMunicipality_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbxProvince_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormCancelButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
