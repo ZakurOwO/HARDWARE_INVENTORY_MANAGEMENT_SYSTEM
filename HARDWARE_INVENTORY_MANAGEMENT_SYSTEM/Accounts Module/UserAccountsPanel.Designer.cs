@@ -30,10 +30,10 @@
         {
             this.pnlUserAccount = new Guna.UI2.WinForms.Guna2ShadowPanel();
             this.btnStatus = new Guna.UI2.WinForms.Guna2Button();
-            this.lblPosition = new System.Windows.Forms.Label();
-            this.lblUserName = new System.Windows.Forms.Label();
             this.btnRole = new Guna.UI2.WinForms.Guna2Button();
             this.btnEditIcon = new Guna.UI2.WinForms.Guna2Button();
+            this.lblPosition = new System.Windows.Forms.Label();
+            this.lblUserName = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pnlUserAccount.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -41,16 +41,17 @@
             // 
             // pnlUserAccount
             // 
-            this.pnlUserAccount.BackColor = System.Drawing.Color.Transparent;
+            this.pnlUserAccount.BackColor = System.Drawing.Color.White;
             this.pnlUserAccount.Controls.Add(this.btnStatus);
             this.pnlUserAccount.Controls.Add(this.btnRole);
             this.pnlUserAccount.Controls.Add(this.btnEditIcon);
             this.pnlUserAccount.Controls.Add(this.lblPosition);
             this.pnlUserAccount.Controls.Add(this.lblUserName);
             this.pnlUserAccount.Controls.Add(this.pictureBox2);
+            this.pnlUserAccount.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlUserAccount.EdgeWidth = 8;
             this.pnlUserAccount.FillColor = System.Drawing.Color.White;
-            this.pnlUserAccount.Location = new System.Drawing.Point(3, 3);
+            this.pnlUserAccount.Location = new System.Drawing.Point(0, 0);
             this.pnlUserAccount.Name = "pnlUserAccount";
             this.pnlUserAccount.Radius = 10;
             this.pnlUserAccount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -58,8 +59,9 @@
             this.pnlUserAccount.ShadowDepth = 50;
             this.pnlUserAccount.ShadowShift = 8;
             this.pnlUserAccount.ShadowStyle = Guna.UI2.WinForms.Guna2ShadowPanel.ShadowMode.ForwardDiagonal;
-            this.pnlUserAccount.Size = new System.Drawing.Size(275, 118);
+            this.pnlUserAccount.Size = new System.Drawing.Size(284, 128);
             this.pnlUserAccount.TabIndex = 4;
+            this.pnlUserAccount.Click += new System.EventHandler(this.pnlUserAccount_Click);
             // 
             // btnStatus
             // 
@@ -79,27 +81,6 @@
             this.btnStatus.TabIndex = 13;
             this.btnStatus.Text = "Active";
             this.btnStatus.TextOffset = new System.Drawing.Point(0, -1);
-            // 
-            // lblPosition
-            // 
-            this.lblPosition.AutoSize = true;
-            this.lblPosition.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPosition.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblPosition.Location = new System.Drawing.Point(77, 46);
-            this.lblPosition.Name = "lblPosition";
-            this.lblPosition.Size = new System.Drawing.Size(64, 21);
-            this.lblPosition.TabIndex = 10;
-            this.lblPosition.Text = "Manager";
-            // 
-            // lblUserName
-            // 
-            this.lblUserName.AutoSize = true;
-            this.lblUserName.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserName.Location = new System.Drawing.Point(77, 25);
-            this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(136, 21);
-            this.lblUserName.TabIndex = 9;
-            this.lblUserName.Text = "Richard Faulkerson";
             // 
             // btnRole
             // 
@@ -135,6 +116,28 @@
             this.btnEditIcon.Name = "btnEditIcon";
             this.btnEditIcon.Size = new System.Drawing.Size(25, 30);
             this.btnEditIcon.TabIndex = 11;
+            // 
+            // lblPosition
+            // 
+            this.lblPosition.AutoSize = true;
+            this.lblPosition.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPosition.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblPosition.Location = new System.Drawing.Point(77, 46);
+            this.lblPosition.Name = "lblPosition";
+            this.lblPosition.Size = new System.Drawing.Size(64, 21);
+            this.lblPosition.TabIndex = 10;
+            this.lblPosition.Text = "Manager";
+            // 
+            // lblUserName
+            // 
+            this.lblUserName.AutoSize = true;
+            this.lblUserName.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUserName.Location = new System.Drawing.Point(77, 25);
+            this.lblUserName.Name = "lblUserName";
+            this.lblUserName.Size = new System.Drawing.Size(136, 21);
+            this.lblUserName.TabIndex = 9;
+            this.lblUserName.Text = "Richard Faulkerson";
+            this.lblUserName.Click += new System.EventHandler(this.lblUserName_Click);
             // 
             // pictureBox2
             // 

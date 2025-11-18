@@ -14,9 +14,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 {
     public partial class UserAccountsPanel : UserControl
     {
+        public event EventHandler UserPanelClicked;
+
         public UserAccountsPanel()
         {
             InitializeComponent();
+            WireUpClickEvents();
         }
 
         #region Properties
@@ -48,14 +51,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             set { role = value; btnRole.Text = value; UpdateRoleColor(); }
         }
 
-
         [Category("Custom Properties")]
         public Image Icon
         {
             get { return icon; }
             set { icon = value; btnRole.Image = value; }
         }
-
 
         [Category("Custom Properties")]
         public string Status
@@ -64,9 +65,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             set { status = value; btnStatus.Text = value; UpdateStatusColor(); }
         }
 
-
         #endregion
 
+        private void WireUpClickEvents()
+        {
+            // Wire up click events for all controls in the panel
+            pnlUserAccount.Click += (s, e) => OnUserPanelClicked();
+            lblUserName.Click += (s, e) => OnUserPanelClicked();
+            lblPosition.Click += (s, e) => OnUserPanelClicked();
+            btnRole.Click += (s, e) => OnUserPanelClicked();
+            btnStatus.Click += (s, e) => OnUserPanelClicked();
+
+            // If you have any other controls in your panel, add them here too
+        }
+
+        protected virtual void OnUserPanelClicked()
+        {
+            UserPanelClicked?.Invoke(this, EventArgs.Empty);
+        }
 
         private void UpdateRoleColor()
         {
@@ -113,9 +129,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                     btnStatus.ForeColor = Color.FromArgb(209, 118, 17);
                     break;
             }
-
         }
 
-        
+        private void pnlUserAccount_Click(object sender, EventArgs e)
+        {
+            OnUserPanelClicked();
+        }
+
+        private void lblUserName_Click(object sender, EventArgs e)
+        {
+            OnUserPanelClicked();
+        }
     }
 }

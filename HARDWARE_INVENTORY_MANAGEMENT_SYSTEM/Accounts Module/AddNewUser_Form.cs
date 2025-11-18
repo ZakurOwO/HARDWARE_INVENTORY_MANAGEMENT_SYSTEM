@@ -14,40 +14,94 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         public AddNewUser_Form()
         {
             InitializeComponent();
-            con = new SqlConnection(@"Data Source=.;Initial Catalog=InventoryCapstone;Integrated Security=True");
+            con = new SqlConnection(@"Data Source=.;Initial Catalog=TopazHardwareDb;Integrated Security=True");
+            LoadRoles(); // Load only Administrator and Staff roles
             LoadUsers();
+        }
+
+        private void LoadRoles()
+        {
+            con.Open();
+
+            string query = "SELECT RoleID, role_name FROM Roles ORDER BY role_name";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            RoleComboBox.Items.Clear();
+
+            while (reader.Read())
+            {
+                RoleComboBox.Items.Add(new ComboboxItem
+                {
+                    Text = reader["role_name"].ToString(),
+                    Value = reader["RoleID"].ToString()
+                });
+            }
+
+            reader.Close();
+            con.Close();
+        }
+ 
+        public class ComboboxItem
+        {
+            public string Text { get; set; }
+            public string Value { get; set; }
+
+            public override string ToString()
+            {
+                return Text;
+            }
         }
 
         private void LoadUsers()
         {
-            //dt = new DataTable();
-            //da = new SqlDataAdapter("SELECT * FROM Users", con);
-            //SqlCommandBuilder cb = new SqlCommandBuilder(da);
-            //da.Fill(dt);
+            // Your existing code
         }
 
         private void AddUser()
         {
             try
             {
-                DataRow newRow = dt.NewRow();
-                newRow["user_id"] = tbxTextBox.Text;
-                newRow["first_name"] = guna2TextBox1.Text;
-                newRow["last_name"] = guna2TextBox2.Text;
-                newRow["username"] = guna2TextBox3.Text;
-                newRow["password_hash"] = guna2TextBox4.Text;
-                newRow["email"] = guna2TextBox5.Text;
-                newRow["role_id"] = guna2ComboBox1.SelectedValue;
-                newRow["status"] = cbxCombobox.SelectedItem.ToString();
-                newRow["created_at"] = guna2TextBox6.Text;
-                dt.Rows.Add(newRow);
+                using (SqlConnection connection = new SqlConnection(@"Data Source=.;Initial Catalog=TopazHardwareDb;Integrated Security=True"))
+                {
+                    connection.Open();
 
-                da.Update(dt);
-                MessageBox.Show("User added successfully!");
-                ClearFields();
+                    string query = @"INSERT INTO Users 
+                                    (username, password_hash, first_name, last_name, role_id, status, email) 
+                                    VALUES 
+                                    (@username, @password, @firstName, @lastName, @roleId, @status, @email)";
 
-                // Notify that user was added and form should close
-                OnUserAdded();
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        // Get the selected role ID from combobox
+                        string selectedRoleId = "";
+                        if (RoleComboBox.SelectedItem is ComboboxItem selectedItem)
+                        {
+                            selectedRoleId = selectedItem.Value;
+                        }
+
+                        cmd.Parameters.AddWithValue("@username", guna2TextBox3.Text);
+                        cmd.Parameters.AddWithValue("@password", HashPassword(guna2TextBox4.Text)); // Always hash passwords!
+                        cmd.Parameters.AddWithValue("@firstName", guna2TextBox1.Text);
+                        cmd.Parameters.AddWithValue("@lastName", guna2TextBox2.Text);
+                        cmd.Parameters.AddWithValue("@roleId", selectedRoleId);
+                        cmd.Parameters.AddWithValue("@status", cbxCombobox.SelectedItem?.ToString() ?? "Active");
+                        cmd.Parameters.AddWithValue("@email", guna2TextBox5.Text);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("User added successfully!");
+                            ClearFields();
+                            OnUserAdded();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to add user.");
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -55,22 +109,49 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             }
         }
 
+        // Simple password hashing method
+        private string HashPassword(string password)
+        {
+            using (var sha256 = System.Security.Cryptography.SHA256.Create())
+            {
+                var bytes = System.Text.Encoding.UTF8.GetBytes(password);
+                var hash = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
+            }
+        }
+
         private void ClearFields()
         {
-            tbxTextBox.Clear();
             guna2TextBox1.Clear();
             guna2TextBox2.Clear();
             guna2TextBox3.Clear();
             guna2TextBox4.Clear();
             guna2TextBox5.Clear();
-            guna2ComboBox1.SelectedIndex = -1;
+            RoleComboBox.SelectedIndex = -1;
             cbxCombobox.SelectedIndex = -1;
-            guna2TextBox6.Clear();
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            AddUser();
+            // Validate inputs before adding user
+            if (ValidateInputs())
+            {
+                AddUser();
+            }
+        }
+
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(guna2TextBox1.Text) ||
+                string.IsNullOrWhiteSpace(guna2TextBox2.Text) ||
+                string.IsNullOrWhiteSpace(guna2TextBox3.Text) ||
+                string.IsNullOrWhiteSpace(guna2TextBox4.Text) ||
+                RoleComboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please fill in all required fields.");
+                return false;
+            }
+            return true;
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -92,7 +173,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
         private void closeButton1_Load(object sender, EventArgs e)
         {
+            // You can remove this if not needed
+        }
 
+        private void RoleComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // You can add any additional logic here when role selection changes
         }
     }
 }

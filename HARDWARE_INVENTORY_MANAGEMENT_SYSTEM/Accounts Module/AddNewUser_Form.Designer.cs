@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.guna2ComboBox1 = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.RoleComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cbxCombobox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -52,24 +52,22 @@
             this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.SuspendLayout();
             // 
-            // guna2ComboBox1
+            // RoleComboBox
             // 
-            this.guna2ComboBox1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ComboBox1.BorderRadius = 8;
-            this.guna2ComboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.guna2ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.guna2ComboBox1.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox1.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox1.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2ComboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.guna2ComboBox1.ItemHeight = 30;
-            this.guna2ComboBox1.Items.AddRange(new object[] {
-            "Administrator",
-            "Staff"});
-            this.guna2ComboBox1.Location = new System.Drawing.Point(309, 319);
-            this.guna2ComboBox1.Name = "guna2ComboBox1";
-            this.guna2ComboBox1.Size = new System.Drawing.Size(228, 36);
-            this.guna2ComboBox1.TabIndex = 60;
+            this.RoleComboBox.BackColor = System.Drawing.Color.Transparent;
+            this.RoleComboBox.BorderRadius = 8;
+            this.RoleComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.RoleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.RoleComboBox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.RoleComboBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.RoleComboBox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RoleComboBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.RoleComboBox.ItemHeight = 30;
+            this.RoleComboBox.Location = new System.Drawing.Point(309, 319);
+            this.RoleComboBox.Name = "RoleComboBox";
+            this.RoleComboBox.Size = new System.Drawing.Size(228, 36);
+            this.RoleComboBox.TabIndex = 60;
+            this.RoleComboBox.SelectedIndexChanged += new System.EventHandler(this.RoleComboBox_SelectedIndexChanged);
             // 
             // label8
             // 
@@ -373,7 +371,7 @@
             this.closeButton1.Name = "closeButton1";
             this.closeButton1.Size = new System.Drawing.Size(35, 35);
             this.closeButton1.TabIndex = 61;
-            this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
+          //  this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
             this.closeButton1.Click += new System.EventHandler(this.closeButton1_Click);
             // 
             // AddNewUser_Form
@@ -384,7 +382,7 @@
             this.Controls.Add(this.btnWhite);
             this.Controls.Add(this.btnBlue);
             this.Controls.Add(this.closeButton1);
-            this.Controls.Add(this.guna2ComboBox1);
+            this.Controls.Add(this.RoleComboBox);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cbxCombobox);
             this.Controls.Add(this.label7);
@@ -413,7 +411,7 @@
         #endregion
 
         private UserControlFiles.CloseButton closeButton1;
-        private Guna.UI2.WinForms.Guna2ComboBox guna2ComboBox1;
+        private Guna.UI2.WinForms.Guna2ComboBox RoleComboBox;
         private System.Windows.Forms.Label label8;
         private Guna.UI2.WinForms.Guna2ComboBox cbxCombobox;
         private System.Windows.Forms.Label label7;
