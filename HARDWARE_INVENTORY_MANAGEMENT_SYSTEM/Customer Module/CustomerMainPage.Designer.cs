@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.mainButtonWithIcon1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButtonWithIcon();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.pageNumber2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module.PageNumber();
             this.dataGridTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.DataGridTable();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.customerTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.CustomerTopBar();
-            this.mainButtonWithIcon1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButtonWithIcon();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +48,7 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Silver;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.panel1);
             this.guna2Panel1.Controls.Add(this.mainButtonWithIcon1);
             this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Controls.Add(this.pageNumber2);
@@ -56,6 +58,16 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(920, 617);
             this.guna2Panel1.TabIndex = 1;
+            // 
+            // mainButtonWithIcon1
+            // 
+            this.mainButtonWithIcon1.BackColor = System.Drawing.Color.Transparent;
+            this.mainButtonWithIcon1.ButtonName = "Add Customer";
+            this.mainButtonWithIcon1.Icon = null;
+            this.mainButtonWithIcon1.Location = new System.Drawing.Point(743, 13);
+            this.mainButtonWithIcon1.Name = "mainButtonWithIcon1";
+            this.mainButtonWithIcon1.Size = new System.Drawing.Size(157, 47);
+            this.mainButtonWithIcon1.TabIndex = 11;
             // 
             // inventoryFilter_Button1
             // 
@@ -78,7 +90,7 @@
             this.dataGridTable1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.dataGridTable1.Location = new System.Drawing.Point(16, 78);
             this.dataGridTable1.Name = "dataGridTable1";
-            this.dataGridTable1.Size = new System.Drawing.Size(884, 442);
+            this.dataGridTable1.Size = new System.Drawing.Size(884, 489);
             this.dataGridTable1.TabIndex = 7;
             this.dataGridTable1.Load += new System.EventHandler(this.dataGridTable1_Load);
             // 
@@ -100,15 +112,13 @@
             this.customerTopBar1.TabIndex = 2;
             this.customerTopBar1.Load += new System.EventHandler(this.customerTopBar1_Load);
             // 
-            // mainButtonWithIcon1
+            // panel1
             // 
-            this.mainButtonWithIcon1.BackColor = System.Drawing.Color.Transparent;
-            this.mainButtonWithIcon1.ButtonName = "Add Customer";
-            this.mainButtonWithIcon1.Icon = null;
-            this.mainButtonWithIcon1.Location = new System.Drawing.Point(743, 13);
-            this.mainButtonWithIcon1.Name = "mainButtonWithIcon1";
-            this.mainButtonWithIcon1.Size = new System.Drawing.Size(157, 47);
-            this.mainButtonWithIcon1.TabIndex = 11;
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Location = new System.Drawing.Point(191, 24);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(574, 512);
+            this.panel1.TabIndex = 12;
             // 
             // CustomerMainPage
             // 
@@ -133,5 +143,6 @@
         private PageNumber pageNumber2;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private UserControlFiles.MainButtonWithIcon mainButtonWithIcon1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

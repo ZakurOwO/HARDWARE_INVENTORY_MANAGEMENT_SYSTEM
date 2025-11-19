@@ -121,6 +121,7 @@
     <Compile Include="Audit Log\AuditLogTopBar.Designer.cs">
       <DependentUpon>AuditLogTopBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class Components\ConnectionString.cs" />
     <Compile Include="Class Components\ProfileMenuClass.cs" />
     <Compile Include="Class Components\SettingsMainClass.cs" />
     <Compile Include="Customer Module\AddCustomerForm.cs">

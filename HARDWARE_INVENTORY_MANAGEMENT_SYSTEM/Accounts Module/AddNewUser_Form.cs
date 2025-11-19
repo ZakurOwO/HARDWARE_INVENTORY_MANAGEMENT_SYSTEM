@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -15,12 +16,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         public AddNewUser_Form()
         {
             InitializeComponent();
-            con = new SqlConnection(@"Data Source=.;Initial Catalog=TopazHardwareDb;Integrated Security=True");
+            con = new SqlConnection(ConnectionString.DataSource);
             LoadRoles();
             LoadAccountStatus();
         }
-
-        // Remove UserData class and NewUserData property
 
         // UPDATE THIS METHOD: Return DataTable instead of List<UserData>
         public static DataTable LoadExistingUsersFromDatabase()
@@ -29,7 +28,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(@"Data Source=.;Initial Catalog=TopazHardwareDb;Integrated Security=True"))
+                using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
                 {
                     connection.Open();
                     string query = @"
@@ -75,32 +74,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         {
             try
             {
-                con.Open();
-                string query = "SELECT RoleID, role_name FROM Roles ORDER BY role_name";
-                SqlCommand cmd = new SqlCommand(query, con);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                RoleComboBox.Items.Clear();
-
-                while (reader.Read())
+                using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
                 {
-                    RoleComboBox.Items.Add(new ComboboxItem
-                    {
-                        Text = reader["role_name"].ToString(),
-                        Value = reader["RoleID"].ToString()
-                    });
-                }
+                    connection.Open();
+                    string query = "SELECT RoleID, role_name FROM Roles ORDER BY role_name";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                reader.Close();
+                    RoleComboBox.Items.Clear();
+
+                    while (reader.Read())
+                    {
+                        RoleComboBox.Items.Add(new ComboboxItem
+                        {
+                            Text = reader["role_name"].ToString(),
+                            Value = reader["RoleID"].ToString()
+                        });
+                    }
+
+                    reader.Close();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error loading roles: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
             }
         }
 
@@ -119,7 +116,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(@"Data Source=.;Initial Catalog=TopazHardwareDb;Integrated Security=True"))
+                using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
                 {
                     connection.Open();
 
@@ -336,7 +333,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(@"Data Source=.;Initial Catalog=TopazHardwareDb;Integrated Security=True"))
+                using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
                 {
                     connection.Open();
                     string query = "SELECT COUNT(*) FROM Accounts WHERE username = @username";
