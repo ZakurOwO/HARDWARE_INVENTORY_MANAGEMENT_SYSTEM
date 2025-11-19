@@ -52,7 +52,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         {
 
             profileMenuPainter.Draw(e);
-            //
+            
         }
     }
 }
