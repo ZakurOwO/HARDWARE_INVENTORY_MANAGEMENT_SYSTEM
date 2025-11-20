@@ -79,6 +79,7 @@
     <Compile Include="Accounts Module\AddNewUser_Form.Designer.cs">
       <DependentUpon>AddNewUser_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Accounts Module\Class Components of Accounts\UserSession.cs" />
     <Compile Include="Accounts Module\EditUserInfo_Form.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,9 +122,15 @@
     <Compile Include="Audit Log\AuditLogTopBar.Designer.cs">
       <DependentUpon>AuditLogTopBar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Accounts Module\Class Components of Accounts\ComboboxItem.cs" />
+    <Compile Include="Class Components\AuthenticationService.cs" />
     <Compile Include="Class Components\ConnectionString.cs" />
+    <Compile Include="Accounts Module\Class Components of Accounts\DatabaseHelper.cs" />
     <Compile Include="Class Components\ProfileMenuClass.cs" />
+    <Compile Include="Accounts Module\Class Components of Accounts\SecurityHelper.cs" />
     <Compile Include="Class Components\SettingsMainClass.cs" />
+    <Compile Include="Accounts Module\Class Components of Accounts\UserService.cs" />
+    <Compile Include="Class Components\UserSession.cs" />
     <Compile Include="Customer Module\AddCustomerForm.cs">
       <SubType>UserControl</SubType>
     </Compile>

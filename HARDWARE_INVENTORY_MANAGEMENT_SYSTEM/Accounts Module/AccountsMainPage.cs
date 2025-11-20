@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 {
@@ -26,7 +24,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             InitializeUserDetailOverlay();
             InitializeSearch();
 
-            LoadExistingUsersFromDatabase(); // Load from database on startup
+            LoadExistingUsersFromDatabase();
 
             mainContentPanel = guna2Panel1;
 
@@ -38,25 +36,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             LayoutAccounts.Controls.Clear();
             userPanels.Clear();
 
-            // Load users from database as DataTable
-            DataTable existingUsers = AddNewUser_Form.LoadExistingUsersFromDatabase();
+            // Load users from database using DatabaseHelper
+            DataTable existingUsers = DatabaseHelper.LoadExistingUsersFromDatabase();
 
             if (existingUsers != null && existingUsers.Rows.Count > 0)
             {
                 foreach (DataRow userRow in existingUsers.Rows)
                 {
-                    // Create UserAccountsPanel for each user
                     UserAccountsPanel userPanel = CreateUserPanel(userRow);
-
-                    // Store the DataRow on the panel so details can use it
                     userPanel.Tag = userRow;
-
-                    // Add to collection and your existing flow layout
                     userPanels.Add(userPanel);
                     LayoutAccounts.Controls.Add(userPanel);
                 }
 
-                // Wire up events for all panels
                 WireUpUserPanelEvents();
             }
             else
@@ -69,16 +61,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         {
             UserAccountsPanel panel = new UserAccountsPanel();
 
-            // Set properties based on database row
             panel._Name = userRow.Field<string>("Fullname") ?? "N/A";
             panel.Position = userRow.Field<string>("Role") ?? "N/A";
             panel.Role = userRow.Field<string>("Role") ?? "N/A";
             panel.Status = userRow.Field<string>("Account_status") ?? "N/A";
 
-            // Set icon based on status
             SetPanelIconByStatus(panel, userRow.Field<string>("Account_status"));
 
-            // Set size to 284, 128 and margin
             panel.Size = new Size(284, 128);
             panel.Margin = new Padding(5);
 
@@ -105,7 +94,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
                 if (image != null)
                 {
-                  
+                    // Set image if your panel has an image property
                 }
             }
             catch (Exception ex)
@@ -127,8 +116,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             if (clickedPanel == null || clickedPanel.Tag == null) return;
 
             DataRow userData = clickedPanel.Tag as DataRow;
-
-            // Try to refresh this single user's data from the DB (best-effort)
             DataRow latestData = TryReloadUserData(userData);
 
             if (userDetailPopup == null)
@@ -136,7 +123,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                 userDetailPopup = new ViewAccountsDetail_PopUp();
                 userDetailPopup.Size = new Size(600, 400);
                 userDetailPopup.Visible = false;
-               
                 userDetailOverlayPanel.Controls.Add(userDetailPopup);
             }
 
@@ -145,7 +131,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                 mainContentPanel.Visible = false;
             }
 
-            // Populate popup from the (possibly refreshed) user data
             userDetailPopup.PopulateFromDataRow(latestData ?? userData);
 
             userDetailPopup.Location = new Point(
@@ -159,9 +144,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             userDetailPopup.BringToFront();
         }
 
-        /// <summary>
-        /// Try to reload a single user's data from database by matching AccountID.
-        /// </summary>
         private DataRow TryReloadUserData(DataRow currentData)
         {
             try
@@ -172,7 +154,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                 if (string.IsNullOrEmpty(accountId))
                     return currentData;
 
-                DataTable all = AddNewUser_Form.LoadExistingUsersFromDatabase();
+                DataTable all = DatabaseHelper.LoadExistingUsersFromDatabase();
                 if (all == null || all.Rows.Count == 0) return currentData;
 
                 var found = all.AsEnumerable()
@@ -187,16 +169,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             }
         }
 
-        // NEW METHOD: Handle when a new user is added
         private void OnUserAdded(object sender, (string AccountID, string FullName, string Role, string Status) userInfo)
         {
             if (!string.IsNullOrEmpty(userInfo.AccountID))
             {
-                // Reload all users from database to get the new user with all fields
                 LoadExistingUsersFromDatabase();
             }
 
-            // Hide the add user form
             HideAddUserForm();
         }
 
@@ -206,7 +185,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             userDetailOverlayPanel.Dock = DockStyle.Fill;
             userDetailOverlayPanel.BackColor = Color.White;
             userDetailOverlayPanel.Visible = false;
-          
 
             this.Controls.Add(userDetailOverlayPanel);
             userDetailOverlayPanel.SendToBack();
@@ -234,7 +212,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                     (this.Width - addUserForm.Width) / 2,
                     (this.Height - addUserForm.Height) / 2
                 );
-                addUserForm.UserAdded += OnUserAdded; // Connect the new event
+                addUserForm.UserAdded += OnUserAdded;
                 overlayPanel.Controls.Add(addUserForm);
             }
 
@@ -250,7 +228,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             overlayPanel.SendToBack();
         }
 
-        // Rest of your existing methods remain the same
         private void InitializeSearch()
         {
             TextBox textBox = FindTextBoxInSearchField();
@@ -322,7 +299,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
             string searchText = GetSearchText().ToLower().Trim();
 
-            // Update search to work with all panels
             foreach (UserAccountsPanel panel in userPanels)
             {
                 bool matches = panel._Name.ToLower().Contains(searchText) ||
@@ -349,7 +325,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             return text == "Search User" ? "" : text;
         }
 
-        // Remove empty methods
         private void userAccountsPanel2_Load(object sender, EventArgs e) { }
         private void searchField1_Load(object sender, EventArgs e) { }
         private void Layout_Paint(object sender, PaintEventArgs e) { }

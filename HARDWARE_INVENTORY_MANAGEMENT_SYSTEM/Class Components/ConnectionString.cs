@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
     internal class ConnectionString
     {
-       public static readonly String DataSource = @"Data Source=localhost\SQLEXPRESS;Initial Catalog=TopazHardwareDb;Integrated Security=True";
-
+        public static readonly string DataSource = @"Data Source=DESKTOP-EK5BITM;Initial Catalog=TopazHardwareDb;Integrated Security=True;TrustServerCertificate=True;";
     }
 }
