@@ -54,6 +54,7 @@
             this.closeButton1.Name = "closeButton1";
             this.closeButton1.Size = new System.Drawing.Size(35, 35);
             this.closeButton1.TabIndex = 42;
+            this.closeButton1.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // lblPhoneNo
             // 

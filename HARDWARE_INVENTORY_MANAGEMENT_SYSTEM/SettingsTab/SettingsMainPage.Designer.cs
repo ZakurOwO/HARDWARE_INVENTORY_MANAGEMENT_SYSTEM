@@ -31,8 +31,8 @@
             this.pnlDisplaySettings = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnProfileMenu = new Guna.UI2.WinForms.Guna2Button();
             this.tabModules1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SettingsTab.TabModules();
+            this.ProfileMenu = new Guna.UI2.WinForms.Guna2Button();
             this.SuspendLayout();
             // 
             // pnlDisplaySettings
@@ -64,23 +64,6 @@
             this.label1.TabIndex = 22;
             this.label1.Text = "Settings";
             // 
-            // btnProfileMenu
-            // 
-            this.btnProfileMenu.BackColor = System.Drawing.Color.Transparent;
-            this.btnProfileMenu.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.My_Profile__3_;
-            this.btnProfileMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnProfileMenu.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnProfileMenu.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnProfileMenu.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnProfileMenu.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnProfileMenu.FillColor = System.Drawing.Color.Transparent;
-            this.btnProfileMenu.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnProfileMenu.ForeColor = System.Drawing.Color.White;
-            this.btnProfileMenu.Location = new System.Drawing.Point(796, 9);
-            this.btnProfileMenu.Name = "btnProfileMenu";
-            this.btnProfileMenu.Size = new System.Drawing.Size(146, 38);
-            this.btnProfileMenu.TabIndex = 21;
-            // 
             // tabModules1
             // 
             this.tabModules1.BackColor = System.Drawing.Color.White;
@@ -89,6 +72,29 @@
             this.tabModules1.Size = new System.Drawing.Size(599, 46);
             this.tabModules1.TabIndex = 4;
             // 
+            // ProfileMenu
+            // 
+            this.ProfileMenu.BackColor = System.Drawing.Color.Transparent;
+            this.ProfileMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.ProfileMenu.BorderRadius = 5;
+            this.ProfileMenu.BorderThickness = 1;
+            this.ProfileMenu.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.ProfileMenu.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.ProfileMenu.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.ProfileMenu.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.ProfileMenu.FillColor = System.Drawing.Color.Transparent;
+            this.ProfileMenu.Font = new System.Drawing.Font("Lexend", 9F);
+            this.ProfileMenu.ForeColor = System.Drawing.Color.Black;
+            this.ProfileMenu.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.user_circle;
+            this.ProfileMenu.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.ProfileMenu.ImageOffset = new System.Drawing.Point(-5, -3);
+            this.ProfileMenu.ImageSize = new System.Drawing.Size(35, 35);
+            this.ProfileMenu.Location = new System.Drawing.Point(796, 9);
+            this.ProfileMenu.Name = "ProfileMenu";
+            this.ProfileMenu.Size = new System.Drawing.Size(146, 38);
+            this.ProfileMenu.TabIndex = 13;
+            this.ProfileMenu.Click += new System.EventHandler(this.ProfileBtn_Click);
+            // 
             // SettingsMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -96,9 +102,9 @@
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnProfileMenu);
             this.Controls.Add(this.tabModules1);
             this.Controls.Add(this.pnlDisplaySettings);
+            this.Controls.Add(this.ProfileMenu);
             this.Name = "SettingsMainPage";
             this.Size = new System.Drawing.Size(975, 720);
             this.Load += new System.EventHandler(this.SettingsMainPage_Load);
@@ -113,6 +119,6 @@
         private SettingsTab.TabModules tabModules1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private Guna.UI2.WinForms.Guna2Button btnProfileMenu;
+        private Guna.UI2.WinForms.Guna2Button ProfileMenu;
     }
 }

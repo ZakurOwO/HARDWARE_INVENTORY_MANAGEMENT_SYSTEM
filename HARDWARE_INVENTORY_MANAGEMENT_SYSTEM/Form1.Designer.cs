@@ -41,6 +41,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Emaillb = new System.Windows.Forms.Label();
             this.Email = new Krypton.Toolkit.KryptonRichTextBox();
+            this.BypassLogin = new Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CheckBoxToggle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxEye)).BeginInit();
@@ -237,6 +238,25 @@
             this.Email.Text = "";
             this.Email.TextChanged += new System.EventHandler(this.Email_TextChanged);
             // 
+            // BypassLogin
+            // 
+            this.BypassLogin.Location = new System.Drawing.Point(927, 561);
+            this.BypassLogin.Name = "BypassLogin";
+            this.BypassLogin.Size = new System.Drawing.Size(203, 59);
+            this.BypassLogin.StateCommon.Back.Color1 = System.Drawing.Color.DodgerBlue;
+            this.BypassLogin.StateCommon.Back.Color2 = System.Drawing.Color.DodgerBlue;
+            this.BypassLogin.StateCommon.Border.Rounding = 10F;
+            this.BypassLogin.StateCommon.Border.Width = 1;
+            this.BypassLogin.StateCommon.Content.LongText.Font = new System.Drawing.Font("Lexend Light", 10F);
+            this.BypassLogin.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.BypassLogin.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.BypassLogin.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend Light", 10F);
+            this.BypassLogin.TabIndex = 17;
+            this.BypassLogin.UseMnemonic = false;
+            this.BypassLogin.Values.DropDownArrowColor = System.Drawing.Color.Empty;
+            this.BypassLogin.Values.Text = "Login";
+            this.BypassLogin.Click += new System.EventHandler(this.BypassLogin_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -244,6 +264,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1194, 711);
+            this.Controls.Add(this.BypassLogin);
             this.Controls.Add(this.Emaillb);
             this.Controls.Add(this.Email);
             this.Controls.Add(this.pictureBox2);
@@ -286,6 +307,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label Emaillb;
         private Krypton.Toolkit.KryptonRichTextBox Email;
+        private Krypton.Toolkit.KryptonButton BypassLogin;
     }
 }
 

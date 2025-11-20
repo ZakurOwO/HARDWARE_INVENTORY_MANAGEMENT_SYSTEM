@@ -14,6 +14,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
     public partial class ReportsTopBar : UserControl
     {
+        private ProfileMenuPainter profileMenuPainter = ProfileMenuPainter.CreateFromUserSession();
+
         public ReportsTopBar()
         {
             InitializeComponent();
@@ -22,17 +24,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void btnProfileMenu_Click(object sender, EventArgs e)
         {
             var mainForm = this.FindForm() as MainDashBoard;
-
             if (mainForm != null)
             {
                 SettingsMainClass.ShowSettingsPanel(mainForm.MainContentPanelAccess);
             }
         }
-        private ProfileMenuPainter profileMenuPainter = new ProfileMenuPainter();
+
         private void btnProfileMenu_Paint(object sender, PaintEventArgs e)
         {
-
-            profileMenuPainter.Draw(e);
+            profileMenuPainter?.Draw(e);
         }
     }
 }

@@ -12,8 +12,10 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 {
-    public partial class SupplierTopBar: UserControl
+    public partial class SupplierTopBar : UserControl
     {
+        private ProfileMenuPainter profileMenuPainter = ProfileMenuPainter.CreateFromUserSession();
+
         public SupplierTopBar()
         {
             InitializeComponent();
@@ -22,17 +24,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         private void btnProfileMenu_Click(object sender, EventArgs e)
         {
             var mainForm = this.FindForm() as MainDashBoard;
-
             if (mainForm != null)
             {
                 SettingsMainClass.ShowSettingsPanel(mainForm.MainContentPanelAccess);
             }
         }
-        private ProfileMenuPainter profileMenuPainter = new ProfileMenuPainter();
+
         private void btnProfileMenu_Paint(object sender, PaintEventArgs e)
         {
-
-            profileMenuPainter.Draw(e);
+            profileMenuPainter?.Draw(e);
         }
     }
 }

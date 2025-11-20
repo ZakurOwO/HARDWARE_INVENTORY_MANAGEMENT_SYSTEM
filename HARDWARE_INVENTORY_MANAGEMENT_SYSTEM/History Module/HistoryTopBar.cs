@@ -12,8 +12,10 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module
 {
-    public partial class HistoryTopBar: UserControl
+    public partial class HistoryTopBar : UserControl
     {
+        private ProfileMenuPainter profileMenuPainter = ProfileMenuPainter.CreateFromUserSession(); // ← CHANGE THIS LINE
+
         public HistoryTopBar()
         {
             InitializeComponent();
@@ -28,11 +30,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module
                 SettingsMainClass.ShowSettingsPanel(mainForm.MainContentPanelAccess);
             }
         }
-        private ProfileMenuPainter profileMenuPainter = new ProfileMenuPainter();
+
         private void btnProfileMenu_Paint(object sender, PaintEventArgs e)
         {
-
-            profileMenuPainter.Draw(e);
+            profileMenuPainter?.Draw(e); // ← Added null check
         }
     }
 }

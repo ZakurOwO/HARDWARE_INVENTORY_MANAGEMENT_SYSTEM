@@ -12,8 +12,10 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
 {
-    public partial class AuditLogTopBar: UserControl
+    public partial class AuditLogTopBar : UserControl
     {
+        private ProfileMenuPainter profileMenuPainter = ProfileMenuPainter.CreateFromUserSession();
+
         public AuditLogTopBar()
         {
             InitializeComponent();
@@ -28,11 +30,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
                 SettingsMainClass.ShowSettingsPanel(mainForm.MainContentPanelAccess);
             }
         }
-        private ProfileMenuPainter profileMenuPainter = new ProfileMenuPainter();
+
         private void btnProfileMenu_Paint(object sender, PaintEventArgs e)
         {
-
-            profileMenuPainter.Draw(e);
+            profileMenuPainter?.Draw(e);
         }
     }
 }

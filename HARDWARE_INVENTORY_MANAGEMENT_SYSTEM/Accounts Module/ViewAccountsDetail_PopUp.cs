@@ -17,6 +17,32 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         public ViewAccountsDetail_PopUp()
         {
             InitializeComponent();
+            WireUpCloseButton();
+        }
+
+        private void WireUpCloseButton()
+        {
+            // Find the close button and wire up the click event
+            var closeButton = this.Controls.Find("btnClose", true).FirstOrDefault();
+            if (closeButton != null)
+            {
+                closeButton.Click += (s, e) => ClosePopupAndReturn();
+            }
+
+            // Also allow clicking outside to close (optional)
+            this.Click += (s, e) => ClosePopupAndReturn();
+        }
+
+        private void ClosePopupAndReturn()
+        {
+            ClosePopup?.Invoke(this, EventArgs.Empty);
+            this.Visible = false;
+
+            // If this is inside a panel, hide the panel too
+            if (this.Parent != null)
+            {
+                this.Parent.Visible = false;
+            }
         }
 
         // Basic properties
@@ -222,8 +248,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         // Wire this method to your close button's Click event in the designer
         private void btnClose_Click(object sender, EventArgs e)
         {
-            ClosePopup?.Invoke(this, EventArgs.Empty);
-            this.Visible = false;
+            ClosePopupAndReturn();
+        }
+
+        // Also handle Escape key to close
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                ClosePopupAndReturn();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void lblUserName_Click(object sender, EventArgs e) { }

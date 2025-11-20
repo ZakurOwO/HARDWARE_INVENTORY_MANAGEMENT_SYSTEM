@@ -15,7 +15,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
             InitializeComponent();
 
-            // Attach key press events - FIXED: Use GmailAddress instead of Email
+            // Attach key press events
             Email.KeyPress += Email_KeyPress;
             Password.KeyPress += Password_KeyPress;
         }
@@ -94,7 +94,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void LoginButton_Click(object sender, EventArgs e)
         {
-            // FIXED: Use GmailAddress instead of Email
             string username = Email.Text.Trim();
             string password = actualPassword.Trim();
 
@@ -129,30 +128,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
                 if (loginResult.IsAuthenticated)
                 {
-                    // Store user session
-                    UserSession.AccountID = loginResult.AccountID;
-                    UserSession.FullName = loginResult.FullName;
-                    UserSession.Role = loginResult.Role;
-                    UserSession.Username = loginResult.Username;
-                    UserSession.IsLoggedIn = true;
-
-                    MessageBox.Show($"Welcome, {loginResult.FullName}!", "Login Successful",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Open main dashboard
-                    MainDashBoard mainDashBoard = new MainDashBoard();
-                    mainDashBoard.Show();
-                    this.Hide();
+                    LoginSuccess(loginResult);
                 }
                 else
                 {
-                    MessageBox.Show(loginResult.ErrorMessage ?? "Invalid username or password. Please try again.",
-                        "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    // Clear password field
-                    actualPassword = string.Empty;
-                    Password.Clear();
-                    Email.Focus();
+                    LoginFailed(loginResult.ErrorMessage);
                 }
             }
             catch (Exception ex)
@@ -166,7 +146,67 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 LoginButton.Enabled = true;
                 this.Cursor = Cursors.Default;
             }
+        }
+
+        private void BypassLogin_Click(object sender, EventArgs e)
+        {
+            // Disable button to prevent multiple clicks
+            BypassLogin.Enabled = false;
+            this.Cursor = Cursors.WaitCursor;
+
+            try
+            {
+                // Create a fake login result for bypass
+                var bypassResult = new LoginResult
+                {
+                    IsAuthenticated = true,
+                    AccountID = "ACC-00001",
+                    FullName = "Bypass User",
+                    Username = "bypass",
+                    Role = "Administrator"
+                };
+
+                LoginSuccess(bypassResult);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred during bypass login: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Re-enable bypass button
+                BypassLogin.Enabled = true;
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void LoginSuccess(LoginResult loginResult)
+        {
+            // Store user session
+            UserSession.AccountID = loginResult.AccountID;
+            UserSession.FullName = loginResult.FullName;
+            UserSession.Role = loginResult.Role;
+            UserSession.Username = loginResult.Username;
+            UserSession.IsLoggedIn = true;
+
             
+
+            // Open main dashboard
+            MainDashBoard mainDashBoard = new MainDashBoard();
+            mainDashBoard.Show();
+            this.Hide();
+        }
+
+        private void LoginFailed(string errorMessage)
+        {
+            MessageBox.Show(errorMessage ?? "Invalid username or password. Please try again.",
+                "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            // Clear password field
+            actualPassword = string.Empty;
+            Password.Clear();
+            Email.Focus();
         }
 
         private void Password_KeyPress(object sender, KeyPressEventArgs e)

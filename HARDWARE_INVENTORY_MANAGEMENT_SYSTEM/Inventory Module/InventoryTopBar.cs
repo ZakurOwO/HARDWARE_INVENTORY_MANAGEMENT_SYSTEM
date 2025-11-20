@@ -14,6 +14,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
     public partial class InventoryTopBar : UserControl
     {
+        private ProfileMenuPainter profileMenuPainter = ProfileMenuPainter.CreateFromUserSession(); // ← CHANGE THIS LINE
+
         public InventoryTopBar()
         {
             InitializeComponent();
@@ -28,11 +30,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 SettingsMainClass.ShowSettingsPanel(mainForm.MainContentPanelAccess);
             }
         }
-        private ProfileMenuPainter profileMenuPainter = new ProfileMenuPainter();
+
         private void btnProfileMenu_Paint(object sender, PaintEventArgs e)
         {
-
-            profileMenuPainter.Draw(e);
+            profileMenuPainter?.Draw(e); // ← Added null check
         }
     }
 }

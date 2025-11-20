@@ -23,11 +23,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             InitializeOverlay();
             InitializeUserDetailOverlay();
             InitializeSearch();
-
             LoadExistingUsersFromDatabase();
 
             mainContentPanel = guna2Panel1;
-
             addNewUserButton1.AddUserClicked += (s, e) => ShowAddUserForm();
         }
 
@@ -36,10 +34,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             LayoutAccounts.Controls.Clear();
             userPanels.Clear();
 
-            // Load users from database using DatabaseHelper
             DataTable existingUsers = DatabaseHelper.LoadExistingUsersFromDatabase();
 
-            if (existingUsers != null && existingUsers.Rows.Count > 0)
+            if (existingUsers?.Rows.Count > 0)
             {
                 foreach (DataRow userRow in existingUsers.Rows)
                 {
@@ -48,59 +45,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                     userPanels.Add(userPanel);
                     LayoutAccounts.Controls.Add(userPanel);
                 }
-
                 WireUpUserPanelEvents();
-            }
-            else
-            {
-                Console.WriteLine("No users found in database.");
             }
         }
 
         private UserAccountsPanel CreateUserPanel(DataRow userRow)
         {
             UserAccountsPanel panel = new UserAccountsPanel();
-
             panel._Name = userRow.Field<string>("Fullname") ?? "N/A";
             panel.Position = userRow.Field<string>("Role") ?? "N/A";
             panel.Role = userRow.Field<string>("Role") ?? "N/A";
             panel.Status = userRow.Field<string>("Account_status") ?? "N/A";
-
-            SetPanelIconByStatus(panel, userRow.Field<string>("Account_status"));
-
             panel.Size = new Size(284, 128);
             panel.Margin = new Padding(5);
 
             return panel;
-        }
-
-        private void SetPanelIconByStatus(UserAccountsPanel panel, string status)
-        {
-            try
-            {
-                string resourceName = status?.ToLower() == "active"
-                    ? "Employees_1"
-                    : "Employees_2";
-
-                var image = Properties.Resources.ResourceManager.GetObject(resourceName) as Image;
-
-                if (image == null)
-                {
-                    resourceName = status?.ToLower() == "active"
-                        ? "Employees1"
-                        : "Employees2";
-                    image = Properties.Resources.ResourceManager.GetObject(resourceName) as Image;
-                }
-
-                if (image != null)
-                {
-                    // Set image if your panel has an image property
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error loading panel icon: {ex.Message}");
-            }
         }
 
         private void WireUpUserPanelEvents()
@@ -113,7 +72,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
         private void ShowUserDetails(UserAccountsPanel clickedPanel)
         {
-            if (clickedPanel == null || clickedPanel.Tag == null) return;
+            if (clickedPanel?.Tag == null) return;
 
             DataRow userData = clickedPanel.Tag as DataRow;
             DataRow latestData = TryReloadUserData(userData);
@@ -123,14 +82,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                 userDetailPopup = new ViewAccountsDetail_PopUp();
                 userDetailPopup.Size = new Size(600, 400);
                 userDetailPopup.Visible = false;
+
+                userDetailPopup.ClosePopup += (s, e) =>
+                {
+                    userDetailOverlayPanel.Visible = false;
+                    userDetailPopup.Visible = false;
+                    mainContentPanel.Visible = true;
+                };
+
                 userDetailOverlayPanel.Controls.Add(userDetailPopup);
             }
 
-            if (mainContentPanel != null)
-            {
-                mainContentPanel.Visible = false;
-            }
-
+            mainContentPanel.Visible = false;
             userDetailPopup.PopulateFromDataRow(latestData ?? userData);
 
             userDetailPopup.Location = new Point(
@@ -151,20 +114,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                 if (currentData == null) return currentData;
 
                 string accountId = currentData.Field<string>("AccountID");
-                if (string.IsNullOrEmpty(accountId))
-                    return currentData;
+                if (string.IsNullOrEmpty(accountId)) return currentData;
 
                 DataTable all = DatabaseHelper.LoadExistingUsersFromDatabase();
-                if (all == null || all.Rows.Count == 0) return currentData;
+                if (all?.Rows.Count == 0) return currentData;
 
-                var found = all.AsEnumerable()
-                    .FirstOrDefault(row => string.Equals(row.Field<string>("AccountID"), accountId, StringComparison.OrdinalIgnoreCase));
-
-                return found ?? currentData;
+                return all.AsEnumerable()
+                    .FirstOrDefault(row => string.Equals(row.Field<string>("AccountID"), accountId, StringComparison.OrdinalIgnoreCase)) ?? currentData;
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine("Error reloading user data: " + ex.Message);
                 return currentData;
             }
         }
@@ -175,7 +134,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             {
                 LoadExistingUsersFromDatabase();
             }
-
             HideAddUserForm();
         }
 
@@ -185,7 +143,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             userDetailOverlayPanel.Dock = DockStyle.Fill;
             userDetailOverlayPanel.BackColor = Color.White;
             userDetailOverlayPanel.Visible = false;
-
             this.Controls.Add(userDetailOverlayPanel);
             userDetailOverlayPanel.SendToBack();
         }
@@ -194,10 +151,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         {
             overlayPanel = new Panel();
             overlayPanel.Dock = DockStyle.Fill;
-            overlayPanel.BackColor = Color.FromArgb(200, 0, 0, 0);
+            overlayPanel.BackColor = Color.WhiteSmoke;
             overlayPanel.Visible = false;
             overlayPanel.Click += (s, e) => HideAddUserForm();
-
             this.Controls.Add(overlayPanel);
             overlayPanel.SendToBack();
         }
@@ -297,24 +253,71 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             TextBox textBox = FindTextBoxInSearchField();
             if (textBox != null && textBox.Text == "Search User") return;
 
-            string searchText = GetSearchText().ToLower().Trim();
+            string searchText = GetSearchText().Trim();
+
+            if (string.IsNullOrEmpty(searchText))
+            {
+                ShowAllPanels();
+                return;
+            }
+
+            FilterPanels(searchText);
+        }
+
+        private void ShowAllPanels()
+        {
+            foreach (UserAccountsPanel panel in userPanels)
+            {
+                panel.Visible = true;
+            }
+            ShowNoResultsMessage(false);
+        }
+
+        private void FilterPanels(string searchText)
+        {
+            bool anyResultsFound = false;
 
             foreach (UserAccountsPanel panel in userPanels)
             {
-                bool matches = panel._Name.ToLower().Contains(searchText) ||
-                              panel.Position.ToLower().Contains(searchText) ||
-                              panel.Role.ToLower().Contains(searchText);
+                // Progressive filtering: names starting with search text
+                bool matches = panel._Name?.StartsWith(searchText, StringComparison.OrdinalIgnoreCase) ?? false;
                 panel.Visible = matches;
+
+                if (matches) anyResultsFound = true;
             }
+
+            ShowNoResultsMessage(!anyResultsFound);
         }
 
-        private void ClearSearchField()
+        private void ShowNoResultsMessage(bool show)
         {
-            TextBox textBox = FindTextBoxInSearchField();
-            if (textBox != null)
+            var existingLabel = LayoutAccounts.Controls.OfType<Label>().FirstOrDefault(l => l.Name == "NoResultsLabel");
+            if (existingLabel != null)
             {
-                textBox.Clear();
-                SetPlaceholderText();
+                LayoutAccounts.Controls.Remove(existingLabel);
+            }
+
+            if (show)
+            {
+                Label noResultsLabel = new Label
+                {
+                    Name = "NoResultsLabel",
+                    Text = "No users found matching your search.",
+                    Font = new Font("Segoe UI", 12, FontStyle.Italic),
+                    ForeColor = Color.Gray,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    AutoSize = false,
+                    Size = new Size(300, 50),
+                    Dock = DockStyle.None,
+                    Anchor = AnchorStyles.None,
+                    Location = new Point(
+                        (LayoutAccounts.Width - 300) / 2,
+                        (LayoutAccounts.Height - 50) / 2
+                    )
+                };
+
+                LayoutAccounts.Controls.Add(noResultsLabel);
+                noResultsLabel.BringToFront();
             }
         }
 
@@ -325,6 +328,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             return text == "Search User" ? "" : text;
         }
 
+        // Empty event handlers
         private void userAccountsPanel2_Load(object sender, EventArgs e) { }
         private void searchField1_Load(object sender, EventArgs e) { }
         private void Layout_Paint(object sender, PaintEventArgs e) { }

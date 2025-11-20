@@ -2,10 +2,13 @@
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using System;
 using System.Windows.Forms;
+
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 {
     public partial class CustomerTopBar : UserControl
     {
+        private ProfileMenuPainter profileMenuPainter = ProfileMenuPainter.CreateFromUserSession();
+
         public CustomerTopBar()
         {
             InitializeComponent();
@@ -20,13 +23,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 SettingsMainClass.ShowSettingsPanel(mainForm.MainContentPanelAccess);
             }
         }
-        private ProfileMenuPainter profileMenuPainter = new ProfileMenuPainter();
+
         private void btnProfileMenu_Paint(object sender, PaintEventArgs e)
         {
-
-            profileMenuPainter.Draw(e);
+            profileMenuPainter?.Draw(e);
         }
-
-
     }
 }
