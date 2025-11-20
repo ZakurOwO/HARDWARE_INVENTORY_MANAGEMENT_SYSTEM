@@ -27,7 +27,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                             a.AccountID,
                             a.Fullname,
                             a.username,
-                            a.password,  -- Changed from password_hash to password
+                            a.password_hash,  -- Changed from password_hash to password
                             a.Account_status,
                             r.role_name as Role
                         FROM Accounts a
@@ -40,14 +40,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            if (reader.Read())
+                            while (reader.Read())
                             {
-                                string storedPassword = reader["password"].ToString(); // Get plain text password
-                                string accountStatus = reader["Account_status"].ToString();
+                                string storedPassword = reader[3].ToString(); // Get plain text password
+                                string accountStatus = reader[4].ToString();
 
                                 // DEBUG: Show what's stored in database
                                 Console.WriteLine($"DEBUG - Stored password: {storedPassword}");
-                                Console.WriteLine($"DEBUG - Passwords match: {storedPassword == password}");
+                                Console.WriteLine($"DEBUG - Passwords match: {storedPassword},{password}");
 
                                 // Check if account is inactive
                                 if (accountStatus.ToLower() != "active")
@@ -80,7 +80,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                                     };
                                 }
                             }
-                            else
+
                             {
                                 return new LoginResult
                                 {
