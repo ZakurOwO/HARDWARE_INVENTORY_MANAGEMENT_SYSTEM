@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
@@ -19,34 +18,158 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void InventoryList_Table_Load(object sender, EventArgs e)
         {
-            dgvInventoryList.Rows.Add("Plywood", null, "Woods", 200, 20, "Active");
-            dgvInventoryList.Rows.Add("Cement", null, "Cement", 500, 50, "Active");
-            dgvInventoryList.Rows.Add("Bricks", null, "Masonry", 1000, 100, "Active");
-            dgvInventoryList.Rows.Add("Steel Rods", null, "Metals", 300, 30, "Active");
-            dgvInventoryList.Rows.Add("Paint", null, "Finishes", 150, 15, "Active");
-            dgvInventoryList.Rows.Add("Tiles", null, "Flooring", 400, 40, "Active");
-            dgvInventoryList.Rows.Add("Glass Sheets", null, "Glazing", 250, 25, "Active");
-            dgvInventoryList.Rows.Add("Insulation", null, "Thermal", 180, 18, "Active");
-            dgvInventoryList.Rows.Add("Roofing Shingles", null, "Roofing", 350, 35, "Active");
-            dgvInventoryList.Rows.Add("Drywall", null, "Wallboard", 220, 22, "Active");
-            dgvInventoryList.Rows.Add("Concrete Blocks", null, "Masonry", 800, 80, "Active");
-            dgvInventoryList.Rows.Add("Lumber", null, "Woods", 600, 60, "Active");
-            dgvInventoryList.Rows.Add("Electrical Wiring", null, "Electrical", 120, 12, "Active");
-            dgvInventoryList.Rows.Add("Plumbing Pipes", null, "Plumbing", 140, 14, "Active");
-            dgvInventoryList.Rows.Add("HVAC Ducts", null, "HVAC", 160, 16, "Active");
-            dgvInventoryList.Rows.Add("Fasteners", null, "Hardware", 900, 90, "Active");
-            dgvInventoryList.Rows.Add("Flooring", null, "Miscellaneous", 50, 5, "Active");
-            dgvInventoryList.Rows.Add("Wall Paint", null, "Finishes", 130, 13, "Active");
-            dgvInventoryList.Rows.Add("Ceiling Tiles", null, "Ceiling",  70, 7, "Active");
-            dgvInventoryList.Rows.Add("Doors", null, "Woodwork", 400, 40, "Active");
-            dgvInventoryList.Rows.Add("Windows", null, "Glazing", 300, 30, "Active");
-
-            dgvInventoryList.ClearSelection();
+            LoadDataFromDatabase();
         }
 
-        private void dgvInventoryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        public void RefreshData()
         {
+            LoadDataFromDatabase();
+        }
 
+        private void LoadDataFromDatabase()
+        {
+            try
+            {
+                dgvInventoryList.Rows.Clear();
+
+                using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
+                {
+                    connection.Open();
+                    string query = @"
+                SELECT 
+                    p.product_name,
+                    c.category_name,
+                    p.current_stock,
+                    p.reorder_point,
+                    CASE WHEN p.active = 1 THEN 'Active' ELSE 'Inactive' END as status,
+                    p.image_path
+                FROM Products p
+                INNER JOIN Categories c ON p.category_id = c.CategoryID
+                ORDER BY p.product_name";
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string productName = reader["product_name"].ToString();
+                                string category = reader["category_name"].ToString();
+                                int currentStock = Convert.ToInt32(reader["current_stock"]);
+                                int reorderPoint = Convert.ToInt32(reader["reorder_point"]);
+                                string status = reader["status"].ToString();
+                                string imagePath = reader["image_path"].ToString();
+
+                                // SIMPLE IMAGE LOADING
+                                Image productImage = ProductImageManager.GetProductImage(imagePath);
+
+                                // Load action icons
+                                Image adjustStockIcon = Properties.Resources.AdjustStock;
+                                Image deactivateIcon = Properties.Resources.Deactivate_Circle1;
+                                Image viewDetailsIcon = Properties.Resources.Group_10481;
+
+                                dgvInventoryList.Rows.Add(
+                                    productName,
+                                    productImage,
+                                    category,
+                                    currentStock,
+                                    reorderPoint,
+                                    status,
+                                    adjustStockIcon,
+                                    deactivateIcon,
+                                    viewDetailsIcon
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading data: {ex.Message}");
+            }
+        }
+
+        private Image LoadProductImage(string imageFileName)
+        {
+            return ProductImageManager.GetProductImage(imageFileName);
+        }
+
+        private Image GetDefaultImage()
+        {
+            Bitmap defaultImage = new Bitmap(50, 50);
+            using (Graphics g = Graphics.FromImage(defaultImage))
+            {
+                g.Clear(Color.LightGray);
+                using (Font font = new Font("Arial", 8))
+                using (Brush brush = new SolidBrush(Color.DarkGray))
+                {
+                    g.DrawString("No Image", font, brush, 5, 15);
+                }
+            }
+            return defaultImage;
+        }
+
+        // Clean up images when rows are removed
+        // Clean up images when rows are removed
+        private void dgvInventoryList_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            for (int i = e.RowIndex; i < e.RowIndex + e.RowCount; i++)
+            {
+                if (i >= 0 && i < dgvInventoryList.Rows.Count)
+                {
+                    var row = dgvInventoryList.Rows[i];
+                    // Only dispose product images (column 1), not resource icons
+                    if (row.Cells[1].Value is Image image && image != null)
+                    {
+                        // Only dispose if it's not the default image
+                        if (!IsDefaultImage(image))
+                        {
+                            image.Dispose();
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool IsDefaultImage(Image image)
+        {
+            try
+            {
+                if (image.Width == 50 && image.Height == 50)
+                {
+                    using (Bitmap bmp = new Bitmap(image))
+                    {
+                        // Check if it's our default light gray image
+                        Color centerPixel = bmp.GetPixel(25, 25);
+                        return centerPixel.R == 211 && centerPixel.G == 211 && centerPixel.B == 211;
+                    }
+                }
+            }
+            catch
+            {
+                // Ignore errors
+            }
+            return false;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Clean up only product images (column 1), not resource icons
+                foreach (DataGridViewRow row in dgvInventoryList.Rows)
+                {
+                    if (!row.IsNewRow && row.Cells[1].Value is Image image)
+                    {
+                        if (!IsDefaultImage(image))
+                        {
+                            image.Dispose();
+                        }
+                    }
+                }
+            }
+            base.Dispose(disposing);
         }
     }
 }

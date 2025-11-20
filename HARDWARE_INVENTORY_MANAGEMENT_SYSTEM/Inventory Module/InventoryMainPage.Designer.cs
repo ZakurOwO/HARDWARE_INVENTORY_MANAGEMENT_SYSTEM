@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelAddItem = new Guna.UI2.WinForms.Guna2Panel();
-            this.addNewItem_Form1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.AddNewItem_Form();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.btnAddItem = new Guna.UI2.WinForms.Guna2Button();
             this.inventory_Pagination1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.Inventory_Pagination();
@@ -38,32 +36,8 @@
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.inventoryList_Panel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryList_Panel();
             this.inventoryTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryTopBar();
-            this.panelAddItem.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panelAddItem
-            // 
-            this.panelAddItem.BackColor = System.Drawing.Color.Transparent;
-            this.panelAddItem.BorderColor = System.Drawing.Color.DarkGray;
-            this.panelAddItem.BorderRadius = 15;
-            this.panelAddItem.BorderThickness = 1;
-            this.panelAddItem.Controls.Add(this.addNewItem_Form1);
-            this.panelAddItem.Location = new System.Drawing.Point(74, 18);
-            this.panelAddItem.Name = "panelAddItem";
-            this.panelAddItem.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(10);
-            this.panelAddItem.Size = new System.Drawing.Size(600, 505);
-            this.panelAddItem.TabIndex = 2;
-            this.panelAddItem.Visible = false;
-            // 
-            // addNewItem_Form1
-            // 
-            this.addNewItem_Form1.BackColor = System.Drawing.Color.White;
-            this.addNewItem_Form1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.addNewItem_Form1.Location = new System.Drawing.Point(0, 0);
-            this.addNewItem_Form1.Name = "addNewItem_Form1";
-            this.addNewItem_Form1.Size = new System.Drawing.Size(600, 505);
-            this.addNewItem_Form1.TabIndex = 0;
             // 
             // guna2Panel1
             // 
@@ -71,7 +45,6 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Gainsboro;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
-            this.guna2Panel1.Controls.Add(this.panelAddItem);
             this.guna2Panel1.Controls.Add(this.btnAddItem);
             this.guna2Panel1.Controls.Add(this.inventory_Pagination1);
             this.guna2Panel1.Controls.Add(this.inventoryList_Table1);
@@ -116,6 +89,7 @@
             this.inventoryList_Table1.Name = "inventoryList_Table1";
             this.inventoryList_Table1.Size = new System.Drawing.Size(886, 497);
             this.inventoryList_Table1.TabIndex = 3;
+           
             // 
             // inventory_SearchField1
             // 
@@ -124,6 +98,7 @@
             this.inventory_SearchField1.Name = "inventory_SearchField1";
             this.inventory_SearchField1.Size = new System.Drawing.Size(336, 47);
             this.inventory_SearchField1.TabIndex = 2;
+            this.inventory_SearchField1.Load += new System.EventHandler(this.inventory_SearchField1_Load);
             // 
             // inventoryFilter_Button1
             // 
@@ -141,7 +116,6 @@
             this.inventoryList_Panel1.Name = "inventoryList_Panel1";
             this.inventoryList_Panel1.Size = new System.Drawing.Size(975, 656);
             this.inventoryList_Panel1.TabIndex = 1;
-            this.inventoryList_Panel1.Load += new System.EventHandler(this.inventoryList_Panel1_Load);
             // 
             // inventoryTopBar1
             // 
@@ -161,7 +135,6 @@
             this.Controls.Add(this.inventoryTopBar1);
             this.Name = "InventoryMainPage";
             this.Size = new System.Drawing.Size(975, 720);
-            this.panelAddItem.ResumeLayout(false);
             this.guna2Panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -177,7 +150,5 @@
         private Inventory_SearchField inventory_SearchField1;
         private InventoryFilter_Button inventoryFilter_Button1;
         private InventoryList_Panel inventoryList_Panel1;
-        private AddNewItem_Form addNewItem_Form1;
-        public Guna.UI2.WinForms.Guna2Panel panelAddItem;
     }
 }

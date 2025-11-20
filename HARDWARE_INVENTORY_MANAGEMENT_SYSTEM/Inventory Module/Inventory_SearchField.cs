@@ -15,6 +15,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         public Inventory_SearchField()
         {
             InitializeComponent();
+            // Make sure the click event is wired up to the textbox
+            if (searchtxtbox != null)
+            {
+                searchtxtbox.Click += searchtxtbox_Click;
+            }
+        }
+
+        private void searchtxtbox_Click(object sender, EventArgs e)
+        {
+          
         }
     }
 }

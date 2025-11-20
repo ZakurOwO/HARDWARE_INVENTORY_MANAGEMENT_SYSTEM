@@ -22,6 +22,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             InitializeComponent();
             LoadCategoriesAndUnits();
             InitializeForm();
+
+            // Enable mouse wheel scrolling
+            this.AutoScroll = true;
+            this.MouseWheel += AddNewItem_Form_MouseWheel;
+        }
+
+        private void AddNewItem_Form_MouseWheel(object sender, MouseEventArgs e)
+        {
+            if (this.VerticalScroll.Visible)
+            {
+                int newScrollPosition = this.VerticalScroll.Value - (e.Delta / 2);
+                this.VerticalScroll.Value = Math.Max(this.VerticalScroll.Minimum,
+                    Math.Min(this.VerticalScroll.Maximum, newScrollPosition));
+            }
         }
 
         private void LoadCategoriesAndUnits()
@@ -77,39 +91,32 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void closeButton1_Click(object sender, EventArgs e)
         {
-            var main = this.FindForm() as MainDashBoard;
-            if (main != null)
-            {
-                main.pcbBlurOverlay.Visible = false;
-            }
-
-            if (this.Parent != null)
-            {
-                this.Parent.Visible = false;
-            }
-            else
-            {
-                Control ancestor = this;
-                while (ancestor != null && !(ancestor is InventoryMainPage))
-                {
-                    ancestor = ancestor.Parent;
-                }
-                if (ancestor is InventoryMainPage inv)
-                {
-                    inv.panelAddItem.Visible = false;
-                }
-            }
+            // Simply trigger the event - the container will handle cleanup
+            OnProductAdded?.Invoke(this, EventArgs.Empty);
         }
 
         private void tbxImageUpload_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
-                ofd.Filter = "Images|*.png;*.jpg;*.jpeg;*.gif;";
+                ofd.Filter = "Images|*.png;*.jpg;*.jpeg;*.gif;*.bmp";
+                ofd.Title = "Select Product Image";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     imageFilePath = ofd.FileName;
                     ImageUploadBox.Text = Path.GetFileName(ofd.FileName);
+
+                    // Show preview (optional)
+                    try
+                    {
+                        // If you have a PictureBox for preview, uncomment this:
+                        // pictureBoxPreview.Image = Image.FromFile(imageFilePath);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error loading image preview: {ex.Message}",
+                                      "Image Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
         }
@@ -194,9 +201,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 int reorderPoint = (int)nudMinimumStock.Value;
                 bool active = StatusComboBox.SelectedItem?.ToString() == "Active";
 
+                // SIMPLE IMAGE HANDLING
+                string imageFileName = "";
+                if (!string.IsNullOrEmpty(imageFilePath))
+                {
+                    // Just use the original filename
+                    imageFileName = Path.GetFileName(imageFilePath);
+
+                    // Create ImageInventory folder if it doesn't exist
+                    string imageFolder = Path.Combine(Application.StartupPath, "ImageInventory");
+                    if (!Directory.Exists(imageFolder))
+                    {
+                        Directory.CreateDirectory(imageFolder);
+                    }
+
+                    // Copy image to ImageInventory folder
+                    string destPath = Path.Combine(imageFolder, imageFileName);
+                    File.Copy(imageFilePath, destPath, true);
+
+                    Console.WriteLine($"Image copied to: {destPath}");
+                }
+
                 bool success = InventoryDatabaseHelper.AddProduct(
                     productName, description, categoryId, unitId,
-                    currentStock, imageFilePath, reorderPoint, active
+                    currentStock, imageFileName, reorderPoint, active
                 );
 
                 if (success)
@@ -204,8 +232,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     MessageBox.Show("Product added successfully!", "Success",
                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ClearForm();
-
-                    // Trigger event to refresh the main inventory page
                     OnProductAdded?.Invoke(this, EventArgs.Empty);
                 }
                 else
