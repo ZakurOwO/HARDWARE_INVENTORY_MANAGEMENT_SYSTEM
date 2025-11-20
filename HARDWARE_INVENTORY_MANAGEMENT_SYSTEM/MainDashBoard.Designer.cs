@@ -34,11 +34,13 @@
             this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
             this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
             ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).BeginInit();
+            this.MainContentPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbBlurOverlay)).BeginInit();
             this.SuspendLayout();
             // 
             // MainContentPanel
             // 
+            this.MainContentPanel.Controls.Add(this.pcbBlurOverlay);
             this.MainContentPanel.Location = new System.Drawing.Point(234, 0);
             this.MainContentPanel.Name = "MainContentPanel";
             this.MainContentPanel.Size = new System.Drawing.Size(976, 720);
@@ -51,7 +53,7 @@
             // 
             this.pcbBlurOverlay.BackColor = System.Drawing.Color.Transparent;
             this.pcbBlurOverlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pcbBlurOverlay.Location = new System.Drawing.Point(0, 0);
+            this.pcbBlurOverlay.Location = new System.Drawing.Point(-235, 0);
             this.pcbBlurOverlay.Name = "pcbBlurOverlay";
             this.pcbBlurOverlay.Size = new System.Drawing.Size(1210, 720);
             this.pcbBlurOverlay.TabIndex = 4;
@@ -91,7 +93,6 @@
             this.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._05_Dashboard;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1210, 720);
-            this.Controls.Add(this.pcbBlurOverlay);
             this.Controls.Add(this.MainContentPanel);
             this.Controls.Add(this.ucKeyMetrics1);
             this.Controls.Add(this.ucTopBar1);
@@ -103,6 +104,7 @@
             this.Text = "MainDashBoard";
             this.Load += new System.EventHandler(this.MainDashBoard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.MainContentPanel)).EndInit();
+            this.MainContentPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pcbBlurOverlay)).EndInit();
             this.ResumeLayout(false);
 

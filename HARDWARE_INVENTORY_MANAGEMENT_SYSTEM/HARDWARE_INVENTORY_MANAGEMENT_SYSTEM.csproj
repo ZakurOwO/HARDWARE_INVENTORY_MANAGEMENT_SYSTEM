@@ -44,6 +44,7 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -178,6 +179,12 @@
     </Compile>
     <Compile Include="Customer Module\SuccessfullyDeleted.Designer.cs">
       <DependentUpon>SuccessfullyDeleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dashboard\DashboardMainPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Dashboard\DashboardMainPage.Designer.cs">
+      <DependentUpon>DashboardMainPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Deliveries\Add New Truck Button.cs">
       <SubType>UserControl</SubType>
@@ -836,6 +843,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\SuccessfullyDeleted.resx">
       <DependentUpon>SuccessfullyDeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dashboard\DashboardMainPage.resx">
+      <DependentUpon>DashboardMainPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\Add New Truck Button.resx">
       <DependentUpon>Add New Truck Button.cs</DependentUpon>
@@ -1585,6 +1595,7 @@
     <None Include="Resources\Create Item.png" />
     <None Include="Resources\File upload.png" />
     <None Include="Resources\InventoryOverlay.png" />
+    <None Include="Resources\Categories1.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
