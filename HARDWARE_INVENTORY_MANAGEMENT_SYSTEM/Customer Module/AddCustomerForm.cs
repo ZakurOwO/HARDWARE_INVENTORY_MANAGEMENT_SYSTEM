@@ -11,7 +11,7 @@ using System.Data.SqlClient;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 {
-    public partial class AddCustomerForm : UserControl
+    public partial class AddCustomerForm : Form
     {
         // Connection string to InventoryCapstone
         private string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=InventoryCapstone;Integrated Security=True";
@@ -162,5 +162,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         {
 
         }
+
+        
     }
 }

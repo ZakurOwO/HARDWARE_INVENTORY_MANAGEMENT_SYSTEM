@@ -29,13 +29,12 @@
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.mainButtonWithIcon1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButtonWithIcon();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.pageNumber2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module.PageNumber();
             this.dataGridTable1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.DataGridTable();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.customerTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.CustomerTopBar();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnMainButtonIcon = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,8 +47,7 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Silver;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
-            this.guna2Panel1.Controls.Add(this.panel1);
-            this.guna2Panel1.Controls.Add(this.mainButtonWithIcon1);
+            this.guna2Panel1.Controls.Add(this.btnMainButtonIcon);
             this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Controls.Add(this.pageNumber2);
             this.guna2Panel1.Controls.Add(this.dataGridTable1);
@@ -58,16 +56,6 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(920, 617);
             this.guna2Panel1.TabIndex = 1;
-            // 
-            // mainButtonWithIcon1
-            // 
-            this.mainButtonWithIcon1.BackColor = System.Drawing.Color.Transparent;
-            this.mainButtonWithIcon1.ButtonName = "Add Customer";
-            this.mainButtonWithIcon1.Icon = null;
-            this.mainButtonWithIcon1.Location = new System.Drawing.Point(743, 13);
-            this.mainButtonWithIcon1.Name = "mainButtonWithIcon1";
-            this.mainButtonWithIcon1.Size = new System.Drawing.Size(157, 47);
-            this.mainButtonWithIcon1.TabIndex = 11;
             // 
             // inventoryFilter_Button1
             // 
@@ -112,13 +100,22 @@
             this.customerTopBar1.TabIndex = 2;
             this.customerTopBar1.Load += new System.EventHandler(this.customerTopBar1_Load);
             // 
-            // panel1
+            // btnMainButtonIcon
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Location = new System.Drawing.Point(191, 24);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(574, 512);
-            this.panel1.TabIndex = 12;
+            this.btnMainButtonIcon.BorderRadius = 6;
+            this.btnMainButtonIcon.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnMainButtonIcon.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnMainButtonIcon.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnMainButtonIcon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnMainButtonIcon.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.btnMainButtonIcon.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMainButtonIcon.ForeColor = System.Drawing.Color.White;
+            this.btnMainButtonIcon.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Add_User;
+            this.btnMainButtonIcon.Location = new System.Drawing.Point(749, 16);
+            this.btnMainButtonIcon.Name = "btnMainButtonIcon";
+            this.btnMainButtonIcon.Size = new System.Drawing.Size(151, 40);
+            this.btnMainButtonIcon.TabIndex = 12;
+            this.btnMainButtonIcon.Text = "Add Customer";
             // 
             // CustomerMainPage
             // 
@@ -142,7 +139,6 @@
         private DataGridTable dataGridTable1;
         private PageNumber pageNumber2;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
-        private UserControlFiles.MainButtonWithIcon mainButtonWithIcon1;
-        private System.Windows.Forms.Panel panel1;
+        private Guna.UI2.WinForms.Guna2Button btnMainButtonIcon;
     }
 }

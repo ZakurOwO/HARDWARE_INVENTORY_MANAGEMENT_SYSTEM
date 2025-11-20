@@ -132,7 +132,7 @@
     <Compile Include="Accounts Module\Class Components of Accounts\UserService.cs" />
     <Compile Include="Class Components\UserSession.cs" />
     <Compile Include="Customer Module\AddCustomerForm.cs">
-      <SubType>UserControl</SubType>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="Customer Module\AddCustomerForm.Designer.cs">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
