@@ -22,7 +22,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
         public SettingsMainPage()
         {
             InitializeComponent();
-            ProfileMenu.Paint += ProfileBtn_Paint; // Add this line
+            ProfileMenu.Paint += ProfileBtn_Paint; 
         }
 
         private void SettingsMainPage_Load(object sender, EventArgs e)
