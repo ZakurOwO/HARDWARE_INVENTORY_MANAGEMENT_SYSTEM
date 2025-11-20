@@ -106,20 +106,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         private void DashboardBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
-
-        }
-        private void AccountBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
                 mainForm.MainContentPanelAccess.Controls.Clear();
-                AccountsMainPage accountPage = new AccountsMainPage();
-                mainForm.MainContentPanelAccess.Controls.Add(accountPage);
+                Dashboard.DashboardMainPage dashboard = new Dashboard.DashboardMainPage();
+                mainForm.MainContentPanelAccess.Controls.Add(dashboard);
             }
+
         }
+        
         private void InventoryBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
@@ -191,29 +187,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 mainForm.MainContentPanelAccess.Controls.Add(reports);
             }
         }
-        private void HistoryBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            var mainForm = this.FindForm() as MainDashBoard;
-            if (mainForm != null)
-            {
-                mainForm.MainContentPanelAccess.Controls.Clear();
-                HistoryMainPage history = new HistoryMainPage();
-                mainForm.MainContentPanelAccess.Controls.Add(history);
-            }
-        }
-        private void AuditlogBTN_Click(object sender, EventArgs e)
-        {
-            HighlightButton((Button)sender);
-            {
-                var mainForm = this.FindForm() as MainDashBoard;
-                if (mainForm != null)
-                {
-                    mainForm.MainContentPanelAccess.Controls.Clear();
-                    Audit_Log.AuditLogMainPage auditlog = new Audit_Log.AuditLogMainPage();
-                    mainForm.MainContentPanelAccess.Controls.Add(auditlog);
-                }
-            }
-        }
+        
     }
 }

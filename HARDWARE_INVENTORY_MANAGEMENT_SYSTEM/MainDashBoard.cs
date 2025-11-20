@@ -21,7 +21,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void MainDashBoard_Load(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (sidePanel1 != null && sidePanel1.Controls.ContainsKey("DashboardBTN"))
+                {
+                    var dashboardBtn = sidePanel1.Controls["DashboardBTN"] as Button;
+                    dashboardBtn?.PerformClick();
+                }
+                else
+                {
+                    // Fallback: directly add the Dashboard control if button not found.
+                    var dashboard = new Dashboard.DashboardMainPage();
+                    dashboard.Dock = DockStyle.Fill;
+                    MainContentPanel.Controls.Clear();
+                    MainContentPanel.Controls.Add(dashboard);
+                }
+            }
+            catch
+            {
+                // Swallow any exceptions to avoid blocking form load; fallback handled above.
+            }
         }
         
 
