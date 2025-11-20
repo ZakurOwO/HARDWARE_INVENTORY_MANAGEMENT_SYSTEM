@@ -1481,6 +1481,7 @@
     <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Show Receipt.png" />
     <None Include="Resources\Pending2.png" />
     <None Include="Resources\upload.png" />
     <None Include="Resources\setting3.png" />
