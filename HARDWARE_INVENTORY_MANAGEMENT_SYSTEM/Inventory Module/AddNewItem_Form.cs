@@ -1,4 +1,5 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,9 +15,64 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
     public partial class AddNewItem_Form : UserControl
     {
+        private string imageFilePath = "";
+
         public AddNewItem_Form()
         {
             InitializeComponent();
+            LoadCategoriesAndUnits();
+            InitializeForm();
+        }
+
+        private void LoadCategoriesAndUnits()
+        {
+            try
+            {
+                // Load categories
+                DataTable categories = InventoryDatabaseHelper.LoadCategoriesFromDatabase();
+                CategoryCombobox.Items.Clear();
+                foreach (DataRow row in categories.Rows)
+                {
+                    CategoryCombobox.Items.Add(new ComboboxItem
+                    {
+                        Text = row["category_name"].ToString(),
+                        Value = row["CategoryID"].ToString()
+                    });
+                }
+
+                // Load units
+                DataTable units = InventoryDatabaseHelper.LoadUnitsFromDatabase();
+                UnitOfMeasurementComboBox.Items.Clear();
+                foreach (DataRow row in units.Rows)
+                {
+                    UnitOfMeasurementComboBox.Items.Add(new ComboboxItem
+                    {
+                        Text = row["unit_name"].ToString(),
+                        Value = row["UnitID"].ToString()
+                    });
+                }
+
+                // Load status options
+                StatusComboBox.Items.Clear();
+                StatusComboBox.Items.Add("Active");
+                StatusComboBox.Items.Add("Inactive");
+                StatusComboBox.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading data: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void InitializeForm()
+        {
+            // Set default values
+            nudCurrentStock.Value = 0;
+            nudMinimumStock.Value = 0;
+            nudCostPrice.Value = 0;
+            nudSellingPrice.Value = 0;
+            ExpirationDataComboBox.Value = DateTime.Now.AddYears(1);
         }
 
         private void closeButton1_Click(object sender, EventArgs e)
@@ -52,9 +108,161 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 ofd.Filter = "Images|*.png;*.jpg;*.jpeg;*.gif;";
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    tbxImageUpload.Text = Path.GetFileName(ofd.FileName);
+                    imageFilePath = ofd.FileName;
+                    ImageUploadBox.Text = Path.GetFileName(ofd.FileName);
                 }
             }
+        }
+
+        private void ClearBtn_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
+
+        private void AddBtn_Click(object sender, EventArgs e)
+        {
+            if (ValidateInputs())
+            {
+                AddProduct();
+            }
+        }
+
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(ProductNametxtbox.Text))
+            {
+                MessageBox.Show("Please enter product name.", "Validation Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ProductNametxtbox.Focus();
+                return false;
+            }
+
+            if (CategoryCombobox.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a category.", "Validation Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CategoryCombobox.Focus();
+                return false;
+            }
+
+            if (UnitOfMeasurementComboBox.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a unit of measurement.", "Validation Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                UnitOfMeasurementComboBox.Focus();
+                return false;
+            }
+
+            if (nudCurrentStock.Value < 0)
+            {
+                MessageBox.Show("Current stock cannot be negative.", "Validation Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                nudCurrentStock.Focus();
+                return false;
+            }
+
+            if (nudMinimumStock.Value < 0)
+            {
+                MessageBox.Show("Minimum stock cannot be negative.", "Validation Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                nudMinimumStock.Focus();
+                return false;
+            }
+
+            // Check for duplicate product name
+            if (InventoryDatabaseHelper.IsProductNameExists(ProductNametxtbox.Text.Trim()))
+            {
+                MessageBox.Show("Product name already exists. Please choose a different name.",
+                              "Duplicate Product", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ProductNametxtbox.Focus();
+                ProductNametxtbox.SelectAll();
+                return false;
+            }
+
+            return true;
+        }
+
+        private void AddProduct()
+        {
+            try
+            {
+                string productName = ProductNametxtbox.Text.Trim();
+                string description = DescriptionRichTextBox.Text.Trim();
+                string categoryId = (CategoryCombobox.SelectedItem as ComboboxItem)?.Value;
+                string unitId = (UnitOfMeasurementComboBox.SelectedItem as ComboboxItem)?.Value;
+                int currentStock = (int)nudCurrentStock.Value;
+                int reorderPoint = (int)nudMinimumStock.Value;
+                bool active = StatusComboBox.SelectedItem?.ToString() == "Active";
+
+                bool success = InventoryDatabaseHelper.AddProduct(
+                    productName, description, categoryId, unitId,
+                    currentStock, imageFilePath, reorderPoint, active
+                );
+
+                if (success)
+                {
+                    MessageBox.Show("Product added successfully!", "Success",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearForm();
+
+                    // Trigger event to refresh the main inventory page
+                    OnProductAdded?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    MessageBox.Show("Failed to add product. Please try again.", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding product: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ClearForm()
+        {
+            ProductNametxtbox.Clear();
+            SKUtxtbox.Clear();
+            Brandtxtbox.Clear();
+            DescriptionRichTextBox.Clear();
+            ImageUploadBox.Clear();
+            CategoryCombobox.SelectedIndex = -1;
+            UnitOfMeasurementComboBox.SelectedIndex = -1;
+            StatusComboBox.SelectedIndex = 0;
+            nudCurrentStock.Value = 0;
+            nudMinimumStock.Value = 0;
+            nudCostPrice.Value = 0;
+            nudSellingPrice.Value = 0;
+            ExpirationDataComboBox.Value = DateTime.Now.AddYears(1);
+            imageFilePath = "";
+            ProductNametxtbox.Focus();
+        }
+
+        // Event for when product is successfully added
+        public event EventHandler OnProductAdded;
+
+        // Empty event handlers
+        private void panel1_Paint(object sender, PaintEventArgs e) { }
+        private void ProductNametxtbox_TextChanged(object sender, EventArgs e) { }
+        private void SKUtxtbox_TextChanged(object sender, EventArgs e) { }
+        private void CategoryCombobox_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void Brandtxtbox_TextChanged(object sender, EventArgs e) { }
+        private void DescriptionRichTextBox_TextChanged(object sender, EventArgs e) { }
+        private void UnitOfMeasurementComboBox_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void ImageUploadBox_TextChanged(object sender, EventArgs e) { }
+        private void nudCurrentStock_ValueChanged(object sender, EventArgs e) { }
+        private void nudMinimumStock_ValueChanged(object sender, EventArgs e) { }
+        private void nudCostPrice_ValueChanged(object sender, EventArgs e) { }
+        private void nudSellingPrice_ValueChanged(object sender, EventArgs e) { }
+        private void StatusComboBox_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void ExpirationDataComboBox_ValueChanged(object sender, EventArgs e) { }
+        private void PrimarySupplierComboBox_SelectedIndexChanged(object sender, EventArgs e) { }
+
+        private void closeButton1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
