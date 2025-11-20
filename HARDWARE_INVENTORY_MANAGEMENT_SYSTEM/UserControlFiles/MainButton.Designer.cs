@@ -43,7 +43,7 @@
             this.btnMainButton.ForeColor = System.Drawing.Color.White;
             this.btnMainButton.Location = new System.Drawing.Point(3, 3);
             this.btnMainButton.Name = "btnMainButton";
-            this.btnMainButton.Size = new System.Drawing.Size(135, 35);
+            this.btnMainButton.Size = new System.Drawing.Size(135, 38);
             this.btnMainButton.TabIndex = 3;
             this.btnMainButton.Text = "Generate Report";
             // 

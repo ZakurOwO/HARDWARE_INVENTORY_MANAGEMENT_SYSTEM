@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.label8 = new System.Windows.Forms.Label();
-            this.AddFormButton = new Krypton.Toolkit.KryptonButton();
-            this.FormCancelButton = new Krypton.Toolkit.KryptonButton();
             this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.label1 = new System.Windows.Forms.Label();
             this.tbxCompanyName = new Guna.UI2.WinForms.Guna2TextBox();
@@ -39,7 +37,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tbxContactPerson = new Guna.UI2.WinForms.Guna2TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tbxEmail = new Guna.UI2.WinForms.Guna2TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -49,7 +46,8 @@
             this.label7 = new System.Windows.Forms.Label();
             this.tbxCityMunicipality = new Guna.UI2.WinForms.Guna2TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.btnWhite = new Guna.UI2.WinForms.Guna2Button();
+            this.btnBlue = new Guna.UI2.WinForms.Guna2Button();
             this.SuspendLayout();
             // 
             // label8
@@ -64,49 +62,6 @@
             this.label8.TabIndex = 9;
             this.label8.Text = "*";
             this.label8.Click += new System.EventHandler(this.label8_Click);
-            // 
-            // AddFormButton
-            // 
-            this.AddFormButton.Location = new System.Drawing.Point(395, 433);
-            this.AddFormButton.Name = "AddFormButton";
-            this.AddFormButton.Size = new System.Drawing.Size(150, 44);
-            this.AddFormButton.StateCommon.Border.Color1 = System.Drawing.Color.DodgerBlue;
-            this.AddFormButton.StateCommon.Border.Color2 = System.Drawing.Color.DodgerBlue;
-            this.AddFormButton.StateCommon.Border.Rounding = 10F;
-            this.AddFormButton.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddFormButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.WhiteSmoke;
-            this.AddFormButton.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.WhiteSmoke;
-            this.AddFormButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AddFormButton.StateNormal.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
-            this.AddFormButton.StateNormal.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
-            this.AddFormButton.TabIndex = 26;
-            this.AddFormButton.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.AddFormButton.Values.Text = "Add";
-            this.AddFormButton.Click += new System.EventHandler(this.AddFormButton_Click);
-            // 
-            // FormCancelButton
-            // 
-            this.FormCancelButton.Location = new System.Drawing.Point(263, 433);
-            this.FormCancelButton.Name = "FormCancelButton";
-            this.FormCancelButton.Size = new System.Drawing.Size(126, 44);
-            this.FormCancelButton.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.FormCancelButton.StateCommon.Back.Color2 = System.Drawing.Color.White;
-            this.FormCancelButton.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
-            this.FormCancelButton.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
-            this.FormCancelButton.StateCommon.Border.ColorAlign = Krypton.Toolkit.PaletteRectangleAlign.Local;
-            this.FormCancelButton.StateCommon.Border.Rounding = 10F;
-            this.FormCancelButton.StateCommon.Content.LongText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormCancelButton.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.WhiteSmoke;
-            this.FormCancelButton.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.WhiteSmoke;
-            this.FormCancelButton.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormCancelButton.StateNormal.Back.Color1 = System.Drawing.Color.White;
-            this.FormCancelButton.StateNormal.Back.Color2 = System.Drawing.Color.White;
-            this.FormCancelButton.StateNormal.Content.ShortText.Color1 = System.Drawing.Color.Black;
-            this.FormCancelButton.StateNormal.Content.ShortText.Color2 = System.Drawing.Color.Black;
-            this.FormCancelButton.TabIndex = 27;
-            this.FormCancelButton.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.FormCancelButton.Values.Text = "Cancel";
-            this.FormCancelButton.Click += new System.EventHandler(this.FormCancelButton_Click);
             // 
             // closeButton1
             // 
@@ -225,16 +180,6 @@
             this.label3.Size = new System.Drawing.Size(108, 21);
             this.label3.TabIndex = 36;
             this.label3.Text = "Contact Person";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Location = new System.Drawing.Point(0, -1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(574, 512);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label5
             // 
@@ -380,12 +325,52 @@
             this.label9.TabIndex = 44;
             this.label9.Text = "City/Municipality";
             // 
+            // btnWhite
+            // 
+            this.btnWhite.BorderColor = System.Drawing.Color.Gainsboro;
+            this.btnWhite.BorderRadius = 8;
+            this.btnWhite.BorderThickness = 1;
+            this.btnWhite.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnWhite.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnWhite.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnWhite.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnWhite.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnWhite.FillColor = System.Drawing.Color.White;
+            this.btnWhite.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWhite.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnWhite.Location = new System.Drawing.Point(292, 423);
+            this.btnWhite.Name = "btnWhite";
+            this.btnWhite.PressedColor = System.Drawing.Color.Azure;
+            this.btnWhite.Size = new System.Drawing.Size(120, 40);
+            this.btnWhite.TabIndex = 50;
+            this.btnWhite.Text = "Cancel";
+            // 
+            // btnBlue
+            // 
+            this.btnBlue.BorderRadius = 8;
+            this.btnBlue.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBlue.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBlue.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBlue.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBlue.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.btnBlue.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBlue.ForeColor = System.Drawing.Color.White;
+            this.btnBlue.Location = new System.Drawing.Point(423, 423);
+            this.btnBlue.Name = "btnBlue";
+            this.btnBlue.Size = new System.Drawing.Size(120, 40);
+            this.btnBlue.TabIndex = 49;
+            this.btnBlue.Text = "Add";
+            // 
             // AddCustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.CancelButton = this.btnWhite;
+            this.ClientSize = new System.Drawing.Size(556, 479);
+            this.Controls.Add(this.btnWhite);
+            this.Controls.Add(this.btnBlue);
             this.Controls.Add(this.tbxProvince);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.tbxCityMunicipality);
@@ -403,14 +388,11 @@
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.closeButton1);
-            this.Controls.Add(this.FormCancelButton);
-            this.Controls.Add(this.AddFormButton);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AddCustomerForm";
-            this.Size = new System.Drawing.Size(574, 512);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,8 +400,6 @@
 
         #endregion
         private System.Windows.Forms.Label label8;
-        private Krypton.Toolkit.KryptonButton AddFormButton;
-        private Krypton.Toolkit.KryptonButton FormCancelButton;
         private UserControlFiles.CloseButton closeButton1;
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2TextBox tbxCompanyName;
@@ -428,7 +408,6 @@
         private System.Windows.Forms.Label label2;
         private Guna.UI2.WinForms.Guna2TextBox tbxContactPerson;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label5;
         private Guna.UI2.WinForms.Guna2TextBox tbxEmail;
         private System.Windows.Forms.Label label4;
@@ -438,5 +417,7 @@
         private System.Windows.Forms.Label label7;
         private Guna.UI2.WinForms.Guna2TextBox tbxCityMunicipality;
         private System.Windows.Forms.Label label9;
+        private Guna.UI2.WinForms.Guna2Button btnWhite;
+        private Guna.UI2.WinForms.Guna2Button btnBlue;
     }
 }
