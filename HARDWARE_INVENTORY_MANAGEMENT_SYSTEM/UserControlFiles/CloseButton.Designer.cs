@@ -45,19 +45,22 @@
             this.guna2Button3.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button3.ForeColor = System.Drawing.Color.White;
-            this.guna2Button3.Location = new System.Drawing.Point(3, 3);
+            this.guna2Button3.Location = new System.Drawing.Point(4, 4);
+            this.guna2Button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.guna2Button3.Name = "guna2Button3";
-            this.guna2Button3.Size = new System.Drawing.Size(30, 30);
+            this.guna2Button3.Size = new System.Drawing.Size(40, 37);
             this.guna2Button3.TabIndex = 47;
+            this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
             // 
             // CloseButton
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.guna2Button3);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "CloseButton";
-            this.Size = new System.Drawing.Size(35, 35);
+            this.Size = new System.Drawing.Size(47, 43);
             this.ResumeLayout(false);
 
         }

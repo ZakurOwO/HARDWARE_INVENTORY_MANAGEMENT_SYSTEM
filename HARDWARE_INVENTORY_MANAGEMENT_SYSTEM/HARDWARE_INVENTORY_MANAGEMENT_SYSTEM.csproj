@@ -1596,6 +1596,7 @@
     <None Include="Resources\File upload.png" />
     <None Include="Resources\InventoryOverlay.png" />
     <None Include="Resources\Categories1.png" />
+    <None Include="Resources\CustomerOvelay.jpg" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

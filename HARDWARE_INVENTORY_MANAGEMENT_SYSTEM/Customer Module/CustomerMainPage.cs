@@ -26,5 +26,32 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         {
 
         }
+
+        private void btnMainButtonIcon_Click(object sender, EventArgs e)
+        {
+            var main = this.FindForm() as MainDashBoard;
+
+            if (main != null)
+            {
+                pcbBlurOverlay.Parent = this;
+                main.pcbBlurOverlay.BringToFront();
+                main.pcbBlurOverlay.Visible = true;
+                main.pcbBlurOverlay.BackgroundImage = Properties.Resources.CustomerOvelay;
+                main.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+
+            // Open Add Customer Form
+            AddCustomerForm addCustomer = new AddCustomerForm();
+            addCustomer.StartPosition = FormStartPosition.CenterScreen;
+            addCustomer.ShowDialog();
+
+            // Remove blur AFTER form closes
+            if (main != null)
+            {
+                main.pcbBlurOverlay.Visible = false;
+                main.pcbBlurOverlay.BackgroundImage = null;
+            }
+
+        }
     }
 }
