@@ -35,7 +35,7 @@
             // 
             this.tbxSearchField.BorderRadius = 8;
             this.tbxSearchField.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.tbxSearchField.DefaultText = "Search Item";
+            this.tbxSearchField.DefaultText = "";
             this.tbxSearchField.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
             this.tbxSearchField.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
             this.tbxSearchField.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
@@ -49,7 +49,7 @@
             this.tbxSearchField.Location = new System.Drawing.Point(3, 4);
             this.tbxSearchField.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbxSearchField.Name = "tbxSearchField";
-            this.tbxSearchField.PlaceholderText = "";
+            this.tbxSearchField.PlaceholderText = "Search ";
             this.tbxSearchField.SelectedText = "";
             this.tbxSearchField.Size = new System.Drawing.Size(291, 40);
             this.tbxSearchField.TabIndex = 3;

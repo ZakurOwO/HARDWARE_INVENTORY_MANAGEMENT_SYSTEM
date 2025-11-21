@@ -45,22 +45,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     // Directly set the pagination control reference
                     inventoryTable.PaginationControl = paginationControl;
 
+                    // Force pagination to always show - ADD THESE LINES
+                    paginationControl.AlwaysShowPagination = true;
+                    paginationControl.Visible = true;
+                    paginationControl.BringToFront();
+
                     // If data is already loaded, initialize pagination
                     if (inventoryTable.Visible)
                     {
                         inventoryTable.RefreshData();
                     }
+
+                    Console.WriteLine("Pagination connected successfully!");
                 }
                 else
                 {
-                    MessageBox.Show("Pagination controls not found. Please check your form design.",
-                                  "Configuration Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Console.WriteLine("Pagination controls not found, but continuing...");
+                    // Don't show error message, just log it
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error connecting pagination: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine($"Error connecting pagination: {ex.Message}");
+                // Don't show error message to user
             }
         }
 
@@ -197,11 +204,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             ClearSearch();
             inventoryTable?.RefreshData();
+
+            // Ensure pagination is visible after refresh - ADD THIS LINE
+            paginationControl?.ForceShow();
         }
 
         private void inventory_SearchField1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        // ADD THIS METHOD to ensure pagination stays visible
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            if (this.Visible && paginationControl != null)
+            {
+                paginationControl.ForceShow();
+            }
         }
     }
 }

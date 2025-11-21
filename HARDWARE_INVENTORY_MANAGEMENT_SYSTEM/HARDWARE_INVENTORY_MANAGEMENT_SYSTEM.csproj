@@ -627,12 +627,15 @@
     <Compile Include="Transactions Module\Checkout_PopUp.Designer.cs">
       <DependentUpon>Checkout_PopUp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transactions Module\ClassComponentTransaction\ProductDataAccess.cs" />
+    <Compile Include="Transactions Module\ClassComponentTransaction\ProductImageManager.cs" />
     <Compile Include="Transactions Module\General user control\Pagination.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Transactions Module\General user control\Pagination.Designer.cs">
       <DependentUpon>Pagination.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transactions Module\ClassComponentTransaction\Product.cs" />
     <Compile Include="UserControlFiles\BlueAndWhite_Button.cs">
       <SubType>UserControl</SubType>
     </Compile>

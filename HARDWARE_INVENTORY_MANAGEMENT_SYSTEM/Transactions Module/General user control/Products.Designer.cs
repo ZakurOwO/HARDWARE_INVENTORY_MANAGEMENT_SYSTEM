@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.pnlProduct1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.lblPrice = new System.Windows.Forms.Label();
-            this.lblProductName = new System.Windows.Forms.Label();
             this.pbxProductImage = new Guna.UI2.WinForms.Guna2PictureBox();
             this.btnAddToCart = new Guna.UI2.WinForms.Guna2Button();
+            this.lblPrice = new System.Windows.Forms.Label();
+            this.lblProductName = new System.Windows.Forms.Label();
             this.pnlProduct1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxProductImage)).BeginInit();
             this.SuspendLayout();
@@ -52,31 +52,9 @@
             this.pnlProduct1.Size = new System.Drawing.Size(140, 130);
             this.pnlProduct1.TabIndex = 5;
             // 
-            // lblPrice
-            // 
-            this.lblPrice.AutoSize = true;
-            this.lblPrice.Font = new System.Drawing.Font("Lexend Light", 8F);
-            this.lblPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(139)))), ((int)(((byte)(207)))));
-            this.lblPrice.Location = new System.Drawing.Point(8, 101);
-            this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(52, 17);
-            this.lblPrice.TabIndex = 2;
-            this.lblPrice.Text = "₱598.00";
-            // 
-            // lblProductName
-            // 
-            this.lblProductName.AutoSize = true;
-            this.lblProductName.Font = new System.Drawing.Font("Lexend Light", 8F);
-            this.lblProductName.Location = new System.Drawing.Point(5, 82);
-            this.lblProductName.Name = "lblProductName";
-            this.lblProductName.Size = new System.Drawing.Size(127, 17);
-            this.lblProductName.TabIndex = 1;
-            this.lblProductName.Text = "Deformed Bar G33-20..";
-            // 
             // pbxProductImage
             // 
             this.pbxProductImage.BackColor = System.Drawing.Color.Transparent;
-            this.pbxProductImage.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.unsplash_tpuAo8gVs582;
             this.pbxProductImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pbxProductImage.BorderRadius = 10;
             this.pbxProductImage.FillColor = System.Drawing.Color.Transparent;
@@ -104,6 +82,30 @@
             this.btnAddToCart.Name = "btnAddToCart";
             this.btnAddToCart.Size = new System.Drawing.Size(25, 25);
             this.btnAddToCart.TabIndex = 3;
+            this.btnAddToCart.Click += new System.EventHandler(this.btnAddToCart_Click);
+            // 
+            // lblPrice
+            // 
+            this.lblPrice.AutoSize = true;
+            this.lblPrice.Font = new System.Drawing.Font("Lexend Light", 8F);
+            this.lblPrice.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(139)))), ((int)(((byte)(207)))));
+            this.lblPrice.Location = new System.Drawing.Point(8, 101);
+            this.lblPrice.Name = "lblPrice";
+            this.lblPrice.Size = new System.Drawing.Size(52, 17);
+            this.lblPrice.TabIndex = 2;
+            this.lblPrice.Text = "₱598.00";
+            this.lblPrice.Click += new System.EventHandler(this.lblPrice_Click);
+            // 
+            // lblProductName
+            // 
+            this.lblProductName.AutoSize = true;
+            this.lblProductName.Font = new System.Drawing.Font("Lexend Light", 8F);
+            this.lblProductName.Location = new System.Drawing.Point(5, 82);
+            this.lblProductName.Name = "lblProductName";
+            this.lblProductName.Size = new System.Drawing.Size(127, 17);
+            this.lblProductName.TabIndex = 1;
+            this.lblProductName.Text = "Deformed Bar G33-20..";
+            this.lblProductName.Click += new System.EventHandler(this.lblProductName_Click);
             // 
             // Products
             // 

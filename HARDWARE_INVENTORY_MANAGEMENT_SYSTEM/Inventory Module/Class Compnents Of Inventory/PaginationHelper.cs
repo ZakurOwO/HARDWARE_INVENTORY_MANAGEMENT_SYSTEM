@@ -9,27 +9,32 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
         private DataTable originalData;
         private int currentPage = 1;
         private int pageSize = 10;
-        private int totalPages = 0;
+        private int totalPages = 1; // Always start with at least 1 page
         private int totalRecords = 0;
+        private bool _alwaysShowPagination = true; // New flag
 
         public int CurrentPage => currentPage;
         public int PageSize => pageSize;
         public int TotalPages => totalPages;
         public int TotalRecords => totalRecords;
+        public bool AlwaysShowPagination
+        {
+            get => _alwaysShowPagination;
+            set => _alwaysShowPagination = value;
+        }
 
         public event EventHandler PageChanged;
 
-        public PaginationHelper(DataTable data, int pageSize = 10)
+        public PaginationHelper(DataTable data, int pageSize = 10, bool alwaysShowPagination = true)
         {
-            // Initialize with empty DataTable if null
             this.originalData = data ?? CreateEmptyDataTable();
             this.pageSize = pageSize;
+            this._alwaysShowPagination = alwaysShowPagination;
             CalculateTotalPages();
         }
 
         private DataTable CreateEmptyDataTable()
         {
-            // Create an empty DataTable with the expected structure
             var emptyTable = new DataTable();
             emptyTable.Columns.Add("product_name", typeof(string));
             emptyTable.Columns.Add("SKU", typeof(string));
@@ -44,17 +49,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
         private void CalculateTotalPages()
         {
-            // Safe null checking
-            if (originalData == null)
-            {
-                totalRecords = 0;
-                totalPages = 1;
-                return;
-            }
+            totalRecords = originalData?.Rows.Count ?? 0;
 
-            totalRecords = originalData.Rows.Count;
+            if (pageSize <= 0) pageSize = 10;
+
+            // Always calculate at least 1 page
             totalPages = (int)Math.Ceiling((double)totalRecords / pageSize);
-            if (totalPages == 0) totalPages = 1;
+            if (totalPages < 1) totalPages = 1;
         }
 
         public DataTable GetCurrentPageData()
@@ -72,6 +73,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
 
             return pageData;
+        }
+
+        public bool ShouldShowPagination()
+        {
+            // Always show if flag is true, otherwise only show when multiple pages
+            return _alwaysShowPagination || totalPages > 1;
         }
 
         public bool GoToPage(int pageNumber)
@@ -124,13 +131,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
         public void UpdateData(DataTable newData)
         {
-            // Use empty table if null
             originalData = newData ?? CreateEmptyDataTable();
             CalculateTotalPages();
 
-            // Reset to first page if current page is beyond new total
             if (currentPage > totalPages)
-                currentPage = totalPages > 0 ? totalPages : 1;
+                currentPage = totalPages;
 
             OnPageChanged();
         }
@@ -138,12 +143,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
         public string GetPageInfo()
         {
             if (totalRecords == 0)
-                return "Showing 0 out of 0 records";
+                return "Page 1 of 1"; // Always show page info
 
             int startRecord = ((currentPage - 1) * pageSize) + 1;
             int endRecord = Math.Min(currentPage * pageSize, totalRecords);
 
-            return $"Showing {startRecord}-{endRecord} out of {totalRecords} records";
+            return $"Showing {startRecord}-{endRecord} of {totalRecords} records";
+        }
+
+        public string GetSimplePageInfo()
+        {
+            return $"Page {currentPage} of {totalPages}";
         }
 
         public List<int> GetPageButtons(int maxButtons = 4)
@@ -152,17 +162,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
             if (totalPages <= maxButtons)
             {
-                // Show all pages if total pages is less than or equal to max buttons
                 for (int i = 1; i <= totalPages; i++)
                     buttons.Add(i);
             }
             else
             {
-                // Show sliding window of page buttons
                 int startPage = Math.Max(1, currentPage - 1);
                 int endPage = Math.Min(totalPages, startPage + maxButtons - 1);
 
-                // Adjust if we're at the end
                 if (endPage - startPage + 1 < maxButtons)
                 {
                     startPage = Math.Max(1, endPage - maxButtons + 1);

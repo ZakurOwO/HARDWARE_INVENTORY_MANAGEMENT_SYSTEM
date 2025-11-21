@@ -16,28 +16,44 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
     {
         private PaginationHelper paginationHelper;
         private DataGridView targetDataGridView;
+        private bool _alwaysShowPagination = true;
 
         public event EventHandler<int> PageChanged;
+
+        public bool AlwaysShowPagination
+        {
+            get => _alwaysShowPagination;
+            set
+            {
+                _alwaysShowPagination = value;
+                UpdateVisibility();
+            }
+        }
 
         public Inventory_Pagination()
         {
             InitializeComponent();
             WireUpHoverEvents();
+            // Force visibility on load
+            this.Visible = true;
+        }
 
-           
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            // Ensure it's visible when loaded
+            this.Visible = true;
+            this.BringToFront();
         }
 
         private void WireUpHoverEvents()
         {
-            // Individual hover events for navigation buttons
             GoleftButton.MouseEnter += GoleftButton_MouseEnter;
             GoleftButton.MouseLeave += GoleftButton_MouseLeave;
-
             GoRightButton.MouseEnter += GoRightButton_MouseEnter;
             GoRightButton.MouseLeave += GoRightButton_MouseLeave;
         }
 
-        // Individual mouse enter events for navigation buttons
         private void GoleftButton_MouseEnter(object sender, EventArgs e)
         {
             if (GoleftButton.Enabled)
@@ -69,15 +85,43 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             try
             {
                 targetDataGridView = dataGridView;
-                paginationHelper = new PaginationHelper(data, pageSize);
+                paginationHelper = new PaginationHelper(data, pageSize, _alwaysShowPagination);
                 paginationHelper.PageChanged += PaginationHelper_PageChanged;
 
                 UpdatePaginationDisplay();
+                UpdateVisibility(); // Force update visibility
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error initializing pagination: {ex.Message}", "Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Overload for simple initialization
+        public void InitializePagination(int currentPage = 1, int totalPages = 1)
+        {
+            try
+            {
+                // Create empty data table for basic initialization
+                var emptyData = new DataTable();
+                emptyData.Columns.Add("product_name", typeof(string));
+
+                paginationHelper = new PaginationHelper(emptyData, 10, _alwaysShowPagination);
+
+                // Manually set page info
+                if (paginationHelper != null)
+                {
+                    // We can't directly set these, but we can update with empty data
+                    paginationHelper.PageChanged += PaginationHelper_PageChanged;
+                }
+
+                UpdatePaginationDisplay();
+                UpdateVisibility(); // Force visibility
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Simple pagination init error: {ex.Message}");
             }
         }
 
@@ -94,6 +138,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 if (paginationHelper != null)
                 {
                     paginationHelper.UpdateData(newData);
+                    UpdateVisibility(); // Update visibility when data changes
                 }
             }
             catch (Exception ex)
@@ -105,7 +150,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void UpdatePaginationDisplay()
         {
-            if (paginationHelper == null) return;
+            if (paginationHelper == null)
+            {
+                // Show basic info if no pagination helper
+                PaginationPageNumber.Text = "Page 1 of 1";
+                GoleftButton.Enabled = false;
+                GoRightButton.Enabled = false;
+                return;
+            }
 
             try
             {
@@ -120,13 +172,31 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 GoleftButton.Cursor = GoleftButton.Enabled ? Cursors.Hand : Cursors.Default;
                 GoRightButton.Cursor = GoRightButton.Enabled ? Cursors.Hand : Cursors.Default;
 
-                // Show/hide pagination based on whether there are pages
-                this.Visible = (paginationHelper.TotalPages > 1);
+                UpdateVisibility(); // Always update visibility
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error updating pagination display: {ex.Message}", "Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void UpdateVisibility()
+        {
+            if (paginationHelper == null)
+            {
+                // If no data, still show if AlwaysShowPagination is true
+                this.Visible = _alwaysShowPagination;
+                return;
+            }
+
+            // Show if AlwaysShowPagination is true OR if there are multiple pages
+            bool shouldShow = _alwaysShowPagination || paginationHelper.TotalPages > 1;
+            this.Visible = shouldShow;
+
+            if (shouldShow)
+            {
+                this.BringToFront();
             }
         }
 
@@ -136,11 +206,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             {
                 if (paginationHelper != null)
                 {
-                    if (!paginationHelper.PreviousPage())
-                    {
-                        MessageBox.Show("You are already on the first page.", "First Page",
-                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    paginationHelper.PreviousPage();
                 }
             }
             catch (Exception ex)
@@ -156,11 +222,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             {
                 if (paginationHelper != null)
                 {
-                    if (!paginationHelper.NextPage())
-                    {
-                        MessageBox.Show("You are already on the last page.", "Last Page",
-                                      MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    paginationHelper.NextPage();
                 }
             }
             catch (Exception ex)
@@ -201,10 +263,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             try
             {
-                if (paginationHelper != null && !paginationHelper.GoToPage(pageNumber))
+                if (paginationHelper != null)
                 {
-                    MessageBox.Show($"Page {pageNumber} is not available.", "Invalid Page",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    paginationHelper.GoToPage(pageNumber);
                 }
             }
             catch (Exception ex)
@@ -222,14 +283,35 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         public void RefreshPagination()
         {
             UpdatePaginationDisplay();
+            UpdateVisibility();
+        }
+
+        public void ForceShow()
+        {
+            this.Visible = true;
+            this.BringToFront();
+        }
+
+        public void ForceHide()
+        {
+            this.Visible = false;
         }
 
         private void Inventory_Pagination_Load(object sender, EventArgs e)
         {
-            // Initialization handled in InitializePagination
+            // Ensure visibility on load
+            this.Visible = true;
+            this.BringToFront();
         }
 
-        // Remove the individual page button click events since we're not using them
-        
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            base.OnVisibleChanged(e);
+            // Always bring to front when visible
+            if (this.Visible)
+            {
+                this.BringToFront();
+            }
+        }
     }
 }

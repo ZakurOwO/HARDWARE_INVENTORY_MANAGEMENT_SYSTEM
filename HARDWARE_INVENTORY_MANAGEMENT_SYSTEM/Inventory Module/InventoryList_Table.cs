@@ -91,7 +91,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             // Create pagination helper
             if (paginationHelper == null)
             {
-                paginationHelper = new PaginationHelper(allProductsData, 10);
+                paginationHelper = new PaginationHelper(allProductsData, 10, true); // Always show
                 paginationHelper.PageChanged += PaginationHelper_PageChanged;
             }
             else
@@ -102,12 +102,59 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             // Initialize pagination control if it exists
             if (PaginationControl != null)
             {
+                PaginationControl.AlwaysShowPagination = true; // Force always show
                 PaginationControl.InitializePagination(allProductsData, dgvInventoryList, 10);
                 PaginationControl.PageChanged += PaginationControl_PageChanged;
+                PaginationControl.ForceShow(); // Force visibility
+            }
+            else
+            {
+                // If no pagination control found, try to find it
+                FindAndConnectPaginationControl();
             }
 
             // Load the first page
             LoadPageData();
+        }
+
+        private void FindAndConnectPaginationControl()
+        {
+            try
+            {
+                // Try to find pagination control in parent
+                var parentForm = this.FindForm();
+                if (parentForm != null)
+                {
+                    PaginationControl = FindControlRecursive<Inventory_Pagination>(parentForm);
+                    if (PaginationControl != null)
+                    {
+                        PaginationControl.AlwaysShowPagination = true;
+                        PaginationControl.InitializePagination(allProductsData, dgvInventoryList, 10);
+                        PaginationControl.PageChanged += PaginationControl_PageChanged;
+                        PaginationControl.ForceShow();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error finding pagination control: {ex.Message}");
+            }
+        }
+
+        private T FindControlRecursive<T>(Control parent) where T : Control
+        {
+            if (parent == null) return null;
+
+            foreach (Control control in parent.Controls)
+            {
+                if (control is T found)
+                    return found;
+
+                var child = FindControlRecursive<T>(control);
+                if (child != null)
+                    return child;
+            }
+            return null;
         }
 
         private void PaginationHelper_PageChanged(object sender, EventArgs e)
