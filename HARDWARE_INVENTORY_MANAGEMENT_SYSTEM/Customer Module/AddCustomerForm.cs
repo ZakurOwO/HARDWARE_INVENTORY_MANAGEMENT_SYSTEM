@@ -19,6 +19,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         public AddCustomerForm()
         {
             InitializeComponent();
+            closeButton1.CloseClicked += (s, e) => this.Close();
         }
 
         // Method to add a customer using SqlDataAdapter
@@ -163,6 +164,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 
         }
 
-        
+        private void closeButton1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
