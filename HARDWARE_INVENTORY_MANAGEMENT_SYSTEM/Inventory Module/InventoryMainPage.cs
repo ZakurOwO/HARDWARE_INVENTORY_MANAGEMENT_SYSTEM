@@ -223,5 +223,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 paginationControl.ForceShow();
             }
         }
+
+        private void inventory_Pagination1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

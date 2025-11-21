@@ -16,6 +16,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         {
             InitializeComponent();
         }
+        private AddCustomerContainer addCustomerContainer = new AddCustomerContainer();
 
         private void customerTopBar1_Load(object sender, EventArgs e)
         {
@@ -33,25 +34,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 
             if (main != null)
             {
-                pcbBlurOverlay.Parent = this;
-                main.pcbBlurOverlay.BringToFront();
-                main.pcbBlurOverlay.Visible = true;
-                main.pcbBlurOverlay.BackgroundImage = Properties.Resources.CustomerOvelay;
-                main.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
+                addCustomerContainer.ShowAddCustomerForm(main);
             }
-
-            // Open Add Customer Form
-            AddCustomerForm addCustomer = new AddCustomerForm();
-            addCustomer.StartPosition = FormStartPosition.CenterScreen;
-            addCustomer.ShowDialog();
-
-            // Remove blur AFTER form closes
-            if (main != null)
-            {
-                main.pcbBlurOverlay.Visible = false;
-                main.pcbBlurOverlay.BackgroundImage = null;
-            }
-
         }
     }
 }

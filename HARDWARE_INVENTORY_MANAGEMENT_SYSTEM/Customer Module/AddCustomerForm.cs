@@ -20,6 +20,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         {
             InitializeComponent();
             closeButton1.CloseClicked += (s, e) => this.Close();
+            this.TopLevel = false;                // allow embedding
+            this.FormBorderStyle = FormBorderStyle.None;
         }
 
         // Method to add a customer using SqlDataAdapter
