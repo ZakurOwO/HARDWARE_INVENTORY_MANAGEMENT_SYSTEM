@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
@@ -11,6 +10,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
     public partial class InventoryList_Table : UserControl
     {
+        // Simple class to store row data
+        public class InventoryRowData
+        {
+            public string ImagePath { get; set; }
+            public string SKU { get; set; }
+            public string Brand { get; set; }
+        }
+
+        private PaginationHelper paginationHelper;
+        private DataTable allProductsData;
+        public Inventory_Pagination PaginationControl { get; set; }
+
         public InventoryList_Table()
         {
             InitializeComponent();
@@ -19,6 +30,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private void InventoryList_Table_Load(object sender, EventArgs e)
         {
             LoadDataFromDatabase();
+            dgvInventoryList.CellClick += dgvInventoryList_CellClick;
         }
 
         public void RefreshData()
@@ -30,64 +42,336 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             try
             {
-                dgvInventoryList.Rows.Clear();
+                // Load all data into DataTable first
+                allProductsData = new DataTable();
 
                 using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
                 {
                     connection.Open();
                     string query = @"
-                SELECT 
-                    p.product_name,
-                    c.category_name,
-                    p.current_stock,
-                    p.reorder_point,
-                    CASE WHEN p.active = 1 THEN 'Active' ELSE 'Inactive' END as status,
-                    p.image_path
-                FROM Products p
-                INNER JOIN Categories c ON p.category_id = c.CategoryID
-                ORDER BY p.product_name";
+                        SELECT 
+                            p.product_name,
+                            p.SKU,
+                            c.category_name,
+                            p.current_stock,
+                            p.reorder_point,
+                            CASE WHEN p.active = 1 THEN 'Active' ELSE 'Inactive' END as status,
+                            p.image_path,
+                            p.description as brand
+                        FROM Products p
+                        INNER JOIN Categories c ON p.category_id = c.CategoryID
+                        ORDER BY p.product_name";
 
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
                         {
-                            while (reader.Read())
-                            {
-                                string productName = reader["product_name"].ToString();
-                                string category = reader["category_name"].ToString();
-                                int currentStock = Convert.ToInt32(reader["current_stock"]);
-                                int reorderPoint = Convert.ToInt32(reader["reorder_point"]);
-                                string status = reader["status"].ToString();
-                                string imagePath = reader["image_path"].ToString();
-
-                                // SIMPLE IMAGE LOADING
-                                Image productImage = ProductImageManager.GetProductImage(imagePath);
-
-                                // Load action icons
-                                Image adjustStockIcon = Properties.Resources.AdjustStock;
-                                Image deactivateIcon = Properties.Resources.Deactivate_Circle1;
-                                Image viewDetailsIcon = Properties.Resources.Group_10481;
-
-                                dgvInventoryList.Rows.Add(
-                                    productName,
-                                    productImage,
-                                    category,
-                                    currentStock,
-                                    reorderPoint,
-                                    status,
-                                    adjustStockIcon,
-                                    deactivateIcon,
-                                    viewDetailsIcon
-                                );
-                            }
+                            da.Fill(allProductsData);
                         }
                     }
                 }
+
+                // Initialize or update pagination
+                InitializePagination();
+            }
+            catch (SqlException sqlEx)
+            {
+                MessageBox.Show($"SQL Error loading data: {sqlEx.Message}", "Database Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading data: {ex.Message}");
+                MessageBox.Show($"Error loading data: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void InitializePagination()
+        {
+            // Create pagination helper
+            if (paginationHelper == null)
+            {
+                paginationHelper = new PaginationHelper(allProductsData, 10);
+                paginationHelper.PageChanged += PaginationHelper_PageChanged;
+            }
+            else
+            {
+                paginationHelper.UpdateData(allProductsData);
+            }
+
+            // Initialize pagination control if it exists
+            if (PaginationControl != null)
+            {
+                PaginationControl.InitializePagination(allProductsData, dgvInventoryList, 10);
+                PaginationControl.PageChanged += PaginationControl_PageChanged;
+            }
+
+            // Load the first page
+            LoadPageData();
+        }
+
+        private void PaginationHelper_PageChanged(object sender, EventArgs e)
+        {
+            LoadPageData();
+        }
+
+        private void PaginationControl_PageChanged(object sender, int pageNumber)
+        {
+            if (paginationHelper != null)
+            {
+                paginationHelper.GoToPage(pageNumber);
+            }
+        }
+
+        private void LoadPageData()
+        {
+            if (paginationHelper == null) return;
+
+            try
+            {
+                dgvInventoryList.Rows.Clear();
+
+                var pageData = paginationHelper.GetCurrentPageData();
+
+                foreach (DataRow row in pageData.Rows)
+                {
+                    string productName = row["product_name"].ToString();
+                    string sku = row["SKU"].ToString();
+                    string category = row["category_name"].ToString();
+                    int currentStock = Convert.ToInt32(row["current_stock"]);
+                    int reorderPoint = Convert.ToInt32(row["reorder_point"]);
+                    string status = row["status"].ToString();
+                    string imagePath = row["image_path"].ToString();
+                    string brand = row["brand"].ToString();
+
+                    Image productImage = ProductImageManager.GetProductImage(imagePath);
+                    Image adjustStockIcon = Properties.Resources.AdjustStock;
+                    Image deactivateIcon = Properties.Resources.Deactivate_Circle1;
+                    Image viewDetailsIcon = Properties.Resources.Group_10481;
+
+                    int rowIndex = dgvInventoryList.Rows.Add(
+                        productName,
+                        productImage,
+                        category,
+                        currentStock,
+                        reorderPoint,
+                        status,
+                        adjustStockIcon,
+                        deactivateIcon,
+                        viewDetailsIcon
+                    );
+
+                    // Store data in the row's Tag property
+                    if (rowIndex >= 0 && rowIndex < dgvInventoryList.Rows.Count)
+                    {
+                        var rowData = new InventoryRowData
+                        {
+                            ImagePath = imagePath,
+                            SKU = sku,
+                            Brand = brand
+                        };
+                        dgvInventoryList.Rows[rowIndex].Tag = rowData;
+                    }
+                }
+
+                // Update pagination display
+                PaginationControl?.RefreshPagination();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading page data: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvInventoryList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.RowIndex >= dgvInventoryList.Rows.Count) return;
+            if (e.ColumnIndex < 0 || e.ColumnIndex >= dgvInventoryList.Columns.Count) return;
+
+            // Adjust Stock button column (column 6)
+            if (e.ColumnIndex == 6)
+            {
+                try
+                {
+                    string productName = dgvInventoryList.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "";
+                    string category = dgvInventoryList.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "";
+
+                    // Parse current stock safely
+                    int currentStock = 0;
+                    if (dgvInventoryList.Rows[e.RowIndex].Cells[3].Value != null)
+                    {
+                        int.TryParse(dgvInventoryList.Rows[e.RowIndex].Cells[3].Value.ToString(), out currentStock);
+                    }
+
+                    // Get image path, SKU, and brand from row Tag
+                    string imagePath = "";
+                    string sku = "";
+                    string brand = "";
+
+                    if (dgvInventoryList.Rows[e.RowIndex].Tag is InventoryRowData rowData)
+                    {
+                        imagePath = rowData.ImagePath ?? "";
+                        sku = rowData.SKU ?? "";
+                        brand = rowData.Brand ?? "";
+                    }
+
+                    // Try to get the main page and call ShowAdjustStockForProduct
+                    var mainPage = FindParentOfType<InventoryMainPage>(this);
+                    if (mainPage != null && !string.IsNullOrEmpty(productName))
+                    {
+                        mainPage.ShowAdjustStockForProduct(productName, sku, brand, currentStock, imagePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error opening adjust stock: {ex.Message}");
+                }
+            }
+
+            // Deactivate/Activate button column (column 7)
+            else if (e.ColumnIndex == 7)
+            {
+                try
+                {
+                    string productName = dgvInventoryList.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "";
+                    string currentStatus = dgvInventoryList.Rows[e.RowIndex].Cells[5].Value?.ToString() ?? "";
+
+                    if (string.IsNullOrEmpty(productName))
+                    {
+                        MessageBox.Show("No product selected.", "Error",
+                                      MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // Determine new status based on current status
+                    bool newActiveStatus;
+                    string actionText;
+                    string confirmationMessage;
+
+                    if (currentStatus == "Active")
+                    {
+                        newActiveStatus = false;
+                        actionText = "deactivate";
+                        confirmationMessage = $"Are you sure you want to deactivate '{productName}'?\n\nDeactivated products will not appear in sales and reports.";
+                    }
+                    else
+                    {
+                        newActiveStatus = true;
+                        actionText = "activate";
+                        confirmationMessage = $"Are you sure you want to activate '{productName}'?";
+                    }
+
+                    // Ask for confirmation
+                    DialogResult result = MessageBox.Show(confirmationMessage,
+                        $"Confirm {actionText}",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // Update the product status in database
+                        bool success = UpdateProductStatus(productName, newActiveStatus);
+
+                        if (success)
+                        {
+                            MessageBox.Show($"Product '{productName}' has been {actionText}d successfully!",
+                                          "Success",
+                                          MessageBoxButtons.OK,
+                                          MessageBoxIcon.Information);
+
+                            // Refresh the data to show updated status
+                            RefreshData();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Failed to {actionText} product '{productName}'. Please try again.",
+                                          "Error",
+                                          MessageBoxButtons.OK,
+                                          MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error updating product status: {ex.Message}",
+                                  "Error",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Error);
+                }
+            }
+
+            // View Details button column (column 8)
+            else if (e.ColumnIndex == 8)
+            {
+                try
+                {
+                    string productName = dgvInventoryList.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "";
+                    string category = dgvInventoryList.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "";
+                    string currentStatus = dgvInventoryList.Rows[e.RowIndex].Cells[5].Value?.ToString() ?? "";
+
+                    // Parse current stock safely
+                    int currentStock = 0;
+                    if (dgvInventoryList.Rows[e.RowIndex].Cells[3].Value != null)
+                    {
+                        int.TryParse(dgvInventoryList.Rows[e.RowIndex].Cells[3].Value.ToString(), out currentStock);
+                    }
+
+                    // Get image path, SKU, and brand from row Tag
+                    string imagePath = "";
+                    string sku = "";
+                    string brand = "";
+
+                    if (dgvInventoryList.Rows[e.RowIndex].Tag is InventoryRowData rowData)
+                    {
+                        imagePath = rowData.ImagePath ?? "";
+                        sku = rowData.SKU ?? "";
+                        brand = rowData.Brand ?? "";
+                    }
+
+                    // Try to get the main page and call ShowItemDescription
+                    var mainPage = FindParentOfType<InventoryMainPage>(this);
+                    if (mainPage != null && !string.IsNullOrEmpty(productName))
+                    {
+                        mainPage.ShowItemDescriptionForProduct(productName, sku, category, currentStock, brand, imagePath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error opening item description: {ex.Message}");
+                }
+            }
+        }
+
+        private bool UpdateProductStatus(string productName, bool isActive)
+        {
+            using (var connection = new SqlConnection(ConnectionString.DataSource))
+            {
+                connection.Open();
+                string query = "UPDATE Products SET active = @isActive WHERE product_name = @productName";
+
+                using (var cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@isActive", isActive);
+                    cmd.Parameters.AddWithValue("@productName", productName);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+        }
+
+        // Helper method to find parent of specific type
+        private T FindParentOfType<T>(Control control) where T : Control
+        {
+            Control parent = control.Parent;
+            while (parent != null)
+            {
+                if (parent is T found)
+                    return found;
+                parent = parent.Parent;
+            }
+            return null;
         }
 
         private Image LoadProductImage(string imageFileName)
@@ -110,7 +394,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             return defaultImage;
         }
 
-        // Clean up images when rows are removed
         // Clean up images when rows are removed
         private void dgvInventoryList_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
@@ -153,23 +436,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             return false;
         }
 
-        protected override void Dispose(bool disposing)
+        // Public method to refresh pagination when data changes
+        public void RefreshPagination()
         {
-            if (disposing)
-            {
-                // Clean up only product images (column 1), not resource icons
-                foreach (DataGridViewRow row in dgvInventoryList.Rows)
-                {
-                    if (!row.IsNewRow && row.Cells[1].Value is Image image)
-                    {
-                        if (!IsDefaultImage(image))
-                        {
-                            image.Dispose();
-                        }
-                    }
-                }
-            }
-            base.Dispose(disposing);
+            LoadDataFromDatabase();
         }
     }
 }

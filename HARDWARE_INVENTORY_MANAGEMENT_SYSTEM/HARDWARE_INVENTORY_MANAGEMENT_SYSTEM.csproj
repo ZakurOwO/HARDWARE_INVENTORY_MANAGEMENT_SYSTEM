@@ -313,8 +313,10 @@
       <DependentUpon>AdjustStock_PopUp.cs</DependentUpon>
     </Compile>
     <Compile Include="Inventory Module\Class Compnents Of Inventory\AddItemContainer.cs" />
+    <Compile Include="Inventory Module\Class Compnents Of Inventory\AdjustStockManager.cs" />
     <Compile Include="Inventory Module\Class Compnents Of Inventory\ComboboxItemcs.cs" />
     <Compile Include="Inventory Module\Class Compnents Of Inventory\InventoryDatabaseHelper.cs" />
+    <Compile Include="Inventory Module\Class Compnents Of Inventory\PaginationHelper.cs" />
     <Compile Include="Inventory Module\Class Compnents Of Inventory\ProductImageManager.cs" />
     <Compile Include="Inventory Module\Class Compnents Of Inventory\SearchTextBox.cs" />
     <Compile Include="Inventory Module\InventoryFilter_Button.cs">

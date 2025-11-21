@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             this.DescriptionTextBoxLabelDesc = new System.Windows.Forms.Label();
             this.UnitDesc = new System.Windows.Forms.Label();
@@ -103,6 +103,7 @@
             this.DescriptionTextBoxLabelDesc.Size = new System.Drawing.Size(320, 50);
             this.DescriptionTextBoxLabelDesc.TabIndex = 58;
             this.DescriptionTextBoxLabelDesc.Text = "Description:  Plywood 1/2 mm width\r\n";
+            this.DescriptionTextBoxLabelDesc.Click += new System.EventHandler(this.DescriptionTextBoxLabelDesc_Click);
             // 
             // UnitDesc
             // 
@@ -113,6 +114,7 @@
             this.UnitDesc.Size = new System.Drawing.Size(78, 21);
             this.UnitDesc.TabIndex = 57;
             this.UnitDesc.Text = "Unit:  Piece\r\n";
+            this.UnitDesc.Click += new System.EventHandler(this.UnitDesc_Click);
             // 
             // CostPriceDesc
             // 
@@ -123,6 +125,7 @@
             this.CostPriceDesc.Size = new System.Drawing.Size(137, 21);
             this.CostPriceDesc.TabIndex = 56;
             this.CostPriceDesc.Text = "Cost Price:  P 500.00\r\n";
+            this.CostPriceDesc.Click += new System.EventHandler(this.CostPriceDesc_Click);
             // 
             // MinimumStockDesc
             // 
@@ -133,6 +136,7 @@
             this.MinimumStockDesc.Size = new System.Drawing.Size(156, 21);
             this.MinimumStockDesc.TabIndex = 55;
             this.MinimumStockDesc.Text = "Minimum Stock:  20 pcs";
+            this.MinimumStockDesc.Click += new System.EventHandler(this.MinimumStockDesc_Click);
             // 
             // brandDesc
             // 
@@ -143,6 +147,7 @@
             this.brandDesc.Size = new System.Drawing.Size(161, 21);
             this.brandDesc.TabIndex = 54;
             this.brandDesc.Text = "Brand:  Charlotte Woods";
+            this.brandDesc.Click += new System.EventHandler(this.brandDesc_Click);
             // 
             // label18
             // 
@@ -166,17 +171,17 @@
             // dgvProductHistory
             // 
             this.dgvProductHistory.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dgvProductHistory.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            this.dgvProductHistory.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvProductHistory.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvProductHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvProductHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvProductHistory.ColumnHeadersHeight = 25;
             this.dgvProductHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgvProductHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -184,14 +189,14 @@
             this.Quantity,
             this.TransactionID,
             this.TimeStamp});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Lexend Light", 8F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvProductHistory.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Lexend Light", 8F);
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvProductHistory.DefaultCellStyle = dataGridViewCellStyle9;
             this.dgvProductHistory.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvProductHistory.Location = new System.Drawing.Point(21, 46);
             this.dgvProductHistory.Name = "dgvProductHistory";
@@ -220,6 +225,7 @@
             this.dgvProductHistory.ThemeStyle.RowsStyle.Height = 25;
             this.dgvProductHistory.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvProductHistory.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            this.dgvProductHistory.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductHistory_CellContentClick);
             // 
             // OutOrIn
             // 
@@ -286,6 +292,7 @@
             this.availableforsaleDesc.Size = new System.Drawing.Size(115, 19);
             this.availableforsaleDesc.TabIndex = 67;
             this.availableforsaleDesc.Text = "Sep 25, 2025  09:31";
+            this.availableforsaleDesc.Click += new System.EventHandler(this.availableforsaleDesc_Click);
             // 
             // label16
             // 
@@ -306,6 +313,7 @@
             this.receivedinstoreDesc.Size = new System.Drawing.Size(115, 19);
             this.receivedinstoreDesc.TabIndex = 65;
             this.receivedinstoreDesc.Text = "Sep 25, 2025  09:31";
+            this.receivedinstoreDesc.Click += new System.EventHandler(this.receivedinstoreDesc_Click);
             // 
             // label14
             // 
@@ -326,6 +334,7 @@
             this.transitDesc.Size = new System.Drawing.Size(115, 19);
             this.transitDesc.TabIndex = 63;
             this.transitDesc.Text = "Sep 25, 2025  09:31";
+            this.transitDesc.Click += new System.EventHandler(this.transitDesc_Click);
             // 
             // label12
             // 
@@ -346,6 +355,7 @@
             this.OrderedDesc.Size = new System.Drawing.Size(115, 19);
             this.OrderedDesc.TabIndex = 61;
             this.OrderedDesc.Text = "Sep 25, 2025  09:31";
+            this.OrderedDesc.Click += new System.EventHandler(this.OrderedDesc_Click);
             // 
             // label9
             // 
@@ -464,6 +474,7 @@
             this.StatusDesc.Size = new System.Drawing.Size(95, 21);
             this.StatusDesc.TabIndex = 62;
             this.StatusDesc.Text = "Status: Active";
+            this.StatusDesc.Click += new System.EventHandler(this.StatusDesc_Click);
             // 
             // SellingPriceDesc
             // 
@@ -474,6 +485,7 @@
             this.SellingPriceDesc.Size = new System.Drawing.Size(144, 21);
             this.SellingPriceDesc.TabIndex = 61;
             this.SellingPriceDesc.Text = "Selling Price: P 540.00";
+            this.SellingPriceDesc.Click += new System.EventHandler(this.SellingPriceDesc_Click);
             // 
             // CurrentStockDesc
             // 
@@ -484,6 +496,7 @@
             this.CurrentStockDesc.Size = new System.Drawing.Size(142, 21);
             this.CurrentStockDesc.TabIndex = 60;
             this.CurrentStockDesc.Text = "Current Stock: 50 pcs";
+            this.CurrentStockDesc.Click += new System.EventHandler(this.CurrentStockDesc_Click);
             // 
             // CategoryDesc
             // 
@@ -494,6 +507,7 @@
             this.CategoryDesc.Size = new System.Drawing.Size(116, 21);
             this.CategoryDesc.TabIndex = 59;
             this.CategoryDesc.Text = "Category: Woods";
+            this.CategoryDesc.Click += new System.EventHandler(this.CategoryDesc_Click);
             // 
             // SKUDesc
             // 
@@ -504,6 +518,7 @@
             this.SKUDesc.Size = new System.Drawing.Size(97, 21);
             this.SKUDesc.TabIndex = 58;
             this.SKUDesc.Text = "SKU: PLW-001";
+            this.SKUDesc.Click += new System.EventHandler(this.SKUDesc_Click);
             // 
             // ItemNameDesc
             // 
@@ -514,6 +529,7 @@
             this.ItemNameDesc.Size = new System.Drawing.Size(129, 27);
             this.ItemNameDesc.TabIndex = 57;
             this.ItemNameDesc.Text = "Plywood - 1/2";
+            this.ItemNameDesc.Click += new System.EventHandler(this.ItemNameDesc_Click);
             // 
             // label1
             // 
@@ -532,6 +548,7 @@
             this.ItemImageDesc.Size = new System.Drawing.Size(137, 93);
             this.ItemImageDesc.TabIndex = 56;
             this.ItemImageDesc.TabStop = false;
+            this.ItemImageDesc.Click += new System.EventHandler(this.ItemImageDesc_Click);
             // 
             // closeButton1
             // 
@@ -540,6 +557,7 @@
             this.closeButton1.Name = "closeButton1";
             this.closeButton1.Size = new System.Drawing.Size(35, 35);
             this.closeButton1.TabIndex = 66;
+            //this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
             // 
             // ItemDescription_Form
             // 

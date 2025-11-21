@@ -7,29 +7,268 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
     public partial class ItemDescription_Form : UserControl
     {
+        private string currentImagePath;
+        public event EventHandler CloseRequested; // Add this event
+
         public ItemDescription_Form()
         {
             InitializeComponent();
+            WireUpEvents(); // Add this method call
+        }
 
-            dgvProductHistory.Rows.Add(null, "Sold 5 units", "SALE-7809", "Oct 30,2025 08:20");
-            dgvProductHistory.Rows.Add(null, "Restocked 10 units", "RESTOCK-4521", "Nov 02,2025 14:15");
-            dgvProductHistory.Rows.Add(null, "Sold 3 units", "SALE-7810", "Nov 05,2025 10:05");
-            dgvProductHistory.Rows.Add(null, "Returned 2 units", "RETURN-1234", "Nov 10,2025 16:30");
-            dgvProductHistory.Rows.Add(null, "Sold 4 units", "SALE-7811", "Nov 12,2025 11:45");
-            dgvProductHistory.Rows.Add(null, "Restocked 8 units", "RESTOCK-4522", "Nov 15,2025 09:20");
-            dgvProductHistory.Rows.Add(null, "Sold 6 units", "SALE-7812", "Nov 18,2025 13:10");
-            dgvProductHistory.Rows.Add(null, "Returned 1 unit", "RETURN-1235", "Nov 20,2025 15:55");
-            dgvProductHistory.Rows.Add(null, "Sold 7 units", "SALE-7813", "Nov 22,2025 12:30");
+        private void WireUpEvents()
+        {
+            // Wire up the close button click event
+            closeButton1.Click += closeButton1_Click;
         }
 
         private void ItemDescription_Form_Load(object sender, EventArgs e)
         {
             dgvProductHistory.ClearSelection();
         }
+
+        // Method to populate the form with product data
+        public void PopulateProductData(string productName, string sku, string category, int currentStock,
+                                      decimal sellingPrice, string status, DateTime orderedDate,
+                                      DateTime transitDate, DateTime receivedDate, DateTime availableDate,
+                                      string brand, int minimumStock, decimal costPrice, string unit,
+                                      string description, string imagePath)
+        {
+            // Item Name
+            ItemNameDesc.Text = productName;
+
+            // SKU - format: "SKU: PLW-001"
+            SKUDesc.Text = $"SKU: {sku}";
+
+            // Category - format: "Category: Woods"
+            CategoryDesc.Text = $"Category: {category}";
+
+            // Current Stock - format: "Current Stock: 50"
+            CurrentStockDesc.Text = $"Current Stock: {currentStock}";
+
+            // Selling Price - format: "Selling Price: P 540.00"
+            SellingPriceDesc.Text = $"Selling Price: P {sellingPrice:F2}";
+
+            // Status - format: "Status: Available"
+            StatusDesc.Text = $"Status: {status}";
+
+            // Ordered - format: "Ordered: Sep 25, 2025 09:31"
+            OrderedDesc.Text = $"Ordered: {orderedDate:MMM dd, yyyy HH:mm}";
+
+            // In Transit - format: "In Transit: Sep 25, 2025 09:31"
+            transitDesc.Text = $"In Transit: {transitDate:MMM dd, yyyy HH:mm}";
+
+            // Received in Store - format: "Received in Store: Sep 25, 2025 09:31"
+            receivedinstoreDesc.Text = $"Received in Store: {receivedDate:MMM dd, yyyy HH:mm}";
+
+            // Available for Sale - format: "Available for Sale: Sep 25, 2025 09:31"
+            availableforsaleDesc.Text = $"Available for Sale: {availableDate:MMM dd, yyyy HH:mm}";
+
+            // Brand - format: "Brand: Charlotte Woods"
+            brandDesc.Text = $"Brand: {brand}";
+
+            // Minimum Stock - format: "Minimum Stock: 20 pcs"
+            MinimumStockDesc.Text = $"Minimum Stock: {minimumStock} pcs";
+
+            // Cost Price - format: "Cost Price: P 500.00"
+            CostPriceDesc.Text = $"Cost Price: P {costPrice:F2}";
+
+            // Unit - format: "Unit: Piece"
+            UnitDesc.Text = $"Unit: {unit}";
+
+            // Description - format: "Description: Plywood 1/2 mm width"
+            DescriptionTextBoxLabelDesc.Text = $"Description: {description}";
+
+            // Load product image
+            currentImagePath = imagePath;
+            LoadProductImage();
+        }
+
+        // Overloaded method for simpler usage (if some dates are not available)
+        public void PopulateProductData(string productName, string sku, string category, int currentStock,
+                                      decimal sellingPrice, string status, string brand, int minimumStock,
+                                      decimal costPrice, string unit, string description, string imagePath)
+        {
+            DateTime currentDate = DateTime.Now;
+
+            PopulateProductData(
+                productName, sku, category, currentStock, sellingPrice, status,
+                currentDate, currentDate, currentDate, currentDate,
+                brand, minimumStock, costPrice, unit, description, imagePath
+            );
+        }
+
+        private void LoadProductImage()
+        {
+            try
+            {
+                // Clear previous image
+                if (ItemImageDesc.Image != null)
+                {
+                    ItemImageDesc.Image.Dispose();
+                    ItemImageDesc.Image = null;
+                }
+
+                if (!string.IsNullOrEmpty(currentImagePath))
+                {
+                    // Load new image
+                    Image productImage = ProductImageManager.GetProductImage(currentImagePath);
+
+                    // Replace the image content completely
+                    ItemImageDesc.Image = productImage;
+                    ItemImageDesc.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                    // Force refresh to ensure proper display
+                    ItemImageDesc.Refresh();
+                }
+                else
+                {
+                    SetDefaultImage();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading product image: {ex.Message}");
+                SetDefaultImage();
+            }
+        }
+
+        private void SetDefaultImage()
+        {
+            // Create a default "No Image" placeholder
+            Bitmap defaultImage = new Bitmap(ItemImageDesc.Width, ItemImageDesc.Height);
+            using (Graphics g = Graphics.FromImage(defaultImage))
+            {
+                g.Clear(Color.LightGray);
+                using (Font font = new Font("Lexend semibold", 10, FontStyle.Bold))
+                using (Brush brush = new SolidBrush(Color.DarkGray))
+                {
+                    string text = "No Image";
+                    SizeF textSize = g.MeasureString(text, font);
+                    g.DrawString(text, font, brush,
+                        (defaultImage.Width - textSize.Width) / 2,
+                        (defaultImage.Height - textSize.Height) / 2);
+                }
+            }
+            ItemImageDesc.Image = defaultImage;
+            ItemImageDesc.SizeMode = PictureBoxSizeMode.StretchImage;
+        }
+
+        private void closeButton1_Click(object sender, EventArgs e)
+        {
+            // Go back to mainpage default view.
+            CloseRequested?.Invoke(this, EventArgs.Empty);
+            HideItemDescription();
+        }
+
+        private void ItemNameDesc_Click(object sender, EventArgs e)
+        {
+            //Itemname based on what I click on view
+        }
+
+        private void SKUDesc_Click(object sender, EventArgs e)
+        {
+            //SKU based on what I click on view and format is SKU: PLW-001
+        }
+
+        private void CategoryDesc_Click(object sender, EventArgs e)
+        {
+            //CategoryDesc based on what I click on view Category: Woods
+        }
+
+        private void CurrentStockDesc_Click(object sender, EventArgs e)
+        {
+            //CurrentStockDesc based on what I click on view Current Stock: 50
+        }
+
+        private void SellingPriceDesc_Click(object sender, EventArgs e)
+        {
+            //SellingPriceDesc based on what I click on view Selling Price: P 540.00
+        }
+
+        private void StatusDesc_Click(object sender, EventArgs e)
+        {
+            //StatusDesc based on what I click on view Status: Available
+        }
+
+        private void OrderedDesc_Click(object sender, EventArgs e)
+        {
+            //OrderedDesc based on what I click on view Ordered: Sep 25, 2025  09:31
+        }
+
+        private void transitDesc_Click(object sender, EventArgs e)
+        {
+            //transitDesc based on what I click on view In Transit: Sep 25, 2025  09:31
+        }
+
+        private void receivedinstoreDesc_Click(object sender, EventArgs e)
+        {
+            //receivedinstoreDesc based on what I click on view Received in Store: Sep 25, 2025  09:31
+        }
+
+        private void availableforsaleDesc_Click(object sender, EventArgs e)
+        {
+            //availableforsaleDesc based on what I click on view Available for Sale: Sep 25, 2025  09:31
+        }
+
+        private void brandDesc_Click(object sender, EventArgs e)
+        {
+            //brandDesc based on what I click on view Brand:  Charlotte Woods
+        }
+
+        private void MinimumStockDesc_Click(object sender, EventArgs e)
+        {
+            //MinimumStockDesc based on what I click on view Minimum Stock:  20 pcs
+        }
+
+        private void CostPriceDesc_Click(object sender, EventArgs e)
+        {
+            //CostPriceDesc based on what I click on view Cost Cost Price:  P 500.00
+        }
+
+        private void UnitDesc_Click(object sender, EventArgs e)
+        {
+            //UnitDesc based on what I click on view Unit:  Piece
+        }
+
+        private void DescriptionTextBoxLabelDesc_Click(object sender, EventArgs e)
+        {
+            //DescriptionTextBoxLabelDesc based on what I click on view Description:  Plywood 1/2 mm width
+        }
+
+        private void dgvProductHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //ignore this for now
+        }
+
+        // Remove the closeButton1_Load method completely
+
+        // Method to show this form
+        public void ShowItemDescription()
+        {
+            this.Visible = true;
+            this.BringToFront();
+        }
+
+        // Method to hide this form
+        public void HideItemDescription()
+        {
+            this.Visible = false;
+        }
+
+        private void ItemImageDesc_Click(object sender, EventArgs e)
+        {
+            //the image of what they are in the database
+            // Image display is handled in LoadProductImage method
+        }
+
+     
+        
     }
 }
