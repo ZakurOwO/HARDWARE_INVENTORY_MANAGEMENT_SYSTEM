@@ -46,6 +46,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 newRow["supplier_name"] = CompanyNameTextBoxSupplier.Text;
                 newRow["contact_number"] = ContactTxtBoxSupplier.Text;
                 newRow["address"] = LocationSupplierTextBox.Text;
+                newRow["email"] = tbxEmail.Text;
+                newRow["contact_person"] = tbxContactPerson.Text;
+                
                 dt.Rows.Add(newRow);
 
                 con.Open();
@@ -67,6 +70,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             CompanyNameTextBoxSupplier.Clear();
             ContactTxtBoxSupplier.Clear();
             LocationSupplierTextBox.Clear();
+            tbxEmail.Clear();
+            tbxContactPerson.Clear();
+
         }
 
         private void SaveButton_Click(object sender, EventArgs e)
