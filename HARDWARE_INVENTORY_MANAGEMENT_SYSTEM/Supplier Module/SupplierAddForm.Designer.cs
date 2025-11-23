@@ -49,6 +49,9 @@
             this.CancelSupplierFormBtn = new Guna.UI2.WinForms.Guna2Button();
             this.AddSupplierFormBtn = new Guna.UI2.WinForms.Guna2Button();
             this.label3 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cbxCategory = new Guna.UI2.WinForms.Guna2ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -98,7 +101,7 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(575, 438);
+            this.pictureBox1.Size = new System.Drawing.Size(575, 508);
             this.pictureBox1.TabIndex = 31;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -262,7 +265,7 @@
             this.LocationSupplierTextBox.Name = "LocationSupplierTextBox";
             this.LocationSupplierTextBox.PlaceholderText = "";
             this.LocationSupplierTextBox.SelectedText = "";
-            this.LocationSupplierTextBox.Size = new System.Drawing.Size(228, 36);
+            this.LocationSupplierTextBox.Size = new System.Drawing.Size(514, 36);
             this.LocationSupplierTextBox.TabIndex = 69;
             // 
             // label12
@@ -279,7 +282,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(307, 249);
+            this.label5.Location = new System.Drawing.Point(21, 337);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(97, 21);
             this.label5.TabIndex = 70;
@@ -297,7 +300,7 @@
             this.SupplierDatePick.ForeColor = System.Drawing.Color.DimGray;
             this.SupplierDatePick.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.SupplierDatePick.HoverState.FillColor = System.Drawing.Color.White;
-            this.SupplierDatePick.Location = new System.Drawing.Point(311, 273);
+            this.SupplierDatePick.Location = new System.Drawing.Point(25, 361);
             this.SupplierDatePick.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.SupplierDatePick.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.SupplierDatePick.Name = "SupplierDatePick";
@@ -317,7 +320,7 @@
             this.CancelSupplierFormBtn.FillColor = System.Drawing.Color.White;
             this.CancelSupplierFormBtn.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelSupplierFormBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.CancelSupplierFormBtn.Location = new System.Drawing.Point(286, 361);
+            this.CancelSupplierFormBtn.Location = new System.Drawing.Point(302, 439);
             this.CancelSupplierFormBtn.Name = "CancelSupplierFormBtn";
             this.CancelSupplierFormBtn.PressedColor = System.Drawing.Color.Azure;
             this.CancelSupplierFormBtn.Size = new System.Drawing.Size(120, 40);
@@ -334,7 +337,7 @@
             this.AddSupplierFormBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
             this.AddSupplierFormBtn.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddSupplierFormBtn.ForeColor = System.Drawing.Color.White;
-            this.AddSupplierFormBtn.Location = new System.Drawing.Point(417, 361);
+            this.AddSupplierFormBtn.Location = new System.Drawing.Point(433, 439);
             this.AddSupplierFormBtn.Name = "AddSupplierFormBtn";
             this.AddSupplierFormBtn.Size = new System.Drawing.Size(120, 40);
             this.AddSupplierFormBtn.TabIndex = 72;
@@ -346,18 +349,59 @@
             this.label3.BackColor = System.Drawing.Color.White;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(402, 251);
+            this.label3.Location = new System.Drawing.Point(116, 339);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(12, 13);
             this.label3.TabIndex = 34;
             this.label3.Text = "*";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(309, 337);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(50, 21);
+            this.label8.TabIndex = 75;
+            this.label8.Text = "Status";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.BackColor = System.Drawing.Color.White;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label9.ForeColor = System.Drawing.Color.Red;
+            this.label9.Location = new System.Drawing.Point(356, 339);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(12, 13);
+            this.label9.TabIndex = 74;
+            this.label9.Text = "*";
+            // 
+            // cbxCategory
+            // 
+            this.cbxCategory.BackColor = System.Drawing.Color.Transparent;
+            this.cbxCategory.BorderRadius = 8;
+            this.cbxCategory.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxCategory.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbxCategory.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbxCategory.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cbxCategory.ItemHeight = 30;
+            this.cbxCategory.Location = new System.Drawing.Point(311, 361);
+            this.cbxCategory.Name = "cbxCategory";
+            this.cbxCategory.Size = new System.Drawing.Size(228, 36);
+            this.cbxCategory.TabIndex = 76;
+            // 
             // SupplierAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.cbxCategory);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.CancelSupplierFormBtn);
             this.Controls.Add(this.AddSupplierFormBtn);
             this.Controls.Add(this.SupplierDatePick);
@@ -380,7 +424,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
             this.Name = "SupplierAddForm";
-            this.Size = new System.Drawing.Size(575, 438);
+            this.Size = new System.Drawing.Size(575, 508);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
@@ -410,5 +454,8 @@
         private Guna.UI2.WinForms.Guna2Button CancelSupplierFormBtn;
         private Guna.UI2.WinForms.Guna2Button AddSupplierFormBtn;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private Guna.UI2.WinForms.Guna2ComboBox cbxCategory;
     }
 }
