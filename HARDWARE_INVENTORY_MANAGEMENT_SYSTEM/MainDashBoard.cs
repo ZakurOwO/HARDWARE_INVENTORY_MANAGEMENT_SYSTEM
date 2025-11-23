@@ -1,4 +1,5 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,12 +14,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 {
     public partial class MainDashBoard : Form
     {
+        private TransactionsMainPage transactionsPage;
+        private Walk_inCartDetails cartDetails;
+
         public MainDashBoard()
         {
             InitializeComponent();
         }
 
-
+        // Initialize dashboard with default page
         private void MainDashBoard_Load(object sender, EventArgs e)
         {
             try
@@ -30,7 +34,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 }
                 else
                 {
-                    // Fallback: directly add the Dashboard control if button not found.
+                    // Fallback: Load dashboard directly
                     var dashboard = new Dashboard.DashboardMainPage();
                     dashboard.Dock = DockStyle.Fill;
                     MainContentPanel.Controls.Clear();
@@ -39,11 +43,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             }
             catch
             {
-                // Swallow any exceptions to avoid blocking form load; fallback handled above.
+                // Ensure form loads even if dashboard fails
             }
         }
-        
 
+        // Public accessor for main content panel
         public Panel MainContentPanelAccess
         {
             get { return MainContentPanel; }
@@ -51,14 +55,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void MainContentPanel_Paint(object sender, PaintEventArgs e)
         {
-
         }
-
-
-      
-
-
-
-
     }
 }

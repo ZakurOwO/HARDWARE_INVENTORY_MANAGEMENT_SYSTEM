@@ -1,149 +1,235 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
-using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
 {
     public class ProductDataAccess
     {
-        private readonly string connectionString;
+        private string connectionString;
 
         public ProductDataAccess()
         {
             connectionString = ConnectionString.DataSource;
         }
 
+        // Get all active products with stock
         public List<Product> GetActiveProducts()
         {
             var products = new List<Product>();
 
-            try
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                string query = @"
+                    SELECT 
+                        p.ProductInternalID,
+                        p.ProductID,
+                        p.product_name as ProductName,
+                        p.SKU,
+                        p.description as Description,
+                        p.category_id as CategoryID,
+                        p.unit_id as UnitID,
+                        p.current_stock as CurrentStock,
+                        p.image_path as ImagePath,
+                        ISNULL(p.SellingPrice, 0.00) as SellingPrice,
+                        p.active as Active,
+                        c.category_name as CategoryName,
+                        u.unit_name as UnitName
+                    FROM Products p
+                    LEFT JOIN Categories c ON p.category_id = c.CategoryID
+                    LEFT JOIN Units u ON p.unit_id = u.UnitID
+                    WHERE p.active = 1 AND p.current_stock > 0
+                    ORDER BY p.product_name";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                try
                 {
                     connection.Open();
-                    string query = @"
-                        SELECT 
-                            p.ProductInternalID,
-                            p.ProductID,
-                            p.product_name,
-                            p.SKU,
-                            p.description,
-                            p.category_id,
-                            p.unit_id,
-                            p.current_stock,
-                            p.image_path,
-                            pb.cost_per_unit,  -- Changed from selling_price to cost_per_unit
-                            p.active
-                        FROM Products p
-                        LEFT JOIN ProductBatches pb ON p.ProductInternalID = pb.product_id
-                        WHERE p.active = 1
-                        ORDER BY p.product_name";
+                    SqlDataReader reader = command.ExecuteReader();
 
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    while (reader.Read())
                     {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        products.Add(new Product
                         {
-                            while (reader.Read())
-                            {
-                                var product = new Product
-                                {
-                                    ProductInternalID = reader.GetInt32(reader.GetOrdinal("ProductInternalID")),
-                                    ProductID = reader["ProductID"].ToString(),
-                                    ProductName = reader["product_name"].ToString(),
-                                    SKU = reader["SKU"].ToString(),
-                                    Description = reader["description"].ToString(),
-                                    CategoryID = reader["category_id"].ToString(),
-                                    UnitID = reader["unit_id"].ToString(),
-                                    CurrentStock = reader.GetInt32(reader.GetOrdinal("current_stock")),
-                                    ImagePath = reader["image_path"].ToString(),
-                                    SellingPrice = reader["cost_per_unit"] != DBNull.Value ?
-                                                 Convert.ToDecimal(reader["cost_per_unit"]) : 0,
-                                    Active = Convert.ToBoolean(reader["active"])
-                                };
-                                products.Add(product);
-                            }
-                        }
+                            ProductInternalID = reader.GetInt32(0),
+                            ProductID = reader.GetString(1),
+                            ProductName = reader.GetString(2),
+                            SKU = reader.GetString(3),
+                            Description = reader.IsDBNull(4) ? "" : reader.GetString(4),
+                            CategoryID = reader.GetString(5),
+                            UnitID = reader.GetString(6),
+                            CurrentStock = reader.GetInt32(7),
+                            ImagePath = reader.IsDBNull(8) ? "" : reader.GetString(8),
+                            SellingPrice = reader.GetDecimal(9),
+                            Active = reader.GetBoolean(10),
+                            CategoryName = reader.IsDBNull(11) ? "" : reader.GetString(11),
+                            UnitName = reader.IsDBNull(12) ? "" : reader.GetString(12)
+                        });
                     }
+                    reader.Close();
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error loading products: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error retrieving products: {ex.Message}");
+                }
             }
 
             return products;
         }
 
+        // Search products by name, SKU, or description
         public List<Product> SearchProducts(string searchTerm)
         {
             var products = new List<Product>();
 
-            try
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                string query = @"
+                    SELECT 
+                        p.ProductInternalID,
+                        p.ProductID,
+                        p.product_name as ProductName,
+                        p.SKU,
+                        p.description as Description,
+                        p.category_id as CategoryID,
+                        p.unit_id as UnitID,
+                        p.current_stock as CurrentStock,
+                        p.image_path as ImagePath,
+                        ISNULL(p.SellingPrice, 0.00) as SellingPrice,
+                        p.active as Active,
+                        c.category_name as CategoryName,
+                        u.unit_name as UnitName
+                    FROM Products p
+                    LEFT JOIN Categories c ON p.category_id = c.CategoryID
+                    LEFT JOIN Units u ON p.unit_id = u.UnitID
+                    WHERE p.active = 1 
+                    AND (p.product_name LIKE @SearchTerm 
+                         OR p.SKU LIKE @SearchTerm 
+                         OR p.description LIKE @SearchTerm)
+                    ORDER BY p.product_name";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@SearchTerm", $"%{searchTerm}%");
+
+                try
                 {
                     connection.Open();
-                    string query = @"
-                        SELECT 
-                            p.ProductInternalID,
-                            p.ProductID,
-                            p.product_name,
-                            p.SKU,
-                            p.description,
-                            p.category_id,
-                            p.unit_id,
-                            p.current_stock,
-                            p.image_path,
-                            pb.cost_per_unit,  -- Changed from selling_price to cost_per_unit
-                            p.active
-                        FROM Products p
-                        LEFT JOIN ProductBatches pb ON p.ProductInternalID = pb.product_id
-                        WHERE p.active = 1 
-                        AND (p.product_name LIKE @searchTerm OR p.SKU LIKE @searchTerm)
-                        ORDER BY p.product_name";
+                    SqlDataReader reader = command.ExecuteReader();
 
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    while (reader.Read())
                     {
-                        cmd.Parameters.AddWithValue("@searchTerm", $"%{searchTerm}%");
-
-                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        products.Add(new Product
                         {
-                            while (reader.Read())
-                            {
-                                var product = new Product
-                                {
-                                    ProductInternalID = reader.GetInt32(reader.GetOrdinal("ProductInternalID")),
-                                    ProductID = reader["ProductID"].ToString(),
-                                    ProductName = reader["product_name"].ToString(),
-                                    SKU = reader["SKU"].ToString(),
-                                    Description = reader["description"].ToString(),
-                                    CategoryID = reader["category_id"].ToString(),
-                                    UnitID = reader["unit_id"].ToString(),
-                                    CurrentStock = reader.GetInt32(reader.GetOrdinal("current_stock")),
-                                    ImagePath = reader["image_path"].ToString(),
-                                    SellingPrice = reader["cost_per_unit"] != DBNull.Value ?
-                                                 Convert.ToDecimal(reader["cost_per_unit"]) : 0,
-                                    Active = Convert.ToBoolean(reader["active"])
-                                };
-                                products.Add(product);
-                            }
-                        }
+                            ProductInternalID = reader.GetInt32(0),
+                            ProductID = reader.GetString(1),
+                            ProductName = reader.GetString(2),
+                            SKU = reader.GetString(3),
+                            Description = reader.IsDBNull(4) ? "" : reader.GetString(4),
+                            CategoryID = reader.GetString(5),
+                            UnitID = reader.GetString(6),
+                            CurrentStock = reader.GetInt32(7),
+                            ImagePath = reader.IsDBNull(8) ? "" : reader.GetString(8),
+                            SellingPrice = reader.GetDecimal(9),
+                            Active = reader.GetBoolean(10),
+                            CategoryName = reader.IsDBNull(11) ? "" : reader.GetString(11),
+                            UnitName = reader.IsDBNull(12) ? "" : reader.GetString(12)
+                        });
                     }
+                    reader.Close();
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error searching products: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error searching products: {ex.Message}");
+                }
             }
 
             return products;
+        }
+
+        // Get single product by internal ID
+        public Product GetProductById(int productInternalId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = @"
+                    SELECT 
+                        p.ProductInternalID,
+                        p.ProductID,
+                        p.product_name as ProductName,
+                        p.SKU,
+                        p.description as Description,
+                        p.category_id as CategoryID,
+                        p.unit_id as UnitID,
+                        p.current_stock as CurrentStock,
+                        p.image_path as ImagePath,
+                        ISNULL(p.SellingPrice, 0.00) as SellingPrice,
+                        p.active as Active
+                    FROM Products p
+                    WHERE p.ProductInternalID = @ProductInternalID";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ProductInternalID", productInternalId);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        return new Product
+                        {
+                            ProductInternalID = reader.GetInt32(0),
+                            ProductID = reader.GetString(1),
+                            ProductName = reader.GetString(2),
+                            SKU = reader.GetString(3),
+                            Description = reader.IsDBNull(4) ? "" : reader.GetString(4),
+                            CategoryID = reader.GetString(5),
+                            UnitID = reader.GetString(6),
+                            CurrentStock = reader.GetInt32(7),
+                            ImagePath = reader.IsDBNull(8) ? "" : reader.GetString(8),
+                            SellingPrice = reader.GetDecimal(9),
+                            Active = reader.GetBoolean(10)
+                        };
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error retrieving product: {ex.Message}");
+                }
+            }
+
+            return null;
+        }
+
+        // Check if SellingPrice column exists in database
+        public bool CheckSellingPriceColumnExists()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = @"
+                    SELECT COUNT(*) 
+                    FROM INFORMATION_SCHEMA.COLUMNS 
+                    WHERE TABLE_NAME = 'Products' 
+                    AND COLUMN_NAME = 'SellingPrice'";
+
+                SqlCommand command = new SqlCommand(query, connection);
+
+                try
+                {
+                    connection.Open();
+                    int count = (int)command.ExecuteScalar();
+                    return count > 0;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error checking column existence: {ex.Message}");
+                }
+            }
         }
     }
 }

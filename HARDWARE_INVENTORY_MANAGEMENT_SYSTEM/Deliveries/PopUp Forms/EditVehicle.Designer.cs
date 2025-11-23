@@ -31,7 +31,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.kryptonRichTextBox1 = new Krypton.Toolkit.KryptonRichTextBox();
             this.guna2Shapes1 = new Guna.UI2.WinForms.Guna2Shapes();
-            this.EditVehicleStatusComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -54,6 +53,7 @@
             this.EditUploadImageButton = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.EditVehicleStatusComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EditUploadImageButton)).BeginInit();
@@ -99,26 +99,6 @@
             this.guna2Shapes1.TabIndex = 2;
             this.guna2Shapes1.Text = "guna2Shapes1";
             this.guna2Shapes1.Zoom = 80;
-            // 
-            // EditVehicleStatusComboBox
-            // 
-            this.EditVehicleStatusComboBox.BackColor = System.Drawing.Color.Transparent;
-            this.EditVehicleStatusComboBox.BorderRadius = 7;
-            this.EditVehicleStatusComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.EditVehicleStatusComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.EditVehicleStatusComboBox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.EditVehicleStatusComboBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.EditVehicleStatusComboBox.Font = new System.Drawing.Font("Lexend", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditVehicleStatusComboBox.ForeColor = System.Drawing.Color.DimGray;
-            this.EditVehicleStatusComboBox.ItemHeight = 30;
-            this.EditVehicleStatusComboBox.Items.AddRange(new object[] {
-            "Available",
-            "Maintenance",
-            "Out of Service"});
-            this.EditVehicleStatusComboBox.Location = new System.Drawing.Point(290, 224);
-            this.EditVehicleStatusComboBox.Name = "EditVehicleStatusComboBox";
-            this.EditVehicleStatusComboBox.Size = new System.Drawing.Size(193, 36);
-            this.EditVehicleStatusComboBox.TabIndex = 82;
             // 
             // label5
             // 
@@ -391,6 +371,26 @@
             this.pictureBox2.TabIndex = 63;
             this.pictureBox2.TabStop = false;
             // 
+            // EditVehicleStatusComboBox
+            // 
+            this.EditVehicleStatusComboBox.BackColor = System.Drawing.Color.Transparent;
+            this.EditVehicleStatusComboBox.BorderRadius = 7;
+            this.EditVehicleStatusComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.EditVehicleStatusComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.EditVehicleStatusComboBox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.EditVehicleStatusComboBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.EditVehicleStatusComboBox.Font = new System.Drawing.Font("Lexend", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditVehicleStatusComboBox.ForeColor = System.Drawing.Color.DimGray;
+            this.EditVehicleStatusComboBox.ItemHeight = 30;
+            this.EditVehicleStatusComboBox.Items.AddRange(new object[] {
+            "Available",
+            "Maintenance",
+            "Out of Service"});
+            this.EditVehicleStatusComboBox.Location = new System.Drawing.Point(290, 224);
+            this.EditVehicleStatusComboBox.Name = "EditVehicleStatusComboBox";
+            this.EditVehicleStatusComboBox.Size = new System.Drawing.Size(193, 36);
+            this.EditVehicleStatusComboBox.TabIndex = 82;
+            // 
             // EditVehicle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -435,7 +435,6 @@
         private System.Windows.Forms.PictureBox EditUploadImageButton;
         private Krypton.Toolkit.KryptonRichTextBox kryptonRichTextBox1;
         private Guna.UI2.WinForms.Guna2Shapes guna2Shapes1;
-        private Guna.UI2.WinForms.Guna2ComboBox EditVehicleStatusComboBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -457,5 +456,6 @@
         private System.Windows.Forms.Label label1;
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private Guna.UI2.WinForms.Guna2ComboBox EditVehicleStatusComboBox;
     }
 }

@@ -54,8 +54,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.DeliveryStatusComboBox = new Krypton.Toolkit.KryptonComboBox();
-            this.GenerateDeliveryOrder = new Krypton.Toolkit.KryptonButton();
-            this.GenerateTrackingNumber = new Krypton.Toolkit.KryptonButton();
             this.EditButtonEditDelivery = new Krypton.Toolkit.KryptonButton();
             this.BackButtonEditDelivery = new Krypton.Toolkit.KryptonButton();
             this.label14 = new System.Windows.Forms.Label();
@@ -336,7 +334,7 @@
             // 
             // TransactionTypeTextBox
             // 
-            this.TransactionTypeTextBox.Location = new System.Drawing.Point(25, 204);
+            this.TransactionTypeTextBox.Location = new System.Drawing.Point(21, 204);
             this.TransactionTypeTextBox.Name = "TransactionTypeTextBox";
             this.TransactionTypeTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.TransactionTypeTextBox.Size = new System.Drawing.Size(193, 41);
@@ -615,34 +613,6 @@
             this.DeliveryStatusComboBox.TabIndex = 59;
             this.DeliveryStatusComboBox.Text = "Delivery status";
             // 
-            // GenerateDeliveryOrder
-            // 
-            this.GenerateDeliveryOrder.Location = new System.Drawing.Point(21, 134);
-            this.GenerateDeliveryOrder.Name = "GenerateDeliveryOrder";
-            this.GenerateDeliveryOrder.Size = new System.Drawing.Size(193, 38);
-            this.GenerateDeliveryOrder.StateCommon.Back.Color1 = System.Drawing.Color.DodgerBlue;
-            this.GenerateDeliveryOrder.StateCommon.Back.Color2 = System.Drawing.Color.DodgerBlue;
-            this.GenerateDeliveryOrder.StateCommon.Border.Rounding = 6F;
-            this.GenerateDeliveryOrder.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.GenerateDeliveryOrder.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.GenerateDeliveryOrder.TabIndex = 60;
-            this.GenerateDeliveryOrder.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.GenerateDeliveryOrder.Values.Text = "Generate";
-            // 
-            // GenerateTrackingNumber
-            // 
-            this.GenerateTrackingNumber.Location = new System.Drawing.Point(293, 133);
-            this.GenerateTrackingNumber.Name = "GenerateTrackingNumber";
-            this.GenerateTrackingNumber.Size = new System.Drawing.Size(193, 38);
-            this.GenerateTrackingNumber.StateCommon.Back.Color1 = System.Drawing.Color.DodgerBlue;
-            this.GenerateTrackingNumber.StateCommon.Back.Color2 = System.Drawing.Color.DodgerBlue;
-            this.GenerateTrackingNumber.StateCommon.Border.Rounding = 6F;
-            this.GenerateTrackingNumber.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.GenerateTrackingNumber.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.GenerateTrackingNumber.TabIndex = 61;
-            this.GenerateTrackingNumber.Values.DropDownArrowColor = System.Drawing.Color.Empty;
-            this.GenerateTrackingNumber.Values.Text = "Generate";
-            // 
             // EditButtonEditDelivery
             // 
             this.EditButtonEditDelivery.Location = new System.Drawing.Point(409, 492);
@@ -731,8 +701,6 @@
             this.Controls.Add(this.label17);
             this.Controls.Add(this.BackButtonEditDelivery);
             this.Controls.Add(this.EditButtonEditDelivery);
-            this.Controls.Add(this.GenerateTrackingNumber);
-            this.Controls.Add(this.GenerateDeliveryOrder);
             this.Controls.Add(this.DeliveryStatusComboBox);
             this.Controls.Add(this.ZipCodeDeliveryDetailsTextBox);
             this.Controls.Add(this.ProvinceDeliveryDetailsComboBox);
@@ -801,8 +769,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private Krypton.Toolkit.KryptonComboBox DeliveryStatusComboBox;
-        private Krypton.Toolkit.KryptonButton GenerateDeliveryOrder;
-        private Krypton.Toolkit.KryptonButton GenerateTrackingNumber;
         private Krypton.Toolkit.KryptonButton EditButtonEditDelivery;
         private Krypton.Toolkit.KryptonButton BackButtonEditDelivery;
         private System.Windows.Forms.Label label14;

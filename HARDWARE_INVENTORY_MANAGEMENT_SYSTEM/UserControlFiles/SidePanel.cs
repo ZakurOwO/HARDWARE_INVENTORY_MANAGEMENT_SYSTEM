@@ -1,15 +1,13 @@
-﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module;
+﻿using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module;
-using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 {
@@ -23,6 +21,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             this.Load += SidePanel_Load;
         }
 
+        // Apply rounded corners to the panel
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -39,9 +38,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             }
         }
 
+        // Initialize panel and set default active button
         private void SidePanel_Load(object sender, EventArgs e)
         {
-
+            // Attach paint event to all buttons for active indicator
             foreach (Control ctrl in this.Controls)
             {
                 if (ctrl is Button btn)
@@ -50,20 +50,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 }
             }
 
-
+            // Set Dashboard as default active button
             if (this.Controls.ContainsKey("DashboardBTN"))
             {
                 HighlightButton((Button)this.Controls["DashboardBTN"]);
             }
         }
 
+        // Highlight the selected button and reset others
         private void HighlightButton(Button clickedButton)
         {
             Color defaultBack = Color.FromArgb(209, 228, 242);
             Color activeBack = Color.FromArgb(184, 213, 229);
             Color activeText = Color.FromArgb(0, 87, 158);
 
-
+            // Reset all buttons to default state
             foreach (Control ctrl in this.Controls)
             {
                 if (ctrl is Button btn)
@@ -76,18 +77,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 }
             }
 
-
+            // Apply active state to clicked button
             clickedButton.BackColor = activeBack;
             clickedButton.ForeColor = activeText;
             clickedButton.Font = new Font("Lexend SemiBold", 9, FontStyle.Regular);
             clickedButton.Tag = "active";
             activeButton = clickedButton;
 
-
             clickedButton.Invalidate();
             this.Invalidate();
         }
 
+        // Draw blue line indicator on active button
         private void SidebarButton_Paint(object sender, PaintEventArgs e)
         {
             Button btn = (Button)sender;
@@ -96,13 +97,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             {
                 using (SolidBrush brush = new SolidBrush(Color.FromArgb(0, 87, 158)))
                 {
-
                     Rectangle lineRect = new Rectangle(0, 4, 4, btn.Height - 8);
                     e.Graphics.FillRectangle(brush, lineRect);
                 }
             }
         }
 
+        // Navigation: Dashboard
         private void DashboardBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
@@ -111,11 +112,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             {
                 mainForm.MainContentPanelAccess.Controls.Clear();
                 Dashboard.DashboardMainPage dashboard = new Dashboard.DashboardMainPage();
+                dashboard.Dock = DockStyle.Fill;
                 mainForm.MainContentPanelAccess.Controls.Add(dashboard);
             }
-
         }
-        
+
+        // Navigation: Inventory
         private void InventoryBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
@@ -124,11 +126,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             {
                 mainForm.MainContentPanelAccess.Controls.Clear();
                 InventoryMainPage inventory = new InventoryMainPage();
+                inventory.Dock = DockStyle.Fill;
                 mainForm.MainContentPanelAccess.Controls.Add(inventory);
             }
-
-
         }
+
         private void TransactionBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
@@ -136,12 +138,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             if (mainForm != null)
             {
                 mainForm.MainContentPanelAccess.Controls.Clear();
-                TransactionsMainPage transation = new TransactionsMainPage();
-                mainForm.MainContentPanelAccess.Controls.Add(transation);
+
+                // Just create and add the transaction page
+                // It will handle cart creation internally
+                TransactionsMainPage transactionPage = new TransactionsMainPage();
+                transactionPage.Dock = DockStyle.Fill;
+                mainForm.MainContentPanelAccess.Controls.Add(transactionPage);
             }
         }
-
-
+        // Navigation: Customers
         private void CustomerBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
@@ -150,9 +155,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             {
                 mainForm.MainContentPanelAccess.Controls.Clear();
                 CustomerMainPage customerForm = new CustomerMainPage();
+                customerForm.Dock = DockStyle.Fill;
                 mainForm.MainContentPanelAccess.Controls.Add(customerForm);
             }
         }
+
+        // Navigation: Suppliers
         private void SupplierBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
@@ -161,9 +169,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             {
                 mainForm.MainContentPanelAccess.Controls.Clear();
                 SuppplierMainPage supplierForm = new SuppplierMainPage();
+                supplierForm.Dock = DockStyle.Fill;
                 mainForm.MainContentPanelAccess.Controls.Add(supplierForm);
             }
         }
+
+        // Navigation: Deliveries
         private void DeliveriesBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
@@ -172,10 +183,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             {
                 mainForm.MainContentPanelAccess.Controls.Clear();
                 DeliveriesMainPage vehicleForm = new DeliveriesMainPage();
+                vehicleForm.Dock = DockStyle.Fill;
                 mainForm.MainContentPanelAccess.Controls.Add(vehicleForm);
             }
-
         }
+
+        // Navigation: Reports
         private void ReportBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
@@ -184,9 +197,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             {
                 mainForm.MainContentPanelAccess.Controls.Clear();
                 ReportsMainPage reports = new ReportsMainPage();
+                reports.Dock = DockStyle.Fill;
                 mainForm.MainContentPanelAccess.Controls.Add(reports);
             }
         }
-        
     }
 }

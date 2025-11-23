@@ -187,11 +187,13 @@
     <Compile Include="Dashboard\DashboardMainPage.Designer.cs">
       <DependentUpon>DashboardMainPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deliveries\Add New Truck Button.cs">
+    <Compile Include="Deliveries\classcomponentsofDeliveries\VehicleDataAccess.cs" />
+    <Compile Include="Deliveries\classcomponentsofDeliveries\VehicleImageManager.cs" />
+    <Compile Include="Deliveries\Pagination_Deliveries.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Deliveries\Add New Truck Button.Designer.cs">
-      <DependentUpon>Add New Truck Button.cs</DependentUpon>
+    <Compile Include="Deliveries\Pagination_Deliveries.Designer.cs">
+      <DependentUpon>Pagination_Deliveries.cs</DependentUpon>
     </Compile>
     <Compile Include="Deliveries\PopUp Forms\AddVehicleForm.cs">
       <SubType>UserControl</SubType>
@@ -253,6 +255,7 @@
     <Compile Include="Deliveries\PopUp Forms\SuccessfullyDeletedDeliveries.Designer.cs">
       <DependentUpon>SuccessfullyDeletedDeliveries.cs</DependentUpon>
     </Compile>
+    <Compile Include="Deliveries\classcomponentsofDeliveries\VehicleRecord.cs" />
     <Compile Include="Deliveries\VehiclesInfoBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -610,10 +613,10 @@
     <Compile Include="Transactions Module\Cart User controls\AddedToCartTable.Designer.cs">
       <DependentUpon>AddedToCartTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\Cart User controls\DeliveryCartDetails.cs">
+    <Compile Include="Transactions Module\comple Usercontrol\DeliveryCartDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\Cart User controls\DeliveryCartDetails.Designer.cs">
+    <Compile Include="Transactions Module\comple Usercontrol\DeliveryCartDetails.Designer.cs">
       <DependentUpon>DeliveryCartDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="Transactions Module\Cart User controls\DeliveryComboBoxes.cs">
@@ -691,16 +694,16 @@
     <Compile Include="Transactions Module\General user control\TransactionsTopBar.Designer.cs">
       <DependentUpon>TransactionsTopBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\Cart User controls\CartDetails.cs">
+    <Compile Include="Transactions Module\comple Usercontrol\CartDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\Cart User controls\CartDetails.Designer.cs">
+    <Compile Include="Transactions Module\comple Usercontrol\CartDetails.Designer.cs">
       <DependentUpon>CartDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\Cart User controls\Walk-inCartDetails.cs">
+    <Compile Include="Transactions Module\comple Usercontrol\Walk-inCartDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\Cart User controls\Walk-inCartDetails.Designer.cs">
+    <Compile Include="Transactions Module\comple Usercontrol\Walk-inCartDetails.Designer.cs">
       <DependentUpon>Walk-inCartDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="Transactions Module\Cart User controls\WalkinOrDeliveryButton.cs">
@@ -853,8 +856,8 @@
     <EmbeddedResource Include="Dashboard\DashboardMainPage.resx">
       <DependentUpon>DashboardMainPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Deliveries\Add New Truck Button.resx">
-      <DependentUpon>Add New Truck Button.cs</DependentUpon>
+    <EmbeddedResource Include="Deliveries\Pagination_Deliveries.resx">
+      <DependentUpon>Pagination_Deliveries.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\PopUp Forms\AddVehicleForm.resx">
       <DependentUpon>AddVehicleForm.cs</DependentUpon>
@@ -1070,7 +1073,7 @@
     <EmbeddedResource Include="Transactions Module\Cart User controls\AddedToCartTable.resx">
       <DependentUpon>AddedToCartTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\Cart User controls\DeliveryCartDetails.resx">
+    <EmbeddedResource Include="Transactions Module\comple Usercontrol\DeliveryCartDetails.resx">
       <DependentUpon>DeliveryCartDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\Cart User controls\DeliveryComboBoxes.resx">
@@ -1109,10 +1112,10 @@
     <EmbeddedResource Include="Transactions Module\General user control\TransactionsTopBar.resx">
       <DependentUpon>TransactionsTopBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\Cart User controls\CartDetails.resx">
+    <EmbeddedResource Include="Transactions Module\comple Usercontrol\CartDetails.resx">
       <DependentUpon>CartDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\Cart User controls\Walk-inCartDetails.resx">
+    <EmbeddedResource Include="Transactions Module\comple Usercontrol\Walk-inCartDetails.resx">
       <DependentUpon>Walk-inCartDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\Cart User controls\WalkinOrDeliveryButton.resx">

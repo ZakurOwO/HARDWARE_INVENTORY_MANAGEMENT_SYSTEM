@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// In Models/Product.cs
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models
 {
     public class Product
@@ -19,5 +14,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models
         public string ImagePath { get; set; }
         public decimal SellingPrice { get; set; }
         public bool Active { get; set; }
+
+        // Navigation properties
+        public string CategoryName { get; set; }
+        public string UnitName { get; set; }
     }
 }

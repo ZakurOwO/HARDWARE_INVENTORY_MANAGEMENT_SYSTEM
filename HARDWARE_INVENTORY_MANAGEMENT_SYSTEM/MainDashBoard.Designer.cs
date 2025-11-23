@@ -53,7 +53,7 @@
             // 
             this.pcbBlurOverlay.BackColor = System.Drawing.Color.Transparent;
             this.pcbBlurOverlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pcbBlurOverlay.Location = new System.Drawing.Point(-235, 0);
+            this.pcbBlurOverlay.Location = new System.Drawing.Point(-27, 3);
             this.pcbBlurOverlay.Name = "pcbBlurOverlay";
             this.pcbBlurOverlay.Size = new System.Drawing.Size(1210, 720);
             this.pcbBlurOverlay.TabIndex = 4;

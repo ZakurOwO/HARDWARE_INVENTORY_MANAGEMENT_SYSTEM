@@ -14,9 +14,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
     public partial class Products : UserControl
     {
+        private Walk_inCartDetails _cartTable;
+        private Product productData;
+
+        // Event for fallback method
         public event EventHandler<Product> ProductAddedToCart;
 
-        // Public properties to set product data
+        public Products()
+        {
+            InitializeComponent();
+            pbxProductImage.SizeMode = PictureBoxSizeMode.CenterImage;
+        }
+
+        // Properties
         public string Product_Name
         {
             get { return lblProductName.Text; }
@@ -53,22 +63,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             set { pbxProductImage.Image = value; }
         }
 
-        public Product ProductData { get; set; }
-
-        public Products()
+        public Product ProductData
         {
-            InitializeComponent();
-            // Set the image display to center
-            pbxProductImage.SizeMode = PictureBoxSizeMode.CenterImage;
-            // Remove the hover events that change background color
-            RemoveHoverEvents();
+            get { return productData; }
+            set { productData = value; }
         }
 
-        private void RemoveHoverEvents()
+        // Set cart reference - called by TransactionsMainPage
+        public void SetCartReference(Walk_inCartDetails cartTable)
         {
-           
+            _cartTable = cartTable;
         }
 
+        // Update stock color based on availability
         private void UpdateStockColor(int stock)
         {
             if (stock <= 0)
@@ -91,44 +98,90 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        private void lblProductName_Click(object sender, EventArgs e)
-        {
-            OnProductClicked();
-        }
-
+        // Add to cart button click handler
         private void btnAddToCart_Click(object sender, EventArgs e)
         {
-            if (ProductData != null && Stock > 0)
+            AddProductToCart();
+        }
+
+        // Add product to cart logic
+        private void AddProductToCart()
+        {
+            // Validate product data
+            if (ProductData == null)
             {
-                ProductAddedToCart?.Invoke(this, ProductData);
+                MessageBox.Show("Product data is missing!", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else if (Stock <= 0)
+
+            // Check stock availability
+            if (Stock <= 0)
             {
                 MessageBox.Show("This product is out of stock!", "Out of Stock",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Try to add to cart using direct reference
+            if (_cartTable != null)
+            {
+                try
+                {
+                    _cartTable.AddProductToCartById(ProductData.ProductInternalID, 1);
+                    MessageBox.Show($"Added {Product_Name} to cart!", "Success",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error adding to cart: {ex.Message}", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            // Fallback: Fire event if cart reference is null
+            if (ProductAddedToCart != null)
+            {
+                ProductAddedToCart.Invoke(this, ProductData);
+            }
+            else
+            {
+                MessageBox.Show("Cart is not available. Please try reloading the page.", "Cart Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
+        // Product name click - show details
+        private void lblProductName_Click(object sender, EventArgs e)
+        {
+            ShowProductDetails();
+        }
+
+        // Price label click - show details
         private void lblPrice_Click(object sender, EventArgs e)
         {
-            OnProductClicked();
+            ShowProductDetails();
         }
 
+        // Product image click - show details
         private void pbxProductImage_Click(object sender, EventArgs e)
         {
-            OnProductClicked();
+            ShowProductDetails();
         }
 
-        private void OnProductClicked()
+        // Show product details dialog
+        private void ShowProductDetails()
         {
             if (ProductData != null)
             {
-                MessageBox.Show($"Product: {Product_Name}\nPrice: {Price:C}\nStock: {Stock}\nSKU: {ProductData.SKU}",
+                MessageBox.Show($"Product: {Product_Name}\nPrice: ₱{Price:N2}\nStock: {Stock}\nSKU: {ProductData.SKU}",
                               "Product Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        // Public method to update product data
+        // Update product data and refresh display
         public void UpdateProduct(Product product)
         {
             ProductData = product;
@@ -136,7 +189,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             Price = product.SellingPrice;
             Stock = product.CurrentStock;
 
-            // Load product image using the original method
             var productImage = ProductImageManager.GetProductImage(product.ImagePath);
             Image = productImage;
         }

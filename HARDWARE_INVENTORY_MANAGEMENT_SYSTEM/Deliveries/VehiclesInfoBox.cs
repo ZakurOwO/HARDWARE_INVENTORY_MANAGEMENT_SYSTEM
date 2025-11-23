@@ -11,15 +11,19 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 {
-    public partial class VehiclesInfoBox: UserControl
+    public partial class VehiclesInfoBox : UserControl
     {
+        // Events for Edit and Delete buttons
+        public event EventHandler EditClicked;
+        public event EventHandler DeleteClicked;
+
         public VehiclesInfoBox()
         {
             InitializeComponent();
+            InitializeClickEvents();
         }
 
         #region Properties
-
         private Image image;
         private string vehicleType;
         private string vehicleName;
@@ -34,14 +38,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             set { image = value; ptbVehiclePic.BackgroundImage = value; }
         }
 
-
         [Category("Custom Properties")]
         public string Type
         {
             get { return vehicleType; }
             set { vehicleType = value; lblVehicleType.Text = value; }
         }
-
 
         [Category("Custom Properties")]
         public string Vehicle_Name
@@ -50,14 +52,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             set { vehicleName = value; VehicleBrandModel.Text = value; }
         }
 
-
         [Category("Custom Properties")]
         public string Plate_No
         {
             get { return plateNo; }
             set { plateNo = value; lblPlateNo.Text = "Plate No:" + value; }
         }
-
 
         [Category("Custom Properties")]
         public string Vehicle_ID
@@ -67,15 +67,35 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         }
 
         [Category("Custom Properties")]
-
         public String Status
         {
             get { return status; }
             set { status = value; btnStatus.Text = value; UpdateStatusColor(); }
         }
-
-
         #endregion
+
+        private void InitializeClickEvents()
+        {
+            // Hook up edit button click event
+            EditBtn1.Click += EditBtn1_Click;
+            EditBtn1.Cursor = Cursors.Hand;
+
+            // Hook up delete button click event
+            DeleteBtn1.Click += DeleteBtn1_Click;
+            DeleteBtn1.Cursor = Cursors.Hand;
+        }
+
+        private void EditBtn1_Click(object sender, EventArgs e)
+        {
+            // Raise the EditClicked event
+            EditClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void DeleteBtn1_Click(object sender, EventArgs e)
+        {
+            // Raise the DeleteClicked event
+            DeleteClicked?.Invoke(this, EventArgs.Empty);
+        }
 
         private void UpdateStatusColor()
         {
@@ -90,10 +110,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     btnStatus.ForeColor = Color.FromArgb(47, 164, 73);
                     break;
                 case "in use":
+                case "on delivery":
                     btnStatus.FillColor = Color.FromArgb(225, 245, 255); // light blue
                     btnStatus.ForeColor = Color.FromArgb(0, 102, 204);
                     break;
                 case "inactive":
+                case "out of service":
                     btnStatus.FillColor = Color.FromArgb(255, 230, 230); // light red
                     btnStatus.ForeColor = Color.FromArgb(190, 38, 38);
                     break;
@@ -102,7 +124,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     btnStatus.ForeColor = Color.FromArgb(209, 118, 17);
                     break;
             }
-
         }
     }
 }
