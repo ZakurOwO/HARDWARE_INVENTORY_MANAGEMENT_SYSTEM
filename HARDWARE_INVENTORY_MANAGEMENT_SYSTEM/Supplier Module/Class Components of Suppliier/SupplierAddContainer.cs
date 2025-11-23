@@ -25,12 +25,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 (main.Height - scrollContainer.Height) / 2
             );
             scrollContainer.BorderStyle = BorderStyle.FixedSingle;
-            scrollContainer.AutoScroll = true;
-            scrollContainer.AutoScrollMinSize = new Size(0, 850);
+            scrollContainer.AutoScroll = false; // disable scrollbars
 
             scrollContainer.Controls.Add(SupplierAddForm);
 
-            SupplierAddForm.Size = new Size(600, 850);
+            SupplierAddForm.Size = new Size(600, 850); // keep original size
             SupplierAddForm.Location = new Point(0, 0);
             SupplierAddForm.Show();
 

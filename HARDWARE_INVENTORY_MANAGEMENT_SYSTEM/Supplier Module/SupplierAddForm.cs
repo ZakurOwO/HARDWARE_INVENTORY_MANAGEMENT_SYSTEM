@@ -140,6 +140,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private void CancelSupplierFormBtn_Click(object sender, EventArgs e)
         {
+            
+        }
+
+        private void CancelSupplierFormBtn_Click_1(object sender, EventArgs e)
+        {
             CancelClicked?.Invoke(this, EventArgs.Empty);
         }
     }
