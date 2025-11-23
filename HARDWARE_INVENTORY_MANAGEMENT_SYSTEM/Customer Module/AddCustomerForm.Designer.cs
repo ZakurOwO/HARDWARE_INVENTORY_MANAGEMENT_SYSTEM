@@ -68,7 +68,7 @@
             // 
             this.closeButton1.BackColor = System.Drawing.Color.Transparent;
             this.closeButton1.Location = new System.Drawing.Point(668, 21);
-            this.closeButton1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.closeButton1.Margin = new System.Windows.Forms.Padding(5);
             this.closeButton1.Name = "closeButton1";
             this.closeButton1.Size = new System.Drawing.Size(47, 43);
             this.closeButton1.TabIndex = 30;
@@ -351,12 +351,13 @@
             this.btnWhite.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWhite.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnWhite.Location = new System.Drawing.Point(389, 521);
-            this.btnWhite.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnWhite.Margin = new System.Windows.Forms.Padding(4);
             this.btnWhite.Name = "btnWhite";
             this.btnWhite.PressedColor = System.Drawing.Color.Azure;
             this.btnWhite.Size = new System.Drawing.Size(160, 49);
             this.btnWhite.TabIndex = 50;
             this.btnWhite.Text = "Cancel";
+            this.btnWhite.Click += new System.EventHandler(this.btnWhite_Click);
             // 
             // btnBlue
             // 
@@ -369,7 +370,7 @@
             this.btnBlue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBlue.ForeColor = System.Drawing.Color.White;
             this.btnBlue.Location = new System.Drawing.Point(564, 521);
-            this.btnBlue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBlue.Margin = new System.Windows.Forms.Padding(4);
             this.btnBlue.Name = "btnBlue";
             this.btnBlue.Size = new System.Drawing.Size(160, 49);
             this.btnBlue.TabIndex = 49;
@@ -405,7 +406,7 @@
             this.Controls.Add(this.label8);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AddCustomerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);

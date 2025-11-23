@@ -11,6 +11,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         private SqlDataAdapter da;
         private DataTable dt;
 
+        public event EventHandler CancelClicked;
+
         public SupplierAddForm()
         {
             InitializeComponent();
@@ -20,10 +22,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private void LoadSuppliers()
         {
-            dt = new DataTable();
-            da = new SqlDataAdapter("SELECT * FROM Suppliers", con);
-            SqlCommandBuilder cb = new SqlCommandBuilder(da);
-            da.Fill(dt);
+            try
+            {
+                dt = new DataTable();
+                da = new SqlDataAdapter("SELECT * FROM Suppliers", con);
+                SqlCommandBuilder cb = new SqlCommandBuilder(da);
+
+                con.Open();
+                da.Fill(dt);
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading suppliers: " + ex.Message);
+            }
         }
 
         private void AddSupplier()
@@ -36,13 +48,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 newRow["address"] = LocationSupplierTextBox.Text;
                 dt.Rows.Add(newRow);
 
+                con.Open();
                 da.Update(dt);
+                con.Close();
+
                 MessageBox.Show("Supplier added successfully!");
                 ClearFields();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
+                con.Close();
             }
         }
 
@@ -115,5 +131,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         private void pictureBox2_Click(object sender, EventArgs e) { }
 
         private void pictureBox1_Click(object sender, EventArgs e) { }
+
+        private void CancelSupplierFormBtn_Click(object sender, EventArgs e)
+        {
+            CancelClicked?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

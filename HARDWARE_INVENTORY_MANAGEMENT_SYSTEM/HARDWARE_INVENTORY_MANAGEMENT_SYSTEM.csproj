@@ -538,6 +538,7 @@
     <Compile Include="SettingsTab\TabModules.Designer.cs">
       <DependentUpon>TabModules.cs</DependentUpon>
     </Compile>
+    <Compile Include="Supplier Module\Class Components of Suppliier\SupplierAddContainer.cs" />
     <Compile Include="Supplier Module\EditFormSupplier.cs">
       <SubType>UserControl</SubType>
     </Compile>
