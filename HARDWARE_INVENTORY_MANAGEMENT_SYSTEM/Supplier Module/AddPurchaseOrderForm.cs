@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 {
-    public partial class AddPurchaseOrder_Form : UserControl
+    public partial class AddPurchaseOrderForm : UserControl
     {
         int maxHeight = 225;
-        public AddPurchaseOrder_Form()
+        public AddPurchaseOrderForm()
         {
             InitializeComponent();
         }
@@ -70,6 +70,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         {
             AdjustGridHeight();
             AdjustLayout();
+        }
+
+        private void btnWhite_Click(object sender, EventArgs e)
+        {
+            Form parentForm = this.FindForm();
+            if (parentForm != null)
+            {
+                parentForm.Close();
+            }
         }
     }
 }

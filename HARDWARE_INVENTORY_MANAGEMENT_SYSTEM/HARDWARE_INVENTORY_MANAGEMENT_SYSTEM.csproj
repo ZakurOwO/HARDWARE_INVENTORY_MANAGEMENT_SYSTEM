@@ -538,12 +538,13 @@
     <Compile Include="SettingsTab\TabModules.Designer.cs">
       <DependentUpon>TabModules.cs</DependentUpon>
     </Compile>
-    <Compile Include="Supplier Module\AddPurchaseOrder_Form.cs">
+    <Compile Include="Supplier Module\AddPurchaseOrderForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Supplier Module\AddPurchaseOrder_Form.Designer.cs">
-      <DependentUpon>AddPurchaseOrder_Form.cs</DependentUpon>
+    <Compile Include="Supplier Module\AddPurchaseOrderForm.Designer.cs">
+      <DependentUpon>AddPurchaseOrderForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Supplier Module\Class Components of Suppliier\AddPurchaseContainer.cs" />
     <Compile Include="Supplier Module\Class Components of Suppliier\SupplierAddContainer.cs" />
     <Compile Include="Supplier Module\EditFormSupplier.cs">
       <SubType>UserControl</SubType>
@@ -1059,8 +1060,8 @@
     <EmbeddedResource Include="SettingsTab\TabModules.resx">
       <DependentUpon>TabModules.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Supplier Module\AddPurchaseOrder_Form.resx">
-      <DependentUpon>AddPurchaseOrder_Form.cs</DependentUpon>
+    <EmbeddedResource Include="Supplier Module\AddPurchaseOrderForm.resx">
+      <DependentUpon>AddPurchaseOrderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\EditFormSupplier.resx">
       <DependentUpon>EditFormSupplier.cs</DependentUpon>
