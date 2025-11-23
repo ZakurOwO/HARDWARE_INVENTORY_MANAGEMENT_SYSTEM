@@ -541,11 +541,25 @@
     <Compile Include="SettingsTab\TabModules.Designer.cs">
       <DependentUpon>TabModules.cs</DependentUpon>
     </Compile>
+    <Compile Include="Supplier Module\AddPurchaseOrderForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Supplier Module\AddPurchaseOrderForm.Designer.cs">
+      <DependentUpon>AddPurchaseOrderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier Module\Class Components of Suppliier\AddPurchaseContainer.cs" />
+    <Compile Include="Supplier Module\Class Components of Suppliier\SupplierAddContainer.cs" />
     <Compile Include="Supplier Module\EditFormSupplier.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Supplier Module\EditFormSupplier.Designer.cs">
       <DependentUpon>EditFormSupplier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier Module\PurchaseOrdersPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Supplier Module\PurchaseOrdersPage.Designer.cs">
+      <DependentUpon>PurchaseOrdersPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Supplier Module\SearchFieldForSupplier.cs">
       <SubType>UserControl</SubType>
@@ -564,6 +578,18 @@
     </Compile>
     <Compile Include="Supplier Module\SupplierButton.Designer.cs">
       <DependentUpon>SupplierButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier Module\SupplierNavBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Supplier Module\SupplierNavBar.Designer.cs">
+      <DependentUpon>SupplierNavBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier Module\SuppliersPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Supplier Module\SuppliersPage.Designer.cs">
+      <DependentUpon>SuppliersPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Supplier Module\SupplierTable.cs">
       <SubType>UserControl</SubType>
@@ -1037,8 +1063,14 @@
     <EmbeddedResource Include="SettingsTab\TabModules.resx">
       <DependentUpon>TabModules.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Supplier Module\AddPurchaseOrderForm.resx">
+      <DependentUpon>AddPurchaseOrderForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\EditFormSupplier.resx">
       <DependentUpon>EditFormSupplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supplier Module\PurchaseOrdersPage.resx">
+      <DependentUpon>PurchaseOrdersPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\SearchFieldForSupplier.resx">
       <DependentUpon>SearchFieldForSupplier.cs</DependentUpon>
@@ -1048,6 +1080,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\SupplierButton.resx">
       <DependentUpon>SupplierButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supplier Module\SupplierNavBar.resx">
+      <DependentUpon>SupplierNavBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supplier Module\SuppliersPage.resx">
+      <DependentUpon>SuppliersPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\SupplierTable.resx">
       <DependentUpon>SupplierTable.cs</DependentUpon>
@@ -1505,6 +1543,7 @@
     <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\users 022.png" />
     <None Include="Resources\Show Receipt.png" />
     <None Include="Resources\Pending2.png" />
     <None Include="Resources\upload.png" />

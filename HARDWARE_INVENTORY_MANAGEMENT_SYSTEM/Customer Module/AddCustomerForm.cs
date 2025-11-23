@@ -170,5 +170,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         {
 
         }
+
+        private void btnWhite_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
