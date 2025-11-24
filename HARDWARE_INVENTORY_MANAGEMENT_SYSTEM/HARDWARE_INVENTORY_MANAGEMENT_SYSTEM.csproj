@@ -188,7 +188,14 @@
       <DependentUpon>DashboardMainPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Deliveries\classcomponentsofDeliveries\VehicleDataAccess.cs" />
+    <Compile Include="Deliveries\classcomponentsofDeliveries\VehicleFormContainer.cs" />
     <Compile Include="Deliveries\classcomponentsofDeliveries\VehicleImageManager.cs" />
+    <Compile Include="Deliveries\Deliveries_btncs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\Deliveries_btncs.Designer.cs">
+      <DependentUpon>Deliveries_btncs.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deliveries\Pagination_Deliveries.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -256,6 +263,12 @@
       <DependentUpon>SuccessfullyDeletedDeliveries.cs</DependentUpon>
     </Compile>
     <Compile Include="Deliveries\classcomponentsofDeliveries\VehicleRecord.cs" />
+    <Compile Include="Deliveries\SearchField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Deliveries\SearchField.Designer.cs">
+      <DependentUpon>SearchField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Deliveries\VehiclesInfoBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -639,6 +652,8 @@
     <Compile Include="Transactions Module\Cart User controls\AddedToCartTable.Designer.cs">
       <DependentUpon>AddedToCartTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Transactions Module\ClassComponentTransaction\CartItem.cs" />
+    <Compile Include="Transactions Module\ClassComponentTransaction\SharedCartManager.cs" />
     <Compile Include="Transactions Module\comple Usercontrol\DeliveryCartDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -882,6 +897,9 @@
     <EmbeddedResource Include="Dashboard\DashboardMainPage.resx">
       <DependentUpon>DashboardMainPage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\Deliveries_btncs.resx">
+      <DependentUpon>Deliveries_btncs.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\Pagination_Deliveries.resx">
       <DependentUpon>Pagination_Deliveries.cs</DependentUpon>
     </EmbeddedResource>
@@ -914,6 +932,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\PopUp Forms\SuccessfullyDeletedDeliveries.resx">
       <DependentUpon>SuccessfullyDeletedDeliveries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Deliveries\SearchField.resx">
+      <DependentUpon>SearchField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\VehiclesInfoBox.resx">
       <DependentUpon>VehiclesInfoBox.cs</DependentUpon>

@@ -11,6 +11,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         private VehicleDataAccess vehicleDataAccess;
         private VehicleRecord currentVehicle;
         private string selectedImagePath;
+
         public event EventHandler VehicleSaved;
         public event EventHandler CancelRequested;
 
@@ -19,66 +20,132 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             InitializeComponent();
             vehicleDataAccess = new VehicleDataAccess();
             InitializeForm();
-
-            // Make the form clearly visible for testing
-            this.BackColor = Color.LightBlue;
-            this.BorderStyle = BorderStyle.FixedSingle;
         }
 
         private void InitializeForm()
         {
-            SetPlaceholderBehavior();
-            UploadImageButton.Click += UploadImageButton_Click;
+            // Initialize status combo box
+            InitializeStatusComboBox();
 
-            SetPlaceholderBehavior();
-            UploadImageButton.Click += UploadImageButton_Click;
+            // Set up placeholder behavior
+            SetupPlaceholders();
 
-            // Add these lines - replace with your actual button names:
-            btnBlue.Click += SaveButton_Click;
-            btnWhite.Click += CancelButton_Click;
+            // Wire up button events
+            WireUpButtons();
         }
 
-        private void SetPlaceholderBehavior()
+        private void InitializeStatusComboBox()
         {
-            // Brand (using VehiclesNameTextBox as Brand field)
-            VehiclesNameTextBox.Enter += (s, e) => {
-                if (VehiclesNameTextBox.Text == "Enter Vehicle Name")
-                    VehiclesNameTextBox.Text = "";
-            };
-            VehiclesNameTextBox.Leave += (s, e) => {
-                if (string.IsNullOrWhiteSpace(VehiclesNameTextBox.Text))
-                    VehiclesNameTextBox.Text = "Enter Vehicle Name";
-            };
+            VehicleStatusComboBox.Items.Clear();
+            VehicleStatusComboBox.Items.AddRange(new object[] {
+                "Available",
+                "On Delivery",
+                "Maintenance",
+                "In Use"
+            });
+            VehicleStatusComboBox.SelectedIndex = 0;
+        }
 
-            // Model
-            VehicleModelTextBox.Enter += (s, e) => {
-                if (VehicleModelTextBox.Text == "Enter Vehicle Model")
-                    VehicleModelTextBox.Text = "";
-            };
-            VehicleModelTextBox.Leave += (s, e) => {
-                if (string.IsNullOrWhiteSpace(VehicleModelTextBox.Text))
-                    VehicleModelTextBox.Text = "Enter Vehicle Model";
-            };
+        private void SetupPlaceholders()
+        {
+            // Store original placeholder text and set initial state
+            VehiclesNameTextBox.Tag = "Enter Vehicle Name";
+            VehicleModelTextBox.Tag = "Enter Vehicle Model";
+            YearBoughtTextBox.Tag = "Enter Year";
+            PlateNumberTextBox.Tag = "Enter Plate Number";
 
-            // Capacity (Year Bought field repurposed as Capacity)
-            YearBoughtTextBox.Enter += (s, e) => {
-                if (YearBoughtTextBox.Text == "Enter Year" || YearBoughtTextBox.Text == "Enter Capacity")
-                    YearBoughtTextBox.Text = "";
-            };
-            YearBoughtTextBox.Leave += (s, e) => {
-                if (string.IsNullOrWhiteSpace(YearBoughtTextBox.Text))
-                    YearBoughtTextBox.Text = "Enter Capacity";
-            };
+            // Apply initial placeholder text
+            SetPlaceholderState(VehiclesNameTextBox, true);
+            SetPlaceholderState(VehicleModelTextBox, true);
+            SetPlaceholderState(YearBoughtTextBox, true);
+            SetPlaceholderState(PlateNumberTextBox, true);
 
-            // Plate Number
-            PlateNumberTextBox.Enter += (s, e) => {
-                if (PlateNumberTextBox.Text == "Enter Plate Number")
-                    PlateNumberTextBox.Text = "";
-            };
-            PlateNumberTextBox.Leave += (s, e) => {
-                if (string.IsNullOrWhiteSpace(PlateNumberTextBox.Text))
-                    PlateNumberTextBox.Text = "Enter Plate Number";
-            };
+            // Wire up focus events
+            WireUpPlaceholderEvents(VehiclesNameTextBox);
+            WireUpPlaceholderEvents(VehicleModelTextBox);
+            WireUpPlaceholderEvents(YearBoughtTextBox);
+            WireUpPlaceholderEvents(PlateNumberTextBox);
+        }
+
+        private void WireUpPlaceholderEvents(KryptonRichTextBox textBox)
+        {
+            textBox.Enter += (s, e) => ClearPlaceholderIfNeeded(textBox);
+            textBox.Leave += (s, e) => RestorePlaceholderIfNeeded(textBox);
+            textBox.TextChanged += (s, e) => ValidateRealContent(textBox);
+        }
+
+        private void SetPlaceholderState(KryptonRichTextBox textBox, bool isPlaceholder)
+        {
+            if (isPlaceholder)
+            {
+                textBox.Text = textBox.Tag.ToString();
+                textBox.StateCommon.Content.Color1 = Color.Gray;
+                textBox.StateCommon.Content.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+            }
+            else
+            {
+                textBox.StateCommon.Content.Color1 = Color.Black;
+                textBox.StateCommon.Content.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+            }
+        }
+
+        private void ClearPlaceholderIfNeeded(KryptonRichTextBox textBox)
+        {
+            if (textBox.Text == textBox.Tag.ToString())
+            {
+                textBox.Text = "";
+                textBox.StateCommon.Content.Color1 = Color.Black;
+                textBox.StateCommon.Content.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+            }
+        }
+
+        private void RestorePlaceholderIfNeeded(KryptonRichTextBox textBox)
+        {
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                SetPlaceholderState(textBox, true);
+            }
+        }
+
+        private void ValidateRealContent(KryptonRichTextBox textBox)
+        {
+            // If user types something and it matches placeholder, clear it
+            if (textBox.Text == textBox.Tag.ToString() && textBox.Focused)
+            {
+                textBox.Text = "";
+            }
+        }
+
+        // Helper method to check if a textbox has real content (not placeholder)
+        private bool HasRealContent(KryptonRichTextBox textBox)
+        {
+            return !string.IsNullOrWhiteSpace(textBox.Text) && textBox.Text != textBox.Tag.ToString();
+        }
+
+        // Helper method to get real text content
+        private string GetRealText(KryptonRichTextBox textBox)
+        {
+            return textBox.Text == textBox.Tag.ToString() ? "" : textBox.Text;
+        }
+
+        private void WireUpButtons()
+        {
+            // Wire up image upload button
+            if (UploadImageButton != null)
+            {
+                UploadImageButton.Click += UploadImageButton_Click;
+            }
+
+            // Directly wire the existing buttons
+            if (btnBlue != null)
+            {
+                btnBlue.Click += (s, e) => SaveVehicle();
+            }
+
+            if (btnWhite != null)
+            {
+                btnWhite.Click += (s, e) => CancelRequested?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void UploadImageButton_Click(object sender, EventArgs e)
@@ -96,33 +163,52 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             }
         }
 
-        // Public method that can be called from button click
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            SaveVehicle();
-        }
-
-        // Public method for cancel/back functionality
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            CancelRequested?.Invoke(this, EventArgs.Empty);
-        }
-
         public void LoadVehicleData(VehicleRecord vehicle)
         {
             currentVehicle = vehicle;
 
-            VehiclesNameTextBox.Text = vehicle.Brand;
-            VehicleModelTextBox.Text = vehicle.Model;
-            YearBoughtTextBox.Text = vehicle.Capacity;
-            PlateNumberTextBox.Text = vehicle.PlateNumber;
-            VehicleStatusComboBox.SelectedItem = vehicle.Status;
+            // Load data into form fields (set real content, not placeholders)
+            if (!string.IsNullOrWhiteSpace(vehicle.Brand))
+            {
+                VehiclesNameTextBox.Text = vehicle.Brand;
+                SetPlaceholderState(VehiclesNameTextBox, false);
+            }
+
+            if (!string.IsNullOrWhiteSpace(vehicle.Model))
+            {
+                VehicleModelTextBox.Text = vehicle.Model;
+                SetPlaceholderState(VehicleModelTextBox, false);
+            }
+
+            if (!string.IsNullOrWhiteSpace(vehicle.Capacity))
+            {
+                YearBoughtTextBox.Text = vehicle.Capacity;
+                SetPlaceholderState(YearBoughtTextBox, false);
+            }
+
+            if (!string.IsNullOrWhiteSpace(vehicle.PlateNumber))
+            {
+                PlateNumberTextBox.Text = vehicle.PlateNumber;
+                SetPlaceholderState(PlateNumberTextBox, false);
+            }
+
+            // Set status
+            if (!string.IsNullOrEmpty(vehicle.Status))
+            {
+                VehicleStatusComboBox.SelectedItem = vehicle.Status;
+            }
+
             VehicleRemarkTextBox.Text = vehicle.Remarks ?? "";
 
-            // Note: VehicleType would need to be added as a dropdown or textbox
+            // Load image info
+            if (!string.IsNullOrEmpty(vehicle.ImagePath))
+            {
+                kryptonRichTextBox1.Text = Path.GetFileName(vehicle.ImagePath);
+                selectedImagePath = VehicleImageManager.GetFullImagePath(vehicle.ImagePath);
+            }
         }
 
-        public void SaveVehicle()
+        private void SaveVehicle()
         {
             if (!ValidateInputs())
                 return;
@@ -131,14 +217,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             {
                 VehicleRecord vehicle = new VehicleRecord
                 {
-                    Brand = VehiclesNameTextBox.Text,
-                    Model = VehicleModelTextBox.Text,
-                    VehicleType = "Drop-Side Truck", // You may want to add a combo box for this
-                    Capacity = YearBoughtTextBox.Text,
-                    PlateNumber = PlateNumberTextBox.Text,
+                    Brand = GetRealText(VehiclesNameTextBox).Trim(),
+                    Model = GetRealText(VehicleModelTextBox).Trim(),
+                    VehicleType = "Drop-Side Truck",
+                    Capacity = GetRealText(YearBoughtTextBox).Trim(),
+                    PlateNumber = GetRealText(PlateNumberTextBox).Trim(),
                     Status = VehicleStatusComboBox.SelectedItem?.ToString() ?? "Available",
-                    Remarks = VehicleRemarkTextBox.Text
+                    Remarks = VehicleRemarkTextBox.Text.Trim()
                 };
+
+                // Check for duplicate plate number
+                if (vehicleDataAccess.PlateNumberExists(vehicle.PlateNumber, currentVehicle?.VehicleInternalID ?? 0))
+                {
+                    MessageBox.Show("A vehicle with this plate number already exists!", "Duplicate Plate Number",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    PlateNumberTextBox.Focus();
+                    ClearPlaceholderIfNeeded(PlateNumberTextBox);
+                    return;
+                }
 
                 // Handle image upload
                 if (!string.IsNullOrEmpty(selectedImagePath))
@@ -146,12 +242,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     string savedImagePath = VehicleImageManager.SaveVehicleImage(selectedImagePath);
                     vehicle.ImagePath = savedImagePath;
                 }
+                else if (currentVehicle != null && !string.IsNullOrEmpty(currentVehicle.ImagePath))
+                {
+                    // Keep existing image if editing and no new image selected
+                    vehicle.ImagePath = currentVehicle.ImagePath;
+                }
                 else
                 {
-                    // Use default image if no image selected
+                    // Use default image
                     vehicle.ImagePath = "2000-Isuzu-mini-dump-truck-970-3730728_1 1.png";
                 }
 
+                // Save to database
                 if (currentVehicle == null)
                 {
                     vehicleDataAccess.AddVehicle(vehicle);
@@ -162,17 +264,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 {
                     vehicle.VehicleInternalID = currentVehicle.VehicleInternalID;
                     vehicle.VehicleID = currentVehicle.VehicleID;
-                    if (!string.IsNullOrEmpty(currentVehicle.ImagePath) && string.IsNullOrEmpty(selectedImagePath))
-                    {
-                        vehicle.ImagePath = currentVehicle.ImagePath;
-                    }
                     vehicleDataAccess.UpdateVehicle(vehicle);
                     MessageBox.Show("Vehicle updated successfully!", "Success",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
                 VehicleSaved?.Invoke(this, EventArgs.Empty);
-                ClearForm();
             }
             catch (Exception ex)
             {
@@ -183,30 +280,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
         private bool ValidateInputs()
         {
-            if (VehiclesNameTextBox.Text == "Enter Vehicle Name" ||
-                string.IsNullOrWhiteSpace(VehiclesNameTextBox.Text))
+            if (!HasRealContent(VehiclesNameTextBox))
             {
                 MessageBox.Show("Please enter vehicle brand/name", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 VehiclesNameTextBox.Focus();
+                ClearPlaceholderIfNeeded(VehiclesNameTextBox);
                 return false;
             }
 
-            if (VehicleModelTextBox.Text == "Enter Vehicle Model" ||
-                string.IsNullOrWhiteSpace(VehicleModelTextBox.Text))
+            if (!HasRealContent(VehicleModelTextBox))
             {
                 MessageBox.Show("Please enter vehicle model", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 VehicleModelTextBox.Focus();
+                ClearPlaceholderIfNeeded(VehicleModelTextBox);
                 return false;
             }
 
-            if (PlateNumberTextBox.Text == "Enter Plate Number" ||
-                string.IsNullOrWhiteSpace(PlateNumberTextBox.Text))
+            if (!HasRealContent(PlateNumberTextBox))
             {
                 MessageBox.Show("Please enter plate number", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 PlateNumberTextBox.Focus();
+                ClearPlaceholderIfNeeded(PlateNumberTextBox);
                 return false;
             }
 
@@ -221,26 +318,72 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             return true;
         }
 
-        private void ClearForm()
+        // Enhanced placeholder behavior for when form is shown
+        protected override void OnVisibleChanged(EventArgs e)
         {
-            VehiclesNameTextBox.Text = "Enter Vehicle Name";
-            VehicleModelTextBox.Text = "Enter Vehicle Model";
-            YearBoughtTextBox.Text = "Enter Capacity";
-            PlateNumberTextBox.Text = "Enter Plate Number";
-            VehicleStatusComboBox.SelectedIndex = -1;
-            VehicleRemarkTextBox.Text = "";
-            kryptonRichTextBox1.Text = "";
-            selectedImagePath = null;
-            currentVehicle = null;
+            base.OnVisibleChanged(e);
+
+            if (this.Visible)
+            {
+                // Ensure placeholders are properly set when form becomes visible
+                if (string.IsNullOrWhiteSpace(GetRealText(VehiclesNameTextBox)))
+                    SetPlaceholderState(VehiclesNameTextBox, true);
+                if (string.IsNullOrWhiteSpace(GetRealText(VehicleModelTextBox)))
+                    SetPlaceholderState(VehicleModelTextBox, true);
+                if (string.IsNullOrWhiteSpace(GetRealText(YearBoughtTextBox)))
+                    SetPlaceholderState(YearBoughtTextBox, true);
+                if (string.IsNullOrWhiteSpace(GetRealText(PlateNumberTextBox)))
+                    SetPlaceholderState(PlateNumberTextBox, true);
+            }
         }
 
-        // Keep existing event handlers
-        private void kryptonPanel1_Paint(object sender, PaintEventArgs e) { }
-        private void pictureBox1_Click(object sender, EventArgs e) { }
-        private void label14_Click(object sender, EventArgs e) { }
-        private void pictureBox2_Click(object sender, EventArgs e) { }
-        private void AddressTextBox_TextChanged(object sender, EventArgs e) { }
-        private void kryptonPanel2_Paint(object sender, PaintEventArgs e) { }
-        private void kryptonRichTextBox1_TextChanged(object sender, EventArgs e) { }
+        // Event handlers for designer events
+        private void kryptonPanel1_Paint(object sender, PaintEventArgs e)
+        {
+            // Optional: Custom panel painting if needed
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            // Handle picture box click if needed
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+            // Handle label click if needed
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            // Handle picture box click if needed
+        }
+
+        private void AddressTextBox_TextChanged(object sender, EventArgs e)
+        {
+            // Handle text changed for PlateNumberTextBox
+            // This will be handled by our placeholder system
+        }
+
+        private void kryptonPanel2_Paint(object sender, PaintEventArgs e)
+        {
+            // Handle panel painting if needed
+        }
+
+        private void kryptonRichTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            // Handle image text box changes
+        }
+
+        // Override OnLoad to ensure placeholders are set when control loads
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            // Ensure placeholders are set after control is fully loaded
+            if (!DesignMode)
+            {
+                SetupPlaceholders();
+            }
+        }
     }
 }

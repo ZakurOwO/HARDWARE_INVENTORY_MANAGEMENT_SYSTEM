@@ -21,6 +21,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         {
             InitializeComponent();
             InitializeClickEvents();
+            LockButtonPosition();
         }
 
         #region Properties
@@ -85,6 +86,44 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             DeleteBtn1.Cursor = Cursors.Hand;
         }
 
+        private void LockButtonPosition()
+        {
+            // Lock the btnStatus position at (143, 147)
+            if (btnStatus != null)
+            {
+                btnStatus.Location = new Point(143, 147);
+
+                // Subscribe to LocationChanged event to prevent movement
+                btnStatus.LocationChanged += BtnStatus_LocationChanged;
+            }
+        }
+
+        private void BtnStatus_LocationChanged(object sender, EventArgs e)
+        {
+            // If the button's location changes, reset it to the locked position
+            if (btnStatus.Location != new Point(143, 147))
+            {
+                btnStatus.Location = new Point(143, 147);
+            }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            // Ensure button is at correct position when control loads
+            LockButtonPosition();
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            // Maintain button position even when control is resized
+            if (btnStatus != null)
+            {
+                btnStatus.Location = new Point(143, 147);
+            }
+        }
+
         private void EditBtn1_Click(object sender, EventArgs e)
         {
             // Raise the EditClicked event
@@ -124,6 +163,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     btnStatus.ForeColor = Color.FromArgb(209, 118, 17);
                     break;
             }
+
+            // Ensure position is locked after updating status
+            btnStatus.Location = new Point(143, 147);
         }
     }
 }

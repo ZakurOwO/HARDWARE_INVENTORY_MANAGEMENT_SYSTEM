@@ -15,9 +15,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         public string ImagePath { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public string Remarks { get; set; } // Added for the form
 
         // Additional properties for your UI
         public string VehicleName => $"{Brand} {Model}"; // Combined name
-        public string Remarks { get; set; } // Additional field if needed
     }
 }

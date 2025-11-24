@@ -15,10 +15,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             connectionString = ConnectionString.DataSource;
         }
 
-        // Get all active products with stock
         public List<Product> GetActiveProducts()
         {
             var products = new List<Product>();
+            Console.WriteLine("🔍 Fetching active products from database...");
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -50,9 +50,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
 
+                    int count = 0;
                     while (reader.Read())
                     {
-                        products.Add(new Product
+                        count++;
+                        var product = new Product
                         {
                             ProductInternalID = reader.GetInt32(0),
                             ProductID = reader.GetString(1),
@@ -67,12 +69,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
                             Active = reader.GetBoolean(10),
                             CategoryName = reader.IsDBNull(11) ? "" : reader.GetString(11),
                             UnitName = reader.IsDBNull(12) ? "" : reader.GetString(12)
-                        });
+                        };
+
+                        products.Add(product);
+                        Console.WriteLine($"  - {product.ProductName} (Stock: {product.CurrentStock}, Price: {product.SellingPrice})");
                     }
                     reader.Close();
+
+                    Console.WriteLine($"✅ Successfully loaded {count} active products");
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine($"❌ Error retrieving products: {ex.Message}");
                     throw new Exception($"Error retrieving products: {ex.Message}");
                 }
             }
@@ -80,7 +88,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             return products;
         }
 
-        // Search products by name, SKU, or description
         public List<Product> SearchProducts(string searchTerm)
         {
             var products = new List<Product>();
@@ -149,7 +156,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             return products;
         }
 
-        // Get single product by internal ID
         public Product GetProductById(int productInternalId)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -206,7 +212,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             return null;
         }
 
-        // Check if SellingPrice column exists in database
         public bool CheckSellingPriceColumnExists()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))

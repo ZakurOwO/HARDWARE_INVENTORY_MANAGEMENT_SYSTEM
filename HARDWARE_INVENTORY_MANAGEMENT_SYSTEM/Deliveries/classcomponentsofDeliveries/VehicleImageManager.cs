@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
 
@@ -7,23 +8,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 {
     public static class VehicleImageManager
     {
-        private static string imageBasePath = Path.Combine(Application.StartupPath, "ImageVehicles");
+        // Use your specific debug path
+        private static string imageBasePath = @"C:\Users\Admin\Source\Repos\HARDWARE_INVENTORY_MANAGEMENT_SYSTEM9\HARDWARE_INVENTORY_MANAGEMENT_SYSTEM\bin\Debug\ImageVehicles";
         private static Image defaultImage;
 
         static VehicleImageManager()
         {
             // Ensure directory exists
-            if (!Directory.Exists(imageBasePath))
-            {
-                try
-                {
-                    Directory.CreateDirectory(imageBasePath);
-                }
-                catch (Exception)
-                {
-                    // Directory creation failed, continue with default path
-                }
-            }
+            EnsureDirectoryExists();
             defaultImage = CreateDefaultImage();
         }
 
@@ -36,6 +28,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         // Get vehicle image with custom dimensions
         public static Image GetVehicleImage(string imageFileName, int width, int height)
         {
+            // Always return a default image if no filename is provided
             if (string.IsNullOrEmpty(imageFileName))
             {
                 return CreateDefaultImage(width, height);
@@ -44,19 +37,31 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             try
             {
                 string fullPath = Path.Combine(imageBasePath, imageFileName);
+                Console.WriteLine($"Looking for image at: {fullPath}");
+                Console.WriteLine($"File exists: {File.Exists(fullPath)}");
 
                 if (File.Exists(fullPath))
                 {
-                    Image originalImage = Image.FromFile(fullPath);
-                    return ResizeImage(originalImage, width, height);
+                    using (FileStream stream = new FileStream(fullPath, FileMode.Open, FileAccess.Read))
+                    {
+                        Image originalImage = Image.FromStream(stream);
+                        Image resizedImage = ResizeImage(originalImage, width, height);
+                        originalImage.Dispose();
+                        Console.WriteLine($"Successfully loaded image: {imageFileName}");
+                        return resizedImage;
+                    }
                 }
                 else
                 {
+                    // File doesn't exist, return default image
+                    Console.WriteLine($"Image file not found: {fullPath}");
                     return CreateDefaultImage(width, height);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                // Log the error and return default image
+                Console.WriteLine($"Error loading image {imageFileName}: {ex.Message}");
                 return CreateDefaultImage(width, height);
             }
         }
@@ -68,45 +73,81 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             {
                 if (string.IsNullOrEmpty(sourcePath) || !File.Exists(sourcePath))
                 {
-                    return string.Empty;
+                    Console.WriteLine("Source path is invalid or file doesn't exist");
+                    return "default_vehicle.png";
                 }
 
+                // Ensure directory exists
+                EnsureDirectoryExists();
+
                 // Generate unique filename
-                string extension = Path.GetExtension(sourcePath);
-                string fileName = $"vehicle_{DateTime.Now:yyyyMMddHHmmss}{extension}";
+                string extension = Path.GetExtension(sourcePath).ToLower();
+                string fileName = $"vehicle_{DateTime.Now:yyyyMMddHHmmssfff}{extension}";
                 string destinationPath = Path.Combine(imageBasePath, fileName);
+
+                Console.WriteLine($"Copying from: {sourcePath}");
+                Console.WriteLine($"Copying to: {destinationPath}");
 
                 // Copy file to ImageVehicles directory
                 File.Copy(sourcePath, destinationPath, true);
 
+                Console.WriteLine($"Image saved successfully: {fileName}");
                 return fileName;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error saving vehicle image: {ex.Message}");
+                Console.WriteLine($"Error saving vehicle image: {ex.Message}");
+                return "default_vehicle.png";
             }
         }
 
         // Resize image to specified dimensions with high quality
         private static Image ResizeImage(Image image, int width, int height)
         {
-            Bitmap resizedImage = new Bitmap(width, height);
-            using (Graphics g = Graphics.FromImage(resizedImage))
+            try
             {
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-                g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                Bitmap resizedImage = new Bitmap(width, height);
+                using (Graphics g = Graphics.FromImage(resizedImage))
+                {
+                    g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    g.SmoothingMode = SmoothingMode.HighQuality;
+                    g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                    g.CompositingQuality = CompositingQuality.HighQuality;
 
-                g.DrawImage(image, 0, 0, width, height);
+                    // Use clear background
+                    g.Clear(Color.White);
+
+                    // Maintain aspect ratio
+                    float sourceRatio = (float)image.Width / image.Height;
+                    float destRatio = (float)width / height;
+
+                    int drawWidth, drawHeight;
+                    int drawX = 0, drawY = 0;
+
+                    if (sourceRatio > destRatio)
+                    {
+                        // Source is wider
+                        drawWidth = width;
+                        drawHeight = (int)(width / sourceRatio);
+                        drawY = (height - drawHeight) / 2;
+                    }
+                    else
+                    {
+                        // Source is taller
+                        drawHeight = height;
+                        drawWidth = (int)(height * sourceRatio);
+                        drawX = (width - drawWidth) / 2;
+                    }
+
+                    g.DrawImage(image, drawX, drawY, drawWidth, drawHeight);
+                }
+                return resizedImage;
             }
-            return resizedImage;
-        }
-
-        // Get cached default image
-        private static Image GetDefaultVehicleImage()
-        {
-            return defaultImage;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error resizing image: {ex.Message}");
+                return CreateDefaultImage(width, height);
+            }
         }
 
         // Create default placeholder image
@@ -118,38 +159,71 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         // Create default placeholder image with custom dimensions
         private static Image CreateDefaultImage(int width, int height)
         {
-            Bitmap defaultImage = new Bitmap(width, height);
-            using (Graphics g = Graphics.FromImage(defaultImage))
+            try
             {
-                g.Clear(Color.LightGray);
-
-                // Draw border
-                using (Pen borderPen = new Pen(Color.DarkGray, 1))
+                Bitmap defaultImage = new Bitmap(width, height);
+                using (Graphics g = Graphics.FromImage(defaultImage))
                 {
-                    g.DrawRectangle(borderPen, 0, 0, width - 1, height - 1);
+                    g.Clear(Color.LightGray);
+
+                    // Draw border
+                    using (Pen borderPen = new Pen(Color.DarkGray, 2))
+                    {
+                        g.DrawRectangle(borderPen, 0, 0, width - 1, height - 1);
+                    }
+
+                    // Draw vehicle icon or text
+                    using (Font font = new Font("Arial", Math.Max(10, width / 15), FontStyle.Bold))
+                    using (Brush brush = new SolidBrush(Color.DarkGray))
+                    using (StringFormat format = new StringFormat())
+                    {
+                        format.Alignment = StringAlignment.Center;
+                        format.LineAlignment = StringAlignment.Center;
+
+                        g.DrawString("🚗 Vehicle Image", font, brush,
+                                    new RectangleF(0, 0, width, height), format);
+                    }
                 }
+                return defaultImage;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating default image: {ex.Message}");
+                // Return a simple bitmap as fallback
+                return new Bitmap(width, height);
+            }
+        }
 
-                // Draw "No Image" text
-                using (Font font = new Font("Arial", Math.Max(8, width / 15), FontStyle.Regular))
-                using (Brush brush = new SolidBrush(Color.DarkGray))
-                using (StringFormat format = new StringFormat())
+        // Ensure directory exists
+        private static void EnsureDirectoryExists()
+        {
+            try
+            {
+                Console.WriteLine($"Checking directory: {imageBasePath}");
+                if (!Directory.Exists(imageBasePath))
                 {
-                    format.Alignment = StringAlignment.Center;
-                    format.LineAlignment = StringAlignment.Center;
-
-                    g.DrawString("No Vehicle Image", font, brush,
-                                new RectangleF(0, 0, width, height), format);
+                    Directory.CreateDirectory(imageBasePath);
+                    Console.WriteLine($"Created directory: {imageBasePath}");
+                }
+                else
+                {
+                    Console.WriteLine($"Directory already exists: {imageBasePath}");
                 }
             }
-            return defaultImage;
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating directory: {ex.Message}");
+            }
         }
 
         // Set custom image base path
         public static void SetImageBasePath(string path)
         {
-            if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
+            if (!string.IsNullOrEmpty(path))
             {
                 imageBasePath = path;
+                Console.WriteLine($"Image base path changed to: {path}");
+                EnsureDirectoryExists();
             }
         }
 
@@ -166,7 +240,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 return false;
 
             string fullPath = Path.Combine(imageBasePath, imageFileName);
-            return File.Exists(fullPath);
+            bool exists = File.Exists(fullPath);
+            Console.WriteLine($"Checking if image exists: {fullPath} -> {exists}");
+            return exists;
         }
 
         // Get full path for image file
@@ -175,26 +251,33 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             if (string.IsNullOrEmpty(imageFileName))
                 return string.Empty;
 
-            return Path.Combine(imageBasePath, imageFileName);
+            string fullPath = Path.Combine(imageBasePath, imageFileName);
+            Console.WriteLine($"Full image path: {fullPath}");
+            return fullPath;
         }
 
         // Delete vehicle image
-        public static void DeleteVehicleImage(string imageFileName)
+        public static bool DeleteVehicleImage(string imageFileName)
         {
             try
             {
-                if (string.IsNullOrEmpty(imageFileName))
-                    return;
+                if (string.IsNullOrEmpty(imageFileName) || imageFileName == "default_vehicle.png")
+                    return true; // Don't delete default images
 
                 string fullPath = Path.Combine(imageBasePath, imageFileName);
                 if (File.Exists(fullPath))
                 {
                     File.Delete(fullPath);
+                    Console.WriteLine($"Deleted image: {fullPath}");
+                    return true;
                 }
+                Console.WriteLine($"Image to delete not found: {fullPath}");
+                return false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // Silent fail - image deletion is not critical
+                Console.WriteLine($"Error deleting vehicle image: {ex.Message}");
+                return false;
             }
         }
     }

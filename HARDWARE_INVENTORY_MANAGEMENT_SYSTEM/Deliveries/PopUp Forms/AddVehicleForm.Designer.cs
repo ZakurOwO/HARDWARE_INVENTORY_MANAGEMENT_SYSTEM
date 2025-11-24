@@ -137,7 +137,7 @@
             this.VehiclesNameTextBox.StateCommon.Content.Color1 = System.Drawing.Color.DimGray;
             this.VehiclesNameTextBox.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 10, -1, -1);
             this.VehiclesNameTextBox.TabIndex = 41;
-            this.VehiclesNameTextBox.Text = "Enter Vehicle Name";
+            this.VehiclesNameTextBox.Text = "";
             // 
             // label13
             // 
@@ -145,7 +145,7 @@
             this.label13.BackColor = System.Drawing.Color.White;
             this.label13.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label13.ForeColor = System.Drawing.Color.DimGray;
-            this.label13.Location = new System.Drawing.Point(19, 263);
+            this.label13.Location = new System.Drawing.Point(19, 260);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(44, 17);
             this.label13.TabIndex = 38;
@@ -331,7 +331,7 @@
             // 
             this.UploadImageButton.BackColor = System.Drawing.Color.White;
             this.UploadImageButton.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.System_Icons__1_;
-            this.UploadImageButton.Location = new System.Drawing.Point(160, 0);
+            this.UploadImageButton.Location = new System.Drawing.Point(160, 9);
             this.UploadImageButton.Name = "UploadImageButton";
             this.UploadImageButton.Size = new System.Drawing.Size(24, 24);
             this.UploadImageButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -340,7 +340,7 @@
             // 
             // kryptonRichTextBox1
             // 
-            this.kryptonRichTextBox1.Location = new System.Drawing.Point(3, -9);
+            this.kryptonRichTextBox1.Location = new System.Drawing.Point(3, 1);
             this.kryptonRichTextBox1.Name = "kryptonRichTextBox1";
             this.kryptonRichTextBox1.ReadOnly = true;
             this.kryptonRichTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;

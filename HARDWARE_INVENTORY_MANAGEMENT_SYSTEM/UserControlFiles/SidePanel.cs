@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.Linq;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module;
@@ -103,10 +104,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             }
         }
 
+        // Helper method to close all overlays
+        private void CloseAllOverlays()
+        {
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                mainForm.CloseAllOverlays();
+            }
+        }
+
         // Navigation: Dashboard
         private void DashboardBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
+            CloseAllOverlays(); // Close any open overlays
+
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -121,6 +134,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         private void InventoryBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
+            CloseAllOverlays(); // Close any open overlays
+
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -131,9 +146,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             }
         }
 
+        // Navigation: Transactions
         private void TransactionBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
+            CloseAllOverlays(); // Close any open overlays
+
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -146,10 +164,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 mainForm.MainContentPanelAccess.Controls.Add(transactionPage);
             }
         }
+
         // Navigation: Customers
         private void CustomerBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
+            CloseAllOverlays(); // Close any open overlays
+
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -164,6 +185,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         private void SupplierBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
+            CloseAllOverlays(); // Close any open overlays
+
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -178,6 +201,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         private void DeliveriesBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
+            CloseAllOverlays(); // Close any open overlays
+
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
@@ -192,6 +217,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         private void ReportBTN_Click(object sender, EventArgs e)
         {
             HighlightButton((Button)sender);
+            CloseAllOverlays(); // Close any open overlays
+
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {

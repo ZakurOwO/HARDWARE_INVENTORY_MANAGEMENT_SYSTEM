@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 {
@@ -53,8 +54,40 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             get { return MainContentPanel; }
         }
 
+        // Method to close all overlays (vehicle form, etc.)
+        public void CloseAllOverlays()
+        {
+            // Close vehicle form container
+            var overlayContainer = this.Controls.OfType<Panel>()
+                .FirstOrDefault(p => p.Name == "scrollContainer" || p.Controls.OfType<AddVehicleForm>().Any());
+
+            if (overlayContainer != null)
+            {
+                this.Controls.Remove(overlayContainer);
+                overlayContainer.Dispose();
+            }
+
+            // Hide blur overlay
+            if (pcbBlurOverlay != null)
+            {
+                pcbBlurOverlay.Visible = false;
+            }
+
+            // Close any other potential overlays
+            var otherOverlays = this.Controls.OfType<Panel>()
+                .Where(p => p.Size == new Size(583, 505) && p.Location == new Point(472, 100))
+                .ToList();
+
+            foreach (var overlay in otherOverlays)
+            {
+                this.Controls.Remove(overlay);
+                overlay.Dispose();
+            }
+        }
+
         private void MainContentPanel_Paint(object sender, PaintEventArgs e)
         {
+            // Your existing paint code if any
         }
     }
 }

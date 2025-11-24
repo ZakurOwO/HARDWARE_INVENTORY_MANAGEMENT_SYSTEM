@@ -105,6 +105,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         }
 
         // Add product to cart logic
+        // In the Products class, update the AddProductToCart method:
         private void AddProductToCart()
         {
             // Validate product data
@@ -151,6 +152,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 MessageBox.Show("Cart is not available. Please try reloading the page.", "Cart Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        // Add a new method to set delivery cart reference
+        public void SetDeliveryCartReference(DeliveryCartDetails deliveryCart)
+        {
+            // You can implement this if you want separate references
+            // For now, both cart types have the same method signature
         }
 
         // Product name click - show details

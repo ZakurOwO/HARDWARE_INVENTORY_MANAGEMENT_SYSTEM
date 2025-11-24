@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
-            this.mainButtonWithIcon1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButtonWithIcon();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
+            this.deliveries_btncs1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.Deliveries_btncs();
+            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.vehiclesInfoBox3 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
             this.vehiclesInfoBox1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
             this.vehiclesInfoBox2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
             this.vehiclesInfoBox6 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
             this.vehiclesInfoBox4 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
             this.vehiclesInfoBox5 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
-            this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.guna2Panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -49,8 +49,9 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.LightGray;
             this.guna2Panel1.BorderRadius = 10;
             this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.searchField1);
+            this.guna2Panel1.Controls.Add(this.deliveries_btncs1);
             this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
-            this.guna2Panel1.Controls.Add(this.mainButtonWithIcon1);
             this.guna2Panel1.Controls.Add(this.flowLayoutPanel1);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.FillColor = System.Drawing.Color.White;
@@ -58,25 +59,6 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(935, 593);
             this.guna2Panel1.TabIndex = 9;
-            // 
-            // inventoryFilter_Button1
-            // 
-            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(330, 4);
-            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
-            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
-            this.inventoryFilter_Button1.TabIndex = 6;
-            // 
-            // mainButtonWithIcon1
-            // 
-            this.mainButtonWithIcon1.BackColor = System.Drawing.Color.Transparent;
-            this.mainButtonWithIcon1.ButtonName = "Add New Vehicle";
-            this.mainButtonWithIcon1.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.add_circle;
-            this.mainButtonWithIcon1.Location = new System.Drawing.Point(741, 3);
-            this.mainButtonWithIcon1.Name = "mainButtonWithIcon1";
-            this.mainButtonWithIcon1.Size = new System.Drawing.Size(157, 47);
-            this.mainButtonWithIcon1.TabIndex = 1;
-            this.mainButtonWithIcon1.Click += new System.EventHandler(this.mainButtonWithIcon1_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -90,6 +72,30 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(810, 504);
             this.flowLayoutPanel1.TabIndex = 8;
+            // 
+            // searchField1
+            // 
+            this.searchField1.BackColor = System.Drawing.Color.Transparent;
+            this.searchField1.Location = new System.Drawing.Point(25, 2);
+            this.searchField1.Name = "searchField1";
+            this.searchField1.PromptMessage = null;
+            this.searchField1.Size = new System.Drawing.Size(299, 54);
+            this.searchField1.TabIndex = 10;
+            // 
+            // deliveries_btncs1
+            // 
+            this.deliveries_btncs1.Location = new System.Drawing.Point(737, 6);
+            this.deliveries_btncs1.Name = "deliveries_btncs1";
+            this.deliveries_btncs1.Size = new System.Drawing.Size(157, 47);
+            this.deliveries_btncs1.TabIndex = 9;
+            // 
+            // inventoryFilter_Button1
+            // 
+            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(330, 4);
+            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
+            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
+            this.inventoryFilter_Button1.TabIndex = 6;
             // 
             // vehiclesInfoBox3
             // 
@@ -188,22 +194,11 @@
             this.vehiclesInfoBox5.Vehicle_ID = "MITS-0021";
             this.vehiclesInfoBox5.Vehicle_Name = "Mitsubishi Fuso Cante";
             // 
-            // searchField1
-            // 
-            this.searchField1.BackColor = System.Drawing.Color.Transparent;
-            this.searchField1.Location = new System.Drawing.Point(25, 1);
-            this.searchField1.Name = "searchField1";
-            this.searchField1.PromptMessage = "Search Deliveries";
-            this.searchField1.Size = new System.Drawing.Size(299, 54);
-            this.searchField1.TabIndex = 5;
-            this.searchField1.Load += new System.EventHandler(this.searchField1_Load);
-            // 
             // DeliveriesMainPage2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.searchField1);
             this.Controls.Add(this.guna2Panel1);
             this.Name = "DeliveriesMainPage2";
             this.Size = new System.Drawing.Size(935, 593);
@@ -216,9 +211,7 @@
         #endregion
 
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
-        private Accounts_Module.SearchField searchField1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private UserControlFiles.MainButtonWithIcon mainButtonWithIcon1;
         private VehiclesInfoBox vehiclesInfoBox3;
         private VehiclesInfoBox vehiclesInfoBox2;
         private VehiclesInfoBox vehiclesInfoBox1;
@@ -226,5 +219,7 @@
         private VehiclesInfoBox vehiclesInfoBox5;
         private VehiclesInfoBox vehiclesInfoBox6;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private Deliveries_btncs deliveries_btncs1;
+        private Accounts_Module.SearchField searchField1;
     }
 }

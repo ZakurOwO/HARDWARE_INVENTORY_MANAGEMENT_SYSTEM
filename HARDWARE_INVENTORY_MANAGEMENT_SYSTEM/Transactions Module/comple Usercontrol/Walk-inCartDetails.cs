@@ -22,18 +22,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             InitializeComponent();
             connectionString = ConnectionString.DataSource;
             InitializeDataGridViewColumns();
-
-            // ALIGNMENT: Add padding to center content with more space on sides
-            this.Padding = new Padding(20, 10, 20, 10);
-
-            // Initialize customer field
             InitializeCustomerField();
         }
 
-        // Initialize customer input field
         private void InitializeCustomerField()
         {
-            // Make sure label1 shows "Customer" text
             if (label1 != null)
             {
                 label1.Text = "Customer";
@@ -42,24 +35,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 label1.Location = new Point(10, 17);
             }
 
-            // Configure the customer textbox (guna2TextBox1)
             if (guna2TextBox1 != null)
             {
                 guna2TextBox1.PlaceholderText = "Optional";
                 guna2TextBox1.Text = "";
                 guna2TextBox1.BorderColor = Color.FromArgb(213, 218, 223);
                 guna2TextBox1.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-
-                // Add event handler for when text changes
                 guna2TextBox1.TextChanged += Guna2TextBox1_TextChanged;
             }
         }
 
-        // Handle customer name text changes
         private void Guna2TextBox1_TextChanged(object sender, EventArgs e)
         {
-            // You can add validation or formatting here if needed
-            // For example, limit characters or format the name
             if (guna2TextBox1.Text.Length > 100)
             {
                 guna2TextBox1.Text = guna2TextBox1.Text.Substring(0, 100);
@@ -67,17 +54,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        // Get customer name from the textbox
         public string GetCustomerName()
         {
             if (guna2TextBox1 != null && !string.IsNullOrWhiteSpace(guna2TextBox1.Text))
             {
                 return guna2TextBox1.Text.Trim();
             }
-            return "Walk-in Customer"; // Default for walk-in
+            return "Walk-in Customer";
         }
 
-        // Set customer name programmatically
         public void SetCustomerName(string customerName)
         {
             if (guna2TextBox1 != null)
@@ -86,12 +71,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        // Configure DataGridView columns
         private void InitializeDataGridViewColumns()
         {
             dgvCartDetails.Columns.Clear();
 
-            // ALIGNMENT: Item Name Column - LEFT ALIGNED
             DataGridViewTextBoxColumn itemNameColumn = new DataGridViewTextBoxColumn();
             itemNameColumn.Name = "ItemName";
             itemNameColumn.HeaderText = "ITEM";
@@ -101,7 +84,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             itemNameColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgvCartDetails.Columns.Add(itemNameColumn);
 
-            // ALIGNMENT: Quantity Column - CENTER ALIGNED
             DataGridViewTextBoxColumn quantityColumn = new DataGridViewTextBoxColumn();
             quantityColumn.Name = "Quantity";
             quantityColumn.HeaderText = "QTY";
@@ -110,7 +92,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             quantityColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvCartDetails.Columns.Add(quantityColumn);
 
-            // ALIGNMENT: Price Column - RIGHT ALIGNED
             DataGridViewTextBoxColumn priceColumn = new DataGridViewTextBoxColumn();
             priceColumn.Name = "Price";
             priceColumn.HeaderText = "PRICE";
@@ -120,7 +101,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             priceColumn.ReadOnly = true;
             dgvCartDetails.Columns.Add(priceColumn);
 
-            // ALIGNMENT: Delete Column - CENTER ALIGNED
             DataGridViewImageColumn deleteColumn = new DataGridViewImageColumn();
             deleteColumn.Name = "Delete";
             deleteColumn.HeaderText = "";
@@ -131,32 +111,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             deleteColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvCartDetails.Columns.Add(deleteColumn);
 
-            // Configure DataGridView settings
             dgvCartDetails.AutoGenerateColumns = false;
             dgvCartDetails.AllowUserToAddRows = false;
             dgvCartDetails.RowHeadersVisible = false;
             dgvCartDetails.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-            // ALIGNMENT: Center the DataGridView headers
             dgvCartDetails.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvCartDetails.ColumnHeadersHeight = 35;
         }
 
-        // Initialize cart on load
         private void Walk_inCartDetails_Load(object sender, EventArgs e)
         {
             dgvCartDetails.ClearSelection();
             SetupNumericUpDown();
-            UpdateTotals();
-
-            // ALIGNMENT: Configure layout after load
+            LoadSharedCartItems();
             ConfigureLayout();
         }
 
-        // ALIGNMENT: Configure the overall layout
         private void ConfigureLayout()
         {
-            // Center the DataGridView with margins
             if (dgvCartDetails != null)
             {
                 dgvCartDetails.Anchor = AnchorStyles.None;
@@ -165,29 +137,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 dgvCartDetails.Location = new Point(centerX, dgvCartDetails.Location.Y);
                 dgvCartDetails.Width = gridWidth;
             }
-
-            // Adjust buttons to be centered
             AdjustButtonPositions();
         }
 
-        // ALIGNMENT: Center the Clear and Checkout buttons
         private void AdjustButtonPositions()
         {
-            // Calculate center position for buttons
             int buttonGap = 15;
             int totalButtonWidth = btnClear.Width + btnCheckout.Width + buttonGap;
             int startX = (this.Width - totalButtonWidth) / 2;
 
-            // Position buttons in center
             btnClear.Location = new Point(startX, btnClear.Location.Y);
             btnCheckout.Location = new Point(startX + btnClear.Width + buttonGap, btnCheckout.Location.Y);
 
-            // Make sure buttons maintain centered position
             btnClear.Anchor = AnchorStyles.Bottom;
             btnCheckout.Anchor = AnchorStyles.Bottom;
         }
 
-        // Configure NumericUpDown control for quantity editing
         private void SetupNumericUpDown()
         {
             qtyUpDown.Minimum = 1;
@@ -207,7 +172,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             qtyUpDown.KeyDown += QtyUpDown_KeyDown;
         }
 
-        // Show NumericUpDown when quantity cell is clicked
         private void dgvCartDetails_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && e.ColumnIndex == dgvCartDetails.Columns["Quantity"].Index)
@@ -220,7 +184,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        // Position and display NumericUpDown over quantity cell
         private void ShowNumericUpDown(int rowIndex, int columnIndex)
         {
             Rectangle rect = dgvCartDetails.GetCellDisplayRectangle(columnIndex, rowIndex, true);
@@ -245,39 +208,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             qtyUpDown.Select(0, qtyUpDown.Value.ToString().Length);
         }
 
-        // Handle delete button click
         private void dgvCartDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dgvCartDetails.Columns[e.ColumnIndex].Name == "Delete")
             {
-                DeleteCartItem(e.RowIndex);
+                if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
+                    "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    string productName = dgvCartDetails.Rows[e.RowIndex].Cells["ItemName"].Value?.ToString();
+                    if (!string.IsNullOrEmpty(productName))
+                    {
+                        SharedCartManager.Instance.RemoveItemFromCart(productName);
+                    }
+                    dgvCartDetails.Rows.RemoveAt(e.RowIndex);
+                    UpdateTotals();
+                }
             }
         }
 
-        // Remove item from cart
-        private void DeleteCartItem(int rowIndex)
-        {
-            if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
-                "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                dgvCartDetails.Rows.RemoveAt(rowIndex);
-                UpdateTotals();
-            }
-        }
-
-        // Save quantity value when NumericUpDown loses focus
-        private void qtyUpDown_Leave(object sender, EventArgs e)
-        {
-            SaveNumericValue();
-        }
-
-        // Update totals when quantity changes
-        private void qtyUpDown_ValueChanged(object sender, EventArgs e)
-        {
-            SaveNumericValue();
-        }
-
-        // Handle keyboard shortcuts for NumericUpDown
         private void QtyUpDown_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -293,7 +241,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        // Save NumericUpDown value to cell
+        private void qtyUpDown_Leave(object sender, EventArgs e)
+        {
+            SaveNumericValue();
+        }
+
+        private void qtyUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            SaveNumericValue();
+        }
+
         private void SaveNumericValue()
         {
             if (qtyUpDown.Tag is Point cellLocation)
@@ -304,13 +261,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 if (rowIndex >= 0 && rowIndex < dgvCartDetails.Rows.Count)
                 {
                     dgvCartDetails.Rows[rowIndex].Cells[columnIndex].Value = qtyUpDown.Value;
+
+                    string productName = dgvCartDetails.Rows[rowIndex].Cells["ItemName"].Value?.ToString();
+                    int newQuantity = Convert.ToInt32(qtyUpDown.Value);
+
+                    if (!string.IsNullOrEmpty(productName))
+                    {
+                        SharedCartManager.Instance.UpdateItemQuantity(productName, newQuantity);
+                    }
+
                     UpdateTotals();
                     UpdateRowAppearance(rowIndex);
                 }
             }
         }
 
-        // Highlight rows with quantity > 10
         private void UpdateRowAppearance(int rowIndex)
         {
             if (dgvCartDetails.Rows[rowIndex].Cells["Quantity"].Value != null)
@@ -327,13 +292,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        // Process checkout for walk-in customer
         private void btnCheckout_Click(object sender, EventArgs e)
         {
             CheckoutWalkIn();
         }
 
-        // Handle walk-in checkout process
         private void CheckoutWalkIn()
         {
             try
@@ -359,7 +322,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     return;
                 }
 
-                // Get customer name
                 string customerName = GetCustomerName();
 
                 var result = MessageBox.Show(
@@ -380,7 +342,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        // Validate all quantities are positive
         private bool ValidateQuantities()
         {
             foreach (DataGridViewRow row in dgvCartDetails.Rows)
@@ -399,7 +360,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return true;
         }
 
-        // Calculate cart subtotal
         private decimal CalculateSubtotal()
         {
             decimal subtotal = 0;
@@ -416,13 +376,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return subtotal;
         }
 
-        // Calculate tax (12%)
         private decimal CalculateTax(decimal subtotal)
         {
             return subtotal * 0.12m;
         }
 
-        // Verify stock availability for all cart items
         private bool ValidateStockAvailability()
         {
             try
@@ -480,7 +438,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        // Save transaction to database with customer name
         private void SaveWalkInTransactionToDatabase(string customerName, decimal subtotal, decimal tax, decimal totalAmount)
         {
             try
@@ -492,10 +449,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
                     try
                     {
-                        // 1. Get or create customer
                         int customerId = GetOrCreateCustomer(connection, transaction, customerName);
 
-                        // 2. Create transaction record
                         string insertTransactionQuery = @"
                             INSERT INTO Transactions (transaction_date, customer_id, total_amount, cashier)
                             VALUES (GETDATE(), @CustomerId, @TotalAmount, @Cashier);
@@ -504,11 +459,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         SqlCommand transactionCmd = new SqlCommand(insertTransactionQuery, connection, transaction);
                         transactionCmd.Parameters.AddWithValue("@CustomerId", customerId);
                         transactionCmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
-                        transactionCmd.Parameters.AddWithValue("@Cashier", 1); // Replace with actual user ID
+                        transactionCmd.Parameters.AddWithValue("@Cashier", 1);
 
                         int transactionId = (int)transactionCmd.ExecuteScalar();
 
-                        // 3. Insert transaction items and update stock
                         foreach (DataGridViewRow row in dgvCartDetails.Rows)
                         {
                             if (row.IsNewRow) continue;
@@ -517,13 +471,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
                             decimal price = decimal.Parse(row.Cells["Price"].Value.ToString().Replace("₱", "").Trim());
 
-                            // Get product ID
                             string getProductQuery = "SELECT ProductInternalID FROM Products WHERE product_name = @ProductName";
                             SqlCommand productCmd = new SqlCommand(getProductQuery, connection, transaction);
                             productCmd.Parameters.AddWithValue("@ProductName", productName);
                             int productId = (int)productCmd.ExecuteScalar();
 
-                            // Insert transaction item
                             string insertItemQuery = @"
                                 INSERT INTO TransactionItems (transaction_id, product_id, quantity, selling_price)
                                 VALUES (@TransactionId, @ProductId, @Quantity, @SellingPrice);";
@@ -535,7 +487,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             itemCmd.Parameters.AddWithValue("@SellingPrice", price);
                             itemCmd.ExecuteNonQuery();
 
-                            // Update stock
                             string updateStockQuery = @"
                                 UPDATE Products 
                                 SET current_stock = current_stock - @Quantity 
@@ -568,10 +519,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        // Get existing customer or create new one
         private int GetOrCreateCustomer(SqlConnection connection, SqlTransaction transaction, string customerName)
         {
-            // Check if customer exists
             string checkCustomerQuery = "SELECT customer_id FROM Customers WHERE customer_name = @CustomerName";
             SqlCommand checkCmd = new SqlCommand(checkCustomerQuery, connection, transaction);
             checkCmd.Parameters.AddWithValue("@CustomerName", customerName);
@@ -582,7 +531,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 return (int)existingCustomer;
             }
 
-            // Create new customer
             string insertCustomerQuery = @"
                 INSERT INTO Customers (customer_name, created_at)
                 VALUES (@CustomerName, GETDATE());
@@ -594,34 +542,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return (int)insertCmd.ExecuteScalar();
         }
 
-        // Clear cart and reset totals
         private void ClearCart()
         {
             dgvCartDetails.Rows.Clear();
+            SharedCartManager.Instance.ClearCart();
             UpdateTotals();
             guna2TextBox1.Text = "";
             guna2TextBox1.PlaceholderText = "Optional";
         }
 
-        // ALIGNMENT: Update subtotal, tax, and total labels with right alignment
         public void UpdateTotals()
         {
             decimal subtotal = CalculateSubtotal();
             decimal tax = CalculateTax(subtotal);
             decimal total = subtotal + tax;
 
-            // ALIGNMENT: Values are right-aligned in the labels
             label4.Text = $"₱ {subtotal:N2}";
             label3.Text = $"₱ {tax:N2}";
             label7.Text = $"₱ {total:N2}";
 
-            // ALIGNMENT: Make sure labels are right-aligned
             label4.TextAlign = ContentAlignment.MiddleRight;
             label3.TextAlign = ContentAlignment.MiddleRight;
             label7.TextAlign = ContentAlignment.MiddleRight;
         }
 
-        // Clear cart button click
         private void btnClear_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to clear the cart?",
@@ -631,28 +575,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        // Add item to cart or update quantity if exists
         public void AddItemToCart(string itemName, decimal price, int quantity = 1)
         {
-            foreach (DataGridViewRow row in dgvCartDetails.Rows)
+            Console.WriteLine($"AddItemToCart called: {itemName}, {price}, {quantity}");
+
+            SharedCartManager.Instance.AddItemToCart(new CartItem
             {
-                if (row.IsNewRow) continue;
+                ProductName = itemName,
+                Price = price,
+                Quantity = quantity
+            });
 
-                if (row.Cells["ItemName"].Value?.ToString() == itemName)
-                {
-                    int currentQty = Convert.ToInt32(row.Cells["Quantity"].Value);
-                    row.Cells["Quantity"].Value = currentQty + quantity;
-                    UpdateTotals();
-                    return;
-                }
-            }
-
-            dgvCartDetails.Rows.Add(itemName, quantity, $"₱{price:N2}");
-            UpdateTotals();
-            dgvCartDetails.Refresh();
+            LoadSharedCartItems();
         }
 
-        // Add product to cart by database ID
         public void AddProductToCartById(int productInternalId, int quantity = 1)
         {
             try
@@ -705,45 +641,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        // Remove specific item from cart
-        public void RemoveItemFromCart(string itemName)
+        private void LoadSharedCartItems()
         {
-            foreach (DataGridViewRow row in dgvCartDetails.Rows)
-            {
-                if (row.IsNewRow) continue;
+            dgvCartDetails.Rows.Clear();
+            var sharedItems = SharedCartManager.Instance.GetCartItems();
 
-                if (row.Cells["ItemName"].Value?.ToString() == itemName)
-                {
-                    dgvCartDetails.Rows.Remove(row);
-                    UpdateTotals();
-                    return;
-                }
+            foreach (var item in sharedItems)
+            {
+                dgvCartDetails.Rows.Add(item.ProductName, item.Quantity, $"₱{item.Price:N2}");
             }
+            UpdateTotals();
         }
 
-        // Update quantity for specific item
-        public void UpdateItemQuantity(string itemName, int newQuantity)
-        {
-            foreach (DataGridViewRow row in dgvCartDetails.Rows)
-            {
-                if (row.IsNewRow) continue;
-
-                if (row.Cells["ItemName"].Value?.ToString() == itemName)
-                {
-                    row.Cells["Quantity"].Value = newQuantity;
-                    UpdateTotals();
-                    return;
-                }
-            }
-        }
-
-        // Get total cart amount
         public decimal GetCartTotal()
         {
             return CalculateSubtotal() + CalculateTax(CalculateSubtotal());
         }
 
-        // Get number of items in cart
         public int GetCartItemCount()
         {
             int count = 0;
@@ -754,7 +668,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return count;
         }
 
-        // Get all cart items as list
         public List<CartItem> GetCartItems()
         {
             List<CartItem> items = new List<CartItem>();

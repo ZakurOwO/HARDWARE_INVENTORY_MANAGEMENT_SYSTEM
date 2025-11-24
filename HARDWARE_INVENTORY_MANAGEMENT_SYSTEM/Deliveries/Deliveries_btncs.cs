@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 {
-    public partial class EditDeliveryDetails: UserControl
+    public partial class Deliveries_btncs: UserControl
     {
-        public EditDeliveryDetails()
+        public Deliveries_btncs()
         {
             InitializeComponent();
         }
 
-        private void label15_Click(object sender, EventArgs e)
+        private void mainButtonWithIcon1_Load(object sender, EventArgs e)
         {
 
         }

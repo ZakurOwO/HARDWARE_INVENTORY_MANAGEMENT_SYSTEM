@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 {
-    public partial class EditDeliveryDetails: UserControl
+    public partial class SearchField: UserControl
     {
-        public EditDeliveryDetails()
+        public SearchField()
         {
             InitializeComponent();
-        }
-
-        private void label15_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

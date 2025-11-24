@@ -54,6 +54,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.EditVehicleStatusComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.btnWhite = new Guna.UI2.WinForms.Guna2Button();
+            this.btnBlue = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EditUploadImageButton)).BeginInit();
@@ -67,7 +69,7 @@
             this.label14.BackColor = System.Drawing.Color.White;
             this.label14.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label14.ForeColor = System.Drawing.Color.DimGray;
-            this.label14.Location = new System.Drawing.Point(19, 359);
+            this.label14.Location = new System.Drawing.Point(19, 340);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(51, 17);
             this.label14.TabIndex = 84;
@@ -186,7 +188,7 @@
             // 
             // EditVehicleRemarkTextBox
             // 
-            this.EditVehicleRemarkTextBox.Location = new System.Drawing.Point(18, 379);
+            this.EditVehicleRemarkTextBox.Location = new System.Drawing.Point(18, 360);
             this.EditVehicleRemarkTextBox.Name = "EditVehicleRemarkTextBox";
             this.EditVehicleRemarkTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.EditVehicleRemarkTextBox.Size = new System.Drawing.Size(497, 124);
@@ -391,10 +393,49 @@
             this.EditVehicleStatusComboBox.Size = new System.Drawing.Size(193, 36);
             this.EditVehicleStatusComboBox.TabIndex = 82;
             // 
+            // btnWhite
+            // 
+            this.btnWhite.BorderColor = System.Drawing.Color.Gainsboro;
+            this.btnWhite.BorderRadius = 8;
+            this.btnWhite.BorderThickness = 1;
+            this.btnWhite.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnWhite.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnWhite.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnWhite.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnWhite.FillColor = System.Drawing.Color.White;
+            this.btnWhite.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWhite.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnWhite.Location = new System.Drawing.Point(317, 497);
+            this.btnWhite.Name = "btnWhite";
+            this.btnWhite.PressedColor = System.Drawing.Color.Azure;
+            this.btnWhite.Size = new System.Drawing.Size(120, 40);
+            this.btnWhite.TabIndex = 86;
+            this.btnWhite.Text = "Cancel";
+            this.btnWhite.Click += new System.EventHandler(this.btnWhite_Click);
+            // 
+            // btnBlue
+            // 
+            this.btnBlue.BorderRadius = 8;
+            this.btnBlue.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBlue.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBlue.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBlue.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBlue.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.btnBlue.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBlue.ForeColor = System.Drawing.Color.White;
+            this.btnBlue.Location = new System.Drawing.Point(443, 497);
+            this.btnBlue.Name = "btnBlue";
+            this.btnBlue.Size = new System.Drawing.Size(120, 40);
+            this.btnBlue.TabIndex = 85;
+            this.btnBlue.Text = "Proceed";
+            this.btnBlue.Click += new System.EventHandler(this.btnBlue_Click);
+            // 
             // EditVehicle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnWhite);
+            this.Controls.Add(this.btnBlue);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.EditVehicleStatusComboBox);
             this.Controls.Add(this.label5);
@@ -457,5 +498,7 @@
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private Guna.UI2.WinForms.Guna2ComboBox EditVehicleStatusComboBox;
+        private Guna.UI2.WinForms.Guna2Button btnWhite;
+        private Guna.UI2.WinForms.Guna2Button btnBlue;
     }
 }

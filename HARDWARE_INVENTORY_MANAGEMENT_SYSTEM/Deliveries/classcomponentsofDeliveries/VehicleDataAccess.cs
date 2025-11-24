@@ -35,6 +35,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                         created_at,
                         updated_at
                     FROM Vehicles 
+                    WHERE status != 'Inactive'
                     ORDER BY created_at DESC";
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -93,10 +94,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                         created_at,
                         updated_at
                     FROM Vehicles 
-                    WHERE plate_number LIKE @SearchTerm 
+                    WHERE (plate_number LIKE @SearchTerm 
                        OR brand LIKE @SearchTerm 
                        OR model LIKE @SearchTerm 
-                       OR vehicle_type LIKE @SearchTerm
+                       OR vehicle_type LIKE @SearchTerm)
+                       AND status != 'Inactive'
                     ORDER BY created_at DESC";
 
                 SqlCommand command = new SqlCommand(query, connection);
@@ -257,7 +259,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 try
                 {
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected == 0)
+                    {
+                        throw new Exception("No vehicle found with the specified ID.");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -283,7 +290,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 try
                 {
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected == 0)
+                    {
+                        throw new Exception("No vehicle found with the specified ID.");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -347,6 +359,35 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             }
 
             return null;
+        }
+
+        // Check if plate number already exists
+        public bool PlateNumberExists(string plateNumber, int excludeVehicleId = 0)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = @"
+                    SELECT COUNT(*) 
+                    FROM Vehicles 
+                    WHERE plate_number = @PlateNumber 
+                    AND vehicle_id != @ExcludeVehicleId
+                    AND status != 'Inactive'";
+
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@PlateNumber", plateNumber);
+                command.Parameters.AddWithValue("@ExcludeVehicleId", excludeVehicleId);
+
+                try
+                {
+                    connection.Open();
+                    int count = (int)command.ExecuteScalar();
+                    return count > 0;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Error checking plate number: {ex.Message}");
+                }
+            }
         }
     }
 }

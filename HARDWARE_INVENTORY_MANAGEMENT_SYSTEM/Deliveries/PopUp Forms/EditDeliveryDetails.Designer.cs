@@ -70,7 +70,7 @@
             // 
             // ZipCodeDeliveryDetailsTextBox
             // 
-            this.ZipCodeDeliveryDetailsTextBox.Location = new System.Drawing.Point(22, 410);
+            this.ZipCodeDeliveryDetailsTextBox.Location = new System.Drawing.Point(22, 332);
             this.ZipCodeDeliveryDetailsTextBox.Name = "ZipCodeDeliveryDetailsTextBox";
             this.ZipCodeDeliveryDetailsTextBox.Size = new System.Drawing.Size(138, 27);
             this.ZipCodeDeliveryDetailsTextBox.StateCommon.Border.Color1 = System.Drawing.Color.DimGray;
@@ -166,7 +166,7 @@
             "Zamboanga del Norte",
             "Zamboanga del Sur",
             "Zamboanga Sibugay"});
-            this.ProvinceDeliveryDetailsComboBox.Location = new System.Drawing.Point(297, 354);
+            this.ProvinceDeliveryDetailsComboBox.Location = new System.Drawing.Point(293, 220);
             this.ProvinceDeliveryDetailsComboBox.Name = "ProvinceDeliveryDetailsComboBox";
             this.ProvinceDeliveryDetailsComboBox.Size = new System.Drawing.Size(130, 26);
             this.ProvinceDeliveryDetailsComboBox.StateCommon.ComboBox.Border.Rounding = 7F;
@@ -324,7 +324,7 @@
             "Marawi",
             "Basilan City",
             "Zamboanga Sibugay"});
-            this.CityDeliveryDetailsComboBox.Location = new System.Drawing.Point(21, 349);
+            this.CityDeliveryDetailsComboBox.Location = new System.Drawing.Point(21, 272);
             this.CityDeliveryDetailsComboBox.Name = "CityDeliveryDetailsComboBox";
             this.CityDeliveryDetailsComboBox.Size = new System.Drawing.Size(130, 26);
             this.CityDeliveryDetailsComboBox.StateCommon.ComboBox.Border.Rounding = 7F;
@@ -334,7 +334,7 @@
             // 
             // TransactionTypeTextBox
             // 
-            this.TransactionTypeTextBox.Location = new System.Drawing.Point(21, 204);
+            this.TransactionTypeTextBox.Location = new System.Drawing.Point(21, 149);
             this.TransactionTypeTextBox.Name = "TransactionTypeTextBox";
             this.TransactionTypeTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
             this.TransactionTypeTextBox.Size = new System.Drawing.Size(193, 41);
@@ -383,7 +383,7 @@
             this.label18.BackColor = System.Drawing.Color.White;
             this.label18.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label18.ForeColor = System.Drawing.Color.Red;
-            this.label18.Location = new System.Drawing.Point(75, 390);
+            this.label18.Location = new System.Drawing.Point(75, 312);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(13, 17);
             this.label18.TabIndex = 49;
@@ -395,7 +395,7 @@
             this.label19.BackColor = System.Drawing.Color.White;
             this.label19.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label19.ForeColor = System.Drawing.Color.DimGray;
-            this.label19.Location = new System.Drawing.Point(23, 390);
+            this.label19.Location = new System.Drawing.Point(23, 312);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(56, 17);
             this.label19.TabIndex = 48;
@@ -407,7 +407,7 @@
             this.label16.BackColor = System.Drawing.Color.White;
             this.label16.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label16.ForeColor = System.Drawing.Color.Red;
-            this.label16.Location = new System.Drawing.Point(347, 329);
+            this.label16.Location = new System.Drawing.Point(338, 200);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(13, 17);
             this.label16.TabIndex = 47;
@@ -419,11 +419,12 @@
             this.label15.BackColor = System.Drawing.Color.White;
             this.label15.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label15.ForeColor = System.Drawing.Color.DimGray;
-            this.label15.Location = new System.Drawing.Point(294, 329);
+            this.label15.Location = new System.Drawing.Point(285, 200);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(56, 17);
             this.label15.TabIndex = 45;
             this.label15.Text = "Province";
+            this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // label12
             // 
@@ -431,7 +432,7 @@
             this.label12.BackColor = System.Drawing.Color.White;
             this.label12.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label12.ForeColor = System.Drawing.Color.Red;
-            this.label12.Location = new System.Drawing.Point(48, 329);
+            this.label12.Location = new System.Drawing.Point(48, 252);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(13, 17);
             this.label12.TabIndex = 44;
@@ -443,7 +444,7 @@
             this.label13.BackColor = System.Drawing.Color.White;
             this.label13.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label13.ForeColor = System.Drawing.Color.DimGray;
-            this.label13.Location = new System.Drawing.Point(23, 329);
+            this.label13.Location = new System.Drawing.Point(23, 252);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(30, 17);
             this.label13.TabIndex = 43;
@@ -455,7 +456,7 @@
             this.label10.BackColor = System.Drawing.Color.White;
             this.label10.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label10.ForeColor = System.Drawing.Color.Red;
-            this.label10.Location = new System.Drawing.Point(108, 254);
+            this.label10.Location = new System.Drawing.Point(113, 200);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(13, 17);
             this.label10.TabIndex = 42;
@@ -467,7 +468,7 @@
             this.label11.BackColor = System.Drawing.Color.White;
             this.label11.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label11.ForeColor = System.Drawing.Color.DimGray;
-            this.label11.Location = new System.Drawing.Point(18, 254);
+            this.label11.Location = new System.Drawing.Point(23, 200);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(90, 17);
             this.label11.TabIndex = 41;
@@ -479,7 +480,7 @@
             this.label8.BackColor = System.Drawing.Color.White;
             this.label8.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(343, 183);
+            this.label8.Location = new System.Drawing.Point(339, 128);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(13, 17);
             this.label8.TabIndex = 40;
@@ -491,7 +492,7 @@
             this.label9.BackColor = System.Drawing.Color.White;
             this.label9.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label9.ForeColor = System.Drawing.Color.DimGray;
-            this.label9.Location = new System.Drawing.Point(294, 184);
+            this.label9.Location = new System.Drawing.Point(290, 129);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 17);
             this.label9.TabIndex = 39;
@@ -503,7 +504,7 @@
             this.label6.BackColor = System.Drawing.Color.White;
             this.label6.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(121, 184);
+            this.label6.Location = new System.Drawing.Point(121, 129);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(13, 17);
             this.label6.TabIndex = 38;
@@ -515,7 +516,7 @@
             this.label7.BackColor = System.Drawing.Color.White;
             this.label7.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label7.ForeColor = System.Drawing.Color.DimGray;
-            this.label7.Location = new System.Drawing.Point(23, 184);
+            this.label7.Location = new System.Drawing.Point(23, 129);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(101, 17);
             this.label7.TabIndex = 37;
@@ -605,7 +606,7 @@
             this.DeliveryStatusComboBox.Items.AddRange(new object[] {
             "Site Delivery",
             "Pick-Up"});
-            this.DeliveryStatusComboBox.Location = new System.Drawing.Point(21, 274);
+            this.DeliveryStatusComboBox.Location = new System.Drawing.Point(26, 220);
             this.DeliveryStatusComboBox.Name = "DeliveryStatusComboBox";
             this.DeliveryStatusComboBox.Size = new System.Drawing.Size(150, 26);
             this.DeliveryStatusComboBox.StateCommon.ComboBox.Border.Rounding = 7F;
@@ -649,7 +650,7 @@
             this.label14.BackColor = System.Drawing.Color.White;
             this.label14.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label14.ForeColor = System.Drawing.Color.Red;
-            this.label14.Location = new System.Drawing.Point(329, 389);
+            this.label14.Location = new System.Drawing.Point(324, 249);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(13, 17);
             this.label14.TabIndex = 65;
@@ -661,7 +662,7 @@
             this.label17.BackColor = System.Drawing.Color.White;
             this.label17.Font = new System.Drawing.Font("Lexend SemiBold", 8F, System.Drawing.FontStyle.Bold);
             this.label17.ForeColor = System.Drawing.Color.DimGray;
-            this.label17.Location = new System.Drawing.Point(294, 390);
+            this.label17.Location = new System.Drawing.Point(289, 250);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(33, 17);
             this.label17.TabIndex = 64;
@@ -669,7 +670,7 @@
             // 
             // DateInDeliveryDetails
             // 
-            this.DateInDeliveryDetails.Location = new System.Drawing.Point(293, 412);
+            this.DateInDeliveryDetails.Location = new System.Drawing.Point(288, 272);
             this.DateInDeliveryDetails.Name = "DateInDeliveryDetails";
             this.DateInDeliveryDetails.Size = new System.Drawing.Size(174, 25);
             this.DateInDeliveryDetails.StateCommon.Border.Color1 = System.Drawing.Color.DodgerBlue;
@@ -682,7 +683,7 @@
             this.VehiclesSelectorComboBox.DropDownWidth = 126;
             this.VehiclesSelectorComboBox.Items.AddRange(new object[] {
             ""});
-            this.VehiclesSelectorComboBox.Location = new System.Drawing.Point(293, 204);
+            this.VehiclesSelectorComboBox.Location = new System.Drawing.Point(293, 148);
             this.VehiclesSelectorComboBox.Name = "VehiclesSelectorComboBox";
             this.VehiclesSelectorComboBox.Size = new System.Drawing.Size(130, 26);
             this.VehiclesSelectorComboBox.StateCommon.ComboBox.Border.Rounding = 7F;
