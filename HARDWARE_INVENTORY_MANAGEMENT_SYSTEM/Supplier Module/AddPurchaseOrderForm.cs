@@ -10,15 +10,16 @@ using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 {
+
     public partial class AddPurchaseOrderForm : UserControl
     {
         int maxHeight = 225;
         public AddPurchaseOrderForm()
         {
             InitializeComponent();
-        }
+            guna2Panel1.HorizontalScroll.Enabled = false;
 
-        
+        }
 
         private void AdjustGridHeight()
         {
@@ -79,6 +80,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             {
                 parentForm.Close();
             }
+        }
+
+        private void guna2Button3_Click(object sender, EventArgs e)
+        {
+            Form parentForm = this.FindForm();
+            if (parentForm != null)
+            {
+                parentForm.Close();
+            }
+        }
+
+        private void guna2Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
