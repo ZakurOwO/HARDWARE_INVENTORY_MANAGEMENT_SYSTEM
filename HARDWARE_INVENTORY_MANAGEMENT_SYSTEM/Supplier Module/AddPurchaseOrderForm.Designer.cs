@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.ParentContainer = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
@@ -98,10 +98,11 @@
             this.guna2Panel1.Controls.Add(this.ParentContainer);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
-            this.guna2Panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.guna2Panel1.Margin = new System.Windows.Forms.Padding(4);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1135, 689);
             this.guna2Panel1.TabIndex = 0;
+            this.guna2Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.guna2Panel1_Paint);
             // 
             // ParentContainer
             // 
@@ -123,7 +124,7 @@
             this.ParentContainer.Controls.Add(this.lblTitle);
             this.ParentContainer.Controls.Add(this.label1);
             this.ParentContainer.Location = new System.Drawing.Point(1, 1);
-            this.ParentContainer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ParentContainer.Margin = new System.Windows.Forms.Padding(4);
             this.ParentContainer.Name = "ParentContainer";
             this.ParentContainer.Size = new System.Drawing.Size(1131, 1026);
             this.ParentContainer.TabIndex = 80;
@@ -143,10 +144,11 @@
             this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button3.ForeColor = System.Drawing.Color.White;
             this.guna2Button3.Location = new System.Drawing.Point(1059, 20);
-            this.guna2Button3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.guna2Button3.Margin = new System.Windows.Forms.Padding(4);
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(40, 37);
             this.guna2Button3.TabIndex = 93;
+            this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
             // 
             // panel2
             // 
@@ -155,7 +157,7 @@
             this.panel2.Controls.Add(this.kryptonRichTextBox2);
             this.panel2.Controls.Add(this.label23);
             this.panel2.Location = new System.Drawing.Point(24, 766);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1073, 242);
             this.panel2.TabIndex = 92;
@@ -173,7 +175,7 @@
             this.btnWhite.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWhite.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnWhite.Location = new System.Drawing.Point(641, 174);
-            this.btnWhite.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnWhite.Margin = new System.Windows.Forms.Padding(4);
             this.btnWhite.Name = "btnWhite";
             this.btnWhite.PressedColor = System.Drawing.Color.Azure;
             this.btnWhite.Size = new System.Drawing.Size(160, 49);
@@ -192,7 +194,7 @@
             this.btnBlue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBlue.ForeColor = System.Drawing.Color.White;
             this.btnBlue.Location = new System.Drawing.Point(809, 174);
-            this.btnBlue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnBlue.Margin = new System.Windows.Forms.Padding(4);
             this.btnBlue.Name = "btnBlue";
             this.btnBlue.Size = new System.Drawing.Size(253, 49);
             this.btnBlue.TabIndex = 79;
@@ -201,7 +203,7 @@
             // kryptonRichTextBox2
             // 
             this.kryptonRichTextBox2.Location = new System.Drawing.Point(15, 42);
-            this.kryptonRichTextBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.kryptonRichTextBox2.Margin = new System.Windows.Forms.Padding(4);
             this.kryptonRichTextBox2.Name = "kryptonRichTextBox2";
             this.kryptonRichTextBox2.Size = new System.Drawing.Size(1048, 113);
             this.kryptonRichTextBox2.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(193)))), ((int)(((byte)(200)))), ((int)(((byte)(207)))));
@@ -240,7 +242,7 @@
             this.parentPanel.Controls.Add(this.label8);
             this.parentPanel.Controls.Add(this.label7);
             this.parentPanel.Location = new System.Drawing.Point(32, 329);
-            this.parentPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.parentPanel.Margin = new System.Windows.Forms.Padding(4);
             this.parentPanel.MaximumSize = new System.Drawing.Size(1048, 647);
             this.parentPanel.Name = "parentPanel";
             this.parentPanel.Size = new System.Drawing.Size(1048, 430);
@@ -286,7 +288,7 @@
             this.calculationPanel.Controls.Add(this.label18);
             this.calculationPanel.Controls.Add(this.label19);
             this.calculationPanel.Location = new System.Drawing.Point(25, 262);
-            this.calculationPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.calculationPanel.Margin = new System.Windows.Forms.Padding(4);
             this.calculationPanel.Name = "calculationPanel";
             this.calculationPanel.Size = new System.Drawing.Size(993, 138);
             this.calculationPanel.TabIndex = 85;
@@ -303,7 +305,7 @@
             this.guna2ComboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.guna2ComboBox1.ItemHeight = 30;
             this.guna2ComboBox1.Location = new System.Drawing.Point(9, 39);
-            this.guna2ComboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.guna2ComboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.guna2ComboBox1.Name = "guna2ComboBox1";
             this.guna2ComboBox1.Size = new System.Drawing.Size(204, 36);
             this.guna2ComboBox1.TabIndex = 92;
@@ -450,17 +452,17 @@
             // dgvPurchaseItems
             // 
             this.dgvPurchaseItems.AllowUserToAddRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dgvPurchaseItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            this.dgvPurchaseItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
             this.dgvPurchaseItems.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPurchaseItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPurchaseItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.dgvPurchaseItems.ColumnHeadersHeight = 35;
             this.dgvPurchaseItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgvPurchaseItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -469,17 +471,17 @@
             this.UnitPrice,
             this.Total,
             this.Action});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPurchaseItems.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPurchaseItems.DefaultCellStyle = dataGridViewCellStyle18;
             this.dgvPurchaseItems.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvPurchaseItems.Location = new System.Drawing.Point(25, 175);
-            this.dgvPurchaseItems.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvPurchaseItems.Margin = new System.Windows.Forms.Padding(4);
             this.dgvPurchaseItems.MaximumSize = new System.Drawing.Size(993, 314);
             this.dgvPurchaseItems.Name = "dgvPurchaseItems";
             this.dgvPurchaseItems.RowHeadersVisible = false;
@@ -558,7 +560,7 @@
             this.btnAdd.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.add_circle;
             this.btnAdd.ImageOffset = new System.Drawing.Point(-4, 0);
             this.btnAdd.Location = new System.Drawing.Point(847, 96);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(4);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(172, 47);
             this.btnAdd.TabIndex = 83;
@@ -601,7 +603,7 @@
             this.cbxCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cbxCategory.ItemHeight = 30;
             this.cbxCategory.Location = new System.Drawing.Point(25, 98);
-            this.cbxCategory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbxCategory.Margin = new System.Windows.Forms.Padding(4);
             this.cbxCategory.Name = "cbxCategory";
             this.cbxCategory.Size = new System.Drawing.Size(303, 36);
             this.cbxCategory.TabIndex = 77;
@@ -833,7 +835,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.guna2Panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AddPurchaseOrderForm";
             this.Size = new System.Drawing.Size(1135, 689);
             this.guna2Panel1.ResumeLayout(false);

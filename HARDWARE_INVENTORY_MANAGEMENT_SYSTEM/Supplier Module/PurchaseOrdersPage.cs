@@ -21,16 +21,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private void btnMainButtonIcon_Click(object sender, EventArgs e)
         {
-            ShowAddPurchaseOrderForm();
-        }
-        private void ShowAddPurchaseOrderForm()
-        {
             Form popup = new Form();
-            popup.Text = "Add Purchase Order";
+            popup.FormBorderStyle = FormBorderStyle.None;
             popup.StartPosition = FormStartPosition.CenterScreen;
-            popup.FormBorderStyle = FormBorderStyle.FixedDialog;
-            popup.MaximizeBox = false;
-            popup.MinimizeBox = false;
+            popup.BackColor = Color.White;
             popup.Size = new Size(850, 600);
 
             AddPurchaseOrderForm addForm = new AddPurchaseOrderForm();
@@ -39,5 +33,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             popup.Controls.Add(addForm);
             popup.ShowDialog();
         }
+        
     }
 }
