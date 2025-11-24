@@ -883,16 +883,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Group_1000004219 {
-            get {
-                object obj = ResourceManager.GetObject("Group 1000004219", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Group_1000004219__1_ {
             get {
                 object obj = ResourceManager.GetObject("Group 1000004219 (1)", resourceCulture);
