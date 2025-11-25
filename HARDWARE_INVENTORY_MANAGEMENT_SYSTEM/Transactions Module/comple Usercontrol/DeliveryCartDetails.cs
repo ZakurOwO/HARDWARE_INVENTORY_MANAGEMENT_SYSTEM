@@ -18,6 +18,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         NumericUpDown qtyUpDown = new NumericUpDown();
         private VehicleDataAccess vehicleDataAccess;
         private List<VehicleRecord> availableVehicles;
+        private List<VehicleRecord> selectedVehicles = new List<VehicleRecord>();
+        private Panel vehicleSelectionPanel;
+        private CheckedListBox vehicleCheckedListBox;
+        private Guna.UI2.WinForms.Guna2Button btnMultiSelectVehicles;
         private string connectionString;
 
         public DeliveryCartDetails()
@@ -84,12 +88,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             LoadSharedCartItems();
         }
 
+        #region Vehicle Multi-Selection
+
         private void LoadVehicles()
         {
             try
             {
                 availableVehicles = vehicleDataAccess.GetVehiclesByStatus("Available");
-                CreateVehiclesComboBox();
+                CreateMultiVehicleSelector();
                 Console.WriteLine($"✓ Loaded {availableVehicles.Count} available vehicles");
             }
             catch (Exception ex)
@@ -99,86 +105,170 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        private void CreateVehiclesComboBox()
+        private void CreateMultiVehicleSelector()
         {
+            // Remove the old button dropdown if exists
             if (btnDropdown != null)
             {
                 this.Controls.Remove(btnDropdown);
+                btnDropdown.Dispose();
             }
 
-            var cbxVehicles = new Guna.UI2.WinForms.Guna2ComboBox();
-            cbxVehicles.Name = "cbxVehicles";
-            cbxVehicles.BackColor = System.Drawing.Color.Transparent;
-            cbxVehicles.BorderRadius = 5;
-            cbxVehicles.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            cbxVehicles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            cbxVehicles.FocusedColor = System.Drawing.Color.FromArgb(94, 148, 255);
-            cbxVehicles.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-            cbxVehicles.ForeColor = System.Drawing.Color.FromArgb(68, 88, 112);
-            cbxVehicles.ItemHeight = 23;
-            cbxVehicles.Location = new System.Drawing.Point(80, 48);
-            cbxVehicles.Size = new System.Drawing.Size(193, 29);
-            cbxVehicles.TabIndex = 22;
+            // Create custom multi-select button
+            btnMultiSelectVehicles = new Guna.UI2.WinForms.Guna2Button();
+            btnMultiSelectVehicles.Name = "btnMultiSelectVehicles";
+            btnMultiSelectVehicles.BorderColor = Color.Gainsboro;
+            btnMultiSelectVehicles.BorderRadius = 5;
+            btnMultiSelectVehicles.BorderThickness = 1;
+            btnMultiSelectVehicles.FillColor = Color.White;
+            btnMultiSelectVehicles.Font = new Font("Lexend Light", 8.25F);
+            btnMultiSelectVehicles.ForeColor = Color.FromArgb(68, 88, 112);
+            btnMultiSelectVehicles.Image = Properties.Resources.direction_down_01;
+            btnMultiSelectVehicles.ImageAlign = HorizontalAlignment.Right;
+            btnMultiSelectVehicles.Location = new Point(80, 48);
+            btnMultiSelectVehicles.Size = new Size(193, 29);
+            btnMultiSelectVehicles.TabIndex = 22;
+            btnMultiSelectVehicles.Text = "Select Vehicles";
+            btnMultiSelectVehicles.TextAlign = HorizontalAlignment.Left;
+            btnMultiSelectVehicles.Click += BtnMultiSelectVehicles_Click;
 
-            cbxVehicles.Items.Clear();
+            this.Controls.Add(btnMultiSelectVehicles);
+            btnMultiSelectVehicles.BringToFront();
 
+            // Create the dropdown panel (hidden by default)
+            CreateVehicleSelectionPanel();
+        }
+
+        private void CreateVehicleSelectionPanel()
+        {
+            // Create panel for vehicle selection
+            vehicleSelectionPanel = new Panel();
+            vehicleSelectionPanel.Name = "vehicleSelectionPanel";
+            vehicleSelectionPanel.BorderStyle = BorderStyle.FixedSingle;
+            vehicleSelectionPanel.BackColor = Color.White;
+            vehicleSelectionPanel.Location = new Point(80, 78);
+            vehicleSelectionPanel.Size = new Size(193, 200);
+            vehicleSelectionPanel.Visible = false;
+            vehicleSelectionPanel.AutoScroll = true;
+
+            // Create CheckedListBox
+            vehicleCheckedListBox = new CheckedListBox();
+            vehicleCheckedListBox.Name = "vehicleCheckedListBox";
+            vehicleCheckedListBox.Dock = DockStyle.Fill;
+            vehicleCheckedListBox.BorderStyle = BorderStyle.None;
+            vehicleCheckedListBox.BackColor = Color.White;
+            vehicleCheckedListBox.Font = new Font("Lexend Light", 8.25F);
+            vehicleCheckedListBox.CheckOnClick = true;
+            vehicleCheckedListBox.ItemCheck += VehicleCheckedListBox_ItemCheck;
+
+            // Populate with vehicles
             if (availableVehicles != null && availableVehicles.Count > 0)
             {
                 foreach (var vehicle in availableVehicles)
                 {
                     string displayText = $"{vehicle.Brand} {vehicle.Model} - {vehicle.PlateNumber}";
-                    cbxVehicles.Items.Add(displayText);
-                }
-
-                if (cbxVehicles.Items.Count > 0)
-                {
-                    cbxVehicles.SelectedIndex = 0;
+                    vehicleCheckedListBox.Items.Add(displayText);
                 }
             }
             else
             {
-                cbxVehicles.Items.Add("No vehicles available");
-                cbxVehicles.SelectedIndex = 0;
+                vehicleCheckedListBox.Items.Add("No vehicles available");
+                vehicleCheckedListBox.Enabled = false;
             }
 
-            cbxVehicles.SelectedIndexChanged += CbxVehicles_SelectedIndexChanged;
-            this.Controls.Add(cbxVehicles);
-            cbxVehicles.BringToFront();
+            vehicleSelectionPanel.Controls.Add(vehicleCheckedListBox);
+            this.Controls.Add(vehicleSelectionPanel);
+            vehicleSelectionPanel.BringToFront();
         }
 
-        private void CbxVehicles_SelectedIndexChanged(object sender, EventArgs e)
+        private void BtnMultiSelectVehicles_Click(object sender, EventArgs e)
         {
-            var comboBox = sender as Guna.UI2.WinForms.Guna2ComboBox;
-            if (comboBox == null || availableVehicles == null) return;
+            // Toggle visibility of vehicle selection panel
+            vehicleSelectionPanel.Visible = !vehicleSelectionPanel.Visible;
 
-            int selectedIndex = comboBox.SelectedIndex;
-            if (selectedIndex >= 0 && selectedIndex < availableVehicles.Count)
+            if (vehicleSelectionPanel.Visible)
             {
-                var selectedVehicle = availableVehicles[selectedIndex];
-                Console.WriteLine($"Selected Vehicle: {selectedVehicle.Brand} {selectedVehicle.Model}");
+                vehicleSelectionPanel.BringToFront();
             }
         }
 
-        public VehicleRecord GetSelectedVehicle()
+        private void VehicleCheckedListBox_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            var cbxVehicles = this.Controls.Find("cbxVehicles", false).FirstOrDefault() as Guna.UI2.WinForms.Guna2ComboBox;
-
-            if (cbxVehicles != null && availableVehicles != null)
+            // Use BeginInvoke to ensure the CheckedItems collection is updated
+            this.BeginInvoke(new Action(() =>
             {
-                int selectedIndex = cbxVehicles.SelectedIndex;
-                if (selectedIndex >= 0 && selectedIndex < availableVehicles.Count)
+                UpdateSelectedVehicles();
+                UpdateVehicleButtonText();
+            }));
+        }
+
+        private void UpdateSelectedVehicles()
+        {
+            selectedVehicles.Clear();
+
+            for (int i = 0; i < vehicleCheckedListBox.CheckedIndices.Count; i++)
+            {
+                int index = vehicleCheckedListBox.CheckedIndices[i];
+                if (index < availableVehicles.Count)
                 {
-                    return availableVehicles[selectedIndex];
+                    selectedVehicles.Add(availableVehicles[index]);
                 }
             }
 
-            return null;
+            Console.WriteLine($"✓ Selected {selectedVehicles.Count} vehicle(s)");
+            foreach (var vehicle in selectedVehicles)
+            {
+                Console.WriteLine($"  - {vehicle.Brand} {vehicle.Model} ({vehicle.PlateNumber})");
+            }
         }
 
+        private void UpdateVehicleButtonText()
+        {
+            if (btnMultiSelectVehicles != null)
+            {
+                if (selectedVehicles.Count == 0)
+                {
+                    btnMultiSelectVehicles.Text = "Select Vehicles";
+                }
+                else if (selectedVehicles.Count == 1)
+                {
+                    var vehicle = selectedVehicles[0];
+                    btnMultiSelectVehicles.Text = $"{vehicle.Brand} {vehicle.Model}";
+                }
+                else
+                {
+                    btnMultiSelectVehicles.Text = $"{selectedVehicles.Count} Vehicles Selected";
+                }
+            }
+        }
+
+        // Get all selected vehicles
+        public List<VehicleRecord> GetSelectedVehicles()
+        {
+            return new List<VehicleRecord>(selectedVehicles);
+        }
+
+        // Get vehicle IDs as comma-separated string
+        public string GetSelectedVehicleIds()
+        {
+            return string.Join(", ", selectedVehicles.Select(v => v.VehicleID));
+        }
+
+        // Check if any vehicles are selected
+        public bool HasSelectedVehicles()
+        {
+            return selectedVehicles.Count > 0;
+        }
+
+        // Refresh vehicles list
         public void RefreshVehicles()
         {
             LoadVehicles();
         }
+
+        #endregion
+
+        #region Numeric UpDown & Quantity Management
 
         private void SetupNumericUpDown()
         {
@@ -250,24 +340,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        private void dgvCartDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0 && dgvCartDetails.Columns[e.ColumnIndex].Name == "Delete")
-            {
-                if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
-                    "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    string productName = dgvCartDetails.Rows[e.RowIndex].Cells["ItemName"].Value?.ToString();
-                    if (!string.IsNullOrEmpty(productName))
-                    {
-                        SharedCartManager.Instance.RemoveItemFromCart(productName);
-                    }
-                    dgvCartDetails.Rows.RemoveAt(e.RowIndex);
-                    UpdateCartTotals();
-                }
-            }
-        }
-
         private void qtyUpDown_Leave(object sender, EventArgs e)
         {
             SaveNumericValue();
@@ -303,12 +375,34 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
+        #endregion
+
+        #region Cart Operations
+
+        private void dgvCartDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvCartDetails.Columns[e.ColumnIndex].Name == "Delete")
+            {
+                if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
+                    "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    string productName = dgvCartDetails.Rows[e.RowIndex].Cells["ItemName"].Value?.ToString();
+                    if (!string.IsNullOrEmpty(productName))
+                    {
+                        SharedCartManager.Instance.RemoveItemFromCart(productName);
+                    }
+                    dgvCartDetails.Rows.RemoveAt(e.RowIndex);
+                    UpdateCartTotals();
+                }
+            }
+        }
+
         private void UpdateCartTotals()
         {
             decimal subtotal = CalculateSubtotal();
             decimal taxRate = 0.12m;
             decimal tax = subtotal * taxRate;
-            decimal shippingFee = 100.00m;
+            decimal shippingFee = CalculateShippingFee();
             decimal total = subtotal + tax + shippingFee;
 
             label6.Text = $"₱{subtotal:N2}";
@@ -335,6 +429,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 }
             }
             return subtotal;
+        }
+
+        private decimal CalculateShippingFee()
+        {
+            // Base shipping fee
+            decimal baseFee = 100.00m;
+
+            // Additional fee per extra vehicle (if multiple vehicles)
+            if (selectedVehicles.Count > 1)
+            {
+                baseFee += (selectedVehicles.Count - 1) * 50.00m;
+            }
+
+            return baseFee;
         }
 
         public void AddProductToCartById(int productInternalId, int quantity = 1)
@@ -539,9 +647,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             UpdateCartTotals();
         }
 
+        #endregion
+
+        #region Validation
+
         public bool ValidateCheckout()
         {
-            if (dgvCartDetails.Rows.Count == 0 || dgvCartDetails.Rows.Count == 1 && dgvCartDetails.Rows[0].IsNewRow)
+            if (dgvCartDetails.Rows.Count == 0 || (dgvCartDetails.Rows.Count == 1 && dgvCartDetails.Rows[0].IsNewRow))
             {
                 MessageBox.Show("Cart is empty! Please add items before checkout.", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -556,16 +668,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 return false;
             }
 
-            var cbxVehicles = this.Controls.Find("cbxVehicles", false).FirstOrDefault() as Guna.UI2.WinForms.Guna2ComboBox;
-            if (cbxVehicles == null || cbxVehicles.SelectedIndex < 0)
+            if (selectedVehicles.Count == 0)
             {
-                MessageBox.Show("Please select a vehicle!", "Validation Error",
+                MessageBox.Show("Please select at least one vehicle for delivery!", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cbxVehicles?.Focus();
                 return false;
             }
 
             return true;
         }
+
+        #endregion
     }
 }

@@ -18,7 +18,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             public string Brand { get; set; }
         }
 
-        private PaginationHelper paginationHelper;
+        private PaginationHelperCustomer paginationHelper;
         private DataTable allProductsData;
         public Inventory_Pagination PaginationControl { get; set; }
 
@@ -91,7 +91,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             // Create pagination helper
             if (paginationHelper == null)
             {
-                paginationHelper = new PaginationHelper(allProductsData, 10, true); // Always show
+                paginationHelper = new PaginationHelperCustomer(allProductsData, 10, true); // Always show
                 paginationHelper.PageChanged += PaginationHelper_PageChanged;
             }
             else

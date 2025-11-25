@@ -14,7 +14,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
     public partial class PaginationTransation : UserControl
     {
-        private PaginationHelper paginationHelper;
+        private PaginationHelperCustomer paginationHelper;
         private DataGridView targetDataGridView;
         private bool _alwaysShowPagination = true;
 
@@ -85,7 +85,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             try
             {
                 targetDataGridView = dataGridView;
-                paginationHelper = new PaginationHelper(data, pageSize, _alwaysShowPagination);
+                paginationHelper = new PaginationHelperCustomer(data, pageSize, _alwaysShowPagination);
                 paginationHelper.PageChanged += PaginationHelper_PageChanged;
 
                 UpdatePaginationDisplay();
@@ -107,7 +107,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 var emptyData = new DataTable();
                 emptyData.Columns.Add("product_name", typeof(string));
 
-                paginationHelper = new PaginationHelper(emptyData, 10, _alwaysShowPagination);
+                paginationHelper = new PaginationHelperCustomer(emptyData, 10, _alwaysShowPagination);
 
                 // Manually set page info
                 if (paginationHelper != null)

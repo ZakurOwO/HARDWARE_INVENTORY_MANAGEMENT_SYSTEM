@@ -1,31 +1,93 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using System;
 using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 {
-    public partial class CustomerMainPage: UserControl
+    public partial class CustomerMainPage : UserControl
     {
+        private AddCustomerContainer addCustomerContainer = new AddCustomerContainer();
+        private SearchTextBox searchTextBox;
+
         public CustomerMainPage()
         {
             InitializeComponent();
-        }
-        private AddCustomerContainer addCustomerContainer = new AddCustomerContainer();
-
-        private void customerTopBar1_Load(object sender, EventArgs e)
-        {
-
+            this.Load += CustomerMainPage_Load;
         }
 
-        private void dataGridTable1_Load(object sender, EventArgs e)
+        private void CustomerMainPage_Load(object sender, EventArgs e)
         {
+            InitializeSearch();
+            ConnectPagination();
+        }
 
+        private void ConnectPagination()
+        {
+            try
+            {
+                // Find the DataGridTable control
+                var dataGridTable = FindControlRecursive<DataGridTable>(this);
+                var paginationControl = FindControlRecursive<PageNumber>(this);
+
+                if (dataGridTable != null && paginationControl != null)
+                {
+                    dataGridTable.PaginationControl = paginationControl;
+
+                    // Load initial data
+                    dataGridTable.RefreshData();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error connecting pagination: {ex.Message}");
+            }
+        }
+
+        private void InitializeSearch()
+        {
+            // Find the search textbox in your searchField1 control
+            TextBox searchBox = FindTextBoxInSearchField(searchField1);
+
+            if (searchBox != null)
+            {
+                searchTextBox = new SearchTextBox(searchBox, "Search customers...");
+                searchTextBox.SearchTextChanged += SearchTextBox_SearchTextChanged;
+            }
+        }
+
+        private void SearchTextBox_SearchTextChanged(object sender, string searchText)
+        {
+            // Find the DataGridTable and filter data
+            var dataGridTable = FindControlRecursive<DataGridTable>(this);
+            if (dataGridTable != null)
+            {
+                var dgv = FindControlRecursive<DataGridView>(dataGridTable);
+                if (dgv != null)
+                {
+                    searchTextBox.FilterDataGridView(dgv, searchText, 0); // Search in first column (customer name)
+                }
+            }
+        }
+
+        private TextBox FindTextBoxInSearchField(Control searchFieldControl)
+        {
+            return FindControlRecursive<TextBox>(searchFieldControl);
+        }
+
+        private T FindControlRecursive<T>(Control parent) where T : Control
+        {
+            if (parent == null) return null;
+
+            foreach (Control control in parent.Controls)
+            {
+                if (control is T found)
+                    return found;
+
+                var child = FindControlRecursive<T>(control);
+                if (child != null)
+                    return child;
+            }
+            return null;
         }
 
         private void btnMainButtonIcon_Click(object sender, EventArgs e)
@@ -35,7 +97,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             if (main != null)
             {
                 addCustomerContainer.ShowAddCustomerForm(main);
+                // Refresh customer list after adding new customer
+                RefreshCustomerList();
             }
         }
+
+        public void RefreshCustomerList()
+        {
+            var dataGridTable = FindControlRecursive<DataGridTable>(this);
+            dataGridTable?.RefreshData();
+
+            var paginationControl = FindControlRecursive<PageNumber>(this);
+            paginationControl?.RefreshPagination();
+        }
+
+        // ... rest of your existing event handlers
     }
 }

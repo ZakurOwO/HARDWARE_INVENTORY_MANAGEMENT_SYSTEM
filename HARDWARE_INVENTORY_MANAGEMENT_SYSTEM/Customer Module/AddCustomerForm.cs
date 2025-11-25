@@ -75,14 +75,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 
                 MessageBox.Show("Customer added successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Clear the textboxes
-                tbxCompanyName.Clear();
-                tbxEmail.Clear();
-                tbxAddress.Clear();
-                tbxCityMunicipality.Clear();
-                tbxProvince.Clear();
-                tbxContactNumber.Clear();
-                tbxContactPerson.Clear();
+              
+                
             }
             catch (Exception ex)
             {
@@ -173,7 +167,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 
         private void btnWhite_Click(object sender, EventArgs e)
         {
+            //Cancel btn
+        }
 
+        private void btnBlue_Click(object sender, EventArgs e)
+        {
+            //add btn
         }
     }
 }

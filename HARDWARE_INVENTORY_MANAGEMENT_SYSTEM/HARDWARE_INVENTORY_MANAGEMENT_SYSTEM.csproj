@@ -139,6 +139,7 @@
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Customer Module\Class Components of the Customer\AddCustomerContainer.cs" />
+    <Compile Include="Customer Module\Class Components of the Customer\PaginationHelperCustomer.cs" />
     <Compile Include="Customer Module\CustomerMainPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
