@@ -62,21 +62,21 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox3);
-            this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox1);
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox2);
+            this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox1);
+            this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox3);
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox6);
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox4);
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox5);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(44, 53);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(44, 68);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(810, 504);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(810, 482);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
             // searchField1
             // 
             this.searchField1.BackColor = System.Drawing.Color.Transparent;
-            this.searchField1.Location = new System.Drawing.Point(25, 2);
+            this.searchField1.Location = new System.Drawing.Point(25, 11);
             this.searchField1.Name = "searchField1";
             this.searchField1.PromptMessage = null;
             this.searchField1.Size = new System.Drawing.Size(299, 54);
@@ -84,7 +84,7 @@
             // 
             // deliveries_btncs1
             // 
-            this.deliveries_btncs1.Location = new System.Drawing.Point(737, 6);
+            this.deliveries_btncs1.Location = new System.Drawing.Point(737, 15);
             this.deliveries_btncs1.Name = "deliveries_btncs1";
             this.deliveries_btncs1.Size = new System.Drawing.Size(157, 47);
             this.deliveries_btncs1.TabIndex = 9;
@@ -92,7 +92,7 @@
             // inventoryFilter_Button1
             // 
             this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(330, 4);
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(330, 13);
             this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
             this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
             this.inventoryFilter_Button1.TabIndex = 6;
@@ -103,10 +103,10 @@
             this.vehiclesInfoBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.vehiclesInfoBox3.ForeColor = System.Drawing.Color.White;
             this.vehiclesInfoBox3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._2000_Isuzu_mini_dump_truck_970_3730728_1_1;
-            this.vehiclesInfoBox3.Location = new System.Drawing.Point(3, 3);
+            this.vehiclesInfoBox3.Location = new System.Drawing.Point(521, 3);
             this.vehiclesInfoBox3.Name = "vehiclesInfoBox3";
             this.vehiclesInfoBox3.Plate_No = "123BZN";
-            this.vehiclesInfoBox3.Size = new System.Drawing.Size(261, 246);
+            this.vehiclesInfoBox3.Size = new System.Drawing.Size(253, 235);
             this.vehiclesInfoBox3.Status = "Available";
             this.vehiclesInfoBox3.TabIndex = 4;
             this.vehiclesInfoBox3.Type = "Drop-Side Truck";
@@ -120,10 +120,10 @@
             this.vehiclesInfoBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.vehiclesInfoBox1.ForeColor = System.Drawing.Color.White;
             this.vehiclesInfoBox1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._2000_Isuzu_mini_dump_truck_970_3730728_1_1;
-            this.vehiclesInfoBox1.Location = new System.Drawing.Point(270, 3);
+            this.vehiclesInfoBox1.Location = new System.Drawing.Point(262, 3);
             this.vehiclesInfoBox1.Name = "vehiclesInfoBox1";
             this.vehiclesInfoBox1.Plate_No = "123BZN";
-            this.vehiclesInfoBox1.Size = new System.Drawing.Size(261, 246);
+            this.vehiclesInfoBox1.Size = new System.Drawing.Size(253, 235);
             this.vehiclesInfoBox1.Status = "Available";
             this.vehiclesInfoBox1.TabIndex = 2;
             this.vehiclesInfoBox1.Type = "Drop-Side Truck";
@@ -136,10 +136,10 @@
             this.vehiclesInfoBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.vehiclesInfoBox2.ForeColor = System.Drawing.Color.White;
             this.vehiclesInfoBox2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._2000_Isuzu_mini_dump_truck_970_3730728_1_1;
-            this.vehiclesInfoBox2.Location = new System.Drawing.Point(537, 3);
+            this.vehiclesInfoBox2.Location = new System.Drawing.Point(3, 3);
             this.vehiclesInfoBox2.Name = "vehiclesInfoBox2";
             this.vehiclesInfoBox2.Plate_No = "123BZN";
-            this.vehiclesInfoBox2.Size = new System.Drawing.Size(261, 246);
+            this.vehiclesInfoBox2.Size = new System.Drawing.Size(253, 235);
             this.vehiclesInfoBox2.Status = "Available";
             this.vehiclesInfoBox2.TabIndex = 3;
             this.vehiclesInfoBox2.Type = "Drop-Side Truck";
@@ -152,10 +152,10 @@
             this.vehiclesInfoBox6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.vehiclesInfoBox6.ForeColor = System.Drawing.Color.White;
             this.vehiclesInfoBox6.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._2000_Isuzu_mini_dump_truck_970_3730728_1_1;
-            this.vehiclesInfoBox6.Location = new System.Drawing.Point(3, 255);
+            this.vehiclesInfoBox6.Location = new System.Drawing.Point(3, 244);
             this.vehiclesInfoBox6.Name = "vehiclesInfoBox6";
             this.vehiclesInfoBox6.Plate_No = "123BZN";
-            this.vehiclesInfoBox6.Size = new System.Drawing.Size(261, 246);
+            this.vehiclesInfoBox6.Size = new System.Drawing.Size(253, 235);
             this.vehiclesInfoBox6.Status = "Available";
             this.vehiclesInfoBox6.TabIndex = 5;
             this.vehiclesInfoBox6.Type = "Drop-Side Truck";
@@ -168,10 +168,10 @@
             this.vehiclesInfoBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.vehiclesInfoBox4.ForeColor = System.Drawing.Color.White;
             this.vehiclesInfoBox4.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._2000_Isuzu_mini_dump_truck_970_3730728_1_1;
-            this.vehiclesInfoBox4.Location = new System.Drawing.Point(270, 255);
+            this.vehiclesInfoBox4.Location = new System.Drawing.Point(262, 244);
             this.vehiclesInfoBox4.Name = "vehiclesInfoBox4";
             this.vehiclesInfoBox4.Plate_No = "123BZN";
-            this.vehiclesInfoBox4.Size = new System.Drawing.Size(261, 246);
+            this.vehiclesInfoBox4.Size = new System.Drawing.Size(253, 235);
             this.vehiclesInfoBox4.Status = "Available";
             this.vehiclesInfoBox4.TabIndex = 7;
             this.vehiclesInfoBox4.Type = "Drop-Side Truck";
@@ -184,10 +184,10 @@
             this.vehiclesInfoBox5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.vehiclesInfoBox5.ForeColor = System.Drawing.Color.White;
             this.vehiclesInfoBox5.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._2000_Isuzu_mini_dump_truck_970_3730728_1_1;
-            this.vehiclesInfoBox5.Location = new System.Drawing.Point(537, 255);
+            this.vehiclesInfoBox5.Location = new System.Drawing.Point(521, 244);
             this.vehiclesInfoBox5.Name = "vehiclesInfoBox5";
             this.vehiclesInfoBox5.Plate_No = "123BZN";
-            this.vehiclesInfoBox5.Size = new System.Drawing.Size(261, 246);
+            this.vehiclesInfoBox5.Size = new System.Drawing.Size(253, 235);
             this.vehiclesInfoBox5.Status = "Available";
             this.vehiclesInfoBox5.TabIndex = 6;
             this.vehiclesInfoBox5.Type = "Drop-Side Truck";

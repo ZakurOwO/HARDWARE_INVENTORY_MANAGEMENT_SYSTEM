@@ -270,7 +270,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         public event EventHandler OnProductAdded;
 
         // Empty event handlers
-        private void panel1_Paint(object sender, PaintEventArgs e) { }
         private void ProductNametxtbox_TextChanged(object sender, EventArgs e) { }
         private void SKUtxtbox_TextChanged(object sender, EventArgs e) { }
         private void CategoryCombobox_SelectedIndexChanged(object sender, EventArgs e) { }

@@ -24,11 +24,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             scrollContainer = new Panel();
             scrollContainer.Size = new Size(583, 505);        // SAME SIZE AS INVENTORY
             scrollContainer.Location = new Point(472, 100);   // SAME POSITION AS INVENTORY
-            scrollContainer.AutoScroll = true;
             scrollContainer.BorderStyle = BorderStyle.FixedSingle;
-            scrollContainer.HorizontalScroll.Enabled = false;
-            scrollContainer.HorizontalScroll.Visible = false;
-            scrollContainer.AutoScrollMinSize = new Size(0, 813);
+            
 
             // add form into scroll container
             scrollContainer.Controls.Add(addCustomerForm);

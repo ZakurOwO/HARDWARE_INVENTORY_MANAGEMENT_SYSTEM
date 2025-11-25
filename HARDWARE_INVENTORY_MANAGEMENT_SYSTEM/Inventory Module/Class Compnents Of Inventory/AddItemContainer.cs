@@ -31,14 +31,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             scrollContainer.Location = new Point(472, 100);
             scrollContainer.AutoScroll = true;
             scrollContainer.BorderStyle = BorderStyle.FixedSingle;
-            scrollContainer.HorizontalScroll.Enabled = false;
-            scrollContainer.HorizontalScroll.Visible = false;
-            scrollContainer.AutoScrollMinSize = new Size(0, 813);
+
 
             // Add form to container
-            scrollContainer.Controls.Add(addForm);
-            addForm.Size = new Size(583, 813);
+            addForm.Size = new Size(scrollContainer.ClientSize.Width, 813);
             addForm.Location = new Point(0, 0);
+            addForm.Dock = DockStyle.Top;
+            addForm.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+
+            scrollContainer.Controls.Add(addForm);
+
+            // Keep the child width in sync with the container's client area so horizontal scrollbar never appears.
+            scrollContainer.ClientSizeChanged += ScrollContainer_ClientSizeChanged;
+            // Also handle when vertical scrollbar visibility changes (affects client width).
+            scrollContainer.Layout += ScrollContainer_Layout;
 
             // Set up main form
             mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.InventoryOverlay;
@@ -51,6 +57,34 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             scrollContainer.BringToFront();
         }
 
+        private void ScrollContainer_Layout(object sender, LayoutEventArgs e)
+        {
+            ResizeChildToAvoidHScroll();
+        }
+
+        private void ScrollContainer_ClientSizeChanged(object sender, EventArgs e)
+        {
+            ResizeChildToAvoidHScroll();
+        }
+
+        private void ResizeChildToAvoidHScroll()
+        {
+            if (scrollContainer == null || addForm == null) return;
+
+            // Effective available width for child controls (client width minus vertical scrollbar width if visible).
+            int availableWidth = scrollContainer.ClientSize.Width;
+
+            // If the vertical scrollbar is visible, the client width already accounts for it.
+            // To be safe subtract standard scrollbar width when AutoScroll is true and vertical scroll may be present.
+            // This prevents the child from being wider than the space and forcing a horizontal scrollbar.
+            if (scrollContainer.VerticalScroll.Visible)
+            {
+                availableWidth = Math.Max(0, scrollContainer.ClientSize.Width);
+            }
+
+            // Apply the width to the addForm (dock and anchor keep positioning).
+            addForm.Width = availableWidth;
+        }
         private void AddForm_OnProductAdded(object sender, EventArgs e)
         {
             CloseAddItemForm();

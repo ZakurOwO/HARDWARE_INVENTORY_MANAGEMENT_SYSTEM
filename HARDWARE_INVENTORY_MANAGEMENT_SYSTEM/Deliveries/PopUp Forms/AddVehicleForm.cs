@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Krypton.Toolkit;
+using Guna.UI2.WinForms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 {
@@ -49,93 +50,104 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         private void SetupPlaceholders()
         {
             // Store original placeholder text and set initial state
-            VehiclesNameTextBox.Tag = "Enter Vehicle Name";
+            tbxVehicleName.Tag = "Enter Vehicle Name";
             VehicleModelTextBox.Tag = "Enter Vehicle Model";
             YearBoughtTextBox.Tag = "Enter Year";
             PlateNumberTextBox.Tag = "Enter Plate Number";
 
             // Apply initial placeholder text
-            SetPlaceholderState(VehiclesNameTextBox, true);
+            SetPlaceholderState(tbxVehicleName, true);
             SetPlaceholderState(VehicleModelTextBox, true);
             SetPlaceholderState(YearBoughtTextBox, true);
             SetPlaceholderState(PlateNumberTextBox, true);
 
             // Wire up focus events
-            WireUpPlaceholderEvents(VehiclesNameTextBox);
+            WireUpPlaceholderEvents(tbxVehicleName);
             WireUpPlaceholderEvents(VehicleModelTextBox);
             WireUpPlaceholderEvents(YearBoughtTextBox);
             WireUpPlaceholderEvents(PlateNumberTextBox);
         }
 
-        private void WireUpPlaceholderEvents(KryptonRichTextBox textBox)
+        private void WireUpPlaceholderEvents(Guna2TextBox textBox)
         {
+            if (textBox == null) return;
+
             textBox.Enter += (s, e) => ClearPlaceholderIfNeeded(textBox);
             textBox.Leave += (s, e) => RestorePlaceholderIfNeeded(textBox);
             textBox.TextChanged += (s, e) => ValidateRealContent(textBox);
         }
 
-        private void SetPlaceholderState(KryptonRichTextBox textBox, bool isPlaceholder)
+        private void SetPlaceholderState(Guna2TextBox textBox, bool isPlaceholder)
         {
+            if (textBox == null) return;
+
             if (isPlaceholder)
             {
-                textBox.Text = textBox.Tag.ToString();
-                textBox.StateCommon.Content.Color1 = Color.Gray;
-                textBox.StateCommon.Content.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
+                textBox.Text = textBox.Tag?.ToString() ?? string.Empty;
+                textBox.ForeColor = Color.Gray;
+                textBox.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
             }
             else
             {
-                textBox.StateCommon.Content.Color1 = Color.Black;
-                textBox.StateCommon.Content.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+                textBox.ForeColor = Color.Black;
+                textBox.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
             }
         }
 
-        private void ClearPlaceholderIfNeeded(KryptonRichTextBox textBox)
+        private void ClearPlaceholderIfNeeded(Guna2TextBox textBox)
         {
-            if (textBox.Text == textBox.Tag.ToString())
+            if (textBox == null) return;
+
+            var placeholder = textBox.Tag?.ToString() ?? string.Empty;
+            if (textBox.Text == placeholder)
             {
                 textBox.Text = "";
-                textBox.StateCommon.Content.Color1 = Color.Black;
-                textBox.StateCommon.Content.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+                textBox.ForeColor = Color.Black;
+                textBox.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
             }
         }
 
-        private void RestorePlaceholderIfNeeded(KryptonRichTextBox textBox)
+        private void RestorePlaceholderIfNeeded(Guna2TextBox textBox)
         {
+            if (textBox == null) return;
+
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 SetPlaceholderState(textBox, true);
             }
         }
 
-        private void ValidateRealContent(KryptonRichTextBox textBox)
+        private void ValidateRealContent(Guna2TextBox textBox)
         {
-            // If user types something and it matches placeholder, clear it
-            if (textBox.Text == textBox.Tag.ToString() && textBox.Focused)
+            if (textBox == null) return;
+
+            // If user types something and it matches placeholder while focused, clear it
+            var placeholder = textBox.Tag?.ToString() ?? string.Empty;
+            if (textBox.Text == placeholder && textBox.Focused)
             {
                 textBox.Text = "";
             }
         }
 
         // Helper method to check if a textbox has real content (not placeholder)
-        private bool HasRealContent(KryptonRichTextBox textBox)
+        private bool HasRealContent(Guna2TextBox textBox)
         {
-            return !string.IsNullOrWhiteSpace(textBox.Text) && textBox.Text != textBox.Tag.ToString();
+            if (textBox == null) return false;
+            var placeholder = textBox.Tag?.ToString() ?? string.Empty;
+            return !string.IsNullOrWhiteSpace(textBox.Text) && textBox.Text != placeholder;
         }
 
         // Helper method to get real text content
-        private string GetRealText(KryptonRichTextBox textBox)
+        private string GetRealText(Guna2TextBox textBox)
         {
-            return textBox.Text == textBox.Tag.ToString() ? "" : textBox.Text;
+            if (textBox == null) return string.Empty;
+            var placeholder = textBox.Tag?.ToString() ?? string.Empty;
+            return textBox.Text == placeholder ? "" : textBox.Text;
         }
 
         private void WireUpButtons()
         {
-            // Wire up image upload button
-            if (UploadImageButton != null)
-            {
-                UploadImageButton.Click += UploadImageButton_Click;
-            }
-
+           
             // Directly wire the existing buttons
             if (btnBlue != null)
             {
@@ -158,7 +170,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     selectedImagePath = openFileDialog.FileName;
-                    kryptonRichTextBox1.Text = Path.GetFileName(selectedImagePath);
+                    ImageUploadBox.Text = Path.GetFileName(selectedImagePath);
                 }
             }
         }
@@ -170,8 +182,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             // Load data into form fields (set real content, not placeholders)
             if (!string.IsNullOrWhiteSpace(vehicle.Brand))
             {
-                VehiclesNameTextBox.Text = vehicle.Brand;
-                SetPlaceholderState(VehiclesNameTextBox, false);
+                tbxVehicleName.Text = vehicle.Brand;
+                SetPlaceholderState(tbxVehicleName, false);
             }
 
             if (!string.IsNullOrWhiteSpace(vehicle.Model))
@@ -203,7 +215,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             // Load image info
             if (!string.IsNullOrEmpty(vehicle.ImagePath))
             {
-                kryptonRichTextBox1.Text = Path.GetFileName(vehicle.ImagePath);
+                ImageUploadBox.Text = Path.GetFileName(vehicle.ImagePath);
                 selectedImagePath = VehicleImageManager.GetFullImagePath(vehicle.ImagePath);
             }
         }
@@ -217,7 +229,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             {
                 VehicleRecord vehicle = new VehicleRecord
                 {
-                    Brand = GetRealText(VehiclesNameTextBox).Trim(),
+                    Brand = GetRealText(tbxVehicleName).Trim(),
                     Model = GetRealText(VehicleModelTextBox).Trim(),
                     VehicleType = "Drop-Side Truck",
                     Capacity = GetRealText(YearBoughtTextBox).Trim(),
@@ -280,12 +292,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
         private bool ValidateInputs()
         {
-            if (!HasRealContent(VehiclesNameTextBox))
+            if (!HasRealContent(tbxVehicleName))
             {
                 MessageBox.Show("Please enter vehicle brand/name", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                VehiclesNameTextBox.Focus();
-                ClearPlaceholderIfNeeded(VehiclesNameTextBox);
+                tbxVehicleName.Focus();
+                ClearPlaceholderIfNeeded(tbxVehicleName);
                 return false;
             }
 
@@ -326,8 +338,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             if (this.Visible)
             {
                 // Ensure placeholders are properly set when form becomes visible
-                if (string.IsNullOrWhiteSpace(GetRealText(VehiclesNameTextBox)))
-                    SetPlaceholderState(VehiclesNameTextBox, true);
+                if (string.IsNullOrWhiteSpace(GetRealText(tbxVehicleName)))
+                    SetPlaceholderState(tbxVehicleName, true);
                 if (string.IsNullOrWhiteSpace(GetRealText(VehicleModelTextBox)))
                     SetPlaceholderState(VehicleModelTextBox, true);
                 if (string.IsNullOrWhiteSpace(GetRealText(YearBoughtTextBox)))
@@ -336,6 +348,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     SetPlaceholderState(PlateNumberTextBox, true);
             }
         }
+
 
         // Event handlers for designer events
         private void kryptonPanel1_Paint(object sender, PaintEventArgs e)
@@ -385,5 +398,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 SetupPlaceholders();
             }
         }
+
+       
     }
 }
