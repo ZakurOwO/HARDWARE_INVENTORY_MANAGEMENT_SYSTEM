@@ -140,63 +140,50 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         // Get vehicles by status
         public List<VehicleRecord> GetVehiclesByStatus(string status)
         {
-            var vehicles = new List<VehicleRecord>();
+            List<VehicleRecord> vehicles = new List<VehicleRecord>();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT 
-                        vehicle_id,
-                        VehicleID,
-                        plate_number,
-                        brand,
-                        model,
-                        vehicle_type,
-                        capacity,
-                        status,
-                        image_path,
-                        created_at,
-                        updated_at
-                    FROM Vehicles 
-                    WHERE status = @Status
-                    ORDER BY created_at DESC";
+            SELECT 
+                vehicle_id,      -- ← Load the INT ID
+                VehicleID,       -- ← Load the computed string ID
+                plate_number, 
+                brand, 
+                model, 
+                vehicle_type, 
+                capacity, 
+                status, 
+                image_path
+            FROM Vehicles 
+            WHERE status = @Status 
+            ORDER BY brand, model";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Status", status);
 
-                try
-                {
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
 
-                    while (reader.Read())
-                    {
-                        vehicles.Add(new VehicleRecord
-                        {
-                            VehicleInternalID = reader.GetInt32(0),
-                            VehicleID = reader.IsDBNull(1) ? "" : reader.GetString(1),
-                            PlateNumber = reader.GetString(2),
-                            Brand = reader.IsDBNull(3) ? "" : reader.GetString(3),
-                            Model = reader.IsDBNull(4) ? "" : reader.GetString(4),
-                            VehicleType = reader.IsDBNull(5) ? "" : reader.GetString(5),
-                            Capacity = reader.IsDBNull(6) ? "" : reader.GetString(6),
-                            Status = reader.IsDBNull(7) ? "Available" : reader.GetString(7),
-                            ImagePath = reader.IsDBNull(8) ? "" : reader.GetString(8),
-                            CreatedAt = reader.GetDateTime(9),
-                            UpdatedAt = reader.GetDateTime(10)
-                        });
-                    }
-                    reader.Close();
-                }
-                catch (Exception ex)
+                while (reader.Read())
                 {
-                    throw new Exception($"Error retrieving vehicles by status: {ex.Message}");
+                    vehicles.Add(new VehicleRecord
+                    {
+                        VehicleId = reader.GetInt32(0),      // ← INT vehicle_id
+                        VehicleID = reader.GetString(1),     // ← STRING VehicleID
+                        PlateNumber = reader.GetString(2),
+                        Brand = reader.GetString(3),
+                        Model = reader.GetString(4),
+                        VehicleType = reader.GetString(5),
+                        Capacity = reader.GetString(6),
+                        Status = reader.GetString(7),
+                        ImagePath = reader.IsDBNull(8) ? null : reader.GetString(8)
+                    });
                 }
             }
 
             return vehicles;
         }
-
         // Add new vehicle
         public void AddVehicle(VehicleRecord vehicle)
         {

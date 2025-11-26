@@ -32,17 +32,17 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvDeliveries = new System.Windows.Forms.DataGridView();
-            this.DeliveryOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TrackingNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TransactionType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VehicleType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeliveryStatus = new Krypton.Toolkit.KryptonDataGridViewComboBoxColumn();
-            this.DateCreated = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Action = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
+            this.DeliveryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Transaction_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Delivery_Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Delivery_Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Customer_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Created_At = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updated_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDeliveries)).BeginInit();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
@@ -64,14 +64,14 @@
             this.dgvDeliveries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDeliveries.ColumnHeadersHeight = 45;
             this.dgvDeliveries.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DeliveryOrder,
-            this.TrackingNumber,
-            this.Location,
-            this.TransactionType,
-            this.VehicleType,
-            this.DeliveryStatus,
-            this.DateCreated,
-            this.Action});
+            this.DeliveryID,
+            this.Transaction_ID,
+            this.Delivery_Number,
+            this.Delivery_Date,
+            this.Status,
+            this.Customer_name,
+            this.Created_At,
+            this.updated_at});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold);
@@ -99,56 +99,6 @@
             this.dgvDeliveries.Size = new System.Drawing.Size(902, 512);
             this.dgvDeliveries.TabIndex = 1;
             this.dgvDeliveries.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDeliveries_CellContentClick);
-            // 
-            // DeliveryOrder
-            // 
-            this.DeliveryOrder.HeaderText = "Delivery Order #";
-            this.DeliveryOrder.Name = "DeliveryOrder";
-            this.DeliveryOrder.Width = 140;
-            // 
-            // TrackingNumber
-            // 
-            this.TrackingNumber.HeaderText = "Tracking Number";
-            this.TrackingNumber.Name = "TrackingNumber";
-            this.TrackingNumber.Width = 140;
-            // 
-            // Location
-            // 
-            this.Location.HeaderText = "Location";
-            this.Location.Name = "Location";
-            this.Location.Width = 130;
-            // 
-            // TransactionType
-            // 
-            this.TransactionType.HeaderText = "Transaction Type";
-            this.TransactionType.Name = "TransactionType";
-            this.TransactionType.Width = 140;
-            // 
-            // VehicleType
-            // 
-            this.VehicleType.HeaderText = "Vehicle Type";
-            this.VehicleType.Name = "VehicleType";
-            // 
-            // DeliveryStatus
-            // 
-            this.DeliveryStatus.DropDownWidth = 121;
-            this.DeliveryStatus.HeaderText = "Delivery Status";
-            this.DeliveryStatus.Name = "DeliveryStatus";
-            this.DeliveryStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DeliveryStatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.DeliveryStatus.Width = 120;
-            // 
-            // DateCreated
-            // 
-            this.DateCreated.HeaderText = "Date Created";
-            this.DateCreated.Name = "DateCreated";
-            this.DateCreated.Width = 120;
-            // 
-            // Action
-            // 
-            this.Action.HeaderText = "";
-            this.Action.Name = "Action";
-            this.Action.Width = 42;
             // 
             // guna2Panel1
             // 
@@ -181,6 +131,59 @@
             this.searchField1.Size = new System.Drawing.Size(299, 54);
             this.searchField1.TabIndex = 7;
             // 
+            // DeliveryID
+            // 
+            this.DeliveryID.FillWeight = 120F;
+            this.DeliveryID.HeaderText = "Delivery ID";
+            this.DeliveryID.Name = "DeliveryID";
+            this.DeliveryID.Width = 120;
+            // 
+            // Transaction_ID
+            // 
+            this.Transaction_ID.FillWeight = 120F;
+            this.Transaction_ID.HeaderText = "Transaction ID";
+            this.Transaction_ID.Name = "Transaction_ID";
+            this.Transaction_ID.Width = 120;
+            // 
+            // Delivery_Number
+            // 
+            this.Delivery_Number.FillWeight = 120F;
+            this.Delivery_Number.HeaderText = "Delivery Number";
+            this.Delivery_Number.Name = "Delivery_Number";
+            this.Delivery_Number.Width = 120;
+            // 
+            // Delivery_Date
+            // 
+            this.Delivery_Date.HeaderText = "Delivery Date";
+            this.Delivery_Date.Name = "Delivery_Date";
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.Width = 120;
+            // 
+            // Customer_name
+            // 
+            this.Customer_name.FillWeight = 120F;
+            this.Customer_name.HeaderText = "Customer Name";
+            this.Customer_name.Name = "Customer_name";
+            this.Customer_name.Width = 120;
+            // 
+            // Created_At
+            // 
+            this.Created_At.FillWeight = 120F;
+            this.Created_At.HeaderText = "Created At Date";
+            this.Created_At.Name = "Created_At";
+            this.Created_At.Width = 120;
+            // 
+            // updated_at
+            // 
+            this.updated_at.FillWeight = 125F;
+            this.updated_at.HeaderText = "Update at Date";
+            this.updated_at.Name = "updated_at";
+            this.updated_at.Width = 125;
+            // 
             // DeliveriesTables
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,16 +203,16 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvDeliveries;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryOrder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TrackingNumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Location;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TransactionType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn VehicleType;
-        private Krypton.Toolkit.KryptonDataGridViewComboBoxColumn DeliveryStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateCreated;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Action;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private Accounts_Module.SearchField searchField1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Transaction_ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Delivery_Number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Delivery_Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Customer_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Created_At;
+        private System.Windows.Forms.DataGridViewTextBoxColumn updated_at;
     }
 }

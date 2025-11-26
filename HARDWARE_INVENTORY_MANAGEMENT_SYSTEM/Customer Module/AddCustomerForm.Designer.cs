@@ -45,9 +45,9 @@
             this.label9 = new System.Windows.Forms.Label();
             this.btnWhite = new Guna.UI2.WinForms.Guna2Button();
             this.btnBlue = new Guna.UI2.WinForms.Guna2Button();
-            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.CityCombobox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.ProvinceCombobox = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.SuspendLayout();
             // 
             // label8
@@ -309,16 +309,6 @@
             this.btnBlue.Text = "Add";
             this.btnBlue.Click += new System.EventHandler(this.btnBlue_Click);
             // 
-            // closeButton1
-            // 
-            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton1.Location = new System.Drawing.Point(501, 17);
-            this.closeButton1.Margin = new System.Windows.Forms.Padding(4);
-            this.closeButton1.Name = "closeButton1";
-            this.closeButton1.Size = new System.Drawing.Size(35, 35);
-            this.closeButton1.TabIndex = 30;
-            this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
-            // 
             // CityCombobox
             // 
             this.CityCombobox.BackColor = System.Drawing.Color.Transparent;
@@ -498,6 +488,16 @@
             this.ProvinceCombobox.Size = new System.Drawing.Size(228, 36);
             this.ProvinceCombobox.TabIndex = 62;
             // 
+            // closeButton1
+            // 
+            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
+            this.closeButton1.Location = new System.Drawing.Point(501, 17);
+            this.closeButton1.Margin = new System.Windows.Forms.Padding(4);
+            this.closeButton1.Name = "closeButton1";
+            this.closeButton1.Size = new System.Drawing.Size(35, 35);
+            this.closeButton1.TabIndex = 30;
+            this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
+            // 
             // AddCustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -530,6 +530,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AddCustomerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.AddCustomerForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

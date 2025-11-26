@@ -17,19 +17,19 @@
 
         private void InitializeComponent()
         {
-            this.MainpageProductLayout = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.transactionsSearchBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.TransactionsSearchBar();
             this.transactionsTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module.TransactionsTopBar();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.MainpageProductLayout = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
-            // MainpageProductLayout
+            // panel1
             // 
-            this.MainpageProductLayout.Location = new System.Drawing.Point(13, 148);
-            this.MainpageProductLayout.Name = "MainpageProductLayout";
-            this.MainpageProductLayout.Size = new System.Drawing.Size(633, 435);
-            this.MainpageProductLayout.TabIndex = 33;
-            this.MainpageProductLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.MainpageProductLayout_Paint);
+            this.panel1.Location = new System.Drawing.Point(652, 148);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(302, 624);
+            this.panel1.TabIndex = 34;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // transactionsSearchBar1
             // 
@@ -48,13 +48,13 @@
             this.transactionsTopBar1.Size = new System.Drawing.Size(960, 60);
             this.transactionsTopBar1.TabIndex = 0;
             // 
-            // panel1
+            // MainpageProductLayout
             // 
-            this.panel1.Location = new System.Drawing.Point(652, 148);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(302, 624);
-            this.panel1.TabIndex = 34;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.MainpageProductLayout.Location = new System.Drawing.Point(13, 148);
+            this.MainpageProductLayout.Name = "MainpageProductLayout";
+            this.MainpageProductLayout.Size = new System.Drawing.Size(633, 435);
+            this.MainpageProductLayout.TabIndex = 33;
+            this.MainpageProductLayout.Paint += new System.Windows.Forms.PaintEventHandler(this.MainpageProductLayout_Paint);
             // 
             // TransactionsMainPage
             // 
@@ -68,12 +68,13 @@
             this.Name = "TransactionsMainPage";
             this.Size = new System.Drawing.Size(960, 720);
             this.ResumeLayout(false);
+
         }
 
         #endregion
         private TransactionsTopBar transactionsTopBar1;
         private TransactionsSearchBar transactionsSearchBar1;
-        private System.Windows.Forms.FlowLayoutPanel MainpageProductLayout;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.FlowLayoutPanel MainpageProductLayout;
     }
 }

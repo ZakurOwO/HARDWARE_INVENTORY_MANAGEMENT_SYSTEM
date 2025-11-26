@@ -23,12 +23,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         private CheckedListBox vehicleCheckedListBox;
         private Guna.UI2.WinForms.Guna2Button btnMultiSelectVehicles;
         private string connectionString;
+        private CheckoutPopUpContainer checkoutContainer;
 
         public DeliveryCartDetails()
         {
             InitializeComponent();
             vehicleDataAccess = new VehicleDataAccess();
             connectionString = ConnectionString.DataSource;
+            checkoutContainer = new CheckoutPopUpContainer();
             InitializeDataGridViewColumns();
         }
 
@@ -36,7 +38,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         {
             dgvCartDetails.Columns.Clear();
 
-            // Item Name Column
             DataGridViewTextBoxColumn itemNameColumn = new DataGridViewTextBoxColumn();
             itemNameColumn.Name = "ItemName";
             itemNameColumn.HeaderText = "ITEM";
@@ -45,7 +46,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             itemNameColumn.ReadOnly = true;
             dgvCartDetails.Columns.Add(itemNameColumn);
 
-            // Quantity Column
             DataGridViewTextBoxColumn quantityColumn = new DataGridViewTextBoxColumn();
             quantityColumn.Name = "Quantity";
             quantityColumn.HeaderText = "QTY";
@@ -54,7 +54,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             quantityColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvCartDetails.Columns.Add(quantityColumn);
 
-            // Price Column
             DataGridViewTextBoxColumn priceColumn = new DataGridViewTextBoxColumn();
             priceColumn.Name = "Price";
             priceColumn.HeaderText = "PRICE";
@@ -64,7 +63,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             priceColumn.ReadOnly = true;
             dgvCartDetails.Columns.Add(priceColumn);
 
-            // Delete Column
             DataGridViewImageColumn deleteColumn = new DataGridViewImageColumn();
             deleteColumn.Name = "Delete";
             deleteColumn.HeaderText = "";
@@ -82,13 +80,43 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void DeliveryCartDetails_Load(object sender, EventArgs e)
         {
+            LoadCustomers();
             LoadVehicles();
             dgvCartDetails.ClearSelection();
             SetupNumericUpDown();
             LoadSharedCartItems();
         }
 
-        #region Vehicle Multi-Selection
+        private void LoadCustomers()
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT customer_name FROM Customers ORDER BY customer_name";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    cbxChooseCustomer.Items.Clear();
+                    while (reader.Read())
+                    {
+                        cbxChooseCustomer.Items.Add(reader["customer_name"].ToString());
+                    }
+                    reader.Close();
+
+                    if (cbxChooseCustomer.Items.Count > 0)
+                    {
+                        cbxChooseCustomer.SelectedIndex = 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading customers: {ex.Message}", "Database Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void LoadVehicles()
         {
@@ -96,7 +124,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             {
                 availableVehicles = vehicleDataAccess.GetVehiclesByStatus("Available");
                 CreateMultiVehicleSelector();
-                Console.WriteLine($"✓ Loaded {availableVehicles.Count} available vehicles");
             }
             catch (Exception ex)
             {
@@ -107,14 +134,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void CreateMultiVehicleSelector()
         {
-            // Remove the old button dropdown if exists
             if (btnDropdown != null)
             {
                 this.Controls.Remove(btnDropdown);
                 btnDropdown.Dispose();
             }
 
-            // Create custom multi-select button
             btnMultiSelectVehicles = new Guna.UI2.WinForms.Guna2Button();
             btnMultiSelectVehicles.Name = "btnMultiSelectVehicles";
             btnMultiSelectVehicles.BorderColor = Color.Gainsboro;
@@ -135,13 +160,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             this.Controls.Add(btnMultiSelectVehicles);
             btnMultiSelectVehicles.BringToFront();
 
-            // Create the dropdown panel (hidden by default)
             CreateVehicleSelectionPanel();
         }
 
         private void CreateVehicleSelectionPanel()
         {
-            // Create panel for vehicle selection
             vehicleSelectionPanel = new Panel();
             vehicleSelectionPanel.Name = "vehicleSelectionPanel";
             vehicleSelectionPanel.BorderStyle = BorderStyle.FixedSingle;
@@ -151,7 +174,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             vehicleSelectionPanel.Visible = false;
             vehicleSelectionPanel.AutoScroll = true;
 
-            // Create CheckedListBox
             vehicleCheckedListBox = new CheckedListBox();
             vehicleCheckedListBox.Name = "vehicleCheckedListBox";
             vehicleCheckedListBox.Dock = DockStyle.Fill;
@@ -161,7 +183,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             vehicleCheckedListBox.CheckOnClick = true;
             vehicleCheckedListBox.ItemCheck += VehicleCheckedListBox_ItemCheck;
 
-            // Populate with vehicles
             if (availableVehicles != null && availableVehicles.Count > 0)
             {
                 foreach (var vehicle in availableVehicles)
@@ -183,9 +204,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void BtnMultiSelectVehicles_Click(object sender, EventArgs e)
         {
-            // Toggle visibility of vehicle selection panel
             vehicleSelectionPanel.Visible = !vehicleSelectionPanel.Visible;
-
             if (vehicleSelectionPanel.Visible)
             {
                 vehicleSelectionPanel.BringToFront();
@@ -194,18 +213,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void VehicleCheckedListBox_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            // Use BeginInvoke to ensure the CheckedItems collection is updated
             this.BeginInvoke(new Action(() =>
             {
                 UpdateSelectedVehicles();
                 UpdateVehicleButtonText();
+                UpdateCartTotals();
             }));
         }
 
         private void UpdateSelectedVehicles()
         {
             selectedVehicles.Clear();
-
             for (int i = 0; i < vehicleCheckedListBox.CheckedIndices.Count; i++)
             {
                 int index = vehicleCheckedListBox.CheckedIndices[i];
@@ -213,12 +231,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 {
                     selectedVehicles.Add(availableVehicles[index]);
                 }
-            }
-
-            Console.WriteLine($"✓ Selected {selectedVehicles.Count} vehicle(s)");
-            foreach (var vehicle in selectedVehicles)
-            {
-                Console.WriteLine($"  - {vehicle.Brand} {vehicle.Model} ({vehicle.PlateNumber})");
             }
         }
 
@@ -241,34 +253,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 }
             }
         }
-
-        // Get all selected vehicles
-        public List<VehicleRecord> GetSelectedVehicles()
-        {
-            return new List<VehicleRecord>(selectedVehicles);
-        }
-
-        // Get vehicle IDs as comma-separated string
-        public string GetSelectedVehicleIds()
-        {
-            return string.Join(", ", selectedVehicles.Select(v => v.VehicleID));
-        }
-
-        // Check if any vehicles are selected
-        public bool HasSelectedVehicles()
-        {
-            return selectedVehicles.Count > 0;
-        }
-
-        // Refresh vehicles list
-        public void RefreshVehicles()
-        {
-            LoadVehicles();
-        }
-
-        #endregion
-
-        #region Numeric UpDown & Quantity Management
 
         private void SetupNumericUpDown()
         {
@@ -361,7 +345,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 {
                     dgvCartDetails.Rows[rowIndex].Cells[columnIndex].Value = qtyUpDown.Value;
 
-                    // Update shared cart
                     string productName = dgvCartDetails.Rows[rowIndex].Cells["ItemName"].Value?.ToString();
                     int newQuantity = Convert.ToInt32(qtyUpDown.Value);
 
@@ -374,10 +357,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 }
             }
         }
-
-        #endregion
-
-        #region Cart Operations
 
         private void dgvCartDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -433,15 +412,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private decimal CalculateShippingFee()
         {
-            // Base shipping fee
             decimal baseFee = 100.00m;
-
-            // Additional fee per extra vehicle (if multiple vehicles)
             if (selectedVehicles.Count > 1)
             {
                 baseFee += (selectedVehicles.Count - 1) * 50.00m;
             }
-
             return baseFee;
         }
 
@@ -452,13 +427,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = @"
-                SELECT 
-                    product_name,
-                    SellingPrice,
-                    current_stock
-                FROM Products 
-                WHERE ProductInternalID = @ProductInternalID 
-                AND active = 1 AND current_stock > 0";
+                        SELECT product_name, SellingPrice, current_stock
+                        FROM Products 
+                        WHERE ProductInternalID = @ProductInternalID 
+                        AND active = 1 AND current_stock > 0";
 
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@ProductInternalID", productInternalId);
@@ -497,63 +469,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        public void AddProductToCartByName(string productName, int quantity = 1)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    string query = @"
-                        SELECT 
-                            product_name,
-                            SellingPrice,
-                            current_stock
-                        FROM Products 
-                        WHERE product_name = @ProductName 
-                        AND active = 1 AND current_stock > 0";
-
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@ProductName", productName);
-
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        string name = reader.GetString(0);
-                        decimal sellingPrice = reader.GetDecimal(1);
-                        int currentStock = reader.GetInt32(2);
-
-                        if (quantity <= currentStock)
-                        {
-                            AddItemToCart(name, sellingPrice, quantity);
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Insufficient stock for {name}. Available: {currentStock}",
-                                "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Product not found or out of stock.", "Product Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    reader.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error adding product to cart: {ex.Message}", "Database Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         public void AddItemToCart(string itemName, decimal price, int quantity = 1)
         {
-            Console.WriteLine($"AddItemToCart called: {itemName}, {price}, {quantity}");
-
-            // Add to shared cart first
             SharedCartManager.Instance.AddItemToCart(new CartItem
             {
                 ProductName = itemName,
@@ -561,7 +478,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 Quantity = quantity
             });
 
-            // Then update local DataGridView
             LoadSharedCartItems();
         }
 
@@ -570,69 +486,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             dgvCartDetails.Rows.Clear();
             SharedCartManager.Instance.ClearCart();
             UpdateCartTotals();
-        }
-
-        public int GetCartItemCount()
-        {
-            int count = 0;
-            foreach (DataGridViewRow row in dgvCartDetails.Rows)
-            {
-                if (!row.IsNewRow) count++;
-            }
-            return count;
-        }
-
-        public List<CartItem> GetCartItems()
-        {
-            List<CartItem> items = new List<CartItem>();
-
-            foreach (DataGridViewRow row in dgvCartDetails.Rows)
-            {
-                if (row.IsNewRow) continue;
-
-                if (row.Cells["ItemName"].Value != null &&
-                    row.Cells["Quantity"].Value != null &&
-                    row.Cells["Price"].Value != null)
-                {
-                    string priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
-                    if (decimal.TryParse(priceText, out decimal price))
-                    {
-                        items.Add(new CartItem
-                        {
-                            ProductName = row.Cells["ItemName"].Value.ToString(),
-                            Quantity = Convert.ToInt32(row.Cells["Quantity"].Value),
-                            Price = price
-                        });
-                    }
-                }
-            }
-
-            return items;
-        }
-
-        public DataTable GetCartData()
-        {
-            DataTable cartData = new DataTable();
-            cartData.Columns.Add("ProductName", typeof(string));
-            cartData.Columns.Add("Quantity", typeof(int));
-            cartData.Columns.Add("Price", typeof(decimal));
-            cartData.Columns.Add("Total", typeof(decimal));
-
-            foreach (DataGridViewRow row in dgvCartDetails.Rows)
-            {
-                if (row.IsNewRow) continue;
-
-                string productName = row.Cells["ItemName"].Value?.ToString() ?? "";
-                int quantity = Convert.ToInt32(row.Cells["Quantity"].Value ?? 0);
-                string priceStr = row.Cells["Price"].Value?.ToString() ?? "₱0.00";
-                priceStr = priceStr.Replace("₱", "").Trim();
-                decimal price = decimal.Parse(priceStr);
-                decimal total = quantity * price;
-
-                cartData.Rows.Add(productName, quantity, price, total);
-            }
-
-            return cartData;
         }
 
         private void LoadSharedCartItems()
@@ -647,9 +500,356 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             UpdateCartTotals();
         }
 
-        #endregion
+        private void btnBlue_Click(object sender, EventArgs e)
+        {
+            CheckoutDelivery();
+        }
 
-        #region Validation
+        private void CheckoutDelivery()
+        {
+            try
+            {
+                if (!ValidateCheckout()) return;
+                if (!ValidateQuantities()) return;
+                if (!ValidateStockAvailability()) return;
+
+                ShowCheckoutPopup();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during checkout: {ex.Message}", "Checkout Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ShowCheckoutPopup()
+        {
+            decimal subtotal = CalculateSubtotal();
+            decimal tax = CalculateTax(subtotal);
+            decimal shippingFee = CalculateShippingFee();
+            decimal totalAmount = subtotal + tax + shippingFee;
+
+            MainDashBoard mainForm = FindMainForm();
+            if (mainForm != null)
+            {
+                checkoutContainer.ShowCheckoutPopUp(mainForm, totalAmount, subtotal, tax, "Delivery", this);
+            }
+            else
+            {
+                MessageBox.Show("Unable to find main form.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private MainDashBoard FindMainForm()
+        {
+            Control parent = this.Parent;
+            while (parent != null)
+            {
+                if (parent is MainDashBoard mainForm) return mainForm;
+                parent = parent.Parent;
+            }
+            return null;
+        }
+
+        public void ProcessDeliveryTransaction(string paymentMethod, decimal cashReceived, decimal change)
+        {
+            try
+            {
+                string customerName = GetSelectedCustomerName();
+                decimal subtotal = CalculateSubtotal();
+                decimal tax = CalculateTax(subtotal);
+                decimal shippingFee = CalculateShippingFee();
+                decimal totalAmount = subtotal + tax + shippingFee;
+
+                SaveDeliveryTransactionToDatabase(customerName, subtotal, tax, shippingFee, totalAmount, paymentMethod, cashReceived, change);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error processing transaction: {ex.Message}", "Transaction Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private string GetSelectedCustomerName()
+        {
+            return cbxChooseCustomer.SelectedItem?.ToString() ?? "Walk-in Customer";
+        }
+
+        private decimal CalculateTax(decimal subtotal)
+        {
+            return subtotal * 0.12m;
+        }
+
+        private bool ValidateQuantities()
+        {
+            foreach (DataGridViewRow row in dgvCartDetails.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                if (row.Cells["Quantity"].Value == null ||
+                    !int.TryParse(row.Cells["Quantity"].Value.ToString(), out int quantity) ||
+                    quantity <= 0)
+                {
+                    MessageBox.Show("Please enter valid quantities for all items (minimum 1).",
+                        "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private bool ValidateStockAvailability()
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    foreach (DataGridViewRow row in dgvCartDetails.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+
+                        string productName = row.Cells["ItemName"].Value?.ToString();
+                        int cartQuantity = Convert.ToInt32(row.Cells["Quantity"].Value);
+
+                        if (string.IsNullOrEmpty(productName))
+                        {
+                            MessageBox.Show("Invalid product name in cart.",
+                                "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return false;
+                        }
+
+                        string query = "SELECT current_stock FROM Products WHERE product_name = @ProductName AND active = 1";
+                        SqlCommand command = new SqlCommand(query, connection);
+                        command.Parameters.AddWithValue("@ProductName", productName);
+
+                        var result = command.ExecuteScalar();
+                        if (result == null)
+                        {
+                            MessageBox.Show($"Product '{productName}' not found in database.",
+                                "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return false;
+                        }
+
+                        int availableStock = Convert.ToInt32(result);
+                        if (cartQuantity > availableStock)
+                        {
+                            MessageBox.Show($"Insufficient stock for '{productName}'. Available: {availableStock}, Requested: {cartQuantity}",
+                                "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error validating stock: {ex.Message}", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private void SaveDeliveryTransactionToDatabase(string customerName, decimal subtotal, decimal tax, decimal shippingFee, decimal totalAmount, string paymentMethod, decimal cashReceived, decimal change)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlTransaction transaction = connection.BeginTransaction();
+
+                    try
+                    {
+                        int customerId = GetOrCreateCustomer(connection, transaction, customerName);
+
+                        // Insert transaction with payment info
+                        string insertTransactionQuery = @"
+                    INSERT INTO Transactions (
+                        transaction_date, 
+                        customer_id, 
+                        total_amount, 
+                        cashier,
+                        payment_method,
+                        cash_received,
+                        change_amount
+                    )
+                    VALUES (
+                        GETDATE(), 
+                        @CustomerId, 
+                        @TotalAmount, 
+                        @Cashier,
+                        @PaymentMethod,
+                        @CashReceived,
+                        @ChangeAmount
+                    );
+                    SELECT CAST(SCOPE_IDENTITY() as int);";
+
+                        SqlCommand transactionCmd = new SqlCommand(insertTransactionQuery, connection, transaction);
+                        transactionCmd.Parameters.AddWithValue("@CustomerId", customerId);
+                        transactionCmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
+                        transactionCmd.Parameters.AddWithValue("@Cashier", 1);
+                        transactionCmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
+                        transactionCmd.Parameters.AddWithValue("@CashReceived", cashReceived);
+                        transactionCmd.Parameters.AddWithValue("@ChangeAmount", change);
+
+                        int transactionId = (int)transactionCmd.ExecuteScalar();
+
+                        // Save transaction items
+                        foreach (DataGridViewRow row in dgvCartDetails.Rows)
+                        {
+                            if (row.IsNewRow) continue;
+
+                            string productName = row.Cells["ItemName"].Value.ToString();
+                            int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
+                            decimal price = decimal.Parse(row.Cells["Price"].Value.ToString().Replace("₱", "").Trim());
+
+                            string getProductQuery = "SELECT ProductInternalID FROM Products WHERE product_name = @ProductName";
+                            SqlCommand productCmd = new SqlCommand(getProductQuery, connection, transaction);
+                            productCmd.Parameters.AddWithValue("@ProductName", productName);
+                            int productId = (int)productCmd.ExecuteScalar();
+
+                            string insertItemQuery = @"
+                        INSERT INTO TransactionItems (transaction_id, product_id, quantity, selling_price)
+                        VALUES (@TransactionId, @ProductId, @Quantity, @SellingPrice);";
+
+                            SqlCommand itemCmd = new SqlCommand(insertItemQuery, connection, transaction);
+                            itemCmd.Parameters.AddWithValue("@TransactionId", transactionId);
+                            itemCmd.Parameters.AddWithValue("@ProductId", productId);
+                            itemCmd.Parameters.AddWithValue("@Quantity", quantity);
+                            itemCmd.Parameters.AddWithValue("@SellingPrice", price);
+                            itemCmd.ExecuteNonQuery();
+
+                            // Update stock
+                            string updateStockQuery = @"
+                        UPDATE Products 
+                        SET current_stock = current_stock - @Quantity 
+                        WHERE ProductInternalID = @ProductId";
+
+                            SqlCommand stockCmd = new SqlCommand(updateStockQuery, connection, transaction);
+                            stockCmd.Parameters.AddWithValue("@Quantity", quantity);
+                            stockCmd.Parameters.AddWithValue("@ProductId", productId);
+                            stockCmd.ExecuteNonQuery();
+                        }
+
+                        // Create delivery record
+                        string insertDeliveryQuery = @"
+                    INSERT INTO Deliveries (
+                        transaction_id, 
+                        delivery_number, 
+                        delivery_date, 
+                        status, 
+                        delivery_type, 
+                        customer_name
+                    )
+                    VALUES (
+                        @TransactionId, 
+                        @DeliveryNumber, 
+                        GETDATE(), 
+                        'Scheduled', 
+                        'Sales_Delivery', 
+                        @CustomerName
+                    );
+                    SELECT CAST(SCOPE_IDENTITY() as int);";
+
+                        SqlCommand deliveryCmd = new SqlCommand(insertDeliveryQuery, connection, transaction);
+                        deliveryCmd.Parameters.AddWithValue("@TransactionId", transactionId);
+                        deliveryCmd.Parameters.AddWithValue("@DeliveryNumber", $"DEL-{DateTime.Now:yyyyMMddHHmmss}");
+                        deliveryCmd.Parameters.AddWithValue("@CustomerName", customerName);
+
+                        int deliveryId = (int)deliveryCmd.ExecuteScalar();
+
+                        // Save vehicle assignments - FIXED: Use vehicle_id (int) not VehicleID (string)
+                        // Save vehicle assignments
+                        foreach (var vehicle in selectedVehicles)
+                        {
+                            string insertAssignmentQuery = @"
+        INSERT INTO VehicleAssignments (delivery_id, vehicle_id, driver_name, assignment_date, status)
+        VALUES (@DeliveryId, @VehicleId, @DriverName, GETDATE(), 'Assigned');";
+
+                            SqlCommand assignmentCmd = new SqlCommand(insertAssignmentQuery, connection, transaction);
+                            assignmentCmd.Parameters.AddWithValue("@DeliveryId", deliveryId);
+                            assignmentCmd.Parameters.AddWithValue("@VehicleId", vehicle.VehicleId); // ← USE VehicleId (int) NOT VehicleID (string)
+                            assignmentCmd.Parameters.AddWithValue("@DriverName", "To be assigned");
+                            assignmentCmd.ExecuteNonQuery();
+
+                            // Update vehicle status to "In Use"
+                            string updateVehicleQuery = "UPDATE Vehicles SET status = 'In Use' WHERE vehicle_id = @VehicleId";
+                            SqlCommand vehicleCmd = new SqlCommand(updateVehicleQuery, connection, transaction);
+                            vehicleCmd.Parameters.AddWithValue("@VehicleId", vehicle.VehicleId); // ← USE VehicleId (int)
+                            vehicleCmd.ExecuteNonQuery();
+                        }
+
+                        // Update transaction with delivery ID
+                        string updateTransactionQuery = @"
+                    UPDATE Transactions 
+                    SET delivery_id = @DeliveryId 
+                    WHERE transaction_id = @TransactionId";
+
+                        SqlCommand updateTransactionCmd = new SqlCommand(updateTransactionQuery, connection, transaction);
+                        updateTransactionCmd.Parameters.AddWithValue("@DeliveryId", deliveryId);
+                        updateTransactionCmd.Parameters.AddWithValue("@TransactionId", transactionId);
+                        updateTransactionCmd.ExecuteNonQuery();
+
+                        transaction.Commit();
+
+                        MessageBox.Show($"Delivery transaction saved successfully!\n\nTransaction ID: TRX-{transactionId:D5}\nCustomer: {customerName}\nVehicles: {selectedVehicles.Count}\nPayment Method: {paymentMethod}\nTotal: ₱{totalAmount:N2}",
+                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        ClearCart();
+                        ClearVehicleSelection();
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error saving delivery transaction: {ex.Message}", "Database Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private int GetOrCreateCustomer(SqlConnection connection, SqlTransaction transaction, string customerName)
+        {
+            string checkCustomerQuery = "SELECT customer_id FROM Customers WHERE customer_name = @CustomerName";
+            SqlCommand checkCmd = new SqlCommand(checkCustomerQuery, connection, transaction);
+            checkCmd.Parameters.AddWithValue("@CustomerName", customerName);
+
+            var existingCustomer = checkCmd.ExecuteScalar();
+            if (existingCustomer != null)
+            {
+                return (int)existingCustomer;
+            }
+
+            string insertCustomerQuery = @"
+                INSERT INTO Customers (customer_name, created_at)
+                VALUES (@CustomerName, GETDATE());
+                SELECT CAST(SCOPE_IDENTITY() as int);";
+
+            SqlCommand insertCmd = new SqlCommand(insertCustomerQuery, connection, transaction);
+            insertCmd.Parameters.AddWithValue("@CustomerName", customerName);
+
+            return (int)insertCmd.ExecuteScalar();
+        }
+
+        private void ClearVehicleSelection()
+        {
+            selectedVehicles.Clear();
+            if (vehicleCheckedListBox != null)
+            {
+                for (int i = 0; i < vehicleCheckedListBox.Items.Count; i++)
+                {
+                    vehicleCheckedListBox.SetItemChecked(i, false);
+                }
+            }
+            UpdateVehicleButtonText();
+        }
 
         public bool ValidateCheckout()
         {
@@ -677,7 +877,5 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
             return true;
         }
-
-        #endregion
     }
 }

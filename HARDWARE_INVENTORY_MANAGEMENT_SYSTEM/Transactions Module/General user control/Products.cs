@@ -16,17 +16,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
     {
         private Walk_inCartDetails _cartTable;
         private Product productData;
+        private ItemDescription_PopUp _itemDescriptionPopup;
 
-        // Event for fallback method
+        // Events
         public event EventHandler<Product> ProductAddedToCart;
+        public event EventHandler<Product> ProductDetailsRequested;
 
         public Products()
         {
             InitializeComponent();
             pbxProductImage.SizeMode = PictureBoxSizeMode.CenterImage;
+            InitializeItemDescriptionPopup();
         }
 
-        // Properties
+        private void InitializeItemDescriptionPopup()
+        {
+            _itemDescriptionPopup = new ItemDescription_PopUp();
+            _itemDescriptionPopup.AddToCartRequested += (sender, e) =>
+            {
+                HandlePopupAddToCart(e.Product, e.Quantity);
+            };
+        }
+
+        // Properties (keep your existing properties)
         public string Product_Name
         {
             get { return lblProductName.Text; }
@@ -105,7 +117,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         }
 
         // Add product to cart logic
-        // In the Products class, update the AddProductToCart method:
         private void AddProductToCart()
         {
             // Validate product data
@@ -154,38 +165,94 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        // Add a new method to set delivery cart reference
-        public void SetDeliveryCartReference(DeliveryCartDetails deliveryCart)
+        // Handle add to cart from popup
+        private void HandlePopupAddToCart(Product product, int quantity)
         {
-            // You can implement this if you want separate references
-            // For now, both cart types have the same method signature
+            if (product == null) return;
+
+            if (_cartTable != null)
+            {
+                try
+                {
+                    // Add the specified quantity
+                    for (int i = 0; i < quantity; i++)
+                    {
+                        _cartTable.AddProductToCartById(product.ProductInternalID, 1);
+                    }
+
+                    MessageBox.Show($"Added {quantity} x {product.ProductName} to cart!", "Success",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error adding to cart: {ex.Message}", "Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Cart is not available. Please try reloading the page.", "Cart Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
-        // Product name click - show details
+        // Show product details in popup
+        public void ShowProductDetailsPopup(Control parentControl)
+        {
+            if (ProductData == null) return;
+
+            // Set product details in popup
+            _itemDescriptionPopup.SetProductDetails(ProductData);
+
+            // Position the popup (you can adjust this)
+            _itemDescriptionPopup.Location = new Point(
+                (parentControl.Width - _itemDescriptionPopup.Width) / 2,
+                (parentControl.Height - _itemDescriptionPopup.Height) / 2
+            );
+
+            // Add to parent control if not already added
+            if (!parentControl.Controls.Contains(_itemDescriptionPopup))
+            {
+                parentControl.Controls.Add(_itemDescriptionPopup);
+                _itemDescriptionPopup.BringToFront();
+            }
+
+            _itemDescriptionPopup.Visible = true;
+        }
+
+        // Hide product details popup
+        public void HideProductDetailsPopup()
+        {
+            if (_itemDescriptionPopup != null)
+            {
+                _itemDescriptionPopup.Visible = false;
+            }
+        }
+
+        // Product name click - show details popup
         private void lblProductName_Click(object sender, EventArgs e)
         {
             ShowProductDetails();
         }
 
-        // Price label click - show details
+        // Price label click - show details popup
         private void lblPrice_Click(object sender, EventArgs e)
         {
             ShowProductDetails();
         }
 
-        // Product image click - show details
+        // Product image click - show details popup
         private void pbxProductImage_Click(object sender, EventArgs e)
         {
             ShowProductDetails();
         }
 
-        // Show product details dialog
+        // Show product details - trigger event for parent to handle
         private void ShowProductDetails()
         {
             if (ProductData != null)
             {
-                MessageBox.Show($"Product: {Product_Name}\nPrice: ₱{Price:N2}\nStock: {Stock}\nSKU: {ProductData.SKU}",
-                              "Product Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ProductDetailsRequested?.Invoke(this, ProductData);
             }
         }
 
@@ -199,6 +266,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
             var productImage = ProductImageManager.GetProductImage(product.ImagePath);
             Image = productImage;
+        }
+
+        // Add a new method to set delivery cart reference
+        public void SetDeliveryCartReference(DeliveryCartDetails deliveryCart)
+        {
+            // You can implement this if you want separate references
+            // For now, both cart types have the same method signature
         }
     }
 }

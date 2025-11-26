@@ -139,6 +139,7 @@
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Customer Module\Class Components of the Customer\AddCustomerContainer.cs" />
+    <Compile Include="Customer Module\Class Components of the Customer\EditCustomerContainer.cs" />
     <Compile Include="Customer Module\Class Components of the Customer\PaginationHelperCustomer.cs" />
     <Compile Include="Customer Module\CustomerMainPage.cs">
       <SubType>UserControl</SubType>
@@ -169,6 +170,12 @@
     </Compile>
     <Compile Include="Customer Module\EditCustomerDetails.Designer.cs">
       <DependentUpon>EditCustomerDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Customer Module\EditCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Customer Module\EditCustomerForm.Designer.cs">
+      <DependentUpon>EditCustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Customer Module\PageNumber.cs">
       <SubType>UserControl</SubType>
@@ -393,6 +400,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports Module\Customers Report\classcomponent\CustomerDataAccess.cs" />
     <Compile Include="Reports Module\Customers Report\CustomersPage1.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -654,6 +662,7 @@
       <DependentUpon>AddedToCartTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Transactions Module\ClassComponentTransaction\CartItem.cs" />
+    <Compile Include="Transactions Module\ClassComponentTransaction\CheckoutPopUpContainer.cs" />
     <Compile Include="Transactions Module\ClassComponentTransaction\SharedCartManager.cs" />
     <Compile Include="Transactions Module\comple Usercontrol\DeliveryCartDetails.cs">
       <SubType>UserControl</SubType>
@@ -888,6 +897,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\EditCustomerDetails.resx">
       <DependentUpon>EditCustomerDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Customer Module\EditCustomerForm.resx">
+      <DependentUpon>EditCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\PageNumber.resx">
       <DependentUpon>PageNumber.cs</DependentUpon>

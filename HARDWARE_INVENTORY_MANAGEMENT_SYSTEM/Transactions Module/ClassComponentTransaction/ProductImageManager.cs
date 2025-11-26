@@ -21,7 +21,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
             return GetProductImage(imageFileName, 50, 50);
         }
 
-        // Get product image with custom dimensions
+        // Get product image with custom dimensions - ADD THIS OVERLOAD
         public static Image GetProductImage(string imageFileName, int width, int height)
         {
             if (string.IsNullOrEmpty(imageFileName) || imageFileName == "Boysen.png")
@@ -49,7 +49,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
             }
         }
 
-        // Resize image to specified dimensions with high quality
+        // Rest of your existing methods remain the same...
         private static Image ResizeImage(Image image, int width, int height)
         {
             Bitmap resizedImage = new Bitmap(width, height);
@@ -65,19 +65,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
             return resizedImage;
         }
 
-        // Get cached default image
         private static Image GetDefaultProductImage()
         {
             return defaultImage;
         }
 
-        // Create default placeholder image (50x50)
         private static Image CreateDefaultImage()
         {
             return CreateDefaultImage(50, 50);
         }
 
-        // Create default placeholder image with custom dimensions
         private static Image CreateDefaultImage(int width, int height)
         {
             Bitmap defaultImage = new Bitmap(width, height);
@@ -85,13 +82,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
             {
                 g.Clear(Color.LightGray);
 
-                // Draw border
                 using (Pen borderPen = new Pen(Color.DarkGray, 1))
                 {
                     g.DrawRectangle(borderPen, 0, 0, width - 1, height - 1);
                 }
 
-                // Draw "No Image" text
                 using (Font font = new Font("Arial", Math.Max(6, width / 10), FontStyle.Regular))
                 using (Brush brush = new SolidBrush(Color.DarkGray))
                 using (StringFormat format = new StringFormat())
@@ -106,7 +101,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
             return defaultImage;
         }
 
-        // Set custom image base path
         public static void SetImageBasePath(string path)
         {
             if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
@@ -131,13 +125,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
             }
         }
 
-        // Get current image base path
         public static string GetImageBasePath()
         {
             return imageBasePath;
         }
 
-        // Check if image file exists
         public static bool ImageExists(string imageFileName)
         {
             if (string.IsNullOrEmpty(imageFileName))
@@ -147,7 +139,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
             return File.Exists(fullPath);
         }
 
-        // Get full path for image file
         public static string GetFullImagePath(string imageFileName)
         {
             if (string.IsNullOrEmpty(imageFileName))

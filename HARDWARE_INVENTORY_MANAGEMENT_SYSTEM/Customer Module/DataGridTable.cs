@@ -10,6 +10,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
     public partial class DataGridTable : UserControl
     {
         public PageNumber PaginationControl { get; set; }
+        private EditCustomerContainer editCustomerContainer = new EditCustomerContainer();
 
         public DataGridTable()
         {
@@ -18,66 +19,100 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void DataGridTable_Load(object sender, EventArgs e)
         {
-            // Add the text columns first
             AddDataColumns();
-            // Then load the data
             LoadCustomerData();
         }
 
         private void AddDataColumns()
         {
-            // Clear existing columns first (except action buttons which are in designer)
-            // We'll remove the action buttons temporarily and re-add them at the end
-            var editBtn = dgvCurrentStockReport.Columns["EditBtn"];
-            var deactivateBtn = dgvCurrentStockReport.Columns["DeactivateBtn"];
-
             dgvCurrentStockReport.Columns.Clear();
 
+            // Add Customer_ID column (hidden)
+            DataGridViewTextBoxColumn customerIdColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "Customer_ID",
+                HeaderText = "ID",
+                DataPropertyName = "customer_id",
+                Visible = false
+            };
+            customerIdColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCurrentStockReport.Columns.Add(customerIdColumn);
+
             // Add Customer_Name column
-            dgvCurrentStockReport.Columns.Add(new DataGridViewTextBoxColumn
+            DataGridViewTextBoxColumn customerNameColumn = new DataGridViewTextBoxColumn
             {
                 Name = "Customer_Name",
                 HeaderText = "Customer Name",
-                FillWeight = 150
-            });
+                DataPropertyName = "customer_name",
+                FillWeight = 150,
+                Width = 150
+            };
+            customerNameColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCurrentStockReport.Columns.Add(customerNameColumn);
 
             // Add Contact_Person column
-            dgvCurrentStockReport.Columns.Add(new DataGridViewTextBoxColumn
+            DataGridViewTextBoxColumn contactPersonColumn = new DataGridViewTextBoxColumn
             {
                 Name = "Contact_Person",
-                HeaderText = "Contact Person",
-                FillWeight = 150
-            });
+                HeaderText = "Contact Number",
+                DataPropertyName = "contact_number",
+                FillWeight = 120,
+                Width = 120
+            };
+            contactPersonColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCurrentStockReport.Columns.Add(contactPersonColumn);
 
             // Add Address column
-            dgvCurrentStockReport.Columns.Add(new DataGridViewTextBoxColumn
+            DataGridViewTextBoxColumn addressColumn = new DataGridViewTextBoxColumn
             {
                 Name = "Address",
                 HeaderText = "Address",
-                FillWeight = 150
-            });
+                DataPropertyName = "address",
+                FillWeight = 200,
+                Width = 200
+            };
+            addressColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCurrentStockReport.Columns.Add(addressColumn);
 
-            // Re-add the action buttons at the end (far right)
-            dgvCurrentStockReport.Columns.Add(editBtn);
-            dgvCurrentStockReport.Columns.Add(deactivateBtn);
+            // Add Edit button column
+            DataGridViewImageColumn editColumn = new DataGridViewImageColumn
+            {
+                Name = "Editbtn",
+             
+                Image = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Edit_Icon,
+                ImageLayout = DataGridViewImageCellLayout.Zoom,
+                FillWeight = 20
+            };
+            editColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCurrentStockReport.Columns.Add(editColumn);
 
-            // Set AutoGenerateColumns to false to use our custom columns
+            // Add Deactivate button column
+            DataGridViewImageColumn deactivateColumn = new DataGridViewImageColumn
+            {
+                Name = "DeactivateBtn",
+            
+                Image = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Deactivate_Circle2,
+                ImageLayout = DataGridViewImageCellLayout.Zoom,
+                FillWeight = 20
+            };
+            deactivateColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCurrentStockReport.Columns.Add(deactivateColumn);
+
             dgvCurrentStockReport.AutoGenerateColumns = false;
-        }
 
+       
+            dgvCurrentStockReport.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
         public void LoadCustomerData()
         {
             try
             {
                 using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
                 {
-                    string query = "SELECT customer_name, contact_number, address FROM Customers";
+                    string query = "SELECT customer_id, customer_name, contact_number, address FROM Customers ORDER BY customer_name";
                     SqlDataAdapter da = new SqlDataAdapter(query, con);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
-
-                    // Map database columns to our DataGridView columns
-                    MapDataToGridColumns();
 
                     if (PaginationControl != null)
                     {
@@ -103,25 +138,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             }
         }
 
-        private void MapDataToGridColumns()
-        {
-            // Map database fields to our DataGridView columns
-            if (dgvCurrentStockReport.Columns.Contains("Customer_Name"))
-            {
-                dgvCurrentStockReport.Columns["Customer_Name"].DataPropertyName = "customer_name";
-            }
-
-            if (dgvCurrentStockReport.Columns.Contains("Contact_Person"))
-            {
-                dgvCurrentStockReport.Columns["Contact_Person"].DataPropertyName = "contact_number";
-            }
-
-            if (dgvCurrentStockReport.Columns.Contains("Address"))
-            {
-                dgvCurrentStockReport.Columns["Address"].DataPropertyName = "address";
-            }
-        }
-
         private void RefreshGridData()
         {
             if (PaginationControl != null)
@@ -139,46 +155,88 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
             if (e.RowIndex < 0) return;
 
+            // Get the customer data from the row
+            int customerId = Convert.ToInt32(dgvCurrentStockReport.Rows[e.RowIndex].Cells["Customer_ID"].Value);
             string customerName = dgvCurrentStockReport.Rows[e.RowIndex].Cells["Customer_Name"].Value?.ToString();
+            string contactNumber = dgvCurrentStockReport.Rows[e.RowIndex].Cells["Contact_Person"].Value?.ToString();
+            string address = dgvCurrentStockReport.Rows[e.RowIndex].Cells["Address"].Value?.ToString();
 
             if (string.IsNullOrEmpty(customerName)) return;
 
-            if (e.ColumnIndex == dgvCurrentStockReport.Columns["EditBtn"].Index)
+            if (e.ColumnIndex == dgvCurrentStockReport.Columns["Editbtn"].Index)
             {
-                MessageBox.Show($"Edit customer: {customerName}", "Edit Customer");
+                EditCustomer(customerId, customerName, contactNumber, address);
             }
             else if (e.ColumnIndex == dgvCurrentStockReport.Columns["DeactivateBtn"].Index)
             {
-                var result = MessageBox.Show($"Are you sure you want to deactivate {customerName}?",
+                DeactivateCustomer(customerId, customerName);
+            }
+        }
+
+        private void EditCustomer(int customerId, string customerName, string contactNumber, string address)
+        {
+            try
+            {
+                // Find the main form
+                var mainForm = this.FindForm() as MainDashBoard;
+
+                if (mainForm != null)
+                {
+                    // Use the EditCustomerContainer to show the edit form
+                    editCustomerContainer.ShowEditCustomerForm(mainForm, customerId, customerName, contactNumber, address);
+                }
+                else
+                {
+                    MessageBox.Show("Could not find the main form.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error opening edit form: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DeactivateCustomer(int customerId, string customerName)
+        {
+            try
+            {
+                var result = MessageBox.Show($"Are you sure you want to deactivate '{customerName}'?",
                     "Confirm Deactivation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result == DialogResult.Yes)
                 {
-                    DeactivateCustomer(customerName);
+                    using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
+                    {
+                        string query = "DELETE FROM Customers WHERE customer_id = @customerId";
+                        SqlCommand cmd = new SqlCommand(query, con);
+                        cmd.Parameters.AddWithValue("@customerId", customerId);
+
+                        con.Open();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        con.Close();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show($"Customer '{customerName}' has been removed successfully.", "Success",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            RefreshData();
+                        }
+                    }
                 }
             }
-        }
-
-        private void DeactivateCustomer(string customerName)
-        {
-            try
+            catch (SqlException sqlEx)
             {
-                using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
+                if (sqlEx.Number == 547) // Foreign key constraint violation
                 {
-                    string query = "DELETE FROM Customers WHERE customer_name = @customerName";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@customerName", customerName);
-
-                    con.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    con.Close();
-
-                    if (rowsAffected > 0)
-                    {
-                        MessageBox.Show($"Customer {customerName} has been removed.", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        RefreshData();
-                    }
+                    MessageBox.Show($"Cannot delete customer '{customerName}' because they have existing transactions or deliveries.",
+                        "Constraint Violation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    MessageBox.Show($"Error removing customer: {sqlEx.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)

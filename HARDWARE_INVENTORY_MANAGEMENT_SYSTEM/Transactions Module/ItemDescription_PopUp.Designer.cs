@@ -43,6 +43,7 @@
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -236,11 +237,32 @@
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
+            // guna2Button4
+            // 
+            this.guna2Button4.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Button4.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.remove;
+            this.guna2Button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.guna2Button4.BorderColor = System.Drawing.Color.Transparent;
+            this.guna2Button4.BorderRadius = 8;
+            this.guna2Button4.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button4.FillColor = System.Drawing.Color.Transparent;
+            this.guna2Button4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button4.ForeColor = System.Drawing.Color.White;
+            this.guna2Button4.Location = new System.Drawing.Point(401, 10);
+            this.guna2Button4.Name = "guna2Button4";
+            this.guna2Button4.Size = new System.Drawing.Size(30, 30);
+            this.guna2Button4.TabIndex = 94;
+            this.guna2Button4.Click += new System.EventHandler(this.guna2Button4_Click);
+            // 
             // ItemDescription_PopUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.guna2Button4);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.guna2Button3);
@@ -281,5 +303,6 @@
         private System.Windows.Forms.Label lblItemName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label9;
+        private Guna.UI2.WinForms.Guna2Button guna2Button4;
     }
 }

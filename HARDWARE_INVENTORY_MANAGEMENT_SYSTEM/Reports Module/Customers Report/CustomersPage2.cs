@@ -16,5 +16,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Customers_Report
         {
             InitializeComponent();
         }
+
+        // Remove the duplicate InitializeComponent method from here
+        // Let the designer-generated code handle it
     }
 }

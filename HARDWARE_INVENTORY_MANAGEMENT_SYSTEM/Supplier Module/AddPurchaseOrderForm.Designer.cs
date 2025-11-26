@@ -28,11 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.ParentContainer = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.guna2ComboBox4 = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.guna2ComboBox3 = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.guna2ComboBox2 = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.ExpirationDataComboBox = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnWhite = new Guna.UI2.WinForms.Guna2Button();
@@ -76,11 +81,6 @@
             this.CompanyNameTextBoxSupplier = new Guna.UI2.WinForms.Guna2TextBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.ExpirationDataComboBox = new Guna.UI2.WinForms.Guna2DateTimePicker();
-            this.guna2ComboBox2 = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.guna2ComboBox3 = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.guna2ComboBox4 = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.guna2Panel1.SuspendLayout();
             this.ParentContainer.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -127,6 +127,94 @@
             this.ParentContainer.Size = new System.Drawing.Size(835, 834);
             this.ParentContainer.TabIndex = 82;
             // 
+            // guna2DateTimePicker1
+            // 
+            this.guna2DateTimePicker1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2DateTimePicker1.BorderColor = System.Drawing.Color.Gainsboro;
+            this.guna2DateTimePicker1.BorderRadius = 7;
+            this.guna2DateTimePicker1.BorderThickness = 1;
+            this.guna2DateTimePicker1.Checked = true;
+            this.guna2DateTimePicker1.FillColor = System.Drawing.Color.White;
+            this.guna2DateTimePicker1.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2DateTimePicker1.ForeColor = System.Drawing.Color.DimGray;
+            this.guna2DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.guna2DateTimePicker1.HoverState.FillColor = System.Drawing.Color.White;
+            this.guna2DateTimePicker1.Location = new System.Drawing.Point(307, 103);
+            this.guna2DateTimePicker1.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.guna2DateTimePicker1.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.guna2DateTimePicker1.Name = "guna2DateTimePicker1";
+            this.guna2DateTimePicker1.Size = new System.Drawing.Size(226, 36);
+            this.guna2DateTimePicker1.TabIndex = 98;
+            this.guna2DateTimePicker1.Value = new System.DateTime(2025, 11, 16, 22, 30, 13, 754);
+            // 
+            // guna2ComboBox4
+            // 
+            this.guna2ComboBox4.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ComboBox4.BorderRadius = 8;
+            this.guna2ComboBox4.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.guna2ComboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.guna2ComboBox4.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox4.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2ComboBox4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.guna2ComboBox4.ItemHeight = 30;
+            this.guna2ComboBox4.Location = new System.Drawing.Point(582, 204);
+            this.guna2ComboBox4.Name = "guna2ComboBox4";
+            this.guna2ComboBox4.Size = new System.Drawing.Size(228, 36);
+            this.guna2ComboBox4.TabIndex = 97;
+            // 
+            // guna2ComboBox3
+            // 
+            this.guna2ComboBox3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ComboBox3.BorderRadius = 8;
+            this.guna2ComboBox3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.guna2ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.guna2ComboBox3.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2ComboBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.guna2ComboBox3.ItemHeight = 30;
+            this.guna2ComboBox3.Location = new System.Drawing.Point(32, 204);
+            this.guna2ComboBox3.Name = "guna2ComboBox3";
+            this.guna2ComboBox3.Size = new System.Drawing.Size(228, 36);
+            this.guna2ComboBox3.TabIndex = 96;
+            // 
+            // guna2ComboBox2
+            // 
+            this.guna2ComboBox2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ComboBox2.BorderRadius = 8;
+            this.guna2ComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.guna2ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.guna2ComboBox2.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.guna2ComboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2ComboBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.guna2ComboBox2.ItemHeight = 30;
+            this.guna2ComboBox2.Location = new System.Drawing.Point(307, 204);
+            this.guna2ComboBox2.Name = "guna2ComboBox2";
+            this.guna2ComboBox2.Size = new System.Drawing.Size(228, 36);
+            this.guna2ComboBox2.TabIndex = 95;
+            // 
+            // ExpirationDataComboBox
+            // 
+            this.ExpirationDataComboBox.BackColor = System.Drawing.Color.Transparent;
+            this.ExpirationDataComboBox.BorderColor = System.Drawing.Color.Gainsboro;
+            this.ExpirationDataComboBox.BorderRadius = 7;
+            this.ExpirationDataComboBox.BorderThickness = 1;
+            this.ExpirationDataComboBox.Checked = true;
+            this.ExpirationDataComboBox.FillColor = System.Drawing.Color.White;
+            this.ExpirationDataComboBox.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ExpirationDataComboBox.ForeColor = System.Drawing.Color.DimGray;
+            this.ExpirationDataComboBox.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.ExpirationDataComboBox.HoverState.FillColor = System.Drawing.Color.White;
+            this.ExpirationDataComboBox.Location = new System.Drawing.Point(582, 103);
+            this.ExpirationDataComboBox.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
+            this.ExpirationDataComboBox.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
+            this.ExpirationDataComboBox.Name = "ExpirationDataComboBox";
+            this.ExpirationDataComboBox.Size = new System.Drawing.Size(226, 36);
+            this.ExpirationDataComboBox.TabIndex = 94;
+            this.ExpirationDataComboBox.Value = new System.DateTime(2025, 11, 16, 22, 30, 13, 754);
+            // 
             // guna2Button3
             // 
             this.guna2Button3.BackColor = System.Drawing.Color.Transparent;
@@ -145,6 +233,7 @@
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(30, 30);
             this.guna2Button3.TabIndex = 93;
+            this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click_1);
             // 
             // panel2
             // 
@@ -427,17 +516,17 @@
             // dgvPurchaseItems
             // 
             this.dgvPurchaseItems.AllowUserToAddRows = false;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
-            this.dgvPurchaseItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvPurchaseItems.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvPurchaseItems.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPurchaseItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPurchaseItems.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvPurchaseItems.ColumnHeadersHeight = 35;
             this.dgvPurchaseItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgvPurchaseItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -446,14 +535,14 @@
             this.UnitPrice,
             this.Total,
             this.Action});
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPurchaseItems.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPurchaseItems.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvPurchaseItems.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvPurchaseItems.Location = new System.Drawing.Point(19, 142);
             this.dgvPurchaseItems.MaximumSize = new System.Drawing.Size(745, 255);
@@ -689,94 +778,6 @@
             this.label1.Size = new System.Drawing.Size(193, 25);
             this.label1.TabIndex = 78;
             this.label1.Text = "Create Purchase Order";
-            // 
-            // ExpirationDataComboBox
-            // 
-            this.ExpirationDataComboBox.BackColor = System.Drawing.Color.Transparent;
-            this.ExpirationDataComboBox.BorderColor = System.Drawing.Color.Gainsboro;
-            this.ExpirationDataComboBox.BorderRadius = 7;
-            this.ExpirationDataComboBox.BorderThickness = 1;
-            this.ExpirationDataComboBox.Checked = true;
-            this.ExpirationDataComboBox.FillColor = System.Drawing.Color.White;
-            this.ExpirationDataComboBox.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExpirationDataComboBox.ForeColor = System.Drawing.Color.DimGray;
-            this.ExpirationDataComboBox.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.ExpirationDataComboBox.HoverState.FillColor = System.Drawing.Color.White;
-            this.ExpirationDataComboBox.Location = new System.Drawing.Point(582, 103);
-            this.ExpirationDataComboBox.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
-            this.ExpirationDataComboBox.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.ExpirationDataComboBox.Name = "ExpirationDataComboBox";
-            this.ExpirationDataComboBox.Size = new System.Drawing.Size(226, 36);
-            this.ExpirationDataComboBox.TabIndex = 94;
-            this.ExpirationDataComboBox.Value = new System.DateTime(2025, 11, 16, 22, 30, 13, 754);
-            // 
-            // guna2ComboBox2
-            // 
-            this.guna2ComboBox2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ComboBox2.BorderRadius = 8;
-            this.guna2ComboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.guna2ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.guna2ComboBox2.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox2.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2ComboBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.guna2ComboBox2.ItemHeight = 30;
-            this.guna2ComboBox2.Location = new System.Drawing.Point(307, 204);
-            this.guna2ComboBox2.Name = "guna2ComboBox2";
-            this.guna2ComboBox2.Size = new System.Drawing.Size(228, 36);
-            this.guna2ComboBox2.TabIndex = 95;
-            // 
-            // guna2ComboBox3
-            // 
-            this.guna2ComboBox3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ComboBox3.BorderRadius = 8;
-            this.guna2ComboBox3.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.guna2ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.guna2ComboBox3.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2ComboBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.guna2ComboBox3.ItemHeight = 30;
-            this.guna2ComboBox3.Location = new System.Drawing.Point(32, 204);
-            this.guna2ComboBox3.Name = "guna2ComboBox3";
-            this.guna2ComboBox3.Size = new System.Drawing.Size(228, 36);
-            this.guna2ComboBox3.TabIndex = 96;
-            // 
-            // guna2ComboBox4
-            // 
-            this.guna2ComboBox4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ComboBox4.BorderRadius = 8;
-            this.guna2ComboBox4.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.guna2ComboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.guna2ComboBox4.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox4.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2ComboBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2ComboBox4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.guna2ComboBox4.ItemHeight = 30;
-            this.guna2ComboBox4.Location = new System.Drawing.Point(582, 204);
-            this.guna2ComboBox4.Name = "guna2ComboBox4";
-            this.guna2ComboBox4.Size = new System.Drawing.Size(228, 36);
-            this.guna2ComboBox4.TabIndex = 97;
-            // 
-            // guna2DateTimePicker1
-            // 
-            this.guna2DateTimePicker1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2DateTimePicker1.BorderColor = System.Drawing.Color.Gainsboro;
-            this.guna2DateTimePicker1.BorderRadius = 7;
-            this.guna2DateTimePicker1.BorderThickness = 1;
-            this.guna2DateTimePicker1.Checked = true;
-            this.guna2DateTimePicker1.FillColor = System.Drawing.Color.White;
-            this.guna2DateTimePicker1.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2DateTimePicker1.ForeColor = System.Drawing.Color.DimGray;
-            this.guna2DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.guna2DateTimePicker1.HoverState.FillColor = System.Drawing.Color.White;
-            this.guna2DateTimePicker1.Location = new System.Drawing.Point(307, 103);
-            this.guna2DateTimePicker1.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
-            this.guna2DateTimePicker1.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.guna2DateTimePicker1.Name = "guna2DateTimePicker1";
-            this.guna2DateTimePicker1.Size = new System.Drawing.Size(226, 36);
-            this.guna2DateTimePicker1.TabIndex = 98;
-            this.guna2DateTimePicker1.Value = new System.DateTime(2025, 11, 16, 22, 30, 13, 754);
             // 
             // AddPurchaseOrderForm
             // 

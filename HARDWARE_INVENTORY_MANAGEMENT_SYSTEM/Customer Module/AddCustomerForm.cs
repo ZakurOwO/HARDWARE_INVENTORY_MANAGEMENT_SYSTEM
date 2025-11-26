@@ -174,5 +174,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         {
             //add btn
         }
+
+        private void AddCustomerForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

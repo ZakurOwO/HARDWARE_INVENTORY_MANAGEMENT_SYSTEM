@@ -7,15 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Customers_Report;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
     public partial class CustomersReportPanel : UserControl
     {
-        private int currentPage = 1;
-        private int totalPages = 2;
+        private CustomersPage1 customersPage;
 
         public CustomersReportPanel()
         {
@@ -23,63 +22,42 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             this.Load += CustomersReportPanel_load;
         }
 
-        private void guna2Button5_Click(object sender, EventArgs e)
-        {
-            //Page 1
-            ShowPage(1);
-        }
-
-        private void guna2Button2_Click(object sender, EventArgs e)
-        {
-            //Page 2
-            ShowPage(2);
-        }
-
-        private void guna2Button6_Click(object sender, EventArgs e) // "<"
-        {
-            if (currentPage > 1)
-            {
-                currentPage--;
-                ShowPage(currentPage);
-            }
-        }
-
-        private void guna2Button4_Click(object sender, EventArgs e) // ">"
-        {
-            if (currentPage < totalPages)
-            {
-                currentPage++;
-                ShowPage(currentPage);
-            }
-        }
-
-        private void ShowPage(int page)
+        private void ShowCustomerPage()
         {
             panel1.Controls.Clear();
-            UserControl pageControl = null;
 
-            switch (page)
-            {
-                case 1:
-                    pageControl = new CustomersPage1();
-                    break;
-                case 2:
-                    pageControl = new CustomersPage2();
-                    break;
-            }
-
-            if (pageControl != null)
-            {
-                pageControl.Dock = DockStyle.Fill;
-                panel1.Controls.Add(pageControl);
-            }
-
-            currentPage = page;
+            customersPage = new CustomersPage1();
+            customersPage.Dock = DockStyle.Fill;
+            panel1.Controls.Add(customersPage);
         }
 
         private void CustomersReportPanel_load(object sender, EventArgs e)
         {
-            ShowPage(currentPage);
+            ShowCustomerPage();
         }
+
+        private void mainButton1_Load(object sender, EventArgs e)
+        {
+            // Generate report button
+        }
+
+        private void mainButton1_Click(object sender, EventArgs e)
+        {
+            // Refresh all data from database
+            if (customersPage != null)
+            {
+                customersPage.RefreshAllData();
+            }
+        }
+
+        // Remove all page navigation methods that are no longer needed:
+        // - guna2Button5_Click
+        // - guna2Button2_Click  
+        // - guna2Button6_Click
+        // - guna2Button4_Click
+        // - ShowPage
+        // - UpdatePageButtons
+        // - StyleNavigationButtons
+        // - UpdatePageInfo
     }
 }

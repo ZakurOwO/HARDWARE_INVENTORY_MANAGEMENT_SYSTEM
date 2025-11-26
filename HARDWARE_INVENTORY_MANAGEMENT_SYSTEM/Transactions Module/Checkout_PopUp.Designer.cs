@@ -37,7 +37,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.Totallbl = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.SubTotal = new System.Windows.Forms.Label();
@@ -63,6 +63,7 @@
             this.guna2Button1.Size = new System.Drawing.Size(140, 35);
             this.guna2Button1.TabIndex = 12;
             this.guna2Button1.Text = "Proceed Payment";
+            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
             // pnlChangeAmount
             // 
@@ -87,6 +88,7 @@
             this.lblChangeAmount.TabIndex = 4;
             this.lblChangeAmount.Text = "Change: P 262.00";
             this.lblChangeAmount.Visible = false;
+            this.lblChangeAmount.Click += new System.EventHandler(this.lblChangeAmount_Click);
             // 
             // cbxPaymentMethod
             // 
@@ -126,7 +128,7 @@
             this.guna2Panel1.Controls.Add(this.label7);
             this.guna2Panel1.Controls.Add(this.label6);
             this.guna2Panel1.Controls.Add(this.label5);
-            this.guna2Panel1.Controls.Add(this.label4);
+            this.guna2Panel1.Controls.Add(this.Totallbl);
             this.guna2Panel1.Controls.Add(this.label3);
             this.guna2Panel1.Controls.Add(this.label2);
             this.guna2Panel1.Controls.Add(this.SubTotal);
@@ -158,6 +160,7 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "P 0.00";
             this.label6.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label5
             // 
@@ -169,17 +172,19 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "P 6,238.00";
             this.label5.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
-            // label4
+            // Totallbl
             // 
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Lexend SemiBold", 12.5F, System.Drawing.FontStyle.Bold);
-            this.label4.Location = new System.Drawing.Point(293, 70);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(150, 27);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "P 6,238.00";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.Totallbl.BackColor = System.Drawing.Color.Transparent;
+            this.Totallbl.Font = new System.Drawing.Font("Lexend SemiBold", 12.5F, System.Drawing.FontStyle.Bold);
+            this.Totallbl.Location = new System.Drawing.Point(293, 70);
+            this.Totallbl.Name = "Totallbl";
+            this.Totallbl.Size = new System.Drawing.Size(150, 27);
+            this.Totallbl.TabIndex = 3;
+            this.Totallbl.Text = "P 6,238.00";
+            this.Totallbl.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.Totallbl.Click += new System.EventHandler(this.label4_Click);
             // 
             // label3
             // 
@@ -237,6 +242,7 @@
             this.tbxCashReceived.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxCashReceived.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.tbxCashReceived.Location = new System.Drawing.Point(277, 223);
+            this.tbxCashReceived.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbxCashReceived.Name = "tbxCashReceived";
             this.tbxCashReceived.PlaceholderText = "";
             this.tbxCashReceived.SelectedText = "";
@@ -290,7 +296,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label Totallbl;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label SubTotal;

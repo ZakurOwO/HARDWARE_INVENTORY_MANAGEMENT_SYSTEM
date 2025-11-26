@@ -36,8 +36,6 @@
             this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.EditBtn = new System.Windows.Forms.DataGridViewImageColumn();
-            this.DeactivateBtn = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
             this.SuspendLayout();
@@ -79,9 +77,6 @@
             this.dgvCurrentStockReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCurrentStockReport.ColumnHeadersHeight = 45;
             this.dgvCurrentStockReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvCurrentStockReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.EditBtn,
-            this.DeactivateBtn});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -142,25 +137,6 @@
             this.dataGridViewImageColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.dataGridViewImageColumn2.Width = 20;
             // 
-            // EditBtn
-            // 
-            this.EditBtn.FillWeight = 4.145672F;
-            this.EditBtn.HeaderText = "";
-            this.EditBtn.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Edit_Icon;
-            this.EditBtn.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.EditBtn.Name = "EditBtn";
-            this.EditBtn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.EditBtn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // DeactivateBtn
-            // 
-            this.DeactivateBtn.FillWeight = 4.145672F;
-            this.DeactivateBtn.HeaderText = "";
-            this.DeactivateBtn.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Deactivate_Circle2;
-            this.DeactivateBtn.Name = "DeactivateBtn";
-            this.DeactivateBtn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.DeactivateBtn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
             // DataGridTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -185,7 +161,5 @@
         private System.Windows.Forms.Label Actions;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
         private Guna.UI2.WinForms.Guna2DataGridView dgvCurrentStockReport;
-        private System.Windows.Forms.DataGridViewImageColumn EditBtn;
-        private System.Windows.Forms.DataGridViewImageColumn DeactivateBtn;
     }
 }

@@ -22,6 +22,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         private DataTable productsDataTable;
         private Walk_inCartDetails cartDetails;
         private DeliveryCartDetails deliveryCartDetails;
+        private ItemDescription_PopUp itemDescriptionPopup;
 
         public TransactionsMainPage()
         {
@@ -35,6 +36,102 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             InitializeSearch();
             InitializeCartPanel();
             LoadProducts();
+            InitializeItemDescriptionPopup();
+        }
+
+        private void InitializeItemDescriptionPopup()
+        {
+            // Create the popup
+            itemDescriptionPopup = new ItemDescription_PopUp();
+            itemDescriptionPopup.Visible = false;
+            itemDescriptionPopup.Location = new Point(13, 148); // Set to your desired location
+
+            // Handle add to cart from popup
+            itemDescriptionPopup.AddToCartRequested += (sender, e) =>
+            {
+                HandlePopupAddToCart(e.Product, e.Quantity);
+            };
+
+            // Add to the main form controls
+            this.Controls.Add(itemDescriptionPopup);
+            itemDescriptionPopup.BringToFront();
+
+            Console.WriteLine("✓ ItemDescription_PopUp initialized at location (13, 148)");
+        }
+
+        private void HandlePopupAddToCart(Product product, int quantity)
+        {
+            var cartDetailsPanel = panel1?.Controls?["cartDetailsPanel"] as CartDetails;
+
+            if (cartDetailsPanel != null)
+            {
+                if (cartDetailsPanel.IsWalkInCartActive())
+                {
+                    var walkInCart = cartDetailsPanel.GetCurrentWalkInCart();
+                    if (walkInCart != null)
+                    {
+                        for (int i = 0; i < quantity; i++)
+                        {
+                            walkInCart.AddProductToCartById(product.ProductInternalID, 1);
+                        }
+                        MessageBox.Show($"Added {quantity} x {product.ProductName} to Walk-In cart!", "Success",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+                else if (cartDetailsPanel.IsDeliveryCartActive())
+                {
+                    var deliveryCart = cartDetailsPanel.GetCurrentDeliveryCart();
+                    if (deliveryCart != null)
+                    {
+                        for (int i = 0; i < quantity; i++)
+                        {
+                            deliveryCart.AddProductToCartById(product.ProductInternalID, 1);
+                        }
+                        MessageBox.Show($"Added {quantity} x {product.ProductName} to Delivery cart!", "Success",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+
+                MessageBox.Show("Please select a cart type (Walk-In or Delivery)!", "Cart Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                MessageBox.Show("Cart is not available. Please try reloading the page.", "Cart Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void ShowProductDetailsPopup(Product product)
+        {
+            if (itemDescriptionPopup == null)
+            {
+                Console.WriteLine("ERROR: itemDescriptionPopup is null!");
+                return;
+            }
+
+            // Set product details
+            itemDescriptionPopup.SetProductDetails(product);
+
+            // Ensure location is correct
+            itemDescriptionPopup.Location = new Point(13, 148);
+
+            // Make it visible and bring to front
+            itemDescriptionPopup.Visible = true;
+            itemDescriptionPopup.BringToFront();
+
+            Console.WriteLine($"✓ Product details popup shown at (13, 148) for: {product.ProductName}");
+        }
+
+        private void HideProductDetailsPopup()
+        {
+            if (itemDescriptionPopup != null)
+            {
+                itemDescriptionPopup.Visible = false;
+                Console.WriteLine("✓ Product details popup hidden");
+            }
         }
 
         private void InitializeCartPanel()
@@ -280,7 +377,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     catch (Exception ex)
                     {
                         Console.WriteLine($"✗ Error loading image for {product.ProductName}: {ex.Message}");
-                        // Default image will be handled by the Products control
                     }
 
                     // Set cart reference
@@ -288,6 +384,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     {
                         productControl.SetCartReference(cartDetails);
                     }
+
+                    // Connect product details event - show popup at (13, 148)
+                    productControl.ProductDetailsRequested += (sender, e) =>
+                    {
+                        Console.WriteLine($"Product details requested for: {e.ProductName}");
+                        ShowProductDetailsPopup(e);
+                    };
 
                     productControl.ProductAddedToCart += ProductControl_ProductAddedToCart;
                     MainpageProductLayout.Controls.Add(productControl);
@@ -392,6 +495,38 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         public void RefreshProducts()
         {
             LoadProducts();
+        }
+
+        // Handle click outside the popup to close it
+        protected override void OnMouseClick(MouseEventArgs e)
+        {
+            base.OnMouseClick(e);
+
+            if (itemDescriptionPopup != null && itemDescriptionPopup.Visible)
+            {
+                // Check if click is outside the popup
+                if (!itemDescriptionPopup.Bounds.Contains(e.Location))
+                {
+                    HideProductDetailsPopup();
+                }
+            }
+        }
+
+        // Add a test method to verify the popup works
+        public void TestPopup()
+        {
+            var testProduct = new Product
+            {
+                ProductInternalID = 1,
+                ProductName = "Test Product",
+                SellingPrice = 99.99m,
+                Description = "This is a test product description",
+                CategoryName = "Test Category",
+                CurrentStock = 10,
+                ImagePath = ""
+            };
+
+            ShowProductDetailsPopup(testProduct);
         }
 
         private void MainpageProductLayout_Paint(object sender, PaintEventArgs e)

@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnWhite = new Guna.UI2.WinForms.Guna2Button();
+            this.btnBlue = new Guna.UI2.WinForms.Guna2Button();
             this.dgvCartDetails = new Guna.UI2.WinForms.Guna2DataGridView();
             this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,8 +57,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbxChooseCustomer = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
-            this.btnWhite = new Guna.UI2.WinForms.Guna2Button();
-            this.btnBlue = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCartDetails)).BeginInit();
             this.SuspendLayout();
@@ -83,21 +83,57 @@
             this.guna2Panel3.Size = new System.Drawing.Size(293, 435);
             this.guna2Panel3.TabIndex = 5;
             // 
+            // btnWhite
+            // 
+            this.btnWhite.BorderColor = System.Drawing.Color.Gainsboro;
+            this.btnWhite.BorderRadius = 8;
+            this.btnWhite.BorderThickness = 1;
+            this.btnWhite.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnWhite.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnWhite.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnWhite.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnWhite.FillColor = System.Drawing.Color.White;
+            this.btnWhite.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWhite.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnWhite.Location = new System.Drawing.Point(23, 382);
+            this.btnWhite.Name = "btnWhite";
+            this.btnWhite.PressedColor = System.Drawing.Color.Azure;
+            this.btnWhite.Size = new System.Drawing.Size(120, 40);
+            this.btnWhite.TabIndex = 25;
+            this.btnWhite.Text = "Clear";
+            // 
+            // btnBlue
+            // 
+            this.btnBlue.BorderRadius = 8;
+            this.btnBlue.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnBlue.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnBlue.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnBlue.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnBlue.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.btnBlue.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.btnBlue.ForeColor = System.Drawing.Color.White;
+            this.btnBlue.Location = new System.Drawing.Point(154, 382);
+            this.btnBlue.Name = "btnBlue";
+            this.btnBlue.Size = new System.Drawing.Size(120, 40);
+            this.btnBlue.TabIndex = 24;
+            this.btnBlue.Text = "Checkout";
+            this.btnBlue.Click += new System.EventHandler(this.btnBlue_Click);
+            // 
             // dgvCartDetails
             // 
             this.dgvCartDetails.AllowUserToAddRows = false;
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
-            this.dgvCartDetails.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvCartDetails.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCartDetails.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Lexend SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle22.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCartDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Lexend SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCartDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCartDetails.ColumnHeadersHeight = 35;
             this.dgvCartDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgvCartDetails.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -105,36 +141,36 @@
             this.Quantity,
             this.Price,
             this.Delete});
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCartDetails.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCartDetails.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCartDetails.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvCartDetails.Location = new System.Drawing.Point(0, 32);
             this.dgvCartDetails.Name = "dgvCartDetails";
             this.dgvCartDetails.ReadOnly = true;
             this.dgvCartDetails.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle24.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCartDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCartDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvCartDetails.RowHeadersVisible = false;
             this.dgvCartDetails.RowHeadersWidth = 10;
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle25.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle25.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCartDetails.RowsDefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCartDetails.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvCartDetails.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             this.dgvCartDetails.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.Color.White;
             this.dgvCartDetails.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -412,41 +448,6 @@
             this.guna2DateTimePicker1.Size = new System.Drawing.Size(193, 29);
             this.guna2DateTimePicker1.TabIndex = 31;
             this.guna2DateTimePicker1.Value = new System.DateTime(2025, 11, 16, 22, 30, 13, 754);
-            // 
-            // btnWhite
-            // 
-            this.btnWhite.BorderColor = System.Drawing.Color.Gainsboro;
-            this.btnWhite.BorderRadius = 8;
-            this.btnWhite.BorderThickness = 1;
-            this.btnWhite.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnWhite.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnWhite.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnWhite.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnWhite.FillColor = System.Drawing.Color.White;
-            this.btnWhite.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnWhite.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnWhite.Location = new System.Drawing.Point(23, 382);
-            this.btnWhite.Name = "btnWhite";
-            this.btnWhite.PressedColor = System.Drawing.Color.Azure;
-            this.btnWhite.Size = new System.Drawing.Size(120, 40);
-            this.btnWhite.TabIndex = 25;
-            this.btnWhite.Text = "Clear";
-            // 
-            // btnBlue
-            // 
-            this.btnBlue.BorderRadius = 8;
-            this.btnBlue.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnBlue.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnBlue.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnBlue.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnBlue.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
-            this.btnBlue.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.btnBlue.ForeColor = System.Drawing.Color.White;
-            this.btnBlue.Location = new System.Drawing.Point(154, 382);
-            this.btnBlue.Name = "btnBlue";
-            this.btnBlue.Size = new System.Drawing.Size(120, 40);
-            this.btnBlue.TabIndex = 24;
-            this.btnBlue.Text = "Checkout";
             // 
             // DeliveryCartDetails
             // 
