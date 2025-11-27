@@ -10,6 +10,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 {
     public partial class AddNewUser_Form : UserControl
     {
+        public event EventHandler CancelClicked;
         public AddNewUser_Form()
         {
             InitializeComponent();
@@ -170,7 +171,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
         private void closeButton1_Click(object sender, EventArgs e)
         {
-            OnUserAdded(null, null, null, null);
+            CancelClicked?.Invoke(this, EventArgs.Empty);
+            //OnUserAdded(null, null, null, null);
         }
 
         public event EventHandler<(string AccountID, string FullName, string Role, string Status)> UserAdded;

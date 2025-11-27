@@ -74,6 +74,7 @@
     <Compile Include="Accounts Module\AddNewUserButton.Designer.cs">
       <DependentUpon>AddNewUserButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Accounts Module\Class Components of Accounts\AddUserContainer.cs" />
     <Compile Include="Add New Form\AddNewUser_Form.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -419,6 +420,7 @@
     <Compile Include="Reports Module\Customers Report\CustomersReportPanel.Designer.cs">
       <DependentUpon>CustomersReportPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports Module\Deliveries Report\classcomponent\DeliveriesDataAccess.cs" />
     <Compile Include="Reports Module\Deliveries Report\DeliveriesPage1.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1686,5 +1688,6 @@
     <None Include="Resources\InventoryOverlay %282%29.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

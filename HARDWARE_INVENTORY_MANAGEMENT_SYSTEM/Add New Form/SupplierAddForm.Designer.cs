@@ -69,7 +69,6 @@
             this.label6.Size = new System.Drawing.Size(14, 17);
             this.label6.TabIndex = 38;
             this.label6.Text = "*";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label4
             // 
@@ -428,7 +427,6 @@
             this.closeButton1.Name = "closeButton1";
             this.closeButton1.Size = new System.Drawing.Size(47, 43);
             this.closeButton1.TabIndex = 77;
-            this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
             // 
             // SupplierAddForm
             // 

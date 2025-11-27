@@ -320,11 +320,13 @@
             this.CityCombobox.BackColor = System.Drawing.Color.Transparent;
             this.CityCombobox.BorderRadius = 8;
             this.CityCombobox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.CityCombobox.DropDownHeight = 300;
             this.CityCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CityCombobox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.CityCombobox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.CityCombobox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CityCombobox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.CityCombobox.IntegralHeight = false;
             this.CityCombobox.ItemHeight = 30;
             this.CityCombobox.Items.AddRange(new object[] {
             "Caloocan",
@@ -439,17 +441,20 @@
             this.CityCombobox.Name = "CityCombobox";
             this.CityCombobox.Size = new System.Drawing.Size(228, 36);
             this.CityCombobox.TabIndex = 61;
+            this.CityCombobox.SelectedIndexChanged += new System.EventHandler(this.CityCombobox_SelectedIndexChanged);
             // 
             // ProvinceCombobox
             // 
             this.ProvinceCombobox.BackColor = System.Drawing.Color.Transparent;
             this.ProvinceCombobox.BorderRadius = 8;
             this.ProvinceCombobox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.ProvinceCombobox.DropDownHeight = 300;
             this.ProvinceCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ProvinceCombobox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.ProvinceCombobox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.ProvinceCombobox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProvinceCombobox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.ProvinceCombobox.IntegralHeight = false;
             this.ProvinceCombobox.ItemHeight = 30;
             this.ProvinceCombobox.Items.AddRange(new object[] {
             "NCR",
@@ -493,6 +498,7 @@
             this.ProvinceCombobox.Name = "ProvinceCombobox";
             this.ProvinceCombobox.Size = new System.Drawing.Size(228, 36);
             this.ProvinceCombobox.TabIndex = 62;
+            this.ProvinceCombobox.SelectedIndexChanged += new System.EventHandler(this.ProvinceCombobox_SelectedIndexChanged);
             // 
             // closeButton1
             // 
@@ -654,6 +660,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "AddCustomerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = " ";
             this.Load += new System.EventHandler(this.AddCustomerForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

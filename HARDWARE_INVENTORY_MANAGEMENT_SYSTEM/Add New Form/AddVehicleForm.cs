@@ -28,8 +28,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             // Initialize status combo box
             InitializeStatusComboBox();
 
-            // Set up placeholder behavior
-            SetupPlaceholders();
 
             // Wire up button events
             WireUpButtons();
@@ -45,104 +43,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 "In Use"
             });
             VehicleStatusComboBox.SelectedIndex = 0;
-        }
-
-        private void SetupPlaceholders()
-        {
-            // Store original placeholder text and set initial state
-            tbxVehicleName.Tag = "Enter Vehicle Name";
-            VehicleModelTextBox.Tag = "Enter Vehicle Model";
-            YearBoughtTextBox.Tag = "Enter Year";
-            PlateNumberTextBox.Tag = "Enter Plate Number";
-
-            // Apply initial placeholder text
-            SetPlaceholderState(tbxVehicleName, true);
-            SetPlaceholderState(VehicleModelTextBox, true);
-            SetPlaceholderState(YearBoughtTextBox, true);
-            SetPlaceholderState(PlateNumberTextBox, true);
-
-            // Wire up focus events
-            WireUpPlaceholderEvents(tbxVehicleName);
-            WireUpPlaceholderEvents(VehicleModelTextBox);
-            WireUpPlaceholderEvents(YearBoughtTextBox);
-            WireUpPlaceholderEvents(PlateNumberTextBox);
-        }
-
-        private void WireUpPlaceholderEvents(Guna2TextBox textBox)
-        {
-            if (textBox == null) return;
-
-            textBox.Enter += (s, e) => ClearPlaceholderIfNeeded(textBox);
-            textBox.Leave += (s, e) => RestorePlaceholderIfNeeded(textBox);
-            textBox.TextChanged += (s, e) => ValidateRealContent(textBox);
-        }
-
-        private void SetPlaceholderState(Guna2TextBox textBox, bool isPlaceholder)
-        {
-            if (textBox == null) return;
-
-            if (isPlaceholder)
-            {
-                textBox.Text = textBox.Tag?.ToString() ?? string.Empty;
-                textBox.ForeColor = Color.Gray;
-                textBox.Font = new Font("Segoe UI", 9F, FontStyle.Italic);
-            }
-            else
-            {
-                textBox.ForeColor = Color.Black;
-                textBox.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
-            }
-        }
-
-        private void ClearPlaceholderIfNeeded(Guna2TextBox textBox)
-        {
-            if (textBox == null) return;
-
-            var placeholder = textBox.Tag?.ToString() ?? string.Empty;
-            if (textBox.Text == placeholder)
-            {
-                textBox.Text = "";
-                textBox.ForeColor = Color.Black;
-                textBox.Font = new Font("Segoe UI", 9F, FontStyle.Regular);
-            }
-        }
-
-        private void RestorePlaceholderIfNeeded(Guna2TextBox textBox)
-        {
-            if (textBox == null) return;
-
-            if (string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                SetPlaceholderState(textBox, true);
-            }
-        }
-
-        private void ValidateRealContent(Guna2TextBox textBox)
-        {
-            if (textBox == null) return;
-
-            // If user types something and it matches placeholder while focused, clear it
-            var placeholder = textBox.Tag?.ToString() ?? string.Empty;
-            if (textBox.Text == placeholder && textBox.Focused)
-            {
-                textBox.Text = "";
-            }
-        }
-
-        // Helper method to check if a textbox has real content (not placeholder)
-        private bool HasRealContent(Guna2TextBox textBox)
-        {
-            if (textBox == null) return false;
-            var placeholder = textBox.Tag?.ToString() ?? string.Empty;
-            return !string.IsNullOrWhiteSpace(textBox.Text) && textBox.Text != placeholder;
-        }
-
-        // Helper method to get real text content
-        private string GetRealText(Guna2TextBox textBox)
-        {
-            if (textBox == null) return string.Empty;
-            var placeholder = textBox.Tag?.ToString() ?? string.Empty;
-            return textBox.Text == placeholder ? "" : textBox.Text;
         }
 
         private void WireUpButtons()
@@ -161,21 +61,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             }
         }
 
-        private void UploadImageButton_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
-                openFileDialog.Title = "Select Vehicle Image";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    selectedImagePath = openFileDialog.FileName;
-                    ImageUploadBox.Text = Path.GetFileName(selectedImagePath);
-                }
-            }
-        }
-
         public void LoadVehicleData(VehicleRecord vehicle)
         {
             currentVehicle = vehicle;
@@ -184,25 +69,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             if (!string.IsNullOrWhiteSpace(vehicle.Brand))
             {
                 tbxVehicleName.Text = vehicle.Brand;
-                SetPlaceholderState(tbxVehicleName, false);
+                
             }
 
             if (!string.IsNullOrWhiteSpace(vehicle.Model))
             {
                 VehicleModelTextBox.Text = vehicle.Model;
-                SetPlaceholderState(VehicleModelTextBox, false);
+                
             }
 
             if (!string.IsNullOrWhiteSpace(vehicle.Capacity))
             {
                 YearBoughtTextBox.Text = vehicle.Capacity;
-                SetPlaceholderState(YearBoughtTextBox, false);
+               
             }
 
             if (!string.IsNullOrWhiteSpace(vehicle.PlateNumber))
             {
                 PlateNumberTextBox.Text = vehicle.PlateNumber;
-                SetPlaceholderState(PlateNumberTextBox, false);
+                
             }
 
             // Set status
@@ -230,11 +115,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             {
                 VehicleRecord vehicle = new VehicleRecord
                 {
-                    Brand = GetRealText(tbxVehicleName).Trim(),
-                    Model = GetRealText(VehicleModelTextBox).Trim(),
+                    Brand = GetText(tbxVehicleName).Trim(),
+                    Model = GetText(VehicleModelTextBox).Trim(),
                     VehicleType = "Drop-Side Truck",
-                    Capacity = GetRealText(YearBoughtTextBox).Trim(),
-                    PlateNumber = GetRealText(PlateNumberTextBox).Trim(),
+                    Capacity = GetText(YearBoughtTextBox).Trim(),
+                    PlateNumber = GetText(PlateNumberTextBox).Trim(),
                     Status = VehicleStatusComboBox.SelectedItem?.ToString() ?? "Available",
                     Remarks = VehicleRemarkTextBox.Text.Trim()
                 };
@@ -245,7 +130,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     MessageBox.Show("A vehicle with this plate number already exists!", "Duplicate Plate Number",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     PlateNumberTextBox.Focus();
-                    ClearPlaceholderIfNeeded(PlateNumberTextBox);
                     return;
                 }
 
@@ -293,30 +177,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
         private bool ValidateInputs()
         {
-            if (!HasRealContent(tbxVehicleName))
+            if (!HasText(tbxVehicleName))
             {
                 MessageBox.Show("Please enter vehicle brand/name", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 tbxVehicleName.Focus();
-                ClearPlaceholderIfNeeded(tbxVehicleName);
                 return false;
             }
 
-            if (!HasRealContent(VehicleModelTextBox))
+            if (!HasText(VehicleModelTextBox))
             {
                 MessageBox.Show("Please enter vehicle model", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 VehicleModelTextBox.Focus();
-                ClearPlaceholderIfNeeded(VehicleModelTextBox);
                 return false;
             }
 
-            if (!HasRealContent(PlateNumberTextBox))
+            if (!HasText(PlateNumberTextBox))
             {
                 MessageBox.Show("Please enter plate number", "Validation Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 PlateNumberTextBox.Focus();
-                ClearPlaceholderIfNeeded(PlateNumberTextBox);
                 return false;
             }
 
@@ -328,78 +209,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 return false;
             }
 
+
             return true;
         }
 
-        // Enhanced placeholder behavior for when form is shown
-        protected override void OnVisibleChanged(EventArgs e)
-        {
-            base.OnVisibleChanged(e);
 
-            if (this.Visible)
-            {
-                // Ensure placeholders are properly set when form becomes visible
-                if (string.IsNullOrWhiteSpace(GetRealText(tbxVehicleName)))
-                    SetPlaceholderState(tbxVehicleName, true);
-                if (string.IsNullOrWhiteSpace(GetRealText(VehicleModelTextBox)))
-                    SetPlaceholderState(VehicleModelTextBox, true);
-                if (string.IsNullOrWhiteSpace(GetRealText(YearBoughtTextBox)))
-                    SetPlaceholderState(YearBoughtTextBox, true);
-                if (string.IsNullOrWhiteSpace(GetRealText(PlateNumberTextBox)))
-                    SetPlaceholderState(PlateNumberTextBox, true);
-            }
-        }
-
-
+        private bool HasText(Guna2TextBox tb) => tb != null && !string.IsNullOrWhiteSpace(tb.Text);
+        private string GetText(Guna2TextBox tb) => tb?.Text ?? string.Empty;
         // Event handlers for designer events
-        private void kryptonPanel1_Paint(object sender, PaintEventArgs e)
-        {
-            // Optional: Custom panel painting if needed
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            // Handle picture box click if needed
-        }
-
-        private void label14_Click(object sender, EventArgs e)
-        {
-            // Handle label click if needed
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            // Handle picture box click if needed
-        }
-
-        private void AddressTextBox_TextChanged(object sender, EventArgs e)
-        {
-            // Handle text changed for PlateNumberTextBox
-            // This will be handled by our placeholder system
-        }
-
-        private void kryptonPanel2_Paint(object sender, PaintEventArgs e)
-        {
-            // Handle panel painting if needed
-        }
-
-        private void kryptonRichTextBox1_TextChanged(object sender, EventArgs e)
-        {
-            // Handle image text box changes
-        }
-
-        // Override OnLoad to ensure placeholders are set when control loads
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
-            // Ensure placeholders are set after control is fully loaded
-            if (!DesignMode)
-            {
-                SetupPlaceholders();
-            }
-        }
-
+     
         private void closeButton1_Load(object sender, EventArgs e)
         {
 
@@ -409,5 +227,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         {
 
         }
+
     }
 }
