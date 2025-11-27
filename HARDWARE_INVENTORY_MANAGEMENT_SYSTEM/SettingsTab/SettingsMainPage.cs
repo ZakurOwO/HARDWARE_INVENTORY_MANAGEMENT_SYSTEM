@@ -17,12 +17,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
 {
     public partial class SettingsMainPage : UserControl
     {
-        private ProfileMenuPainter profileMenuPainter = ProfileMenuPainter.CreateFromUserSession();
+        
 
         public SettingsMainPage()
         {
             InitializeComponent();
-            ProfileMenu.Paint += ProfileBtn_Paint; 
+            
         }
 
         private void SettingsMainPage_Load(object sender, EventArgs e)
@@ -82,9 +82,5 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
             }
         }
 
-        private void ProfileBtn_Paint(object sender, PaintEventArgs e)
-        {
-            profileMenuPainter?.Draw(e);
-        }
     }
 }

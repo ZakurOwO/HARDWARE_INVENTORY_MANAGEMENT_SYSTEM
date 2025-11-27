@@ -48,7 +48,7 @@
             this.ReportBTN.ForeColor = System.Drawing.Color.Black;
             this.ReportBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Reports;
             this.ReportBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ReportBTN.Location = new System.Drawing.Point(9, 371);
+            this.ReportBTN.Location = new System.Drawing.Point(9, 409);
             this.ReportBTN.Name = "ReportBTN";
             this.ReportBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.ReportBTN.Size = new System.Drawing.Size(188, 39);
@@ -66,7 +66,7 @@
             this.DeliveriesBTN.ForeColor = System.Drawing.Color.Black;
             this.DeliveriesBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Deliveries;
             this.DeliveriesBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DeliveriesBTN.Location = new System.Drawing.Point(9, 320);
+            this.DeliveriesBTN.Location = new System.Drawing.Point(7, 246);
             this.DeliveriesBTN.Name = "DeliveriesBTN";
             this.DeliveriesBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.DeliveriesBTN.Size = new System.Drawing.Size(188, 39);
@@ -84,7 +84,7 @@
             this.SupplierBTN.ForeColor = System.Drawing.Color.Black;
             this.SupplierBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Suppliers;
             this.SupplierBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.SupplierBTN.Location = new System.Drawing.Point(9, 268);
+            this.SupplierBTN.Location = new System.Drawing.Point(9, 299);
             this.SupplierBTN.Name = "SupplierBTN";
             this.SupplierBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.SupplierBTN.Size = new System.Drawing.Size(188, 39);
@@ -102,7 +102,7 @@
             this.CustomerBTN.ForeColor = System.Drawing.Color.Black;
             this.CustomerBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Customer;
             this.CustomerBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.CustomerBTN.Location = new System.Drawing.Point(9, 218);
+            this.CustomerBTN.Location = new System.Drawing.Point(9, 354);
             this.CustomerBTN.Name = "CustomerBTN";
             this.CustomerBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.CustomerBTN.Size = new System.Drawing.Size(188, 39);
@@ -120,7 +120,7 @@
             this.TransactionBTN.ForeColor = System.Drawing.Color.Black;
             this.TransactionBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Transaction;
             this.TransactionBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.TransactionBTN.Location = new System.Drawing.Point(9, 168);
+            this.TransactionBTN.Location = new System.Drawing.Point(9, 192);
             this.TransactionBTN.Name = "TransactionBTN";
             this.TransactionBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.TransactionBTN.Size = new System.Drawing.Size(188, 39);
@@ -138,7 +138,7 @@
             this.InventoryBTN.ForeColor = System.Drawing.Color.Black;
             this.InventoryBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Inventory;
             this.InventoryBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.InventoryBTN.Location = new System.Drawing.Point(9, 118);
+            this.InventoryBTN.Location = new System.Drawing.Point(9, 139);
             this.InventoryBTN.Name = "InventoryBTN";
             this.InventoryBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.InventoryBTN.Size = new System.Drawing.Size(188, 39);
@@ -156,7 +156,7 @@
             this.DashboardBTN.ForeColor = System.Drawing.Color.Black;
             this.DashboardBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.DashboardIcon;
             this.DashboardBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.DashboardBTN.Location = new System.Drawing.Point(9, 67);
+            this.DashboardBTN.Location = new System.Drawing.Point(9, 85);
             this.DashboardBTN.Name = "DashboardBTN";
             this.DashboardBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.DashboardBTN.Size = new System.Drawing.Size(188, 39);
@@ -168,9 +168,9 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Logo___Text;
-            this.pictureBox1.Location = new System.Drawing.Point(20, 4);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 10);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(156, 46);
+            this.pictureBox1.Size = new System.Drawing.Size(174, 57);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;

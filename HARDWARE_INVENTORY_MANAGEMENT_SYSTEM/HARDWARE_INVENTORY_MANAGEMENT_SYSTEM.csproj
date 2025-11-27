@@ -807,6 +807,12 @@
     <Compile Include="UserControlFiles\MainButtonWithIcon.Designer.cs">
       <DependentUpon>MainButtonWithIcon.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControlFiles\SettingsSidePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControlFiles\SettingsSidePanel.Designer.cs">
+      <DependentUpon>SettingsSidePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControlFiles\SidePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1215,6 +1221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\MainButtonWithIcon.resx">
       <DependentUpon>MainButtonWithIcon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControlFiles\SettingsSidePanel.resx">
+      <DependentUpon>SettingsSidePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\SidePanel.resx">
       <DependentUpon>SidePanel.cs</DependentUpon>

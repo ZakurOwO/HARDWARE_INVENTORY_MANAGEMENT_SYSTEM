@@ -10,6 +10,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
     {
         public static void ShowSettingsPanel(Panel parent)
         {
+
             // Check if the settings panel already exists
             var existing = parent.Controls.OfType<Settings_Signout>().FirstOrDefault();
             if (existing != null)
@@ -33,7 +34,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 c.SendToBack();
 
             settings.BringToFront();
-
         }
 
     }
