@@ -98,7 +98,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private void guna2Button3_Click_1(object sender, EventArgs e)
         {
+            Form parentForm = this.FindForm();
+            if (parentForm != null)
+            {
+                parentForm.Close();
+            }
+        }
 
+        private void btnWhite_Click_1(object sender, EventArgs e)
+        {
+            Form parentForm = this.FindForm();
+            if (parentForm != null)
+            {
+                parentForm.Close();
+            }
         }
     }
 }
