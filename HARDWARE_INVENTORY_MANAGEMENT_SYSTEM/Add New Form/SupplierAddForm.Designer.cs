@@ -52,6 +52,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.cbxCategory = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -126,12 +127,13 @@
             this.CompanyNameTextBoxSupplier.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.CompanyNameTextBoxSupplier.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.CompanyNameTextBoxSupplier.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.CompanyNameTextBoxSupplier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CompanyNameTextBoxSupplier.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CompanyNameTextBoxSupplier.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.CompanyNameTextBoxSupplier.Location = new System.Drawing.Point(23, 100);
             this.CompanyNameTextBoxSupplier.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.CompanyNameTextBoxSupplier.Name = "CompanyNameTextBoxSupplier";
-            this.CompanyNameTextBoxSupplier.PlaceholderText = "";
+            this.CompanyNameTextBoxSupplier.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.CompanyNameTextBoxSupplier.PlaceholderText = "Ex. Topaz Hardware";
             this.CompanyNameTextBoxSupplier.SelectedText = "";
             this.CompanyNameTextBoxSupplier.Size = new System.Drawing.Size(228, 36);
             this.CompanyNameTextBoxSupplier.TabIndex = 60;
@@ -156,12 +158,13 @@
             this.tbxContactPerson.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.tbxContactPerson.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.tbxContactPerson.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tbxContactPerson.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxContactPerson.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxContactPerson.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.tbxContactPerson.Location = new System.Drawing.Point(311, 100);
             this.tbxContactPerson.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbxContactPerson.Name = "tbxContactPerson";
-            this.tbxContactPerson.PlaceholderText = "";
+            this.tbxContactPerson.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.tbxContactPerson.PlaceholderText = " Ex. Danielle Navarro";
             this.tbxContactPerson.SelectedText = "";
             this.tbxContactPerson.Size = new System.Drawing.Size(228, 36);
             this.tbxContactPerson.TabIndex = 62;
@@ -198,12 +201,13 @@
             this.ContactTxtBoxSupplier.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.ContactTxtBoxSupplier.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.ContactTxtBoxSupplier.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.ContactTxtBoxSupplier.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ContactTxtBoxSupplier.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ContactTxtBoxSupplier.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.ContactTxtBoxSupplier.Location = new System.Drawing.Point(23, 187);
             this.ContactTxtBoxSupplier.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ContactTxtBoxSupplier.Name = "ContactTxtBoxSupplier";
-            this.ContactTxtBoxSupplier.PlaceholderText = "";
+            this.ContactTxtBoxSupplier.PlaceholderForeColor = System.Drawing.Color.DarkGray;
+            this.ContactTxtBoxSupplier.PlaceholderText = "Ex. 09123456789";
             this.ContactTxtBoxSupplier.SelectedText = "";
             this.ContactTxtBoxSupplier.Size = new System.Drawing.Size(228, 36);
             this.ContactTxtBoxSupplier.TabIndex = 65;
@@ -228,12 +232,13 @@
             this.tbxEmail.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.tbxEmail.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.tbxEmail.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tbxEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxEmail.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxEmail.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.tbxEmail.Location = new System.Drawing.Point(311, 187);
             this.tbxEmail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbxEmail.Name = "tbxEmail";
-            this.tbxEmail.PlaceholderText = "";
+            this.tbxEmail.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.tbxEmail.PlaceholderText = "Ex. customer@gmail.com";
             this.tbxEmail.SelectedText = "";
             this.tbxEmail.Size = new System.Drawing.Size(228, 36);
             this.tbxEmail.TabIndex = 67;
@@ -258,12 +263,13 @@
             this.LocationSupplierTextBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.LocationSupplierTextBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.LocationSupplierTextBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.LocationSupplierTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LocationSupplierTextBox.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LocationSupplierTextBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.LocationSupplierTextBox.Location = new System.Drawing.Point(23, 273);
             this.LocationSupplierTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.LocationSupplierTextBox.Name = "LocationSupplierTextBox";
-            this.LocationSupplierTextBox.PlaceholderText = "";
+            this.LocationSupplierTextBox.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.LocationSupplierTextBox.PlaceholderText = "Ex. Blk 20 Lot 12, Village, Borol 1st, Balagtas, Bulacan";
             this.LocationSupplierTextBox.SelectedText = "";
             this.LocationSupplierTextBox.Size = new System.Drawing.Size(514, 36);
             this.LocationSupplierTextBox.TabIndex = 69;
@@ -296,7 +302,7 @@
             this.SupplierDatePick.BorderThickness = 1;
             this.SupplierDatePick.Checked = true;
             this.SupplierDatePick.FillColor = System.Drawing.Color.White;
-            this.SupplierDatePick.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SupplierDatePick.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SupplierDatePick.ForeColor = System.Drawing.Color.DimGray;
             this.SupplierDatePick.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.SupplierDatePick.HoverState.FillColor = System.Drawing.Color.White;
@@ -320,7 +326,7 @@
             this.CancelSupplierFormBtn.FillColor = System.Drawing.Color.White;
             this.CancelSupplierFormBtn.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CancelSupplierFormBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.CancelSupplierFormBtn.Location = new System.Drawing.Point(302, 439);
+            this.CancelSupplierFormBtn.Location = new System.Drawing.Point(287, 439);
             this.CancelSupplierFormBtn.Name = "CancelSupplierFormBtn";
             this.CancelSupplierFormBtn.PressedColor = System.Drawing.Color.Azure;
             this.CancelSupplierFormBtn.Size = new System.Drawing.Size(120, 40);
@@ -338,7 +344,7 @@
             this.AddSupplierFormBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
             this.AddSupplierFormBtn.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddSupplierFormBtn.ForeColor = System.Drawing.Color.White;
-            this.AddSupplierFormBtn.Location = new System.Drawing.Point(433, 439);
+            this.AddSupplierFormBtn.Location = new System.Drawing.Point(418, 439);
             this.AddSupplierFormBtn.Name = "AddSupplierFormBtn";
             this.AddSupplierFormBtn.Size = new System.Drawing.Size(120, 40);
             this.AddSupplierFormBtn.TabIndex = 72;
@@ -387,7 +393,7 @@
             this.cbxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxCategory.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.cbxCategory.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cbxCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxCategory.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.cbxCategory.ItemHeight = 30;
             this.cbxCategory.Location = new System.Drawing.Point(311, 361);
@@ -395,11 +401,21 @@
             this.cbxCategory.Size = new System.Drawing.Size(228, 36);
             this.cbxCategory.TabIndex = 76;
             // 
+            // closeButton1
+            // 
+            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
+            this.closeButton1.Location = new System.Drawing.Point(518, 17);
+            this.closeButton1.Margin = new System.Windows.Forms.Padding(4);
+            this.closeButton1.Name = "closeButton1";
+            this.closeButton1.Size = new System.Drawing.Size(35, 35);
+            this.closeButton1.TabIndex = 77;
+            // 
             // SupplierAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.closeButton1);
             this.Controls.Add(this.cbxCategory);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
@@ -458,5 +474,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private Guna.UI2.WinForms.Guna2ComboBox cbxCategory;
+        private UserControlFiles.CloseButton closeButton1;
     }
 }
