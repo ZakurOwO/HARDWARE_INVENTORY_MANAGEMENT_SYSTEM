@@ -9,16 +9,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
     {
         private Panel scrollContainer;
         private Checkout_PopUp checkoutPopUp;
-        private MainDashBoard mainForm;
+        private TransactionsMainPage transactionsPage;
         private decimal totalAmount;
         private decimal subtotal;
         private decimal tax;
         private string transactionType; // "WalkIn" or "Delivery"
         private object cartData; // Can be DeliveryCartDetails or Walk_inCartDetails
 
-        public void ShowCheckoutPopUp(MainDashBoard main, decimal total, decimal subTotal, decimal taxAmount, string type, object cart)
+        public void ShowCheckoutPopUp(TransactionsMainPage transactionsPage, decimal total, decimal subTotal, decimal taxAmount, string type, object cart)
         {
-            mainForm = main;
+            this.transactionsPage = transactionsPage;
             totalAmount = total;
             subtotal = subTotal;
             tax = taxAmount;
@@ -35,7 +35,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
             // SCROLL CONTAINER (same as customer forms)
             scrollContainer = new Panel();
-            scrollContainer.Size = new Size(515, 402);        
+            scrollContainer.Size = new Size(515, 402);
             scrollContainer.Location = new Point(472, 100);   // SAME POSITION AS CUSTOMER FORMS
             scrollContainer.BorderStyle = BorderStyle.FixedSingle;
             scrollContainer.BackColor = Color.White;
@@ -45,15 +45,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             checkoutPopUp.Size = new Size(570, 490);
             checkoutPopUp.Location = new Point(5, 5);
 
-            // Overlay
-            mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.CustomerOvelay; // Or create a specific checkout overlay
-            mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
-            mainForm.pcbBlurOverlay.Visible = true;
-            mainForm.pcbBlurOverlay.BringToFront();
+            // Find the parent form to add the overlay and container
+            var parentForm = transactionsPage.FindForm();
+            if (parentForm is MainDashBoard mainForm)
+            {
+                // Overlay
+                mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.CustomerOvelay; // Or create a specific checkout overlay
+                mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
+                mainForm.pcbBlurOverlay.Visible = true;
+                mainForm.pcbBlurOverlay.BringToFront();
 
-            // Bring container
-            mainForm.Controls.Add(scrollContainer);
-            scrollContainer.BringToFront();
+                // Bring container
+                mainForm.Controls.Add(scrollContainer);
+                scrollContainer.BringToFront();
+            }
+            else
+            {
+                // Fallback: add directly to transactions page
+                transactionsPage.Controls.Add(scrollContainer);
+                scrollContainer.BringToFront();
+            }
         }
 
         private void CheckoutPopUp_ProceedToPayClicked(object sender, CheckoutEventArgs e)
@@ -102,8 +113,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
         public void CloseCheckoutPopUp()
         {
-            if (mainForm != null)
+            // Hide the overlay if we found a MainDashBoard
+            var parentForm = transactionsPage?.FindForm();
+            if (parentForm is MainDashBoard mainForm)
+            {
                 mainForm.pcbBlurOverlay.Visible = false;
+            }
 
             if (checkoutPopUp != null)
             {

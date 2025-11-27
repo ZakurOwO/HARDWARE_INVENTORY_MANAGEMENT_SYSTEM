@@ -330,22 +330,38 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return true;
         }
 
+
         private void ShowCheckoutPopup()
         {
             decimal subtotal = CalculateSubtotal();
             decimal tax = CalculateTax(subtotal);
             decimal totalAmount = subtotal + tax;
 
-            MainDashBoard mainForm = FindMainForm();
-            if (mainForm != null)
+            // Find the TransactionsMainPage parent
+            TransactionsMainPage transactionsPage = FindTransactionsMainPage();
+            if (transactionsPage != null)
             {
-                checkoutContainer.ShowCheckoutPopUp(mainForm, totalAmount, subtotal, tax, "WalkIn", this);
+                CheckoutPopUpContainer checkoutContainer = new CheckoutPopUpContainer();
+                checkoutContainer.ShowCheckoutPopUp(transactionsPage, totalAmount, subtotal, tax, "WalkIn", this);
             }
             else
             {
-                MessageBox.Show("Unable to find main form.", "Error",
+                MessageBox.Show("Unable to find transactions page.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private TransactionsMainPage FindTransactionsMainPage()
+        {
+            Control parent = this.Parent;
+            while (parent != null)
+            {
+                if (parent is TransactionsMainPage transactionsPage)
+                {
+                    return transactionsPage;
+                }
+                parent = parent.Parent;
+            }
+            return null;
         }
 
         private MainDashBoard FindMainForm()
@@ -483,34 +499,34 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlTransaction transaction = connection.BeginTransaction();
+                    SqlTransaction dbTransaction = connection.BeginTransaction();
 
                     try
                     {
-                        int customerId = GetOrCreateCustomer(connection, transaction, customerName);
+                        int customerId = GetOrCreateCustomer(connection, dbTransaction, customerName);
 
                         string insertTransactionQuery = @"
-                            INSERT INTO Transactions (
-                                transaction_date, 
-                                customer_id, 
-                                total_amount, 
-                                cashier, 
-                                payment_method, 
-                                cash_received, 
-                                change_amount
-                            )
-                            VALUES (
-                                GETDATE(), 
-                                @CustomerId, 
-                                @TotalAmount, 
-                                @Cashier, 
-                                @PaymentMethod, 
-                                @CashReceived, 
-                                @ChangeAmount
-                            );
-                            SELECT CAST(SCOPE_IDENTITY() as int);";
+                    INSERT INTO Transactions (
+                        transaction_date, 
+                        customer_id, 
+                        total_amount, 
+                        cashier, 
+                        payment_method, 
+                        cash_received, 
+                        change_amount
+                    )
+                    VALUES (
+                        GETDATE(), 
+                        @CustomerId, 
+                        @TotalAmount, 
+                        @Cashier, 
+                        @PaymentMethod, 
+                        @CashReceived, 
+                        @ChangeAmount
+                    );
+                    SELECT CAST(SCOPE_IDENTITY() as int);";
 
-                        SqlCommand transactionCmd = new SqlCommand(insertTransactionQuery, connection, transaction);
+                        SqlCommand transactionCmd = new SqlCommand(insertTransactionQuery, connection, dbTransaction);
                         transactionCmd.Parameters.AddWithValue("@CustomerId", customerId);
                         transactionCmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
                         transactionCmd.Parameters.AddWithValue("@Cashier", 1); // Default cashier ID
@@ -520,7 +536,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
                         int transactionId = (int)transactionCmd.ExecuteScalar();
 
-                        // Save transaction items
+                        // Save transaction items and update stock (your existing code)
                         foreach (DataGridViewRow row in dgvCartDetails.Rows)
                         {
                             if (row.IsNewRow) continue;
@@ -530,25 +546,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             decimal price = decimal.Parse(row.Cells["Price"].Value.ToString().Replace("₱", "").Trim());
 
                             string getProductQuery = "SELECT ProductInternalID FROM Products WHERE product_name = @ProductName";
-                            SqlCommand productCmd = new SqlCommand(getProductQuery, connection, transaction);
+                            SqlCommand productCmd = new SqlCommand(getProductQuery, connection, dbTransaction);
                             productCmd.Parameters.AddWithValue("@ProductName", productName);
                             int productId = (int)productCmd.ExecuteScalar();
 
                             string insertItemQuery = @"
-                                INSERT INTO TransactionItems (
-                                    transaction_id, 
-                                    product_id, 
-                                    quantity, 
-                                    selling_price
-                                )
-                                VALUES (
-                                    @TransactionId, 
-                                    @ProductId, 
-                                    @Quantity, 
-                                    @SellingPrice
-                                );";
+                        INSERT INTO TransactionItems (
+                            transaction_id, 
+                            product_id, 
+                            quantity, 
+                            selling_price
+                        )
+                        VALUES (
+                            @TransactionId, 
+                            @ProductId, 
+                            @Quantity, 
+                            @SellingPrice
+                        );";
 
-                            SqlCommand itemCmd = new SqlCommand(insertItemQuery, connection, transaction);
+                            SqlCommand itemCmd = new SqlCommand(insertItemQuery, connection, dbTransaction);
                             itemCmd.Parameters.AddWithValue("@TransactionId", transactionId);
                             itemCmd.Parameters.AddWithValue("@ProductId", productId);
                             itemCmd.Parameters.AddWithValue("@Quantity", quantity);
@@ -557,17 +573,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
                             // Update stock
                             string updateStockQuery = @"
-                                UPDATE Products 
-                                SET current_stock = current_stock - @Quantity 
-                                WHERE ProductInternalID = @ProductId";
+                        UPDATE Products 
+                        SET current_stock = current_stock - @Quantity 
+                        WHERE ProductInternalID = @ProductId";
 
-                            SqlCommand stockCmd = new SqlCommand(updateStockQuery, connection, transaction);
+                            SqlCommand stockCmd = new SqlCommand(updateStockQuery, connection, dbTransaction);
                             stockCmd.Parameters.AddWithValue("@Quantity", quantity);
                             stockCmd.Parameters.AddWithValue("@ProductId", productId);
                             stockCmd.ExecuteNonQuery();
                         }
 
-                        transaction.Commit();
+                        dbTransaction.Commit();
 
                         MessageBox.Show($"Walk-in transaction completed successfully!\n\n" +
                                       $"Transaction ID: TRX-{transactionId:D5}\n" +
@@ -576,11 +592,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                       $"Total Amount: ₱{totalAmount:N2}",
                             "Transaction Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+               
+
                         ClearCart();
                     }
                     catch (Exception ex)
                     {
-                        transaction.Rollback();
+                        dbTransaction.Rollback();
                         throw new Exception($"Failed to save transaction: {ex.Message}", ex);
                     }
                 }
@@ -591,6 +609,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+
+
+
+
 
         private int GetOrCreateCustomer(SqlConnection connection, SqlTransaction transaction, string customerName)
         {
