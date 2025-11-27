@@ -1,25 +1,30 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Drawing;
 
-namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
+namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_of_Accounts
 {
-    public class SupplierAddContainer
+    internal class AddUserContainer
     {
         private Panel scrollContainer;
-        private SupplierAddForm SupplierAddForm;
+        private AddNewUser_Form addForm;
         private MainDashBoard mainForm;
 
-        public void ShowSupplierAddForm(MainDashBoard main)
+        public void ShowAddUserForm(MainDashBoard main)
         {
             mainForm = main;
 
-            SupplierAddForm = new SupplierAddForm();
-            SupplierAddForm.Dock = DockStyle.None;
+            addForm = new AddNewUser_Form();
+
 
             scrollContainer = new Panel();
-            scrollContainer.Size = new Size(600, 520);
+            scrollContainer.Size = new Size(574, 570);
             scrollContainer.Location = new Point(
                 (main.Width - scrollContainer.Width) / 2,
                 (main.Height - scrollContainer.Height) / 2
@@ -27,13 +32,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             scrollContainer.BorderStyle = BorderStyle.FixedSingle;
             scrollContainer.AutoScroll = false; // disable scrollbars
 
-            scrollContainer.Controls.Add(SupplierAddForm);
+            scrollContainer.Controls.Add(addForm);
 
-            SupplierAddForm.Size = new Size(600, 850); // keep original size
-            SupplierAddForm.Location = new Point(0, 0);
-            SupplierAddForm.Show();
+            addForm.Size = new Size(574, 570); // keep original size
+            addForm.Location = new Point(0, 0);
+            addForm.Show();
 
-            mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.SupplierOverlay;
+            mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.AccountsOverlay;
             mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
             mainForm.pcbBlurOverlay.Visible = true;
             mainForm.pcbBlurOverlay.BringToFront();
@@ -41,9 +46,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             mainForm.Controls.Add(scrollContainer);
             scrollContainer.BringToFront();
 
-            SupplierAddForm.CancelClicked += (s, e) => CloseSupplierAddForm();
-        }
 
+        }
         public void CloseSupplierAddForm()
         {
             if (mainForm != null)
@@ -52,8 +56,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             scrollContainer?.Controls.Clear();
             scrollContainer?.Parent?.Controls.Remove(scrollContainer);
             scrollContainer?.Dispose();
-            SupplierAddForm?.Dispose();
+            addForm?.Dispose();
         }
-
     }
 }

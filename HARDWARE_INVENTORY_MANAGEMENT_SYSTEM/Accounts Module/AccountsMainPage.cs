@@ -1,15 +1,18 @@
-﻿using System;
+﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_of_Accounts;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 {
     public partial class AccountsMainPage : UserControl
     {
+        private AddUserContainer addUserContainer = new AddUserContainer();
         private AddNewUser_Form addUserForm;
         private Panel overlayPanel;
         private Panel userDetailOverlayPanel;
@@ -20,13 +23,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         public AccountsMainPage()
         {
             InitializeComponent();
-            InitializeOverlay();
+            //InitializeOverlay();
             InitializeUserDetailOverlay();
             InitializeSearch();
             LoadExistingUsersFromDatabase();
 
             mainContentPanel = guna2Panel1;
-            addNewUserButton1.AddUserClicked += (s, e) => ShowAddUserForm();
+            //addNewUserButton1.AddUserClicked += (s, e) => ShowAddUserForm();
         }
 
         private void LoadExistingUsersFromDatabase()
@@ -134,7 +137,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             {
                 LoadExistingUsersFromDatabase();
             }
-            HideAddUserForm();
+            
         }
 
         private void InitializeUserDetailOverlay()
@@ -147,19 +150,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             userDetailOverlayPanel.SendToBack();
         }
 
-        private void InitializeOverlay()
-        {
-            overlayPanel = new Panel();
-            overlayPanel.Dock = DockStyle.Fill;
-            overlayPanel.BackColor = Color.WhiteSmoke;
-            overlayPanel.Visible = false;
-            overlayPanel.Click += (s, e) => HideAddUserForm();
-            this.Controls.Add(overlayPanel);
-            overlayPanel.SendToBack();
-        }
-
-        private void ShowAddUserForm()
-        {
+        
+      //  private void ShowAddUserForm()
+       // {
+            /*
             if (addUserForm == null)
             {
                 addUserForm = new AddNewUser_Form();
@@ -168,7 +162,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                     (this.Width - addUserForm.Width) / 2,
                     (this.Height - addUserForm.Height) / 2
                 );
-                addUserForm.UserAdded += OnUserAdded;
+*/
+        //    addUserForm.UserAdded += OnUserAdded;
+            /*
                 overlayPanel.Controls.Add(addUserForm);
             }
 
@@ -177,13 +173,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             overlayPanel.BringToFront();
             addUserForm.BringToFront();
         }
-
-        private void HideAddUserForm()
-        {
-            overlayPanel.Visible = false;
-            overlayPanel.SendToBack();
-        }
-
+*/
+         
         private void InitializeSearch()
         {
             TextBox textBox = FindTextBoxInSearchField();
@@ -334,5 +325,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         private void Layout_Paint(object sender, PaintEventArgs e) { }
         private void userAccountsPanel1_Load(object sender, EventArgs e) { }
         private void OverlayPanel_Click(object sender, EventArgs e) { }
+
+        private void btnMainButtonIcon_Click(object sender, EventArgs e)
+        {
+            MainDashBoard main = this.FindForm() as MainDashBoard;
+
+            if (main != null)
+            {
+                addUserContainer.ShowAddUserForm(main);
+            }
+        }
     }
 }

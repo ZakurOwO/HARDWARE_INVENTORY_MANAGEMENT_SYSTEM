@@ -29,13 +29,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
             // Create scroll container
             scrollContainer = new Panel();
-            scrollContainer.Size = new Size(583, 505);
-            scrollContainer.Location = new Point(472, 100);
-            scrollContainer.AutoScroll = true;
+            scrollContainer.Size = new Size(578, 550);
+            scrollContainer.Location = new Point(
+                (main.Width - scrollContainer.Width) / 2,
+                (main.Height - scrollContainer.Height) / 2
+            );
+            
             scrollContainer.BorderStyle = BorderStyle.FixedSingle;
-            scrollContainer.HorizontalScroll.Enabled = false;
-            scrollContainer.HorizontalScroll.Visible = false;
-            scrollContainer.AutoScrollMinSize = new Size(0, 550);
+            
+            
 
             // Add form to container
             scrollContainer.Controls.Add(addForm);
@@ -74,14 +76,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
             // Create scroll container
             scrollContainer = new Panel();
-            scrollContainer.Size = new Size(583, 505);
-            scrollContainer.Location = new Point(472, 100);
-            scrollContainer.AutoScroll = true;
+            scrollContainer.Size = new Size(578, 550);
+            scrollContainer.Location = new Point(
+                (main.Width - scrollContainer.Width) / 2,
+                (main.Height - scrollContainer.Height) / 2
+            );
+            
             scrollContainer.BorderStyle = BorderStyle.FixedSingle;
-            scrollContainer.HorizontalScroll.Enabled = false;
-            scrollContainer.HorizontalScroll.Visible = false;
-            scrollContainer.AutoScrollMinSize = new Size(0, 550);
-
+            
             // Add form to container
             scrollContainer.Controls.Add(editForm);
             editForm.Size = new Size(578, 550);
@@ -99,7 +101,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         {
             if (mainForm.pcbBlurOverlay != null)
             {
-                mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.InventoryOverlay;
+                mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.VehicleOverlay;
                 mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
                 mainForm.pcbBlurOverlay.Visible = true;
                 mainForm.pcbBlurOverlay.BringToFront();

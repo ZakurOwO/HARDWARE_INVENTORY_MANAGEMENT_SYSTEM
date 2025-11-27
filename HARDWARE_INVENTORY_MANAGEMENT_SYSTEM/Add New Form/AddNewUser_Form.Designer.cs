@@ -48,8 +48,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.ClearBtn = new Guna.UI2.WinForms.Guna2Button();
             this.ProceedBtn = new Guna.UI2.WinForms.Guna2Button();
-            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.SupplierDatePick = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.SuspendLayout();
             // 
             // RoleComboBox
@@ -338,7 +338,7 @@
             this.ClearBtn.PressedColor = System.Drawing.Color.Azure;
             this.ClearBtn.Size = new System.Drawing.Size(120, 40);
             this.ClearBtn.TabIndex = 63;
-            this.ClearBtn.Text = "Cancel";
+            this.ClearBtn.Text = "Clear";
             this.ClearBtn.Click += new System.EventHandler(this.ClearBtn_Click);
             // 
             // ProceedBtn
@@ -357,15 +357,6 @@
             this.ProceedBtn.TabIndex = 62;
             this.ProceedBtn.Text = "Add";
             this.ProceedBtn.Click += new System.EventHandler(this.ProceedBtn_Click);
-            // 
-            // closeButton1
-            // 
-            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton1.Location = new System.Drawing.Point(524, 14);
-            this.closeButton1.Name = "closeButton1";
-            this.closeButton1.Size = new System.Drawing.Size(35, 35);
-            this.closeButton1.TabIndex = 61;
-            this.closeButton1.Click += new System.EventHandler(this.closeButton1_Click);
             // 
             // SupplierDatePick
             // 
@@ -386,6 +377,15 @@
             this.SupplierDatePick.Size = new System.Drawing.Size(226, 36);
             this.SupplierDatePick.TabIndex = 72;
             this.SupplierDatePick.Value = new System.DateTime(2025, 11, 16, 22, 30, 13, 754);
+            // 
+            // closeButton1
+            // 
+            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
+            this.closeButton1.Location = new System.Drawing.Point(524, 14);
+            this.closeButton1.Name = "closeButton1";
+            this.closeButton1.Size = new System.Drawing.Size(35, 35);
+            this.closeButton1.TabIndex = 61;
+            this.closeButton1.Click += new System.EventHandler(this.closeButton1_Click);
             // 
             // AddNewUser_Form
             // 

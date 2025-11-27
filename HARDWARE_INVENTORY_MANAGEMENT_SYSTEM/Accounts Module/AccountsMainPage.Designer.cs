@@ -33,7 +33,7 @@
             this.LayoutAccounts = new System.Windows.Forms.FlowLayoutPanel();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
-            this.addNewUserButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.AddNewUserButton();
+            this.btnMainButtonIcon = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,11 +53,11 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Gainsboro;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.btnMainButtonIcon);
             this.guna2Panel1.Controls.Add(this.LayoutAccounts);
             this.guna2Panel1.Controls.Add(this.label1);
             this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Controls.Add(this.searchField1);
-            this.guna2Panel1.Controls.Add(this.addNewUserButton1);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
@@ -90,14 +90,23 @@
             this.searchField1.TabIndex = 3;
             this.searchField1.Load += new System.EventHandler(this.searchField1_Load);
             // 
-            // addNewUserButton1
+            // btnMainButtonIcon
             // 
-            this.addNewUserButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addNewUserButton1.BackColor = System.Drawing.Color.Transparent;
-            this.addNewUserButton1.Location = new System.Drawing.Point(779, 51);
-            this.addNewUserButton1.Name = "addNewUserButton1";
-            this.addNewUserButton1.Size = new System.Drawing.Size(147, 47);
-            this.addNewUserButton1.TabIndex = 1;
+            this.btnMainButtonIcon.BorderRadius = 6;
+            this.btnMainButtonIcon.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnMainButtonIcon.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnMainButtonIcon.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnMainButtonIcon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnMainButtonIcon.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.btnMainButtonIcon.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMainButtonIcon.ForeColor = System.Drawing.Color.White;
+            this.btnMainButtonIcon.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Add_User;
+            this.btnMainButtonIcon.Location = new System.Drawing.Point(775, 56);
+            this.btnMainButtonIcon.Name = "btnMainButtonIcon";
+            this.btnMainButtonIcon.Size = new System.Drawing.Size(151, 40);
+            this.btnMainButtonIcon.TabIndex = 12;
+            this.btnMainButtonIcon.Text = "Add New User";
+            this.btnMainButtonIcon.Click += new System.EventHandler(this.btnMainButtonIcon_Click);
             // 
             // AccountsMainPage
             // 
@@ -114,12 +123,11 @@
         }
 
         #endregion
-
-        private AddNewUserButton addNewUserButton1;
         private SearchField searchField1;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private System.Windows.Forms.FlowLayoutPanel LayoutAccounts;
+        private Guna.UI2.WinForms.Guna2Button btnMainButtonIcon;
     }
 }

@@ -25,7 +25,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 // SCROLL CONTAINER
                 scrollContainer = new Panel();
                 scrollContainer.Size = new Size(583, 505);
-                scrollContainer.Location = new Point(472, 100);
+                scrollContainer.Location = new Point(
+                (main.Width - scrollContainer.Width) / 2,
+                (main.Height - scrollContainer.Height) / 2
+            );
                 scrollContainer.BorderStyle = BorderStyle.FixedSingle;
                 scrollContainer.AutoScroll = true;
 
@@ -110,13 +113,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             }
         }
 
+        private void AddCustomerForm(object sender, EventArgs e)
+        {
+            CloseAddCustomerForm();
+        }
+
         public void CloseAddCustomerForm()
         {
-            try
+            if (mainForm != null)
             {
-                // Hide overlay
-                if (mainForm?.pcbBlurOverlay != null)
-                    mainForm.pcbBlurOverlay.Visible = false;
+                mainForm.pcbBlurOverlay.Visible = false;
+            }
 
                 // Clean up form
                 if (addCustomerForm != null)
@@ -124,28 +131,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                     if (!addCustomerForm.IsDisposed)
                     {
                         addCustomerForm.FormClosed -= (s, e) => CloseAddCustomerForm();
-                        addCustomerForm.Close();
                         addCustomerForm.Dispose();
                     }
                     addCustomerForm = null;
                 }
 
-                // Clean up container
-                if (scrollContainer != null)
-                {
-                    scrollContainer.Controls.Clear();
-                    if (scrollContainer.Parent != null)
-                    {
-                        scrollContainer.Parent.Controls.Remove(scrollContainer);
-                    }
-                    scrollContainer.Dispose();
-                    scrollContainer = null;
-                }
-            }
-            catch (Exception ex)
+            if (scrollContainer != null)
             {
-                MessageBox.Show($"Error closing customer form: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                scrollContainer.Controls.Clear();
+                scrollContainer.Parent?.Controls.Remove(scrollContainer);
+                scrollContainer.Dispose();
+                scrollContainer = null;
             }
         }
 

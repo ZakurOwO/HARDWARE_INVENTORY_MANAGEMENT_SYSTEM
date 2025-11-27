@@ -40,7 +40,6 @@
             this.StatusComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.ExpirationDataComboBox = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.label12 = new System.Windows.Forms.Label();
-            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.label11 = new System.Windows.Forms.Label();
             this.DescriptionRichTextBox = new Krypton.Toolkit.KryptonRichTextBox();
             this.ImageUploadBox = new Guna.UI2.WinForms.Guna2TextBox();
@@ -62,6 +61,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.ClearBtn = new Guna.UI2.WinForms.Guna2Button();
             this.AddBtn = new Guna.UI2.WinForms.Guna2Button();
+            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.guna2Panel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudSellingPrice)).BeginInit();
@@ -272,21 +272,11 @@
             this.label12.TabIndex = 29;
             this.label12.Text = "Add New Item";
             // 
-            // closeButton1
-            // 
-            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton1.Location = new System.Drawing.Point(532, 20);
-            this.closeButton1.Name = "closeButton1";
-            this.closeButton1.Size = new System.Drawing.Size(35, 35);
-            this.closeButton1.TabIndex = 28;
-            this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
-            this.closeButton1.Click += new System.EventHandler(this.closeButton1_Click);
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(26, 231);
+            this.label11.Location = new System.Drawing.Point(26, 227);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(84, 21);
             this.label11.TabIndex = 27;
@@ -294,14 +284,16 @@
             // 
             // DescriptionRichTextBox
             // 
-            this.DescriptionRichTextBox.Location = new System.Drawing.Point(30, 253);
+            this.DescriptionRichTextBox.Location = new System.Drawing.Point(30, 249);
             this.DescriptionRichTextBox.Name = "DescriptionRichTextBox";
-            this.DescriptionRichTextBox.Size = new System.Drawing.Size(528, 94);
+            this.DescriptionRichTextBox.Size = new System.Drawing.Size(528, 85);
             this.DescriptionRichTextBox.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
             this.DescriptionRichTextBox.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
             this.DescriptionRichTextBox.StateCommon.Border.Rounding = 8F;
+            this.DescriptionRichTextBox.StateCommon.Content.Color1 = System.Drawing.Color.Gray;
+            this.DescriptionRichTextBox.StateCommon.Content.Font = new System.Drawing.Font("Lexend Light", 9F);
             this.DescriptionRichTextBox.TabIndex = 26;
-            this.DescriptionRichTextBox.Text = "";
+            this.DescriptionRichTextBox.Text = "Ex. Durable layered wood panel for construction and furniture use";
             this.DescriptionRichTextBox.TextChanged += new System.EventHandler(this.DescriptionRichTextBox_TextChanged);
             // 
             // ImageUploadBox
@@ -454,13 +446,14 @@
             this.Brandtxtbox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.Brandtxtbox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.Brandtxtbox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.Brandtxtbox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Brandtxtbox.Font = new System.Drawing.Font("Lexend Light", 9F);
+            this.Brandtxtbox.ForeColor = System.Drawing.Color.Gray;
             this.Brandtxtbox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.Brandtxtbox.Location = new System.Drawing.Point(327, 174);
             this.Brandtxtbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Brandtxtbox.Name = "Brandtxtbox";
             this.Brandtxtbox.PlaceholderForeColor = System.Drawing.Color.Gray;
-            this.Brandtxtbox.PlaceholderText = "";
+            this.Brandtxtbox.PlaceholderText = "Ex. Roseburg";
             this.Brandtxtbox.SelectedText = "";
             this.Brandtxtbox.Size = new System.Drawing.Size(228, 36);
             this.Brandtxtbox.TabIndex = 9;
@@ -486,13 +479,14 @@
             this.SKUtxtbox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.SKUtxtbox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.SKUtxtbox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.SKUtxtbox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SKUtxtbox.Font = new System.Drawing.Font("Lexend Light", 9F);
+            this.SKUtxtbox.ForeColor = System.Drawing.Color.Gray;
             this.SKUtxtbox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.SKUtxtbox.Location = new System.Drawing.Point(327, 94);
             this.SKUtxtbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SKUtxtbox.Name = "SKUtxtbox";
             this.SKUtxtbox.PlaceholderForeColor = System.Drawing.Color.Gray;
-            this.SKUtxtbox.PlaceholderText = "";
+            this.SKUtxtbox.PlaceholderText = "Ex. PLY-WDS-001";
             this.SKUtxtbox.SelectedText = "";
             this.SKUtxtbox.Size = new System.Drawing.Size(228, 36);
             this.SKUtxtbox.TabIndex = 7;
@@ -518,13 +512,14 @@
             this.ProductNametxtbox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.ProductNametxtbox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
             this.ProductNametxtbox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.ProductNametxtbox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ProductNametxtbox.Font = new System.Drawing.Font("Lexend Light", 9F);
+            this.ProductNametxtbox.ForeColor = System.Drawing.Color.Gray;
             this.ProductNametxtbox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.ProductNametxtbox.Location = new System.Drawing.Point(22, 94);
             this.ProductNametxtbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ProductNametxtbox.Name = "ProductNametxtbox";
             this.ProductNametxtbox.PlaceholderForeColor = System.Drawing.Color.Gray;
-            this.ProductNametxtbox.PlaceholderText = "Plywood";
+            this.ProductNametxtbox.PlaceholderText = "Ex. Plywood 1/2 2mm";
             this.ProductNametxtbox.SelectedText = "";
             this.ProductNametxtbox.Size = new System.Drawing.Size(228, 36);
             this.ProductNametxtbox.TabIndex = 5;
@@ -557,7 +552,7 @@
             this.ClearBtn.PressedColor = System.Drawing.Color.Azure;
             this.ClearBtn.Size = new System.Drawing.Size(120, 40);
             this.ClearBtn.TabIndex = 41;
-            this.ClearBtn.Text = "Cancel";
+            this.ClearBtn.Text = "Clear";
             this.ClearBtn.Click += new System.EventHandler(this.ClearBtn_Click);
             // 
             // AddBtn
@@ -576,6 +571,16 @@
             this.AddBtn.TabIndex = 40;
             this.AddBtn.Text = "Add";
             this.AddBtn.Click += new System.EventHandler(this.AddBtn_Click);
+            // 
+            // closeButton1
+            // 
+            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
+            this.closeButton1.Location = new System.Drawing.Point(532, 20);
+            this.closeButton1.Name = "closeButton1";
+            this.closeButton1.Size = new System.Drawing.Size(35, 35);
+            this.closeButton1.TabIndex = 28;
+            this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
+            this.closeButton1.Click += new System.EventHandler(this.closeButton1_Click);
             // 
             // AddNewItem_Form
             // 
