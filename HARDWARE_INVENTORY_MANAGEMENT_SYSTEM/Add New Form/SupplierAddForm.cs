@@ -16,8 +16,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         public SupplierAddForm()
         {
             InitializeComponent();
-            con = new SqlConnection(@"Data Source=.;Initial Catalog=InventoryCapstone;Integrated Security=True");
+            //con = new SqlConnection(@"Data Source=.;Initial Catalog=InventoryCapstone;Integrated Security=True");
+            con = new SqlConnection(@"Data Source=ACHILLES\SQLEXPRESS;Initial Catalog=TopazHardwareDb;Integrated Security=True;TrustServerCertificate=True;");
             LoadSuppliers();
+            closeButton1.Click += CloseButton1_Click;
         }
 
         private void LoadSuppliers()
@@ -145,6 +147,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private void CancelSupplierFormBtn_Click_1(object sender, EventArgs e)
         {
+            CancelClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void closeButton1_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void CloseButton1_Click(object sender, EventArgs e)
+        {
+            // reuse the same event that the Cancel button raises
             CancelClicked?.Invoke(this, EventArgs.Empty);
         }
     }
