@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
@@ -170,7 +169,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
             dgvCartDetails.Controls.Add(qtyUpDown);
 
-            // Add cell click event for quantity editing
             dgvCartDetails.CellClick += dgvCartDetails_CellClick;
             qtyUpDown.Leave += qtyUpDown_Leave;
             qtyUpDown.ValueChanged += qtyUpDown_ValueChanged;
@@ -330,38 +328,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return true;
         }
 
-
         private void ShowCheckoutPopup()
         {
             decimal subtotal = CalculateSubtotal();
             decimal tax = CalculateTax(subtotal);
             decimal totalAmount = subtotal + tax;
 
-            // Find the TransactionsMainPage parent
-            TransactionsMainPage transactionsPage = FindTransactionsMainPage();
-            if (transactionsPage != null)
+            // Find the main form directly
+            MainDashBoard mainForm = FindMainForm();
+            if (mainForm != null)
             {
                 CheckoutPopUpContainer checkoutContainer = new CheckoutPopUpContainer();
-                checkoutContainer.ShowCheckoutPopUp(transactionsPage, totalAmount, subtotal, tax, "WalkIn", this);
+                checkoutContainer.ShowCheckoutPopUp(mainForm, totalAmount, subtotal, tax, "WalkIn", this);
             }
             else
             {
-                MessageBox.Show("Unable to find transactions page.", "Error",
+                MessageBox.Show("Unable to find main form.", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-        private TransactionsMainPage FindTransactionsMainPage()
-        {
-            Control parent = this.Parent;
-            while (parent != null)
-            {
-                if (parent is TransactionsMainPage transactionsPage)
-                {
-                    return transactionsPage;
-                }
-                parent = parent.Parent;
-            }
-            return null;
         }
 
         private MainDashBoard FindMainForm()
@@ -370,14 +354,42 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             while (parent != null)
             {
                 if (parent is MainDashBoard mainForm)
-                {
                     return mainForm;
-                }
                 parent = parent.Parent;
             }
             return null;
         }
 
+        public decimal GetCartTotal()
+        {
+            return CalculateSubtotal() + CalculateTax(CalculateSubtotal());
+        }
+
+        public List<CartItem> GetCartItems()
+        {
+            var items = new List<CartItem>();
+            foreach (DataGridViewRow row in dgvCartDetails.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                if (row.Cells["ItemName"].Value != null &&
+                    row.Cells["Quantity"].Value != null &&
+                    row.Cells["Price"].Value != null)
+                {
+                    string priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
+                    if (decimal.TryParse(priceText, out decimal price))
+                    {
+                        items.Add(new CartItem
+                        {
+                            ProductName = row.Cells["ItemName"].Value.ToString(),
+                            Quantity = Convert.ToInt32(row.Cells["Quantity"].Value),
+                            Price = price
+                        });
+                    }
+                }
+            }
+            return items;
+        }
         public void ProcessWalkInTransaction(string paymentMethod, decimal cashReceived, decimal change)
         {
             try
@@ -457,11 +469,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             return false;
                         }
 
-                        string query = @"
-                            SELECT current_stock 
-                            FROM Products 
-                            WHERE product_name = @ProductName AND active = 1";
-
+                        string query = "SELECT current_stock FROM Products WHERE product_name = @ProductName AND active = 1";
                         SqlCommand command = new SqlCommand(query, connection);
                         command.Parameters.AddWithValue("@ProductName", productName);
 
@@ -506,37 +514,36 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         int customerId = GetOrCreateCustomer(connection, dbTransaction, customerName);
 
                         string insertTransactionQuery = @"
-                    INSERT INTO Transactions (
-                        transaction_date, 
-                        customer_id, 
-                        total_amount, 
-                        cashier, 
-                        payment_method, 
-                        cash_received, 
-                        change_amount
-                    )
-                    VALUES (
-                        GETDATE(), 
-                        @CustomerId, 
-                        @TotalAmount, 
-                        @Cashier, 
-                        @PaymentMethod, 
-                        @CashReceived, 
-                        @ChangeAmount
-                    );
-                    SELECT CAST(SCOPE_IDENTITY() as int);";
+                            INSERT INTO Transactions (
+                                transaction_date, 
+                                customer_id, 
+                                total_amount, 
+                                cashier, 
+                                payment_method, 
+                                cash_received, 
+                                change_amount
+                            )
+                            VALUES (
+                                GETDATE(), 
+                                @CustomerId, 
+                                @TotalAmount, 
+                                @Cashier, 
+                                @PaymentMethod, 
+                                @CashReceived, 
+                                @ChangeAmount
+                            );
+                            SELECT CAST(SCOPE_IDENTITY() as int);";
 
                         SqlCommand transactionCmd = new SqlCommand(insertTransactionQuery, connection, dbTransaction);
                         transactionCmd.Parameters.AddWithValue("@CustomerId", customerId);
                         transactionCmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
-                        transactionCmd.Parameters.AddWithValue("@Cashier", 1); // Default cashier ID
+                        transactionCmd.Parameters.AddWithValue("@Cashier", 1);
                         transactionCmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
                         transactionCmd.Parameters.AddWithValue("@CashReceived", cashReceived);
                         transactionCmd.Parameters.AddWithValue("@ChangeAmount", change);
 
                         int transactionId = (int)transactionCmd.ExecuteScalar();
 
-                        // Save transaction items and update stock (your existing code)
                         foreach (DataGridViewRow row in dgvCartDetails.Rows)
                         {
                             if (row.IsNewRow) continue;
@@ -551,18 +558,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             int productId = (int)productCmd.ExecuteScalar();
 
                             string insertItemQuery = @"
-                        INSERT INTO TransactionItems (
-                            transaction_id, 
-                            product_id, 
-                            quantity, 
-                            selling_price
-                        )
-                        VALUES (
-                            @TransactionId, 
-                            @ProductId, 
-                            @Quantity, 
-                            @SellingPrice
-                        );";
+                                INSERT INTO TransactionItems (transaction_id, product_id, quantity, selling_price)
+                                VALUES (@TransactionId, @ProductId, @Quantity, @SellingPrice);";
 
                             SqlCommand itemCmd = new SqlCommand(insertItemQuery, connection, dbTransaction);
                             itemCmd.Parameters.AddWithValue("@TransactionId", transactionId);
@@ -571,11 +568,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             itemCmd.Parameters.AddWithValue("@SellingPrice", price);
                             itemCmd.ExecuteNonQuery();
 
-                            // Update stock
                             string updateStockQuery = @"
-                        UPDATE Products 
-                        SET current_stock = current_stock - @Quantity 
-                        WHERE ProductInternalID = @ProductId";
+                                UPDATE Products 
+                                SET current_stock = current_stock - @Quantity 
+                                WHERE ProductInternalID = @ProductId";
 
                             SqlCommand stockCmd = new SqlCommand(updateStockQuery, connection, dbTransaction);
                             stockCmd.Parameters.AddWithValue("@Quantity", quantity);
@@ -592,14 +588,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                       $"Total Amount: ₱{totalAmount:N2}",
                             "Transaction Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-               
-
                         ClearCart();
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         dbTransaction.Rollback();
-                        throw new Exception($"Failed to save transaction: {ex.Message}", ex);
+                        throw;
                     }
                 }
             }
@@ -610,29 +604,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-
-
-
-
-
-
         private int GetOrCreateCustomer(SqlConnection connection, SqlTransaction transaction, string customerName)
         {
-            // For walk-in customers, we'll use the existing "Walk-in Customer" or create a new one if specified
-            if (customerName == "Walk-in Customer")
-            {
-                string checkCustomerQuery = "SELECT customer_id FROM Customers WHERE customer_name = @CustomerName";
-                SqlCommand checkCmd = new SqlCommand(checkCustomerQuery, connection, transaction);
-                checkCmd.Parameters.AddWithValue("@CustomerName", customerName);
+            string checkCustomerQuery = "SELECT customer_id FROM Customers WHERE customer_name = @CustomerName";
+            SqlCommand checkCmd = new SqlCommand(checkCustomerQuery, connection, transaction);
+            checkCmd.Parameters.AddWithValue("@CustomerName", customerName);
 
-                var existingCustomer = checkCmd.ExecuteScalar();
-                if (existingCustomer != null)
-                {
-                    return (int)existingCustomer;
-                }
+            var existingCustomer = checkCmd.ExecuteScalar();
+            if (existingCustomer != null)
+            {
+                return (int)existingCustomer;
             }
 
-            // Create new customer record
             string insertCustomerQuery = @"
                 INSERT INTO Customers (customer_name, created_at)
                 VALUES (@CustomerName, GETDATE());
@@ -696,10 +679,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = @"
-                        SELECT 
-                            product_name,
-                            SellingPrice,
-                            current_stock
+                        SELECT product_name, SellingPrice, current_stock
                         FROM Products 
                         WHERE ProductInternalID = @ProductInternalID 
                         AND active = 1 AND current_stock > 0";
@@ -753,49 +733,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             UpdateTotals();
         }
 
-        public decimal GetCartTotal()
-        {
-            return CalculateSubtotal() + CalculateTax(CalculateSubtotal());
+       
+
         }
-
-        public int GetCartItemCount()
-        {
-            int count = 0;
-            foreach (DataGridViewRow row in dgvCartDetails.Rows)
-            {
-                if (!row.IsNewRow) count++;
-            }
-            return count;
-        }
-
-        public List<CartItem> GetCartItems()
-        {
-            List<CartItem> items = new List<CartItem>();
-
-            foreach (DataGridViewRow row in dgvCartDetails.Rows)
-            {
-                if (row.IsNewRow) continue;
-
-                if (row.Cells["ItemName"].Value != null &&
-                    row.Cells["Quantity"].Value != null &&
-                    row.Cells["Price"].Value != null)
-                {
-                    string priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
-                    if (decimal.TryParse(priceText, out decimal price))
-                    {
-                        items.Add(new CartItem
-                        {
-                            ProductName = row.Cells["ItemName"].Value.ToString(),
-                            Quantity = Convert.ToInt32(row.Cells["Quantity"].Value),
-                            Price = price
-                        });
-                    }
-                }
-            }
-
-            return items;
-        }
-
-        
     }
-}

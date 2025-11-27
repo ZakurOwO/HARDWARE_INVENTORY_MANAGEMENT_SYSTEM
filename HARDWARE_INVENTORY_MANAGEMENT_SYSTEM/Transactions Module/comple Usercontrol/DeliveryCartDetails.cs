@@ -541,17 +541,63 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
+
         private MainDashBoard FindMainForm()
         {
             Control parent = this.Parent;
             while (parent != null)
             {
-                if (parent is MainDashBoard mainForm) return mainForm;
+                if (parent is MainDashBoard mainForm)
+                    return mainForm;
                 parent = parent.Parent;
             }
             return null;
         }
 
+        public string GetSelectedCustomerName()
+        {
+            return cbxChooseCustomer.SelectedItem?.ToString() ?? "Walk-in Customer";
+        }
+
+        public decimal CalculateTotalAmount()
+        {
+            decimal subtotal = CalculateSubtotal();
+            decimal tax = CalculateTax(subtotal);
+            decimal shippingFee = CalculateShippingFee();
+            return subtotal + tax + shippingFee;
+        }
+
+
+        public List<CartItem> GetCartItems()
+        {
+            var items = new List<CartItem>();
+            foreach (DataGridViewRow row in dgvCartDetails.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                if (row.Cells["ItemName"].Value != null &&
+                    row.Cells["Quantity"].Value != null &&
+                    row.Cells["Price"].Value != null)
+                {
+                    string priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
+                    if (decimal.TryParse(priceText, out decimal price))
+                    {
+                        items.Add(new CartItem
+                        {
+                            ProductName = row.Cells["ItemName"].Value.ToString(),
+                            Quantity = Convert.ToInt32(row.Cells["Quantity"].Value),
+                            Price = price
+                        });
+                    }
+                }
+            }
+            return items;
+        }
+
+        public List<VehicleRecord> GetSelectedVehicles()
+        {
+            return selectedVehicles;
+        }
         public void ProcessDeliveryTransaction(string paymentMethod, decimal cashReceived, decimal change)
         {
             try
@@ -571,11 +617,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        private string GetSelectedCustomerName()
-        {
-            return cbxChooseCustomer.SelectedItem?.ToString() ?? "Walk-in Customer";
-        }
-
+       
         private decimal CalculateTax(decimal subtotal)
         {
             return subtotal * 0.12m;

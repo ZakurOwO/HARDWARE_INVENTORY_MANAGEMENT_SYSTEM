@@ -88,73 +88,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void InitializePagination()
         {
-            // Create pagination helper
-            if (paginationHelper == null)
-            {
-                paginationHelper = new PaginationHelperCustomer(allProductsData, 10, true); // Always show
-                paginationHelper.PageChanged += PaginationHelper_PageChanged;
-            }
-            else
-            {
-                paginationHelper.UpdateData(allProductsData);
-            }
-
-            // Initialize pagination control if it exists
+            // If we have a pagination control, use it
             if (PaginationControl != null)
             {
-                PaginationControl.AlwaysShowPagination = true; // Force always show
+                PaginationControl.AlwaysShowPagination = true;
                 PaginationControl.InitializePagination(allProductsData, dgvInventoryList, 10);
-                PaginationControl.PageChanged += PaginationControl_PageChanged;
-                PaginationControl.ForceShow(); // Force visibility
+                PaginationControl.PageChanged += (s, pageNumber) =>
+                {
+                    if (paginationHelper != null)
+                    {
+                        paginationHelper.GoToPage(pageNumber);
+                    }
+                };
+                PaginationControl.ForceShow();
             }
             else
             {
-                // If no pagination control found, try to find it
-                FindAndConnectPaginationControl();
+                // Create internal pagination helper as fallback
+                paginationHelper = new PaginationHelperCustomer(allProductsData, 10, true);
+                paginationHelper.PageChanged += PaginationHelper_PageChanged;
             }
 
             // Load the first page
             LoadPageData();
-        }
-
-        private void FindAndConnectPaginationControl()
-        {
-            try
-            {
-                // Try to find pagination control in parent
-                var parentForm = this.FindForm();
-                if (parentForm != null)
-                {
-                    PaginationControl = FindControlRecursive<Inventory_Pagination>(parentForm);
-                    if (PaginationControl != null)
-                    {
-                        PaginationControl.AlwaysShowPagination = true;
-                        PaginationControl.InitializePagination(allProductsData, dgvInventoryList, 10);
-                        PaginationControl.PageChanged += PaginationControl_PageChanged;
-                        PaginationControl.ForceShow();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error finding pagination control: {ex.Message}");
-            }
-        }
-
-        private T FindControlRecursive<T>(Control parent) where T : Control
-        {
-            if (parent == null) return null;
-
-            foreach (Control control in parent.Controls)
-            {
-                if (control is T found)
-                    return found;
-
-                var child = FindControlRecursive<T>(control);
-                if (child != null)
-                    return child;
-            }
-            return null;
         }
 
         private void PaginationHelper_PageChanged(object sender, EventArgs e)
@@ -162,23 +118,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             LoadPageData();
         }
 
-        private void PaginationControl_PageChanged(object sender, int pageNumber)
-        {
-            if (paginationHelper != null)
-            {
-                paginationHelper.GoToPage(pageNumber);
-            }
-        }
-
         private void LoadPageData()
         {
-            if (paginationHelper == null) return;
-
             try
             {
                 dgvInventoryList.Rows.Clear();
 
-                var pageData = paginationHelper.GetCurrentPageData();
+                DataTable pageData;
+
+                if (PaginationControl != null && paginationHelper != null)
+                {
+                    pageData = paginationHelper.GetCurrentPageData();
+                }
+                else if (paginationHelper != null)
+                {
+                    pageData = paginationHelper.GetCurrentPageData();
+                }
+                else
+                {
+                    // No pagination, show all data
+                    pageData = allProductsData;
+                }
 
                 foreach (DataRow row in pageData.Rows)
                 {
@@ -419,68 +379,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 parent = parent.Parent;
             }
             return null;
-        }
-
-        private Image LoadProductImage(string imageFileName)
-        {
-            return ProductImageManager.GetProductImage(imageFileName);
-        }
-
-        private Image GetDefaultImage()
-        {
-            Bitmap defaultImage = new Bitmap(50, 50);
-            using (Graphics g = Graphics.FromImage(defaultImage))
-            {
-                g.Clear(Color.LightGray);
-                using (Font font = new Font("Arial", 8))
-                using (Brush brush = new SolidBrush(Color.DarkGray))
-                {
-                    g.DrawString("No Image", font, brush, 5, 15);
-                }
-            }
-            return defaultImage;
-        }
-
-        // Clean up images when rows are removed
-        private void dgvInventoryList_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            for (int i = e.RowIndex; i < e.RowIndex + e.RowCount; i++)
-            {
-                if (i >= 0 && i < dgvInventoryList.Rows.Count)
-                {
-                    var row = dgvInventoryList.Rows[i];
-                    // Only dispose product images (column 1), not resource icons
-                    if (row.Cells[1].Value is Image image && image != null)
-                    {
-                        // Only dispose if it's not the default image
-                        if (!IsDefaultImage(image))
-                        {
-                            image.Dispose();
-                        }
-                    }
-                }
-            }
-        }
-
-        private bool IsDefaultImage(Image image)
-        {
-            try
-            {
-                if (image.Width == 50 && image.Height == 50)
-                {
-                    using (Bitmap bmp = new Bitmap(image))
-                    {
-                        // Check if it's our default light gray image
-                        Color centerPixel = bmp.GetPixel(25, 25);
-                        return centerPixel.R == 211 && centerPixel.G == 211 && centerPixel.B == 211;
-                    }
-                }
-            }
-            catch
-            {
-                // Ignore errors
-            }
-            return false;
         }
 
         // Public method to refresh pagination when data changes

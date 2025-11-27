@@ -14,6 +14,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
     public partial class Checkout_PopUp : UserControl
     {
         public event EventHandler<CheckoutEventArgs> ProceedToPayClicked;
+        public event EventHandler CloseRequested; // ADD THIS LINE - missing event
 
         public Checkout_PopUp()
         {
@@ -149,7 +150,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             });
         }
 
-
         // Existing event handlers
         private void label4_Click(object sender, EventArgs e) { }
         private void label6_Click(object sender, EventArgs e) { }
@@ -158,30 +158,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void guna2Button3_Click(object sender, EventArgs e)
         {
-            // Close button - find and close the parent container
-            if (this.Parent != null && this.Parent.Parent != null)
-            {
-                var container = this.Parent.Parent as Panel;
-                if (container != null)
-                {
-                    // Find the CheckoutPopUpContainer and call CloseCheckoutPopUp
-                    var transactionsPage = this.Parent.Parent.Parent as TransactionsMainPage;
-                    if (transactionsPage != null)
-                    {
-                        // You might need to track the active container instance
-                        // For now, just hide the container and overlay
-                        container.Visible = false;
-
-                        // Hide overlay if it exists
-                        var mainForm = transactionsPage.FindForm() as MainDashBoard;
-                        mainForm?.pcbBlurOverlay.Hide();
-                    }
-                    else
-                    {
-                        container.Visible = false;
-                    }
-                }
-            }
+            // Simply raise the CloseRequested event
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }

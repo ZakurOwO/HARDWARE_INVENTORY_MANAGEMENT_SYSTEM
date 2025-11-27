@@ -538,5 +538,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         {
             // Optional styling
         }
+
+        private void btnMainButtonIcon_Click(object sender, EventArgs e)
+        {
+            //refresh button
+        }
     }
 }
