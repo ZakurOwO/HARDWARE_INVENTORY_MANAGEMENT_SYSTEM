@@ -125,11 +125,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 mainForm.pcbBlurOverlay.Visible = false;
             }
 
-            if (addCustomerForm != null)
-            {
-                addCustomerForm.Dispose();
-                addCustomerForm = null;
-            }
+                // Clean up form
+                if (addCustomerForm != null)
+                {
+                    if (!addCustomerForm.IsDisposed)
+                    {
+                        addCustomerForm.FormClosed -= (s, e) => CloseAddCustomerForm();
+                        addCustomerForm.Dispose();
+                    }
+                    addCustomerForm = null;
+                }
 
             if (scrollContainer != null)
             {
