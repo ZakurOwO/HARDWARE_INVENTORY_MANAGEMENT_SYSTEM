@@ -48,6 +48,12 @@
             this.CityCombobox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.ProvinceCombobox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cbxStatus = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label8
@@ -236,7 +242,7 @@
             this.tbxAddress.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
             this.tbxAddress.PlaceholderText = "Ex. Blk 20 Lot 12, Village, Borol 1st";
             this.tbxAddress.SelectedText = "";
-            this.tbxAddress.Size = new System.Drawing.Size(518, 36);
+            this.tbxAddress.Size = new System.Drawing.Size(229, 36);
             this.tbxAddress.TabIndex = 43;
             this.tbxAddress.TextOffset = new System.Drawing.Point(0, -2);
             this.tbxAddress.TextChanged += new System.EventHandler(this.tbxAddress_TextChanged);
@@ -255,7 +261,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(311, 324);
+            this.label7.Location = new System.Drawing.Point(23, 321);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 21);
             this.label7.TabIndex = 46;
@@ -265,7 +271,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(22, 324);
+            this.label9.Location = new System.Drawing.Point(311, 238);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(123, 21);
             this.label9.TabIndex = 44;
@@ -429,7 +435,7 @@
             "Tanay",
             "Taytay",
             "Teresa"});
-            this.CityCombobox.Location = new System.Drawing.Point(26, 348);
+            this.CityCombobox.Location = new System.Drawing.Point(315, 262);
             this.CityCombobox.Name = "CityCombobox";
             this.CityCombobox.Size = new System.Drawing.Size(228, 36);
             this.CityCombobox.TabIndex = 61;
@@ -483,7 +489,7 @@
             "Sorsogon",
             "Tarlac",
             "Zambales"});
-            this.ProvinceCombobox.Location = new System.Drawing.Point(314, 348);
+            this.ProvinceCombobox.Location = new System.Drawing.Point(26, 345);
             this.ProvinceCombobox.Name = "ProvinceCombobox";
             this.ProvinceCombobox.Size = new System.Drawing.Size(228, 36);
             this.ProvinceCombobox.TabIndex = 62;
@@ -498,6 +504,118 @@
             this.closeButton1.TabIndex = 30;
             this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.White;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label10.ForeColor = System.Drawing.Color.Red;
+            this.label10.Location = new System.Drawing.Point(80, 238);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(12, 13);
+            this.label10.TabIndex = 63;
+            this.label10.Text = "*";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.White;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label11.ForeColor = System.Drawing.Color.Red;
+            this.label11.Location = new System.Drawing.Point(430, 238);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(12, 13);
+            this.label11.TabIndex = 64;
+            this.label11.Text = "*";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.White;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label12.ForeColor = System.Drawing.Color.Red;
+            this.label12.Location = new System.Drawing.Point(88, 321);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(12, 13);
+            this.label12.TabIndex = 65;
+            this.label12.Text = "*";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.BackColor = System.Drawing.Color.White;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Location = new System.Drawing.Point(359, 322);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(12, 13);
+            this.label13.TabIndex = 68;
+            this.label13.Text = "*";
+            // 
+            // cbxStatus
+            // 
+            this.cbxStatus.BackColor = System.Drawing.Color.Transparent;
+            this.cbxStatus.BorderRadius = 8;
+            this.cbxStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxStatus.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbxStatus.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbxStatus.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cbxStatus.ItemHeight = 30;
+            this.cbxStatus.Items.AddRange(new object[] {
+            "NCR",
+            "Abra",
+            "Apayao",
+            "Aurora",
+            "Bataan",
+            "Batangas",
+            "Benguet",
+            "Bulacan",
+            "Cagayan",
+            "Camarines Norte",
+            "Camarines Sur",
+            "Catanduanes",
+            "Cavite",
+            "Ifugao",
+            "Ilocos Norte",
+            "Ilocos Sur",
+            "Isabela",
+            "Kalinga",
+            "La Union",
+            "Laguna",
+            "Marinduque",
+            "Masbate",
+            "Mountain Province",
+            "Nueva Ecija",
+            "Nueva Vizcaya",
+            "Occidental Mindoro",
+            "Oriental Mindoro",
+            "Palawan",
+            "Pampanga",
+            "Pangasinan",
+            "Quezon",
+            "Quirino",
+            "Rizal",
+            "Romblon",
+            "Sorsogon",
+            "Tarlac",
+            "Zambales"});
+            this.cbxStatus.Location = new System.Drawing.Point(315, 345);
+            this.cbxStatus.Name = "cbxStatus";
+            this.cbxStatus.Size = new System.Drawing.Size(228, 36);
+            this.cbxStatus.TabIndex = 67;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(312, 321);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(50, 21);
+            this.label14.TabIndex = 66;
+            this.label14.Text = "Status";
+            // 
             // AddCustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -506,6 +624,12 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.CancelButton = this.btnWhite;
             this.ClientSize = new System.Drawing.Size(565, 479);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.cbxStatus);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.ProvinceCombobox);
             this.Controls.Add(this.CityCombobox);
             this.Controls.Add(this.btnWhite);
@@ -557,5 +681,11 @@
         private Guna.UI2.WinForms.Guna2Button btnBlue;
         private Guna.UI2.WinForms.Guna2ComboBox CityCombobox;
         private Guna.UI2.WinForms.Guna2ComboBox ProvinceCombobox;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private Guna.UI2.WinForms.Guna2ComboBox cbxStatus;
+        private System.Windows.Forms.Label label14;
     }
 }

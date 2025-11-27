@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
@@ -27,18 +28,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
             // Create scroll container
             scrollContainer = new Panel();
-            scrollContainer.Size = new Size(583, 505);
-            scrollContainer.Location = new Point(472, 100);
-            scrollContainer.AutoScroll = true;
+            scrollContainer.Size = new Size(600, 505);
+            scrollContainer.Location = new Point(
+                (main.Width - scrollContainer.Width) / 2,
+                (main.Height - scrollContainer.Height) / 2
+            );
             scrollContainer.BorderStyle = BorderStyle.FixedSingle;
-
+            scrollContainer.AutoScroll = true;
 
             // Add form to container
             addForm.Size = new Size(scrollContainer.ClientSize.Width, 813);
             addForm.Location = new Point(0, 0);
             addForm.Dock = DockStyle.Top;
             addForm.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-
             scrollContainer.Controls.Add(addForm);
 
             // Keep the child width in sync with the container's client area so horizontal scrollbar never appears.
@@ -55,6 +57,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             // Add container to main form
             mainForm.Controls.Add(scrollContainer);
             scrollContainer.BringToFront();
+
+
         }
 
         private void ScrollContainer_Layout(object sender, LayoutEventArgs e)

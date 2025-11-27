@@ -1577,6 +1577,9 @@
     <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\SupplierOverlay.png" />
+    <None Include="Resources\POOverlay.png" />
+    <None Include="Resources\VehicleOverlay.png" />
     <None Include="Resources\users 022.png" />
     <None Include="Resources\Show Receipt.png" />
     <None Include="Resources\Pending2.png" />
@@ -1628,6 +1631,7 @@
     <None Include="Resources\ActiveStatus.png" />
     <None Include="Resources\Active1.png" />
     <None Include="Resources\AdjustStock.png" />
+    <None Include="Resources\AccountsOverlay.png" />
     <Content Include="Resources\Canceled.png" />
     <None Include="Resources\Pending1.png" />
     <None Include="Resources\Canceled1.png" />
@@ -1679,6 +1683,7 @@
     <None Include="Resources\InventoryOverlay.png" />
     <None Include="Resources\Categories1.png" />
     <None Include="Resources\CustomerOvelay.jpg" />
+    <None Include="Resources\InventoryOverlay %282%29.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

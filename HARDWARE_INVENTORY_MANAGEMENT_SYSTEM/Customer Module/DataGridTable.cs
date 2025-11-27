@@ -21,11 +21,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
             AddDataColumns();
             LoadCustomerData();
+            dgvCustomers.ClearSelection();
         }
 
         private void AddDataColumns()
         {
-            dgvCurrentStockReport.Columns.Clear();
+            dgvCustomers.Columns.Clear();
 
             // Add Customer_ID column (hidden)
             DataGridViewTextBoxColumn customerIdColumn = new DataGridViewTextBoxColumn
@@ -36,7 +37,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 Visible = false
             };
             customerIdColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCurrentStockReport.Columns.Add(customerIdColumn);
+            dgvCustomers.Columns.Add(customerIdColumn);
 
             // Add Customer_Name column
             DataGridViewTextBoxColumn customerNameColumn = new DataGridViewTextBoxColumn
@@ -48,7 +49,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 Width = 150
             };
             customerNameColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCurrentStockReport.Columns.Add(customerNameColumn);
+            dgvCustomers.Columns.Add(customerNameColumn);
 
             // Add Contact_Person column
             DataGridViewTextBoxColumn contactPersonColumn = new DataGridViewTextBoxColumn
@@ -60,7 +61,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 Width = 120
             };
             contactPersonColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCurrentStockReport.Columns.Add(contactPersonColumn);
+            dgvCustomers.Columns.Add(contactPersonColumn);
 
             // Add Address column
             DataGridViewTextBoxColumn addressColumn = new DataGridViewTextBoxColumn
@@ -72,7 +73,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 Width = 200
             };
             addressColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCurrentStockReport.Columns.Add(addressColumn);
+            dgvCustomers.Columns.Add(addressColumn);
 
             // Add Edit button column
             DataGridViewImageColumn editColumn = new DataGridViewImageColumn
@@ -84,7 +85,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 FillWeight = 20
             };
             editColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCurrentStockReport.Columns.Add(editColumn);
+            dgvCustomers.Columns.Add(editColumn);
 
             // Add Deactivate button column
             DataGridViewImageColumn deactivateColumn = new DataGridViewImageColumn
@@ -96,12 +97,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 FillWeight = 20
             };
             deactivateColumn.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCurrentStockReport.Columns.Add(deactivateColumn);
+            dgvCustomers.Columns.Add(deactivateColumn);
 
-            dgvCurrentStockReport.AutoGenerateColumns = false;
+            dgvCustomers.AutoGenerateColumns = false;
 
        
-            dgvCurrentStockReport.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCustomers.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         }
         public void LoadCustomerData()
         {
@@ -116,13 +117,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
                     if (PaginationControl != null)
                     {
-                        PaginationControl.InitializePagination(dt, dgvCurrentStockReport, 10);
+                        PaginationControl.InitializePagination(dt, dgvCustomers, 10);
                         PaginationControl.PageChanged += (s, page) => RefreshGridData();
                         RefreshGridData();
                     }
                     else
                     {
-                        dgvCurrentStockReport.DataSource = dt;
+                        dgvCustomers.DataSource = dt;
                     }
                 }
             }
@@ -142,7 +143,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
             if (PaginationControl != null)
             {
-                dgvCurrentStockReport.DataSource = PaginationControl.GetCurrentPageData();
+                dgvCustomers.DataSource = PaginationControl.GetCurrentPageData();
             }
         }
 
@@ -156,18 +157,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             if (e.RowIndex < 0) return;
 
             // Get the customer data from the row
-            int customerId = Convert.ToInt32(dgvCurrentStockReport.Rows[e.RowIndex].Cells["Customer_ID"].Value);
-            string customerName = dgvCurrentStockReport.Rows[e.RowIndex].Cells["Customer_Name"].Value?.ToString();
-            string contactNumber = dgvCurrentStockReport.Rows[e.RowIndex].Cells["Contact_Person"].Value?.ToString();
-            string address = dgvCurrentStockReport.Rows[e.RowIndex].Cells["Address"].Value?.ToString();
+            int customerId = Convert.ToInt32(dgvCustomers.Rows[e.RowIndex].Cells["Customer_ID"].Value);
+            string customerName = dgvCustomers.Rows[e.RowIndex].Cells["Customer_Name"].Value?.ToString();
+            string contactNumber = dgvCustomers.Rows[e.RowIndex].Cells["Contact_Person"].Value?.ToString();
+            string address = dgvCustomers.Rows[e.RowIndex].Cells["Address"].Value?.ToString();
 
             if (string.IsNullOrEmpty(customerName)) return;
 
-            if (e.ColumnIndex == dgvCurrentStockReport.Columns["Editbtn"].Index)
+            if (e.ColumnIndex == dgvCustomers.Columns["Editbtn"].Index)
             {
                 EditCustomer(customerId, customerName, contactNumber, address);
             }
-            else if (e.ColumnIndex == dgvCurrentStockReport.Columns["DeactivateBtn"].Index)
+            else if (e.ColumnIndex == dgvCustomers.Columns["DeactivateBtn"].Index)
             {
                 DeactivateCustomer(customerId, customerName);
             }
