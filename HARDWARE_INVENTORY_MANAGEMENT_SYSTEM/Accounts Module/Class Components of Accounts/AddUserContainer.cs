@@ -38,7 +38,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_
             addForm.Location = new Point(0, 0);
             addForm.Show();
 
-            mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.SupplierOverlay;
+            mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.AccountsOverlay;
             mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
             mainForm.pcbBlurOverlay.Visible = true;
             mainForm.pcbBlurOverlay.BringToFront();
