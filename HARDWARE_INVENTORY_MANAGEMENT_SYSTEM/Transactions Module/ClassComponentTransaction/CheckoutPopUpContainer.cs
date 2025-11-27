@@ -9,16 +9,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
     {
         private Panel scrollContainer;
         private Checkout_PopUp checkoutPopUp;
-        private TransactionsMainPage transactionsPage;
+        private MainDashBoard mainForm; // Changed from TransactionsMainPage to MainDashBoard
         private decimal totalAmount;
         private decimal subtotal;
         private decimal tax;
-        private string transactionType; // "WalkIn" or "Delivery"
-        private object cartData; // Can be DeliveryCartDetails or Walk_inCartDetails
+        private string transactionType;
+        private object cartData;
 
-        public void ShowCheckoutPopUp(TransactionsMainPage transactionsPage, decimal total, decimal subTotal, decimal taxAmount, string type, object cart)
+
+        // Updated method to accept MainDashBoard instead of TransactionsMainPage
+        public void ShowCheckoutPopUp(MainDashBoard mainForm, decimal total, decimal subTotal, decimal taxAmount, string type, object cart)
         {
-            this.transactionsPage = transactionsPage;
+            this.mainForm = mainForm;
             totalAmount = total;
             subtotal = subTotal;
             tax = taxAmount;
@@ -33,10 +35,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             checkoutPopUp.SetAmounts(subtotal, tax, totalAmount);
             checkoutPopUp.ProceedToPayClicked += CheckoutPopUp_ProceedToPayClicked;
 
-            // SCROLL CONTAINER (same as customer forms)
+            // SCROLL CONTAINER
             scrollContainer = new Panel();
             scrollContainer.Size = new Size(515, 402);
-            scrollContainer.Location = new Point(472, 100);   // SAME POSITION AS CUSTOMER FORMS
+            scrollContainer.Location = new Point(472, 100);
             scrollContainer.BorderStyle = BorderStyle.FixedSingle;
             scrollContainer.BackColor = Color.White;
 
@@ -45,12 +47,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             checkoutPopUp.Size = new Size(570, 490);
             checkoutPopUp.Location = new Point(5, 5);
 
-            // Find the parent form to add the overlay and container
-            var parentForm = transactionsPage.FindForm();
-            if (parentForm is MainDashBoard mainForm)
+            // Use the mainForm directly (no need to find it)
+            if (mainForm != null)
             {
                 // Overlay
-                mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.CustomerOvelay; // Or create a specific checkout overlay
+                mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.CustomerOvelay;
                 mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
                 mainForm.pcbBlurOverlay.Visible = true;
                 mainForm.pcbBlurOverlay.BringToFront();
@@ -58,12 +59,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 // Bring container
                 mainForm.Controls.Add(scrollContainer);
                 scrollContainer.BringToFront();
-            }
-            else
-            {
-                // Fallback: add directly to transactions page
-                transactionsPage.Controls.Add(scrollContainer);
-                scrollContainer.BringToFront();
+                checkoutPopUp.CloseRequested += (s, e) => CloseCheckoutPopUp();
             }
         }
 
@@ -96,7 +92,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             var walkInCart = cartData as Walk_inCartDetails;
             if (walkInCart != null)
             {
-                // Process walk-in transaction with payment details
                 walkInCart.ProcessWalkInTransaction(paymentMethod, cashReceived, change);
             }
         }
@@ -106,16 +101,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             var deliveryCart = cartData as DeliveryCartDetails;
             if (deliveryCart != null)
             {
-                // Process delivery transaction with payment details
                 deliveryCart.ProcessDeliveryTransaction(paymentMethod, cashReceived, change);
             }
         }
 
         public void CloseCheckoutPopUp()
         {
-            // Hide the overlay if we found a MainDashBoard
-            var parentForm = transactionsPage?.FindForm();
-            if (parentForm is MainDashBoard mainForm)
+            // Hide the overlay if we have mainForm
+            if (mainForm != null)
             {
                 mainForm.pcbBlurOverlay.Visible = false;
             }

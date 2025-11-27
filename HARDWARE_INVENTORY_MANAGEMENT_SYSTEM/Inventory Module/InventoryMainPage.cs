@@ -18,7 +18,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private InventoryList_Table inventoryTable;
         private AdjustStockManager adjustStockManager;
         private ItemDescription_Form itemDescriptionForm;
-        private Inventory_Pagination paginationControl;
 
         public InventoryMainPage()
         {
@@ -27,47 +26,36 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             adjustStockManager = new AdjustStockManager(this);
             InitializeSearch();
             InitializeItemDescriptionForm();
-
-            // Connect pagination after controls are loaded
-            this.Load += (s, e) => ConnectPagination();
+            ConnectPagination();
         }
 
         private void ConnectPagination()
         {
             try
             {
-                // Find the controls
+                // Find the inventory table control
                 inventoryTable = FindControlRecursive<InventoryList_Table>(this);
-                paginationControl = FindControlRecursive<Inventory_Pagination>(this);
 
-                if (inventoryTable != null && paginationControl != null)
+                if (inventoryTable != null && inventory_Pagination1 != null)
                 {
-                    // Directly set the pagination control reference
-                    inventoryTable.PaginationControl = paginationControl;
+                    // Set the pagination control reference
+                    inventoryTable.PaginationControl = inventory_Pagination1;
 
-                    // Force pagination to always show - ADD THESE LINES
-                    paginationControl.AlwaysShowPagination = true;
-                    paginationControl.Visible = true;
-                    paginationControl.BringToFront();
-
-                    // If data is already loaded, initialize pagination
-                    if (inventoryTable.Visible)
-                    {
-                        inventoryTable.RefreshData();
-                    }
+                    // Force pagination to always show
+                    inventory_Pagination1.AlwaysShowPagination = true;
+                    inventory_Pagination1.Visible = true;
+                    inventory_Pagination1.BringToFront();
 
                     Console.WriteLine("Pagination connected successfully!");
                 }
                 else
                 {
-                    Console.WriteLine("Pagination controls not found, but continuing...");
-                    // Don't show error message, just log it
+                    Console.WriteLine("Pagination controls not found!");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error connecting pagination: {ex.Message}");
-                // Don't show error message to user
             }
         }
 
@@ -205,28 +193,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             ClearSearch();
             inventoryTable?.RefreshData();
 
-            // Ensure pagination is visible after refresh - ADD THIS LINE
-            paginationControl?.ForceShow();
-        }
-
-        private void inventory_SearchField1_Load(object sender, EventArgs e)
-        {
-
+            // Ensure pagination is visible after refresh
+            inventory_Pagination1?.ForceShow();
         }
 
         // ADD THIS METHOD to ensure pagination stays visible
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
-            if (this.Visible && paginationControl != null)
+            if (this.Visible && inventory_Pagination1 != null)
             {
-                paginationControl.ForceShow();
+                inventory_Pagination1.ForceShow();
             }
+        }
+
+        private void inventory_SearchField1_Load(object sender, EventArgs e)
+        {
+            // Re-initialize search when search field loads
+            InitializeSearch();
         }
 
         private void inventory_Pagination1_Load(object sender, EventArgs e)
         {
-
+            // Ensure pagination is visible when it loads
+            inventory_Pagination1?.ForceShow();
         }
     }
 }
