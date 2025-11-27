@@ -17,8 +17,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
 {
     public partial class SettingsMainPage : UserControl
     {
-        
 
+        private SettingsSidePanel settingsSidePanel;
         public SettingsMainPage()
         {
             InitializeComponent();
@@ -27,9 +27,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
 
         private void SettingsMainPage_Load(object sender, EventArgs e)
         {
-            tabModules1.ShowAccounts += PnlNavBar_ShowAccounts;
-            tabModules1.ShowHistory += PnlNavBar_ShowHistory;
-            tabModules1.ShowAuditLog += PnlNavBar_ShowAuditLog;
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                settingsSidePanel = mainForm.Controls.OfType<SettingsSidePanel>().FirstOrDefault();
+                if (settingsSidePanel == null)
+                {
+                    // If side panel not yet added, try to find by name or SidePanel type
+                    settingsSidePanel = mainForm.Controls.OfType<SettingsSidePanel>().FirstOrDefault();
+                }
+
+                if (settingsSidePanel != null)
+                {
+                    // avoid duplicate subscription
+                    settingsSidePanel.ShowAccounts -= PnlNavBar_ShowAccounts;
+                    settingsSidePanel.ShowAccounts += PnlNavBar_ShowAccounts;
+
+                    settingsSidePanel.ShowHistory -= PnlNavBar_ShowHistory;
+                    settingsSidePanel.ShowHistory += PnlNavBar_ShowHistory;
+
+                    settingsSidePanel.ShowAuditLog -= PnlNavBar_ShowAuditLog;
+                    settingsSidePanel.ShowAuditLog += PnlNavBar_ShowAuditLog;
+                }
+            }
 
             ShowAccountsControl();
         }
@@ -73,14 +93,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
             pnlDisplaySettings.Controls.Add(auditLogUC);
         }
 
-        private void ProfileBtn_Click(object sender, EventArgs e)
-        {
-            var mainForm = this.FindForm() as MainDashBoard;
-            if (mainForm != null)
-            {
-                SettingsMainClass.ShowSettingsPanel(mainForm.MainContentPanelAccess);
-            }
-        }
+        
 
     }
 }

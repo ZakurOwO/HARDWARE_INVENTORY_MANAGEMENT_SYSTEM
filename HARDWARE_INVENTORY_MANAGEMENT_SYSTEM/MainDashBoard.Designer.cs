@@ -81,8 +81,8 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1210, 720);
             this.Controls.Add(this.MainContentPanel);
-            this.Controls.Add(this.ucTopBar1);
-            this.Controls.Add(this.sidePanel1);
+ //           this.Controls.Add(this.ucTopBar1);
+//            this.Controls.Add(this.sidePanel1);
             this.Controls.Add(this.pcbBlurOverlay);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

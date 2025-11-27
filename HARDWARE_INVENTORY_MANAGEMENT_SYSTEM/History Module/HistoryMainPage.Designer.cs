@@ -31,9 +31,9 @@
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
-            this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.datGridTableHistory1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module.DatGridTableHistory();
             this.kryptonPanel1 = new Krypton.Toolkit.KryptonPanel();
+            this.tbxSearchField = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
@@ -44,14 +44,14 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Gainsboro;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.tbxSearchField);
             this.guna2Panel1.Controls.Add(this.label1);
             this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
-            this.guna2Panel1.Controls.Add(this.searchField1);
             this.guna2Panel1.Controls.Add(this.datGridTableHistory1);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(945, 580);
+            this.guna2Panel1.Size = new System.Drawing.Size(940, 605);
             this.guna2Panel1.TabIndex = 5;
             // 
             // label1
@@ -67,19 +67,10 @@
             // inventoryFilter_Button1
             // 
             this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(326, 52);
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(331, 52);
             this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
             this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
             this.inventoryFilter_Button1.TabIndex = 0;
-            // 
-            // searchField1
-            // 
-            this.searchField1.BackColor = System.Drawing.Color.Transparent;
-            this.searchField1.Location = new System.Drawing.Point(29, 49);
-            this.searchField1.Name = "searchField1";
-            this.searchField1.PromptMessage = "Search History";
-            this.searchField1.Size = new System.Drawing.Size(299, 54);
-            this.searchField1.TabIndex = 0;
             // 
             // datGridTableHistory1
             // 
@@ -96,11 +87,36 @@
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.kryptonPanel1.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel1.Name = "kryptonPanel1";
-            this.kryptonPanel1.Size = new System.Drawing.Size(945, 580);
+            this.kryptonPanel1.Size = new System.Drawing.Size(940, 605);
             this.kryptonPanel1.StateCommon.Color1 = System.Drawing.Color.White;
             this.kryptonPanel1.StateCommon.Color2 = System.Drawing.Color.White;
             this.kryptonPanel1.StateNormal.Color1 = System.Drawing.Color.Transparent;
             this.kryptonPanel1.TabIndex = 0;
+            // 
+            // tbxSearchField
+            // 
+            this.tbxSearchField.BorderRadius = 8;
+            this.tbxSearchField.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbxSearchField.DefaultText = "";
+            this.tbxSearchField.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.tbxSearchField.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.tbxSearchField.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbxSearchField.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbxSearchField.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbxSearchField.Font = new System.Drawing.Font("Lexend Light", 9F);
+            this.tbxSearchField.ForeColor = System.Drawing.Color.DimGray;
+            this.tbxSearchField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbxSearchField.IconLeft = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.search_02;
+            this.tbxSearchField.IconLeftOffset = new System.Drawing.Point(5, 0);
+            this.tbxSearchField.Location = new System.Drawing.Point(34, 52);
+            this.tbxSearchField.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tbxSearchField.Name = "tbxSearchField";
+            this.tbxSearchField.PlaceholderForeColor = System.Drawing.Color.DimGray;
+            this.tbxSearchField.PlaceholderText = "Search History";
+            this.tbxSearchField.SelectedText = "";
+            this.tbxSearchField.Size = new System.Drawing.Size(291, 40);
+            this.tbxSearchField.TabIndex = 11;
+            this.tbxSearchField.TextOffset = new System.Drawing.Point(3, 0);
             // 
             // HistoryMainPage
             // 
@@ -111,7 +127,7 @@
             this.Controls.Add(this.kryptonPanel1);
             this.DoubleBuffered = true;
             this.Name = "HistoryMainPage";
-            this.Size = new System.Drawing.Size(945, 580);
+            this.Size = new System.Drawing.Size(940, 605);
             this.Load += new System.EventHandler(this.HistoryMainPage_Load);
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
@@ -125,9 +141,9 @@
 
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
-        private Accounts_Module.SearchField searchField1;
         private DatGridTableHistory datGridTableHistory1;
         private Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private System.Windows.Forms.Label label1;
+        private Guna.UI2.WinForms.Guna2TextBox tbxSearchField;
     }
 }

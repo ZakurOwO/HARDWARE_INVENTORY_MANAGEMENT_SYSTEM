@@ -30,10 +30,10 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnMainButtonIcon = new Guna.UI2.WinForms.Guna2Button();
             this.LayoutAccounts = new System.Windows.Forms.FlowLayoutPanel();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
-            this.btnMainButtonIcon = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,22 +53,40 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Gainsboro;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
+            this.guna2Panel1.Controls.Add(this.searchField1);
             this.guna2Panel1.Controls.Add(this.btnMainButtonIcon);
             this.guna2Panel1.Controls.Add(this.LayoutAccounts);
             this.guna2Panel1.Controls.Add(this.label1);
             this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
-            this.guna2Panel1.Controls.Add(this.searchField1);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(945, 580);
+            this.guna2Panel1.Size = new System.Drawing.Size(940, 605);
             this.guna2Panel1.TabIndex = 0;
+            // 
+            // btnMainButtonIcon
+            // 
+            this.btnMainButtonIcon.BorderRadius = 6;
+            this.btnMainButtonIcon.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnMainButtonIcon.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnMainButtonIcon.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnMainButtonIcon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnMainButtonIcon.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
+            this.btnMainButtonIcon.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMainButtonIcon.ForeColor = System.Drawing.Color.White;
+            this.btnMainButtonIcon.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Add_User;
+            this.btnMainButtonIcon.Location = new System.Drawing.Point(768, 56);
+            this.btnMainButtonIcon.Name = "btnMainButtonIcon";
+            this.btnMainButtonIcon.Size = new System.Drawing.Size(151, 40);
+            this.btnMainButtonIcon.TabIndex = 12;
+            this.btnMainButtonIcon.Text = "Add New User";
+            this.btnMainButtonIcon.Click += new System.EventHandler(this.btnMainButtonIcon_Click);
             // 
             // LayoutAccounts
             // 
-            this.LayoutAccounts.Location = new System.Drawing.Point(27, 111);
+            this.LayoutAccounts.Location = new System.Drawing.Point(21, 111);
             this.LayoutAccounts.Name = "LayoutAccounts";
-            this.LayoutAccounts.Size = new System.Drawing.Size(899, 469);
+            this.LayoutAccounts.Size = new System.Drawing.Size(899, 476);
             this.LayoutAccounts.TabIndex = 11;
             this.LayoutAccounts.Paint += new System.Windows.Forms.PaintEventHandler(this.Layout_Paint);
             // 
@@ -83,30 +101,11 @@
             // searchField1
             // 
             this.searchField1.BackColor = System.Drawing.Color.Transparent;
-            this.searchField1.Location = new System.Drawing.Point(27, 51);
+            this.searchField1.Location = new System.Drawing.Point(21, 51);
             this.searchField1.Name = "searchField1";
-            this.searchField1.PromptMessage = "Search User";
+            this.searchField1.PromptMessage = null;
             this.searchField1.Size = new System.Drawing.Size(299, 54);
-            this.searchField1.TabIndex = 3;
-            this.searchField1.Load += new System.EventHandler(this.searchField1_Load);
-            // 
-            // btnMainButtonIcon
-            // 
-            this.btnMainButtonIcon.BorderRadius = 6;
-            this.btnMainButtonIcon.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnMainButtonIcon.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnMainButtonIcon.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnMainButtonIcon.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnMainButtonIcon.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
-            this.btnMainButtonIcon.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMainButtonIcon.ForeColor = System.Drawing.Color.White;
-            this.btnMainButtonIcon.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Add_User;
-            this.btnMainButtonIcon.Location = new System.Drawing.Point(775, 56);
-            this.btnMainButtonIcon.Name = "btnMainButtonIcon";
-            this.btnMainButtonIcon.Size = new System.Drawing.Size(151, 40);
-            this.btnMainButtonIcon.TabIndex = 12;
-            this.btnMainButtonIcon.Text = "Add New User";
-            this.btnMainButtonIcon.Click += new System.EventHandler(this.btnMainButtonIcon_Click);
+            this.searchField1.TabIndex = 13;
             // 
             // AccountsMainPage
             // 
@@ -115,7 +114,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
             this.Controls.Add(this.guna2Panel1);
             this.Name = "AccountsMainPage";
-            this.Size = new System.Drawing.Size(945, 580);
+            this.Size = new System.Drawing.Size(940, 605);
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -123,11 +122,11 @@
         }
 
         #endregion
-        private SearchField searchField1;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private System.Windows.Forms.FlowLayoutPanel LayoutAccounts;
         private Guna.UI2.WinForms.Guna2Button btnMainButtonIcon;
+        private SearchField searchField1;
     }
 }

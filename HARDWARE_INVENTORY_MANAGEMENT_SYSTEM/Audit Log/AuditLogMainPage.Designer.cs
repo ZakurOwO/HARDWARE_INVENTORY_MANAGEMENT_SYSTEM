@@ -33,8 +33,8 @@
             this.auditDataGrid2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditDataGrid();
             this.btnMainButtonIcon = new Guna.UI2.WinForms.Guna2Button();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
-            this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.auditDataGrid1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditDataGrid();
+            this.tbxSearchField = new Guna.UI2.WinForms.Guna2TextBox();
             this.pnlAuditLog.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,15 +43,15 @@
             this.pnlAuditLog.BorderColor = System.Drawing.Color.Gainsboro;
             this.pnlAuditLog.BorderRadius = 15;
             this.pnlAuditLog.BorderThickness = 1;
+            this.pnlAuditLog.Controls.Add(this.tbxSearchField);
             this.pnlAuditLog.Controls.Add(this.label1);
             this.pnlAuditLog.Controls.Add(this.auditDataGrid2);
             this.pnlAuditLog.Controls.Add(this.btnMainButtonIcon);
             this.pnlAuditLog.Controls.Add(this.inventoryFilter_Button1);
-            this.pnlAuditLog.Controls.Add(this.searchField1);
             this.pnlAuditLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlAuditLog.Location = new System.Drawing.Point(0, 0);
             this.pnlAuditLog.Name = "pnlAuditLog";
-            this.pnlAuditLog.Size = new System.Drawing.Size(945, 580);
+            this.pnlAuditLog.Size = new System.Drawing.Size(940, 605);
             this.pnlAuditLog.TabIndex = 1;
             // 
             // label1
@@ -66,9 +66,9 @@
             // 
             // auditDataGrid2
             // 
-            this.auditDataGrid2.Location = new System.Drawing.Point(29, 105);
+            this.auditDataGrid2.Location = new System.Drawing.Point(29, 111);
             this.auditDataGrid2.Name = "auditDataGrid2";
-            this.auditDataGrid2.Size = new System.Drawing.Size(887, 468);
+            this.auditDataGrid2.Size = new System.Drawing.Size(887, 465);
             this.auditDataGrid2.TabIndex = 8;
             // 
             // btnMainButtonIcon
@@ -82,7 +82,7 @@
             this.btnMainButtonIcon.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMainButtonIcon.ForeColor = System.Drawing.Color.White;
             this.btnMainButtonIcon.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.upload;
-            this.btnMainButtonIcon.Location = new System.Drawing.Point(754, 48);
+            this.btnMainButtonIcon.Location = new System.Drawing.Point(754, 55);
             this.btnMainButtonIcon.Name = "btnMainButtonIcon";
             this.btnMainButtonIcon.Size = new System.Drawing.Size(162, 40);
             this.btnMainButtonIcon.TabIndex = 7;
@@ -91,19 +91,10 @@
             // inventoryFilter_Button1
             // 
             this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(332, 51);
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(332, 53);
             this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
             this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
             this.inventoryFilter_Button1.TabIndex = 6;
-            // 
-            // searchField1
-            // 
-            this.searchField1.BackColor = System.Drawing.Color.Transparent;
-            this.searchField1.Location = new System.Drawing.Point(25, 47);
-            this.searchField1.Name = "searchField1";
-            this.searchField1.PromptMessage = "Search Activity";
-            this.searchField1.Size = new System.Drawing.Size(299, 54);
-            this.searchField1.TabIndex = 5;
             // 
             // auditDataGrid1
             // 
@@ -111,6 +102,31 @@
             this.auditDataGrid1.Name = "auditDataGrid1";
             this.auditDataGrid1.Size = new System.Drawing.Size(887, 505);
             this.auditDataGrid1.TabIndex = 8;
+            // 
+            // tbxSearchField
+            // 
+            this.tbxSearchField.BorderRadius = 8;
+            this.tbxSearchField.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbxSearchField.DefaultText = "";
+            this.tbxSearchField.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.tbxSearchField.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.tbxSearchField.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbxSearchField.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbxSearchField.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbxSearchField.Font = new System.Drawing.Font("Lexend Light", 9F);
+            this.tbxSearchField.ForeColor = System.Drawing.Color.DimGray;
+            this.tbxSearchField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbxSearchField.IconLeft = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.search_02;
+            this.tbxSearchField.IconLeftOffset = new System.Drawing.Point(5, 0);
+            this.tbxSearchField.Location = new System.Drawing.Point(29, 53);
+            this.tbxSearchField.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tbxSearchField.Name = "tbxSearchField";
+            this.tbxSearchField.PlaceholderForeColor = System.Drawing.Color.DimGray;
+            this.tbxSearchField.PlaceholderText = "Search Activity";
+            this.tbxSearchField.SelectedText = "";
+            this.tbxSearchField.Size = new System.Drawing.Size(291, 40);
+            this.tbxSearchField.TabIndex = 10;
+            this.tbxSearchField.TextOffset = new System.Drawing.Point(3, 0);
             // 
             // AuditLogMainPage
             // 
@@ -121,7 +137,7 @@
             this.Controls.Add(this.pnlAuditLog);
             this.DoubleBuffered = true;
             this.Name = "AuditLogMainPage";
-            this.Size = new System.Drawing.Size(945, 580);
+            this.Size = new System.Drawing.Size(940, 605);
             this.Load += new System.EventHandler(this.AuditLogMainPage_Load);
             this.pnlAuditLog.ResumeLayout(false);
             this.pnlAuditLog.PerformLayout();
@@ -134,8 +150,8 @@
         private AuditDataGrid auditDataGrid1;
         private Guna.UI2.WinForms.Guna2Button btnMainButtonIcon;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
-        private Accounts_Module.SearchField searchField1;
         private AuditDataGrid auditDataGrid2;
         private System.Windows.Forms.Label label1;
+        private Guna.UI2.WinForms.Guna2TextBox tbxSearchField;
     }
 }

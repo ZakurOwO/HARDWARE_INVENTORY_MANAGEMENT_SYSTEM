@@ -17,6 +17,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
     public partial class SettingsSidePanel : UserControl
     {
         private Button activeButton = null;
+        public event EventHandler ShowAccounts;
+        public event EventHandler ShowHistory;
+        public event EventHandler ShowAuditLog;
         public SettingsSidePanel()
         {
             InitializeComponent();
@@ -94,50 +97,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
             }
         }
 
-        private void AccountsBTN_Click(object sender, EventArgs e)
-        {
-            CloseAllOverlays();
-            HighlightButton((Button)sender);
-
-            var mainForm = this.FindForm() as MainDashBoard;
-            if (mainForm != null)
-            {
-                mainForm.MainContentPanelAccess.Controls.Clear();
-                AccountsMainPage accounts = new AccountsMainPage();
-                accounts.Dock = DockStyle.Fill;
-                mainForm.MainContentPanelAccess.Controls.Add(accounts);
-            }
-        }
-
-        private void AuditLogBTN_Click(object sender, EventArgs e)
-        {
-            CloseAllOverlays();
-            HighlightButton((Button)sender);
-
-            var mainForm = this.FindForm() as MainDashBoard;
-            if (mainForm != null)
-            {
-                mainForm.MainContentPanelAccess.Controls.Clear();
-                AuditLogMainPage audit = new AuditLogMainPage();
-                audit.Dock = DockStyle.Fill;
-                mainForm.MainContentPanelAccess.Controls.Add(audit);
-            }
-        }
-
-        private void HistoryBTN_Click(object sender, EventArgs e)
-        {
-            CloseAllOverlays();
-            HighlightButton((Button)sender);
-
-            var mainForm = this.FindForm() as MainDashBoard;
-            if (mainForm != null)
-            {
-                mainForm.MainContentPanelAccess.Controls.Clear();
-                HistoryMainPage history = new HistoryMainPage();
-                history.Dock = DockStyle.Fill;
-                mainForm.MainContentPanelAccess.Controls.Add(history);
-            }
-        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -153,6 +112,31 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
                 path.CloseAllFigures();
                 this.Region = new Region(path);
             }
+        }
+
+
+        private void AuditLogBTN_Click(object sender, EventArgs e)
+        {
+            CloseAllOverlays();
+            HighlightButton((Button)sender);
+
+            ShowAuditLog?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void HistoryBTN_Click(object sender, EventArgs e)
+        {
+            CloseAllOverlays();
+            HighlightButton((Button)sender);
+
+            ShowHistory?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void AccountsBTN_Click(object sender, EventArgs e)
+        {
+            CloseAllOverlays();
+            HighlightButton((Button)sender);
+
+            ShowAccounts?.Invoke(this, EventArgs.Empty);
         }
     }
 }

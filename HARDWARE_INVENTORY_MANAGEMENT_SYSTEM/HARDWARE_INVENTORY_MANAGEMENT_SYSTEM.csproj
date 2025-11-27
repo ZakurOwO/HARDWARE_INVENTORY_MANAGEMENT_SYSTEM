@@ -1643,6 +1643,10 @@
     <None Include="Resources\Active1.png" />
     <None Include="Resources\AdjustStock.png" />
     <None Include="Resources\AccountsOverlay.png" />
+    <None Include="Resources\BackArrow.png" />
+    <None Include="Resources\arrow-left-rectangle.png" />
+    <None Include="Resources\arrow-left-rectangle1.png" />
+    <None Include="Resources\arrow-left.png" />
     <Content Include="Resources\Canceled.png" />
     <None Include="Resources\Pending1.png" />
     <None Include="Resources\Canceled1.png" />

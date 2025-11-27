@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.AccountsBTN = new System.Windows.Forms.Button();
-            this.HistoryBTN = new System.Windows.Forms.Button();
-            this.AuditLogBTN = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.AuditLogBTN = new System.Windows.Forms.Button();
+            this.HistoryBTN = new System.Windows.Forms.Button();
+            this.AccountsBTN = new System.Windows.Forms.Button();
             this.guna2Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -48,39 +48,29 @@
             this.label1.TabIndex = 23;
             this.label1.Text = "Settings";
             // 
-            // AccountsBTN
+            // guna2Panel1
             // 
-            this.AccountsBTN.BackColor = System.Drawing.Color.Transparent;
-            this.AccountsBTN.FlatAppearance.BorderSize = 0;
-            this.AccountsBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AccountsBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.AccountsBTN.ForeColor = System.Drawing.Color.Black;
-            this.AccountsBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Customer;
-            this.AccountsBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AccountsBTN.Location = new System.Drawing.Point(6, 95);
-            this.AccountsBTN.Name = "AccountsBTN";
-            this.AccountsBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.AccountsBTN.Size = new System.Drawing.Size(188, 39);
-            this.AccountsBTN.TabIndex = 24;
-            this.AccountsBTN.Text = "    Accounts";
-            this.AccountsBTN.UseVisualStyleBackColor = false;
+            this.guna2Panel1.BorderRadius = 15;
+            this.guna2Panel1.Controls.Add(this.pictureBox1);
+            this.guna2Panel1.Controls.Add(this.AuditLogBTN);
+            this.guna2Panel1.Controls.Add(this.HistoryBTN);
+            this.guna2Panel1.Controls.Add(this.AccountsBTN);
+            this.guna2Panel1.Controls.Add(this.label1);
+            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
+            this.guna2Panel1.Name = "guna2Panel1";
+            this.guna2Panel1.Size = new System.Drawing.Size(197, 698);
+            this.guna2Panel1.TabIndex = 9;
             // 
-            // HistoryBTN
+            // pictureBox1
             // 
-            this.HistoryBTN.BackColor = System.Drawing.Color.Transparent;
-            this.HistoryBTN.FlatAppearance.BorderSize = 0;
-            this.HistoryBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.HistoryBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
-            this.HistoryBTN.ForeColor = System.Drawing.Color.Black;
-            this.HistoryBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.HistoryIcon;
-            this.HistoryBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.HistoryBTN.Location = new System.Drawing.Point(6, 151);
-            this.HistoryBTN.Name = "HistoryBTN";
-            this.HistoryBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.HistoryBTN.Size = new System.Drawing.Size(188, 39);
-            this.HistoryBTN.TabIndex = 25;
-            this.HistoryBTN.Text = " History";
-            this.HistoryBTN.UseVisualStyleBackColor = false;
+            this.pictureBox1.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Topaz_Icon;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(18, 31);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(47, 38);
+            this.pictureBox1.TabIndex = 27;
+            this.pictureBox1.TabStop = false;
             // 
             // AuditLogBTN
             // 
@@ -98,30 +88,43 @@
             this.AuditLogBTN.TabIndex = 26;
             this.AuditLogBTN.Text = "     Audit Log";
             this.AuditLogBTN.UseVisualStyleBackColor = false;
+            this.AuditLogBTN.Click += new System.EventHandler(this.AuditLogBTN_Click);
             // 
-            // pictureBox1
+            // HistoryBTN
             // 
-            this.pictureBox1.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Topaz_Icon;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBox1.Location = new System.Drawing.Point(18, 31);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(47, 38);
-            this.pictureBox1.TabIndex = 27;
-            this.pictureBox1.TabStop = false;
+            this.HistoryBTN.BackColor = System.Drawing.Color.Transparent;
+            this.HistoryBTN.FlatAppearance.BorderSize = 0;
+            this.HistoryBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.HistoryBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.HistoryBTN.ForeColor = System.Drawing.Color.Black;
+            this.HistoryBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.HistoryIcon;
+            this.HistoryBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.HistoryBTN.Location = new System.Drawing.Point(6, 151);
+            this.HistoryBTN.Name = "HistoryBTN";
+            this.HistoryBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.HistoryBTN.Size = new System.Drawing.Size(188, 39);
+            this.HistoryBTN.TabIndex = 25;
+            this.HistoryBTN.Text = " History";
+            this.HistoryBTN.UseVisualStyleBackColor = false;
+            this.HistoryBTN.Click += new System.EventHandler(this.HistoryBTN_Click);
             // 
-            // guna2Panel1
+            // AccountsBTN
             // 
-            this.guna2Panel1.BorderRadius = 15;
-            this.guna2Panel1.Controls.Add(this.pictureBox1);
-            this.guna2Panel1.Controls.Add(this.AuditLogBTN);
-            this.guna2Panel1.Controls.Add(this.HistoryBTN);
-            this.guna2Panel1.Controls.Add(this.AccountsBTN);
-            this.guna2Panel1.Controls.Add(this.label1);
-            this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
-            this.guna2Panel1.Name = "guna2Panel1";
-            this.guna2Panel1.Size = new System.Drawing.Size(197, 698);
-            this.guna2Panel1.TabIndex = 9;
+            this.AccountsBTN.BackColor = System.Drawing.Color.Transparent;
+            this.AccountsBTN.FlatAppearance.BorderSize = 0;
+            this.AccountsBTN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.AccountsBTN.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold);
+            this.AccountsBTN.ForeColor = System.Drawing.Color.Black;
+            this.AccountsBTN.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Customer;
+            this.AccountsBTN.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.AccountsBTN.Location = new System.Drawing.Point(6, 95);
+            this.AccountsBTN.Name = "AccountsBTN";
+            this.AccountsBTN.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.AccountsBTN.Size = new System.Drawing.Size(188, 39);
+            this.AccountsBTN.TabIndex = 24;
+            this.AccountsBTN.Text = "    Accounts";
+            this.AccountsBTN.UseVisualStyleBackColor = false;
+            this.AccountsBTN.Click += new System.EventHandler(this.AccountsBTN_Click);
             // 
             // SettingsSidePanel
             // 
@@ -132,9 +135,9 @@
             this.Name = "SettingsSidePanel";
             this.Size = new System.Drawing.Size(197, 698);
             this.Load += new System.EventHandler(this.SettingsSidePanel_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
