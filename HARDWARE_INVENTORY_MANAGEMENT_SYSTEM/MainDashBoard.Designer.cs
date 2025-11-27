@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.pcbBlurOverlay = new System.Windows.Forms.PictureBox();
-            this.ucKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucKeyMetrics();
             this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
             this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
             this.MainContentPanel = new System.Windows.Forms.Panel();
@@ -47,14 +46,6 @@
             this.pcbBlurOverlay.TabIndex = 4;
             this.pcbBlurOverlay.TabStop = false;
             this.pcbBlurOverlay.Visible = false;
-            // 
-            // ucKeyMetrics1
-            // 
-            this.ucKeyMetrics1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.ucKeyMetrics1.Location = new System.Drawing.Point(271, 88);
-            this.ucKeyMetrics1.Name = "ucKeyMetrics1";
-            this.ucKeyMetrics1.Size = new System.Drawing.Size(879, 93);
-            this.ucKeyMetrics1.TabIndex = 2;
             // 
             // ucTopBar1
             // 
@@ -90,10 +81,9 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1210, 720);
             this.Controls.Add(this.MainContentPanel);
-            this.Controls.Add(this.pcbBlurOverlay);
-            this.Controls.Add(this.ucKeyMetrics1);
             this.Controls.Add(this.ucTopBar1);
             this.Controls.Add(this.sidePanel1);
+            this.Controls.Add(this.pcbBlurOverlay);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "MainDashBoard";
@@ -109,7 +99,6 @@
 
         private SidePanel sidePanel1;
         private ucTopBar ucTopBar1;
-        private ucKeyMetrics ucKeyMetrics1;
         public System.Windows.Forms.PictureBox pcbBlurOverlay;
         private System.Windows.Forms.Panel MainContentPanel;
     }

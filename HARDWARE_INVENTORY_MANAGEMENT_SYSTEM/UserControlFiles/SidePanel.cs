@@ -61,7 +61,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         // Highlight the selected button and reset others
         private void HighlightButton(Button clickedButton)
         {
-            Color defaultBack = Color.FromArgb(209, 228, 242);
+            Color defaultBack = Color.FromArgb(204, 228, 248);
             Color activeBack = Color.FromArgb(184, 213, 229);
             Color activeText = Color.FromArgb(0, 87, 158);
 

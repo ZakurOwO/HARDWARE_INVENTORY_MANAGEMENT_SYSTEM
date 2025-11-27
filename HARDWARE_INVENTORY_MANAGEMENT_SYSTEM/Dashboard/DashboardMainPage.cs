@@ -1,4 +1,5 @@
-﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,12 +16,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
 {
     public partial class DashboardMainPage : UserControl
     {
+        private ProfileMenuPainter profileMenuPainter = ProfileMenuPainter.CreateFromUserSession();
         public DashboardMainPage()
         {
             InitializeComponent();
+            ProfileMenu.Paint += ProfileBtn_Paint;
         }
 
-
+        
+        private void ProfileBtn_Paint(object sender, PaintEventArgs e)
+        {
+            profileMenuPainter?.Draw(e);
+        }
 
         private void DashboardMainPage_Load(object sender, EventArgs e)
         {
@@ -170,5 +177,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
             }
         }
 
+        private void ProfileMenu_Click(object sender, EventArgs e)
+        {
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                SettingsMainClass.ShowSettingsPanel(mainForm.MainContentPanelAccess);
+            }
+        }
     }
 }
