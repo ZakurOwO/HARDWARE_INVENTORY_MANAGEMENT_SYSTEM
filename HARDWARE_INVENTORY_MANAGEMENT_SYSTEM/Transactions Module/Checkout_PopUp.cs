@@ -1,5 +1,4 @@
-﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
@@ -34,10 +34,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         public void SetAmounts(decimal subtotal, decimal tax, decimal total)
         {
-            // Update the labels with the amounts
-            if (label5 != null) label5.Text = $"₱{subtotal:N2}"; // subtotallbl
-            if (label6 != null) label6.Text = $"₱{tax:N2}";      // taxlbl
-            if (Totallbl != null) Totallbl.Text = $"₱{total:N2}";    // totallbl
+            if (label5 != null) label5.Text = $"₱{subtotal:N2}";
+            if (label6 != null) label6.Text = $"₱{tax:N2}";
+            if (Totallbl != null) Totallbl.Text = $"₱{total:N2}";
         }
 
         private void cbxPaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
@@ -80,7 +79,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     decimal change = cashReceived - totalAmount;
                     lblChangeAmount.Text = $"₱{change:N2}";
 
-                    // Change color based on whether cash is sufficient
                     if (change >= 0)
                     {
                         lblChangeAmount.ForeColor = Color.Green;
@@ -100,13 +98,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void tbxCashReceived_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Allow only numbers, decimal point, and control characters
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
             {
                 e.Handled = true;
             }
 
-            // Allow only one decimal point
             if (e.KeyChar == '.' && (sender as TextBox).Text.IndexOf('.') > -1)
             {
                 e.Handled = true;
@@ -115,7 +111,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            // Proceed to pay button
             ProcessPayment();
         }
 
@@ -144,18 +139,49 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     return;
                 }
             }
+
+            // Raise the event to notify the container
+            ProceedToPayClicked?.Invoke(this, new CheckoutEventArgs
+            {
+                PaymentMethod = paymentMethod,
+                CashReceived = cashReceived,
+                Change = change
+            });
         }
 
-            private void guna2Button4_Click(object sender, EventArgs e)
-        {
-            // Just hide this popup, don't close the entire form
-            this.Visible = false;
-        }
 
         // Existing event handlers
-        private void label4_Click(object sender, EventArgs e) { } // totalbl
-        private void label6_Click(object sender, EventArgs e) { } // taxlbl
-        private void label5_Click(object sender, EventArgs e) { } // subtotallbl
+        private void label4_Click(object sender, EventArgs e) { }
+        private void label6_Click(object sender, EventArgs e) { }
+        private void label5_Click(object sender, EventArgs e) { }
         private void lblChangeAmount_Click(object sender, EventArgs e) { }
+
+        private void guna2Button3_Click(object sender, EventArgs e)
+        {
+            // Close button - find and close the parent container
+            if (this.Parent != null && this.Parent.Parent != null)
+            {
+                var container = this.Parent.Parent as Panel;
+                if (container != null)
+                {
+                    // Find the CheckoutPopUpContainer and call CloseCheckoutPopUp
+                    var transactionsPage = this.Parent.Parent.Parent as TransactionsMainPage;
+                    if (transactionsPage != null)
+                    {
+                        // You might need to track the active container instance
+                        // For now, just hide the container and overlay
+                        container.Visible = false;
+
+                        // Hide overlay if it exists
+                        var mainForm = transactionsPage.FindForm() as MainDashBoard;
+                        mainForm?.pcbBlurOverlay.Hide();
+                    }
+                    else
+                    {
+                        container.Visible = false;
+                    }
+                }
+            }
+        }
     }
 }
