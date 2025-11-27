@@ -10,10 +10,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
 
         //Danielle's Local DB Connection String
-        public static readonly string DataSource = @"Data Source=localhost;Initial Catalog=TopazHardwareDb;Integrated Security=True;TrustServerCertificate=True;";
+        //public static readonly string DataSource = @"Data Source=localhost;Initial Catalog=TopazHardwareDb;Integrated Security=True;TrustServerCertificate=True;";
 
         //karl's Local DB Connection String
-        //public static readonly string DataSource = @"Data Source=ACHILLES\SQLEXPRESS;Initial Catalog=TopazHardwareDb;Integrated Security=True;TrustServerCertificate=True;";
+        public static readonly string DataSource = @"Data Source=ACHILLES\SQLEXPRESS;Initial Catalog=TopazHardwareDb;Integrated Security=True;TrustServerCertificate=True;";
 
 
         //Janel's Local DB Connection String

@@ -52,8 +52,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             scrollContainer?.Controls.Clear();
             scrollContainer?.Parent?.Controls.Remove(scrollContainer);
             scrollContainer?.Dispose();
-
             SupplierAddForm?.Dispose();
         }
+
     }
 }

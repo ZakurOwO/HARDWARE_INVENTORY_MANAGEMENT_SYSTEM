@@ -157,6 +157,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             if (btnWhite != null)
             {
                 btnWhite.Click += (s, e) => CancelRequested?.Invoke(this, EventArgs.Empty);
+                closeButton1.Click += (s, e) => CancelRequested?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -399,6 +400,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             }
         }
 
-       
+        private void closeButton1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnWhite_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

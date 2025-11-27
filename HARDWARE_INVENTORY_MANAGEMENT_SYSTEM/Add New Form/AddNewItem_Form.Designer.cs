@@ -321,6 +321,7 @@
             this.ImageUploadBox.Location = new System.Drawing.Point(329, 376);
             this.ImageUploadBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ImageUploadBox.Name = "ImageUploadBox";
+            this.ImageUploadBox.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.ImageUploadBox.PlaceholderText = "";
             this.ImageUploadBox.SelectedText = "";
             this.ImageUploadBox.Size = new System.Drawing.Size(228, 36);
@@ -458,6 +459,7 @@
             this.Brandtxtbox.Location = new System.Drawing.Point(327, 174);
             this.Brandtxtbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Brandtxtbox.Name = "Brandtxtbox";
+            this.Brandtxtbox.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.Brandtxtbox.PlaceholderText = "";
             this.Brandtxtbox.SelectedText = "";
             this.Brandtxtbox.Size = new System.Drawing.Size(228, 36);
@@ -489,6 +491,7 @@
             this.SKUtxtbox.Location = new System.Drawing.Point(327, 94);
             this.SKUtxtbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SKUtxtbox.Name = "SKUtxtbox";
+            this.SKUtxtbox.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.SKUtxtbox.PlaceholderText = "";
             this.SKUtxtbox.SelectedText = "";
             this.SKUtxtbox.Size = new System.Drawing.Size(228, 36);
@@ -517,10 +520,11 @@
             this.ProductNametxtbox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.ProductNametxtbox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProductNametxtbox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.ProductNametxtbox.Location = new System.Drawing.Point(27, 94);
+            this.ProductNametxtbox.Location = new System.Drawing.Point(22, 94);
             this.ProductNametxtbox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.ProductNametxtbox.Name = "ProductNametxtbox";
-            this.ProductNametxtbox.PlaceholderText = "";
+            this.ProductNametxtbox.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.ProductNametxtbox.PlaceholderText = "Plywood";
             this.ProductNametxtbox.SelectedText = "";
             this.ProductNametxtbox.Size = new System.Drawing.Size(228, 36);
             this.ProductNametxtbox.TabIndex = 5;
@@ -548,12 +552,12 @@
             this.ClearBtn.FillColor = System.Drawing.Color.White;
             this.ClearBtn.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClearBtn.Location = new System.Drawing.Point(316, 756);
+            this.ClearBtn.Location = new System.Drawing.Point(311, 752);
             this.ClearBtn.Name = "ClearBtn";
             this.ClearBtn.PressedColor = System.Drawing.Color.Azure;
             this.ClearBtn.Size = new System.Drawing.Size(120, 40);
             this.ClearBtn.TabIndex = 41;
-            this.ClearBtn.Text = "Clear";
+            this.ClearBtn.Text = "Cancel";
             this.ClearBtn.Click += new System.EventHandler(this.ClearBtn_Click);
             // 
             // AddBtn
@@ -566,7 +570,7 @@
             this.AddBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
             this.AddBtn.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AddBtn.ForeColor = System.Drawing.Color.White;
-            this.AddBtn.Location = new System.Drawing.Point(447, 756);
+            this.AddBtn.Location = new System.Drawing.Point(442, 752);
             this.AddBtn.Name = "AddBtn";
             this.AddBtn.Size = new System.Drawing.Size(120, 40);
             this.AddBtn.TabIndex = 40;

@@ -68,7 +68,7 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Lexend SemiBold", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(14, 24);
+            this.label1.Location = new System.Drawing.Point(15, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(133, 27);
             this.label1.TabIndex = 31;
@@ -282,9 +282,9 @@
             this.btnWhite.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnWhite.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnWhite.FillColor = System.Drawing.Color.White;
-            this.btnWhite.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWhite.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWhite.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnWhite.Location = new System.Drawing.Point(292, 423);
+            this.btnWhite.Location = new System.Drawing.Point(290, 417);
             this.btnWhite.Name = "btnWhite";
             this.btnWhite.PressedColor = System.Drawing.Color.Azure;
             this.btnWhite.Size = new System.Drawing.Size(120, 40);
@@ -300,9 +300,9 @@
             this.btnBlue.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.btnBlue.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
             this.btnBlue.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
-            this.btnBlue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBlue.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBlue.ForeColor = System.Drawing.Color.White;
-            this.btnBlue.Location = new System.Drawing.Point(423, 423);
+            this.btnBlue.Location = new System.Drawing.Point(421, 417);
             this.btnBlue.Name = "btnBlue";
             this.btnBlue.Size = new System.Drawing.Size(120, 40);
             this.btnBlue.TabIndex = 49;
@@ -511,7 +511,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.CancelButton = this.btnWhite;
-            this.ClientSize = new System.Drawing.Size(556, 479);
+            this.ClientSize = new System.Drawing.Size(565, 479);
             this.Controls.Add(this.ProvinceCombobox);
             this.Controls.Add(this.CityCombobox);
             this.Controls.Add(this.btnWhite);
