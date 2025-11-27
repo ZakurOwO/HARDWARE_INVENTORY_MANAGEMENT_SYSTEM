@@ -124,7 +124,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                     if (!addCustomerForm.IsDisposed)
                     {
                         addCustomerForm.FormClosed -= (s, e) => CloseAddCustomerForm();
-                        addCustomerForm.Close();
                         addCustomerForm.Dispose();
                     }
                     addCustomerForm = null;
