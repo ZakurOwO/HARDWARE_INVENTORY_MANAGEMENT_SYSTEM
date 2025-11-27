@@ -310,11 +310,12 @@
             this.btnBlue.Click += new System.EventHandler(this.btnBlue_Click);
             // 
             // CityCombobox
-            // 
+            //
             this.CityCombobox.BackColor = System.Drawing.Color.Transparent;
             this.CityCombobox.BorderRadius = 8;
             this.CityCombobox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.CityCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CityCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.CityCombobox.DropDownHeight = 300; // Add this line - sets dropdown height to 300px
             this.CityCombobox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.CityCombobox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.CityCombobox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -431,15 +432,18 @@
             "Teresa"});
             this.CityCombobox.Location = new System.Drawing.Point(26, 348);
             this.CityCombobox.Name = "CityCombobox";
-            this.CityCombobox.Size = new System.Drawing.Size(228, 36);
+            this.CityCombobox.Size = new System.Drawing.Size(200, 36); // Reduced from 228 to 200
             this.CityCombobox.TabIndex = 61;
+            this.CityCombobox.Text = "Type to search or select...";
+            this.CityCombobox.SelectedIndexChanged += new System.EventHandler(this.CityCombobox_SelectedIndexChanged);
             // 
             // ProvinceCombobox
-            // 
+            //
             this.ProvinceCombobox.BackColor = System.Drawing.Color.Transparent;
             this.ProvinceCombobox.BorderRadius = 8;
             this.ProvinceCombobox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.ProvinceCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ProvinceCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
+            this.ProvinceCombobox.DropDownHeight = 300; // Add this line - sets dropdown height to 300px
             this.ProvinceCombobox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.ProvinceCombobox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.ProvinceCombobox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -485,8 +489,10 @@
             "Zambales"});
             this.ProvinceCombobox.Location = new System.Drawing.Point(314, 348);
             this.ProvinceCombobox.Name = "ProvinceCombobox";
-            this.ProvinceCombobox.Size = new System.Drawing.Size(228, 36);
+            this.ProvinceCombobox.Size = new System.Drawing.Size(200, 36); // Reduced from 228 to 200
             this.ProvinceCombobox.TabIndex = 62;
+            this.ProvinceCombobox.Text = "Type to search or select...";
+            this.ProvinceCombobox.SelectedIndexChanged += new System.EventHandler(this.ProvinceCombobox_SelectedIndexChanged);
             // 
             // closeButton1
             // 

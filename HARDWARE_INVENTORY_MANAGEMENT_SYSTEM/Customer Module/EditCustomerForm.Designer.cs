@@ -51,11 +51,12 @@
             this.SuspendLayout();
             // 
             // ProvinceCombobox
-            // 
+            //
             this.ProvinceCombobox.BackColor = System.Drawing.Color.Transparent;
             this.ProvinceCombobox.BorderRadius = 8;
             this.ProvinceCombobox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.ProvinceCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ProvinceCombobox.DropDownHeight = 300; // Add this line
             this.ProvinceCombobox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.ProvinceCombobox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.ProvinceCombobox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -105,11 +106,12 @@
             this.ProvinceCombobox.TabIndex = 82;
             // 
             // CityCombobox
-            // 
+            //
             this.CityCombobox.BackColor = System.Drawing.Color.Transparent;
             this.CityCombobox.BorderRadius = 8;
             this.CityCombobox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.CityCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CityCombobox.DropDownHeight = 300; // Add this line
             this.CityCombobox.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.CityCombobox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.CityCombobox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

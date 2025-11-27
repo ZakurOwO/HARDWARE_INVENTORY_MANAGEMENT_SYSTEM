@@ -419,6 +419,7 @@
     <Compile Include="Reports Module\Customers Report\CustomersReportPanel.Designer.cs">
       <DependentUpon>CustomersReportPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports Module\Deliveries Report\classcomponent\DeliveriesDataAccess.cs" />
     <Compile Include="Reports Module\Deliveries Report\DeliveriesPage1.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1681,5 +1682,6 @@
     <None Include="Resources\CustomerOvelay.jpg" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
