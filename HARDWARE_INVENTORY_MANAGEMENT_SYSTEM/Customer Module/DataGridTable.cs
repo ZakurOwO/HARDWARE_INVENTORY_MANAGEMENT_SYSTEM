@@ -137,6 +137,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 MessageBox.Show("Error loading customer data: " + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            dgvCustomers.ClearSelection();
         }
 
         private void RefreshGridData()

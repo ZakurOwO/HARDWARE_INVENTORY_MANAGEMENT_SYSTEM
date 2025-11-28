@@ -31,6 +31,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             LoadDataFromDatabase();
             dgvInventoryList.CellClick += dgvInventoryList_CellClick;
+            dgvInventoryList.ClearSelection();
         }
 
         public void RefreshData()

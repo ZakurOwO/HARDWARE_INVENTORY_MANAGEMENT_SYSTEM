@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.pcbBlurOverlay = new System.Windows.Forms.PictureBox();
-            this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
-            this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
             this.MainContentPanel = new System.Windows.Forms.Panel();
             this.sidePanel2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
+            this.ucTopBar1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ucTopBar();
+            this.sidePanel1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.SidePanel();
             ((System.ComponentModel.ISupportInitialize)(this.pcbBlurOverlay)).BeginInit();
             this.SuspendLayout();
             // 
@@ -47,23 +47,6 @@
             this.pcbBlurOverlay.TabIndex = 4;
             this.pcbBlurOverlay.TabStop = false;
             this.pcbBlurOverlay.Visible = false;
-            // 
-            // ucTopBar1
-            // 
-            this.ucTopBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.ucTopBar1.Location = new System.Drawing.Point(244, -2);
-            this.ucTopBar1.Name = "ucTopBar1";
-            this.ucTopBar1.Size = new System.Drawing.Size(965, 69);
-            this.ucTopBar1.TabIndex = 1;
-            // 
-            // sidePanel1
-            // 
-            this.sidePanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
-            this.sidePanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.sidePanel1.Location = new System.Drawing.Point(22, 23);
-            this.sidePanel1.Name = "sidePanel1";
-            this.sidePanel1.Size = new System.Drawing.Size(202, 670);
-            this.sidePanel1.TabIndex = 0;
             // 
             // MainContentPanel
             // 
@@ -81,6 +64,23 @@
             this.sidePanel2.Name = "sidePanel2";
             this.sidePanel2.Size = new System.Drawing.Size(216, 698);
             this.sidePanel2.TabIndex = 6;
+            // 
+            // ucTopBar1
+            // 
+            this.ucTopBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.ucTopBar1.Location = new System.Drawing.Point(244, -2);
+            this.ucTopBar1.Name = "ucTopBar1";
+            this.ucTopBar1.Size = new System.Drawing.Size(965, 69);
+            this.ucTopBar1.TabIndex = 1;
+            // 
+            // sidePanel1
+            // 
+            this.sidePanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(228)))), ((int)(((byte)(248)))));
+            this.sidePanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.sidePanel1.Location = new System.Drawing.Point(22, 23);
+            this.sidePanel1.Name = "sidePanel1";
+            this.sidePanel1.Size = new System.Drawing.Size(202, 670);
+            this.sidePanel1.TabIndex = 0;
             // 
             // MainDashBoard
             // 
@@ -109,7 +109,7 @@
         private SidePanel sidePanel1;
         private ucTopBar ucTopBar1;
         public System.Windows.Forms.PictureBox pcbBlurOverlay;
-        private System.Windows.Forms.Panel MainContentPanel;
-        private SidePanel sidePanel2;
+        public System.Windows.Forms.Panel MainContentPanel;
+        public SidePanel sidePanel2;
     }
 }
