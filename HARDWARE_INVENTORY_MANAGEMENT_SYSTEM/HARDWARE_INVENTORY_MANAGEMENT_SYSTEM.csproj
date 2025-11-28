@@ -467,6 +467,7 @@
     <Compile Include="Reports Module\Deliveries Report\DeliveriesReportPanel.Designer.cs">
       <DependentUpon>DeliveriesReportPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports Module\Inventory Report\classcomponents\ReportsDatabaseHelper.cs" />
     <Compile Include="Reports Module\Inventory Report\InventoryPage1.cs">
       <SubType>UserControl</SubType>
     </Compile>
