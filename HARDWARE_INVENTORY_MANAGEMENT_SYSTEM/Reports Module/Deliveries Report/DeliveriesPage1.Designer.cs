@@ -32,19 +32,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
+            this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
             this.reportsKeyMetrics4 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics3 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
-            this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
-            this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.DeliveryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeliveryDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VehicleUsed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QuantityItems = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3.SuspendLayout();
             this.pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
@@ -60,50 +54,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(900, 90);
             this.panel3.TabIndex = 13;
-            // 
-            // reportsKeyMetrics4
-            // 
-            this.reportsKeyMetrics4.BackColor = System.Drawing.Color.Transparent;
-            this.reportsKeyMetrics4.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Increase_Arrow_Icon;
-            this.reportsKeyMetrics4.Location = new System.Drawing.Point(692, 2);
-            this.reportsKeyMetrics4.Name = "reportsKeyMetrics4";
-            this.reportsKeyMetrics4.Size = new System.Drawing.Size(201, 86);
-            this.reportsKeyMetrics4.TabIndex = 3;
-            this.reportsKeyMetrics4.Title = "Active Vehicles";
-            this.reportsKeyMetrics4.Value = 1234;
-            // 
-            // reportsKeyMetrics3
-            // 
-            this.reportsKeyMetrics3.BackColor = System.Drawing.Color.Transparent;
-            this.reportsKeyMetrics3.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Bar_graph_icon;
-            this.reportsKeyMetrics3.Location = new System.Drawing.Point(468, 2);
-            this.reportsKeyMetrics3.Name = "reportsKeyMetrics3";
-            this.reportsKeyMetrics3.Size = new System.Drawing.Size(201, 86);
-            this.reportsKeyMetrics3.TabIndex = 2;
-            this.reportsKeyMetrics3.Title = "Total Vehicles";
-            this.reportsKeyMetrics3.Value = 1234;
-            // 
-            // reportsKeyMetrics2
-            // 
-            this.reportsKeyMetrics2.BackColor = System.Drawing.Color.Transparent;
-            this.reportsKeyMetrics2.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.shopping_cart_icon;
-            this.reportsKeyMetrics2.Location = new System.Drawing.Point(242, 2);
-            this.reportsKeyMetrics2.Name = "reportsKeyMetrics2";
-            this.reportsKeyMetrics2.Size = new System.Drawing.Size(201, 86);
-            this.reportsKeyMetrics2.TabIndex = 1;
-            this.reportsKeyMetrics2.Title = "Pending Deliveries";
-            this.reportsKeyMetrics2.Value = 1234;
-            // 
-            // reportsKeyMetrics1
-            // 
-            this.reportsKeyMetrics1.BackColor = System.Drawing.Color.Transparent;
-            this.reportsKeyMetrics1.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Group_1000004200;
-            this.reportsKeyMetrics1.Location = new System.Drawing.Point(17, 2);
-            this.reportsKeyMetrics1.Name = "reportsKeyMetrics1";
-            this.reportsKeyMetrics1.Size = new System.Drawing.Size(201, 86);
-            this.reportsKeyMetrics1.TabIndex = 0;
-            this.reportsKeyMetrics1.Title = "Total Deliveries";
-            this.reportsKeyMetrics1.Value = 1234;
             // 
             // pnlTable
             // 
@@ -135,13 +85,6 @@
             this.dgvCurrentStockReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCurrentStockReport.ColumnHeadersHeight = 45;
             this.dgvCurrentStockReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvCurrentStockReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DeliveryID,
-            this.DeliveryDate,
-            this.Customer,
-            this.VehicleUsed,
-            this.QuantityItems,
-            this.Status});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -189,40 +132,49 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Delivery Summary";
             // 
-            // DeliveryID
+            // reportsKeyMetrics4
             // 
-            this.DeliveryID.FillWeight = 90F;
-            this.DeliveryID.HeaderText = "Delivery ID";
-            this.DeliveryID.Name = "DeliveryID";
+            this.reportsKeyMetrics4.BackColor = System.Drawing.Color.Transparent;
+            this.reportsKeyMetrics4.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Increase_Arrow_Icon;
+            this.reportsKeyMetrics4.Location = new System.Drawing.Point(692, 2);
+            this.reportsKeyMetrics4.Name = "reportsKeyMetrics4";
+            this.reportsKeyMetrics4.Size = new System.Drawing.Size(201, 86);
+            this.reportsKeyMetrics4.TabIndex = 3;
+            this.reportsKeyMetrics4.Title = "Active Vehicles";
+            this.reportsKeyMetrics4.Value = 1234;
             // 
-            // DeliveryDate
+            // reportsKeyMetrics3
             // 
-            this.DeliveryDate.HeaderText = "Delivery Date";
-            this.DeliveryDate.Name = "DeliveryDate";
+            this.reportsKeyMetrics3.BackColor = System.Drawing.Color.Transparent;
+            this.reportsKeyMetrics3.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Bar_graph_icon;
+            this.reportsKeyMetrics3.Location = new System.Drawing.Point(468, 2);
+            this.reportsKeyMetrics3.Name = "reportsKeyMetrics3";
+            this.reportsKeyMetrics3.Size = new System.Drawing.Size(201, 86);
+            this.reportsKeyMetrics3.TabIndex = 2;
+            this.reportsKeyMetrics3.Title = "Total Vehicles";
+            this.reportsKeyMetrics3.Value = 1234;
             // 
-            // Customer
+            // reportsKeyMetrics2
             // 
-            this.Customer.FillWeight = 120F;
-            this.Customer.HeaderText = "Customer";
-            this.Customer.Name = "Customer";
+            this.reportsKeyMetrics2.BackColor = System.Drawing.Color.Transparent;
+            this.reportsKeyMetrics2.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.shopping_cart_icon;
+            this.reportsKeyMetrics2.Location = new System.Drawing.Point(242, 2);
+            this.reportsKeyMetrics2.Name = "reportsKeyMetrics2";
+            this.reportsKeyMetrics2.Size = new System.Drawing.Size(201, 86);
+            this.reportsKeyMetrics2.TabIndex = 1;
+            this.reportsKeyMetrics2.Title = "Pending Deliveries";
+            this.reportsKeyMetrics2.Value = 1234;
             // 
-            // VehicleUsed
+            // reportsKeyMetrics1
             // 
-            this.VehicleUsed.FillWeight = 120F;
-            this.VehicleUsed.HeaderText = "Vehicle Used";
-            this.VehicleUsed.Name = "VehicleUsed";
-            // 
-            // QuantityItems
-            // 
-            this.QuantityItems.FillWeight = 80F;
-            this.QuantityItems.HeaderText = "Quantity / Items";
-            this.QuantityItems.Name = "QuantityItems";
-            // 
-            // Status
-            // 
-            this.Status.FillWeight = 80F;
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
+            this.reportsKeyMetrics1.BackColor = System.Drawing.Color.Transparent;
+            this.reportsKeyMetrics1.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Group_1000004200;
+            this.reportsKeyMetrics1.Location = new System.Drawing.Point(17, 2);
+            this.reportsKeyMetrics1.Name = "reportsKeyMetrics1";
+            this.reportsKeyMetrics1.Size = new System.Drawing.Size(201, 86);
+            this.reportsKeyMetrics1.TabIndex = 0;
+            this.reportsKeyMetrics1.Title = "Total Deliveries";
+            this.reportsKeyMetrics1.Value = 1234;
             // 
             // DeliveriesPage1
             // 
@@ -251,11 +203,5 @@
         private Guna.UI2.WinForms.Guna2Panel pnlTable;
         private Guna.UI2.WinForms.Guna2DataGridView dgvCurrentStockReport;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryDate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Customer;
-        private System.Windows.Forms.DataGridViewTextBoxColumn VehicleUsed;
-        private System.Windows.Forms.DataGridViewTextBoxColumn QuantityItems;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
     }
 }

@@ -34,12 +34,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
             this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
             this.VehicleID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.VehicleNamePlateNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalDeliveries = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
             this.pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
             this.SuspendLayout();
@@ -89,7 +89,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvCurrentStockReport.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCurrentStockReport.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvCurrentStockReport.Location = new System.Drawing.Point(22, 48);
+            this.dgvCurrentStockReport.Location = new System.Drawing.Point(17, 41);
             this.dgvCurrentStockReport.Name = "dgvCurrentStockReport";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
@@ -125,16 +125,6 @@
             this.dgvCurrentStockReport.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvCurrentStockReport.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Lexend SemiBold", 11F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(27, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(147, 24);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Vehicle Utilization";
-            // 
             // VehicleID
             // 
             this.VehicleID.HeaderText = "Vehicle ID";
@@ -162,6 +152,16 @@
             // 
             this.Status.HeaderText = "Status";
             this.Status.Name = "Status";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Lexend SemiBold", 11F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(27, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(147, 24);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Vehicle Utilization";
             // 
             // DeliveriesPage2
             // 

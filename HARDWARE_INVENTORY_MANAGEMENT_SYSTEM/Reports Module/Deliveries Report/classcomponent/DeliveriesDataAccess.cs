@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
 {
@@ -11,7 +12,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
 
         public DeliveriesDataAccess()
         {
-            this.connectionString = "Your_Connection_String_Here";
+            // Fixed: Use ConnectionString.DataSource instead of hardcoded string
+            this.connectionString = ConnectionString.DataSource;
         }
 
         public DataTable GetDeliverySummary()
@@ -19,13 +21,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             DataTable dt = new DataTable();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
                 string query = @"
                     SELECT 
                         d.DeliveryID,
-                        d.delivery_date AS DeliveryDate,
-                        COALESCE(c.customer_name, d.customer_name) AS Customer,
-                        v.plate_number AS VehicleUsed,
+                        CONVERT(VARCHAR, d.delivery_date, 101) AS DeliveryDate,
+                        COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') AS Customer,
+                        COALESCE(v.plate_number, 'Not Assigned') AS VehicleUsed,
                         (SELECT COUNT(*) FROM DeliveryItems di WHERE di.delivery_id = d.delivery_id) AS QuantityItems,
                         d.status AS Status
                     FROM Deliveries d
@@ -33,14 +34,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
                     LEFT JOIN Vehicles v ON va.vehicle_id = v.vehicle_id
                     LEFT JOIN Transactions t ON d.transaction_id = t.transaction_id
                     LEFT JOIN Customers c ON t.customer_id = c.customer_id
+                    WHERE d.delivery_type = 'Sales_Delivery'
                     ORDER BY d.delivery_date DESC";
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                try
                 {
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        adapter.Fill(dt);
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dt);
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in GetDeliverySummary: {ex.Message}");
+                    throw new Exception($"Error retrieving delivery summary: {ex.Message}");
                 }
             }
             return dt;
@@ -51,17 +62,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             DataTable dt = new DataTable();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
                 string query = @"
                     SELECT 
                         d.DeliveryID,
                         d.delivery_number AS DeliveryNumber,
                         d.delivery_date AS DeliveryDate,
-                        COALESCE(c.customer_name, d.customer_name) AS CustomerName,
+                        COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') AS CustomerName,
                         d.delivery_address AS DeliveryAddress,
                         d.contact_number AS ContactNumber,
-                        v.plate_number AS VehicleUsed,
-                        va.driver_name AS DriverName,
+                        COALESCE(v.plate_number, 'Not Assigned') AS VehicleUsed,
+                        COALESCE(va.driver_name, 'Not Assigned') AS DriverName,
                         d.status AS Status,
                         d.notes AS Notes
                     FROM Deliveries d
@@ -69,14 +79,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
                     LEFT JOIN Vehicles v ON va.vehicle_id = v.vehicle_id
                     LEFT JOIN Transactions t ON d.transaction_id = t.transaction_id
                     LEFT JOIN Customers c ON t.customer_id = c.customer_id
+                    WHERE d.delivery_type = 'Sales_Delivery'
                     ORDER BY d.delivery_date DESC";
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                try
                 {
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        adapter.Fill(dt);
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dt);
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in GetDeliveryDetails: {ex.Message}");
+                    throw new Exception($"Error retrieving delivery details: {ex.Message}");
                 }
             }
             return dt;
@@ -87,11 +107,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             int total = 0;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
-                string query = "SELECT COUNT(*) FROM Deliveries";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                string query = "SELECT COUNT(*) FROM Deliveries WHERE delivery_type = 'Sales_Delivery'";
+
+                try
                 {
-                    total = (int)cmd.ExecuteScalar();
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        object result = cmd.ExecuteScalar();
+                        total = result != null ? Convert.ToInt32(result) : 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in GetTotalDeliveries: {ex.Message}");
                 }
             }
             return total;
@@ -102,11 +131,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             int pending = 0;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
-                string query = "SELECT COUNT(*) FROM Deliveries WHERE status IN ('Scheduled', 'In Transit')";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                string query = @"
+                    SELECT COUNT(*) 
+                    FROM Deliveries 
+                    WHERE delivery_type = 'Sales_Delivery' 
+                    AND status IN ('Scheduled', 'In Transit', 'Pending')";
+
+                try
                 {
-                    pending = (int)cmd.ExecuteScalar();
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        object result = cmd.ExecuteScalar();
+                        pending = result != null ? Convert.ToInt32(result) : 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in GetPendingDeliveries: {ex.Message}");
                 }
             }
             return pending;
@@ -117,11 +159,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             int total = 0;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
-                string query = "SELECT COUNT(*) FROM Vehicles";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                string query = "SELECT COUNT(*) FROM Vehicles WHERE status != 'Inactive'";
+
+                try
                 {
-                    total = (int)cmd.ExecuteScalar();
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        object result = cmd.ExecuteScalar();
+                        total = result != null ? Convert.ToInt32(result) : 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in GetTotalVehicles: {ex.Message}");
                 }
             }
             return total;
@@ -132,11 +183,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             int active = 0;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
-                string query = "SELECT COUNT(*) FROM Vehicles WHERE status IN ('Available', 'On Delivery')";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                string query = @"
+                    SELECT COUNT(*) 
+                    FROM Vehicles 
+                    WHERE status IN ('Available', 'On Delivery')";
+
+                try
                 {
-                    active = (int)cmd.ExecuteScalar();
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        object result = cmd.ExecuteScalar();
+                        active = result != null ? Convert.ToInt32(result) : 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in GetActiveVehicles: {ex.Message}");
                 }
             }
             return active;
@@ -147,26 +210,126 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             DataTable dt = new DataTable();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                conn.Open();
                 string query = @"
                     SELECT 
-                        v.plate_number AS PlateNumber,
-                        v.brand AS Brand,
-                        v.model AS Model,
-                        v.vehicle_type AS VehicleType,
-                        v.status AS Status,
-                        COUNT(va.assignment_id) AS TotalAssignments
+                        v.VehicleID AS VehicleID,
+                        v.plate_number + ' - ' + COALESCE(v.brand, '') + ' ' + COALESCE(v.model, '') AS VehicleNamePlateNo,
+                        COALESCE(v.vehicle_type, 'N/A') AS Type,
+                        COUNT(va.assignment_id) AS TotalDeliveries,
+                        v.status AS Status
                     FROM Vehicles v
                     LEFT JOIN VehicleAssignments va ON v.vehicle_id = va.vehicle_id
-                    GROUP BY v.plate_number, v.brand, v.model, v.vehicle_type, v.status
-                    ORDER BY TotalAssignments DESC";
+                    WHERE v.status != 'Inactive'
+                    GROUP BY v.VehicleID, v.plate_number, v.brand, v.model, v.vehicle_type, v.status
+                    ORDER BY TotalDeliveries DESC";
 
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                try
                 {
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        adapter.Fill(dt);
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dt);
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in GetVehicleUtilization: {ex.Message}");
+                    throw new Exception($"Error retrieving vehicle utilization: {ex.Message}");
+                }
+            }
+            return dt;
+        }
+
+        // Filter by date range
+        public DataTable GetDeliveriesByDateRange(DateTime startDate, DateTime endDate)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
+                    SELECT 
+                        d.DeliveryID,
+                        CONVERT(VARCHAR, d.delivery_date, 101) AS DeliveryDate,
+                        COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') AS Customer,
+                        COALESCE(v.plate_number, 'Not Assigned') AS VehicleUsed,
+                        (SELECT COUNT(*) FROM DeliveryItems di WHERE di.delivery_id = d.delivery_id) AS QuantityItems,
+                        d.status AS Status
+                    FROM Deliveries d
+                    LEFT JOIN VehicleAssignments va ON d.delivery_id = va.delivery_id
+                    LEFT JOIN Vehicles v ON va.vehicle_id = v.vehicle_id
+                    LEFT JOIN Transactions t ON d.transaction_id = t.transaction_id
+                    LEFT JOIN Customers c ON t.customer_id = c.customer_id
+                    WHERE d.delivery_type = 'Sales_Delivery'
+                    AND d.delivery_date >= @StartDate 
+                    AND d.delivery_date <= @EndDate
+                    ORDER BY d.delivery_date DESC";
+
+                try
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@StartDate", startDate);
+                        cmd.Parameters.AddWithValue("@EndDate", endDate);
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dt);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in GetDeliveriesByDateRange: {ex.Message}");
+                    throw new Exception($"Error retrieving deliveries by date range: {ex.Message}");
+                }
+            }
+            return dt;
+        }
+
+        // Get deliveries by status
+        public DataTable GetDeliveriesByStatus(string status)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = @"
+                    SELECT 
+                        d.DeliveryID,
+                        CONVERT(VARCHAR, d.delivery_date, 101) AS DeliveryDate,
+                        COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') AS Customer,
+                        COALESCE(v.plate_number, 'Not Assigned') AS VehicleUsed,
+                        (SELECT COUNT(*) FROM DeliveryItems di WHERE di.delivery_id = d.delivery_id) AS QuantityItems,
+                        d.status AS Status
+                    FROM Deliveries d
+                    LEFT JOIN VehicleAssignments va ON d.delivery_id = va.delivery_id
+                    LEFT JOIN Vehicles v ON va.vehicle_id = v.vehicle_id
+                    LEFT JOIN Transactions t ON d.transaction_id = t.transaction_id
+                    LEFT JOIN Customers c ON t.customer_id = c.customer_id
+                    WHERE d.delivery_type = 'Sales_Delivery'
+                    AND d.status = @Status
+                    ORDER BY d.delivery_date DESC";
+
+                try
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Status", status);
+
+                        using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                        {
+                            adapter.Fill(dt);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in GetDeliveriesByStatus: {ex.Message}");
+                    throw new Exception($"Error retrieving deliveries by status: {ex.Message}");
                 }
             }
             return dt;

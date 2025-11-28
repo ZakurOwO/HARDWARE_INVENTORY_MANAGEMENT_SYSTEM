@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data;
@@ -9,197 +10,394 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
 {
     public partial class DeliveriesPage1 : UserControl
     {
-        //private DeliveriesDataAccess deliveriesData;
-        //private PaginationHelper paginationHelper;
-        //private DataTable deliveriesDataTable;
+        private DeliveriesDataAccess deliveriesData;
+        private DataTable deliveriesDataTable;
 
-        //public DeliveriesPage1()
-        //{
-        //    InitializeComponent();
-        //    deliveriesData = new DeliveriesDataAccess();
-        //    InitializePagination();
-        //    LoadAllData();
-        //}
+        public DeliveriesPage1()
+        {
+            InitializeComponent();
+            deliveriesData = new DeliveriesDataAccess();
 
-        //private void InitializePagination()
-        //{
-        //    paginationHelper = new PaginationHelper(new DataTable(), 10);
-        //    paginationHelper.PageChanged += PaginationHelper_PageChanged;
-        //}
+            // Initialize on load
+            this.Load += DeliveriesPage1_Load;
+        }
 
-        //private void LoadAllData()
-        //{
-        //    try
-        //    {
-        //        deliveriesDataTable = deliveriesData.GetDeliverySummary();
-        //        paginationHelper.UpdateData(deliveriesDataTable);
-        //        UpdatePaginationControls();
-        //        DisplayCurrentPage();
-        //        LoadKeyMetrics();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error loading delivery data: {ex.Message}", "Error",
-        //            MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
+        private void DeliveriesPage1_Load(object sender, EventArgs e)
+        {
+            // Only load key metrics on initial load
+            // Data will be loaded via LoadDataDirectly() from parent
+            LoadKeyMetrics();
+        }
 
-        //public void RefreshAllData()
-        //{
-        //    LoadAllData();
-        //    MessageBox.Show("Delivery report data has been refreshed successfully!", "Refresh Complete",
-        //        MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //}
+        // New method to load data directly (for pagination)
+        public void LoadDataDirectly(DataTable data)
+        {
+            try
+            {
+                Console.WriteLine($"📊 LoadDataDirectly called with {data?.Rows.Count ?? 0} rows");
 
-        //private void PaginationHelper_PageChanged(object sender, EventArgs e)
-        //{
-        //    DisplayCurrentPage();
-        //    UpdatePaginationControls();
-        //}
+                if (data == null)
+                {
+                    Console.WriteLine("❌ Data is NULL!");
+                    dgvCurrentStockReport.DataSource = null;
+                    return;
+                }
 
-        //private void DisplayCurrentPage()
-        //{
-        //    try
-        //    {
-        //        DataTable currentPageData = paginationHelper.GetCurrentPageData();
-        //        dgvCurrentStockReport.DataSource = currentPageData;
-        //        FormatDeliverySummaryGrid();
-        //        lblPageInfo.Text = paginationHelper.GetPageInfo();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error displaying page data: {ex.Message}", "Error",
-        //            MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
+                if (data.Rows.Count == 0)
+                {
+                    Console.WriteLine("⚠ DataTable has 0 rows!");
+                    dgvCurrentStockReport.DataSource = null;
+                    MessageBox.Show("No delivery records found.", "No Data",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
-        //private void FormatDeliverySummaryGrid()
-        //{
-        //    if (dgvCurrentStockReport.Columns.Count > 0)
-        //    {
-        //        dgvCurrentStockReport.Columns["DeliveryID"].HeaderText = "Delivery ID";
-        //        dgvCurrentStockReport.Columns["DeliveryDate"].HeaderText = "Delivery Date";
-        //        dgvCurrentStockReport.Columns["Customer"].HeaderText = "Customer";
-        //        dgvCurrentStockReport.Columns["VehicleUsed"].HeaderText = "Vehicle Used";
-        //        dgvCurrentStockReport.Columns["QuantityItems"].HeaderText = "Quantity / Items";
-        //        dgvCurrentStockReport.Columns["Status"].HeaderText = "Status";
+                // Log column names in the DataTable
+                Console.WriteLine($"DataTable columns: {string.Join(", ", data.Columns.Cast<DataColumn>().Select(c => c.ColumnName))}");
 
-        //        // Format date column
-        //        if (dgvCurrentStockReport.Columns["DeliveryDate"] != null)
-        //        {
-        //            dgvCurrentStockReport.Columns["DeliveryDate"].DefaultCellStyle.Format = "MM/dd/yyyy HH:mm";
-        //        }
+                // Log first row data
+                if (data.Rows.Count > 0)
+                {
+                    var firstRow = data.Rows[0];
+                    Console.WriteLine($"First row data:");
+                    foreach (DataColumn col in data.Columns)
+                    {
+                        Console.WriteLine($"  {col.ColumnName} = {firstRow[col]}");
+                    }
+                }
 
-        //        // Color coding for status
-        //        foreach (DataGridViewRow row in dgvCurrentStockReport.Rows)
-        //        {
-        //            if (row.Cells["Status"]?.Value != null)
-        //            {
-        //                string status = row.Cells["Status"].Value.ToString();
-        //                row.DefaultCellStyle.BackColor = GetStatusColor(status);
-        //            }
-        //        }
+                deliveriesDataTable = data;
 
-        //        dgvCurrentStockReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-        //    }
-        //}
+                // Bind data to grid
+                dgvCurrentStockReport.DataSource = null; // Clear first
+                dgvCurrentStockReport.DataSource = deliveriesDataTable;
 
-        //private Color GetStatusColor(string status)
-        //{
-        //    switch (status?.ToLower())
-        //    {
-        //        case "completed":
-        //            return Color.FromArgb(220, 255, 220); // Light green
-        //        case "in transit":
-        //            return Color.FromArgb(255, 255, 200); // Light yellow
-        //        case "scheduled":
-        //            return Color.FromArgb(220, 230, 255); // Light blue
-        //        case "cancelled":
-        //            return Color.FromArgb(255, 220, 220); // Light red
-        //        default:
-        //            return Color.White;
-        //    }
-        //}
+                Console.WriteLine($"✓ Data bound to grid. Grid now has {dgvCurrentStockReport.Rows.Count} rows");
 
-        //private void UpdatePaginationControls()
-        //{
-        //    // You'll need to add these controls to your designer
-        //    // lblCurrentPage.Text = $"Page {paginationHelper.CurrentPage} of {paginationHelper.TotalPages}";
+                // Format the grid
+                FormatDeliverySummaryGrid();
 
-        //    // btnFirst.Enabled = paginationHelper.CurrentPage > 1;
-        //    // btnPrevious.Enabled = paginationHelper.CurrentPage > 1;
-        //    // btnNext.Enabled = paginationHelper.CurrentPage < paginationHelper.TotalPages;
-        //    // btnLast.Enabled = paginationHelper.CurrentPage < paginationHelper.TotalPages;
+                Console.WriteLine("✓ Data successfully displayed in grid");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error loading data: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                throw;
+            }
+        }
 
-        //    // StylePaginationButtons();
-        //}
+        private void LoadAllData()
+        {
+            try
+            {
+                Console.WriteLine("📊 Loading delivery report data...");
 
-        //private void StylePaginationButtons()
-        //{
-        //    Color enabledColor = Color.FromArgb(0, 110, 196);
-        //    Color disabledColor = Color.Gray;
+                // Load key metrics first
+                LoadKeyMetrics();
 
-        //    // Apply colors to buttons
-        //    // You'll need to add these button controls to your designer
-        //}
+                // Load delivery summary data into the grid
+                deliveriesDataTable = deliveriesData.GetDeliverySummary();
 
-        //private void LoadKeyMetrics()
-        //{
-        //    try
-        //    {
-        //        int totalDeliveries = deliveriesData.GetTotalDeliveries();
-        //        reportsKeyMetrics1.Value = totalDeliveries;
-        //        reportsKeyMetrics1.Title = "Total Deliveries";
+                if (deliveriesDataTable != null && deliveriesDataTable.Rows.Count > 0)
+                {
+                    Console.WriteLine($"✓ Retrieved {deliveriesDataTable.Rows.Count} delivery records from database");
 
-        //        int pendingDeliveries = deliveriesData.GetPendingDeliveries();
-        //        reportsKeyMetrics2.Value = pendingDeliveries;
-        //        reportsKeyMetrics2.Title = "Pending Deliveries";
+                    // Bind data to grid
+                    dgvCurrentStockReport.DataSource = deliveriesDataTable;
 
-        //        int totalVehicles = deliveriesData.GetTotalVehicles();
-        //        reportsKeyMetrics3.Value = totalVehicles;
-        //        reportsKeyMetrics3.Title = "Total Vehicles";
+                    // Format the grid
+                    FormatDeliverySummaryGrid();
 
-        //        int activeVehicles = deliveriesData.GetActiveVehicles();
-        //        reportsKeyMetrics4.Value = activeVehicles;
-        //        reportsKeyMetrics4.Title = "Active Vehicles";
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Error loading key metrics: {ex.Message}", "Error",
-        //            MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
+                    Console.WriteLine("✓ Data successfully displayed in grid");
+                }
+                else
+                {
+                    Console.WriteLine("⚠ No delivery records found in database");
+                    MessageBox.Show("No delivery records found in the database.", "No Data",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error loading delivery data: {ex.Message}");
+                MessageBox.Show($"Error loading delivery data: {ex.Message}\n\nPlease check:\n- Database connection\n- Table structure\n- SQL permissions",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-        //// Add these methods for pagination button clicks
-        //private void btnFirst_Click(object sender, EventArgs e)
-        //{
-        //    paginationHelper.FirstPage();
-        //}
+        private void FormatDeliverySummaryGrid()
+        {
+            try
+            {
+                if (dgvCurrentStockReport.Columns.Count == 0)
+                {
+                    Console.WriteLine("⚠ No columns found in DataGridView");
+                    return;
+                }
 
-        //private void btnPrevious_Click(object sender, EventArgs e)
-        //{
-        //    paginationHelper.PreviousPage();
-        //}
+                Console.WriteLine($"📋 Formatting grid with {dgvCurrentStockReport.Columns.Count} columns");
+                Console.WriteLine($"📋 Total rows: {dgvCurrentStockReport.Rows.Count}");
 
-        //private void btnNext_Click(object sender, EventArgs e)
-        //{
-        //    paginationHelper.NextPage();
-        //}
+                // Format each column
+                foreach (DataGridViewColumn col in dgvCurrentStockReport.Columns)
+                {
+                    Console.WriteLine($"  - Column: {col.Name}");
+                }
 
-        //private void btnLast_Click(object sender, EventArgs e)
-        //{
-        //    paginationHelper.LastPage();
-        //}
+                // Set column headers and widths
+                if (dgvCurrentStockReport.Columns.Contains("DeliveryID"))
+                {
+                    dgvCurrentStockReport.Columns["DeliveryID"].HeaderText = "Delivery ID";
+                    dgvCurrentStockReport.Columns["DeliveryID"].Width = 100;
+                    dgvCurrentStockReport.Columns["DeliveryID"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
 
-        //private void btnRefresh_Click(object sender, EventArgs e)
-        //{
-        //    LoadAllData();
-        //}
+                if (dgvCurrentStockReport.Columns.Contains("DeliveryDate"))
+                {
+                    dgvCurrentStockReport.Columns["DeliveryDate"].HeaderText = "Delivery Date";
+                    dgvCurrentStockReport.Columns["DeliveryDate"].Width = 120;
+                    dgvCurrentStockReport.Columns["DeliveryDate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
 
-        //private void DeliveriesPage1_Load(object sender, EventArgs e)
-        //{
-        //    LoadKeyMetrics();
-        //    // StylePaginationButtons();
-        //}
+                if (dgvCurrentStockReport.Columns.Contains("Customer"))
+                {
+                    dgvCurrentStockReport.Columns["Customer"].HeaderText = "Customer";
+                    dgvCurrentStockReport.Columns["Customer"].Width = 180;
+                }
+
+                if (dgvCurrentStockReport.Columns.Contains("VehicleUsed"))
+                {
+                    dgvCurrentStockReport.Columns["VehicleUsed"].HeaderText = "Vehicle Used";
+                    dgvCurrentStockReport.Columns["VehicleUsed"].Width = 130;
+                    dgvCurrentStockReport.Columns["VehicleUsed"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+
+                if (dgvCurrentStockReport.Columns.Contains("QuantityItems"))
+                {
+                    dgvCurrentStockReport.Columns["QuantityItems"].HeaderText = "Items";
+                    dgvCurrentStockReport.Columns["QuantityItems"].Width = 80;
+                    dgvCurrentStockReport.Columns["QuantityItems"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+
+                if (dgvCurrentStockReport.Columns.Contains("Status"))
+                {
+                    dgvCurrentStockReport.Columns["Status"].HeaderText = "Status";
+                    dgvCurrentStockReport.Columns["Status"].Width = 120;
+                    dgvCurrentStockReport.Columns["Status"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+
+                // Apply color coding for status column
+                ApplyStatusColors();
+
+                // Log first few rows of data for debugging
+                int rowsToLog = Math.Min(3, dgvCurrentStockReport.Rows.Count);
+                for (int i = 0; i < rowsToLog; i++)
+                {
+                    var row = dgvCurrentStockReport.Rows[i];
+                    Console.WriteLine($"  Row {i}: DeliveryID={row.Cells["DeliveryID"].Value}, Customer={row.Cells["Customer"].Value}, Status={row.Cells["Status"].Value}");
+                }
+
+                // Auto-size columns to fill remaining space
+                dgvCurrentStockReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                Console.WriteLine("✓ Grid formatting completed");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error in FormatDeliverySummaryGrid: {ex.Message}");
+            }
+        }
+
+        private void ApplyStatusColors()
+        {
+            try
+            {
+                foreach (DataGridViewRow row in dgvCurrentStockReport.Rows)
+                {
+                    if (row.Cells["Status"]?.Value != null)
+                    {
+                        string status = row.Cells["Status"].Value.ToString().ToLower();
+                        Color rowColor = GetStatusColor(status);
+
+                        // Apply color to the entire row
+                        row.DefaultCellStyle.BackColor = rowColor;
+
+                        // Make text color darker for better readability
+                        row.DefaultCellStyle.ForeColor = Color.FromArgb(64, 64, 64);
+
+                        Console.WriteLine($"  Applied {rowColor.Name} to status: {status}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error applying status colors: {ex.Message}");
+            }
+        }
+
+        private Color GetStatusColor(string status)
+        {
+            switch (status?.ToLower())
+            {
+                case "completed":
+                case "delivered":
+                    return Color.FromArgb(220, 255, 220); // Light green
+
+                case "in transit":
+                case "on the way":
+                    return Color.FromArgb(255, 255, 200); // Light yellow
+
+                case "scheduled":
+                case "pending":
+                    return Color.FromArgb(220, 230, 255); // Light blue
+
+                case "cancelled":
+                case "failed":
+                    return Color.FromArgb(255, 220, 220); // Light red
+
+                default:
+                    return Color.White;
+            }
+        }
+
+        private void LoadKeyMetrics()
+        {
+            try
+            {
+                Console.WriteLine("📈 Loading key metrics...");
+
+                // Total Deliveries
+                int totalDeliveries = deliveriesData.GetTotalDeliveries();
+                reportsKeyMetrics1.Value = totalDeliveries;
+                reportsKeyMetrics1.Title = "Total Deliveries";
+                Console.WriteLine($"  Total Deliveries: {totalDeliveries}");
+
+                // Pending Deliveries
+                int pendingDeliveries = deliveriesData.GetPendingDeliveries();
+                reportsKeyMetrics2.Value = pendingDeliveries;
+                reportsKeyMetrics2.Title = "Pending Deliveries";
+                Console.WriteLine($"  Pending Deliveries: {pendingDeliveries}");
+
+                // Total Vehicles
+                int totalVehicles = deliveriesData.GetTotalVehicles();
+                reportsKeyMetrics3.Value = totalVehicles;
+                reportsKeyMetrics3.Title = "Total Vehicles";
+                Console.WriteLine($"  Total Vehicles: {totalVehicles}");
+
+                // Active Vehicles
+                int activeVehicles = deliveriesData.GetActiveVehicles();
+                reportsKeyMetrics4.Value = activeVehicles;
+                reportsKeyMetrics4.Title = "Active Vehicles";
+                Console.WriteLine($"  Active Vehicles: {activeVehicles}");
+
+                Console.WriteLine("✓ Key metrics loaded successfully");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error loading key metrics: {ex.Message}");
+                MessageBox.Show($"Error loading key metrics: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void RefreshAllData()
+        {
+            LoadAllData();
+            MessageBox.Show("Delivery report data has been refreshed successfully!", "Refresh Complete",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // Filter by status
+        public void FilterByStatus(string status)
+        {
+            try
+            {
+                Console.WriteLine($"🔍 Filtering by status: {status}");
+
+                if (string.IsNullOrEmpty(status) || status.ToLower() == "all")
+                {
+                    LoadAllData();
+                }
+                else
+                {
+                    deliveriesDataTable = deliveriesData.GetDeliveriesByStatus(status);
+                    dgvCurrentStockReport.DataSource = deliveriesDataTable;
+                    FormatDeliverySummaryGrid();
+
+                    Console.WriteLine($"✓ Filtered to {deliveriesDataTable.Rows.Count} records with status: {status}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error filtering by status: {ex.Message}");
+                MessageBox.Show($"Error filtering by status: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Filter by date range
+        public void FilterByDateRange(DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                Console.WriteLine($"🔍 Filtering by date range: {startDate:yyyy-MM-dd} to {endDate:yyyy-MM-dd}");
+
+                deliveriesDataTable = deliveriesData.GetDeliveriesByDateRange(startDate, endDate);
+                dgvCurrentStockReport.DataSource = deliveriesDataTable;
+                FormatDeliverySummaryGrid();
+
+                Console.WriteLine($"✓ Filtered to {deliveriesDataTable.Rows.Count} records in date range");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error filtering by date range: {ex.Message}");
+                MessageBox.Show($"Error filtering by date range: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Get current data count
+        public int GetRecordCount()
+        {
+            return deliveriesDataTable?.Rows.Count ?? 0;
+        }
+
+        // Get summary statistics
+        public string GetSummaryStatistics()
+        {
+            try
+            {
+                if (deliveriesDataTable == null || deliveriesDataTable.Rows.Count == 0)
+                    return "No data available";
+
+                int totalRecords = deliveriesDataTable.Rows.Count;
+                int completedCount = 0;
+                int pendingCount = 0;
+                int inTransitCount = 0;
+                int cancelledCount = 0;
+
+                foreach (DataRow row in deliveriesDataTable.Rows)
+                {
+                    string status = row["Status"].ToString().ToLower();
+
+                    if (status.Contains("completed") || status.Contains("delivered"))
+                        completedCount++;
+                    else if (status.Contains("pending") || status.Contains("scheduled"))
+                        pendingCount++;
+                    else if (status.Contains("transit") || status.Contains("way"))
+                        inTransitCount++;
+                    else if (status.Contains("cancelled") || status.Contains("failed"))
+                        cancelledCount++;
+                }
+
+                return $"Total: {totalRecords} | Completed: {completedCount} | Pending: {pendingCount} | In Transit: {inTransitCount} | Cancelled: {cancelledCount}";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting statistics: {ex.Message}");
+                return "Statistics unavailable";
+            }
+        }
     }
 }
