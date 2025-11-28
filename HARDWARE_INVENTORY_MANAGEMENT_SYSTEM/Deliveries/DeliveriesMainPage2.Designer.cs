@@ -63,7 +63,7 @@
             // searchField1
             // 
             this.searchField1.BackColor = System.Drawing.Color.Transparent;
-            this.searchField1.Location = new System.Drawing.Point(25, 11);
+            this.searchField1.Location = new System.Drawing.Point(25, 7);
             this.searchField1.Name = "searchField1";
             this.searchField1.PromptMessage = null;
             this.searchField1.Size = new System.Drawing.Size(299, 54);
@@ -71,15 +71,16 @@
             // 
             // deliveries_btncs1
             // 
-            this.deliveries_btncs1.Location = new System.Drawing.Point(737, 15);
+            this.deliveries_btncs1.Location = new System.Drawing.Point(708, 7);
             this.deliveries_btncs1.Name = "deliveries_btncs1";
             this.deliveries_btncs1.Size = new System.Drawing.Size(157, 47);
             this.deliveries_btncs1.TabIndex = 9;
+            this.deliveries_btncs1.Load += new System.EventHandler(this.deliveries_btncs1_Load);
             // 
             // inventoryFilter_Button1
             // 
             this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(330, 13);
+            this.inventoryFilter_Button1.Location = new System.Drawing.Point(330, 11);
             this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
             this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
             this.inventoryFilter_Button1.TabIndex = 6;
@@ -92,9 +93,9 @@
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox6);
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox4);
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox5);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(44, 68);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(55, 60);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(810, 493);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(810, 530);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
             // vehiclesInfoBox2

@@ -72,7 +72,7 @@
             this.GoleftButton.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GoleftButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
             this.GoleftButton.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.direction_right_2;
-            this.GoleftButton.Location = new System.Drawing.Point(841, 5);
+            this.GoleftButton.Location = new System.Drawing.Point(797, 5);
             this.GoleftButton.Name = "GoleftButton";
             this.GoleftButton.PressedColor = System.Drawing.Color.White;
             this.GoleftButton.Size = new System.Drawing.Size(23, 23);
@@ -94,7 +94,7 @@
             this.GoRightButton.Font = new System.Drawing.Font("Lexend Light", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GoRightButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(28)))), ((int)(((byte)(35)))));
             this.GoRightButton.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.direction_right_011;
-            this.GoRightButton.Location = new System.Drawing.Point(876, 5);
+            this.GoRightButton.Location = new System.Drawing.Point(832, 5);
             this.GoRightButton.Name = "GoRightButton";
             this.GoRightButton.PressedColor = System.Drawing.Color.White;
             this.GoRightButton.Size = new System.Drawing.Size(23, 23);

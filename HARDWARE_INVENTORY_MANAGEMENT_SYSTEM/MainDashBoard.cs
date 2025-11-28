@@ -89,5 +89,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
             // Your existing paint code if any
         }
+
+        private void sidePanel2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
