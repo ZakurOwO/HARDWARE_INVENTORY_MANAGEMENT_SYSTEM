@@ -1,108 +1,87 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
 {
     public partial class SettingsMainPage : UserControl
     {
-
-        private SettingsSidePanel settingsSidePanel;
         public SettingsMainPage()
         {
             InitializeComponent();
-
-            var side = new SettingsSidePanel();
-
-            side.AccountsClicked += (s, e) => ShowAccounts();
-            side.HistoryClicked += (s, e) => ShowHistory();
-            side.AuditLogClicked += (s, e) => ShowAuditLog();
-
+            Console.WriteLine("SettingsMainPage constructor called");
         }
 
         private void SettingsMainPage_Load(object sender, EventArgs e)
         {
-            
-            var mainForm = this.FindForm() as MainDashBoard;
-            if (mainForm != null)
-            {
-                settingsSidePanel = mainForm.Controls.OfType<SettingsSidePanel>().FirstOrDefault();
-                if (settingsSidePanel == null)
-                {
-                    // If side panel not yet added, try to find by name or SidePanel type
-                    settingsSidePanel = mainForm.Controls.OfType<SettingsSidePanel>().FirstOrDefault();
-                }
-            }
-
-          ShowAccounts();
+            Console.WriteLine("SettingsMainPage_Load called");
+            ShowAccounts(); // Show default page
         }
 
         public void ShowAccounts()
         {
-            AccountsMainPage accountsMainPage = new AccountsMainPage();
+            Console.WriteLine("ShowAccounts method executing");
             pnlDisplaySettings.Controls.Clear();
-            pnlDisplaySettings.Controls.Add(accountsMainPage);
+            AccountsMainPage accountsMainPage = new AccountsMainPage();
             accountsMainPage.Dock = DockStyle.Fill;
-
+            pnlDisplaySettings.Controls.Add(accountsMainPage);
+            Console.WriteLine("Accounts page shown");
         }
 
         public void ShowHistory()
         {
-            HistoryMainPage historyMainPage = new HistoryMainPage();
+            Console.WriteLine("ShowHistory method executing");
             pnlDisplaySettings.Controls.Clear();
-            pnlDisplaySettings.Controls.Add(historyMainPage);
+            HistoryMainPage historyMainPage = new HistoryMainPage();
             historyMainPage.Dock = DockStyle.Fill;
+            pnlDisplaySettings.Controls.Add(historyMainPage);
+            Console.WriteLine("History page shown");
         }
 
         public void ShowAuditLog()
         {
-            AuditLogMainPage auditLogMainPage = new AuditLogMainPage();
+            Console.WriteLine("ShowAuditLog method executing");
             pnlDisplaySettings.Controls.Clear();
-            pnlDisplaySettings.Controls.Add(auditLogMainPage);
+            AuditLogMainPage auditLogMainPage = new AuditLogMainPage();
             auditLogMainPage.Dock = DockStyle.Fill;
+            pnlDisplaySettings.Controls.Add(auditLogMainPage);
+            Console.WriteLine("AuditLog page shown");
         }
 
-        
         private void btnBack_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("Back button clicked");
+
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm == null) return;
 
-            // 1. Remove Settings main page (this)
-            mainForm.MainContentPanel.Controls.Remove(this);
+            // Remove Settings main page (this)
+            mainForm.MainContentPanelAccess.Controls.Remove(this);
 
-            // 2. Remove the settings side panel
+            // Remove the settings side panel
             var settingsPanel = mainForm.Controls.OfType<SettingsSidePanel>().FirstOrDefault();
             if (settingsPanel != null)
+            {
                 mainForm.Controls.Remove(settingsPanel);
+                settingsPanel.Dispose();
+                Console.WriteLine("SettingsSidePanel removed");
+            }
 
-            // 3. Bring back the original side panel
-            var originalPanel = new SidePanel();  // your normal left panel
-            originalPanel.Location = new Point(12, 12);
-            originalPanel.Size = new Size(216, 698);
-            mainForm.Controls.Add(originalPanel);
-            originalPanel.BringToFront();
+            // Show ALL controls that were hidden
+            foreach (Control control in mainForm.Controls)
+            {
+                control.Visible = true;
+            }
 
-            // 4. Load dashboard as default
-            var dashboard = new DashboardMainPage();
+            // Load dashboard
+            var dashboard = new Dashboard.DashboardMainPage();
             dashboard.Dock = DockStyle.Fill;
-            mainForm.MainContentPanel.Controls.Clear();
-            mainForm.MainContentPanel.Controls.Add(dashboard);
-            dashboard.BringToFront();
+            mainForm.MainContentPanelAccess.Controls.Clear();
+            mainForm.MainContentPanelAccess.Controls.Add(dashboard);
+            Console.WriteLine("Dashboard restored");
         }
-
     }
-    
 }

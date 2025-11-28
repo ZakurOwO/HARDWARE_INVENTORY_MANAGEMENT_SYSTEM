@@ -16,6 +16,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
     {
         private Button activeButton = null;
 
+        // Add this property to control visibility
+        public bool IsHidden { get; private set; } = false;
+
         public SidePanel()
         {
             InitializeComponent();
@@ -65,6 +68,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 dashboard.Dock = DockStyle.Fill;
                 mainForm.MainContentPanelAccess.Controls.Add(dashboard);
             }
+        }
+
+        // Add this method to hide the side panel
+        public void HidePanel()
+        {
+            this.Visible = false;
+            this.IsHidden = true;
+        }
+
+        // Add this method to show the side panel
+        public void ShowPanel()
+        {
+            this.Visible = true;
+            this.IsHidden = false;
         }
 
         // Highlight the selected button and reset others
@@ -235,6 +252,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 ReportsMainPage reports = new ReportsMainPage();
                 reports.Dock = DockStyle.Fill;
                 mainForm.MainContentPanelAccess.Controls.Add(reports);
+            }
+        }
+
+        // Add this method for Settings button
+        private void SettingsBTN_Click(object sender, EventArgs e)
+        {
+            HighlightButton((Button)sender);
+            CloseAllOverlays();
+
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                // Hide this side panel
+                this.HidePanel();
+
+                // Show settings main page
+                mainForm.MainContentPanelAccess.Controls.Clear();
+                var settingsMainPage = new UserControlFiles.SettingsMainPage();
+                settingsMainPage.Dock = DockStyle.Fill;
+                mainForm.MainContentPanelAccess.Controls.Add(settingsMainPage);
+
+                // The SettingsMainPage will handle showing the SettingsSidePanel
             }
         }
     }
