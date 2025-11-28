@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Text;
 using Guna.UI2.WinForms;
 using System.IO;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 {
@@ -64,12 +65,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             // Use optimal font size and button width for "ADD VEHICLE" text
             btnAddVehicle.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddVehicle.ForeColor = Color.White;
-            btnAddVehicle.Location = new Point(737, 8);
+            btnAddVehicle.Location = new Point(740, 15);
 
             // Increased width to better fit the text
-            btnAddVehicle.Size = new Size(130, 40);
+            btnAddVehicle.Size = new Size(150, 40);
             btnAddVehicle.TabIndex = 3;
-            btnAddVehicle.Text = "ADD VEHICLE";
+            btnAddVehicle.Text = "Add New Vehicle";
+            btnAddVehicle.Image = Resources.add_circle;
+            btnAddVehicle.ImageAlign = HorizontalAlignment.Center;
 
             // Add click event
             btnAddVehicle.Click += (s, e) =>
