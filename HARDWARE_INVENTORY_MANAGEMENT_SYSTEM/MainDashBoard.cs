@@ -17,10 +17,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
     {
         private TransactionsMainPage transactionsPage;
         private Walk_inCartDetails cartDetails;
+        
 
         public MainDashBoard()
         {
             InitializeComponent();
+            
         }
 
         // Initialize dashboard with default page

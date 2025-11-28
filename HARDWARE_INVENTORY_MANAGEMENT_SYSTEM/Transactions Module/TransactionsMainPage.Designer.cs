@@ -67,9 +67,9 @@
             this.btnMainButtonIcon.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
             this.btnMainButtonIcon.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMainButtonIcon.ForeColor = System.Drawing.Color.White;
-            this.btnMainButtonIcon.Location = new System.Drawing.Point(333, 69);
+            this.btnMainButtonIcon.Location = new System.Drawing.Point(333, 73);
             this.btnMainButtonIcon.Name = "btnMainButtonIcon";
-            this.btnMainButtonIcon.Size = new System.Drawing.Size(99, 48);
+            this.btnMainButtonIcon.Size = new System.Drawing.Size(99, 40);
             this.btnMainButtonIcon.TabIndex = 4;
             this.btnMainButtonIcon.Text = "Refresh";
             this.btnMainButtonIcon.Click += new System.EventHandler(this.btnMainButtonIcon_Click);
