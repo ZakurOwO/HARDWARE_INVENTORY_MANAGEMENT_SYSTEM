@@ -23,7 +23,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
         public SettingsMainPage()
         {
             InitializeComponent();
-            
+
+            var side = new SettingsSidePanel();
+
+            side.AccountsClicked += (s, e) => ShowAccounts();
+            side.HistoryClicked += (s, e) => ShowHistory();
+            side.AuditLogClicked += (s, e) => ShowAuditLog();
+
         }
 
         private void SettingsMainPage_Load(object sender, EventArgs e)
@@ -38,65 +44,37 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
                     // If side panel not yet added, try to find by name or SidePanel type
                     settingsSidePanel = mainForm.Controls.OfType<SettingsSidePanel>().FirstOrDefault();
                 }
-
-                if (settingsSidePanel != null)
-                {
-                    // avoid duplicate subscription
-                    settingsSidePanel.ShowAccounts -= PnlNavBar_ShowAccounts;
-                    settingsSidePanel.ShowAccounts += PnlNavBar_ShowAccounts;
-
-                    settingsSidePanel.ShowHistory -= PnlNavBar_ShowHistory;
-                    settingsSidePanel.ShowHistory += PnlNavBar_ShowHistory;
-
-                    settingsSidePanel.ShowAuditLog -= PnlNavBar_ShowAuditLog;
-                    settingsSidePanel.ShowAuditLog += PnlNavBar_ShowAuditLog;
-                }
-
-               
             }
 
-            ShowAccountsControl();
+          ShowAccounts();
         }
 
-        private void PnlNavBar_ShowAccounts(object sender, EventArgs e)
+        public void ShowAccounts()
         {
-            ShowAccountsControl();
-        }
-
-        private void PnlNavBar_ShowHistory(object sender, EventArgs e)
-        {
-            ShowHistoryControl();
-        }
-
-        private void PnlNavBar_ShowAuditLog(object sender, EventArgs e)
-        {
-            ShowAuditLogControl();
-        }
-
-        private void ShowAccountsControl()
-        {
+            AccountsMainPage accountsMainPage = new AccountsMainPage();
             pnlDisplaySettings.Controls.Clear();
-            var accountsUC = new AccountsMainPage();
-            accountsUC.Dock = DockStyle.Fill;
-            pnlDisplaySettings.Controls.Add(accountsUC);
+            pnlDisplaySettings.Controls.Add(accountsMainPage);
+            accountsMainPage.Dock = DockStyle.Fill;
+
         }
 
-        private void ShowHistoryControl()
+        public void ShowHistory()
         {
+            HistoryMainPage historyMainPage = new HistoryMainPage();
             pnlDisplaySettings.Controls.Clear();
-            var historyUC = new HistoryMainPage();
-            historyUC.Dock = DockStyle.Fill;
-            pnlDisplaySettings.Controls.Add(historyUC);
+            pnlDisplaySettings.Controls.Add(historyMainPage);
+            historyMainPage.Dock = DockStyle.Fill;
         }
 
-        private void ShowAuditLogControl()
+        public void ShowAuditLog()
         {
+            AuditLogMainPage auditLogMainPage = new AuditLogMainPage();
             pnlDisplaySettings.Controls.Clear();
-            var auditLogUC = new AuditLogMainPage();
-            auditLogUC.Dock = DockStyle.Fill;
-            pnlDisplaySettings.Controls.Add(auditLogUC);
+            pnlDisplaySettings.Controls.Add(auditLogMainPage);
+            auditLogMainPage.Dock = DockStyle.Fill;
         }
 
+        
         private void btnBack_Click(object sender, EventArgs e)
         {
             var mainForm = this.FindForm() as MainDashBoard;

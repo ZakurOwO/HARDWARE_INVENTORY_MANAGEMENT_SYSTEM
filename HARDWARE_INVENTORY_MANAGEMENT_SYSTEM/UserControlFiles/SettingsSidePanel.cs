@@ -17,17 +17,37 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
     public partial class SettingsSidePanel : UserControl
     {
         private Button activeButton = null;
-        public event EventHandler ShowAccounts;
-        public event EventHandler ShowHistory;
-        public event EventHandler ShowAuditLog;
+
+        public event EventHandler AccountsClicked;
+        public event EventHandler HistoryClicked;
+        public event EventHandler AuditLogClicked;
+
         public SettingsSidePanel()
         {
             InitializeComponent();
             this.Load += SettingsSidePanel_Load;
+
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            int radius = 20;
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(0, 0, radius, radius, 180, 90);
+                path.AddArc(Width - radius, 0, radius, radius, 270, 90);
+                path.AddArc(Width - radius, Height - radius, radius, radius, 0, 90);
+                path.AddArc(0, Height - radius, radius, radius, 90, 90);
+                path.CloseAllFigures();
+                this.Region = new Region(path);
+            }
         }
 
         private void SettingsSidePanel_Load(object sender, EventArgs e)
         {
+            // Attach paint event to all buttons for active indicator
             foreach (Control ctrl in this.Controls)
             {
                 if (ctrl is Button btn)
@@ -40,9 +60,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
             if (this.Controls.ContainsKey("AccountsBTN"))
             {
                 HighlightButton((Button)this.Controls["AccountsBTN"]);
+                AccountsClicked?.Invoke(this, EventArgs.Empty);
             }
+
         }
 
+        // Highlight the selected button and reset others
         private void HighlightButton(Button clickedButton)
         {
             Color defaultBack = Color.FromArgb(204, 228, 248);
@@ -73,6 +96,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
             this.Invalidate();
         }
 
+        // Draw blue line indicator on active button
         private void SidebarButton_Paint(object sender, PaintEventArgs e)
         {
             Button btn = (Button)sender;
@@ -87,56 +111,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
             }
         }
 
-        // Helper method to close all overlays
-        private void CloseAllOverlays()
+        private void AccountsBTN_Click(object sender, EventArgs e)
         {
-            var mainForm = this.FindForm() as MainDashBoard;
-            if (mainForm != null)
-            {
-                mainForm.CloseAllOverlays();
-            }
-        }
-
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-
-            int radius = 20;
-            using (GraphicsPath path = new GraphicsPath())
-            {
-                path.AddArc(0, 0, radius, radius, 180, 90);
-                path.AddArc(Width - radius, 0, radius, radius, 270, 90);
-                path.AddArc(Width - radius, Height - radius, radius, radius, 0, 90);
-                path.AddArc(0, Height - radius, radius, radius, 90, 90);
-                path.CloseAllFigures();
-                this.Region = new Region(path);
-            }
-        }
-
-
-        private void AuditLogBTN_Click(object sender, EventArgs e)
-        {
-            CloseAllOverlays();
             HighlightButton((Button)sender);
-
-            ShowAuditLog?.Invoke(this, EventArgs.Empty);
+            
+            AccountsClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void HistoryBTN_Click(object sender, EventArgs e)
         {
-            CloseAllOverlays();
             HighlightButton((Button)sender);
-
-            ShowHistory?.Invoke(this, EventArgs.Empty);
+            
+            HistoryClicked?.Invoke(this, EventArgs.Empty);
         }
 
-        private void AccountsBTN_Click(object sender, EventArgs e)
+        private void AuditLogBTN_Click(object sender, EventArgs e)
         {
-            CloseAllOverlays();
             HighlightButton((Button)sender);
-
-            ShowAccounts?.Invoke(this, EventArgs.Empty);
+            
+            AuditLogClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }
