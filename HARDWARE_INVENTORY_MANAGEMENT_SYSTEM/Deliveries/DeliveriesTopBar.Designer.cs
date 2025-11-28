@@ -58,6 +58,7 @@
             // 
             this.btnProfileMenu.BackColor = System.Drawing.Color.Transparent;
             this.btnProfileMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnProfileMenu.BorderColor = System.Drawing.Color.LightGray;
             this.btnProfileMenu.BorderRadius = 5;
             this.btnProfileMenu.BorderThickness = 1;
             this.btnProfileMenu.DisabledState.BorderColor = System.Drawing.Color.DarkGray;

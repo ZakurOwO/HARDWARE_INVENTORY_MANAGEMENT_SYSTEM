@@ -33,9 +33,9 @@
             this.deliveries_btncs1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.Deliveries_btncs();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.vehiclesInfoBox3 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
             this.vehiclesInfoBox2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
             this.vehiclesInfoBox1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
+            this.vehiclesInfoBox3 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
             this.vehiclesInfoBox6 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
             this.vehiclesInfoBox4 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
             this.vehiclesInfoBox5 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
@@ -86,34 +86,16 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox3);
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox2);
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox1);
+            this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox3);
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox6);
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox4);
             this.flowLayoutPanel1.Controls.Add(this.vehiclesInfoBox5);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(44, 68);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(810, 482);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(810, 493);
             this.flowLayoutPanel1.TabIndex = 8;
-            // 
-            // vehiclesInfoBox3
-            // 
-            this.vehiclesInfoBox3.BackColor = System.Drawing.Color.Transparent;
-            this.vehiclesInfoBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.vehiclesInfoBox3.ForeColor = System.Drawing.Color.White;
-            this.vehiclesInfoBox3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._2000_Isuzu_mini_dump_truck_970_3730728_1_1;
-            this.vehiclesInfoBox3.Location = new System.Drawing.Point(3, 3);
-            this.vehiclesInfoBox3.Name = "vehiclesInfoBox3";
-            this.vehiclesInfoBox3.Plate_No = "123BZN";
-            this.vehiclesInfoBox3.Size = new System.Drawing.Size(253, 235);
-            this.vehiclesInfoBox3.Status = "Available";
-            this.vehiclesInfoBox3.TabIndex = 4;
-            this.vehiclesInfoBox3.Type = "Drop-Side Truck";
-            this.vehiclesInfoBox3.Vehicle_ID = "MITS-0021";
-            this.vehiclesInfoBox3.Vehicle_Name = "Mitsubishi Fuso Cante";
-            this.vehiclesInfoBox3.Load += new System.EventHandler(this.vehiclesInfoBox3_Load);
             // 
             // vehiclesInfoBox2
             // 
@@ -121,7 +103,7 @@
             this.vehiclesInfoBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.vehiclesInfoBox2.ForeColor = System.Drawing.Color.White;
             this.vehiclesInfoBox2.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._2000_Isuzu_mini_dump_truck_970_3730728_1_1;
-            this.vehiclesInfoBox2.Location = new System.Drawing.Point(262, 3);
+            this.vehiclesInfoBox2.Location = new System.Drawing.Point(3, 3);
             this.vehiclesInfoBox2.Name = "vehiclesInfoBox2";
             this.vehiclesInfoBox2.Plate_No = "123BZN";
             this.vehiclesInfoBox2.Size = new System.Drawing.Size(253, 235);
@@ -137,7 +119,7 @@
             this.vehiclesInfoBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.vehiclesInfoBox1.ForeColor = System.Drawing.Color.White;
             this.vehiclesInfoBox1.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._2000_Isuzu_mini_dump_truck_970_3730728_1_1;
-            this.vehiclesInfoBox1.Location = new System.Drawing.Point(521, 3);
+            this.vehiclesInfoBox1.Location = new System.Drawing.Point(262, 3);
             this.vehiclesInfoBox1.Name = "vehiclesInfoBox1";
             this.vehiclesInfoBox1.Plate_No = "123BZN";
             this.vehiclesInfoBox1.Size = new System.Drawing.Size(253, 235);
@@ -146,6 +128,23 @@
             this.vehiclesInfoBox1.Type = "Drop-Side Truck";
             this.vehiclesInfoBox1.Vehicle_ID = "MITS-0021";
             this.vehiclesInfoBox1.Vehicle_Name = "Mitsubishi Fuso Cante";
+            // 
+            // vehiclesInfoBox3
+            // 
+            this.vehiclesInfoBox3.BackColor = System.Drawing.Color.Transparent;
+            this.vehiclesInfoBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.vehiclesInfoBox3.ForeColor = System.Drawing.Color.White;
+            this.vehiclesInfoBox3.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources._2000_Isuzu_mini_dump_truck_970_3730728_1_1;
+            this.vehiclesInfoBox3.Location = new System.Drawing.Point(521, 3);
+            this.vehiclesInfoBox3.Name = "vehiclesInfoBox3";
+            this.vehiclesInfoBox3.Plate_No = "123BZN";
+            this.vehiclesInfoBox3.Size = new System.Drawing.Size(253, 235);
+            this.vehiclesInfoBox3.Status = "Available";
+            this.vehiclesInfoBox3.TabIndex = 4;
+            this.vehiclesInfoBox3.Type = "Drop-Side Truck";
+            this.vehiclesInfoBox3.Vehicle_ID = "MITS-0021";
+            this.vehiclesInfoBox3.Vehicle_Name = "Mitsubishi Fuso Cante";
+            this.vehiclesInfoBox3.Load += new System.EventHandler(this.vehiclesInfoBox3_Load);
             // 
             // vehiclesInfoBox6
             // 
@@ -190,7 +189,7 @@
             this.vehiclesInfoBox5.Plate_No = "123BZN";
             this.vehiclesInfoBox5.Size = new System.Drawing.Size(253, 235);
             this.vehiclesInfoBox5.Status = "Available";
-            this.vehiclesInfoBox5.TabIndex = 8;
+            this.vehiclesInfoBox5.TabIndex = 6;
             this.vehiclesInfoBox5.Type = "Drop-Side Truck";
             this.vehiclesInfoBox5.Vehicle_ID = "MITS-0021";
             this.vehiclesInfoBox5.Vehicle_Name = "Mitsubishi Fuso Cante";
@@ -217,10 +216,10 @@
         private VehiclesInfoBox vehiclesInfoBox2;
         private VehiclesInfoBox vehiclesInfoBox1;
         private VehiclesInfoBox vehiclesInfoBox4;
+        private VehiclesInfoBox vehiclesInfoBox5;
         private VehiclesInfoBox vehiclesInfoBox6;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private Deliveries_btncs deliveries_btncs1;
         private Accounts_Module.SearchField searchField1;
-        private VehiclesInfoBox vehiclesInfoBox5;
     }
 }

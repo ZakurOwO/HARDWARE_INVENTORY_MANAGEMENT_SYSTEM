@@ -67,7 +67,7 @@
             // 
             // MainContentPanel
             // 
-            this.MainContentPanel.BackColor = System.Drawing.Color.Transparent;
+            this.MainContentPanel.BackColor = System.Drawing.Color.White;
             this.MainContentPanel.Location = new System.Drawing.Point(234, 0);
             this.MainContentPanel.Name = "MainContentPanel";
             this.MainContentPanel.Size = new System.Drawing.Size(976, 720);

@@ -56,6 +56,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             {
                 HighlightButton((Button)this.Controls["DashboardBTN"]);
             }
+
+            var mainForm = this.FindForm() as MainDashBoard;
+            if (mainForm != null)
+            {
+                mainForm.MainContentPanelAccess.Controls.Clear();
+                Dashboard.DashboardMainPage dashboard = new Dashboard.DashboardMainPage();
+                dashboard.Dock = DockStyle.Fill;
+                mainForm.MainContentPanelAccess.Controls.Add(dashboard);
+            }
         }
 
         // Highlight the selected button and reset others
