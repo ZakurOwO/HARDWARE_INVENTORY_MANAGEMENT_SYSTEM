@@ -109,7 +109,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
                     e.Graphics.FillRectangle(brush, lineRect);
                 }
             }
-        }
+        }   
 
         private void AccountsBTN_Click(object sender, EventArgs e)
         {
