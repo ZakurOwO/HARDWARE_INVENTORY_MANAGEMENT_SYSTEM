@@ -45,7 +45,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private void SuppplierMainPage_Load(object sender, EventArgs e)
         {
-            
+
             supplierNavBar1.ShowSuppliers += SupplierNavBar1_ShowSuppliers;
             supplierNavBar1.ShowPO += SupplierNavBar1_ShowPO;
             ShowSuppliers();

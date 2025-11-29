@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 {
@@ -10,13 +9,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         private Panel scrollContainer;
         private SupplierAddForm SupplierAddForm;
         private MainDashBoard mainForm;
+        private SupplierTable supplierTable; // Reference to refresh table
 
-        public void ShowSupplierAddForm(MainDashBoard main)
+        public void ShowSupplierAddForm(MainDashBoard main, SupplierTable table = null)
         {
             mainForm = main;
+            supplierTable = table;
 
             SupplierAddForm = new SupplierAddForm();
             SupplierAddForm.Dock = DockStyle.None;
+
+            // Subscribe to events
+            SupplierAddForm.CancelClicked += (s, e) => CloseSupplierAddForm();
+            SupplierAddForm.SupplierAdded += (s, e) => {
+                // Refresh the supplier table when a new supplier is added
+                supplierTable?.LoadSuppliersFromDatabase();
+            };
 
             scrollContainer = new Panel();
             scrollContainer.Size = new Size(600, 520);
@@ -25,11 +33,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 (main.Height - scrollContainer.Height) / 2
             );
             scrollContainer.BorderStyle = BorderStyle.FixedSingle;
-            scrollContainer.AutoScroll = false; // disable scrollbars
+            scrollContainer.AutoScroll = false;
 
             scrollContainer.Controls.Add(SupplierAddForm);
 
-            SupplierAddForm.Size = new Size(600, 850); // keep original size
+            SupplierAddForm.Size = new Size(600, 850);
             SupplierAddForm.Location = new Point(0, 0);
             SupplierAddForm.Show();
 
@@ -40,8 +48,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
             mainForm.Controls.Add(scrollContainer);
             scrollContainer.BringToFront();
-
-            SupplierAddForm.CancelClicked += (s, e) => CloseSupplierAddForm();
         }
 
         public void CloseSupplierAddForm()
@@ -54,6 +60,5 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             scrollContainer?.Dispose();
             SupplierAddForm?.Dispose();
         }
-
     }
 }
