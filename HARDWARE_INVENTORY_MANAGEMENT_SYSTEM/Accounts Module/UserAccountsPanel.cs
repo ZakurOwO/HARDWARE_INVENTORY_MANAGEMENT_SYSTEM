@@ -1,4 +1,5 @@
 ﻿using Guna.UI2.WinForms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_of_Accounts;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -9,6 +10,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
     public partial class UserAccountsPanel : UserControl
     {
         public event EventHandler UserPanelClicked;
+        private AddUserContainer editUserContainer = new AddUserContainer();
 
         public UserAccountsPanel()
         {
@@ -146,6 +148,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         private void btnStatus_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnEditIcon_Click(object sender, EventArgs e)
+        {
+            MainDashBoard main = this.FindForm() as MainDashBoard;
+
+            if (main != null)
+            {
+                editUserContainer.ShowEditUserForm(main);
+            }
         }
     }
 }

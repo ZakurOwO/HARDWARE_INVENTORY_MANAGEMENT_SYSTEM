@@ -114,10 +114,13 @@
             this.btnEditIcon.FillColor = System.Drawing.Color.Transparent;
             this.btnEditIcon.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnEditIcon.ForeColor = System.Drawing.Color.White;
-            this.btnEditIcon.Location = new System.Drawing.Point(231, 11);
+            this.btnEditIcon.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Edit_Blue;
+            this.btnEditIcon.ImageSize = new System.Drawing.Size(30, 30);
+            this.btnEditIcon.Location = new System.Drawing.Point(235, 11);
             this.btnEditIcon.Name = "btnEditIcon";
             this.btnEditIcon.Size = new System.Drawing.Size(25, 30);
             this.btnEditIcon.TabIndex = 11;
+            this.btnEditIcon.Click += new System.EventHandler(this.btnEditIcon_Click);
             // 
             // lblPosition
             // 

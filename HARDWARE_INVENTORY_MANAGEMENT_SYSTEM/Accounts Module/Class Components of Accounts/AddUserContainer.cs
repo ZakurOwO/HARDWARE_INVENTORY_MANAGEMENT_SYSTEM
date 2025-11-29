@@ -48,6 +48,34 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_
 
 
         }
+        public void ShowEditUserForm(MainDashBoard main)
+        {
+            mainForm = main;
+            EditUserInfo_Form editForm = new EditUserInfo_Form();
+
+            scrollContainer = new Panel();
+            scrollContainer.Size = new Size(566, 565);
+            scrollContainer.Location = new Point(
+                (main.Width - scrollContainer.Width) / 2,
+                (main.Height - scrollContainer.Height) / 2
+            );
+            scrollContainer.BorderStyle = BorderStyle.FixedSingle;
+            scrollContainer.AutoScroll = false; // disable scrollbars
+            scrollContainer.Controls.Add(editForm);
+
+            editForm.Size = new Size(566, 565); // keep original size
+            editForm.Location = new Point(0, 0);
+            editForm.Show();
+
+            mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.AccountsOverlay;
+            mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
+            mainForm.pcbBlurOverlay.Visible = true;
+            mainForm.pcbBlurOverlay.BringToFront();
+
+            mainForm.Controls.Add(scrollContainer);
+            scrollContainer.BringToFront();
+        }
+
         public void CloseSupplierAddForm()
         {
             if (mainForm != null)
