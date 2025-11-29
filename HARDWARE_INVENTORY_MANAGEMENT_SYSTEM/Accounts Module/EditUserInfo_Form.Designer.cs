@@ -105,7 +105,6 @@
             this.btnCancel.Size = new System.Drawing.Size(120, 40);
             this.btnCancel.TabIndex = 38;
             this.btnCancel.Text = "Cancel";
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnUpdate
             // 
@@ -456,7 +455,6 @@
             this.closeButton1.Name = "closeButton1";
             this.closeButton1.Size = new System.Drawing.Size(35, 35);
             this.closeButton1.TabIndex = 35;
-            this.closeButton1.Click += new System.EventHandler(this.closeButton1_Click);
             // 
             // EditUserInfo_Form
             // 
