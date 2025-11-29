@@ -21,6 +21,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
         {
             InitializeComponent();
             ProfileMenu.Paint += ProfileBtn_Paint;
+            this.Load += DashboardMainPage_Load;
         }
 
         
@@ -31,8 +32,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
 
         private void DashboardMainPage_Load(object sender, EventArgs e)
         {
-            LoadSalesVsPurchaseChart();
-            
+            dgvLowStock.ClearSelection();
+            // LoadSalesVsPurchaseChart();
+            LoadSalesVsPurchase();
+            LoadSalesTrend();
+            LoadBestSellers();
+            LoadLowStock();
+
+            // Style for Sales Trend Chart
+            if (chartSalesTrend.Series.Count == 0)
+                chartSalesTrend.Series.Add("Sales");
 
             chartSalesTrend.Series[0].ChartType = SeriesChartType.Line;
             chartSalesTrend.Series[0].BorderWidth = 3;
@@ -48,133 +57,181 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
             chartSalesPurchase.ChartAreas[0].BackColor = Color.Transparent;
             chartSalesPurchase.BackColor = Color.Transparent;
 
-         /*   //sample data for testing
-            chartTopProducts.Series.Clear();
-            var sp = chartTopProducts.Series.Add("Products");
-            sp.ChartType = SeriesChartType.Bar;
-
-            sp.Points.AddXY("Product A", 120);
-            sp.Points.AddXY("Product B", 90);
-            sp.Points.AddXY("Product C", 75);
-            sp.Points.AddXY("Product D", 60);
-            sp.Points.AddXY("Product E", 55);
-
-            //sample data for testing
-            chartSalesTrend.Series.Clear();
-            var t = chartSalesTrend.Series.Add("Sales");
-            t.ChartType = SeriesChartType.Line;
-            t.BorderWidth = 3;
-
-            t.Points.AddXY("Week 1", 12000);
-            t.Points.AddXY("Week 2", 15000);
-            t.Points.AddXY("Week 3", 17000);
-            t.Points.AddXY("Week 4", 19000);  */
         }
         private void LoadSalesVsPurchaseChart()
+        {
+            
+
+        }
+
+        public void LoadSalesVsPurchase()
         {
             chartSalesPurchase.Series.Clear();
             chartSalesPurchase.ChartAreas[0].BackColor = Color.Transparent;
 
-            // Create 2 series (Sales & Purchase)
             Series salesSeries = chartSalesPurchase.Series.Add("Sales");
             salesSeries.ChartType = SeriesChartType.Column;
-            salesSeries.Font = new Font("Lexend Light", 8);
 
-            Series purchaseSeries = chartSalesPurchase.Series.Add("Purchase");
+            Series purchaseSeries = chartSalesPurchase.Series.Add("Purchases");
             purchaseSeries.ChartType = SeriesChartType.Column;
-            purchaseSeries.Font = new Font("Lexend Light", 8);
 
-            // Sample values (replace with DB values)
-            int[] salesData = { 12000, 14000, 18000, 20000 };       // monthly sales
-            int[] purchaseData = { 8000, 9000, 15000, 17000 };      // monthly purchases
-            string[] months = { "Jan", "Feb", "Mar", "Apr" };
-
-            // Add points
-            for (int i = 0; i < months.Length; i++)
+            using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
             {
-                salesSeries.Points.AddXY(months[i], salesData[i]);
-                purchaseSeries.Points.AddXY(months[i], purchaseData[i]);
+                con.Open();
+
+                // SALES
+                string salesQuery = @"
+                    SELECT 
+                        FORMAT(transaction_date, 'MMM') AS MonthName,
+                        SUM(TI.quantity * TI.selling_price) AS TotalSales
+                    FROM Transactions T
+                    INNER JOIN TransactionItems TI ON T.transaction_id = TI.transaction_id
+                    GROUP BY FORMAT(transaction_date, 'MMM'), MONTH(transaction_date)
+                    ORDER BY MONTH(transaction_date);
+                ";
+
+                SqlCommand cmdSales = new SqlCommand(salesQuery, con);
+                SqlDataReader sdr = cmdSales.ExecuteReader();
+
+                Dictionary<string, decimal> salesData = new Dictionary<string, decimal>();
+
+                while (sdr.Read())
+                {
+                    string month = sdr["MonthName"].ToString();
+                    decimal value = sdr["TotalSales"] == DBNull.Value ? 0 : Convert.ToDecimal(sdr["TotalSales"]);
+                    salesData[month] = value;
+                }
+                sdr.Close();
+
+                // PURCHASES
+                string purchaseQuery = @"
+                    SELECT 
+                        FORMAT(po_date, 'MMM') AS MonthName,
+                        SUM(POI.quantity_ordered * POI.unit_price) AS TotalPurchase
+                    FROM PurchaseOrders PO
+                    INNER JOIN PurchaseOrderItems POI ON PO.po_id = POI.po_id
+                    GROUP BY FORMAT(po_date, 'MMM'), MONTH(po_date)
+                    ORDER BY MONTH(po_date);
+                ";
+
+                SqlCommand cmdPurchase = new SqlCommand(purchaseQuery, con);
+                SqlDataReader pdr = cmdPurchase.ExecuteReader();
+
+                Dictionary<string, decimal> purchaseData = new Dictionary<string, decimal>();
+
+                while (pdr.Read())
+                {
+                    string month = pdr["MonthName"].ToString();
+                    decimal value = pdr["TotalPurchase"] == DBNull.Value ? 0 : Convert.ToDecimal(pdr["TotalPurchase"]);
+                    purchaseData[month] = value;
+                }
+                pdr.Close();
+
+                // Add both to chart (combined months)
+                foreach (var month in salesData.Keys.Union(purchaseData.Keys))
+                {
+                    decimal s = salesData.ContainsKey(month) ? salesData[month] : 0;
+                    decimal p = purchaseData.ContainsKey(month) ? purchaseData[month] : 0;
+
+                    salesSeries.Points.AddXY(month, s);
+                    purchaseSeries.Points.AddXY(month, p);
+                }
+
+                con.Close();
             }
-
-            // Styling for modern UI
-            salesSeries.Color = Color.FromArgb(42, 134, 205);  
-            purchaseSeries.Color = Color.FromArgb(204, 226, 243);   
-
-            chartSalesPurchase.Legends[0].Enabled = true;
         }
 
         public void LoadSalesTrend()
         {
-            Series salesSeries;
-            if (chartSalesTrend.Series.IndexOf("Sales") >= 0)
-            {
-                salesSeries = chartSalesTrend.Series["Sales"];
-                salesSeries.Points.Clear();
-            }
-            else
-            {
-                salesSeries = chartSalesTrend.Series.Add("Sales");
-                salesSeries.ChartType = SeriesChartType.Line;
-                salesSeries.BorderWidth = 3;
-            }
+            if (chartSalesTrend.Series.IndexOf("Sales") == -1)
+                chartSalesTrend.Series.Add("Sales");
 
-            // If you don't have a working DB connection yet, don't let the method throw - log and return.
-            try
+            chartSalesTrend.Series["Sales"].Points.Clear();
+
+            using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
             {
-                // Use your application's connection string provider
-                using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
+                string query = @"
+                    SELECT
+                        CAST(transaction_date AS DATE) AS SalesDate,
+                        SUM(TI.quantity * TI.selling_price) AS Total
+                    FROM Transactions T
+                    INNER JOIN TransactionItems TI ON T.transaction_id = TI.transaction_id
+                    GROUP BY CAST(transaction_date AS DATE)
+                    ORDER BY SalesDate;
+                ";
+
+                SqlCommand cmd = new SqlCommand(query, con);
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
                 {
-                    string query = @"
-                        SELECT
-                            CAST(date AS DATE) AS SalesDate,
-                            SUM(amount) AS Total
-                        FROM Sales
-                        GROUP BY CAST(date AS DATE)
-                        ORDER BY SalesDate
-                    ";
+                    DateTime date = Convert.ToDateTime(dr["SalesDate"]);
+                    decimal value = dr["Total"] == DBNull.Value ? 0 : Convert.ToDecimal(dr["Total"]);
 
-                    using (SqlCommand cmd = new SqlCommand(query, con))
-                    {
-                        con.Open();
-                        using (SqlDataReader dr = cmd.ExecuteReader())
-                        {
-                            bool hasRows = false;
-                            while (dr.Read())
-                            {
-                                hasRows = true;
-                                DateTime dt = Convert.ToDateTime(dr["SalesDate"]);
-                                decimal total = Convert.ToDecimal(dr["Total"]);
-
-                                // use actual DateTime on X value so formatting/scale is correct
-                                var p = salesSeries.Points.AddXY(dt, total);
-                                
-                            }
-
-                            // If no rows, optionally add sample/fallback points (useful during development)
-                            if (!hasRows)
-                            {
-                                // fallback sample for dev (comment/remove in production)
-                                salesSeries.Points.AddXY(DateTime.Today.AddDays(-3), 12000);
-                                salesSeries.Points.AddXY(DateTime.Today.AddDays(-2), 15000);
-                                salesSeries.Points.AddXY(DateTime.Today.AddDays(-1), 17000);
-                                salesSeries.Points.AddXY(DateTime.Today, 19000);
-                            }
-                        }
-                    }
+                    chartSalesTrend.Series["Sales"].Points.AddXY(
+                        date.ToString("MMM dd"),
+                        value
+                    );
                 }
-            }
 
-            catch (Exception ex)
+                con.Close();
+            }
+        }
+
+        public void LoadBestSellers()
+        {
+            chartBestSeller.Series["Products"].Points.Clear();
+
+            using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
             {
-                // Log the error to Output (Debug/Console) and add fallback sample data so chart is visible
-                System.Diagnostics.Debug.WriteLine("LoadSalesTrend error: " + ex.Message);
+                string query = @"
+                    SELECT TOP 5 
+                        P.product_name, 
+                        SUM(TI.quantity) AS TotalSold
+                    FROM TransactionItems TI
+                    INNER JOIN Products P ON TI.product_id = P.ProductInternalID
+                    GROUP BY P.product_name
+                    ORDER BY TotalSold DESC;
+                ";
 
-                // fallback sample - remove if you prefer no fallback
-                salesSeries.Points.AddXY(DateTime.Today.AddDays(-3), 12000);
-                salesSeries.Points.AddXY(DateTime.Today.AddDays(-2), 15000);
-                salesSeries.Points.AddXY(DateTime.Today.AddDays(-1), 17000);
-                salesSeries.Points.AddXY(DateTime.Today, 19000);
+                SqlCommand cmd = new SqlCommand(query, con);
+                con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    chartBestSeller.Series["Products"].Points.AddXY(
+                        dr["product_name"].ToString(),
+                        Convert.ToInt32(dr["TotalSold"])
+                    );
+                }
+
+                con.Close();
             }
+        }
+
+        public void LoadLowStock()
+        {
+            using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
+            {
+                string query = @"
+                    SELECT 
+                        product_name AS [Product],
+                        current_stock AS [Stock],
+                        reorder_point AS [Reorder]
+                    FROM Products
+                    WHERE current_stock <= reorder_point
+                    ORDER BY current_stock ASC;
+                ";
+
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                dgvLowStock.DataSource = dt;
+            }
+            
         }
 
         private void ProfileMenu_Click(object sender, EventArgs e)
