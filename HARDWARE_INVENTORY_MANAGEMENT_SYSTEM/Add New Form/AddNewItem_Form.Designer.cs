@@ -40,6 +40,7 @@
             this.StatusComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.ExpirationDataComboBox = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.label12 = new System.Windows.Forms.Label();
+            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.label11 = new System.Windows.Forms.Label();
             this.DescriptionRichTextBox = new Krypton.Toolkit.KryptonRichTextBox();
             this.ImageUploadBox = new Guna.UI2.WinForms.Guna2TextBox();
@@ -61,7 +62,6 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.ClearBtn = new Guna.UI2.WinForms.Guna2Button();
             this.AddBtn = new Guna.UI2.WinForms.Guna2Button();
-            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.guna2Panel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudSellingPrice)).BeginInit();
@@ -131,10 +131,20 @@
             this.nudSellingPrice.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudSellingPrice.ForeColor = System.Drawing.Color.DimGray;
             this.nudSellingPrice.Location = new System.Drawing.Point(329, 537);
+            this.nudSellingPrice.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.nudSellingPrice.Name = "nudSellingPrice";
             this.nudSellingPrice.Size = new System.Drawing.Size(228, 36);
             this.nudSellingPrice.TabIndex = 39;
             this.nudSellingPrice.UpDownButtonFillColor = System.Drawing.Color.White;
+            this.nudSellingPrice.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudSellingPrice.ValueChanged += new System.EventHandler(this.nudSellingPrice_ValueChanged);
             // 
             // nudMinimumStock
@@ -159,10 +169,20 @@
             this.nudCostPrice.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCostPrice.ForeColor = System.Drawing.Color.DimGray;
             this.nudCostPrice.Location = new System.Drawing.Point(30, 538);
+            this.nudCostPrice.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.nudCostPrice.Name = "nudCostPrice";
             this.nudCostPrice.Size = new System.Drawing.Size(228, 36);
             this.nudCostPrice.TabIndex = 37;
             this.nudCostPrice.UpDownButtonFillColor = System.Drawing.Color.White;
+            this.nudCostPrice.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nudCostPrice.ValueChanged += new System.EventHandler(this.nudCostPrice_ValueChanged);
             // 
             // nudCurrentStock
@@ -271,6 +291,16 @@
             this.label12.Size = new System.Drawing.Size(147, 29);
             this.label12.TabIndex = 29;
             this.label12.Text = "Add New Item";
+            // 
+            // closeButton1
+            // 
+            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
+            this.closeButton1.Location = new System.Drawing.Point(532, 20);
+            this.closeButton1.Name = "closeButton1";
+            this.closeButton1.Size = new System.Drawing.Size(35, 35);
+            this.closeButton1.TabIndex = 28;
+            this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
+            this.closeButton1.Click += new System.EventHandler(this.closeButton1_Click);
             // 
             // label11
             // 
@@ -571,16 +601,6 @@
             this.AddBtn.TabIndex = 40;
             this.AddBtn.Text = "Add";
             this.AddBtn.Click += new System.EventHandler(this.AddBtn_Click);
-            // 
-            // closeButton1
-            // 
-            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton1.Location = new System.Drawing.Point(532, 20);
-            this.closeButton1.Name = "closeButton1";
-            this.closeButton1.Size = new System.Drawing.Size(35, 35);
-            this.closeButton1.TabIndex = 28;
-            this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load);
-            this.closeButton1.Click += new System.EventHandler(this.closeButton1_Click);
             // 
             // AddNewItem_Form
             // 
