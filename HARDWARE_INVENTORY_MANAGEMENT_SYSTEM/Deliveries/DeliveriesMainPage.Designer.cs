@@ -40,16 +40,16 @@
             this.pnlPanelContainer.BorderRadius = 13;
             this.pnlPanelContainer.BorderThickness = 1;
             this.pnlPanelContainer.FillColor = System.Drawing.Color.White;
-            this.pnlPanelContainer.Location = new System.Drawing.Point(11, 108);
+            this.pnlPanelContainer.Location = new System.Drawing.Point(11, 92);
             this.pnlPanelContainer.Name = "pnlPanelContainer";
-            this.pnlPanelContainer.Size = new System.Drawing.Size(935, 593);
+            this.pnlPanelContainer.Size = new System.Drawing.Size(935, 625);
             this.pnlPanelContainer.TabIndex = 8;
             // 
             // deliveriesSlideButtons1
             // 
             this.deliveriesSlideButtons1.BackColor = System.Drawing.Color.Transparent;
             this.deliveriesSlideButtons1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.deliveriesSlideButtons1.Location = new System.Drawing.Point(350, 57);
+            this.deliveriesSlideButtons1.Location = new System.Drawing.Point(350, 46);
             this.deliveriesSlideButtons1.Name = "deliveriesSlideButtons1";
             this.deliveriesSlideButtons1.Size = new System.Drawing.Size(290, 43);
             this.deliveriesSlideButtons1.TabIndex = 7;
@@ -57,7 +57,7 @@
             // deliveriesTopBar1
             // 
             this.deliveriesTopBar1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.deliveriesTopBar1.Location = new System.Drawing.Point(0, 0);
+            this.deliveriesTopBar1.Location = new System.Drawing.Point(0, -10);
             this.deliveriesTopBar1.Name = "deliveriesTopBar1";
             this.deliveriesTopBar1.Size = new System.Drawing.Size(965, 60);
             this.deliveriesTopBar1.TabIndex = 0;

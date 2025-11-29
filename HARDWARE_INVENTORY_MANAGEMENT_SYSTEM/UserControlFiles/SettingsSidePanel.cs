@@ -109,27 +109,38 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
                     e.Graphics.FillRectangle(brush, lineRect);
                 }
             }
-        }   
-
+        }
         private void AccountsBTN_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("=== AccountsBTN_Click START ===");
+            Console.WriteLine("Accounts button clicked in SettingsSidePanel!");
             HighlightButton((Button)sender);
-            
+            Console.WriteLine("About to invoke AccountsClicked event...");
             AccountsClicked?.Invoke(this, EventArgs.Empty);
+            Console.WriteLine("AccountsClicked event invoked");
+            Console.WriteLine("=== AccountsBTN_Click END ===");
         }
 
         private void HistoryBTN_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("=== HistoryBTN_Click START ===");
+            Console.WriteLine("History button clicked in SettingsSidePanel!");
             HighlightButton((Button)sender);
-            
+            Console.WriteLine("About to invoke HistoryClicked event...");
             HistoryClicked?.Invoke(this, EventArgs.Empty);
+            Console.WriteLine("HistoryClicked event invoked");
+            Console.WriteLine("=== HistoryBTN_Click END ===");
         }
 
         private void AuditLogBTN_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("=== AuditLogBTN_Click START ===");
+            Console.WriteLine("Audit Log button clicked in SettingsSidePanel!");
             HighlightButton((Button)sender);
-            
+            Console.WriteLine("About to invoke AuditLogClicked event...");
             AuditLogClicked?.Invoke(this, EventArgs.Empty);
+            Console.WriteLine("AuditLogClicked event invoked");
+            Console.WriteLine("=== AuditLogBTN_Click END ===");
         }
     }
 }

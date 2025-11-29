@@ -467,6 +467,7 @@
     <Compile Include="Reports Module\Deliveries Report\DeliveriesReportPanel.Designer.cs">
       <DependentUpon>DeliveriesReportPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports Module\Inventory Report\classcomponents\InventoryReportsDataAccess.cs" />
     <Compile Include="Reports Module\Inventory Report\classcomponents\ReportsDatabaseHelper.cs" />
     <Compile Include="Reports Module\Inventory Report\InventoryPage1.cs">
       <SubType>UserControl</SubType>
@@ -540,6 +541,7 @@
     <Compile Include="Reports Module\Inventory Report\InventoryReportsPanel.Designer.cs">
       <DependentUpon>InventoryReportsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports Module\Sales Report\Class components\SalesReportDataAccess.cs" />
     <Compile Include="Reports Module\Sales Report\SalesPage1.cs">
       <SubType>UserControl</SubType>
     </Compile>

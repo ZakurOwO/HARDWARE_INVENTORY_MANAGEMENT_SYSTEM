@@ -28,7 +28,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             // Initialize status combo box
             InitializeStatusComboBox();
 
-
             // Wire up button events
             WireUpButtons();
         }
@@ -47,7 +46,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
         private void WireUpButtons()
         {
-           
             // Directly wire the existing buttons
             if (btnBlue != null)
             {
@@ -65,29 +63,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
         {
             currentVehicle = vehicle;
 
-            // Load data into form fields (set real content, not placeholders)
+            // Load data into form fields
             if (!string.IsNullOrWhiteSpace(vehicle.Brand))
             {
                 tbxVehicleName.Text = vehicle.Brand;
-                
             }
 
             if (!string.IsNullOrWhiteSpace(vehicle.Model))
             {
                 VehicleModelTextBox.Text = vehicle.Model;
-                
             }
 
             if (!string.IsNullOrWhiteSpace(vehicle.Capacity))
             {
                 YearBoughtTextBox.Text = vehicle.Capacity;
-               
             }
 
             if (!string.IsNullOrWhiteSpace(vehicle.PlateNumber))
             {
                 PlateNumberTextBox.Text = vehicle.PlateNumber;
-                
             }
 
             // Set status
@@ -96,7 +90,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 VehicleStatusComboBox.SelectedItem = vehicle.Status;
             }
 
-            VehicleRemarkTextBox.Text = vehicle.Remarks ?? "";
+            // REMOVED: VehicleRemarkTextBox.Text = vehicle.Remarks ?? "";
 
             // Load image info
             if (!string.IsNullOrEmpty(vehicle.ImagePath))
@@ -120,8 +114,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     VehicleType = "Drop-Side Truck",
                     Capacity = GetText(YearBoughtTextBox).Trim(),
                     PlateNumber = GetText(PlateNumberTextBox).Trim(),
-                    Status = VehicleStatusComboBox.SelectedItem?.ToString() ?? "Available",
-                    Remarks = VehicleRemarkTextBox.Text.Trim()
+                    Status = VehicleStatusComboBox.SelectedItem?.ToString() ?? "Available"
+                    // REMOVED: Remarks = VehicleRemarkTextBox.Text.Trim()
                 };
 
                 // Check for duplicate plate number
@@ -209,24 +203,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 return false;
             }
 
-
             return true;
         }
 
-
         private bool HasText(Guna2TextBox tb) => tb != null && !string.IsNullOrWhiteSpace(tb.Text);
         private string GetText(Guna2TextBox tb) => tb?.Text ?? string.Empty;
+
         // Event handlers for designer events
-     
-        private void closeButton1_Load(object sender, EventArgs e)
-        {
+        private void closeButton1_Load(object sender, EventArgs e) { }
 
-        }
-
-        private void btnWhite_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        private void btnWhite_Click(object sender, EventArgs e) { }
     }
 }

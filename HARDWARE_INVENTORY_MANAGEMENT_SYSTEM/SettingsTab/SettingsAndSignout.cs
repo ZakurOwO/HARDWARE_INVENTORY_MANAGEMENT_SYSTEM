@@ -1,17 +1,12 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
 {
-    public partial class Settings_Signout: UserControl
+    public partial class Settings_Signout : UserControl
     {
         public Settings_Signout()
         {
@@ -20,49 +15,78 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("Settings button clicked!");
+
             var mainForm = this.FindForm() as MainDashBoard;
             if (mainForm != null)
             {
+                Console.WriteLine("Main form found");
+
+                // Clear the main content panel and add SettingsMainPage
                 mainForm.MainContentPanelAccess.Controls.Clear();
                 SettingsMainPage settingsPage = new SettingsMainPage();
+                Console.WriteLine("SettingsMainPage created");
+
+                settingsPage.Dock = DockStyle.Fill;
                 mainForm.MainContentPanelAccess.Controls.Add(settingsPage);
+                mainForm.MainContentPanelAccess.Visible = true;
 
-                // hide existing side panel if present
-                var originalSide = mainForm.Controls.Cast<Control>()
-                                      .FirstOrDefault(c => c.Name == "sidePanel1" || c.GetType().Name == "SidePanel");
-                if (originalSide != null)
+                // Hide the original side panel
+                var originalSidePanel = mainForm.Controls.OfType<SidePanel>().FirstOrDefault();
+                if (originalSidePanel != null)
                 {
-                    originalSide.Visible = false;
+                    originalSidePanel.Visible = false;
+                    Console.WriteLine("Original side panel hidden");
                 }
 
-                // show/create settings side panel in the same place
-                var settingsSide = mainForm.Controls.OfType<SettingsSidePanel>().FirstOrDefault();
-                if (settingsSide == null)
+                // Create SettingsSidePanel in the same position as original side panel
+                var settingsSide = new SettingsSidePanel();
+                settingsSide.Name = "settingsSidePanel1";
+
+                if (originalSidePanel != null)
                 {
-                    settingsSide = new SettingsSidePanel();
-                    settingsSide.Name = "settingsSidePanel1";
-
-                    // position/size to match original side panel (fallback to defaults)
-                    if (originalSide != null)
-                    {
-                        settingsSide.Location = originalSide.Location;
-                        settingsSide.Size = originalSide.Size;
-                    }
-                    else
-                    {
-                        settingsSide.Location = new Point(22, 23);
-                        settingsSide.Size = new Size(202, 670);
-                    }
-
-                    mainForm.Controls.Add(settingsSide);
+                    settingsSide.Location = originalSidePanel.Location;
+                    settingsSide.Size = originalSidePanel.Size;
+                }
+                else
+                {
+                    settingsSide.Location = new Point(12, 12);
+                    settingsSide.Size = new Size(197, 698);
                 }
 
-                settingsSide.BringToFront();
+                Console.WriteLine("SettingsSidePanel created");
+
+                // Wire up events
+                settingsSide.AccountsClicked += (s, args) =>
+                {
+                    Console.WriteLine("AccountsClicked event fired!");
+                    settingsPage.ShowAccounts();
+                };
+
+                settingsSide.HistoryClicked += (s, args) =>
+                {
+                    Console.WriteLine("HistoryClicked event fired!");
+                    settingsPage.ShowHistory();
+                };
+
+                settingsSide.AuditLogClicked += (s, args) =>
+                {
+                    Console.WriteLine("AuditLogClicked event fired!");
+                    settingsPage.ShowAuditLog();
+                };
+
+                Console.WriteLine("Events wired up");
+
+                mainForm.Controls.Add(settingsSide);
                 settingsSide.Visible = true;
+                settingsSide.BringToFront();
 
+                Console.WriteLine("SettingsSidePanel added to form");
             }
-
-
+            else
+            {
+                Console.WriteLine("Main form NOT found!");
+            }
         }
     }
 }

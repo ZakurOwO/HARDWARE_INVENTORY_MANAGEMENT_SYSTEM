@@ -188,7 +188,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 EditVehicleStatusComboBox.SelectedItem = vehicle.Status;
             }
 
-            EditVehicleRemarkTextBox.Text = vehicle.Remarks ?? "";
+            // REMOVED: EditVehicleRemarkTextBox.Text = vehicle.Remarks ?? "";
 
             // Load image info
             if (!string.IsNullOrEmpty(vehicle.ImagePath))
@@ -222,8 +222,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     VehicleType = "Drop-Side Truck",
                     Capacity = GetRealText(EditYearBoughtTextBox).Trim(),
                     PlateNumber = GetRealText(EditPlateNumberTextBox).Trim(),
-                    Status = EditVehicleStatusComboBox.SelectedItem?.ToString() ?? "Available",
-                    Remarks = EditVehicleRemarkTextBox.Text.Trim()
+                    Status = EditVehicleStatusComboBox.SelectedItem?.ToString() ?? "Available"
+                    // REMOVED: Remarks = EditVehicleRemarkTextBox.Text.Trim()
                 };
 
                 // Check for duplicate plate number
