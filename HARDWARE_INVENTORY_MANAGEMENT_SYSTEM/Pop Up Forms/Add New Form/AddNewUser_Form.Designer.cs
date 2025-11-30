@@ -63,9 +63,10 @@
             this.RoleComboBox.Font = new System.Drawing.Font("Lexend Light", 9F);
             this.RoleComboBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.RoleComboBox.ItemHeight = 30;
-            this.RoleComboBox.Location = new System.Drawing.Point(309, 339);
+            this.RoleComboBox.Location = new System.Drawing.Point(412, 417);
+            this.RoleComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.RoleComboBox.Name = "RoleComboBox";
-            this.RoleComboBox.Size = new System.Drawing.Size(228, 36);
+            this.RoleComboBox.Size = new System.Drawing.Size(303, 36);
             this.RoleComboBox.TabIndex = 60;
             this.RoleComboBox.SelectedIndexChanged += new System.EventHandler(this.RoleComboBox_SelectedIndexChanged);
             // 
@@ -73,9 +74,10 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(305, 315);
+            this.label8.Location = new System.Drawing.Point(407, 388);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(39, 21);
+            this.label8.Size = new System.Drawing.Size(50, 27);
             this.label8.TabIndex = 59;
             this.label8.Text = "Role";
             // 
@@ -94,9 +96,10 @@
             "Active",
             "Inactive",
             "Suspended"});
-            this.AccountStatusComboBox.Location = new System.Drawing.Point(33, 432);
+            this.AccountStatusComboBox.Location = new System.Drawing.Point(44, 532);
+            this.AccountStatusComboBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.AccountStatusComboBox.Name = "AccountStatusComboBox";
-            this.AccountStatusComboBox.Size = new System.Drawing.Size(228, 36);
+            this.AccountStatusComboBox.Size = new System.Drawing.Size(303, 36);
             this.AccountStatusComboBox.TabIndex = 58;
             this.AccountStatusComboBox.SelectedIndexChanged += new System.EventHandler(this.AccountStatusComboBox_SelectedIndexChanged);
             // 
@@ -104,9 +107,10 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(29, 408);
+            this.label7.Location = new System.Drawing.Point(39, 502);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(106, 21);
+            this.label7.Size = new System.Drawing.Size(142, 27);
             this.label7.TabIndex = 57;
             this.label7.Text = "Account Status";
             // 
@@ -114,9 +118,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(305, 408);
+            this.label6.Location = new System.Drawing.Point(407, 502);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(97, 21);
+            this.label6.Size = new System.Drawing.Size(126, 27);
             this.label6.TabIndex = 55;
             this.label6.Text = "Date Created";
             // 
@@ -132,13 +137,13 @@
             this.EmailTxtbx.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.EmailTxtbx.Font = new System.Drawing.Font("Lexend Light", 9F);
             this.EmailTxtbx.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.EmailTxtbx.Location = new System.Drawing.Point(32, 339);
-            this.EmailTxtbx.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.EmailTxtbx.Location = new System.Drawing.Point(43, 417);
+            this.EmailTxtbx.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.EmailTxtbx.Name = "EmailTxtbx";
             this.EmailTxtbx.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.EmailTxtbx.PlaceholderText = "Ex. janelfrancisco@gmail.com";
             this.EmailTxtbx.SelectedText = "";
-            this.EmailTxtbx.Size = new System.Drawing.Size(228, 36);
+            this.EmailTxtbx.Size = new System.Drawing.Size(304, 44);
             this.EmailTxtbx.TabIndex = 54;
             this.EmailTxtbx.TextChanged += new System.EventHandler(this.EmailTxtbx_TextChanged);
             // 
@@ -146,9 +151,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(28, 315);
+            this.label5.Location = new System.Drawing.Point(37, 388);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 21);
+            this.label5.Size = new System.Drawing.Size(67, 27);
             this.label5.TabIndex = 53;
             this.label5.Text = "E-mail";
             // 
@@ -164,13 +170,13 @@
             this.PasswordTxtbx.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.PasswordTxtbx.Font = new System.Drawing.Font("Lexend Light", 9F);
             this.PasswordTxtbx.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.PasswordTxtbx.Location = new System.Drawing.Point(310, 256);
-            this.PasswordTxtbx.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.PasswordTxtbx.Location = new System.Drawing.Point(413, 315);
+            this.PasswordTxtbx.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PasswordTxtbx.Name = "PasswordTxtbx";
             this.PasswordTxtbx.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.PasswordTxtbx.PlaceholderText = "Ex. staff123";
             this.PasswordTxtbx.SelectedText = "";
-            this.PasswordTxtbx.Size = new System.Drawing.Size(228, 36);
+            this.PasswordTxtbx.Size = new System.Drawing.Size(304, 44);
             this.PasswordTxtbx.TabIndex = 52;
             this.PasswordTxtbx.TextChanged += new System.EventHandler(this.PasswordTxtbx_TextChanged);
             // 
@@ -178,9 +184,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(306, 232);
+            this.label4.Location = new System.Drawing.Point(408, 286);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 21);
+            this.label4.Size = new System.Drawing.Size(93, 27);
             this.label4.TabIndex = 51;
             this.label4.Text = "Password";
             // 
@@ -196,22 +203,23 @@
             this.UserNameTxtbx.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.UserNameTxtbx.Font = new System.Drawing.Font("Lexend Light", 9F);
             this.UserNameTxtbx.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.UserNameTxtbx.Location = new System.Drawing.Point(32, 256);
-            this.UserNameTxtbx.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.UserNameTxtbx.Location = new System.Drawing.Point(43, 315);
+            this.UserNameTxtbx.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.UserNameTxtbx.Name = "UserNameTxtbx";
             this.UserNameTxtbx.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.UserNameTxtbx.PlaceholderText = "Ex. janelfrancisco";
             this.UserNameTxtbx.SelectedText = "";
-            this.UserNameTxtbx.Size = new System.Drawing.Size(228, 36);
+            this.UserNameTxtbx.Size = new System.Drawing.Size(304, 44);
             this.UserNameTxtbx.TabIndex = 50;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(28, 232);
+            this.label3.Location = new System.Drawing.Point(37, 286);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(76, 21);
+            this.label3.Size = new System.Drawing.Size(98, 27);
             this.label3.TabIndex = 49;
             this.label3.Text = "Username";
             // 
@@ -227,13 +235,13 @@
             this.AddressTxtbx.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.AddressTxtbx.Font = new System.Drawing.Font("Lexend Light", 9F);
             this.AddressTxtbx.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.AddressTxtbx.Location = new System.Drawing.Point(33, 172);
-            this.AddressTxtbx.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.AddressTxtbx.Location = new System.Drawing.Point(44, 212);
+            this.AddressTxtbx.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AddressTxtbx.Name = "AddressTxtbx";
             this.AddressTxtbx.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.AddressTxtbx.PlaceholderText = "Ex. Blk 20 Lot 20, Cacarong Matanda, Pandi, Bulacan";
             this.AddressTxtbx.SelectedText = "";
-            this.AddressTxtbx.Size = new System.Drawing.Size(502, 36);
+            this.AddressTxtbx.Size = new System.Drawing.Size(669, 44);
             this.AddressTxtbx.TabIndex = 48;
             this.AddressTxtbx.TextChanged += new System.EventHandler(this.AddressTxtbx_TextChanged);
             // 
@@ -241,9 +249,10 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(29, 148);
+            this.label11.Location = new System.Drawing.Point(39, 182);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(61, 21);
+            this.label11.Size = new System.Drawing.Size(79, 27);
             this.label11.TabIndex = 47;
             this.label11.Text = "Address";
             // 
@@ -259,13 +268,13 @@
             this.FullNameTxtbx.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.FullNameTxtbx.Font = new System.Drawing.Font("Lexend Light", 9F);
             this.FullNameTxtbx.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.FullNameTxtbx.Location = new System.Drawing.Point(309, 90);
-            this.FullNameTxtbx.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.FullNameTxtbx.Location = new System.Drawing.Point(412, 111);
+            this.FullNameTxtbx.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.FullNameTxtbx.Name = "FullNameTxtbx";
             this.FullNameTxtbx.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.FullNameTxtbx.PlaceholderText = "Ex. Janel Francisco";
             this.FullNameTxtbx.SelectedText = "";
-            this.FullNameTxtbx.Size = new System.Drawing.Size(228, 36);
+            this.FullNameTxtbx.Size = new System.Drawing.Size(304, 44);
             this.FullNameTxtbx.TabIndex = 46;
             this.FullNameTxtbx.TextChanged += new System.EventHandler(this.FullNameTxtbx_TextChanged);
             // 
@@ -273,9 +282,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(305, 66);
+            this.label2.Location = new System.Drawing.Point(407, 81);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(76, 21);
+            this.label2.Size = new System.Drawing.Size(99, 27);
             this.label2.TabIndex = 45;
             this.label2.Text = "Full Name";
             // 
@@ -291,13 +301,13 @@
             this.AccountIDTxtbx.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.AccountIDTxtbx.Font = new System.Drawing.Font("Lexend Light", 9F);
             this.AccountIDTxtbx.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.AccountIDTxtbx.Location = new System.Drawing.Point(32, 90);
-            this.AccountIDTxtbx.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.AccountIDTxtbx.Location = new System.Drawing.Point(43, 111);
+            this.AccountIDTxtbx.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.AccountIDTxtbx.Name = "AccountIDTxtbx";
             this.AccountIDTxtbx.PlaceholderForeColor = System.Drawing.Color.Gray;
             this.AccountIDTxtbx.PlaceholderText = "Auto generated ID";
             this.AccountIDTxtbx.SelectedText = "";
-            this.AccountIDTxtbx.Size = new System.Drawing.Size(228, 36);
+            this.AccountIDTxtbx.Size = new System.Drawing.Size(304, 44);
             this.AccountIDTxtbx.TabIndex = 44;
             this.AccountIDTxtbx.TextChanged += new System.EventHandler(this.AccountIDTxtbx_TextChanged);
             // 
@@ -305,9 +315,10 @@
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(28, 66);
+            this.lblTitle.Location = new System.Drawing.Point(37, 81);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(83, 21);
+            this.lblTitle.Size = new System.Drawing.Size(109, 27);
             this.lblTitle.TabIndex = 43;
             this.lblTitle.Text = "Account ID";
             // 
@@ -315,9 +326,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Lexend SemiBold", 12.5F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(16, 20);
+            this.label1.Location = new System.Drawing.Point(21, 25);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 27);
+            this.label1.Size = new System.Drawing.Size(163, 33);
             this.label1.TabIndex = 42;
             this.label1.Text = "Add New User";
             // 
@@ -333,10 +345,11 @@
             this.ClearBtn.FillColor = System.Drawing.Color.White;
             this.ClearBtn.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ClearBtn.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.ClearBtn.Location = new System.Drawing.Point(287, 504);
+            this.ClearBtn.Location = new System.Drawing.Point(383, 620);
+            this.ClearBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ClearBtn.Name = "ClearBtn";
             this.ClearBtn.PressedColor = System.Drawing.Color.Azure;
-            this.ClearBtn.Size = new System.Drawing.Size(120, 40);
+            this.ClearBtn.Size = new System.Drawing.Size(160, 49);
             this.ClearBtn.TabIndex = 63;
             this.ClearBtn.Text = "Clear";
             this.ClearBtn.Click += new System.EventHandler(this.ClearBtn_Click);
@@ -351,9 +364,10 @@
             this.ProceedBtn.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
             this.ProceedBtn.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ProceedBtn.ForeColor = System.Drawing.Color.White;
-            this.ProceedBtn.Location = new System.Drawing.Point(418, 504);
+            this.ProceedBtn.Location = new System.Drawing.Point(557, 620);
+            this.ProceedBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ProceedBtn.Name = "ProceedBtn";
-            this.ProceedBtn.Size = new System.Drawing.Size(120, 40);
+            this.ProceedBtn.Size = new System.Drawing.Size(160, 49);
             this.ProceedBtn.TabIndex = 62;
             this.ProceedBtn.Text = "Add";
             this.ProceedBtn.Click += new System.EventHandler(this.ProceedBtn_Click);
@@ -370,26 +384,29 @@
             this.SupplierDatePick.ForeColor = System.Drawing.Color.DimGray;
             this.SupplierDatePick.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.SupplierDatePick.HoverState.FillColor = System.Drawing.Color.White;
-            this.SupplierDatePick.Location = new System.Drawing.Point(309, 432);
+            this.SupplierDatePick.Location = new System.Drawing.Point(412, 532);
+            this.SupplierDatePick.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.SupplierDatePick.MaxDate = new System.DateTime(9998, 12, 31, 0, 0, 0, 0);
             this.SupplierDatePick.MinDate = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.SupplierDatePick.Name = "SupplierDatePick";
-            this.SupplierDatePick.Size = new System.Drawing.Size(226, 36);
+            this.SupplierDatePick.Size = new System.Drawing.Size(301, 44);
             this.SupplierDatePick.TabIndex = 72;
             this.SupplierDatePick.Value = new System.DateTime(2025, 11, 16, 22, 30, 13, 754);
             // 
             // closeButton1
             // 
             this.closeButton1.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton1.Location = new System.Drawing.Point(524, 14);
+            this.closeButton1.Location = new System.Drawing.Point(699, 17);
+            this.closeButton1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.closeButton1.Name = "closeButton1";
-            this.closeButton1.Size = new System.Drawing.Size(35, 35);
+            this.closeButton1.Size = new System.Drawing.Size(47, 43);
             this.closeButton1.TabIndex = 61;
+            this.closeButton1.Load += new System.EventHandler(this.closeButton1_Load_1);
             this.closeButton1.Click += new System.EventHandler(this.closeButton1_Click);
             // 
             // AddNewUser_Form
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.SupplierDatePick);
@@ -414,8 +431,9 @@
             this.Controls.Add(this.AccountIDTxtbx);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "AddNewUser_Form";
-            this.Size = new System.Drawing.Size(574, 570);
+            this.Size = new System.Drawing.Size(765, 702);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -22,6 +22,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_
 
             addForm = new AddNewUser_Form();
 
+            addForm.CancelClicked += AddForm_CancelClicked;
 
             scrollContainer = new Panel();
             scrollContainer.Size = new Size(574, 570);
@@ -47,6 +48,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_
             scrollContainer.BringToFront();
 
 
+        }
+        private void AddForm_CancelClicked(object sender, EventArgs e)
+        {
+            CloseSupplierAddForm();
         }
         public void ShowEditUserForm(MainDashBoard main)
         {
@@ -78,6 +83,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_
 
         public void CloseSupplierAddForm()
         {
+            if (addForm != null)
+                addForm.CancelClicked -= AddForm_CancelClicked;
+
             if (mainForm != null)
                 mainForm.pcbBlurOverlay.Visible = false;
 

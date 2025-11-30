@@ -17,6 +17,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             LoadRoles();
             LoadAccountStatus();
             LoadNextAccountID();
+            closeButton1.Click += closeButton1_Load_1;
+            ClearBtn.Click += ClearBtn_Click;
         }
 
         private void LoadNextAccountID()
@@ -207,6 +209,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         private void ClearBtn_Click(object sender, EventArgs e)
         {
             ClearFields();
+            CancelClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void ProceedBtn_Click(object sender, EventArgs e)
@@ -227,5 +230,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         private void EmailTxtbx_TextChanged(object sender, EventArgs e) { }
         private void AccountStatusComboBox_SelectedIndexChanged(object sender, EventArgs e) { }
         private void DateTextBox_TextChanged(object sender, EventArgs e) { }
+
+        private void closeButton1_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
