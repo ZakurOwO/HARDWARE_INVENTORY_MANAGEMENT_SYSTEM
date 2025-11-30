@@ -45,8 +45,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             CompanyNameTextBoxSupplier.ReadOnly = true;
             CompanyNameTextBoxSupplier.FillColor = Color.WhiteSmoke;
 
+            // Disable product selection until supplier is selected
+            cbxCategory.Enabled = false;
+            guna2NumericUpDown1.Enabled = false;
+            guna2NumericUpDown2.Enabled = false;
+            btnAdd.Enabled = false;
+
             // Initialize DataGridView
             InitializeDataGridView();
+
+            // Hook up supplier selection change event
+            guna2ComboBox3.SelectedIndexChanged += Guna2ComboBox3_SelectedIndexChanged;
+
+            // Hook up product dropdown click event
+            cbxCategory.DropDown += CbxCategory_DropDown;
 
             // Hook up events for dynamic calculation
             guna2ComboBox1.SelectedIndexChanged += (s, e) => UpdateCalculations();
@@ -54,6 +66,43 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
             // Initialize calculation display
             UpdateCalculations();
+        }
+
+        private void Guna2ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Enable product selection controls when supplier is selected
+            if (guna2ComboBox3.SelectedIndex != -1)
+            {
+                cbxCategory.Enabled = true;
+                guna2NumericUpDown1.Enabled = true;
+                guna2NumericUpDown2.Enabled = true;
+                btnAdd.Enabled = true;
+            }
+            else
+            {
+                cbxCategory.Enabled = false;
+                guna2NumericUpDown1.Enabled = false;
+                guna2NumericUpDown2.Enabled = false;
+                btnAdd.Enabled = false;
+            }
+        }
+
+        private void CbxCategory_DropDown(object sender, EventArgs e)
+        {
+            // Check if supplier is selected when trying to open product dropdown
+            if (guna2ComboBox3.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please select a supplier first before selecting products.",
+                    "Supplier Required",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                // Prevent dropdown from opening
+                ((ComboBox)sender).DroppedDown = false;
+
+                // Focus on supplier combo box
+                guna2ComboBox3.Focus();
+            }
         }
 
         private void GeneratePONumber()
