@@ -142,7 +142,7 @@
 
         #endregion
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
-        private Guna.UI2.WinForms.Guna2DataGridView dgvAudit;
+        public Guna.UI2.WinForms.Guna2DataGridView dgvAudit;
         private System.Windows.Forms.DataGridViewTextBoxColumn User;
         private System.Windows.Forms.DataGridViewTextBoxColumn Activity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Module;

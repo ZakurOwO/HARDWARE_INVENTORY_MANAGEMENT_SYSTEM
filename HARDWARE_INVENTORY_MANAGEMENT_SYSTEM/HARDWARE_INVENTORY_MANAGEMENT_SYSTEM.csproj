@@ -102,6 +102,11 @@
       <DependentUpon>AddNewUserButton.cs</DependentUpon>
     </Compile>
     <Compile Include="Accounts Module\Class Components of Accounts\AddUserContainer.cs" />
+    <Compile Include="Audit Log\ClassComponent\AuditActivityType.cs" />
+    <Compile Include="Audit Log\ClassComponent\AuditHelper.cs" />
+    <Compile Include="Audit Log\ClassComponent\AuditLogEntry.cs" />
+    <Compile Include="Audit Log\ClassComponent\AuditLogManager.cs" />
+    <Compile Include="Audit Log\ClassComponent\AuditModule.cs" />
     <Compile Include="Pop Up Forms\Add New Form\AddNewUser_Form.cs">
       <SubType>UserControl</SubType>
     </Compile>
