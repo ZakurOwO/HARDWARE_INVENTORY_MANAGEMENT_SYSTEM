@@ -209,7 +209,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         private void ClearBtn_Click(object sender, EventArgs e)
         {
             ClearFields();
-            CancelClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void ProceedBtn_Click(object sender, EventArgs e)
