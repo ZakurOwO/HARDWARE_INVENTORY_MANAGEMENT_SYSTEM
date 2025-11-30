@@ -10,7 +10,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
     public partial class SupplierAddForm : UserControl
     {
         private SqlConnection con;
-        public event EventHandler CancelClicked;
+        public event EventHandler CancelRequested;
         public event EventHandler SupplierAdded;
         private string connectionString = ConnectionString.DataSource;
 
@@ -23,9 +23,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
 
             // Wire up all event handlers programmatically
-            closeButton1.Click += closeButton1_Click;
+            closeButton1.Click += (s, e) => CancelRequested?.Invoke(this, EventArgs.Empty);
             AddSupplierFormBtn.Click += SaveButton_Click;
-            CancelSupplierFormBtn.Click += CancelSupplierFormBtn_Click_1;
+            CancelSupplierFormBtn.Click += (s, e) => CancelRequested?.Invoke(this, EventArgs.Empty);
 
             SupplierDatePick.Value = DateTime.Now;
 
@@ -161,7 +161,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
                         SupplierAdded?.Invoke(this, EventArgs.Empty);
                         ClearFields();
-                        CancelClicked?.Invoke(this, EventArgs.Empty);
+                        CancelRequested?.Invoke(this, EventArgs.Empty); // Close after add
                     }
                 }
             }
@@ -212,7 +212,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                     return;
             }
 
-            CancelClicked?.Invoke(this, EventArgs.Empty);
+            CancelRequested?.Invoke(this, EventArgs.Empty);
         }
 
 
@@ -224,7 +224,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private void closeButton1_Click(object sender, EventArgs e)
         {
-            CancelClicked?.Invoke(this, EventArgs.Empty);
+            CancelRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }
