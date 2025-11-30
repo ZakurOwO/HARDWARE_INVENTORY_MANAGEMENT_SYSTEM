@@ -410,7 +410,7 @@
             this.guna2Panel1.Controls.Add(this.lblSupplierID);
             this.guna2Panel1.Controls.Add(this.brandAdjustStock);
             this.guna2Panel1.Controls.Add(this.SupplierID);
-            this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.guna2Panel1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(248)))), ((int)(((byte)(252)))));
             this.guna2Panel1.Location = new System.Drawing.Point(27, 68);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(516, 73);

@@ -23,7 +23,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
 
             // Wire up all event handlers programmatically
-            closeButton1.Click += CloseButton1_Click;
+            closeButton1.Click += closeButton1_Click;
             AddSupplierFormBtn.Click += SaveButton_Click;
             CancelSupplierFormBtn.Click += CancelSupplierFormBtn_Click_1;
 
@@ -215,15 +215,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             CancelClicked?.Invoke(this, EventArgs.Empty);
         }
 
-        private void CloseButton1_Click(object sender, EventArgs e)
-        {
-            CancelClicked?.Invoke(this, EventArgs.Empty);
-        }
 
         private void label4_Click(object sender, EventArgs e) { }
         private void label3_Click(object sender, EventArgs e) { }
         private void label1_Click(object sender, EventArgs e) { }
         private void pictureBox2_Click(object sender, EventArgs e) { }
         private void pictureBox1_Click(object sender, EventArgs e) { }
+
+        private void closeButton1_Click(object sender, EventArgs e)
+        {
+            CancelClicked?.Invoke(this, EventArgs.Empty);
+        }
     }
 }
