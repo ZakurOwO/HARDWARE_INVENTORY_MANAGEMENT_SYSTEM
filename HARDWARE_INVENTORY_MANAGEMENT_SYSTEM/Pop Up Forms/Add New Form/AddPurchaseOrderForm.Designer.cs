@@ -337,7 +337,8 @@
             this.btnBlue.Size = new System.Drawing.Size(190, 40);
             this.btnBlue.TabIndex = 79;
             this.btnBlue.Text = "Create Purchase Order";
-         
+            this.btnBlue.Click += new System.EventHandler(this.btnBlue_Click);
+
             // 
             // kryptonRichTextBox2
             // 
@@ -689,7 +690,8 @@
             this.btnAdd.Size = new System.Drawing.Size(129, 38);
             this.btnAdd.TabIndex = 83;
             this.btnAdd.Text = "Add";
-   
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+
             // 
             // guna2NumericUpDown1
             // 
