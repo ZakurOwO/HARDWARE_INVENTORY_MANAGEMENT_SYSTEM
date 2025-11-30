@@ -205,7 +205,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private void LoadTaxOptions()
         {
-            guna2ComboBox1.Items.AddRange(new string[] { "VAT (12%)", "No Tax (0%)", "Custom" });
+            guna2ComboBox1.Items.AddRange(new string[] { "VAT (12%)", "No Tax (0%)", "Custom", "3%" });
             guna2ComboBox1.SelectedIndex = 0;
         }
 
@@ -516,15 +516,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         }
 
         private void btnWhite_Click_1(object sender, EventArgs e)
-        {
-            Form parentForm = this.FindForm();
-            if (parentForm != null)
-            {
-                parentForm.Close();
-            }
-        }
-
-        private void guna2Button3_Click(object sender, EventArgs e)
         {
             Form parentForm = this.FindForm();
             if (parentForm != null)

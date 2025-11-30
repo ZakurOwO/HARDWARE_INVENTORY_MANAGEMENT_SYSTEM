@@ -109,6 +109,12 @@
       <DependentUpon>AddNewUser_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Accounts Module\Class Components of Accounts\UserSession.cs" />
+    <Compile Include="Pop Up Forms\Edit Form\EditPurchaseOrder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Pop Up Forms\Edit Form\EditPurchaseOrder.Designer.cs">
+      <DependentUpon>EditPurchaseOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pop Up Forms\Edit Form\EditUserInfo_Form.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -903,6 +909,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Pop Up Forms\Add New Form\AddNewUser_Form.resx">
       <DependentUpon>AddNewUser_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pop Up Forms\Edit Form\EditPurchaseOrder.resx">
+      <DependentUpon>EditPurchaseOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pop Up Forms\Edit Form\EditUserInfo_Form.resx">
       <DependentUpon>EditUserInfo_Form.cs</DependentUpon>
