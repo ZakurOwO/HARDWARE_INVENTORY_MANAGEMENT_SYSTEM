@@ -125,7 +125,7 @@
             this.AddSupplierFormBtn.Name = "AddSupplierFormBtn";
             this.AddSupplierFormBtn.Size = new System.Drawing.Size(120, 40);
             this.AddSupplierFormBtn.TabIndex = 120;
-            this.AddSupplierFormBtn.Text = "Add";
+            this.AddSupplierFormBtn.Text = "Update";
             // 
             // cbxCategory
             // 

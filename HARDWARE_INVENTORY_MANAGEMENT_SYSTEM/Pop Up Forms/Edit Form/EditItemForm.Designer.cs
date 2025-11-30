@@ -30,6 +30,24 @@
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.lblCustomerID = new System.Windows.Forms.Label();
+            this.dateCreated = new System.Windows.Forms.Label();
+            this.CustmrID = new System.Windows.Forms.Label();
             this.nudSellingPrice = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.nudMinimumStock = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.nudCostPrice = new Guna.UI2.WinForms.Guna2NumericUpDown();
@@ -42,6 +60,7 @@
             this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.label11 = new System.Windows.Forms.Label();
             this.DescriptionRichTextBox = new Krypton.Toolkit.KryptonRichTextBox();
+            this.ImageUploadBox = new Guna.UI2.WinForms.Guna2TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.CategoryCombobox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -59,31 +78,12 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.ClearBtn = new Guna.UI2.WinForms.Guna2Button();
             this.AddBtn = new Guna.UI2.WinForms.Guna2Button();
-            this.ImageUploadBox = new Guna.UI2.WinForms.Guna2TextBox();
-            this.guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.lblCustomerID = new System.Windows.Forms.Label();
-            this.dateCreated = new System.Windows.Forms.Label();
-            this.CustmrID = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
             this.guna2Panel1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.guna2Panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudSellingPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumStock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCostPrice)).BeginInit();
-            this.guna2Panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Panel1
@@ -148,6 +148,216 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(583, 813);
             this.panel1.TabIndex = 1;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.BackColor = System.Drawing.Color.White;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label27.ForeColor = System.Drawing.Color.Red;
+            this.label27.Location = new System.Drawing.Point(71, 672);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(12, 13);
+            this.label27.TabIndex = 114;
+            this.label27.Text = "*";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.BackColor = System.Drawing.Color.White;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label26.ForeColor = System.Drawing.Color.Red;
+            this.label26.Location = new System.Drawing.Point(416, 591);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(12, 13);
+            this.label26.TabIndex = 113;
+            this.label26.Text = "*";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.BackColor = System.Drawing.Color.White;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label23.ForeColor = System.Drawing.Color.Red;
+            this.label23.Location = new System.Drawing.Point(96, 591);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(12, 13);
+            this.label23.TabIndex = 112;
+            this.label23.Text = "*";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.BackColor = System.Drawing.Color.White;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label25.ForeColor = System.Drawing.Color.Red;
+            this.label25.Location = new System.Drawing.Point(443, 504);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(12, 13);
+            this.label25.TabIndex = 111;
+            this.label25.Text = "*";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.BackColor = System.Drawing.Color.White;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label24.ForeColor = System.Drawing.Color.Red;
+            this.label24.Location = new System.Drawing.Point(132, 505);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(12, 13);
+            this.label24.TabIndex = 110;
+            this.label24.Text = "*";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.BackColor = System.Drawing.Color.White;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label22.ForeColor = System.Drawing.Color.Red;
+            this.label22.Location = new System.Drawing.Point(166, 429);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(12, 13);
+            this.label22.TabIndex = 108;
+            this.label22.Text = "*";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.BackColor = System.Drawing.Color.White;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label21.ForeColor = System.Drawing.Color.Red;
+            this.label21.Location = new System.Drawing.Point(109, 316);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(12, 13);
+            this.label21.TabIndex = 107;
+            this.label21.Text = "*";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.BackColor = System.Drawing.Color.White;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label20.ForeColor = System.Drawing.Color.Red;
+            this.label20.Location = new System.Drawing.Point(370, 239);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(12, 13);
+            this.label20.TabIndex = 106;
+            this.label20.Text = "*";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.Color.White;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label19.ForeColor = System.Drawing.Color.Red;
+            this.label19.Location = new System.Drawing.Point(97, 240);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(12, 13);
+            this.label19.TabIndex = 105;
+            this.label19.Text = "*";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.Color.White;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label18.ForeColor = System.Drawing.Color.Red;
+            this.label18.Location = new System.Drawing.Point(359, 159);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(12, 13);
+            this.label18.TabIndex = 104;
+            this.label18.Text = "*";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.Color.White;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
+            this.label17.ForeColor = System.Drawing.Color.Red;
+            this.label17.Location = new System.Drawing.Point(123, 159);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(12, 13);
+            this.label17.TabIndex = 103;
+            this.label17.Text = "*";
+            // 
+            // guna2Panel2
+            // 
+            this.guna2Panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Panel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Panel2.BorderRadius = 10;
+            this.guna2Panel2.Controls.Add(this.label3);
+            this.guna2Panel2.Controls.Add(this.label15);
+            this.guna2Panel2.Controls.Add(this.label16);
+            this.guna2Panel2.Controls.Add(this.lblCustomerID);
+            this.guna2Panel2.Controls.Add(this.dateCreated);
+            this.guna2Panel2.Controls.Add(this.CustmrID);
+            this.guna2Panel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(248)))), ((int)(((byte)(252)))));
+            this.guna2Panel2.Location = new System.Drawing.Point(27, 66);
+            this.guna2Panel2.Name = "guna2Panel2";
+            this.guna2Panel2.Size = new System.Drawing.Size(528, 73);
+            this.guna2Panel2.TabIndex = 102;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(360, 40);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(121, 19);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "September 20, 2025";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Lexend SemiBold", 9F);
+            this.label15.Location = new System.Drawing.Point(369, 17);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(92, 19);
+            this.label15.TabIndex = 11;
+            this.label15.Text = "Last Updated";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(189, 40);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(121, 19);
+            this.label16.TabIndex = 10;
+            this.label16.Text = "September 20, 2025";
+            // 
+            // lblCustomerID
+            // 
+            this.lblCustomerID.AutoSize = true;
+            this.lblCustomerID.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCustomerID.Location = new System.Drawing.Point(23, 40);
+            this.lblCustomerID.Name = "lblCustomerID";
+            this.lblCustomerID.Size = new System.Drawing.Size(64, 19);
+            this.lblCustomerID.TabIndex = 9;
+            this.lblCustomerID.Text = "CUS-0001";
+            // 
+            // dateCreated
+            // 
+            this.dateCreated.AutoSize = true;
+            this.dateCreated.Font = new System.Drawing.Font("Lexend SemiBold", 9F);
+            this.dateCreated.Location = new System.Drawing.Point(198, 17);
+            this.dateCreated.Name = "dateCreated";
+            this.dateCreated.Size = new System.Drawing.Size(90, 19);
+            this.dateCreated.TabIndex = 8;
+            this.dateCreated.Text = "Date Created";
+            // 
+            // CustmrID
+            // 
+            this.CustmrID.AutoSize = true;
+            this.CustmrID.Font = new System.Drawing.Font("Lexend SemiBold", 9F);
+            this.CustmrID.Location = new System.Drawing.Point(18, 18);
+            this.CustmrID.Name = "CustmrID";
+            this.CustmrID.Size = new System.Drawing.Size(86, 19);
+            this.CustmrID.TabIndex = 7;
+            this.CustmrID.Text = "Customer ID";
             // 
             // nudSellingPrice
             // 
@@ -328,6 +538,29 @@
             this.DescriptionRichTextBox.StateCommon.Content.Font = new System.Drawing.Font("Lexend Light", 9F);
             this.DescriptionRichTextBox.TabIndex = 26;
             this.DescriptionRichTextBox.Text = "Ex. Durable layered wood panel for construction and furniture use";
+            // 
+            // ImageUploadBox
+            // 
+            this.ImageUploadBox.BorderRadius = 8;
+            this.ImageUploadBox.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ImageUploadBox.DefaultText = "";
+            this.ImageUploadBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.ImageUploadBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.ImageUploadBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.ImageUploadBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.ImageUploadBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.ImageUploadBox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ImageUploadBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.ImageUploadBox.IconRight = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.File_upload;
+            this.ImageUploadBox.IconRightOffset = new System.Drawing.Point(3, 0);
+            this.ImageUploadBox.Location = new System.Drawing.Point(329, 452);
+            this.ImageUploadBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.ImageUploadBox.Name = "ImageUploadBox";
+            this.ImageUploadBox.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.ImageUploadBox.PlaceholderText = "";
+            this.ImageUploadBox.SelectedText = "";
+            this.ImageUploadBox.Size = new System.Drawing.Size(228, 36);
+            this.ImageUploadBox.TabIndex = 25;
             // 
             // label10
             // 
@@ -545,7 +778,7 @@
             this.ClearBtn.PressedColor = System.Drawing.Color.Azure;
             this.ClearBtn.Size = new System.Drawing.Size(120, 40);
             this.ClearBtn.TabIndex = 41;
-            this.ClearBtn.Text = "Clear";
+            this.ClearBtn.Text = "Cancel";
             // 
             // AddBtn
             // 
@@ -561,240 +794,7 @@
             this.AddBtn.Name = "AddBtn";
             this.AddBtn.Size = new System.Drawing.Size(120, 40);
             this.AddBtn.TabIndex = 40;
-            this.AddBtn.Text = "Add";
-            // 
-            // ImageUploadBox
-            // 
-            this.ImageUploadBox.BorderRadius = 8;
-            this.ImageUploadBox.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ImageUploadBox.DefaultText = "";
-            this.ImageUploadBox.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.ImageUploadBox.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.ImageUploadBox.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.ImageUploadBox.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.ImageUploadBox.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.ImageUploadBox.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ImageUploadBox.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.ImageUploadBox.IconRight = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.File_upload;
-            this.ImageUploadBox.IconRightOffset = new System.Drawing.Point(3, 0);
-            this.ImageUploadBox.Location = new System.Drawing.Point(329, 452);
-            this.ImageUploadBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.ImageUploadBox.Name = "ImageUploadBox";
-            this.ImageUploadBox.PlaceholderForeColor = System.Drawing.Color.Gray;
-            this.ImageUploadBox.PlaceholderText = "";
-            this.ImageUploadBox.SelectedText = "";
-            this.ImageUploadBox.Size = new System.Drawing.Size(228, 36);
-            this.ImageUploadBox.TabIndex = 25;
-            // 
-            // guna2Panel2
-            // 
-            this.guna2Panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Panel2.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Panel2.BorderRadius = 10;
-            this.guna2Panel2.Controls.Add(this.label3);
-            this.guna2Panel2.Controls.Add(this.label15);
-            this.guna2Panel2.Controls.Add(this.label16);
-            this.guna2Panel2.Controls.Add(this.lblCustomerID);
-            this.guna2Panel2.Controls.Add(this.dateCreated);
-            this.guna2Panel2.Controls.Add(this.CustmrID);
-            this.guna2Panel2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(248)))), ((int)(((byte)(252)))));
-            this.guna2Panel2.Location = new System.Drawing.Point(27, 66);
-            this.guna2Panel2.Name = "guna2Panel2";
-            this.guna2Panel2.Size = new System.Drawing.Size(528, 73);
-            this.guna2Panel2.TabIndex = 102;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(360, 40);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(121, 19);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "September 20, 2025";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Lexend SemiBold", 9F);
-            this.label15.Location = new System.Drawing.Point(369, 17);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(92, 19);
-            this.label15.TabIndex = 11;
-            this.label15.Text = "Last Updated";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(189, 40);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(121, 19);
-            this.label16.TabIndex = 10;
-            this.label16.Text = "September 20, 2025";
-            // 
-            // lblCustomerID
-            // 
-            this.lblCustomerID.AutoSize = true;
-            this.lblCustomerID.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCustomerID.Location = new System.Drawing.Point(23, 40);
-            this.lblCustomerID.Name = "lblCustomerID";
-            this.lblCustomerID.Size = new System.Drawing.Size(64, 19);
-            this.lblCustomerID.TabIndex = 9;
-            this.lblCustomerID.Text = "CUS-0001";
-            // 
-            // dateCreated
-            // 
-            this.dateCreated.AutoSize = true;
-            this.dateCreated.Font = new System.Drawing.Font("Lexend SemiBold", 9F);
-            this.dateCreated.Location = new System.Drawing.Point(198, 17);
-            this.dateCreated.Name = "dateCreated";
-            this.dateCreated.Size = new System.Drawing.Size(90, 19);
-            this.dateCreated.TabIndex = 8;
-            this.dateCreated.Text = "Date Created";
-            // 
-            // CustmrID
-            // 
-            this.CustmrID.AutoSize = true;
-            this.CustmrID.Font = new System.Drawing.Font("Lexend SemiBold", 9F);
-            this.CustmrID.Location = new System.Drawing.Point(18, 18);
-            this.CustmrID.Name = "CustmrID";
-            this.CustmrID.Size = new System.Drawing.Size(86, 19);
-            this.CustmrID.TabIndex = 7;
-            this.CustmrID.Text = "Customer ID";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.BackColor = System.Drawing.Color.White;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label17.ForeColor = System.Drawing.Color.Red;
-            this.label17.Location = new System.Drawing.Point(123, 159);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(12, 13);
-            this.label17.TabIndex = 103;
-            this.label17.Text = "*";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.BackColor = System.Drawing.Color.White;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label18.ForeColor = System.Drawing.Color.Red;
-            this.label18.Location = new System.Drawing.Point(359, 159);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(12, 13);
-            this.label18.TabIndex = 104;
-            this.label18.Text = "*";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.BackColor = System.Drawing.Color.White;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label19.ForeColor = System.Drawing.Color.Red;
-            this.label19.Location = new System.Drawing.Point(97, 240);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(12, 13);
-            this.label19.TabIndex = 105;
-            this.label19.Text = "*";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.BackColor = System.Drawing.Color.White;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label20.ForeColor = System.Drawing.Color.Red;
-            this.label20.Location = new System.Drawing.Point(370, 239);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(12, 13);
-            this.label20.TabIndex = 106;
-            this.label20.Text = "*";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.BackColor = System.Drawing.Color.White;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label21.ForeColor = System.Drawing.Color.Red;
-            this.label21.Location = new System.Drawing.Point(109, 316);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(12, 13);
-            this.label21.TabIndex = 107;
-            this.label21.Text = "*";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.BackColor = System.Drawing.Color.White;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label22.ForeColor = System.Drawing.Color.Red;
-            this.label22.Location = new System.Drawing.Point(166, 429);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(12, 13);
-            this.label22.TabIndex = 108;
-            this.label22.Text = "*";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.BackColor = System.Drawing.Color.White;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label24.ForeColor = System.Drawing.Color.Red;
-            this.label24.Location = new System.Drawing.Point(132, 505);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(12, 13);
-            this.label24.TabIndex = 110;
-            this.label24.Text = "*";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.BackColor = System.Drawing.Color.White;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label25.ForeColor = System.Drawing.Color.Red;
-            this.label25.Location = new System.Drawing.Point(443, 504);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(12, 13);
-            this.label25.TabIndex = 111;
-            this.label25.Text = "*";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.BackColor = System.Drawing.Color.White;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label23.ForeColor = System.Drawing.Color.Red;
-            this.label23.Location = new System.Drawing.Point(96, 591);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(12, 13);
-            this.label23.TabIndex = 112;
-            this.label23.Text = "*";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.BackColor = System.Drawing.Color.White;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label26.ForeColor = System.Drawing.Color.Red;
-            this.label26.Location = new System.Drawing.Point(416, 591);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(12, 13);
-            this.label26.TabIndex = 113;
-            this.label26.Text = "*";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.BackColor = System.Drawing.Color.White;
-            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
-            this.label27.ForeColor = System.Drawing.Color.Red;
-            this.label27.Location = new System.Drawing.Point(71, 672);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(12, 13);
-            this.label27.TabIndex = 114;
-            this.label27.Text = "*";
+            this.AddBtn.Text = "Update";
             // 
             // EditItemForm
             // 
@@ -807,11 +807,11 @@
             this.guna2Panel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.guna2Panel2.ResumeLayout(false);
+            this.guna2Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudSellingPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumStock)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCostPrice)).EndInit();
-            this.guna2Panel2.ResumeLayout(false);
-            this.guna2Panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }

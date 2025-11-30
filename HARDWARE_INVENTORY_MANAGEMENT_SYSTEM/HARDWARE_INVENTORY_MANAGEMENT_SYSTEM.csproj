@@ -102,17 +102,17 @@
       <DependentUpon>AddNewUserButton.cs</DependentUpon>
     </Compile>
     <Compile Include="Accounts Module\Class Components of Accounts\AddUserContainer.cs" />
-    <Compile Include="Add New Form\AddNewUser_Form.cs">
+    <Compile Include="Pop Up Forms\Add New Form\AddNewUser_Form.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Add New Form\AddNewUser_Form.Designer.cs">
+    <Compile Include="Pop Up Forms\Add New Form\AddNewUser_Form.Designer.cs">
       <DependentUpon>AddNewUser_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Accounts Module\Class Components of Accounts\UserSession.cs" />
-    <Compile Include="Accounts Module\EditUserInfo_Form.cs">
+    <Compile Include="Pop Up Forms\Edit Form\EditUserInfo_Form.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Accounts Module\EditUserInfo_Form.Designer.cs">
+    <Compile Include="Pop Up Forms\Edit Form\EditUserInfo_Form.Designer.cs">
       <DependentUpon>EditUserInfo_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Accounts Module\SearchField.cs">
@@ -160,10 +160,10 @@
     <Compile Include="Class Components\SettingsMainClass.cs" />
     <Compile Include="Accounts Module\Class Components of Accounts\UserService.cs" />
     <Compile Include="Class Components\UserSession.cs" />
-    <Compile Include="Add New Form\AddCustomerForm.cs">
+    <Compile Include="Pop Up Forms\Add New Form\AddCustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Add New Form\AddCustomerForm.Designer.cs">
+    <Compile Include="Pop Up Forms\Add New Form\AddCustomerForm.Designer.cs">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Customer Module\Class Components of the Customer\AddCustomerContainer.cs" />
@@ -199,10 +199,10 @@
     <Compile Include="Customer Module\EditCustomerDetails.Designer.cs">
       <DependentUpon>EditCustomerDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Customer Module\EditCustomerForm.cs">
+    <Compile Include="Pop Up Forms\Edit Form\EditCustomerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Customer Module\EditCustomerForm.Designer.cs">
+    <Compile Include="Pop Up Forms\Edit Form\EditCustomerForm.Designer.cs">
       <DependentUpon>EditCustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Customer Module\PageNumber.cs">
@@ -238,10 +238,10 @@
     <Compile Include="Deliveries\Pagination_Deliveries.Designer.cs">
       <DependentUpon>Pagination_Deliveries.cs</DependentUpon>
     </Compile>
-    <Compile Include="Add New Form\AddVehicleForm.cs">
+    <Compile Include="Pop Up Forms\Add New Form\AddVehicleForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Add New Form\AddVehicleForm.Designer.cs">
+    <Compile Include="Pop Up Forms\Add New Form\AddVehicleForm.Designer.cs">
       <DependentUpon>AddVehicleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Deliveries\PopUp Forms\DeletePrompInDeliveries.cs">
@@ -286,10 +286,10 @@
     <Compile Include="Deliveries\PopUp Forms\EditDeliveryDetails.Designer.cs">
       <DependentUpon>EditDeliveryDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deliveries\PopUp Forms\EditVehicle.cs">
+    <Compile Include="Pop Up Forms\Edit Form\EditVehicle.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Deliveries\PopUp Forms\EditVehicle.Designer.cs">
+    <Compile Include="Pop Up Forms\Edit Form\EditVehicle.Designer.cs">
       <DependentUpon>EditVehicle.cs</DependentUpon>
     </Compile>
     <Compile Include="Deliveries\PopUp Forms\SuccessfullyDeletedDeliveries.cs">
@@ -347,10 +347,10 @@
     <Compile Include="History Module\UpperPanels.Designer.cs">
       <DependentUpon>UpperPanels.cs</DependentUpon>
     </Compile>
-    <Compile Include="Add New Form\AddNewItem_Form.cs">
+    <Compile Include="Pop Up Forms\Add New Form\AddNewItem_Form.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Add New Form\AddNewItem_Form.Designer.cs">
+    <Compile Include="Pop Up Forms\Add New Form\AddNewItem_Form.Designer.cs">
       <DependentUpon>AddNewItem_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="Inventory Module\Add_ItemButton.cs">
@@ -372,10 +372,10 @@
     <Compile Include="Inventory Module\Class Compnents Of Inventory\PaginationHelper.cs" />
     <Compile Include="Inventory Module\Class Compnents Of Inventory\ProductImageManager.cs" />
     <Compile Include="Inventory Module\Class Compnents Of Inventory\SearchTextBox.cs" />
-    <Compile Include="Inventory Module\EditItemForm.cs">
+    <Compile Include="Pop Up Forms\Edit Form\EditItemForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Inventory Module\EditItemForm.Designer.cs">
+    <Compile Include="Pop Up Forms\Edit Form\EditItemForm.Designer.cs">
       <DependentUpon>EditItemForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Inventory Module\InventoryFilter_Button.cs">
@@ -602,18 +602,18 @@
     <Compile Include="SettingsTab\TabModules.Designer.cs">
       <DependentUpon>TabModules.cs</DependentUpon>
     </Compile>
-    <Compile Include="Add New Form\AddPurchaseOrderForm.cs">
+    <Compile Include="Pop Up Forms\Add New Form\AddPurchaseOrderForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Add New Form\AddPurchaseOrderForm.Designer.cs">
+    <Compile Include="Pop Up Forms\Add New Form\AddPurchaseOrderForm.Designer.cs">
       <DependentUpon>AddPurchaseOrderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Supplier Module\Class Components of Suppliier\AddPurchaseContainer.cs" />
     <Compile Include="Supplier Module\Class Components of Suppliier\SupplierAddContainer.cs" />
-    <Compile Include="Supplier Module\EditFormSupplier.cs">
+    <Compile Include="Pop Up Forms\Edit Form\EditFormSupplier.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Supplier Module\EditFormSupplier.Designer.cs">
+    <Compile Include="Pop Up Forms\Edit Form\EditFormSupplier.Designer.cs">
       <DependentUpon>EditFormSupplier.cs</DependentUpon>
     </Compile>
     <Compile Include="Supplier Module\PurchaseOrdersPage.cs">
@@ -628,10 +628,10 @@
     <Compile Include="Supplier Module\SearchFieldForSupplier.Designer.cs">
       <DependentUpon>SearchFieldForSupplier.cs</DependentUpon>
     </Compile>
-    <Compile Include="Add New Form\SupplierAddForm.cs">
+    <Compile Include="Pop Up Forms\Add New Form\SupplierAddForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Add New Form\SupplierAddForm.Designer.cs">
+    <Compile Include="Pop Up Forms\Add New Form\SupplierAddForm.Designer.cs">
       <DependentUpon>SupplierAddForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Supplier Module\SupplierButton.cs">
@@ -901,10 +901,10 @@
     <EmbeddedResource Include="Accounts Module\AddNewUserButton.resx">
       <DependentUpon>AddNewUserButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Add New Form\AddNewUser_Form.resx">
+    <EmbeddedResource Include="Pop Up Forms\Add New Form\AddNewUser_Form.resx">
       <DependentUpon>AddNewUser_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Accounts Module\EditUserInfo_Form.resx">
+    <EmbeddedResource Include="Pop Up Forms\Edit Form\EditUserInfo_Form.resx">
       <DependentUpon>EditUserInfo_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Accounts Module\SearchField.resx">
@@ -925,7 +925,7 @@
     <EmbeddedResource Include="Audit Log\AuditLogTopBar.resx">
       <DependentUpon>AuditLogTopBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Add New Form\AddCustomerForm.resx">
+    <EmbeddedResource Include="Pop Up Forms\Add New Form\AddCustomerForm.resx">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\CustomerMainPage.resx">
@@ -943,7 +943,7 @@
     <EmbeddedResource Include="Customer Module\EditCustomerDetails.resx">
       <DependentUpon>EditCustomerDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Customer Module\EditCustomerForm.resx">
+    <EmbeddedResource Include="Pop Up Forms\Edit Form\EditCustomerForm.resx">
       <DependentUpon>EditCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Customer Module\PageNumber.resx">
@@ -961,7 +961,7 @@
     <EmbeddedResource Include="Deliveries\Pagination_Deliveries.resx">
       <DependentUpon>Pagination_Deliveries.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Add New Form\AddVehicleForm.resx">
+    <EmbeddedResource Include="Pop Up Forms\Add New Form\AddVehicleForm.resx">
       <DependentUpon>AddVehicleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\PopUp Forms\DeletePrompInDeliveries.resx">
@@ -985,7 +985,7 @@
     <EmbeddedResource Include="Deliveries\PopUp Forms\EditDeliveryDetails.resx">
       <DependentUpon>EditDeliveryDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Deliveries\PopUp Forms\EditVehicle.resx">
+    <EmbeddedResource Include="Pop Up Forms\Edit Form\EditVehicle.resx">
       <DependentUpon>EditVehicle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Deliveries\PopUp Forms\SuccessfullyDeletedDeliveries.resx">
@@ -1015,7 +1015,7 @@
     <EmbeddedResource Include="History Module\UpperPanels.resx">
       <DependentUpon>UpperPanels.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Add New Form\AddNewItem_Form.resx">
+    <EmbeddedResource Include="Pop Up Forms\Add New Form\AddNewItem_Form.resx">
       <DependentUpon>AddNewItem_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventory Module\Add_ItemButton.resx">
@@ -1024,7 +1024,7 @@
     <EmbeddedResource Include="Inventory Module\AdjustStock_PopUp.resx">
       <DependentUpon>AdjustStock_PopUp.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Inventory Module\EditItemForm.resx">
+    <EmbeddedResource Include="Pop Up Forms\Edit Form\EditItemForm.resx">
       <DependentUpon>EditItemForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inventory Module\InventoryFilter_Button.resx">
@@ -1145,10 +1145,10 @@
     <EmbeddedResource Include="SettingsTab\TabModules.resx">
       <DependentUpon>TabModules.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Add New Form\AddPurchaseOrderForm.resx">
+    <EmbeddedResource Include="Pop Up Forms\Add New Form\AddPurchaseOrderForm.resx">
       <DependentUpon>AddPurchaseOrderForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Supplier Module\EditFormSupplier.resx">
+    <EmbeddedResource Include="Pop Up Forms\Edit Form\EditFormSupplier.resx">
       <DependentUpon>EditFormSupplier.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\PurchaseOrdersPage.resx">
@@ -1157,7 +1157,7 @@
     <EmbeddedResource Include="Supplier Module\SearchFieldForSupplier.resx">
       <DependentUpon>SearchFieldForSupplier.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Add New Form\SupplierAddForm.resx">
+    <EmbeddedResource Include="Pop Up Forms\Add New Form\SupplierAddForm.resx">
       <DependentUpon>SupplierAddForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Supplier Module\SupplierButton.resx">

@@ -144,10 +144,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Lexend SemiBold", 13F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(20, 16);
+            this.label1.Font = new System.Drawing.Font("Lexend SemiBold", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(20, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(168, 29);
+            this.label1.Size = new System.Drawing.Size(145, 25);
             this.label1.TabIndex = 65;
             this.label1.Text = "Add New Vehicle";
             // 
@@ -376,7 +376,7 @@
             // 
             this.closeButton1.BackColor = System.Drawing.Color.Transparent;
             this.closeButton1.Location = new System.Drawing.Point(517, 16);
-            this.closeButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.closeButton1.Margin = new System.Windows.Forms.Padding(4);
             this.closeButton1.Name = "closeButton1";
             this.closeButton1.Size = new System.Drawing.Size(35, 35);
             this.closeButton1.TabIndex = 81;
