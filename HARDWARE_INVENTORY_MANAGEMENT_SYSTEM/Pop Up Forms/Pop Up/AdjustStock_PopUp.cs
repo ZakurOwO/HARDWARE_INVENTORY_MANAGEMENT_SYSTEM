@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
@@ -335,6 +336,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                 if (success)
                 {
+                    TryLogInventoryAdjustment(cleanReason);
+
                     MessageBox.Show($"Stock adjusted successfully!\nReason: {cleanReason}", "Success",
                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -384,6 +387,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                     return rowsAffected > 0;
                 }
+            }
+        }
+
+        private void TryLogInventoryAdjustment(string reason)
+        {
+            try
+            {
+                string oldValues = $"Stock={currentStock}";
+                string newValues = $"Stock={newTotalStock}; Reason={reason}";
+
+                AuditHelper.LogWithDetails(
+                    AuditModule.INVENTORY,
+                    $"Adjusted stock for {currentProductName}",
+                    AuditActivityType.UPDATE,
+                    tableAffected: "Products",
+                    recordId: currentSKU,
+                    oldValues: oldValues,
+                    newValues: newValues
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Inventory stock audit failed: {ex.Message}");
             }
         }
 
