@@ -9,22 +9,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         private Panel scrollContainer;
         private SupplierAddForm SupplierAddForm;
         private MainDashBoard mainForm;
-        private SupplierTable supplierTable; // Reference to refresh table
+        private SupplierTable supplierTable;
+        private EventHandler supplierAddedHandler;
+        private EventHandler cancelHandler;
 
+        public bool IsFormOpen => scrollContainer != null && scrollContainer.Visible;
         public void ShowSupplierAddForm(MainDashBoard main, SupplierTable table = null)
         {
+            if (IsFormOpen)
+                return;
+
             mainForm = main;
             supplierTable = table;
 
             SupplierAddForm = new SupplierAddForm();
             SupplierAddForm.Dock = DockStyle.None;
 
-            // Subscribe to events
-            SupplierAddForm.CancelClicked += (s, e) => CloseSupplierAddForm();
-            SupplierAddForm.SupplierAdded += (s, e) => {
-                // Refresh the supplier table when a new supplier is added
-                supplierTable?.LoadSuppliersFromDatabase();
-            };
+            supplierAddedHandler = (s, e) => supplierTable?.LoadSuppliersFromDatabase();
+            cancelHandler = (s, e) => CloseSupplierAddForm();
+
+            SupplierAddForm.SupplierAdded += supplierAddedHandler;
+            SupplierAddForm.CancelRequested += cancelHandler;
 
             scrollContainer = new Panel();
             scrollContainer.Size = new Size(600, 520);
@@ -55,10 +60,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             if (mainForm != null)
                 mainForm.pcbBlurOverlay.Visible = false;
 
-            scrollContainer?.Controls.Clear();
-            scrollContainer?.Parent?.Controls.Remove(scrollContainer);
-            scrollContainer?.Dispose();
-            SupplierAddForm?.Dispose();
+            if (SupplierAddForm != null)
+            {
+                SupplierAddForm.SupplierAdded -= supplierAddedHandler;
+                SupplierAddForm.CancelRequested -= cancelHandler;
+                SupplierAddForm.Dispose();
+                SupplierAddForm = null;
+            }
+
+            if (scrollContainer != null)
+            {
+                scrollContainer.Controls.Clear();
+                if (mainForm.Controls.Contains(scrollContainer))
+                    mainForm.Controls.Remove(scrollContainer);
+                scrollContainer.Dispose();
+                scrollContainer = null;
+            }
         }
     }
 }
