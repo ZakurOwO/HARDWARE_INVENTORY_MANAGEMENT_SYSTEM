@@ -1,4 +1,4 @@
-﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
+namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
 {
     partial class Settings_Signout
     {
@@ -64,6 +64,7 @@
             this.guna2Button1.Size = new System.Drawing.Size(146, 37);
             this.guna2Button1.TabIndex = 11;
             this.guna2Button1.Text = "Sign Out";
+            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
             // 
             // btnSettings
             // 

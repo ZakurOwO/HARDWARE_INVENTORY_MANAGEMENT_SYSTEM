@@ -102,13 +102,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         }
 
         // Method to call when user clicks adjust stock in DataGridView
-        public void ShowAdjustStockForProduct(string productName, string sku, string brand, int stock, string imagePath)
+        public void ShowAdjustStockForProduct(string productId, string productName, string sku, string brand, int stock, string imagePath)
         {
-            adjustStockManager.ShowAdjustStockPopup(productName, sku, brand, stock, imagePath, RefreshInventory);
+            adjustStockManager.ShowAdjustStockPopup(productName, sku, brand, stock, imagePath, productId, RefreshInventory);
         }
 
         // Method to call when user clicks view details in DataGridView
-        public void ShowItemDescriptionForProduct(string productName, string sku, string category, int currentStock, string brand, string imagePath)
+        public void ShowItemDescriptionForProduct(string productId, string productName, string sku, string category, int currentStock, string brand, string imagePath)
         {
             if (itemDescriptionForm == null)
                 InitializeItemDescriptionForm();
@@ -121,6 +121,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
             // Use the simplified version with image path
             itemDescriptionForm.PopulateProductData(
+                productId: productId,
                 productName: productName,
                 sku: sku,
                 category: category,

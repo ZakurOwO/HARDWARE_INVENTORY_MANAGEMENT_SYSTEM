@@ -76,12 +76,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
                             try
                             {
-                                AuditHelper.Log(
+                                string newValues = $"Fullname: {fullname}, Username: {username}, Role: {roleName}, Status: {accountStatus}";
+
+                                AuditHelper.LogWithDetails(
                                     AuditModule.ACCOUNTS,
                                     $"Created new user account: {username} ({fullname}) with role {roleName}",
                                     AuditActivityType.CREATE,
                                     tableAffected: "Accounts",
-                                    recordId: newAccountId
+                                    recordId: newAccountId,
+                                    oldValues: null,
+                                    newValues: newValues
                                 );
                             }
                             catch (Exception auditEx)
