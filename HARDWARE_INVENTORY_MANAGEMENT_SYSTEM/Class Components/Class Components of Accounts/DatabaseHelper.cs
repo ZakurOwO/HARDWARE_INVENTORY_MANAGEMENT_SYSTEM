@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -7,6 +7,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
     public static class DatabaseHelper
     {
+        // Compatibility alias for callers expecting a connection string on the helper
+        public static string connectionString => ConnectionString.DataSource;
+
         /// <summary>
         /// Load all existing users from database as DataTable
         /// </summary>
@@ -20,13 +23,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 {
                     connection.Open();
                     string query = @"
-                        SELECT 
+                        SELECT
                             a.AccountID,
                             a.Fullname,
                             a.username,
                             a.Account_status,
                             a.Address,
                             a.created_at,
+                            a.RoleID,
                             r.role_name as Role
                         FROM Accounts a
                         INNER JOIN Roles r ON a.RoleID = r.RoleID

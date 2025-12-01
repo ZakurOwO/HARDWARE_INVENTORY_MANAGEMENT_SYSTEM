@@ -13,6 +13,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         // Simple class to store row data
         public class InventoryRowData
         {
+            public string ProductId { get; set; }
             public string ImagePath { get; set; }
             public string SKU { get; set; }
             public string Brand { get; set; }
@@ -50,7 +51,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 {
                     connection.Open();
                     string query = @"
-                        SELECT 
+                        SELECT
+                            p.ProductID,
                             p.product_name,
                             p.SKU,
                             c.category_name,
@@ -143,6 +145,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                 foreach (DataRow row in pageData.Rows)
                 {
+                    string productId = row["ProductID"].ToString();
                     string productName = row["product_name"].ToString();
                     string sku = row["SKU"].ToString();
                     string category = row["category_name"].ToString();
@@ -174,6 +177,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     {
                         var rowData = new InventoryRowData
                         {
+                            ProductId = productId,
                             ImagePath = imagePath,
                             SKU = sku,
                             Brand = brand
@@ -212,23 +216,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         int.TryParse(dgvInventoryList.Rows[e.RowIndex].Cells[3].Value.ToString(), out currentStock);
                     }
 
-                    // Get image path, SKU, and brand from row Tag
+                    // Get image path, SKU, brand, and productId from row Tag
                     string imagePath = "";
                     string sku = "";
                     string brand = "";
+                    string productId = "";
 
                     if (dgvInventoryList.Rows[e.RowIndex].Tag is InventoryRowData rowData)
                     {
                         imagePath = rowData.ImagePath ?? "";
                         sku = rowData.SKU ?? "";
                         brand = rowData.Brand ?? "";
+                        productId = rowData.ProductId ?? "";
                     }
 
                     // Try to get the main page and call ShowAdjustStockForProduct
                     var mainPage = FindParentOfType<InventoryMainPage>(this);
                     if (mainPage != null && !string.IsNullOrEmpty(productName))
                     {
-                        mainPage.ShowAdjustStockForProduct(productName, sku, brand, currentStock, imagePath);
+                        mainPage.ShowAdjustStockForProduct(productId, productName, sku, brand, currentStock, imagePath);
                     }
                 }
                 catch (Exception ex)
@@ -325,23 +331,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         int.TryParse(dgvInventoryList.Rows[e.RowIndex].Cells[3].Value.ToString(), out currentStock);
                     }
 
-                    // Get image path, SKU, and brand from row Tag
+                    // Get image path, SKU, brand, and productId from row Tag
                     string imagePath = "";
                     string sku = "";
                     string brand = "";
+                    string productId = "";
 
                     if (dgvInventoryList.Rows[e.RowIndex].Tag is InventoryRowData rowData)
                     {
                         imagePath = rowData.ImagePath ?? "";
                         sku = rowData.SKU ?? "";
                         brand = rowData.Brand ?? "";
+                        productId = rowData.ProductId ?? "";
                     }
 
                     // Try to get the main page and call ShowItemDescription
                     var mainPage = FindParentOfType<InventoryMainPage>(this);
                     if (mainPage != null && !string.IsNullOrEmpty(productName))
                     {
-                        mainPage.ShowItemDescriptionForProduct(productName, sku, category, currentStock, brand, imagePath);
+                        mainPage.ShowItemDescriptionForProduct(productId, productName, sku, category, currentStock, brand, imagePath);
                     }
                 }
                 catch (Exception ex)

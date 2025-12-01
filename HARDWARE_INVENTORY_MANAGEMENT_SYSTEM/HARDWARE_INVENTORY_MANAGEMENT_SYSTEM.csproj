@@ -113,7 +113,6 @@
     <Compile Include="Pop Up Forms\Add New Form\AddNewUser_Form.Designer.cs">
       <DependentUpon>AddNewUser_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class Components\Class Components of Accounts\UserSession.cs" />
     <Compile Include="Pop Up Forms\Edit Form\EditPurchaseOrder.cs">
       <SubType>UserControl</SubType>
     </Compile>
