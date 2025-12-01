@@ -104,14 +104,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         // Method to call when user clicks adjust stock in DataGridView
         public void ShowAdjustStockForProduct(string productId, string productName, string sku, string brand, int stock, string imagePath)
         {
-            adjustStockManager.ShowAdjustStockPopup(
-                productName: productName,
-                sku: sku,
-                brand: brand,
-                stock: stock,
-                imagePath: imagePath,
-                productId: productId,
-                refreshCallback: RefreshInventory);
+            adjustStockManager.ShowAdjustStockPopup(productName, sku, brand, stock, imagePath, productId, RefreshInventory);
         }
 
         // Method to call when user clicks view details in DataGridView
