@@ -1,12 +1,8 @@
-﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Data;
 using System.Drawing;
+using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_of_Accounts
 {
@@ -14,7 +10,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_
     {
         private Panel scrollContainer;
         private AddNewUser_Form addForm;
+        private EditUserInfo_Form editForm;
         private MainDashBoard mainForm;
+        private EventHandler cancelHandler;
+        private EventHandler<string> updatedHandler;
 
         public void ShowAddUserForm(MainDashBoard main)
         {
@@ -46,17 +45,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_
 
             mainForm.Controls.Add(scrollContainer);
             scrollContainer.BringToFront();
-
-
         }
+
         private void AddForm_CancelClicked(object sender, EventArgs e)
         {
             CloseSupplierAddForm();
         }
-        public void ShowEditUserForm(MainDashBoard main)
+
+        public void ShowEditUserForm(MainDashBoard main, DataRow userData, EventHandler<string> userUpdated = null)
         {
             mainForm = main;
-            EditUserInfo_Form editForm = new EditUserInfo_Form();
+            editForm = new EditUserInfo_Form();
+
+            cancelHandler = (s, e) => CloseEditUserForm();
+            updatedHandler = (s, accountId) =>
+            {
+                userUpdated?.Invoke(this, accountId);
+                CloseEditUserForm();
+            };
+
+            editForm.CancelClicked += cancelHandler;
+            editForm.UserUpdated += updatedHandler;
+
+            editForm.LoadUser(userData);
 
             scrollContainer = new Panel();
             scrollContainer.Size = new Size(566, 565);
@@ -93,6 +104,33 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_
             scrollContainer?.Parent?.Controls.Remove(scrollContainer);
             scrollContainer?.Dispose();
             addForm?.Dispose();
+        }
+
+        private void CloseEditUserForm()
+        {
+            if (mainForm != null)
+            {
+                mainForm.pcbBlurOverlay.Visible = false;
+            }
+
+            scrollContainer?.Controls.Clear();
+            scrollContainer?.Parent?.Controls.Remove(scrollContainer);
+            scrollContainer?.Dispose();
+
+            if (editForm != null)
+            {
+                if (cancelHandler != null)
+                {
+                    editForm.CancelClicked -= cancelHandler;
+                }
+
+                if (updatedHandler != null)
+                {
+                    editForm.UserUpdated -= updatedHandler;
+                }
+            }
+
+            editForm?.Dispose();
         }
     }
 }

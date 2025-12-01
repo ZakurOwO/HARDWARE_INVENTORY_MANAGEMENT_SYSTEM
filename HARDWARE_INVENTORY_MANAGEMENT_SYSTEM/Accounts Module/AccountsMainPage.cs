@@ -72,6 +72,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             foreach (var panel in userPanels)
             {
                 panel.UserPanelClicked += (s, e) => ShowUserDetails((UserAccountsPanel)s);
+                panel.EditClicked += (s, dataRow) => ShowEditUserForm((UserAccountsPanel)s, dataRow);
+            }
+        }
+
+        private void ShowEditUserForm(UserAccountsPanel panel, System.Data.DataRow userData)
+        {
+            if (userData == null)
+            {
+                return;
+            }
+
+            MainDashBoard main = this.FindForm() as MainDashBoard;
+
+            if (main != null)
+            {
+                addUserContainer.ShowEditUserForm(main, userData, (s, accountId) =>
+                {
+                    LoadExistingUsersFromDatabase();
+                });
             }
         }
 
