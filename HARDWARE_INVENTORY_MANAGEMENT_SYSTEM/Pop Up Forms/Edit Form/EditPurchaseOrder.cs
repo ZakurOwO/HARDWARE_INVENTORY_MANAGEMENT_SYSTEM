@@ -105,7 +105,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
             ApplyPOStatusRules(po.Status);
         }
 */
-
+ 
         private void cbxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             ApplyPOStatusRules(cbxStatus.Text);

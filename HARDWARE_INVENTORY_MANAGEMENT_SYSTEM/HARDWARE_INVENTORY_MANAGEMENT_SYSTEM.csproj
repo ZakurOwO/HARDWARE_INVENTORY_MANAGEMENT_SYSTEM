@@ -101,7 +101,7 @@
     <Compile Include="Accounts Module\AddNewUserButton.Designer.cs">
       <DependentUpon>AddNewUserButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="Accounts Module\Class Components of Accounts\AddUserContainer.cs" />
+    <Compile Include="Class Components\Class Components of Accounts\AddUserContainer.cs" />
     <Compile Include="Audit Log\ClassComponent\AuditActivityType.cs" />
     <Compile Include="Audit Log\ClassComponent\AuditHelper.cs" />
     <Compile Include="Audit Log\ClassComponent\AuditLogEntry.cs" />
@@ -113,7 +113,7 @@
     <Compile Include="Pop Up Forms\Add New Form\AddNewUser_Form.Designer.cs">
       <DependentUpon>AddNewUser_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="Accounts Module\Class Components of Accounts\UserSession.cs" />
+    <Compile Include="Class Components\Class Components of Accounts\UserSession.cs" />
     <Compile Include="Pop Up Forms\Edit Form\EditPurchaseOrder.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -138,10 +138,10 @@
     <Compile Include="Accounts Module\UserAccountsPanel.Designer.cs">
       <DependentUpon>UserAccountsPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Accounts Module\ViewAccountsDetail_PopUp.cs">
+    <Compile Include="Pop Up Forms\Pop Up\ViewAccountsDetail_PopUp.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Accounts Module\ViewAccountsDetail_PopUp.Designer.cs">
+    <Compile Include="Pop Up Forms\Pop Up\ViewAccountsDetail_PopUp.Designer.cs">
       <DependentUpon>ViewAccountsDetail_PopUp.cs</DependentUpon>
     </Compile>
     <Compile Include="Audit Log\AuditDataGrid.cs">
@@ -162,14 +162,14 @@
     <Compile Include="Audit Log\AuditLogTopBar.Designer.cs">
       <DependentUpon>AuditLogTopBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="Accounts Module\Class Components of Accounts\ComboboxItem.cs" />
+    <Compile Include="Class Components\Class Components of Accounts\ComboboxItem.cs" />
     <Compile Include="Class Components\AuthenticationService.cs" />
     <Compile Include="Class Components\ConnectionString.cs" />
-    <Compile Include="Accounts Module\Class Components of Accounts\DatabaseHelper.cs" />
+    <Compile Include="Class Components\Class Components of Accounts\DatabaseHelper.cs" />
     <Compile Include="Class Components\ProfileMenuClass.cs" />
-    <Compile Include="Accounts Module\Class Components of Accounts\SecurityHelper.cs" />
+    <Compile Include="Class Components\Class Components of Accounts\SecurityHelper.cs" />
     <Compile Include="Class Components\SettingsMainClass.cs" />
-    <Compile Include="Accounts Module\Class Components of Accounts\UserService.cs" />
+    <Compile Include="Class Components\Class Components of Accounts\UserService.cs" />
     <Compile Include="Class Components\UserSession.cs" />
     <Compile Include="Pop Up Forms\Add New Form\AddCustomerForm.cs">
       <SubType>Form</SubType>
@@ -177,9 +177,9 @@
     <Compile Include="Pop Up Forms\Add New Form\AddCustomerForm.Designer.cs">
       <DependentUpon>AddCustomerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Customer Module\Class Components of the Customer\AddCustomerContainer.cs" />
-    <Compile Include="Customer Module\Class Components of the Customer\EditCustomerContainer.cs" />
-    <Compile Include="Customer Module\Class Components of the Customer\PaginationHelperCustomer.cs" />
+    <Compile Include="Class Components\Class Components of the Customer\AddCustomerContainer.cs" />
+    <Compile Include="Class Components\Class Components of the Customer\EditCustomerContainer.cs" />
+    <Compile Include="Class Components\Class Components of the Customer\PaginationHelperCustomer.cs" />
     <Compile Include="Customer Module\CustomerMainPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -234,9 +234,9 @@
     <Compile Include="Dashboard\DashboardMainPage.Designer.cs">
       <DependentUpon>DashboardMainPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deliveries\classcomponentsofDeliveries\VehicleDataAccess.cs" />
-    <Compile Include="Deliveries\classcomponentsofDeliveries\VehicleFormContainer.cs" />
-    <Compile Include="Deliveries\classcomponentsofDeliveries\VehicleImageManager.cs" />
+    <Compile Include="Class Components\classcomponentsofDeliveries\VehicleDataAccess.cs" />
+    <Compile Include="Class Components\classcomponentsofDeliveries\VehicleFormContainer.cs" />
+    <Compile Include="Class Components\classcomponentsofDeliveries\VehicleImageManager.cs" />
     <Compile Include="Deliveries\Deliveries_btncs.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -309,7 +309,7 @@
     <Compile Include="Deliveries\PopUp Forms\SuccessfullyDeletedDeliveries.Designer.cs">
       <DependentUpon>SuccessfullyDeletedDeliveries.cs</DependentUpon>
     </Compile>
-    <Compile Include="Deliveries\classcomponentsofDeliveries\VehicleRecord.cs" />
+    <Compile Include="Class Components\classcomponentsofDeliveries\VehicleRecord.cs" />
     <Compile Include="Deliveries\SearchField.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -370,19 +370,19 @@
     <Compile Include="Inventory Module\Add_ItemButton.Designer.cs">
       <DependentUpon>Add_ItemButton.cs</DependentUpon>
     </Compile>
-    <Compile Include="Inventory Module\AdjustStock_PopUp.cs">
+    <Compile Include="Pop Up Forms\Pop Up\AdjustStock_PopUp.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Inventory Module\AdjustStock_PopUp.Designer.cs">
+    <Compile Include="Pop Up Forms\Pop Up\AdjustStock_PopUp.Designer.cs">
       <DependentUpon>AdjustStock_PopUp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Inventory Module\Class Compnents Of Inventory\AddItemContainer.cs" />
-    <Compile Include="Inventory Module\Class Compnents Of Inventory\AdjustStockManager.cs" />
-    <Compile Include="Inventory Module\Class Compnents Of Inventory\ComboboxItemcs.cs" />
-    <Compile Include="Inventory Module\Class Compnents Of Inventory\InventoryDatabaseHelper.cs" />
-    <Compile Include="Inventory Module\Class Compnents Of Inventory\PaginationHelper.cs" />
-    <Compile Include="Inventory Module\Class Compnents Of Inventory\ProductImageManager.cs" />
-    <Compile Include="Inventory Module\Class Compnents Of Inventory\SearchTextBox.cs" />
+    <Compile Include="Class Components\Class Compnents Of Inventory\AddItemContainer.cs" />
+    <Compile Include="Class Components\Class Compnents Of Inventory\AdjustStockManager.cs" />
+    <Compile Include="Class Components\Class Compnents Of Inventory\ComboboxItemcs.cs" />
+    <Compile Include="Class Components\Class Compnents Of Inventory\InventoryDatabaseHelper.cs" />
+    <Compile Include="Class Components\Class Compnents Of Inventory\PaginationHelper.cs" />
+    <Compile Include="Class Components\Class Compnents Of Inventory\ProductImageManager.cs" />
+    <Compile Include="Class Components\Class Compnents Of Inventory\SearchTextBox.cs" />
     <Compile Include="Pop Up Forms\Edit Form\EditItemForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -431,10 +431,10 @@
     <Compile Include="Inventory Module\Inventory_SearchField.Designer.cs">
       <DependentUpon>Inventory_SearchField.cs</DependentUpon>
     </Compile>
-    <Compile Include="Inventory Module\ItemDescription_Form.cs">
+    <Compile Include="Pop Up Forms\Pop Up\ItemDescription_Form.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Inventory Module\ItemDescription_Form.Designer.cs">
+    <Compile Include="Pop Up Forms\Pop Up\ItemDescription_Form.Designer.cs">
       <DependentUpon>ItemDescription_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="MainDashBoard.cs">
@@ -619,8 +619,8 @@
     <Compile Include="Pop Up Forms\Add New Form\AddPurchaseOrderForm.Designer.cs">
       <DependentUpon>AddPurchaseOrderForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Supplier Module\Class Components of Suppliier\AddPurchaseContainer.cs" />
-    <Compile Include="Supplier Module\Class Components of Suppliier\SupplierAddContainer.cs" />
+    <Compile Include="Class Components\Class Components of Suppliier\AddPurchaseContainer.cs" />
+    <Compile Include="Class Components\Class Components of Suppliier\SupplierAddContainer.cs" />
     <Compile Include="Pop Up Forms\Edit Form\EditFormSupplier.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -711,9 +711,9 @@
     <Compile Include="Transactions Module\Cart User controls\AddedToCartTable.Designer.cs">
       <DependentUpon>AddedToCartTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\ClassComponentTransaction\CartItem.cs" />
-    <Compile Include="Transactions Module\ClassComponentTransaction\CheckoutPopUpContainer.cs" />
-    <Compile Include="Transactions Module\ClassComponentTransaction\SharedCartManager.cs" />
+    <Compile Include="Class Components\ClassComponentTransaction\CartItem.cs" />
+    <Compile Include="Class Components\ClassComponentTransaction\CheckoutPopUpContainer.cs" />
+    <Compile Include="Class Components\ClassComponentTransaction\SharedCartManager.cs" />
     <Compile Include="Transactions Module\comple Usercontrol\DeliveryCartDetails.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -726,21 +726,21 @@
     <Compile Include="Transactions Module\Cart User controls\DeliveryComboBoxes.Designer.cs">
       <DependentUpon>DeliveryComboBoxes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\Checkout_PopUp.cs">
+    <Compile Include="Pop Up Forms\Pop Up\Checkout_PopUp.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Transactions Module\Checkout_PopUp.Designer.cs">
+    <Compile Include="Pop Up Forms\Pop Up\Checkout_PopUp.Designer.cs">
       <DependentUpon>Checkout_PopUp.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\ClassComponentTransaction\ProductDataAccess.cs" />
-    <Compile Include="Transactions Module\ClassComponentTransaction\ProductImageManager.cs" />
+    <Compile Include="Class Components\ClassComponentTransaction\ProductDataAccess.cs" />
+    <Compile Include="Class Components\ClassComponentTransaction\ProductImageManager.cs" />
     <Compile Include="Transactions Module\General user control\Pagination.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Transactions Module\General user control\Pagination.Designer.cs">
       <DependentUpon>Pagination.cs</DependentUpon>
     </Compile>
-    <Compile Include="Transactions Module\ClassComponentTransaction\Product.cs" />
+    <Compile Include="Class Components\ClassComponentTransaction\Product.cs" />
     <Compile Include="UserControlFiles\BlueAndWhite_Button.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -927,7 +927,7 @@
     <EmbeddedResource Include="Accounts Module\UserAccountsPanel.resx">
       <DependentUpon>UserAccountsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Accounts Module\ViewAccountsDetail_PopUp.resx">
+    <EmbeddedResource Include="Pop Up Forms\Pop Up\ViewAccountsDetail_PopUp.resx">
       <DependentUpon>ViewAccountsDetail_PopUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Audit Log\AuditDataGrid.resx">
@@ -1035,7 +1035,7 @@
     <EmbeddedResource Include="Inventory Module\Add_ItemButton.resx">
       <DependentUpon>Add_ItemButton.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Inventory Module\AdjustStock_PopUp.resx">
+    <EmbeddedResource Include="Pop Up Forms\Pop Up\AdjustStock_PopUp.resx">
       <DependentUpon>AdjustStock_PopUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Pop Up Forms\Edit Form\EditItemForm.resx">
@@ -1062,7 +1062,7 @@
     <EmbeddedResource Include="Inventory Module\Inventory_SearchField.resx">
       <DependentUpon>Inventory_SearchField.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Inventory Module\ItemDescription_Form.resx">
+    <EmbeddedResource Include="Pop Up Forms\Pop Up\ItemDescription_Form.resx">
       <DependentUpon>ItemDescription_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainDashBoard.resx">
@@ -1213,7 +1213,7 @@
     <EmbeddedResource Include="Transactions Module\Cart User controls\DeliveryComboBoxes.resx">
       <DependentUpon>DeliveryComboBoxes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Transactions Module\Checkout_PopUp.resx">
+    <EmbeddedResource Include="Pop Up Forms\Pop Up\Checkout_PopUp.resx">
       <DependentUpon>Checkout_PopUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\General user control\Pagination.resx">
