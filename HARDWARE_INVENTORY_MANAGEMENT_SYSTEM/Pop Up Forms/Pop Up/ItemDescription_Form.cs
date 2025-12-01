@@ -109,6 +109,34 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             );
         }
 
+        // Overload used by InventoryMainPage with product identity but without date metadata
+        public void PopulateProductData(string productId, string productName, string sku, string category, int currentStock,
+                                      decimal sellingPrice, string status, string brand, int minimumStock,
+                                      decimal costPrice, string unit, string description, string imagePath)
+        {
+            DateTime currentDate = DateTime.Now;
+
+            PopulateProductData(
+                productId: productId,
+                productName: productName,
+                sku: sku,
+                category: category,
+                currentStock: currentStock,
+                sellingPrice: sellingPrice,
+                status: status,
+                orderedDate: currentDate,
+                transitDate: currentDate,
+                receivedDate: currentDate,
+                availableDate: currentDate,
+                brand: brand,
+                minimumStock: minimumStock,
+                costPrice: costPrice,
+                unit: unit,
+                description: description,
+                imagePath: imagePath
+            );
+        }
+
         private void LoadProductImage()
         {
             try
