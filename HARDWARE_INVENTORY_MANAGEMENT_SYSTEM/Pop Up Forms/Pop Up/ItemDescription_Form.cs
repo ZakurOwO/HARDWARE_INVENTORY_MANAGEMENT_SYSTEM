@@ -84,7 +84,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
             // Unit - format: "Unit: Piece"
             UnitDesc.Text = $"Unit: {unit}";
-
+        }
         public void PopulateProductData(ProductDetailData detail)
         {
             if (detail == null)
