@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using static InventoryDatabaseHelper;
@@ -21,12 +16,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         public ItemDescription_Form()
         {
             InitializeComponent();
-            WireUpEvents(); // Add this method call
+            WireUpEvents();
         }
 
         private void WireUpEvents()
         {
-            // Wire up the close button click event
             closeButton1.Click += closeButton1_Click;
         }
 
@@ -76,15 +70,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             // Brand - format: "Brand: Charlotte Woods"
             brandDesc.Text = $"Brand: {brand}";
 
-            // Minimum Stock - format: "Minimum Stock: 20 pcs"
-            MinimumStockDesc.Text = $"Minimum Stock: {minimumStock} pcs";
+        public void PopulateProductData(InventoryDatabaseHelper.ProductDetailData detail)
+        {
+            if (detail == null)
+                return;
 
-            // Cost Price - format: "Cost Price: P 500.00"
-            CostPriceDesc.Text = $"Cost Price: P {costPrice:F2}";
+            currentProductId = detail.ProductId;
+            ItemNameDesc.Text = detail.ProductName;
+            SKUDesc.Text = $"SKU: {detail.SKU}";
+            CategoryDesc.Text = $"Category: {detail.Category}";
+            CurrentStockDesc.Text = $"Current Stock: {detail.CurrentStock}";
+            SellingPriceDesc.Text = $"Selling Price: P {detail.SellingPrice:F2}";
+            StatusDesc.Text = $"Status: {detail.Status}";
 
-            // Unit - format: "Unit: Piece"
-            UnitDesc.Text = $"Unit: {unit}";
-        }
+            OrderedDesc.Text = FormatTimeline("Ordered", detail.OrderedDate);
+            transitDesc.Text = FormatTimeline("In Transit", detail.TransitDate);
+            receivedinstoreDesc.Text = FormatTimeline("Received in Store", detail.ReceivedDate);
+            availableforsaleDesc.Text = FormatTimeline("Available for Sale", detail.AvailableDate);
+
         public void PopulateProductData(ProductDetailData detail)
         {
             if (detail == null)
@@ -168,7 +171,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             try
             {
-                // Clear previous image
                 if (ItemImageDesc.Image != null)
                 {
                     ItemImageDesc.Image.Dispose();
@@ -177,14 +179,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                 if (!string.IsNullOrEmpty(currentImagePath))
                 {
-                    // Load new image
                     Image productImage = ProductImageManager.GetProductImage(currentImagePath);
-
-                    // Replace the image content completely
                     ItemImageDesc.Image = productImage;
                     ItemImageDesc.SizeMode = PictureBoxSizeMode.StretchImage;
-
-                    // Force refresh to ensure proper display
                     ItemImageDesc.Refresh();
                 }
                 else
@@ -192,9 +189,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     SetDefaultImage();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show($"Error loading product image: {ex.Message}");
                 SetDefaultImage();
             }
         }
@@ -232,7 +228,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void SetDefaultImage()
         {
-            // Create a default "No Image" placeholder
             Bitmap defaultImage = new Bitmap(ItemImageDesc.Width, ItemImageDesc.Height);
             using (Graphics g = Graphics.FromImage(defaultImage))
             {
@@ -240,7 +235,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 using (Font font = new Font("Lexend semibold", 10, FontStyle.Bold))
                 using (Brush brush = new SolidBrush(Color.DarkGray))
                 {
-                    string text = "No Image";
+                    const string text = "No Image";
                     SizeF textSize = g.MeasureString(text, font);
                     g.DrawString(text, font, brush,
                         (defaultImage.Width - textSize.Width) / 2,
@@ -253,113 +248,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void closeButton1_Click(object sender, EventArgs e)
         {
-            // Go back to mainpage default view.
             CloseRequested?.Invoke(this, EventArgs.Empty);
             HideItemDescription();
         }
 
-        private void ItemNameDesc_Click(object sender, EventArgs e)
-        {
-            //Itemname based on what I click on view
-        }
-
-        private void SKUDesc_Click(object sender, EventArgs e)
-        {
-            //SKU based on what I click on view and format is SKU: PLW-001
-        }
-
-        private void CategoryDesc_Click(object sender, EventArgs e)
-        {
-            //CategoryDesc based on what I click on view Category: Woods
-        }
-
-        private void CurrentStockDesc_Click(object sender, EventArgs e)
-        {
-            //CurrentStockDesc based on what I click on view Current Stock: 50
-        }
-
-        private void SellingPriceDesc_Click(object sender, EventArgs e)
-        {
-            //SellingPriceDesc based on what I click on view Selling Price: P 540.00
-        }
-
-        private void StatusDesc_Click(object sender, EventArgs e)
-        {
-            //StatusDesc based on what I click on view Status: Available
-        }
-
-        private void OrderedDesc_Click(object sender, EventArgs e)
-        {
-            //OrderedDesc based on what I click on view Ordered: Sep 25, 2025  09:31
-        }
-
-        private void transitDesc_Click(object sender, EventArgs e)
-        {
-            //transitDesc based on what I click on view In Transit: Sep 25, 2025  09:31
-        }
-
-        private void receivedinstoreDesc_Click(object sender, EventArgs e)
-        {
-            //receivedinstoreDesc based on what I click on view Received in Store: Sep 25, 2025  09:31
-        }
-
-        private void availableforsaleDesc_Click(object sender, EventArgs e)
-        {
-            //availableforsaleDesc based on what I click on view Available for Sale: Sep 25, 2025  09:31
-        }
-
-        private void brandDesc_Click(object sender, EventArgs e)
-        {
-            //brandDesc based on what I click on view Brand:  Charlotte Woods
-        }
-
-        private void MinimumStockDesc_Click(object sender, EventArgs e)
-        {
-            //MinimumStockDesc based on what I click on view Minimum Stock:  20 pcs
-        }
-
-        private void CostPriceDesc_Click(object sender, EventArgs e)
-        {
-            //CostPriceDesc based on what I click on view Cost Cost Price:  P 500.00
-        }
-
-        private void UnitDesc_Click(object sender, EventArgs e)
-        {
-            //UnitDesc based on what I click on view Unit:  Piece
-        }
-
-        private void DescriptionTextBoxLabelDesc_Click(object sender, EventArgs e)
-        {
-            //DescriptionTextBoxLabelDesc based on what I click on view Description:  Plywood 1/2 mm width
-        }
-
-        private void dgvProductHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //ignore this for now
-        }
-
-        // Remove the closeButton1_Load method completely
-
-        // Method to show this form
         public void ShowItemDescription()
         {
-            this.Visible = true;
-            this.BringToFront();
+            Visible = true;
+            BringToFront();
         }
 
-        // Method to hide this form
         public void HideItemDescription()
         {
-            this.Visible = false;
+            Visible = false;
         }
 
         private void ItemImageDesc_Click(object sender, EventArgs e)
         {
-            //the image of what they are in the database
-            // Image display is handled in LoadProductImage method
+            // Image display handled in LoadProductImage
         }
-
-     
-        
     }
 }
