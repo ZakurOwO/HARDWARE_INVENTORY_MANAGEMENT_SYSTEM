@@ -6,7 +6,7 @@ using System.IO;
 using System.Text;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
-public static class InventoryDatabaseHelper
+namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_Of_Inventory
 {
     public class ProductDetailData
     {
