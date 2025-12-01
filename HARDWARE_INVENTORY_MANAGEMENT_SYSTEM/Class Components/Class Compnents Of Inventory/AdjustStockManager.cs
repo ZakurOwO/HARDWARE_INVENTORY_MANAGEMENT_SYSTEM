@@ -24,7 +24,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             adjustStockPopUp.BringToFront();
         }
 
-        public void ShowAdjustStockPopup(string productName, string sku, string brand, int stock, string imagePath, Action refreshCallback = null)
+        public void ShowAdjustStockPopup(string productName, string sku, string brand, int stock, string imagePath, string productId, Action refreshCallback = null)
         {
             if (adjustStockPopUp == null)
                 InitializeAdjustStockPopup();
@@ -32,7 +32,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             // Center the popup in the main page
             CenterPopupInParent();
 
-            adjustStockPopUp.ShowAdjustStock(productName, sku, brand, stock, imagePath);
+            adjustStockPopUp.ShowAdjustStock(productName, sku, brand, stock, imagePath, productId);
 
             // Handle events
             adjustStockPopUp.StockAdjusted += (s, e) => {

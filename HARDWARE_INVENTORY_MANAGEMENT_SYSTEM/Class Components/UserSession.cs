@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
