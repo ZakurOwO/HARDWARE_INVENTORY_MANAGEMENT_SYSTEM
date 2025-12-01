@@ -49,7 +49,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
                     return;
                 }
 
-                string resolvedModule = ResolveAuthModule(activityType, module);
+                string resolvedModule = string.IsNullOrWhiteSpace(module) ? AuditModule.AUTHENTICATION : module;
 
                 WriteAuditEntry(
                     resolvedUserId,
@@ -141,21 +141,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
             );
 
             Console.WriteLine($"DEBUG AuditHelper.WriteAuditEntry - Audit saved: {success}");
-        }
-
-        private static string ResolveAuthModule(AuditActivityType activityType, string providedModule)
-        {
-            if (!string.IsNullOrWhiteSpace(providedModule))
-            {
-                return providedModule;
-            }
-
-            return activityType switch
-            {
-                AuditActivityType.LOGIN => AuditModule.LOGIN,
-                AuditActivityType.LOGOUT => AuditModule.SIGN_OUT,
-                _ => AuditModule.AUTHENTICATION
-            };
         }
 
         private static bool TryResolveUserContext(
