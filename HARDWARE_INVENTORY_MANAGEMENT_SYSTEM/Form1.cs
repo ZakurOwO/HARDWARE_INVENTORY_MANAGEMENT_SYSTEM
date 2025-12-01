@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net.Mail;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
@@ -185,14 +185,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void LoginSuccess(LoginResult loginResult)
         {
-            // MODIFIED: Store user session with UserId
-            UserSession.UserId = loginResult.UserId;  // ADD THIS - Critical for audit logging!
-            UserSession.AccountID = loginResult.AccountID;
-            UserSession.FullName = loginResult.FullName;
-            UserSession.Role = loginResult.Role;
-            UserSession.Username = loginResult.Username;
-            UserSession.IsLoggedIn = true;
-            UserSession.LoginTime = DateTime.Now;
+            // Store user session with the account identity provided by authentication
+            UserSession.InitializeSession(
+                loginResult.UserId,
+                loginResult.AccountID,
+                loginResult.FullName,
+                loginResult.Username,
+                loginResult.Role);
 
             // DEBUG: Verify session data
             Console.WriteLine($"DEBUG - Session initialized:");
@@ -204,13 +203,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             // Log the login activity using AuditHelper
             try
             {
-                AuditHelper.Log(
-                    AuditModule.AUTHENTICATION,
+                AuditHelper.LogAuthenticationEvent(
                     $"User {loginResult.Username} logged in successfully",
                     AuditActivityType.LOGIN,
-                    tableAffected: "Accounts",
-                    recordId: loginResult.AccountID
-                );
+                    userId: loginResult.UserId,
+                    username: loginResult.Username,
+                    accountId: loginResult.AccountID);
                 Console.WriteLine("DEBUG - Login audit log created successfully");
             }
             catch (Exception auditEx)

@@ -1,5 +1,10 @@
-﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
+namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
 {
+    /// <summary>
+    /// Centralized module name strings used by the audit logger.
+    /// Using constants keeps callers from accidentally passing the static class itself,
+    /// which triggers the “static types cannot be used as parameters” compiler error.
+    /// </summary>
     public static class AuditModule
     {
         public const string AUTHENTICATION = "Authentication";
