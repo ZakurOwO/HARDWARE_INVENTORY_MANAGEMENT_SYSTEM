@@ -46,19 +46,21 @@ public static class InventoryDatabaseHelper
 
     public static bool AddProduct(string productName, string description, string categoryId,
                               string unitId, int currentStock, string imageFileName,
-                              int reorderPoint, bool active)
+                              int reorderPoint, bool active, out string productId, out string sku)
     {
         // Generate SKU automatically
-        string sku = GenerateSKU(productName, categoryId);
+        sku = GenerateSKU(productName, categoryId);
+        productId = null;
 
         using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
         {
             connection.Open();
-            string query = @"INSERT INTO Products 
-                        (product_name, SKU, description, category_id, unit_id, 
-                         current_stock, image_path, reorder_point, active) 
-                        VALUES 
-                        (@productName, @sku, @description, @categoryId, @unitId, 
+            string query = @"INSERT INTO Products
+                        (product_name, SKU, description, category_id, unit_id,
+                         current_stock, image_path, reorder_point, active)
+                        OUTPUT inserted.ProductID
+                        VALUES
+                        (@productName, @sku, @description, @categoryId, @unitId,
                          @currentStock, @imagePath, @reorderPoint, @active)";
 
             using (SqlCommand cmd = new SqlCommand(query, connection))
@@ -73,8 +75,10 @@ public static class InventoryDatabaseHelper
                 cmd.Parameters.AddWithValue("@reorderPoint", reorderPoint);
                 cmd.Parameters.AddWithValue("@active", active);
 
-                int rowsAffected = cmd.ExecuteNonQuery();
-                return rowsAffected > 0;
+                var result = cmd.ExecuteScalar();
+                productId = result?.ToString();
+
+                return !string.IsNullOrWhiteSpace(productId);
             }
         }
     }

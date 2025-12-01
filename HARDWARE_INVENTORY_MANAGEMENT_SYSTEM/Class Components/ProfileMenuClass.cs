@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Windows.Forms;
 
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components
 {
     public class ProfileMenuPainter
@@ -18,9 +20,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components
         // Static method to create painter with formatted name from UserSession
         public static ProfileMenuPainter CreateFromUserSession()
         {
-            string userFullName = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserSession.FullName;
+            string userFullName = UserSession.FullName;
             string formattedName = FormatName(userFullName);
-            string userRole = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserSession.Role ?? "User";
+            string userRole = UserSession.Role ?? "User";
 
             return new ProfileMenuPainter(formattedName, userRole);
         }
