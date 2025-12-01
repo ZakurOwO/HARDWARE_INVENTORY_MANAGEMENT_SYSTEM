@@ -398,14 +398,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 string oldValues = $"Stock={currentStock}";
                 string newValues = $"Stock={newTotalStock}; Reason={reason}";
 
-                string recordKey = !string.IsNullOrWhiteSpace(currentProductId) ? currentProductId : currentSKU;
-
                 AuditHelper.LogWithDetails(
                     AuditModule.INVENTORY,
                     $"Adjusted stock for {currentProductName}",
                     AuditActivityType.UPDATE,
                     tableAffected: "Products",
-                    recordId: recordKey,
+                    recordId: currentSKU,
                     oldValues: oldValues,
                     newValues: newValues
                 );
