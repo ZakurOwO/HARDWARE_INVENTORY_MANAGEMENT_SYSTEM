@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using static InventoryDatabaseHelper;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
@@ -84,22 +85,48 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             // Unit - format: "Unit: Piece"
             UnitDesc.Text = $"Unit: {unit}";
 
-            // Description - format: "Description: Plywood 1/2 mm width"
-            DescriptionTextBoxLabelDesc.Text = $"Description: {description}";
+        public void PopulateProductData(ProductDetailData detail)
+        {
+            if (detail == null)
+                return;
 
-            // Load product image
-            currentImagePath = imagePath;
+            currentProductId = detail.ProductId;
+            ItemNameDesc.Text = detail.ProductName;
+            SKUDesc.Text = $"SKU: {detail.SKU}";
+            CategoryDesc.Text = $"Category: {detail.Category}";
+            CurrentStockDesc.Text = $"Current Stock: {detail.CurrentStock}";
+            SellingPriceDesc.Text = $"Selling Price: P {detail.SellingPrice:F2}";
+            StatusDesc.Text = $"Status: {detail.Status}";
+
+            OrderedDesc.Text = FormatTimeline("Ordered", detail.OrderedDate);
+            transitDesc.Text = FormatTimeline("In Transit", detail.TransitDate);
+            receivedinstoreDesc.Text = FormatTimeline("Received in Store", detail.ReceivedDate);
+            availableforsaleDesc.Text = FormatTimeline("Available for Sale", detail.AvailableDate);
+
+            brandDesc.Text = $"Brand: {detail.Description}";
+            MinimumStockDesc.Text = $"Minimum Stock: {detail.ReorderPoint} pcs";
+            CostPriceDesc.Text = $"Cost Price: P {detail.CostPrice:F2}";
+            UnitDesc.Text = $"Unit: {detail.Unit}";
+            DescriptionTextBoxLabelDesc.Text = $"Description: {detail.Description}";
+
+            // additional info (supplier/batch/delivery)
+            if (!string.IsNullOrWhiteSpace(detail.SupplierName))
+            {
+                brandDesc.Text = $"Supplier: {detail.SupplierName}";
+            }
+
+            currentImagePath = detail.ImagePath;
             LoadProductImage();
 
             LoadProductHistory(currentProductId, sku, productName);
         }
 
-        // Overloaded method for simpler usage (if some dates are not available)
-        public void PopulateProductData(string productName, string sku, string category, int currentStock,
-                                      decimal sellingPrice, string status, string brand, int minimumStock,
-                                      decimal costPrice, string unit, string description, string imagePath)
+        private string FormatTimeline(string label, DateTime? value)
         {
-            DateTime currentDate = DateTime.Now;
+            if (value.HasValue)
+            {
+                return $"{label}: {value.Value:MMM dd, yyyy HH:mm}";
+            }
 
             PopulateProductData(
                 productId: null,

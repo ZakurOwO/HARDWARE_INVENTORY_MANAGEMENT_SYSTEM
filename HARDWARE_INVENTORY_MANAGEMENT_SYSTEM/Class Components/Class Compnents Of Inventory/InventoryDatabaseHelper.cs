@@ -8,6 +8,30 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 public static class InventoryDatabaseHelper
 {
+    public class ProductDetailData
+    {
+        public string ProductId { get; set; }
+        public int ProductInternalId { get; set; }
+        public string ProductName { get; set; }
+        public string SKU { get; set; }
+        public string Category { get; set; }
+        public string Unit { get; set; }
+        public int CurrentStock { get; set; }
+        public int ReorderPoint { get; set; }
+        public decimal SellingPrice { get; set; }
+        public decimal CostPrice { get; set; }
+        public string Description { get; set; }
+        public string ImagePath { get; set; }
+        public string Status { get; set; }
+        public DateTime? OrderedDate { get; set; }
+        public DateTime? TransitDate { get; set; }
+        public DateTime? ReceivedDate { get; set; }
+        public DateTime? AvailableDate { get; set; }
+        public string SupplierName { get; set; }
+        public string LastBatchNumber { get; set; }
+        public string LastDeliveryNumber { get; set; }
+    }
+
     public static DataTable LoadCategoriesFromDatabase()
     {
         DataTable dt = new DataTable();
