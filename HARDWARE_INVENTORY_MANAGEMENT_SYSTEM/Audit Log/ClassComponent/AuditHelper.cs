@@ -1,85 +1,86 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.ClassComponent
+namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
 {
     public static class AuditHelper
     {
-        // Only one ExportToCsv method
-        public static string ExportToCsv(List<AuditLogEntry> auditLogs, string fileName)
+        private static AuditLogManager auditLogManager = new AuditLogManager();
+
+        public static void Log(string module, string activity, AuditActivityType activityType,
+            string tableAffected = null, string recordId = null)
         {
             try
             {
-                var csv = new StringBuilder();
+                // Use the correct UserSession from Class_Components namespace
+                var userSession = typeof(HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.UserSession);
+                bool isLoggedIn = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.UserSession.IsLoggedIn;
 
-                // Add header
-                csv.AppendLine("Username,Activity,Module,Activity Type,Timestamp,Table Affected,Record ID,IP Address");
+                // DEBUG logging
+                Console.WriteLine($"DEBUG AuditHelper.Log - IsLoggedIn: {isLoggedIn}");
 
-                // Add data
-                foreach (var log in auditLogs)
+                if (isLoggedIn)
                 {
-                    var escapedUsername = EscapeCsvField(log.Username ?? "");
-                    var escapedActivity = EscapeCsvField(log.Activity ?? "");
-                    var escapedModule = EscapeCsvField(log.Module ?? "");
-                    var escapedActivityType = EscapeCsvField(log.ActivityType ?? "");
-                    var escapedTable = EscapeCsvField(log.TableAffected ?? "");
-                    var escapedRecordId = EscapeCsvField(log.RecordId ?? "");
-                    var escapedIp = EscapeCsvField(log.IpAddress ?? "");
+                    int userId = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.UserSession.UserId;
+                    string username = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.UserSession.Username ?? "Unknown";
 
-                    csv.AppendLine($"\"{escapedUsername}\",\"{escapedActivity}\",\"{escapedModule}\",\"{escapedActivityType}\",\"{log.Timestamp:yyyy-MM-dd HH:mm:ss}\",\"{escapedTable}\",\"{escapedRecordId}\",\"{escapedIp}\"");
+                    Console.WriteLine($"DEBUG AuditHelper.Log - UserId: {userId}, Username: {username}, Activity: {activity}");
+
+                    bool success = auditLogManager.LogActivity(
+                        userId,
+                        username,
+                        module,
+                        activity,
+                        activityType,
+                        tableAffected,
+                        recordId
+                    );
+
+                    Console.WriteLine($"DEBUG AuditHelper.Log - Audit saved: {success}");
                 }
-
-                var directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                var filePath = Path.Combine(directory, $"{fileName}_{DateTime.Now:yyyyMMddHHmmss}.csv");
-
-                File.WriteAllText(filePath, csv.ToString(), Encoding.UTF8);
-                return filePath;
+                else
+                {
+                    Console.WriteLine("WARNING - User not logged in, skipping audit log");
+                }
             }
             catch (Exception ex)
             {
-                throw new Exception($"Error exporting to CSV: {ex.Message}", ex);
+                Console.WriteLine($"ERROR in AuditHelper.Log: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
             }
         }
 
-        private static string EscapeCsvField(string field)
-        {
-            if (field.Contains("\"") || field.Contains(",") || field.Contains("\n") || field.Contains("\r"))
-            {
-                field = field.Replace("\"", "\"\"");
-                return field;
-            }
-            return field;
-        }
-
-        // Simple logging method without database dependencies
-        public static void LogActivity(string user, string activity, string module, string details = "", string ipAddress = "")
-        {
-            // Just write to debug for now
-            System.Diagnostics.Debug.WriteLine($"AUDIT: {user} - {activity} - {module} - {details} - {ipAddress}");
-        }
-
-        public static string GetUserIpAddress()
+        public static void LogWithDetails(
+            string module,
+            string activity,
+            AuditActivityType activityType,
+            string tableAffected = null,
+            string recordId = null,
+            string oldValues = null,
+            string newValues = null)
         {
             try
             {
-                var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
-                foreach (var ip in host.AddressList)
+                if (HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.UserSession.IsLoggedIn)
                 {
-                    if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                    {
-                        return ip.ToString();
-                    }
+                    int userId = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.UserSession.UserId;
+                    string username = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.UserSession.Username ?? "Unknown";
+
+                    auditLogManager.LogActivity(
+                        userId,
+                        username,
+                        module,
+                        activity,
+                        activityType,
+                        tableAffected,
+                        recordId,
+                        oldValues,
+                        newValues
+                    );
                 }
-                return "Unknown";
             }
-            catch
+            catch (Exception ex)
             {
-                return "Unknown";
+                Console.WriteLine($"ERROR in AuditHelper.LogWithDetails: {ex.Message}");
             }
         }
     }

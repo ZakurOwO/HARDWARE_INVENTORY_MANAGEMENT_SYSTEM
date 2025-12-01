@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.pnlAuditLog = new Guna.UI2.WinForms.Guna2Panel();
+            this.tbxSearchField = new Guna.UI2.WinForms.Guna2TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.auditDataGrid2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditDataGrid();
             this.btnMainButtonIcon = new Guna.UI2.WinForms.Guna2Button();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.auditDataGrid1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditDataGrid();
-            this.tbxSearchField = new Guna.UI2.WinForms.Guna2TextBox();
             this.pnlAuditLog.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +53,31 @@
             this.pnlAuditLog.Name = "pnlAuditLog";
             this.pnlAuditLog.Size = new System.Drawing.Size(940, 605);
             this.pnlAuditLog.TabIndex = 1;
+            // 
+            // tbxSearchField
+            // 
+            this.tbxSearchField.BorderRadius = 8;
+            this.tbxSearchField.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.tbxSearchField.DefaultText = "";
+            this.tbxSearchField.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.tbxSearchField.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.tbxSearchField.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbxSearchField.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.tbxSearchField.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbxSearchField.Font = new System.Drawing.Font("Lexend Light", 9F);
+            this.tbxSearchField.ForeColor = System.Drawing.Color.DimGray;
+            this.tbxSearchField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.tbxSearchField.IconLeft = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.search_02;
+            this.tbxSearchField.IconLeftOffset = new System.Drawing.Point(5, 0);
+            this.tbxSearchField.Location = new System.Drawing.Point(29, 53);
+            this.tbxSearchField.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tbxSearchField.Name = "tbxSearchField";
+            this.tbxSearchField.PlaceholderForeColor = System.Drawing.Color.DimGray;
+            this.tbxSearchField.PlaceholderText = "Search Activity";
+            this.tbxSearchField.SelectedText = "";
+            this.tbxSearchField.Size = new System.Drawing.Size(291, 40);
+            this.tbxSearchField.TabIndex = 10;
+            this.tbxSearchField.TextOffset = new System.Drawing.Point(3, 0);
             // 
             // label1
             // 
@@ -102,31 +127,6 @@
             this.auditDataGrid1.Name = "auditDataGrid1";
             this.auditDataGrid1.Size = new System.Drawing.Size(887, 505);
             this.auditDataGrid1.TabIndex = 8;
-            // 
-            // tbxSearchField
-            // 
-            this.tbxSearchField.BorderRadius = 8;
-            this.tbxSearchField.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.tbxSearchField.DefaultText = "";
-            this.tbxSearchField.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.tbxSearchField.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.tbxSearchField.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.tbxSearchField.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.tbxSearchField.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tbxSearchField.Font = new System.Drawing.Font("Lexend Light", 9F);
-            this.tbxSearchField.ForeColor = System.Drawing.Color.DimGray;
-            this.tbxSearchField.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.tbxSearchField.IconLeft = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.search_02;
-            this.tbxSearchField.IconLeftOffset = new System.Drawing.Point(5, 0);
-            this.tbxSearchField.Location = new System.Drawing.Point(29, 53);
-            this.tbxSearchField.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tbxSearchField.Name = "tbxSearchField";
-            this.tbxSearchField.PlaceholderForeColor = System.Drawing.Color.DimGray;
-            this.tbxSearchField.PlaceholderText = "Search Activity";
-            this.tbxSearchField.SelectedText = "";
-            this.tbxSearchField.Size = new System.Drawing.Size(291, 40);
-            this.tbxSearchField.TabIndex = 10;
-            this.tbxSearchField.TextOffset = new System.Drawing.Point(3, 0);
             // 
             // AuditLogMainPage
             // 

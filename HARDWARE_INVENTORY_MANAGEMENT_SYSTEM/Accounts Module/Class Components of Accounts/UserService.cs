@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
     public static class UserService
     {
-        /// <summary>
-        /// Load all roles from database
-        /// </summary>
         public static List<ComboboxItem> LoadRoles()
         {
             List<ComboboxItem> roles = new List<ComboboxItem>();
@@ -46,9 +44,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             return roles;
         }
 
-        /// <summary>
-        /// Add a new user to the database
-        /// </summary>
         public static bool AddUser(string fullname, string username, string password,
             string address, string roleId, string accountStatus)
         {
@@ -68,12 +63,36 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                         cmd.Parameters.AddWithValue("@fullname", fullname);
                         cmd.Parameters.AddWithValue("@username", username);
                         cmd.Parameters.AddWithValue("@password", SecurityHelper.HashPassword(password));
-                        cmd.Parameters.AddWithValue("@address", address);
+                        cmd.Parameters.AddWithValue("@address", address ?? "");
                         cmd.Parameters.AddWithValue("@roleId", roleId);
                         cmd.Parameters.AddWithValue("@status", accountStatus);
 
                         int rowsAffected = cmd.ExecuteNonQuery();
-                        return rowsAffected > 0;
+
+                        if (rowsAffected > 0)
+                        {
+                            string newAccountId = DatabaseHelper.GetGeneratedAccountId(connection);
+                            string roleName = GetRoleName(connection, roleId);
+
+                            try
+                            {
+                                AuditHelper.Log(
+                                    AuditModule.ACCOUNTS,
+                                    $"Created new user account: {username} ({fullname}) with role {roleName}",
+                                    AuditActivityType.CREATE,
+                                    tableAffected: "Accounts",
+                                    recordId: newAccountId
+                                );
+                            }
+                            catch (Exception auditEx)
+                            {
+                                Console.WriteLine($"Audit log error: {auditEx.Message}");
+                            }
+
+                            return true;
+                        }
+
+                        return false;
                     }
                 }
             }
@@ -104,9 +123,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
         }
 
-        /// <summary>
-        /// Update an existing user in the database
-        /// </summary>
         public static bool UpdateUser(string accountId, string fullname, string username,
             string address, string roleId, string accountStatus, string password = null)
         {
@@ -116,9 +132,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 {
                     connection.Open();
 
+                    string oldValues = GetAccountDetails(connection, accountId);
+
                     string query;
 
-                    // Include password update if provided
                     if (!string.IsNullOrEmpty(password))
                     {
                         query = @"UPDATE Accounts 
@@ -146,7 +163,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                         cmd.Parameters.AddWithValue("@accountId", accountId);
                         cmd.Parameters.AddWithValue("@fullname", fullname);
                         cmd.Parameters.AddWithValue("@username", username);
-                        cmd.Parameters.AddWithValue("@address", address);
+                        cmd.Parameters.AddWithValue("@address", address ?? "");
                         cmd.Parameters.AddWithValue("@roleId", roleId);
                         cmd.Parameters.AddWithValue("@status", accountStatus);
 
@@ -156,7 +173,37 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                         }
 
                         int rowsAffected = cmd.ExecuteNonQuery();
-                        return rowsAffected > 0;
+
+                        if (rowsAffected > 0)
+                        {
+                            string roleName = GetRoleName(connection, roleId);
+                            string newValues = $"Fullname: {fullname}, Username: {username}, Role: {roleName}, Status: {accountStatus}";
+                            if (!string.IsNullOrEmpty(password))
+                            {
+                                newValues += ", Password: [CHANGED]";
+                            }
+
+                            try
+                            {
+                                AuditHelper.LogWithDetails(
+                                    AuditModule.ACCOUNTS,
+                                    $"Updated user account: {username} ({fullname})",
+                                    AuditActivityType.UPDATE,
+                                    tableAffected: "Accounts",
+                                    recordId: accountId,
+                                    oldValues: oldValues,
+                                    newValues: newValues
+                                );
+                            }
+                            catch (Exception auditEx)
+                            {
+                                Console.WriteLine($"Audit log error: {auditEx.Message}");
+                            }
+
+                            return true;
+                        }
+
+                        return false;
                     }
                 }
             }
@@ -168,9 +215,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
         }
 
-        /// <summary>
-        /// Delete a user from the database
-        /// </summary>
         public static bool DeleteUser(string accountId)
         {
             try
@@ -178,13 +222,51 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
                 {
                     connection.Open();
-                    string query = "DELETE FROM Accounts WHERE AccountID = @accountId";
 
+                    string getUserQuery = "SELECT username, Fullname, Account_status FROM Accounts WHERE AccountID = @accountId";
+                    string username = "";
+                    string fullname = "";
+
+                    using (SqlCommand getCmd = new SqlCommand(getUserQuery, connection))
+                    {
+                        getCmd.Parameters.AddWithValue("@accountId", accountId);
+                        using (SqlDataReader reader = getCmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                username = reader["username"].ToString();
+                                fullname = reader["Fullname"].ToString();
+                            }
+                        }
+                    }
+
+                    string query = "DELETE FROM Accounts WHERE AccountID = @accountId";
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@accountId", accountId);
                         int rowsAffected = cmd.ExecuteNonQuery();
-                        return rowsAffected > 0;
+
+                        if (rowsAffected > 0)
+                        {
+                            try
+                            {
+                                AuditHelper.Log(
+                                    AuditModule.ACCOUNTS,
+                                    $"Deleted user account: {username} ({fullname})",
+                                    AuditActivityType.DELETE,
+                                    tableAffected: "Accounts",
+                                    recordId: accountId
+                                );
+                            }
+                            catch (Exception auditEx)
+                            {
+                                Console.WriteLine($"Audit log error: {auditEx.Message}");
+                            }
+
+                            return true;
+                        }
+
+                        return false;
                     }
                 }
             }
@@ -193,6 +275,53 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 MessageBox.Show($"Error deleting user: {ex.Message}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
+            }
+        }
+
+        private static string GetAccountDetails(SqlConnection connection, string accountId)
+        {
+            try
+            {
+                string query = @"SELECT a.Fullname, a.username, r.role_name, a.Account_status 
+                               FROM Accounts a 
+                               INNER JOIN Roles r ON a.RoleID = r.RoleID 
+                               WHERE a.AccountID = @accountId";
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@accountId", accountId);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return $"Fullname: {reader["Fullname"]}, Username: {reader["username"]}, " +
+                                   $"Role: {reader["role_name"]}, Status: {reader["Account_status"]}";
+                        }
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            return "";
+        }
+
+        private static string GetRoleName(SqlConnection connection, string roleId)
+        {
+            try
+            {
+                string query = "SELECT role_name FROM Roles WHERE RoleID = @roleId";
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@roleId", roleId);
+                    object result = cmd.ExecuteScalar();
+                    return result?.ToString() ?? roleId;
+                }
+            }
+            catch
+            {
+                return roleId;
             }
         }
     }

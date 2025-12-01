@@ -7,6 +7,8 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
+
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 {
@@ -78,7 +80,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             if (clickedPanel?.Tag == null) return;
 
             DataRow userData = clickedPanel.Tag as DataRow;
-            DataRow latestData = TryReloadUserData(userData);
+
+            // Try to reload latest data (your existing method)
+            DataRow latestData = null;
+            try
+            {
+                if (userData != null)
+                {
+                    string accountId = userData.Field<string>("AccountID");
+                    if (!string.IsNullOrEmpty(accountId))
+                    {
+                        DataTable all = DatabaseHelper.LoadExistingUsersFromDatabase();
+                        if (all?.Rows.Count > 0)
+                        {
+                            latestData = all.AsEnumerable()
+                                .FirstOrDefault(row => string.Equals(row.Field<string>("AccountID"), accountId, StringComparison.OrdinalIgnoreCase));
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                latestData = userData;
+            }
 
             if (userDetailPopup == null)
             {
@@ -104,31 +128,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
                 (this.Height - userDetailPopup.Height) / 2
             );
 
+            // Log viewing account details
+            try
+            {
+                string accountId = (latestData ?? userData).Field<string>("AccountID");
+                string fullname = (latestData ?? userData).Field<string>("Fullname");
+
+                AuditHelper.Log(
+                    AuditModule.ACCOUNTS,
+                    $"Viewed account details: {fullname}",
+                    AuditActivityType.VIEW,
+                    tableAffected: "Accounts",
+                    recordId: accountId
+                );
+            }
+            catch (Exception auditEx)
+            {
+                // Don't fail if audit logging fails
+                Console.WriteLine($"Audit log error: {auditEx.Message}");
+            }
+
             userDetailPopup.Visible = true;
             userDetailOverlayPanel.Visible = true;
             userDetailOverlayPanel.BringToFront();
             userDetailPopup.BringToFront();
-        }
-
-        private DataRow TryReloadUserData(DataRow currentData)
-        {
-            try
-            {
-                if (currentData == null) return currentData;
-
-                string accountId = currentData.Field<string>("AccountID");
-                if (string.IsNullOrEmpty(accountId)) return currentData;
-
-                DataTable all = DatabaseHelper.LoadExistingUsersFromDatabase();
-                if (all?.Rows.Count == 0) return currentData;
-
-                return all.AsEnumerable()
-                    .FirstOrDefault(row => string.Equals(row.Field<string>("AccountID"), accountId, StringComparison.OrdinalIgnoreCase)) ?? currentData;
-            }
-            catch
-            {
-                return currentData;
-            }
         }
 
         private void OnUserAdded(object sender, (string AccountID, string FullName, string Role, string Status) userInfo)

@@ -2,6 +2,7 @@
 using System.Net.Mail;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 {
@@ -156,10 +157,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
             try
             {
-                // Create a fake login result for bypass
+                // Create a fake login result for bypass - SET UserId = 1 for admin
                 var bypassResult = new LoginResult
                 {
                     IsAuthenticated = true,
+                    UserId = 1,  // ADD THIS - Use the actual admin user ID
                     AccountID = "ACC-00001",
                     FullName = "Bypass User",
                     Username = "bypass",
@@ -183,14 +185,39 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void LoginSuccess(LoginResult loginResult)
         {
-            // Store user session
+            // MODIFIED: Store user session with UserId
+            UserSession.UserId = loginResult.UserId;  // ADD THIS - Critical for audit logging!
             UserSession.AccountID = loginResult.AccountID;
             UserSession.FullName = loginResult.FullName;
             UserSession.Role = loginResult.Role;
             UserSession.Username = loginResult.Username;
             UserSession.IsLoggedIn = true;
+            UserSession.LoginTime = DateTime.Now;
 
-            
+            // DEBUG: Verify session data
+            Console.WriteLine($"DEBUG - Session initialized:");
+            Console.WriteLine($"  UserId: {UserSession.UserId}");
+            Console.WriteLine($"  AccountID: {UserSession.AccountID}");
+            Console.WriteLine($"  Username: {UserSession.Username}");
+            Console.WriteLine($"  IsLoggedIn: {UserSession.IsLoggedIn}");
+
+            // Log the login activity using AuditHelper
+            try
+            {
+                AuditHelper.Log(
+                    AuditModule.AUTHENTICATION,
+                    $"User {loginResult.Username} logged in successfully",
+                    AuditActivityType.LOGIN,
+                    tableAffected: "Accounts",
+                    recordId: loginResult.AccountID
+                );
+                Console.WriteLine("DEBUG - Login audit log created successfully");
+            }
+            catch (Exception auditEx)
+            {
+                // Don't fail the login if audit logging fails, just log it
+                Console.WriteLine($"WARNING - Audit log error: {auditEx.Message}");
+            }
 
             // Open main dashboard
             MainDashBoard mainDashBoard = new MainDashBoard();

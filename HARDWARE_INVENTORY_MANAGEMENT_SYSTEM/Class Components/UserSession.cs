@@ -7,6 +7,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
     /// </summary>
     public static class UserSession
     {
+        public static int UserId { get; set; }  // ADD THIS - Store the actual AccountInternalID
         public static string AccountID { get; set; }
         public static string FullName { get; set; }
         public static string Username { get; set; }
@@ -22,8 +23,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
         /// <summary>
         /// Initialize user session with login data
         /// </summary>
-        public static void InitializeSession(string accountId, string fullName, string username, string role)
+        public static void InitializeSession(int userId, string accountId, string fullName, string username, string role)
         {
+            UserId = userId;  // ADD THIS
             AccountID = accountId;
             FullName = fullName;
             Username = username;
@@ -37,6 +39,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
         /// </summary>
         public static void ClearSession()
         {
+            UserId = 0;  // ADD THIS
             AccountID = null;
             FullName = null;
             Username = null;

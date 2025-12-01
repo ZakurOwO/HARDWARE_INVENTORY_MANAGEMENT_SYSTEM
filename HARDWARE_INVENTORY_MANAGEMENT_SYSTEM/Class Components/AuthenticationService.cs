@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
@@ -20,14 +21,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 {
                     connection.Open();
 
-                    // Query to check if user exists and get their details
-                    // Changed password_hash to password for plain text
+                    // MODIFIED: Get AccountInternalID as well
                     string query = @"
                         SELECT 
+                            a.AccountInternalID,
                             a.AccountID,
                             a.Fullname,
                             a.username,
-                            a.password_hash,  -- Changed from password_hash to password
+                            a.password_hash,
                             a.Account_status,
                             r.role_name as Role
                         FROM Accounts a
@@ -40,14 +41,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            while (reader.Read())
+                            if (reader.Read())
                             {
-                                string storedPassword = reader[3].ToString(); // Get plain text password
-                                string accountStatus = reader[4].ToString();
+                                string storedPassword = reader["password_hash"].ToString();
+                                string accountStatus = reader["Account_status"].ToString();
 
                                 // DEBUG: Show what's stored in database
                                 Console.WriteLine($"DEBUG - Stored password: {storedPassword}");
-                                Console.WriteLine($"DEBUG - Passwords match: {storedPassword},{password}");
+                                Console.WriteLine($"DEBUG - Passwords match: {storedPassword == password}");
 
                                 // Check if account is inactive
                                 if (accountStatus.ToLower() != "active")
@@ -62,14 +63,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                                 // Compare plain text passwords directly (no hashing)
                                 if (storedPassword == password)
                                 {
-                                    return new LoginResult
+                                    var loginResult = new LoginResult
                                     {
                                         IsAuthenticated = true,
+                                        UserId = Convert.ToInt32(reader["AccountInternalID"]), // ADD THIS
                                         AccountID = reader["AccountID"].ToString(),
                                         FullName = reader["Fullname"].ToString(),
                                         Username = reader["username"].ToString(),
                                         Role = reader["Role"].ToString()
                                     };
+
+                                    Console.WriteLine($"DEBUG - Login successful! UserId: {loginResult.UserId}");
+                                    return loginResult;
                                 }
                                 else
                                 {
@@ -80,7 +85,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                                     };
                                 }
                             }
-
+                            else
                             {
                                 return new LoginResult
                                 {
@@ -132,7 +137,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 {
                     connection.Open();
 
-                    string query = "UPDATE Accounts SET password = @newPassword WHERE username = @username";
+                    string query = "UPDATE Accounts SET password_hash = @newPassword WHERE username = @username";
 
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
@@ -161,7 +166,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 {
                     connection.Open();
 
-                    string query = "UPDATE Accounts SET password = @newPassword WHERE AccountID = @accountId";
+                    string query = "UPDATE Accounts SET password_hash = @newPassword WHERE AccountID = @accountId";
 
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
@@ -186,6 +191,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
     public class LoginResult
     {
         public bool IsAuthenticated { get; set; }
+        public int UserId { get; set; }  // ADD THIS - The AccountInternalID from database
         public string AccountID { get; set; }
         public string FullName { get; set; }
         public string Username { get; set; }
