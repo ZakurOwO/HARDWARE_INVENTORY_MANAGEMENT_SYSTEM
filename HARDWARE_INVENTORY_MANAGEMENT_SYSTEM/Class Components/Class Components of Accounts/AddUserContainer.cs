@@ -14,14 +14,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_
         private MainDashBoard mainForm;
         private EventHandler cancelHandler;
         private EventHandler<string> updatedHandler;
+        private EventHandler<(string AccountID, string FullName, string Role, string Status)> addHandler;
 
-        public void ShowAddUserForm(MainDashBoard main)
+        public void ShowAddUserForm(
+            MainDashBoard main,
+            EventHandler<(string AccountID, string FullName, string Role, string Status)> userAdded = null)
         {
             mainForm = main;
 
             addForm = new AddNewUser_Form();
 
             addForm.CancelClicked += AddForm_CancelClicked;
+            if (userAdded != null)
+            {
+                addHandler = userAdded;
+                addForm.UserAdded += addHandler;
+            }
+            addForm.UserAdded += AddForm_UserAdded;
 
             scrollContainer = new Panel();
             scrollContainer.Size = new Size(574, 570);
@@ -45,6 +54,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_
 
             mainForm.Controls.Add(scrollContainer);
             scrollContainer.BringToFront();
+        }
+
+        private void AddForm_UserAdded(object sender, (string AccountID, string FullName, string Role, string Status) e)
+        {
+            CloseSupplierAddForm();
         }
 
         private void AddForm_CancelClicked(object sender, EventArgs e)
@@ -95,7 +109,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.Class_Components_
         public void CloseSupplierAddForm()
         {
             if (addForm != null)
+            {
                 addForm.CancelClicked -= AddForm_CancelClicked;
+                addForm.UserAdded -= AddForm_UserAdded;
+                if (addHandler != null)
+                {
+                    addForm.UserAdded -= addHandler;
+                    addHandler = null;
+                }
+            }
 
             if (mainForm != null)
                 mainForm.pcbBlurOverlay.Visible = false;

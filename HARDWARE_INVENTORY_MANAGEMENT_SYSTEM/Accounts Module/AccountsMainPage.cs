@@ -374,7 +374,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
             if (main != null)
             {
-                addUserContainer.ShowAddUserForm(main);
+                addUserContainer.ShowAddUserForm(main, OnUserAdded);
             }
         }
     }
