@@ -1,4 +1,4 @@
-﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
+namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 {
     partial class LoginForm
     {

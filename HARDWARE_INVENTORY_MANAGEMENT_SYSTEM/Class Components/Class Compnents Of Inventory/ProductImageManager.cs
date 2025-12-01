@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
@@ -9,22 +9,32 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
     {
         public static Image GetProductImage(string imageName)
         {
-            Image img;
+            Image img = TryGetResourceImage(imageName);
 
-            // Check if file exists in ImageInventory folder
-            string imagePath = Path.Combine(Application.StartupPath, "ImageInventory", imageName);
-
-            if (File.Exists(imagePath))
+            if (img != null)
             {
-                img = Image.FromFile(imagePath);
                 return ResizeImage(img, 50, 50);
             }
-            else
+
+            return CreateDefaultImage();
+        }
+
+        private static Image TryGetResourceImage(string imageName)
+        {
+            if (string.IsNullOrWhiteSpace(imageName))
+                return null;
+
+            string key = Path.GetFileNameWithoutExtension(imageName);
+            if (string.IsNullOrWhiteSpace(key))
+                return null;
+
+            object resource = Resources.ResourceManager.GetObject(key);
+            if (resource is Image img)
             {
-                // Return default image
-                img = CreateDefaultImage();
                 return img;
             }
+
+            return null;
         }
 
         private static Image ResizeImage(Image image, int width, int height)

@@ -1,8 +1,10 @@
-﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
 {
@@ -87,6 +89,49 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
             {
                 Console.WriteLine("Main form NOT found!");
             }
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (UserSession.IsLoggedIn)
+                {
+                    AuditHelper.LogAuthenticationEvent(
+                        $"User {UserSession.Username} signed out from the system",
+                        AuditActivityType.LOGOUT,
+                        userId: UserSession.UserId,
+                        username: UserSession.Username,
+                        accountId: UserSession.AccountID
+                    );
+                }
+            }
+            catch (Exception auditEx)
+            {
+                Console.WriteLine($"Audit log error on logout: {auditEx.Message}");
+            }
+
+            UserSession.ClearSession();
+
+            var mainForm = this.FindForm() as MainDashBoard;
+            var loginForm = Application.OpenForms.OfType<LoginForm>().FirstOrDefault() ?? new LoginForm();
+
+            loginForm.Show();
+            loginForm.BringToFront();
+
+            if (mainForm != null)
+            {
+                mainForm.Close();
+            }
+        }
+
+        // Backwards-compatibility handlers if the designer or existing code
+        // wires up alternative event names. They simply forward to the
+        // consolidated implementations above so builds don't fail when
+        // metadata still references the old signatures.
+        private void btnSignOut_Click(object sender, EventArgs e)
+        {
+            guna2Button1_Click(sender, e);
         }
     }
 }

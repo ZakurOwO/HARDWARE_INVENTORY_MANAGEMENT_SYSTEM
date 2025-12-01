@@ -1,5 +1,7 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_Of_Inventory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -224,11 +226,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                 bool success = InventoryDatabaseHelper.AddProduct(
                     productName, description, categoryId, unitId,
-                    currentStock, imageFileName, reorderPoint, active
+                    currentStock, imageFileName, reorderPoint, active,
+                    out string productId, out string generatedSku
                 );
 
                 if (success)
                 {
+                    TryLogInventoryCreate(productId, productName, generatedSku, categoryId, unitId, currentStock, reorderPoint, active);
+
                     MessageBox.Show("Product added successfully!", "Success",
                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ClearForm();
@@ -264,6 +269,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             ExpirationDataComboBox.Value = DateTime.Now.AddYears(1);
             imageFilePath = "";
             ProductNametxtbox.Focus();
+        }
+
+        private void TryLogInventoryCreate(string productId, string productName, string sku, string categoryId, string unitId, int stock, int reorderPoint, bool active)
+        {
+            try
+            {
+                string newValues = $"Name={productName}; SKU={sku}; CategoryID={categoryId}; UnitID={unitId}; Stock={stock}; ReorderPoint={reorderPoint}; Active={active}";
+
+                AuditHelper.LogWithDetails(
+                    AuditModule.INVENTORY,
+                    $"Created product {productName}",
+                    AuditActivityType.CREATE,
+                    tableAffected: "Products",
+                    recordId: productId,
+                    newValues: newValues
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Inventory audit log failed: {ex.Message}");
+            }
         }
 
         // Event for when product is successfully added
