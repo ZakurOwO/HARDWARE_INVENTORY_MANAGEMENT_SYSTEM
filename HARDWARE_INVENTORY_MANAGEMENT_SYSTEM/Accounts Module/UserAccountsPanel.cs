@@ -10,6 +10,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
     public partial class UserAccountsPanel : UserControl
     {
         public event EventHandler UserPanelClicked;
+        public event EventHandler<System.Data.DataRow> EditClicked;
         private AddUserContainer editUserContainer = new AddUserContainer();
 
         public UserAccountsPanel()
@@ -152,12 +153,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
         private void btnEditIcon_Click(object sender, EventArgs e)
         {
-            MainDashBoard main = this.FindForm() as MainDashBoard;
-
-            if (main != null)
-            {
-                editUserContainer.ShowEditUserForm(main);
-            }
+            var dataRow = this.Tag as System.Data.DataRow;
+            EditClicked?.Invoke(this, dataRow);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
     public partial class ItemDescription_Form : UserControl
     {
         private string currentImagePath;
+        private string currentProductId;
         public event EventHandler CloseRequested; // Add this event
 
         public ItemDescription_Form()
@@ -34,12 +35,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         }
 
         // Method to populate the form with product data
-        public void PopulateProductData(string productName, string sku, string category, int currentStock,
+        public void PopulateProductData(string productId, string productName, string sku, string category, int currentStock,
                                       decimal sellingPrice, string status, DateTime orderedDate,
                                       DateTime transitDate, DateTime receivedDate, DateTime availableDate,
                                       string brand, int minimumStock, decimal costPrice, string unit,
                                       string description, string imagePath)
         {
+            currentProductId = productId;
             // Item Name
             ItemNameDesc.Text = productName;
 
@@ -88,6 +90,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             // Load product image
             currentImagePath = imagePath;
             LoadProductImage();
+
+            LoadProductHistory(currentProductId, sku, productName);
         }
 
         // Overloaded method for simpler usage (if some dates are not available)
@@ -98,9 +102,38 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             DateTime currentDate = DateTime.Now;
 
             PopulateProductData(
+                productId: null,
                 productName, sku, category, currentStock, sellingPrice, status,
                 currentDate, currentDate, currentDate, currentDate,
                 brand, minimumStock, costPrice, unit, description, imagePath
+            );
+        }
+
+        // Overload used by InventoryMainPage with product identity but without date metadata
+        public void PopulateProductData(string productId, string productName, string sku, string category, int currentStock,
+                                      decimal sellingPrice, string status, string brand, int minimumStock,
+                                      decimal costPrice, string unit, string description, string imagePath)
+        {
+            DateTime currentDate = DateTime.Now;
+
+            PopulateProductData(
+                productId: productId,
+                productName: productName,
+                sku: sku,
+                category: category,
+                currentStock: currentStock,
+                sellingPrice: sellingPrice,
+                status: status,
+                orderedDate: currentDate,
+                transitDate: currentDate,
+                receivedDate: currentDate,
+                availableDate: currentDate,
+                brand: brand,
+                minimumStock: minimumStock,
+                costPrice: costPrice,
+                unit: unit,
+                description: description,
+                imagePath: imagePath
             );
         }
 
@@ -136,6 +169,37 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             {
                 MessageBox.Show($"Error loading product image: {ex.Message}");
                 SetDefaultImage();
+            }
+        }
+
+        private void LoadProductHistory(string productId, string sku, string productName)
+        {
+            try
+            {
+                var history = InventoryDatabaseHelper.GetProductHistory(productId, sku, productName);
+
+                dgvProductHistory.Rows.Clear();
+
+                foreach (DataRow row in history.Rows)
+                {
+                    string direction = row["Direction"]?.ToString();
+                    string quantity = row["QuantityChange"]?.ToString();
+                    string reference = row["Reference"]?.ToString();
+
+                    string timestampText = string.Empty;
+                    if (row["Timestamp"] is DateTime timestamp)
+                    {
+                        timestampText = timestamp.ToString("MMM dd, yyyy HH:mm");
+                    }
+
+                    dgvProductHistory.Rows.Add(direction, quantity, reference, timestampText);
+                }
+
+                dgvProductHistory.ClearSelection();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to load product history: {ex.Message}");
             }
         }
 
