@@ -20,6 +20,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private string currentBrand;
         private int currentStock;
         private string currentImagePath;
+        private string currentProductId;
         private int adjustmentValue = 0;
         private int newTotalStock = 0;
 
@@ -447,8 +448,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         }
 
         // Method to show the popup (call this from main page)
-        public void ShowAdjustStock(string productName, string sku, string brand, int stock, string imagePath)
+        public void ShowAdjustStock(string productName, string sku, string brand, int stock, string imagePath, string productId)
         {
+            currentProductId = productId;
             PopulateProductData(productName, sku, brand, stock, imagePath);
             this.Visible = true;
             this.BringToFront();

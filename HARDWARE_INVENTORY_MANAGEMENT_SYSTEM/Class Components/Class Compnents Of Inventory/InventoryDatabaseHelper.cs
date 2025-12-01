@@ -151,4 +151,87 @@ public static class InventoryDatabaseHelper
             }
         }
     }
+
+    public static DataTable GetProductHistory(string productId, string sku, string productName)
+    {
+        DataTable historyTable = new DataTable();
+        historyTable.Columns.Add("Direction");
+        historyTable.Columns.Add("QuantityChange");
+        historyTable.Columns.Add("Reference");
+        historyTable.Columns.Add("Timestamp", typeof(DateTime));
+
+        using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
+        {
+            connection.Open();
+
+            string query = @"
+                SELECT TOP 50 activity, activity_type, record_id, timestamp, new_values, old_values, module
+                FROM AuditLog
+                WHERE
+                    (record_id = @productId OR record_id = @sku OR record_id = @productName)
+                    AND (table_affected IS NULL OR table_affected IN ('Products', 'ProductBatches'))
+                ORDER BY timestamp DESC";
+
+            using (SqlCommand cmd = new SqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@productId", (object)productId ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@sku", (object)sku ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@productName", (object)productName ?? DBNull.Value);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string activityType = reader["activity_type"].ToString();
+                        string newValues = reader["new_values"]?.ToString();
+                        string oldValues = reader["old_values"]?.ToString();
+
+                        int? oldStock = ParseStockValue(oldValues);
+                        int? newStock = ParseStockValue(newValues);
+
+                        string direction = string.Empty;
+                        string quantityChange = string.Empty;
+
+                        if (oldStock.HasValue && newStock.HasValue)
+                        {
+                            int delta = newStock.Value - oldStock.Value;
+                            direction = delta >= 0 ? "IN" : "OUT";
+                            quantityChange = Math.Abs(delta).ToString();
+                        }
+                        else if (string.Equals(activityType, "CREATE", StringComparison.OrdinalIgnoreCase))
+                        {
+                            direction = "IN";
+                        }
+
+                        historyTable.Rows.Add(
+                            direction,
+                            quantityChange,
+                            reader["record_id"]?.ToString(),
+                            reader.GetDateTime(reader.GetOrdinal("timestamp"))
+                        );
+                    }
+                }
+            }
+        }
+
+        return historyTable;
+    }
+
+    private static int? ParseStockValue(string values)
+    {
+        if (string.IsNullOrWhiteSpace(values))
+            return null;
+
+        string[] parts = values.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (string part in parts)
+        {
+            if (part.Trim().StartsWith("Stock=", StringComparison.OrdinalIgnoreCase))
+            {
+                string number = part.Split('=')[1].Trim();
+                if (int.TryParse(number, out int stock))
+                    return stock;
+            }
+        }
+        return null;
+    }
 }
