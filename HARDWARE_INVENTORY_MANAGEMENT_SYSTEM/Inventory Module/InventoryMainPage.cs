@@ -104,14 +104,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         // Method to call when user clicks adjust stock in DataGridView
         public void ShowAdjustStockForProduct(string productId, string productName, string sku, string brand, int stock, string imagePath)
         {
-            adjustStockManager.ShowAdjustStockPopup(
-                productName: productName,
-                sku: sku,
-                brand: brand,
-                stock: stock,
-                imagePath: imagePath,
-                productId: productId,
-                refreshCallback: RefreshInventory);
+            adjustStockManager.ShowAdjustStockPopup(productName, sku, brand, stock, imagePath, productId, RefreshInventory);
         }
 
         // Method to call when user clicks view details in DataGridView
@@ -126,7 +119,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 (this.Height - itemDescriptionForm.Height) / 2
             );
 
-            itemDescriptionForm.LoadProductFromDatabase(productId);
+            // Use the simplified version with image path
+            itemDescriptionForm.PopulateProductData(
+                productId: productId,
+                productName: productName,
+                sku: sku,
+                category: category,
+                currentStock: currentStock,
+                sellingPrice: 0.00m, // You'll need to get this from database
+                status: "Available", // You'll need to get this from database
+                brand: brand,
+                minimumStock: 0, // You'll need to get this from database
+                costPrice: 0.00m, // You'll need to get this from database
+                unit: "Piece", // You'll need to get this from database
+                description: brand, // Using brand as description for now
+                imagePath: imagePath // Add the image path
+            );
 
             itemDescriptionForm.ShowItemDescription();
         }

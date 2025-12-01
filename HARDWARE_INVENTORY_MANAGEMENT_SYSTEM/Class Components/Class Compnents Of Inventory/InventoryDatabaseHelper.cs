@@ -8,8 +8,6 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_Of_Inventory
 {
-public static class InventoryDatabaseHelper
-{ 
     public class ProductDetailData
     {
         public string ProductId { get; set; }
@@ -178,140 +176,6 @@ public static class InventoryDatabaseHelper
         }
     }
 
-    public static ProductDetailData GetProductDetails(string productId)
-    {
-        ProductDetailData detail = null;
-
-        using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
-        {
-            connection.Open();
-
-            string baseQuery = @"
-                SELECT TOP 1
-                    p.ProductInternalID,
-                    p.ProductID,
-                    p.product_name,
-                    p.SKU,
-                    c.category_name,
-                    u.unit_name,
-                    p.current_stock,
-                    p.reorder_point,
-                    p.SellingPrice,
-                    p.description,
-                    p.image_path,
-                    CASE WHEN p.active = 1 THEN 'Active' ELSE 'Inactive' END AS status,
-                    p.created_at,
-                    p.updated_at
-                FROM Products p
-                INNER JOIN Categories c ON p.category_id = c.CategoryID
-                INNER JOIN Units u ON p.unit_id = u.UnitID
-                WHERE p.ProductID = @productId";
-
-            using (SqlCommand cmd = new SqlCommand(baseQuery, connection))
-            {
-                cmd.Parameters.AddWithValue("@productId", productId);
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        detail = new ProductDetailData
-                        {
-                            ProductInternalId = reader.GetInt32(reader.GetOrdinal("ProductInternalID")),
-                            ProductId = reader["ProductID"].ToString(),
-                            ProductName = reader["product_name"].ToString(),
-                            SKU = reader["SKU"].ToString(),
-                            Category = reader["category_name"].ToString(),
-                            Unit = reader["unit_name"].ToString(),
-                            CurrentStock = Convert.ToInt32(reader["current_stock"]),
-                            ReorderPoint = Convert.ToInt32(reader["reorder_point"]),
-                            SellingPrice = reader["SellingPrice"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["SellingPrice"]),
-                            Description = reader["description"].ToString(),
-                            ImagePath = reader["image_path"].ToString(),
-                            Status = reader["status"].ToString(),
-                            AvailableDate = reader["updated_at"] as DateTime? ?? DateTime.Now,
-                            OrderedDate = reader["created_at"] as DateTime? ?? DateTime.Now,
-                        };
-                    }
-                }
-            }
-
-            if (detail == null)
-                return null;
-
-            // Populate cost price and supplier from latest batch/PO
-            string batchQuery = @"
-                SELECT TOP 1 pb.cost_per_unit, pb.batch_number, po.po_date, po.po_number, s.supplier_name
-                FROM ProductBatches pb
-                LEFT JOIN PurchaseOrders po ON pb.po_id = po.po_id
-                LEFT JOIN Suppliers s ON po.supplier_id = s.supplier_id
-                WHERE pb.product_id = @productInternalId
-                ORDER BY pb.received_date DESC";
-
-            using (SqlCommand cmd = new SqlCommand(batchQuery, connection))
-            {
-                cmd.Parameters.AddWithValue("@productInternalId", detail.ProductInternalId);
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        detail.CostPrice = reader["cost_per_unit"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["cost_per_unit"]);
-                        detail.LastBatchNumber = reader["batch_number"].ToString();
-                        detail.SupplierName = reader["supplier_name"].ToString();
-                        detail.OrderedDate = reader["po_date"] as DateTime? ?? detail.OrderedDate;
-                    }
-                }
-            }
-
-            // Transit/received dates from deliveries
-            string deliveryQuery = @"
-                SELECT TOP 1 d.delivery_date, d.DeliveryID
-                FROM DeliveryItems di
-                INNER JOIN Deliveries d ON di.delivery_id = d.delivery_id
-                WHERE di.product_id = @productInternalId
-                ORDER BY d.delivery_date DESC";
-
-            using (SqlCommand cmd = new SqlCommand(deliveryQuery, connection))
-            {
-                cmd.Parameters.AddWithValue("@productInternalId", detail.ProductInternalId);
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        detail.TransitDate = reader["delivery_date"] as DateTime? ?? detail.TransitDate;
-                        detail.ReceivedDate = detail.TransitDate;
-                        detail.LastDeliveryNumber = reader["DeliveryID"].ToString();
-                    }
-                }
-            }
-
-            // If no delivery info, attempt to use latest audit timestamp as available date
-            if (!detail.TransitDate.HasValue || !detail.ReceivedDate.HasValue)
-            {
-                string auditQuery = @"
-                    SELECT TOP 1 timestamp FROM AuditLog
-                    WHERE record_id = @productId OR record_id = @sku
-                    ORDER BY timestamp DESC";
-
-                using (SqlCommand cmd = new SqlCommand(auditQuery, connection))
-                {
-                    cmd.Parameters.AddWithValue("@productId", (object)detail.ProductId ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@sku", (object)detail.SKU ?? DBNull.Value);
-                    var value = cmd.ExecuteScalar();
-                    if (value != null && value != DBNull.Value)
-                    {
-                        DateTime ts = Convert.ToDateTime(value);
-                        detail.TransitDate = detail.TransitDate ?? ts;
-                        detail.ReceivedDate = detail.ReceivedDate ?? ts;
-                        detail.AvailableDate = detail.AvailableDate ?? ts;
-                    }
-                }
-            }
-
-        }
-
-        return detail;
-    }
-
     public static DataTable GetProductHistory(string productId, string sku, string productName)
     {
         DataTable historyTable = new DataTable();
@@ -394,5 +258,4 @@ public static class InventoryDatabaseHelper
         }
         return null;
     }
-}
 }
