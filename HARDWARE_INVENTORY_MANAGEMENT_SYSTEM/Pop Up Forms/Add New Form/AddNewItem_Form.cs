@@ -1,7 +1,6 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_Of_Inventory;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

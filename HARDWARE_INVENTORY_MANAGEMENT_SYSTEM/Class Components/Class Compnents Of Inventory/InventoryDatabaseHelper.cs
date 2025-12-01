@@ -5,7 +5,31 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_Of_Inventory
 {
-    public static class InventoryDatabaseHelper
+    public class ProductDetailData
+    {
+        public string ProductId { get; set; }
+        public int ProductInternalId { get; set; }
+        public string ProductName { get; set; }
+        public string SKU { get; set; }
+        public string Category { get; set; }
+        public string Unit { get; set; }
+        public int CurrentStock { get; set; }
+        public int ReorderPoint { get; set; }
+        public decimal SellingPrice { get; set; }
+        public decimal CostPrice { get; set; }
+        public string Description { get; set; }
+        public string ImagePath { get; set; }
+        public string Status { get; set; }
+        public DateTime? OrderedDate { get; set; }
+        public DateTime? TransitDate { get; set; }
+        public DateTime? ReceivedDate { get; set; }
+        public DateTime? AvailableDate { get; set; }
+        public string SupplierName { get; set; }
+        public string LastBatchNumber { get; set; }
+        public string LastDeliveryNumber { get; set; }
+    }
+
+    public static DataTable LoadCategoriesFromDatabase()
     {
         public class ProductDetailData
         {
@@ -62,6 +86,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_
             }
             return dt;
         }
+        return dt;
+    }
+
+    public static bool AddProduct(string productName, string description, string categoryId,
+                              string unitId, int currentStock, string imageFileName,
+                              int reorderPoint, bool active, out string productId, out string sku)
+    {
+        // Generate SKU automatically
+        sku = GenerateSKU(productName, categoryId);
+        productId = null;
 
         public static bool AddProduct(
             string productName,
@@ -75,13 +109,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_
             out string productId,
             out string sku)
         {
-            sku = GenerateSKU(productName, categoryId);
-            productId = null;
-
-            using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
-            {
-                connection.Open();
-                const string query = @"INSERT INTO Products
+            connection.Open();
+            string query = @"INSERT INTO Products
                         (product_name, SKU, description, category_id, unit_id,
                          current_stock, image_path, reorder_point, active)
                         OUTPUT inserted.ProductID
@@ -124,17 +153,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
             {
-                connection.Open();
-                const string query = "SELECT category_name FROM Categories WHERE CategoryID = @categoryId";
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    cmd.Parameters.AddWithValue("@categoryId", categoryId);
-                    string categoryName = cmd.ExecuteScalar()?.ToString() ?? "GEN";
+                cmd.Parameters.AddWithValue("@productName", productName);
+                cmd.Parameters.AddWithValue("@sku", sku);
+                cmd.Parameters.AddWithValue("@description", description ?? "");
+                cmd.Parameters.AddWithValue("@categoryId", categoryId);
+                cmd.Parameters.AddWithValue("@unitId", unitId);
+                cmd.Parameters.AddWithValue("@currentStock", currentStock);
+                cmd.Parameters.AddWithValue("@imagePath", imageFileName ?? "");
+                cmd.Parameters.AddWithValue("@reorderPoint", reorderPoint);
+                cmd.Parameters.AddWithValue("@active", active);
 
-                    return categoryName.Length >= 3
-                        ? categoryName.Substring(0, 3).ToUpper()
-                        : categoryName.PadRight(3, 'X').ToUpper();
-                }
+                var result = cmd.ExecuteScalar();
+                productId = result?.ToString();
+
+                return !string.IsNullOrWhiteSpace(productId);
             }
         }
 
@@ -383,5 +415,88 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_
             }
             return null;
         }
+    }
+
+    public static DataTable GetProductHistory(string productId, string sku, string productName)
+    {
+        DataTable historyTable = new DataTable();
+        historyTable.Columns.Add("Direction");
+        historyTable.Columns.Add("QuantityChange");
+        historyTable.Columns.Add("Reference");
+        historyTable.Columns.Add("Timestamp", typeof(DateTime));
+
+        using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
+        {
+            connection.Open();
+
+            string query = @"
+                SELECT TOP 50 activity, activity_type, record_id, timestamp, new_values, old_values, module
+                FROM AuditLog
+                WHERE
+                    (record_id = @productId OR record_id = @sku OR record_id = @productName)
+                    AND (table_affected IS NULL OR table_affected IN ('Products', 'ProductBatches'))
+                ORDER BY timestamp DESC";
+
+            using (SqlCommand cmd = new SqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@productId", (object)productId ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@sku", (object)sku ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@productName", (object)productName ?? DBNull.Value);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string activityType = reader["activity_type"].ToString();
+                        string newValues = reader["new_values"]?.ToString();
+                        string oldValues = reader["old_values"]?.ToString();
+
+                        int? oldStock = ParseStockValue(oldValues);
+                        int? newStock = ParseStockValue(newValues);
+
+                        string direction = string.Empty;
+                        string quantityChange = string.Empty;
+
+                        if (oldStock.HasValue && newStock.HasValue)
+                        {
+                            int delta = newStock.Value - oldStock.Value;
+                            direction = delta >= 0 ? "IN" : "OUT";
+                            quantityChange = Math.Abs(delta).ToString();
+                        }
+                        else if (string.Equals(activityType, "CREATE", StringComparison.OrdinalIgnoreCase))
+                        {
+                            direction = "IN";
+                        }
+
+                        historyTable.Rows.Add(
+                            direction,
+                            quantityChange,
+                            reader["record_id"]?.ToString(),
+                            reader.GetDateTime(reader.GetOrdinal("timestamp"))
+                        );
+                    }
+                }
+            }
+        }
+
+        return historyTable;
+    }
+
+    private static int? ParseStockValue(string values)
+    {
+        if (string.IsNullOrWhiteSpace(values))
+            return null;
+
+        string[] parts = values.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (string part in parts)
+        {
+            if (part.Trim().StartsWith("Stock=", StringComparison.OrdinalIgnoreCase))
+            {
+                string number = part.Split('=')[1].Trim();
+                if (int.TryParse(number, out int stock))
+                    return stock;
+            }
+        }
+        return null;
     }
 }

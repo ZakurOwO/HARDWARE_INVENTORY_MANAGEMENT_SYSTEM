@@ -16,6 +16,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 return ResizeImage(img, 50, 50);
             }
 
+            if (!string.IsNullOrWhiteSpace(imageName))
+            {
+                string imagePath = Path.Combine(Application.StartupPath, "ImageInventory", imageName);
+
+                if (File.Exists(imagePath))
+                {
+                    using (var fileImage = Image.FromFile(imagePath))
+                    {
+                        return ResizeImage(new Bitmap(fileImage), 50, 50);
+                    }
+                }
+            }
+
             return CreateDefaultImage();
         }
 

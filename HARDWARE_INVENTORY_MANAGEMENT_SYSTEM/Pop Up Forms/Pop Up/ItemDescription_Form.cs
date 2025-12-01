@@ -3,7 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_Of_Inventory;
+using static InventoryDatabaseHelper;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
@@ -11,7 +11,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
     {
         private string currentImagePath;
         private string currentProductId;
-        public event EventHandler CloseRequested;
+        public event EventHandler CloseRequested; // Add this event
 
         public ItemDescription_Form()
         {
@@ -29,18 +29,46 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             dgvProductHistory.ClearSelection();
         }
 
-        public void LoadProductFromDatabase(string productId)
+        // Method to populate the form with product data
+        public void PopulateProductData(string productId, string productName, string sku, string category, int currentStock,
+                                      decimal sellingPrice, string status, DateTime orderedDate,
+                                      DateTime transitDate, DateTime receivedDate, DateTime availableDate,
+                                      string brand, int minimumStock, decimal costPrice, string unit,
+                                      string description, string imagePath)
         {
-            try
-            {
-                var detail = InventoryDatabaseHelper.GetProductDetails(productId);
-                PopulateProductData(detail);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Unable to load product details: {ex.Message}");
-            }
-        }
+            currentProductId = productId;
+            // Item Name
+            ItemNameDesc.Text = productName;
+
+            // SKU - format: "SKU: PLW-001"
+            SKUDesc.Text = $"SKU: {sku}";
+
+            // Category - format: "Category: Woods"
+            CategoryDesc.Text = $"Category: {category}";
+
+            // Current Stock - format: "Current Stock: 50"
+            CurrentStockDesc.Text = $"Current Stock: {currentStock}";
+
+            // Selling Price - format: "Selling Price: P 540.00"
+            SellingPriceDesc.Text = $"Selling Price: P {sellingPrice:F2}";
+
+            // Status - format: "Status: Available"
+            StatusDesc.Text = $"Status: {status}";
+
+            // Ordered - format: "Ordered: Sep 25, 2025 09:31"
+            OrderedDesc.Text = $"Ordered: {orderedDate:MMM dd, yyyy HH:mm}";
+
+            // In Transit - format: "In Transit: Sep 25, 2025 09:31"
+            transitDesc.Text = $"In Transit: {transitDate:MMM dd, yyyy HH:mm}";
+
+            // Received in Store - format: "Received in Store: Sep 25, 2025 09:31"
+            receivedinstoreDesc.Text = $"Received in Store: {receivedDate:MMM dd, yyyy HH:mm}";
+
+            // Available for Sale - format: "Available for Sale: Sep 25, 2025 09:31"
+            availableforsaleDesc.Text = $"Available for Sale: {availableDate:MMM dd, yyyy HH:mm}";
+
+            // Brand - format: "Brand: Charlotte Woods"
+            brandDesc.Text = $"Brand: {brand}";
 
         public void PopulateProductData(InventoryDatabaseHelper.ProductDetailData detail)
         {
@@ -60,25 +88,83 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             receivedinstoreDesc.Text = FormatTimeline("Received in Store", detail.ReceivedDate);
             availableforsaleDesc.Text = FormatTimeline("Available for Sale", detail.AvailableDate);
 
-            brandDesc.Text = !string.IsNullOrWhiteSpace(detail.SupplierName)
-                ? $"Supplier: {detail.SupplierName}"
-                : $"Brand: {detail.Description}";
+        public void PopulateProductData(ProductDetailData detail)
+        {
+            if (detail == null)
+                return;
+
+            currentProductId = detail.ProductId;
+            ItemNameDesc.Text = detail.ProductName;
+            SKUDesc.Text = $"SKU: {detail.SKU}";
+            CategoryDesc.Text = $"Category: {detail.Category}";
+            CurrentStockDesc.Text = $"Current Stock: {detail.CurrentStock}";
+            SellingPriceDesc.Text = $"Selling Price: P {detail.SellingPrice:F2}";
+            StatusDesc.Text = $"Status: {detail.Status}";
+
+            OrderedDesc.Text = FormatTimeline("Ordered", detail.OrderedDate);
+            transitDesc.Text = FormatTimeline("In Transit", detail.TransitDate);
+            receivedinstoreDesc.Text = FormatTimeline("Received in Store", detail.ReceivedDate);
+            availableforsaleDesc.Text = FormatTimeline("Available for Sale", detail.AvailableDate);
+
+            brandDesc.Text = $"Brand: {detail.Description}";
             MinimumStockDesc.Text = $"Minimum Stock: {detail.ReorderPoint} pcs";
             CostPriceDesc.Text = $"Cost Price: P {detail.CostPrice:F2}";
             UnitDesc.Text = $"Unit: {detail.Unit}";
             DescriptionTextBoxLabelDesc.Text = $"Description: {detail.Description}";
 
+            // additional info (supplier/batch/delivery)
+            if (!string.IsNullOrWhiteSpace(detail.SupplierName))
+            {
+                brandDesc.Text = $"Supplier: {detail.SupplierName}";
+            }
+
             currentImagePath = detail.ImagePath;
             LoadProductImage();
 
-            LoadProductHistory(currentProductId, detail.SKU, detail.ProductName);
+            LoadProductHistory(currentProductId, sku, productName);
         }
 
         private string FormatTimeline(string label, DateTime? value)
         {
-            return value.HasValue
-                ? $"{label}: {value.Value:MMM dd, yyyy HH:mm}"
-                : $"{label}: Pending";
+            if (value.HasValue)
+            {
+                return $"{label}: {value.Value:MMM dd, yyyy HH:mm}";
+            }
+
+            PopulateProductData(
+                productId: null,
+                productName, sku, category, currentStock, sellingPrice, status,
+                currentDate, currentDate, currentDate, currentDate,
+                brand, minimumStock, costPrice, unit, description, imagePath
+            );
+        }
+
+        // Overload used by InventoryMainPage with product identity but without date metadata
+        public void PopulateProductData(string productId, string productName, string sku, string category, int currentStock,
+                                      decimal sellingPrice, string status, string brand, int minimumStock,
+                                      decimal costPrice, string unit, string description, string imagePath)
+        {
+            DateTime currentDate = DateTime.Now;
+
+            PopulateProductData(
+                productId: productId,
+                productName: productName,
+                sku: sku,
+                category: category,
+                currentStock: currentStock,
+                sellingPrice: sellingPrice,
+                status: status,
+                orderedDate: currentDate,
+                transitDate: currentDate,
+                receivedDate: currentDate,
+                availableDate: currentDate,
+                brand: brand,
+                minimumStock: minimumStock,
+                costPrice: costPrice,
+                unit: unit,
+                description: description,
+                imagePath: imagePath
+            );
         }
 
         private void LoadProductImage()
@@ -113,7 +199,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             try
             {
-                DataTable history = InventoryDatabaseHelper.GetProductHistory(productId, sku, productName);
+                var history = InventoryDatabaseHelper.GetProductHistory(productId, sku, productName);
 
                 dgvProductHistory.Rows.Clear();
 
