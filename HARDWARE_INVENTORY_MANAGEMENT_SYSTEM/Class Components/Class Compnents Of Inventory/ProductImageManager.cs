@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
@@ -9,21 +10,33 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
     {
         public static Image GetProductImage(string imageName)
         {
-            Image img;
-
-            // Check if file exists in ImageInventory folder
-            string imagePath = Path.Combine(Application.StartupPath, "ImageInventory", imageName);
-
-            if (File.Exists(imagePath))
+            try
             {
-                img = Image.FromFile(imagePath);
-                return ResizeImage(img, 50, 50);
+                if (string.IsNullOrWhiteSpace(imageName))
+                {
+                    return CreateDefaultImage();
+                }
+
+                // Try to fetch the image directly using the key as stored in the database
+                object resourceImage = Resources.ResourceManager.GetObject(imageName);
+
+                // If not found, try again without the file extension to cover both naming styles
+                if (resourceImage == null)
+                {
+                    string resourceKey = Path.GetFileNameWithoutExtension(imageName);
+                    resourceImage = Resources.ResourceManager.GetObject(resourceKey);
+                }
+
+                if (resourceImage is Image foundImage)
+                {
+                    return ResizeImage(foundImage, 50, 50);
+                }
+
+                return CreateDefaultImage();
             }
-            else
+            catch
             {
-                // Return default image
-                img = CreateDefaultImage();
-                return img;
+                return CreateDefaultImage();
             }
         }
 
