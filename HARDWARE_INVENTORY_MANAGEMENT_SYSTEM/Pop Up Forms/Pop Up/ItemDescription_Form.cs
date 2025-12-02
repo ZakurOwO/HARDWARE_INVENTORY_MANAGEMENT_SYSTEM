@@ -35,13 +35,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         }
 
         // Method to populate the form with product data
-        public void PopulateProductData(string productId, string productName, string sku, string category, int currentStock,
-                                      decimal sellingPrice, string status, DateTime orderedDate,
-                                      DateTime transitDate, DateTime receivedDate, DateTime availableDate,
-                                      string brand, int minimumStock, decimal costPrice, string unit,
-                                      string description, string imagePath)
+        public void PopulateProductData(
+            string productId,
+            string productName,
+            string sku,
+            string category,
+            int currentStock,
+            decimal sellingPrice,
+            string status,
+            DateTime orderedDate,
+            DateTime transitDate,
+            DateTime receivedDate,
+            DateTime availableDate,
+            string brand,
+            int minimumStock,
+            decimal costPrice,
+            string unit,
+            string description,
+            string imagePath)
         {
             currentProductId = productId;
+
             // Item Name
             ItemNameDesc.Text = productName;
 
@@ -112,6 +126,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 currentStock: details.CurrentStock,
                 sellingPrice: details.SellingPrice,
                 status: statusText,
+                orderedDate: DateTime.Now,   // you can replace with real dates if you have them
+                transitDate: DateTime.Now,
+                receivedDate: DateTime.Now,
+                availableDate: DateTime.Now,
                 brand: string.IsNullOrWhiteSpace(details.Description) ? "N/A" : details.Description,
                 minimumStock: minimumStock,
                 costPrice: details.SellingPrice,
@@ -125,24 +143,58 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         }
 
         // Overloaded method for simpler usage (if some dates are not available)
-        public void PopulateProductData(string productName, string sku, string category, int currentStock,
-                                      decimal sellingPrice, string status, string brand, int minimumStock,
-                                      decimal costPrice, string unit, string description, string imagePath)
+        public void PopulateProductData(
+            string productName,
+            string sku,
+            string category,
+            int currentStock,
+            decimal sellingPrice,
+            string status,
+            string brand,
+            int minimumStock,
+            decimal costPrice,
+            string unit,
+            string description,
+            string imagePath)
         {
             DateTime currentDate = DateTime.Now;
 
             PopulateProductData(
                 productId: null,
-                productName, sku, category, currentStock, sellingPrice, status,
-                currentDate, currentDate, currentDate, currentDate,
-                brand, minimumStock, costPrice, unit, description, imagePath
+                productName: productName,
+                sku: sku,
+                category: category,
+                currentStock: currentStock,
+                sellingPrice: sellingPrice,
+                status: status,
+                orderedDate: currentDate,
+                transitDate: currentDate,
+                receivedDate: currentDate,
+                availableDate: currentDate,
+                brand: brand,
+                minimumStock: minimumStock,
+                costPrice: costPrice,
+                unit: unit,
+                description: description,
+                imagePath: imagePath
             );
         }
 
         // Overload used by InventoryMainPage with product identity but without date metadata
-        public void PopulateProductData(string productId, string productName, string sku, string category, int currentStock,
-                                      decimal sellingPrice, string status, string brand, int minimumStock,
-                                      decimal costPrice, string unit, string description, string imagePath)
+        public void PopulateProductData(
+            string productId,
+            string productName,
+            string sku,
+            string category,
+            int currentStock,
+            decimal sellingPrice,
+            string status,
+            string brand,
+            int minimumStock,
+            decimal costPrice,
+            string unit,
+            string description,
+            string imagePath)
         {
             DateTime currentDate = DateTime.Now;
 
@@ -234,6 +286,47 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
         }
 
+        private Image GetDirectionIcon(string direction)
+        {
+            int size = 16;
+            var bmp = new Bitmap(size, size);
+
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.Clear(Color.Transparent);
+
+                bool isIn = string.Equals(direction, "IN", StringComparison.OrdinalIgnoreCase);
+                bool isOut = string.Equals(direction, "OUT", StringComparison.OrdinalIgnoreCase);
+
+                // Default to gray if unknown
+                Color arrowColor = isIn ? Color.Green : (isOut ? Color.Red : Color.Gray);
+
+                using (Pen pen = new Pen(arrowColor, 2))
+                {
+                    int midX = size / 2;
+                    int topY = 2;
+                    int bottomY = size - 2;
+
+                    if (isIn)
+                    {
+                        // Up arrow
+                        g.DrawLine(pen, midX, bottomY, midX, topY);
+                        g.DrawLine(pen, midX, topY, midX - 4, topY + 4);
+                        g.DrawLine(pen, midX, topY, midX + 4, topY + 4);
+                    }
+                    else
+                    {
+                        // Down arrow
+                        g.DrawLine(pen, midX, topY, midX, bottomY);
+                        g.DrawLine(pen, midX, bottomY, midX - 4, bottomY - 4);
+                        g.DrawLine(pen, midX, bottomY, midX + 4, bottomY - 4);
+                    }
+                }
+            }
+
+            return bmp;
+        }
+
         private void UpdateStatusTimeline(List<DateTime> timelineDates)
         {
             var ordered = timelineDates != null && timelineDates.Count > 0 ? timelineDates[0] : (DateTime?)null;
@@ -287,9 +380,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 {
                     string text = "No Image";
                     SizeF textSize = g.MeasureString(text, font);
-                    g.DrawString(text, font, brush,
+                    g.DrawString(
+                        text,
+                        font,
+                        brush,
                         (defaultImage.Width - textSize.Width) / 2,
-                        (defaultImage.Height - textSize.Height) / 2);
+                        (defaultImage.Height - textSize.Height) / 2
+                    );
                 }
             }
             ItemImageDesc.Image = defaultImage;
@@ -383,8 +480,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             //ignore this for now
         }
 
-        // Remove the closeButton1_Load method completely
-
         // Method to show this form
         public void ShowItemDescription()
         {
@@ -403,8 +498,5 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             //the image of what they are in the database
             // Image display is handled in LoadProductImage method
         }
-
-     
-        
     }
 }

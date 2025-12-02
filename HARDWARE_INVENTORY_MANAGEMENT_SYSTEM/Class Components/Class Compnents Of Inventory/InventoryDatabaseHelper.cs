@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
-using System.Text;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
-
     public static class InventoryDatabaseHelper
     {
         public static DataTable LoadCategoriesFromDatabase()
@@ -48,9 +43,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             return dt;
         }
 
-        public static bool AddProduct(string productName, string description, string categoryId,
-                                  string unitId, int currentStock, string imageFileName,
-                                  int reorderPoint, bool active, out string productId, out string sku)
+        public static bool AddProduct(
+            string productName,
+            string description,
+            string categoryId,
+            string unitId,
+            int currentStock,
+            string imageFileName,
+            int reorderPoint,
+            bool active,
+            out string productId,
+            out string sku)
         {
             // Generate SKU automatically
             sku = GenerateSKU(productName, categoryId);
@@ -59,23 +62,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
             {
                 connection.Open();
-                string query = @"INSERT INTO Products
-                            (product_name, SKU, description, category_id, unit_id,
-                             current_stock, image_path, reorder_point, active)
-                            OUTPUT inserted.ProductID
-                            VALUES
-                            (@productName, @sku, @description, @categoryId, @unitId,
-                             @currentStock, @imagePath, @reorderPoint, @active)";
+                string query = @"
+                    INSERT INTO Products
+                        (product_name, SKU, description, category_id, unit_id,
+                         current_stock, image_path, reorder_point, active)
+                    OUTPUT inserted.ProductID
+                    VALUES
+                        (@productName, @sku, @description, @categoryId, @unitId,
+                         @currentStock, @imagePath, @reorderPoint, @active)";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@productName", productName);
                     cmd.Parameters.AddWithValue("@sku", sku);
-                    cmd.Parameters.AddWithValue("@description", description ?? "");
+                    cmd.Parameters.AddWithValue("@description", description ?? string.Empty);
                     cmd.Parameters.AddWithValue("@categoryId", categoryId);
                     cmd.Parameters.AddWithValue("@unitId", unitId);
                     cmd.Parameters.AddWithValue("@currentStock", currentStock);
-                    cmd.Parameters.AddWithValue("@imagePath", imageFileName ?? "");
+                    cmd.Parameters.AddWithValue("@imagePath", imageFileName ?? string.Empty);
                     cmd.Parameters.AddWithValue("@reorderPoint", reorderPoint);
                     cmd.Parameters.AddWithValue("@active", active);
 
@@ -96,11 +100,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             string timestamp = DateTime.Now.ToString("yyMMddHHmmss");
 
             // Take first 3 letters of product name (uppercase, remove spaces)
-            string productCode = productName.Length >= 3
-                ? productName.Substring(0, 3).ToUpper().Replace(" ", "")
-                : productName.PadRight(3, 'X').ToUpper().Replace(" ", "");
+            string trimmedName = (productName ?? string.Empty).Replace(" ", "");
+            string productCode;
 
-            return $"{categoryPrefix}-{productCode}-{timestamp.Substring(6)}";
+            if (trimmedName.Length >= 3)
+            {
+                productCode = trimmedName.Substring(0, 3).ToUpper();
+            }
+            else
+            {
+                productCode = trimmedName.PadRight(3, 'X').ToUpper();
+            }
+
+            // Use last 6 digits of timestamp for brevity
+            return string.Format("{0}-{1}-{2}", categoryPrefix, productCode, timestamp.Substring(6));
         }
 
         private static string GetCategoryPrefix(string categoryId)
@@ -112,13 +125,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@categoryId", categoryId);
-                    string categoryName = cmd.ExecuteScalar()?.ToString() ?? "GEN";
+                    string categoryName = cmd.ExecuteScalar() as string ?? "GEN";
 
-                    // Generate prefix from category name
                     if (categoryName.Length >= 3)
                         return categoryName.Substring(0, 3).ToUpper();
-                    else
-                        return categoryName.PadRight(3, 'X').ToUpper();
+
+                    return categoryName.PadRight(3, 'X').ToUpper();
                 }
             }
         }
@@ -186,9 +198,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                     {
                         while (reader.Read())
                         {
-                            string activityType = reader["activity_type"].ToString();
-                            string newValues = reader["new_values"]?.ToString();
-                            string oldValues = reader["old_values"]?.ToString();
+                            string activityType = reader["activity_type"] as string;
+                            string newValues = reader["new_values"] as string;
+                            string oldValues = reader["old_values"] as string;
 
                             int? oldStock = ParseStockValue(oldValues);
                             int? newStock = ParseStockValue(newValues);
@@ -207,11 +219,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                                 direction = "IN";
                             }
 
+                            DateTime timestamp = reader.GetDateTime(reader.GetOrdinal("timestamp"));
+
                             historyTable.Rows.Add(
                                 direction,
                                 quantityChange,
-                                reader["record_id"]?.ToString(),
-                                reader.GetDateTime(reader.GetOrdinal("timestamp"))
+                                reader["record_id"] != DBNull.Value ? reader["record_id"].ToString() : string.Empty,
+                                timestamp
                             );
                         }
                     }
@@ -260,17 +274,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                         {
                             return new InventoryProductDetails
                             {
-                                ProductId = reader["ProductID"]?.ToString(),
-                                ProductName = reader["product_name"]?.ToString(),
-                                SKU = reader["SKU"]?.ToString(),
-                                Description = reader["description"]?.ToString(),
-                                CategoryName = reader["category_name"]?.ToString(),
-                                UnitName = reader["unit_name"]?.ToString(),
+                                ProductId = reader["ProductID"] != DBNull.Value ? reader["ProductID"].ToString() : null,
+                                ProductName = reader["product_name"] != DBNull.Value ? reader["product_name"].ToString() : null,
+                                SKU = reader["SKU"] != DBNull.Value ? reader["SKU"].ToString() : null,
+                                Description = reader["description"] != DBNull.Value ? reader["description"].ToString() : null,
+                                CategoryName = reader["category_name"] != DBNull.Value ? reader["category_name"].ToString() : null,
+                                UnitName = reader["unit_name"] != DBNull.Value ? reader["unit_name"].ToString() : null,
                                 CurrentStock = GetSafeInt(reader, "current_stock"),
                                 ReorderPoint = GetSafeInt(reader, "reorder_point"),
                                 SellingPrice = GetSafeDecimal(reader, "selling_price"),
                                 Active = GetSafeBool(reader, "active"),
-                                ImagePath = reader["image_path"]?.ToString()
+                                ImagePath = reader["image_path"] != DBNull.Value ? reader["image_path"].ToString() : null
                             };
                         }
                     }
@@ -280,106 +294,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             return null;
         }
 
-        public static List<DateTime> GetRecentActivityDates(string productId, string sku, string productName, int maxEntries = 4)
+        public static List<DateTime> GetRecentActivityDates(
+            string productId,
+            string sku,
+            string productName,
+            int maxEntries = 4)
         {
-            var history = GetProductHistory(productId, sku, productName);
-            var timeline = new List<DateTime>();
+            DataTable history = GetProductHistory(productId, sku, productName);
+            List<DateTime> timeline = new List<DateTime>();
 
-    public static InventoryProductDetails GetProductDetails(string productId)
-    {
-        if (string.IsNullOrWhiteSpace(productId))
-        {
-            return null;
-        }
-
-        public static DataTable GetProductHistory(string productId, string sku, string productName)
-        {
-            connection.Open();
-
-            string query = @"
-                SELECT
-                    p.ProductID,
-                    p.product_name,
-                    p.SKU,
-                    p.description,
-                    c.category_name,
-                    u.unit_name,
-                    p.current_stock,
-                    p.reorder_point,
-                    ISNULL(p.SellingPrice, 0.00) AS selling_price,
-                    p.active,
-                    p.image_path
-                FROM Products p
-                LEFT JOIN Categories c ON p.category_id = c.CategoryID
-                LEFT JOIN Units u ON p.unit_id = u.UnitID
-                WHERE p.ProductID = @productId";
-
-            using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
-            {
-                cmd.Parameters.AddWithValue("@productId", productId);
-
-                string query = @"
-                    SELECT TOP 50 activity, activity_type, record_id, timestamp, new_values, old_values, module
-                    FROM AuditLog
-                    WHERE
-                        (record_id = @productId OR record_id = @sku OR record_id = @productName)
-                        AND (table_affected IS NULL OR table_affected IN ('Products', 'ProductBatches'))
-                    ORDER BY timestamp DESC";
-
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    if (reader.Read())
-                    {
-                        return new InventoryProductDetails
-                        {
-                            ProductId = reader["ProductID"]?.ToString(),
-                            ProductName = reader["product_name"]?.ToString(),
-                            SKU = reader["SKU"]?.ToString(),
-                            Description = reader["description"]?.ToString(),
-                            CategoryName = reader["category_name"]?.ToString(),
-                            UnitName = reader["unit_name"]?.ToString(),
-                            CurrentStock = reader["current_stock"] as int? ?? Convert.ToInt32(reader["current_stock"]),
-                            ReorderPoint = reader["reorder_point"] as int? ?? Convert.ToInt32(reader["reorder_point"]),
-                            SellingPrice = reader["selling_price"] as decimal? ?? Convert.ToDecimal(reader["selling_price"]),
-                            Active = reader["active"] is bool active ? active : Convert.ToBoolean(reader["active"]),
-                            ImagePath = reader["image_path"]?.ToString()
-                        };
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
-    public static List<DateTime> GetRecentActivityDates(string productId, string sku, string productName, int maxEntries = 4)
-    {
-        var history = GetProductHistory(productId, sku, productName);
-        var timeline = new List<DateTime>();
-
-        foreach (DataRow row in history.Rows)
-        {
-            if (row["Timestamp"] is DateTime timestamp)
-            {
-                timeline.Add(timestamp);
-            }
-
-            if (timeline.Count >= maxEntries)
-            {
-                break;
-            }
-
-            return null;
-        }
-
-        timeline.Sort();
-        return timeline;
-    }
+            if (history == null)
+                return timeline;
 
             foreach (DataRow row in history.Rows)
             {
-                if (row["Timestamp"] is DateTime timestamp)
+                if (row["Timestamp"] != DBNull.Value)
                 {
+                    DateTime timestamp = (DateTime)row["Timestamp"];
                     timeline.Add(timestamp);
                 }
 
@@ -401,10 +332,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             string[] parts = values.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string part in parts)
             {
-                if (part.Trim().StartsWith("Stock=", StringComparison.OrdinalIgnoreCase))
+                string trimmed = part.Trim();
+                if (trimmed.StartsWith("Stock=", StringComparison.OrdinalIgnoreCase))
                 {
-                    string number = part.Split('=')[1].Trim();
-                    if (int.TryParse(number, out int stock))
+                    string number = trimmed.Substring("Stock=".Length).Trim();
+                    int stock;
+                    if (int.TryParse(number, out stock))
                         return stock;
                 }
             }
@@ -420,14 +353,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
 
             object raw = reader.GetValue(ordinal);
-            if (raw is int value)
+            int value;
+            if (raw is int)
             {
-                return value;
+                return (int)raw;
             }
 
-            if (int.TryParse(raw?.ToString(), out int parsed))
+            if (int.TryParse(raw.ToString(), out value))
             {
-                return parsed;
+                return value;
             }
 
             return 0;
@@ -442,14 +376,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
 
             object raw = reader.GetValue(ordinal);
-            if (raw is decimal value)
+            decimal value;
+            if (raw is decimal)
             {
-                return value;
+                return (decimal)raw;
             }
 
-            if (decimal.TryParse(raw?.ToString(), out decimal parsed))
+            if (decimal.TryParse(raw.ToString(), out value))
             {
-                return parsed;
+                return value;
             }
 
             return 0m;
@@ -464,14 +399,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
 
             object raw = reader.GetValue(ordinal);
-            if (raw is bool flag)
+            bool flag;
+            if (raw is bool)
             {
-                return flag;
+                return (bool)raw;
             }
 
-            if (bool.TryParse(raw?.ToString(), out bool parsed))
+            if (bool.TryParse(raw.ToString(), out flag))
             {
-                return parsed;
+                return flag;
             }
 
             try
@@ -484,19 +420,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
         }
     }
-}
 
-public class InventoryProductDetails
-{
-    public string ProductId { get; set; }
-    public string ProductName { get; set; }
-    public string SKU { get; set; }
-    public string Description { get; set; }
-    public string CategoryName { get; set; }
-    public string UnitName { get; set; }
-    public int CurrentStock { get; set; }
-    public int ReorderPoint { get; set; }
-    public decimal SellingPrice { get; set; }
-    public bool Active { get; set; }
-    public string ImagePath { get; set; }
+    public class InventoryProductDetails
+    {
+        public string ProductId { get; set; }
+        public string ProductName { get; set; }
+        public string SKU { get; set; }
+        public string Description { get; set; }
+        public string CategoryName { get; set; }
+        public string UnitName { get; set; }
+        public int CurrentStock { get; set; }
+        public int ReorderPoint { get; set; }
+        public decimal SellingPrice { get; set; }
+        public bool Active { get; set; }
+        public string ImagePath { get; set; }
+    }
 }
