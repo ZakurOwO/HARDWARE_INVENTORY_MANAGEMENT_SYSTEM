@@ -234,21 +234,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
         }
 
-        private Image GetDirectionIcon(string direction)
-        {
-            if (string.Equals(direction, "IN", StringComparison.OrdinalIgnoreCase))
-            {
-                return Properties.Resources.plus1;
-            }
-
-            if (string.Equals(direction, "OUT", StringComparison.OrdinalIgnoreCase))
-            {
-                return Properties.Resources.minus1;
-            }
-
-            return ProductImageManager.GetProductImage(null);
-        }
-
         private void UpdateStatusTimeline(List<DateTime> timelineDates)
         {
             var ordered = timelineDates != null && timelineDates.Count > 0 ? timelineDates[0] : (DateTime?)null;
