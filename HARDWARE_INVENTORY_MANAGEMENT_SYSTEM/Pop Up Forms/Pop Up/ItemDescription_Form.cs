@@ -222,7 +222,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         timestampText = timestamp.ToString("MMM dd, yyyy HH:mm");
                     }
 
-                    dgvProductHistory.Rows.Add(direction, quantity, reference, timestampText);
+                    Image directionIcon = GetDirectionIcon(direction);
+                    dgvProductHistory.Rows.Add(directionIcon, quantity, reference, timestampText);
                 }
 
                 dgvProductHistory.ClearSelection();
