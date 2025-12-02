@@ -1,4 +1,5 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -242,51 +243,61 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
 
             try
             {
-                con.Open();
-                SqlTransaction tr = con.BeginTransaction();
+                if (con.State == ConnectionState.Closed)
+                    con.Open();
 
-                // INSERT PURCHASE ORDER HEADER
-                string headerSql = @"
+                using (SqlTransaction tr = con.BeginTransaction())
+                {
+                    string headerSql = @"
             INSERT INTO PurchaseOrders
             (po_number, po_date, expected_date, supplier_id, status, payment_status, notes, tax_type, shipping_fee, total_amount)
-            VALUES (@num, @date, @exp, @sup, @status, @pay, @notes, @tax, @ship, @total);
-            SELECT SCOPE_IDENTITY();";
+            OUTPUT INSERTED.po_id
+            VALUES (@num, @date, @exp, @sup, @status, @pay, @notes, @tax, @ship, @total);";
 
-                decimal total = decimal.Parse(lblGrandTotal.Text);
+                    decimal total = decimal.Parse(lblGrandTotal.Text);
 
-                SqlCommand cmdHeader = new SqlCommand(headerSql, con, tr);
-                cmdHeader.Parameters.AddWithValue("@num", tbxOrderNumber.Text.Trim());
-                cmdHeader.Parameters.AddWithValue("@date", dtpOrderDate.Value);
-                cmdHeader.Parameters.AddWithValue("@exp", dtpExpectedDelivery.Value);
-                cmdHeader.Parameters.AddWithValue("@sup", cbxSupplier.SelectedValue);
-                cmdHeader.Parameters.AddWithValue("@status", cbxStatus.Text);
-                cmdHeader.Parameters.AddWithValue("@pay", cbxPaymentStatus.Text);
-                cmdHeader.Parameters.AddWithValue("@notes", rtxNotes.Text);
-                cmdHeader.Parameters.AddWithValue("@tax", cbxTax.Text);
-                cmdHeader.Parameters.AddWithValue("@ship", nudShippingFee.Value);
-                cmdHeader.Parameters.AddWithValue("@total", total);
+                    SqlCommand cmdHeader = new SqlCommand(headerSql, con, tr);
+                    cmdHeader.Parameters.AddWithValue("@num", tbxOrderNumber.Text.Trim());
+                    cmdHeader.Parameters.AddWithValue("@date", dtpOrderDate.Value);
+                    cmdHeader.Parameters.AddWithValue("@exp", dtpExpectedDelivery.Value);
+                    cmdHeader.Parameters.AddWithValue("@sup", cbxSupplier.SelectedValue);
+                    cmdHeader.Parameters.AddWithValue("@status", cbxStatus.Text);
+                    cmdHeader.Parameters.AddWithValue("@pay", cbxPaymentStatus.Text);
+                    cmdHeader.Parameters.AddWithValue("@notes", rtxNotes.Text);
+                    cmdHeader.Parameters.AddWithValue("@tax", cbxTax.Text);
+                    cmdHeader.Parameters.AddWithValue("@ship", nudShippingFee.Value);
+                    cmdHeader.Parameters.AddWithValue("@total", total);
 
-                int poId = Convert.ToInt32(cmdHeader.ExecuteScalar());
+                    int poId = Convert.ToInt32(cmdHeader.ExecuteScalar());
 
-                // INSERT ITEMS
-                string itemSql = @"
+                    string itemSql = @"
             INSERT INTO PurchaseOrderItems
             (po_id, product_id, quantity, unit_price, total_amount)
             VALUES (@po, @prod, @qty, @price, @total);";
 
-                foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
-                {
-                    SqlCommand cmdItem = new SqlCommand(itemSql, con, tr);
-                    cmdItem.Parameters.AddWithValue("@po", poId);
-                    cmdItem.Parameters.AddWithValue("@prod", row.Tag);
-                    cmdItem.Parameters.AddWithValue("@qty", row.Cells["Quantity"].Value);
-                    cmdItem.Parameters.AddWithValue("@price", decimal.Parse(row.Cells["UnitPrice"].Value.ToString()));
-                    cmdItem.Parameters.AddWithValue("@total", decimal.Parse(row.Cells["Total"].Value.ToString()));
-                    cmdItem.ExecuteNonQuery();
-                }
+                    foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
+                    {
+                        SqlCommand cmdItem = new SqlCommand(itemSql, con, tr);
+                        cmdItem.Parameters.AddWithValue("@po", poId);
+                        cmdItem.Parameters.AddWithValue("@prod", row.Tag);
+                        cmdItem.Parameters.AddWithValue("@qty", row.Cells["Quantity"].Value);
+                        cmdItem.Parameters.AddWithValue("@price", decimal.Parse(row.Cells["UnitPrice"].Value.ToString()));
+                        cmdItem.Parameters.AddWithValue("@total", decimal.Parse(row.Cells["Total"].Value.ToString()));
+                        cmdItem.ExecuteNonQuery();
+                    }
 
-                tr.Commit();
-                MessageBox.Show("Purchase Order saved successfully.");
+                    AuditHelper.LogWithTransaction(
+                        con,
+                        tr,
+                        AuditModule.SUPPLIERS,
+                        $"Updated purchase order {tbxOrderNumber.Text.Trim()}",
+                        AuditActivityType.UPDATE,
+                        "PurchaseOrders",
+                        poId.ToString());
+
+                    tr.Commit();
+                    MessageBox.Show("Purchase Order saved successfully.");
+                }
             }
             catch (Exception ex)
             {

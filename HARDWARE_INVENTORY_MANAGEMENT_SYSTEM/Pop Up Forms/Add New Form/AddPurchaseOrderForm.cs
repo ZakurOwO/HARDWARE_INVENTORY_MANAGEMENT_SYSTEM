@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 {
@@ -415,67 +416,77 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 if (con.State == ConnectionState.Closed)
                     con.Open();
 
-                SqlTransaction transaction = con.BeginTransaction();
-
-                try
+                using (SqlTransaction transaction = con.BeginTransaction())
                 {
-                    string poQuery = @"INSERT INTO PurchaseOrders 
-                        (supplier_id, po_number, po_date, expected_date, status, created_by, total_amount) 
-                        VALUES (@supplierId, @poNumber, @poDate, @expectedDate, @status, @createdBy, @totalAmount);
-                        SELECT SCOPE_IDENTITY();";
-
-                    int poId;
-                    using (SqlCommand cmd = new SqlCommand(poQuery, con, transaction))
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@supplierId", guna2ComboBox3.SelectedValue);
-                        cmd.Parameters.AddWithValue("@poNumber", CompanyNameTextBoxSupplier.Text.Trim());
-                        cmd.Parameters.AddWithValue("@poDate", guna2DateTimePicker1.Value);
-                        cmd.Parameters.AddWithValue("@expectedDate", ExpirationDataComboBox.Value);
-                        cmd.Parameters.AddWithValue("@status", guna2ComboBox2.SelectedItem.ToString());
-                        cmd.Parameters.AddWithValue("@createdBy", 1);
+                        string poQuery = @"INSERT INTO PurchaseOrders
+                            (supplier_id, po_number, po_date, expected_date, status, created_by, total_amount)
+                            OUTPUT INSERTED.po_id
+                            VALUES (@supplierId, @poNumber, @poDate, @expectedDate, @status, @createdBy, @totalAmount)";
 
-                        decimal total = decimal.Parse(label11.Text.Replace("₱", "").Replace(",", "").Trim());
-                        cmd.Parameters.AddWithValue("@totalAmount", total);
-
-                        poId = Convert.ToInt32(cmd.ExecuteScalar());
-                    }
-
-                    string itemQuery = @"INSERT INTO PurchaseOrderItems 
-                        (po_id, product_id, quantity_ordered, unit_price, total_amount) 
-                        VALUES (@poId, @productId, @quantity, @unitPrice, @totalAmount)";
-
-                    foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
-                    {
-                        using (SqlCommand cmd = new SqlCommand(itemQuery, con, transaction))
+                        int poId;
+                        using (SqlCommand cmd = new SqlCommand(poQuery, con, transaction))
                         {
-                            cmd.Parameters.AddWithValue("@poId", poId);
-                            cmd.Parameters.AddWithValue("@productId", row.Tag);
-                            cmd.Parameters.AddWithValue("@quantity", row.Cells["Quantity"].Value);
+                            cmd.Parameters.AddWithValue("@supplierId", guna2ComboBox3.SelectedValue);
+                            cmd.Parameters.AddWithValue("@poNumber", CompanyNameTextBoxSupplier.Text.Trim());
+                            cmd.Parameters.AddWithValue("@poDate", guna2DateTimePicker1.Value);
+                            cmd.Parameters.AddWithValue("@expectedDate", ExpirationDataComboBox.Value);
+                            cmd.Parameters.AddWithValue("@status", guna2ComboBox2.SelectedItem.ToString());
+                            cmd.Parameters.AddWithValue("@createdBy", UserSession.UserId);
 
-                            decimal unitPrice = decimal.Parse(row.Cells["UnitPrice"].Value.ToString().Replace(",", ""));
-                            cmd.Parameters.AddWithValue("@unitPrice", unitPrice);
+                            decimal total = decimal.Parse(label11.Text.Replace("₱", "").Replace(",", "").Trim());
+                            cmd.Parameters.AddWithValue("@totalAmount", total);
 
-                            decimal itemTotal = decimal.Parse(row.Cells["Total"].Value.ToString().Replace(",", ""));
-                            cmd.Parameters.AddWithValue("@totalAmount", itemTotal);
+                            poId = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
 
-                            cmd.ExecuteNonQuery();
+                        string itemQuery = @"INSERT INTO PurchaseOrderItems
+                            (po_id, product_id, quantity_ordered, unit_price, total_amount)
+                            VALUES (@poId, @productId, @quantity, @unitPrice, @totalAmount)";
+
+                        foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
+                        {
+                            using (SqlCommand cmd = new SqlCommand(itemQuery, con, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@poId", poId);
+                                cmd.Parameters.AddWithValue("@productId", row.Tag);
+                                cmd.Parameters.AddWithValue("@quantity", row.Cells["Quantity"].Value);
+
+                                decimal unitPrice = decimal.Parse(row.Cells["UnitPrice"].Value.ToString().Replace(",", ""));
+                                cmd.Parameters.AddWithValue("@unitPrice", unitPrice);
+
+                                decimal itemTotal = decimal.Parse(row.Cells["Total"].Value.ToString().Replace(",", ""));
+                                cmd.Parameters.AddWithValue("@totalAmount", itemTotal);
+
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        AuditHelper.LogWithTransaction(
+                            con,
+                            transaction,
+                            AuditModule.SUPPLIERS,
+                            $"Created purchase order {CompanyNameTextBoxSupplier.Text}",
+                            AuditActivityType.CREATE,
+                            "PurchaseOrders",
+                            poId.ToString());
+
+                        transaction.Commit();
+                        MessageBox.Show($"Purchase Order {CompanyNameTextBoxSupplier.Text} created successfully!",
+                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        Form parentForm = this.FindForm();
+                        if (parentForm != null)
+                        {
+                            parentForm.Close();
                         }
                     }
-
-                    transaction.Commit();
-                    MessageBox.Show($"Purchase Order {CompanyNameTextBoxSupplier.Text} created successfully!",
-                        "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    Form parentForm = this.FindForm();
-                    if (parentForm != null)
+                    catch (Exception)
                     {
-                        parentForm.Close();
+                        transaction.Rollback();
+                        throw;
                     }
-                }
-                catch (Exception)
-                {
-                    transaction.Rollback();
-                    throw;
                 }
             }
             catch (Exception ex)
