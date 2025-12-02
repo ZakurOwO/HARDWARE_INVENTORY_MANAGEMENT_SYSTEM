@@ -32,7 +32,36 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             LoadDataFromDatabase();
             dgvInventoryList.CellClick += dgvInventoryList_CellClick;
+            dgvInventoryList.CellFormatting += dgvInventoryList_CellFormatting;
+            dgvInventoryList.DataError += dgvInventoryList_DataError;
             dgvInventoryList.ClearSelection();
+        }
+
+        private void dgvInventoryList_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Prevent default error dialogs when the image column receives non-image values
+            if (e.ColumnIndex >= 0 && dgvInventoryList.Columns[e.ColumnIndex].Name == "Image")
+            {
+                e.ThrowException = false;
+            }
+        }
+
+        private void dgvInventoryList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Convert string image keys to actual resource images on the fly
+            if (e.ColumnIndex >= 0 && dgvInventoryList.Columns[e.ColumnIndex].Name == "Image")
+            {
+                if (e.Value is string imageKey)
+                {
+                    e.Value = ProductImageManager.GetProductImage(imageKey);
+                    e.FormattingApplied = true;
+                }
+                else if (e.Value == null)
+                {
+                    e.Value = ProductImageManager.GetProductImage(null);
+                    e.FormattingApplied = true;
+                }
+            }
         }
 
         public void RefreshData()

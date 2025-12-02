@@ -119,22 +119,32 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 (this.Height - itemDescriptionForm.Height) / 2
             );
 
-            // Use the simplified version with image path
-            itemDescriptionForm.PopulateProductData(
-                productId: productId,
-                productName: productName,
-                sku: sku,
-                category: category,
-                currentStock: currentStock,
-                sellingPrice: 0.00m, // You'll need to get this from database
-                status: "Available", // You'll need to get this from database
-                brand: brand,
-                minimumStock: 0, // You'll need to get this from database
-                costPrice: 0.00m, // You'll need to get this from database
-                unit: "Piece", // You'll need to get this from database
-                description: brand, // Using brand as description for now
-                imagePath: imagePath // Add the image path
-            );
+            var productDetails = InventoryDatabaseHelper.GetProductDetails(productId);
+            var timelineDates = InventoryDatabaseHelper.GetRecentActivityDates(productId, sku, productName);
+
+            if (productDetails != null)
+            {
+                itemDescriptionForm.DisplayProductDetails(productDetails, timelineDates);
+            }
+            else
+            {
+                // Fallback to whatever data we currently have
+                itemDescriptionForm.PopulateProductData(
+                    productId: productId,
+                    productName: productName,
+                    sku: sku,
+                    category: category,
+                    currentStock: currentStock,
+                    sellingPrice: 0.00m,
+                    status: "Available",
+                    brand: brand,
+                    minimumStock: 0,
+                    costPrice: 0.00m,
+                    unit: "Piece",
+                    description: brand,
+                    imagePath: imagePath
+                );
+            }
 
             itemDescriptionForm.ShowItemDescription();
         }
