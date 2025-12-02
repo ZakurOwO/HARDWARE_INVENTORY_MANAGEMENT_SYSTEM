@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.Class_Components_of_Suppliier;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 {
@@ -70,24 +71,40 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         {
             try
             {
-                string query = "UPDATE PurchaseOrders SET status = 'Cancelled', updated_at = GETDATE() WHERE po_number = @poNumber";
+                if (con.State == ConnectionState.Closed)
+                    con.Open();
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlTransaction transaction = con.BeginTransaction())
                 {
-                    cmd.Parameters.AddWithValue("@poNumber", poNumber);
+                    string query = "UPDATE PurchaseOrders SET status = 'Cancelled', updated_at = GETDATE() WHERE po_number = @poNumber";
 
-                    if (con.State == ConnectionState.Closed)
-                        con.Open();
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
+                    using (SqlCommand cmd = new SqlCommand(query, con, transaction))
                     {
-                        MessageBox.Show($"Purchase Order {poNumber} has been cancelled successfully.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        cmd.Parameters.AddWithValue("@poNumber", poNumber);
 
-                        // Update the status in the grid
-                        dgvSupplier.Rows[rowIndex].Cells["Status"].Value = "Cancelled";
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            AuditHelper.LogWithTransaction(
+                                con,
+                                transaction,
+                                AuditModule.SUPPLIERS,
+                                $"Cancelled purchase order {poNumber}",
+                                AuditActivityType.UPDATE,
+                                "PurchaseOrders",
+                                poNumber);
+
+                            transaction.Commit();
+
+                            MessageBox.Show($"Purchase Order {poNumber} has been cancelled successfully.",
+                                "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            dgvSupplier.Rows[rowIndex].Cells["Status"].Value = "Cancelled";
+                            return;
+                        }
+
+                        transaction.Rollback();
                     }
                 }
             }
