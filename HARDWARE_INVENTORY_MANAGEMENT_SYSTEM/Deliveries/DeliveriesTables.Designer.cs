@@ -135,14 +135,12 @@
             //
             // DeliveryInternalId
             //
-            this.DeliveryInternalId.DataPropertyName = "delivery_id";
             this.DeliveryInternalId.HeaderText = "Delivery Internal ID";
             this.DeliveryInternalId.Name = "DeliveryInternalId";
             this.DeliveryInternalId.Visible = false;
             //
             // DeliveryID
             //
-            this.DeliveryID.DataPropertyName = "DeliveryID";
             this.DeliveryID.FillWeight = 120F;
             this.DeliveryID.HeaderText = "Delivery ID";
             this.DeliveryID.Name = "DeliveryID";
