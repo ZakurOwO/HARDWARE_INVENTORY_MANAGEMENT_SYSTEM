@@ -64,6 +64,7 @@
             this.dgvDeliveries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDeliveries.ColumnHeadersHeight = 45;
             this.dgvDeliveries.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DeliveryInternalId,
             this.DeliveryID,
             this.Transaction_ID,
             this.Delivery_Number,
@@ -130,9 +131,15 @@
             this.searchField1.PromptMessage = "Search Deliveries";
             this.searchField1.Size = new System.Drawing.Size(299, 54);
             this.searchField1.TabIndex = 7;
-            // 
+            //
+            // DeliveryInternalId
+            //
+            this.DeliveryInternalId.HeaderText = "Delivery Internal ID";
+            this.DeliveryInternalId.Name = "DeliveryInternalId";
+            this.DeliveryInternalId.Visible = false;
+            //
             // DeliveryID
-            // 
+            //
             this.DeliveryID.FillWeight = 120F;
             this.DeliveryID.HeaderText = "Delivery ID";
             this.DeliveryID.Name = "DeliveryID";
@@ -206,6 +213,7 @@
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private Accounts_Module.SearchField searchField1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryInternalId;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Transaction_ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Delivery_Number;
