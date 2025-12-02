@@ -78,6 +78,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         {
             dgvCartDetails.Columns.Clear();
 
+            DataGridViewTextBoxColumn productIdColumn = new DataGridViewTextBoxColumn();
+            productIdColumn.Name = "ProductId";
+            productIdColumn.HeaderText = "ID";
+            productIdColumn.DataPropertyName = "ProductId";
+            productIdColumn.Visible = false;
+            dgvCartDetails.Columns.Add(productIdColumn);
+
             DataGridViewTextBoxColumn itemNameColumn = new DataGridViewTextBoxColumn();
             itemNameColumn.Name = "ItemName";
             itemNameColumn.HeaderText = "ITEM";
@@ -101,6 +108,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             priceColumn.DataPropertyName = "Price";
             priceColumn.Width = 90;
             priceColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            priceColumn.ValueType = typeof(decimal);
+            priceColumn.DefaultCellStyle.Format = "N2";
             priceColumn.ReadOnly = true;
             dgvCartDetails.Columns.Add(priceColumn);
 
@@ -219,11 +228,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
                     "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    string productName = dgvCartDetails.Rows[e.RowIndex].Cells["ItemName"].Value?.ToString();
-                    if (!string.IsNullOrEmpty(productName))
-                    {
-                        SharedCartManager.Instance.RemoveItemFromCart(productName);
-                    }
+                    int productId = Convert.ToInt32(dgvCartDetails.Rows[e.RowIndex].Cells["ProductId"].Value);
+                    SharedCartManager.Instance.RemoveItemFromCart(productId);
                     dgvCartDetails.Rows.RemoveAt(e.RowIndex);
                     UpdateTotals();
                 }
@@ -266,13 +272,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 {
                     dgvCartDetails.Rows[rowIndex].Cells[columnIndex].Value = qtyUpDown.Value;
 
-                    string productName = dgvCartDetails.Rows[rowIndex].Cells["ItemName"].Value?.ToString();
+                    int productId = Convert.ToInt32(dgvCartDetails.Rows[rowIndex].Cells["ProductId"].Value);
                     int newQuantity = Convert.ToInt32(qtyUpDown.Value);
 
-                    if (!string.IsNullOrEmpty(productName))
-                    {
-                        SharedCartManager.Instance.UpdateItemQuantity(productName, newQuantity);
-                    }
+                    SharedCartManager.Instance.UpdateItemQuantity(productId, newQuantity);
 
                     UpdateTotals();
                     UpdateRowAppearance(rowIndex);
@@ -380,12 +383,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     string priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
                     if (decimal.TryParse(priceText, out decimal price))
                     {
-                        items.Add(new CartItem
-                        {
-                            ProductName = row.Cells["ItemName"].Value.ToString(),
-                            Quantity = Convert.ToInt32(row.Cells["Quantity"].Value),
-                            Price = price
-                        });
+                            items.Add(new CartItem
+                            {
+                                ProductName = row.Cells["ItemName"].Value.ToString(),
+                                Quantity = Convert.ToInt32(row.Cells["Quantity"].Value),
+                                Price = price,
+                                ProductInternalID = Convert.ToInt32(row.Cells["ProductId"].Value)
+                            });
                     }
                 }
             }
@@ -434,8 +438,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             {
                 if (row.IsNewRow) continue;
 
-                if (decimal.TryParse(row.Cells["Price"].Value?.ToString().Replace("₱", "").Trim(), out decimal price) &&
-                    int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int quantity))
+                if (row.Cells["Price"].Value != null && decimal.TryParse(row.Cells["Price"].Value.ToString(), out decimal price)
+                    && int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int quantity))
                 {
                     subtotal += price * quantity;
                 }
@@ -460,24 +464,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     {
                         if (row.IsNewRow) continue;
 
-                        string productName = row.Cells["ItemName"].Value?.ToString();
-                        int cartQuantity = Convert.ToInt32(row.Cells["Quantity"].Value);
-
-                        if (string.IsNullOrEmpty(productName))
+                        if (row.Cells["ProductId"].Value == null)
                         {
-                            MessageBox.Show("Invalid product name in cart.",
+                            MessageBox.Show("A cart item is missing its product reference.",
                                 "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return false;
                         }
 
-                        string query = "SELECT current_stock FROM Products WHERE product_name = @ProductName AND active = 1";
+                        int productId = Convert.ToInt32(row.Cells["ProductId"].Value);
+                        int cartQuantity = Convert.ToInt32(row.Cells["Quantity"].Value);
+
+                        string query = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId AND active = 1";
                         SqlCommand command = new SqlCommand(query, connection);
-                        command.Parameters.AddWithValue("@ProductName", productName);
+                        command.Parameters.AddWithValue("@ProductId", productId);
 
                         var result = command.ExecuteScalar();
                         if (result == null)
                         {
-                            MessageBox.Show($"Product '{productName}' not found in database.",
+                            MessageBox.Show("Product was not found in database.",
                                 "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return false;
                         }
@@ -485,7 +489,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         int availableStock = Convert.ToInt32(result);
                         if (cartQuantity > availableStock)
                         {
-                            MessageBox.Show($"Insufficient stock for '{productName}'. Available: {availableStock}, Requested: {cartQuantity}",
+                            MessageBox.Show($"Insufficient stock detected. Available: {availableStock}, Requested: {cartQuantity}",
                                 "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return false;
                         }
@@ -558,23 +562,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         {
                             if (row.IsNewRow) continue;
 
-                            string productName = row.Cells["ItemName"].Value.ToString();
-                            int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
-                            decimal price = decimal.Parse(row.Cells["Price"].Value.ToString().Replace("₱", "").Trim());
-
-                            string getProductQuery = "SELECT ProductInternalID, current_stock FROM Products WHERE product_name = @ProductName";
-                            SqlCommand productCmd = new SqlCommand(getProductQuery, connection, dbTransaction);
-                            productCmd.Parameters.AddWithValue("@ProductName", productName);
-                            using (var reader = productCmd.ExecuteReader())
+                            if (row.Cells["ProductId"].Value == null)
                             {
-                                if (!reader.Read())
+                                throw new InvalidOperationException("A cart row is missing its product reference.");
+                            }
+
+                            int productId = Convert.ToInt32(row.Cells["ProductId"].Value);
+                            int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
+                            decimal price = Convert.ToDecimal(row.Cells["Price"].Value);
+
+                            string productStockQuery = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId AND active = 1";
+                            using (SqlCommand productCmd = new SqlCommand(productStockQuery, connection, dbTransaction))
+                            {
+                                productCmd.Parameters.AddWithValue("@ProductId", productId);
+                                object stockResult = productCmd.ExecuteScalar();
+                                if (stockResult == null)
                                 {
-                                    throw new InvalidOperationException($"Product '{productName}' could not be found.");
+                                    throw new InvalidOperationException($"Product with ID {productId} could not be found.");
                                 }
 
-                                int productId = reader.GetInt32(0);
-                                int oldStock = reader.GetInt32(1);
-                                reader.Close();
+                                int oldStock = Convert.ToInt32(stockResult);
 
                                 string insertItemQuery = @"
                                 INSERT INTO TransactionItems (transaction_id, product_id, quantity, selling_price)
@@ -710,13 +717,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        public void AddItemToCart(string itemName, decimal price, int quantity = 1)
+        public void AddItemToCart(int productId, string itemName, decimal price, int quantity = 1)
         {
             SharedCartManager.Instance.AddItemToCart(new CartItem
             {
                 ProductName = itemName,
                 Price = price,
-                Quantity = quantity
+                Quantity = quantity,
+                ProductInternalID = productId
             });
 
             LoadSharedCartItems();
@@ -748,7 +756,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
                         if (quantity <= currentStock)
                         {
-                            AddItemToCart(productName, sellingPrice, quantity);
+                            AddItemToCart(productInternalId, productName, sellingPrice, quantity);
                         }
                         else
                         {
@@ -778,7 +786,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
             foreach (var item in sharedItems)
             {
-                dgvCartDetails.Rows.Add(item.ProductName, item.Quantity, $"₱{item.Price:N2}");
+                dgvCartDetails.Rows.Add(item.ProductInternalID, item.ProductName, item.Quantity, item.Price);
             }
             UpdateTotals();
         }

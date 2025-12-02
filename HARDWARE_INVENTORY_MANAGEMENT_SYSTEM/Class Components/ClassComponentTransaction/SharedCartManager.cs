@@ -33,11 +33,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         public void AddItemToCart(CartItem item)
         {
-            // Check if item already exists
-            var existingItem = _cartItems.Find(x => x.ProductName == item.ProductName);
+            if (item == null)
+            {
+                return;
+            }
+
+            // Check if item already exists by internal ID for consistency
+            var existingItem = _cartItems.Find(x => x.ProductInternalID == item.ProductInternalID);
             if (existingItem != null)
             {
                 existingItem.Quantity += item.Quantity;
+                existingItem.Price = item.Price; // keep price in sync with latest selection
+                existingItem.ProductName = item.ProductName;
             }
             else
             {
@@ -45,19 +52,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        public void RemoveItemFromCart(string productName)
+        public void RemoveItemFromCart(int productInternalId)
         {
-            _cartItems.RemoveAll(x => x.ProductName == productName);
+            _cartItems.RemoveAll(x => x.ProductInternalID == productInternalId);
         }
 
-        public void UpdateItemQuantity(string productName, int newQuantity)
+        public void UpdateItemQuantity(int productInternalId, int newQuantity)
         {
-            var existingItem = _cartItems.Find(x => x.ProductName == productName);
+            var existingItem = _cartItems.Find(x => x.ProductInternalID == productInternalId);
             if (existingItem != null)
             {
                 if (newQuantity <= 0)
                 {
-                    RemoveItemFromCart(productName);
+                    RemoveItemFromCart(productInternalId);
                 }
                 else
                 {
