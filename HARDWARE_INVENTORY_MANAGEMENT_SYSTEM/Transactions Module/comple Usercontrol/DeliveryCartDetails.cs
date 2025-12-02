@@ -601,6 +601,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         }
         public void ProcessDeliveryTransaction(string paymentMethod, decimal cashReceived, decimal change)
         {
+            if (!ValidateCheckout() || !ValidateQuantities() || !ValidateStockAvailability())
+            {
+                return;
+            }
+
             try
             {
                 string customerName = GetSelectedCustomerName();
@@ -749,7 +754,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             null,
                             $"{{\"customer_id\":{customerId},\"total_amount\":{totalAmount},\"payment_method\":\"{paymentMethod}\",\"cash_received\":{cashReceived},\"change_amount\":{change}}}");
 
-                        // Save transaction items
+                        string deliveryNumber = GenerateDeliveryNumber(connection, transaction);
+                        int deliveryId = InsertDeliveryHeader(connection, transaction, transactionId, customerName, deliveryNumber);
+
+                        // Save transaction and delivery items
                         foreach (DataGridViewRow row in dgvCartDetails.Rows)
                         {
                             if (row.IsNewRow) continue;
@@ -772,17 +780,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                 int oldStock = reader.GetInt32(1);
                                 reader.Close();
 
-                                string insertItemQuery = @"
-                        INSERT INTO TransactionItems (transaction_id, product_id, quantity, selling_price)
-                        VALUES (@TransactionId, @ProductId, @Quantity, @SellingPrice);
-                        SELECT CAST(SCOPE_IDENTITY() as int);";
-
-                                SqlCommand itemCmd = new SqlCommand(insertItemQuery, connection, transaction);
-                                itemCmd.Parameters.AddWithValue("@TransactionId", transactionId);
-                                itemCmd.Parameters.AddWithValue("@ProductId", productId);
-                                itemCmd.Parameters.AddWithValue("@Quantity", quantity);
-                                itemCmd.Parameters.AddWithValue("@SellingPrice", price);
-                                int transactionItemId = (int)itemCmd.ExecuteScalar();
+                                int transactionItemId = InsertTransactionItem(connection, transaction, transactionId, productId, quantity, price);
+                                int deliveryItemId = InsertDeliveryItem(connection, transaction, deliveryId, productId, quantity, price);
 
                                 LogAuditEntry(connection, transaction,
                                     $"Added delivery item to transaction TRX-{transactionId:D5}",
@@ -791,6 +790,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                     transactionItemId.ToString(),
                                     null,
                                     $"{{\"transaction_id\":{transactionId},\"product_id\":{productId},\"quantity\":{quantity},\"selling_price\":{price}}}");
+
+                                LogAuditEntry(connection, transaction,
+                                    $"Created delivery line item for delivery {deliveryId}",
+                                    AuditActivityType.CREATE,
+                                    "DeliveryItems",
+                                    deliveryItemId.ToString(),
+                                    null,
+                                    $"{{\"delivery_id\":{deliveryId},\"product_id\":{productId},\"quantity_received\":{quantity},\"unit_cost\":{price}}}");
 
                                 // Update stock
                                 string updateStockQuery = @"
@@ -814,88 +821,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             }
                         }
 
-                        // Create delivery record
-                        string deliveryNumber = $"DEL-{DateTime.Now:yyyyMMddHHmmss}";
-                        string insertDeliveryQuery = @"
-                    INSERT INTO Deliveries (
-                        transaction_id,
-                        delivery_number,
-                        delivery_date,
-                        status,
-                        delivery_type,
-                        customer_name
-                    )
-                    VALUES (
-                        @TransactionId,
-                        @DeliveryNumber,
-                        GETDATE(),
-                        'Scheduled',
-                        'Sales_Delivery',
-                        @CustomerName
-                    );
-                    SELECT CAST(SCOPE_IDENTITY() as int);";
+                        InsertVehicleAssignments(connection, transaction, deliveryId);
 
-                        SqlCommand deliveryCmd = new SqlCommand(insertDeliveryQuery, connection, transaction);
-                        deliveryCmd.Parameters.AddWithValue("@TransactionId", transactionId);
-                        deliveryCmd.Parameters.AddWithValue("@DeliveryNumber", deliveryNumber);
-                        deliveryCmd.Parameters.AddWithValue("@CustomerName", customerName);
-
-                        int deliveryId = (int)deliveryCmd.ExecuteScalar();
-
-                        LogAuditEntry(connection, transaction,
-                            $"Created delivery record for transaction TRX-{transactionId:D5}",
-                            AuditActivityType.CREATE,
-                            "Deliveries",
-                            deliveryId.ToString(),
-                            null,
-                            $"{{\"transaction_id\":{transactionId},\"delivery_number\":\"{deliveryNumber}\"}}");
-
-                        // Save vehicle assignments - FIXED: Use vehicle_id (int) not VehicleID (string)
-                        foreach (var vehicle in selectedVehicles)
-                        {
-                            string insertAssignmentQuery = @"
-        INSERT INTO VehicleAssignments (delivery_id, vehicle_id, driver_name, assignment_date, status)
-        VALUES (@DeliveryId, @VehicleId, @DriverName, GETDATE(), 'Assigned');";
-
-                            SqlCommand assignmentCmd = new SqlCommand(insertAssignmentQuery, connection, transaction);
-                            assignmentCmd.Parameters.AddWithValue("@DeliveryId", deliveryId);
-                            assignmentCmd.Parameters.AddWithValue("@VehicleId", vehicle.VehicleId); // ← USE VehicleId (int) NOT VehicleID (string)
-                            assignmentCmd.Parameters.AddWithValue("@DriverName", "To be assigned");
-                            assignmentCmd.ExecuteNonQuery();
-
-                            // Update vehicle status to "In Use"
-                            string updateVehicleQuery = "UPDATE Vehicles SET status = 'In Use' WHERE vehicle_id = @VehicleId";
-                            SqlCommand vehicleCmd = new SqlCommand(updateVehicleQuery, connection, transaction);
-                            vehicleCmd.Parameters.AddWithValue("@VehicleId", vehicle.VehicleId); // ← USE VehicleId (int)
-                            vehicleCmd.ExecuteNonQuery();
-
-                            LogAuditEntry(connection, transaction,
-                                $"Assigned vehicle {vehicle.VehicleId} to delivery {deliveryId}",
-                                AuditActivityType.CREATE,
-                                "VehicleAssignments",
-                                null,
-                                null,
-                                $"{{\"delivery_id\":{deliveryId},\"vehicle_id\":{vehicle.VehicleId}}}");
-                        }
-
-                        // Update transaction with delivery ID
-                        string updateTransactionQuery = @"
-                    UPDATE Transactions
-                    SET delivery_id = @DeliveryId
-                    WHERE transaction_id = @TransactionId";
-
-                        SqlCommand updateTransactionCmd = new SqlCommand(updateTransactionQuery, connection, transaction);
-                        updateTransactionCmd.Parameters.AddWithValue("@DeliveryId", deliveryId);
-                        updateTransactionCmd.Parameters.AddWithValue("@TransactionId", transactionId);
-                        updateTransactionCmd.ExecuteNonQuery();
-
-                        LogAuditEntry(connection, transaction,
-                            $"Linked transaction TRX-{transactionId:D5} to delivery {deliveryId}",
-                            AuditActivityType.UPDATE,
-                            "Transactions",
-                            transactionId.ToString(),
-                            "{\"delivery_id\":null}",
-                            $"{{\"delivery_id\":{deliveryId}}}");
+                        UpdateTransactionDeliveryLink(connection, transaction, transactionId, deliveryId);
 
                         transaction.Commit();
 
@@ -917,6 +845,146 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 MessageBox.Show($"Error saving delivery transaction: {ex.Message}", "Database Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private string GenerateDeliveryNumber(SqlConnection connection, SqlTransaction transaction)
+        {
+            string query = @"
+                SELECT CONCAT('DEL-', FORMAT(ISNULL(MAX(delivery_id), 0) + 1, '00000'))
+                FROM Deliveries WITH (UPDLOCK, HOLDLOCK)";
+
+            using (SqlCommand cmd = new SqlCommand(query, connection, transaction))
+            {
+                return cmd.ExecuteScalar().ToString();
+            }
+        }
+
+        private int InsertDeliveryHeader(SqlConnection connection, SqlTransaction transaction, int transactionId, string customerName, string deliveryNumber)
+        {
+            string insertDeliveryQuery = @"
+                    INSERT INTO Deliveries (
+                        transaction_id,
+                        delivery_number,
+                        delivery_date,
+                        status,
+                        delivery_type,
+                        customer_name
+                    )
+                    VALUES (
+                        @TransactionId,
+                        @DeliveryNumber,
+                        GETDATE(),
+                        'Scheduled',
+                        'Sales_Delivery',
+                        @CustomerName
+                    );
+                    SELECT CAST(SCOPE_IDENTITY() as int);";
+
+            SqlCommand deliveryCmd = new SqlCommand(insertDeliveryQuery, connection, transaction);
+            deliveryCmd.Parameters.AddWithValue("@TransactionId", transactionId);
+            deliveryCmd.Parameters.AddWithValue("@DeliveryNumber", deliveryNumber);
+            deliveryCmd.Parameters.AddWithValue("@CustomerName", customerName);
+
+            int deliveryId = (int)deliveryCmd.ExecuteScalar();
+
+            LogAuditEntry(connection, transaction,
+                $"Created delivery record for transaction TRX-{transactionId:D5}",
+                AuditActivityType.CREATE,
+                "Deliveries",
+                deliveryId.ToString(),
+                null,
+                $"{{\"transaction_id\":{transactionId},\"delivery_number\":\"{deliveryNumber}\"}}");
+
+            return deliveryId;
+        }
+
+        private int InsertTransactionItem(SqlConnection connection, SqlTransaction transaction, int transactionId, int productId, int quantity, decimal price)
+        {
+            string insertItemQuery = @"
+                        INSERT INTO TransactionItems (transaction_id, product_id, quantity, selling_price)
+                        VALUES (@TransactionId, @ProductId, @Quantity, @SellingPrice);
+                        SELECT CAST(SCOPE_IDENTITY() as int);";
+
+            SqlCommand itemCmd = new SqlCommand(insertItemQuery, connection, transaction);
+            itemCmd.Parameters.AddWithValue("@TransactionId", transactionId);
+            itemCmd.Parameters.AddWithValue("@ProductId", productId);
+            itemCmd.Parameters.AddWithValue("@Quantity", quantity);
+            itemCmd.Parameters.AddWithValue("@SellingPrice", price);
+            return (int)itemCmd.ExecuteScalar();
+        }
+
+        private int InsertDeliveryItem(SqlConnection connection, SqlTransaction transaction, int deliveryId, int productId, int quantity, decimal price)
+        {
+            string insertDeliveryItemQuery = @"
+                        INSERT INTO DeliveryItems (delivery_id, product_id, quantity_received, unit_cost)
+                        VALUES (@DeliveryId, @ProductId, @Quantity, @UnitCost);
+                        SELECT CAST(SCOPE_IDENTITY() as int);";
+
+            SqlCommand deliveryItemCmd = new SqlCommand(insertDeliveryItemQuery, connection, transaction);
+            deliveryItemCmd.Parameters.AddWithValue("@DeliveryId", deliveryId);
+            deliveryItemCmd.Parameters.AddWithValue("@ProductId", productId);
+            deliveryItemCmd.Parameters.AddWithValue("@Quantity", quantity);
+            deliveryItemCmd.Parameters.AddWithValue("@UnitCost", price);
+            return (int)deliveryItemCmd.ExecuteScalar();
+        }
+
+        private void InsertVehicleAssignments(SqlConnection connection, SqlTransaction transaction, int deliveryId)
+        {
+            foreach (var vehicle in selectedVehicles)
+            {
+                string insertAssignmentQuery = @"
+        INSERT INTO VehicleAssignments (delivery_id, vehicle_id, driver_name, assignment_date, status)
+        VALUES (@DeliveryId, @VehicleId, @DriverName, GETDATE(), 'Assigned');
+        SELECT CAST(SCOPE_IDENTITY() as int);";
+
+                SqlCommand assignmentCmd = new SqlCommand(insertAssignmentQuery, connection, transaction);
+                assignmentCmd.Parameters.AddWithValue("@DeliveryId", deliveryId);
+                assignmentCmd.Parameters.AddWithValue("@VehicleId", vehicle.VehicleId);
+                assignmentCmd.Parameters.AddWithValue("@DriverName", "To be assigned");
+                int assignmentId = (int)assignmentCmd.ExecuteScalar();
+
+                string updateVehicleQuery = "UPDATE Vehicles SET status = 'In Use' WHERE vehicle_id = @VehicleId";
+                SqlCommand vehicleCmd = new SqlCommand(updateVehicleQuery, connection, transaction);
+                vehicleCmd.Parameters.AddWithValue("@VehicleId", vehicle.VehicleId);
+                vehicleCmd.ExecuteNonQuery();
+
+                LogAuditEntry(connection, transaction,
+                    $"Assigned vehicle {vehicle.VehicleId} to delivery {deliveryId}",
+                    AuditActivityType.CREATE,
+                    "VehicleAssignments",
+                    assignmentId.ToString(),
+                    null,
+                    $"{{\"delivery_id\":{deliveryId},\"vehicle_id\":{vehicle.VehicleId}}}");
+
+                LogAuditEntry(connection, transaction,
+                    $"Updated vehicle {vehicle.VehicleId} status to In Use",
+                    AuditActivityType.UPDATE,
+                    "Vehicles",
+                    vehicle.VehicleId.ToString(),
+                    "{\"status\":\"Available\"}",
+                    "{\"status\":\"In Use\"}");
+            }
+        }
+
+        private void UpdateTransactionDeliveryLink(SqlConnection connection, SqlTransaction transaction, int transactionId, int deliveryId)
+        {
+            string updateTransactionQuery = @"
+                    UPDATE Transactions
+                    SET delivery_id = @DeliveryId
+                    WHERE transaction_id = @TransactionId";
+
+            SqlCommand updateTransactionCmd = new SqlCommand(updateTransactionQuery, connection, transaction);
+            updateTransactionCmd.Parameters.AddWithValue("@DeliveryId", deliveryId);
+            updateTransactionCmd.Parameters.AddWithValue("@TransactionId", transactionId);
+            updateTransactionCmd.ExecuteNonQuery();
+
+            LogAuditEntry(connection, transaction,
+                $"Linked transaction TRX-{transactionId:D5} to delivery {deliveryId}",
+                AuditActivityType.UPDATE,
+                "Transactions",
+                transactionId.ToString(),
+                "{\"delivery_id\":null}",
+                $"{{\"delivery_id\":{deliveryId}}}");
         }
 
         private int GetOrCreateCustomer(SqlConnection connection, SqlTransaction transaction, string customerName)
