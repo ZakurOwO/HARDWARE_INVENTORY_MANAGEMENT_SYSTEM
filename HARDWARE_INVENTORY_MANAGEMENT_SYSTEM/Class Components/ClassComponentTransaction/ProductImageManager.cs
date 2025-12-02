@@ -2,19 +2,12 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
 {
     public static class ProductImageManager
     {
-        private static string imageBasePath = Path.Combine(Application.StartupPath, "ImageInventory");
-        private static Image defaultImage;
-
-        static ProductImageManager()
-        {
-            defaultImage = CreateDefaultImage();
-        }
-
         // Get product image with default size (50x50)
         public static Image GetProductImage(string imageFileName)
         {
@@ -24,24 +17,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
         // Get product image with custom dimensions - ADD THIS OVERLOAD
         public static Image GetProductImage(string imageFileName, int width, int height)
         {
-            if (string.IsNullOrEmpty(imageFileName) || imageFileName == "Boysen.png")
-            {
-                return CreateDefaultImage(width, height);
-            }
-
             try
             {
-                string fullPath = Path.Combine(imageBasePath, imageFileName);
-
-                if (File.Exists(fullPath))
-                {
-                    Image originalImage = Image.FromFile(fullPath);
-                    return ResizeImage(originalImage, width, height);
-                }
-                else
+                if (string.IsNullOrWhiteSpace(imageFileName))
                 {
                     return CreateDefaultImage(width, height);
                 }
+
+                object resourceImage = Resources.ResourceManager.GetObject(imageFileName);
+
+                if (resourceImage == null)
+                {
+                    string resourceKey = Path.GetFileNameWithoutExtension(imageFileName);
+                    resourceImage = Resources.ResourceManager.GetObject(resourceKey);
+                }
+
+                if (resourceImage is Image foundImage)
+                {
+                    return ResizeImage(foundImage, width, height);
+                }
+
+                return CreateDefaultImage(width, height);
             }
             catch (Exception)
             {
@@ -63,16 +59,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
                 g.DrawImage(image, 0, 0, width, height);
             }
             return resizedImage;
-        }
-
-        private static Image GetDefaultProductImage()
-        {
-            return defaultImage;
-        }
-
-        private static Image CreateDefaultImage()
-        {
-            return CreateDefaultImage(50, 50);
         }
 
         private static Image CreateDefaultImage(int width, int height)
@@ -103,48 +89,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
 
         public static void SetImageBasePath(string path)
         {
-            if (!string.IsNullOrEmpty(path) && Directory.Exists(path))
-            {
-                imageBasePath = path;
-            }
-            else
-            {
-                imageBasePath = Path.Combine(Application.StartupPath, "ImageInventory");
-
-                if (!Directory.Exists(imageBasePath))
-                {
-                    try
-                    {
-                        Directory.CreateDirectory(imageBasePath);
-                    }
-                    catch (Exception)
-                    {
-                        // Directory creation failed, continue with default path
-                    }
-                }
-            }
+            // The image base path is no longer used when loading from embedded resources
         }
 
         public static string GetImageBasePath()
         {
-            return imageBasePath;
+            return string.Empty;
         }
 
         public static bool ImageExists(string imageFileName)
         {
-            if (string.IsNullOrEmpty(imageFileName))
-                return false;
-
-            string fullPath = Path.Combine(imageBasePath, imageFileName);
-            return File.Exists(fullPath);
+            return Resources.ResourceManager.GetObject(imageFileName) != null
+                   || Resources.ResourceManager.GetObject(Path.GetFileNameWithoutExtension(imageFileName)) != null;
         }
 
         public static string GetFullImagePath(string imageFileName)
         {
-            if (string.IsNullOrEmpty(imageFileName))
-                return string.Empty;
-
-            return Path.Combine(imageBasePath, imageFileName);
+            return imageFileName;
         }
     }
 }

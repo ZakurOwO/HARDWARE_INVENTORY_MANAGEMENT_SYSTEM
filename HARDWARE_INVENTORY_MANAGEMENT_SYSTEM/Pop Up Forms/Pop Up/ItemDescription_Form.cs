@@ -94,6 +94,36 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             LoadProductHistory(currentProductId, sku, productName);
         }
 
+        public void DisplayProductDetails(InventoryProductDetails details, List<DateTime> timelineDates)
+        {
+            if (details == null)
+            {
+                return;
+            }
+
+            string statusText = details.Active ? "Available" : "Inactive";
+            int minimumStock = details.ReorderPoint;
+
+            PopulateProductData(
+                productId: details.ProductId,
+                productName: details.ProductName,
+                sku: details.SKU,
+                category: details.CategoryName,
+                currentStock: details.CurrentStock,
+                sellingPrice: details.SellingPrice,
+                status: statusText,
+                brand: string.IsNullOrWhiteSpace(details.Description) ? "N/A" : details.Description,
+                minimumStock: minimumStock,
+                costPrice: details.SellingPrice,
+                unit: string.IsNullOrWhiteSpace(details.UnitName) ? "Unit" : details.UnitName,
+                description: string.IsNullOrWhiteSpace(details.Description) ? "No description provided" : details.Description,
+                imagePath: details.ImagePath
+            );
+
+            UpdateStatusTimeline(timelineDates);
+            LoadProductHistory(details.ProductId, details.SKU, details.ProductName);
+        }
+
         // Overloaded method for simpler usage (if some dates are not available)
         public void PopulateProductData(string productName, string sku, string category, int currentStock,
                                       decimal sellingPrice, string status, string brand, int minimumStock,
@@ -200,6 +230,47 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             catch (Exception ex)
             {
                 Console.WriteLine($"Failed to load product history: {ex.Message}");
+            }
+        }
+
+        private void UpdateStatusTimeline(List<DateTime> timelineDates)
+        {
+            var ordered = timelineDates != null && timelineDates.Count > 0 ? timelineDates[0] : (DateTime?)null;
+            var transit = timelineDates != null && timelineDates.Count > 1 ? timelineDates[1] : (DateTime?)null;
+            var received = timelineDates != null && timelineDates.Count > 2 ? timelineDates[2] : (DateTime?)null;
+            var available = timelineDates != null && timelineDates.Count > 3 ? timelineDates[3] : (DateTime?)null;
+
+            SetTimelineLabel(OrderedDesc, ordered, "Ordered");
+            SetTimelineLabel(transitDesc, transit, "In Transit");
+            SetTimelineLabel(receivedinstoreDesc, received, "Received in Store");
+            SetTimelineLabel(availableforsaleDesc, available, "Available for Sale");
+
+            bool hasOrdered = ordered.HasValue;
+            bool hasTransit = transit.HasValue;
+            bool hasReceived = received.HasValue;
+            bool hasAvailable = available.HasValue;
+
+            guna2CircleButton1.Visible = hasOrdered;
+            guna2CircleButton2.Visible = hasTransit;
+            guna2CircleButton3.Visible = hasReceived;
+            guna2CircleButton4.Visible = hasAvailable;
+
+            panel2.Visible = hasTransit;
+            panel3.Visible = hasReceived;
+            panel4.Visible = hasAvailable;
+        }
+
+        private void SetTimelineLabel(Label label, DateTime? dateValue, string prefix)
+        {
+            if (dateValue.HasValue)
+            {
+                label.Text = $"{prefix}: {dateValue:MMM dd, yyyy HH:mm}";
+                label.Visible = true;
+            }
+            else
+            {
+                label.Text = $"{prefix}: -";
+                label.Visible = false;
             }
         }
 
