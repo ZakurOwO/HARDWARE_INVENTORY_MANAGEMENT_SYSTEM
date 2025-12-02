@@ -39,6 +39,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         {
             dgvCartDetails.Columns.Clear();
 
+            DataGridViewTextBoxColumn productIdColumn = new DataGridViewTextBoxColumn();
+            productIdColumn.Name = "ProductInternalID";
+            productIdColumn.HeaderText = "Product ID";
+            productIdColumn.DataPropertyName = "ProductInternalID";
+            productIdColumn.Visible = false;
+            dgvCartDetails.Columns.Add(productIdColumn);
+
             DataGridViewTextBoxColumn itemNameColumn = new DataGridViewTextBoxColumn();
             itemNameColumn.Name = "ItemName";
             itemNameColumn.HeaderText = "ITEM";
@@ -346,18 +353,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 {
                     dgvCartDetails.Rows[rowIndex].Cells[columnIndex].Value = qtyUpDown.Value;
 
-                    string productName = dgvCartDetails.Rows[rowIndex].Cells["ItemName"].Value?.ToString();
-                    int newQuantity = Convert.ToInt32(qtyUpDown.Value);
+                      int productId = GetProductIdFromRow(rowIndex);
+                      int newQuantity = Convert.ToInt32(qtyUpDown.Value);
 
-                    if (!string.IsNullOrEmpty(productName))
-                    {
-                        SharedCartManager.Instance.UpdateItemQuantity(productName, newQuantity);
-                    }
+                      if (productId > 0)
+                      {
+                          SharedCartManager.Instance.UpdateItemQuantity(productId, newQuantity);
+                      }
 
-                    UpdateCartTotals();
-                }
-            }
-        }
+                      UpdateCartTotals();
+                  }
+              }
+          }
 
         private void dgvCartDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -366,10 +373,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
                     "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    string productName = dgvCartDetails.Rows[e.RowIndex].Cells["ItemName"].Value?.ToString();
-                    if (!string.IsNullOrEmpty(productName))
+                    int productId = GetProductIdFromRow(e.RowIndex);
+                    if (productId > 0)
                     {
-                        SharedCartManager.Instance.RemoveItemFromCart(productName);
+                        SharedCartManager.Instance.RemoveItemFromCart(productId);
                     }
                     dgvCartDetails.Rows.RemoveAt(e.RowIndex);
                     UpdateCartTotals();
@@ -421,12 +428,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return baseFee;
         }
 
-        public void AddProductToCartById(int productInternalId, int quantity = 1)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
+          public void AddProductToCartById(int productInternalId, int quantity = 1)
+          {
+              try
+              {
+                  using (SqlConnection connection = new SqlConnection(connectionString))
+                  {
                     string query = @"
                         SELECT product_name, SellingPrice, current_stock
                         FROM Products 
@@ -441,16 +448,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
                     if (reader.Read())
                     {
-                        string productName = reader.GetString(0);
-                        decimal sellingPrice = reader.GetDecimal(1);
-                        int currentStock = reader.GetInt32(2);
+                          string productName = reader.GetString(0);
+                          decimal sellingPrice = reader.GetDecimal(1);
+                          int currentStock = reader.GetInt32(2);
 
-                        if (quantity <= currentStock)
-                        {
-                            AddItemToCart(productName, sellingPrice, quantity);
-                        }
-                        else
-                        {
+                          if (quantity <= currentStock)
+                          {
+                              AddItemToCart(productInternalId, productName, sellingPrice, quantity);
+                          }
+                          else
+                          {
                             MessageBox.Show($"Insufficient stock for {productName}. Available: {currentStock}",
                                 "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
@@ -470,17 +477,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        public void AddItemToCart(string itemName, decimal price, int quantity = 1)
-        {
-            SharedCartManager.Instance.AddItemToCart(new CartItem
-            {
-                ProductName = itemName,
-                Price = price,
-                Quantity = quantity
-            });
+          public void AddItemToCart(int productInternalId, string itemName, decimal price, int quantity = 1)
+          {
+              if (productInternalId <= 0)
+              {
+                  MessageBox.Show("Invalid product selected.", "Product Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                  return;
+              }
 
-            LoadSharedCartItems();
-        }
+              if (quantity <= 0)
+              {
+                  MessageBox.Show("Quantity must be at least 1.", "Quantity Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                  return;
+              }
+
+              SharedCartManager.Instance.AddItemToCart(new CartItem
+              {
+                  ProductInternalID = productInternalId,
+                  ProductName = itemName,
+                  Price = price,
+                  Quantity = quantity
+              });
+
+              LoadSharedCartItems();
+          }
 
         public void ClearCart()
         {
@@ -489,17 +509,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             UpdateCartTotals();
         }
 
-        private void LoadSharedCartItems()
-        {
-            dgvCartDetails.Rows.Clear();
-            var sharedItems = SharedCartManager.Instance.GetCartItems();
+          private void LoadSharedCartItems()
+          {
+              dgvCartDetails.Rows.Clear();
+              var sharedItems = SharedCartManager.Instance.GetCartItems();
 
-            foreach (var item in sharedItems)
-            {
-                dgvCartDetails.Rows.Add(item.ProductName, item.Quantity, $"₱{item.Price:N2}");
-            }
-            UpdateCartTotals();
-        }
+              foreach (var item in sharedItems)
+              {
+                  dgvCartDetails.Rows.Add(item.ProductInternalID, item.ProductName, item.Quantity, $"₱{item.Price:N2}");
+              }
+              UpdateCartTotals();
+          }
 
         private void btnBlue_Click(object sender, EventArgs e)
         {
@@ -659,24 +679,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     {
                         if (row.IsNewRow) continue;
 
-                        string productName = row.Cells["ItemName"].Value?.ToString();
+                        int productId = GetProductIdFromRow(row.Index);
                         int cartQuantity = Convert.ToInt32(row.Cells["Quantity"].Value);
 
-                        if (string.IsNullOrEmpty(productName))
+                        if (productId <= 0)
                         {
-                            MessageBox.Show("Invalid product name in cart.",
+                            MessageBox.Show("Invalid product in cart.",
                                 "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return false;
                         }
 
-                        string query = "SELECT current_stock FROM Products WHERE product_name = @ProductName AND active = 1";
+                        string query = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId AND active = 1";
                         SqlCommand command = new SqlCommand(query, connection);
-                        command.Parameters.AddWithValue("@ProductName", productName);
+                        command.Parameters.AddWithValue("@ProductId", productId);
 
                         var result = command.ExecuteScalar();
                         if (result == null)
                         {
-                            MessageBox.Show($"Product '{productName}' not found in database.",
+                            MessageBox.Show("Product not found in database.",
                                 "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return false;
                         }
@@ -684,7 +704,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         int availableStock = Convert.ToInt32(result);
                         if (cartQuantity > availableStock)
                         {
-                            MessageBox.Show($"Insufficient stock for '{productName}'. Available: {availableStock}, Requested: {cartQuantity}",
+                            MessageBox.Show($"Insufficient stock. Available: {availableStock}, Requested: {cartQuantity}",
                                 "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return false;
                         }
@@ -762,64 +782,38 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         {
                             if (row.IsNewRow) continue;
 
-                            string productName = row.Cells["ItemName"].Value.ToString();
-                            int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
-                            decimal price = decimal.Parse(row.Cells["Price"].Value.ToString().Replace("₱", "").Trim());
+                              int productId = GetProductIdFromRow(row.Index);
+                              int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
+                              decimal price = ParsePrice(row.Cells["Price"].Value);
 
-                            string getProductQuery = "SELECT ProductInternalID, current_stock FROM Products WHERE product_name = @ProductName";
-                            SqlCommand productCmd = new SqlCommand(getProductQuery, connection, transaction);
-                            productCmd.Parameters.AddWithValue("@ProductName", productName);
-                            using (var reader = productCmd.ExecuteReader())
-                            {
-                                if (!reader.Read())
-                                {
-                                    throw new InvalidOperationException($"Product '{productName}' could not be found.");
-                                }
+                              if (productId <= 0)
+                              {
+                                  throw new InvalidOperationException("Invalid product selected for transaction item.");
+                              }
 
-                                int productId = reader.GetInt32(0);
-                                int oldStock = reader.GetInt32(1);
-                                reader.Close();
+                              int oldStock = GetCurrentStock(connection, transaction, productId);
 
-                                int transactionItemId = InsertTransactionItem(connection, transaction, transactionId, productId, quantity, price);
-                                int deliveryItemId = InsertDeliveryItem(connection, transaction, deliveryId, productId, quantity, price);
+                              int transactionItemId = InsertTransactionItem(connection, transaction, transactionId, productId, quantity, price);
+                              int deliveryItemId = InsertDeliveryItem(connection, transaction, deliveryId, productId, quantity, price);
 
-                                LogAuditEntry(connection, transaction,
-                                    $"Added delivery item to transaction TRX-{transactionId:D5}",
-                                    AuditActivityType.CREATE,
-                                    "TransactionItems",
-                                    transactionItemId.ToString(),
-                                    null,
-                                    $"{{\"transaction_id\":{transactionId},\"product_id\":{productId},\"quantity\":{quantity},\"selling_price\":{price}}}");
+                              LogAuditEntry(connection, transaction,
+                                  $"Added delivery item to transaction TRX-{transactionId:D5}",
+                                  AuditActivityType.CREATE,
+                                  "TransactionItems",
+                                  transactionItemId.ToString(),
+                                  null,
+                                  $"{{\"transaction_id\":{transactionId},\"product_id\":{productId},\"quantity\":{quantity},\"selling_price\":{price}}}");
 
-                                LogAuditEntry(connection, transaction,
-                                    $"Created delivery line item for delivery {deliveryId}",
-                                    AuditActivityType.CREATE,
-                                    "DeliveryItems",
-                                    deliveryItemId.ToString(),
-                                    null,
-                                    $"{{\"delivery_id\":{deliveryId},\"product_id\":{productId},\"quantity_received\":{quantity},\"unit_cost\":{price}}}");
+                              LogAuditEntry(connection, transaction,
+                                  $"Created delivery line item for delivery {deliveryId}",
+                                  AuditActivityType.CREATE,
+                                  "DeliveryItems",
+                                  deliveryItemId.ToString(),
+                                  null,
+                                  $"{{\"delivery_id\":{deliveryId},\"product_id\":{productId},\"quantity_received\":{quantity},\"unit_cost\":{price}}}");
 
-                                // Update stock
-                                string updateStockQuery = @"
-                        UPDATE Products
-                        SET current_stock = current_stock - @Quantity
-                        WHERE ProductInternalID = @ProductId";
-
-                                SqlCommand stockCmd = new SqlCommand(updateStockQuery, connection, transaction);
-                                stockCmd.Parameters.AddWithValue("@Quantity", quantity);
-                                stockCmd.Parameters.AddWithValue("@ProductId", productId);
-                                stockCmd.ExecuteNonQuery();
-
-                                int newStock = oldStock - quantity;
-                                LogAuditEntry(connection, transaction,
-                                    $"Updated stock for product ID {productId}",
-                                    AuditActivityType.UPDATE,
-                                    "Products",
-                                    productId.ToString(),
-                                    $"{{\"current_stock\":{oldStock}}}",
-                                    $"{{\"current_stock\":{newStock}}}");
-                            }
-                        }
+                              UpdateProductStock(connection, transaction, productId, quantity, oldStock);
+                          }
 
                         InsertVehicleAssignments(connection, transaction, deliveryId);
 
@@ -987,9 +981,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 $"{{\"delivery_id\":{deliveryId}}}");
         }
 
-        private int GetOrCreateCustomer(SqlConnection connection, SqlTransaction transaction, string customerName)
-        {
-            string checkCustomerQuery = "SELECT customer_id FROM Customers WHERE customer_name = @CustomerName";
+          private int GetOrCreateCustomer(SqlConnection connection, SqlTransaction transaction, string customerName)
+          {
+              string checkCustomerQuery = "SELECT customer_id FROM Customers WHERE customer_name = @CustomerName";
             SqlCommand checkCmd = new SqlCommand(checkCustomerQuery, connection, transaction);
             checkCmd.Parameters.AddWithValue("@CustomerName", customerName);
 
@@ -1005,10 +999,77 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 SELECT CAST(SCOPE_IDENTITY() as int);";
 
             SqlCommand insertCmd = new SqlCommand(insertCustomerQuery, connection, transaction);
-            insertCmd.Parameters.AddWithValue("@CustomerName", customerName);
+              insertCmd.Parameters.AddWithValue("@CustomerName", customerName);
 
-            return (int)insertCmd.ExecuteScalar();
-        }
+              return (int)insertCmd.ExecuteScalar();
+          }
+
+          private int GetProductIdFromRow(int rowIndex)
+          {
+              if (rowIndex < 0 || rowIndex >= dgvCartDetails.Rows.Count)
+              {
+                  return 0;
+              }
+
+              var value = dgvCartDetails.Rows[rowIndex].Cells["ProductInternalID"].Value;
+              if (value == null)
+              {
+                  return 0;
+              }
+
+              return int.TryParse(value.ToString(), out int productId) ? productId : 0;
+          }
+
+          private decimal ParsePrice(object priceValue)
+          {
+              if (priceValue == null)
+              {
+                  return 0m;
+              }
+
+              string priceText = priceValue.ToString().Replace("₱", string.Empty).Trim();
+              return decimal.TryParse(priceText, out decimal price) ? price : 0m;
+          }
+
+          private int GetCurrentStock(SqlConnection connection, SqlTransaction transaction, int productId)
+          {
+              string stockQuery = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId";
+              using (SqlCommand command = new SqlCommand(stockQuery, connection, transaction))
+              {
+                  command.Parameters.AddWithValue("@ProductId", productId);
+                  object result = command.ExecuteScalar();
+                  if (result == null)
+                  {
+                      throw new InvalidOperationException("Unable to resolve current stock for product.");
+                  }
+
+                  return Convert.ToInt32(result);
+              }
+          }
+
+          private void UpdateProductStock(SqlConnection connection, SqlTransaction transaction, int productId, int quantity, int oldStock)
+          {
+              string updateStockQuery = @"
+                          UPDATE Products
+                          SET current_stock = current_stock - @Quantity
+                          WHERE ProductInternalID = @ProductId";
+
+              using (SqlCommand stockCmd = new SqlCommand(updateStockQuery, connection, transaction))
+              {
+                  stockCmd.Parameters.AddWithValue("@Quantity", quantity);
+                  stockCmd.Parameters.AddWithValue("@ProductId", productId);
+                  stockCmd.ExecuteNonQuery();
+              }
+
+              int newStock = oldStock - quantity;
+              LogAuditEntry(connection, transaction,
+                  $"Updated stock for product ID {productId}",
+                  AuditActivityType.UPDATE,
+                  "Products",
+                  productId.ToString(),
+                  $"{{\"current_stock\":{oldStock}}}",
+                  $"{{\"current_stock\":{newStock}}}");
+          }
 
         private void ClearVehicleSelection()
         {
