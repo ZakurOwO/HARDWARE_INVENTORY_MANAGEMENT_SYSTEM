@@ -1,4 +1,5 @@
 using System;
+using System.Data.SqlClient;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
@@ -115,6 +116,44 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
             }
         }
 
+        public static void LogWithTransaction(
+            SqlConnection connection,
+            SqlTransaction transaction,
+            string module,
+            string activity,
+            AuditActivityType activityType,
+            string tableAffected = null,
+            string recordId = null,
+            string oldValues = null,
+            string newValues = null)
+        {
+            try
+            {
+                if (!TryResolveUserContext(null, null, recordId, out int userId, out string username, out string resolvedRecordId))
+                {
+                    Console.WriteLine("WARNING - Unable to resolve user context for detailed audit entry");
+                    return;
+                }
+
+                WriteAuditEntryWithTransaction(
+                    connection,
+                    transaction,
+                    userId,
+                    username,
+                    module,
+                    activity,
+                    activityType,
+                    tableAffected,
+                    resolvedRecordId,
+                    oldValues,
+                    newValues);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR in AuditHelper.LogWithTransaction: {ex.Message}");
+            }
+        }
+
         private static void WriteAuditEntry(
             int userId,
             string username,
@@ -141,6 +180,41 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
             );
 
             Console.WriteLine($"DEBUG AuditHelper.WriteAuditEntry - Audit saved: {success}");
+        }
+
+        private static void WriteAuditEntryWithTransaction(
+            SqlConnection connection,
+            SqlTransaction transaction,
+            int userId,
+            string username,
+            string module,
+            string activity,
+            AuditActivityType activityType,
+            string tableAffected,
+            string recordId,
+            string oldValues = null,
+            string newValues = null)
+        {
+            if (connection == null)
+            {
+                Console.WriteLine("WARNING - Cannot log audit entry without a database connection");
+                return;
+            }
+
+            bool success = auditLogManager.LogActivityWithTransaction(
+                connection,
+                transaction,
+                userId,
+                username,
+                module,
+                activity,
+                activityType,
+                tableAffected,
+                recordId,
+                oldValues,
+                newValues);
+
+            Console.WriteLine($"DEBUG AuditHelper.WriteAuditEntryWithTransaction - Audit saved: {success}");
         }
 
         private static bool TryResolveUserContext(
