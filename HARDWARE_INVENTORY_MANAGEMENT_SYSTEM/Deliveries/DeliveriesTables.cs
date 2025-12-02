@@ -42,18 +42,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = @"
-                        SELECT 
+                        SELECT
+                            d.delivery_id,
                             d.DeliveryID,
-                            t.TransactionID,
                             d.delivery_number,
                             d.delivery_date,
                             d.status,
-                            d.customer_name,
+                            d.delivery_type,
+                            COALESCE(t.TransactionID, po.POID, '') AS ReferenceId,
+                            COALESCE(c.customer_name, d.customer_name, s.supplier_name, 'N/A') AS PartyName,
                             d.created_at,
                             d.updated_at
                         FROM Deliveries d
                         LEFT JOIN Transactions t ON d.transaction_id = t.transaction_id
-                        WHERE d.delivery_type = 'Sales_Delivery'
+                        LEFT JOIN Customers c ON t.customer_id = c.customer_id
+                        LEFT JOIN PurchaseOrders po ON d.po_id = po.po_id
+                        LEFT JOIN Suppliers s ON po.supplier_id = s.supplier_id
                         ORDER BY d.delivery_date DESC";
 
                     SqlCommand command = new SqlCommand(query, connection);
@@ -64,38 +68,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
                     while (reader.Read())
                     {
+                        int deliveryInternalId = reader["delivery_id"] == DBNull.Value ? 0 : Convert.ToInt32(reader["delivery_id"]);
                         string deliveryID = reader["DeliveryID"]?.ToString() ?? string.Empty;
-                        string transactionID = reader["TransactionID"]?.ToString() ?? string.Empty;
+                        string referenceId = reader["ReferenceId"]?.ToString() ?? string.Empty;
                         string deliveryNumber = reader["delivery_number"]?.ToString() ?? string.Empty;
-                        string deliveryDate = reader["delivery_date"]?.ToString() ?? string.Empty;
+                        string deliveryDate = FormatDate(reader["delivery_date"]);
                         string status = reader["status"]?.ToString() ?? string.Empty;
-                        string customerName = reader["customer_name"]?.ToString() ?? string.Empty;
-                        string createdAt = reader["created_at"]?.ToString() ?? string.Empty;
-                        string updatedAt = reader["updated_at"]?.ToString() ?? string.Empty;
-
-                        // Format dates
-                        if (DateTime.TryParse(deliveryDate, out DateTime deliveryDateValue))
-                        {
-                            deliveryDate = deliveryDateValue.ToString("MM/dd/yyyy");
-                        }
-
-                        if (DateTime.TryParse(createdAt, out DateTime createdAtValue))
-                        {
-                            createdAt = createdAtValue.ToString("MM/dd/yyyy");
-                        }
-
-                        if (DateTime.TryParse(updatedAt, out DateTime updatedAtValue))
-                        {
-                            updatedAt = updatedAtValue.ToString("MM/dd/yyyy");
-                        }
+                        string partyName = reader["PartyName"]?.ToString() ?? string.Empty;
+                        string createdAt = FormatDate(reader["created_at"]);
+                        string updatedAt = FormatDate(reader["updated_at"]);
 
                         dgvDeliveries.Rows.Add(
+                            deliveryInternalId,
                             deliveryID,
-                            transactionID,
+                            referenceId,
                             deliveryNumber,
                             deliveryDate,
                             status,
-                            customerName,
+                            partyName,
                             createdAt,
                             updatedAt
                         );
@@ -137,22 +127,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string query = @"
-                        SELECT 
+                        SELECT
+                            d.delivery_id,
                             d.DeliveryID,
-                            t.TransactionID,
                             d.delivery_number,
                             d.delivery_date,
                             d.status,
-                            d.customer_name,
+                            d.delivery_type,
+                            COALESCE(t.TransactionID, po.POID, '') AS ReferenceId,
+                            COALESCE(c.customer_name, d.customer_name, s.supplier_name, 'N/A') AS PartyName,
                             d.created_at,
                             d.updated_at
                         FROM Deliveries d
                         LEFT JOIN Transactions t ON d.transaction_id = t.transaction_id
-                        WHERE d.delivery_type = 'Sales_Delivery'
-                        AND (CAST(d.DeliveryID AS NVARCHAR(50)) LIKE @SearchText 
-                             OR d.delivery_number LIKE @SearchText 
+                        LEFT JOIN Customers c ON t.customer_id = c.customer_id
+                        LEFT JOIN PurchaseOrders po ON d.po_id = po.po_id
+                        LEFT JOIN Suppliers s ON po.supplier_id = s.supplier_id
+                        WHERE (CAST(d.DeliveryID AS NVARCHAR(50)) LIKE @SearchText
+                             OR d.delivery_number LIKE @SearchText
                              OR d.customer_name LIKE @SearchText
-                             OR CAST(t.TransactionID AS NVARCHAR(50)) LIKE @SearchText)
+                             OR s.supplier_name LIKE @SearchText
+                             OR CAST(t.TransactionID AS NVARCHAR(50)) LIKE @SearchText
+                             OR CAST(po.POID AS NVARCHAR(50)) LIKE @SearchText)
                         ORDER BY d.delivery_date DESC";
 
                     SqlCommand command = new SqlCommand(query, connection);
@@ -165,38 +161,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
                     while (reader.Read())
                     {
+                        int deliveryInternalId = reader["delivery_id"] == DBNull.Value ? 0 : Convert.ToInt32(reader["delivery_id"]);
                         string deliveryID = reader["DeliveryID"]?.ToString() ?? string.Empty;
-                        string transactionID = reader["TransactionID"]?.ToString() ?? string.Empty;
+                        string referenceId = reader["ReferenceId"]?.ToString() ?? string.Empty;
                         string deliveryNumber = reader["delivery_number"]?.ToString() ?? string.Empty;
-                        string deliveryDate = reader["delivery_date"]?.ToString() ?? string.Empty;
+                        string deliveryDate = FormatDate(reader["delivery_date"]);
                         string status = reader["status"]?.ToString() ?? string.Empty;
-                        string customerName = reader["customer_name"]?.ToString() ?? string.Empty;
-                        string createdAt = reader["created_at"]?.ToString() ?? string.Empty;
-                        string updatedAt = reader["updated_at"]?.ToString() ?? string.Empty;
-
-                        // Format dates
-                        if (DateTime.TryParse(deliveryDate, out DateTime deliveryDateValue))
-                        {
-                            deliveryDate = deliveryDateValue.ToString("MM/dd/yyyy");
-                        }
-
-                        if (DateTime.TryParse(createdAt, out DateTime createdAtValue))
-                        {
-                            createdAt = createdAtValue.ToString("MM/dd/yyyy");
-                        }
-
-                        if (DateTime.TryParse(updatedAt, out DateTime updatedAtValue))
-                        {
-                            updatedAt = updatedAtValue.ToString("MM/dd/yyyy");
-                        }
+                        string partyName = reader["PartyName"]?.ToString() ?? string.Empty;
+                        string createdAt = FormatDate(reader["created_at"]);
+                        string updatedAt = FormatDate(reader["updated_at"]);
 
                         dgvDeliveries.Rows.Add(
+                            deliveryInternalId,
                             deliveryID,
-                            transactionID,
+                            referenceId,
                             deliveryNumber,
                             deliveryDate,
                             status,
-                            customerName,
+                            partyName,
                             createdAt,
                             updatedAt
                         );
@@ -288,7 +270,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             var row = dgvDeliveries.CurrentRow;
             if (row == null) return;
 
-            if (!int.TryParse(row.Cells["DeliveryID"].Value?.ToString(), out int deliveryId))
+            if (!int.TryParse(row.Cells["DeliveryInternalId"].Value?.ToString(), out int deliveryId) || deliveryId <= 0)
                 return;
 
             string deliveryNumber = row.Cells["Delivery_Number"].Value?.ToString() ?? string.Empty;
@@ -324,7 +306,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                             UPDATE Deliveries
                             SET status = @Status,
                                 updated_at = GETDATE()
-                            WHERE DeliveryID = @DeliveryId";
+                            WHERE delivery_id = @DeliveryId";
 
                         using (SqlCommand cmd = new SqlCommand(updateQuery, connection, transaction))
                         {
@@ -333,17 +315,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                             cmd.ExecuteNonQuery();
                         }
 
-                        string oldValues = $"{{\"status\":\"{oldStatus}\"}}";
-                        string newValues = $"{{\"status\":\"{newStatus}\"}}";
+                        string deliveryDisplayId = GetDeliveryDisplayId(connection, transaction, deliveryId);
+                        string oldValues = $"status={oldStatus}";
+                        string newValues = $"status={newStatus}";
 
                         AuditHelper.LogWithTransaction(
                             connection,
                             transaction,
-                            AuditModule.SALES,   // reuse SALES module for deliveries
-                            $"Updated status for delivery {deliveryNumber} to {newStatus}",
+                            AuditModule.DELIVERIES,
+                            $"Updated status for delivery {deliveryDisplayId} to {newStatus}",
                             AuditActivityType.UPDATE,
                             "Deliveries",
-                            deliveryId.ToString(),
+                            deliveryDisplayId,
                             oldValues,
                             newValues);
 
@@ -372,7 +355,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             var row = dgvDeliveries.CurrentRow;
             if (row == null) return;
 
-            if (!int.TryParse(row.Cells["DeliveryID"].Value?.ToString(), out int deliveryId))
+            if (!int.TryParse(row.Cells["DeliveryInternalId"].Value?.ToString(), out int deliveryId) || deliveryId <= 0)
                 return;
 
             string deliveryNumber = row.Cells["Delivery_Number"].Value?.ToString() ?? string.Empty;
@@ -403,12 +386,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     {
                         // Grab some info for the audit log
                         string selectQuery = @"
-                            SELECT status, customer_name
+                            SELECT DeliveryID, status, customer_name
                             FROM Deliveries
-                            WHERE DeliveryID = @DeliveryId";
+                            WHERE delivery_id = @DeliveryId";
 
                         string status = null;
                         string customerName = null;
+                        string deliveryDisplayId = null;
 
                         using (SqlCommand selectCmd = new SqlCommand(selectQuery, connection, transaction))
                         {
@@ -417,15 +401,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                             {
                                 if (reader.Read())
                                 {
+                                    deliveryDisplayId = reader["DeliveryID"]?.ToString();
                                     status = reader["status"]?.ToString();
                                     customerName = reader["customer_name"]?.ToString();
                                 }
                             }
                         }
 
-                        string oldValuesJson = $"{{\"status\":\"{status}\",\"customer_name\":\"{customerName}\"}}";
+                        string oldValuesJson = $"status={status};customer_name={customerName}";
 
-                        // Delete related data first (for FK constraints)
+                        string deleteBatches = "DELETE FROM ProductBatches WHERE delivery_id = @DeliveryId";
+                        using (SqlCommand cmd = new SqlCommand(deleteBatches, connection, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@DeliveryId", deliveryId);
+                            cmd.ExecuteNonQuery();
+                        }
+
                         string deleteAssignments = "DELETE FROM VehicleAssignments WHERE delivery_id = @DeliveryId";
                         using (SqlCommand cmd = new SqlCommand(deleteAssignments, connection, transaction))
                         {
@@ -440,7 +431,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                             cmd.ExecuteNonQuery();
                         }
 
-                        string deleteDelivery = "DELETE FROM Deliveries WHERE DeliveryID = @DeliveryId";
+                        string deleteDelivery = "DELETE FROM Deliveries WHERE delivery_id = @DeliveryId";
                         using (SqlCommand cmd = new SqlCommand(deleteDelivery, connection, transaction))
                         {
                             cmd.Parameters.AddWithValue("@DeliveryId", deliveryId);
@@ -450,11 +441,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                         AuditHelper.LogWithTransaction(
                             connection,
                             transaction,
-                            AuditModule.SALES,
-                            $"Deleted delivery {deliveryNumber}",
-                            AuditActivityType.UPDATE,   // you can switch to DELETE if you have that enum value
+                            AuditModule.DELIVERIES,
+                            $"Deleted delivery {deliveryDisplayId ?? deliveryNumber}",
+                            AuditActivityType.UPDATE,
                             "Deliveries",
-                            deliveryId.ToString(),
+                            deliveryDisplayId ?? deliveryId.ToString(),
                             oldValuesJson,
                             null);
 
@@ -476,6 +467,32 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             {
                 MessageBox.Show($"Error deleting delivery: {ex.Message}", "Database Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private static string FormatDate(object dateValue)
+        {
+            if (dateValue == null || dateValue == DBNull.Value)
+            {
+                return string.Empty;
+            }
+
+            if (DateTime.TryParse(dateValue.ToString(), out DateTime parsed))
+            {
+                return parsed.ToString("MM/dd/yyyy");
+            }
+
+            return string.Empty;
+        }
+
+        private string GetDeliveryDisplayId(SqlConnection connection, SqlTransaction transaction, int deliveryId)
+        {
+            string query = "SELECT DeliveryID FROM Deliveries WHERE delivery_id = @DeliveryId";
+            using (SqlCommand cmd = new SqlCommand(query, connection, transaction))
+            {
+                cmd.Parameters.AddWithValue("@DeliveryId", deliveryId);
+                object result = cmd.ExecuteScalar();
+                return result?.ToString() ?? deliveryId.ToString();
             }
         }
     }

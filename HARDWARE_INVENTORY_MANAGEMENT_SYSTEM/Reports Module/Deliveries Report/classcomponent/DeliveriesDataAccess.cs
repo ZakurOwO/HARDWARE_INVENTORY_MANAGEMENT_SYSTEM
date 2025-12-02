@@ -22,10 +22,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT 
+                    SELECT
                         d.DeliveryID,
                         CONVERT(VARCHAR, d.delivery_date, 101) AS DeliveryDate,
-                        COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') AS Customer,
+                        CASE WHEN d.delivery_type = 'PO_Delivery' THEN COALESCE(s.supplier_name, 'Purchase Order Delivery')
+                             ELSE COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') END AS Customer,
                         COALESCE(v.plate_number, 'Not Assigned') AS VehicleUsed,
                         (SELECT COUNT(*) FROM DeliveryItems di WHERE di.delivery_id = d.delivery_id) AS QuantityItems,
                         d.status AS Status
@@ -34,7 +35,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
                     LEFT JOIN Vehicles v ON va.vehicle_id = v.vehicle_id
                     LEFT JOIN Transactions t ON d.transaction_id = t.transaction_id
                     LEFT JOIN Customers c ON t.customer_id = c.customer_id
-                    WHERE d.delivery_type = 'Sales_Delivery'
+                    LEFT JOIN PurchaseOrders po ON d.po_id = po.po_id
+                    LEFT JOIN Suppliers s ON po.supplier_id = s.supplier_id
                     ORDER BY d.delivery_date DESC";
 
                 try
@@ -63,11 +65,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT 
+                    SELECT
                         d.DeliveryID,
                         d.delivery_number AS DeliveryNumber,
                         d.delivery_date AS DeliveryDate,
-                        COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') AS CustomerName,
+                        CASE WHEN d.delivery_type = 'PO_Delivery' THEN COALESCE(s.supplier_name, 'Purchase Order Delivery')
+                             ELSE COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') END AS CustomerName,
                         d.delivery_address AS DeliveryAddress,
                         d.contact_number AS ContactNumber,
                         COALESCE(v.plate_number, 'Not Assigned') AS VehicleUsed,
@@ -79,7 +82,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
                     LEFT JOIN Vehicles v ON va.vehicle_id = v.vehicle_id
                     LEFT JOIN Transactions t ON d.transaction_id = t.transaction_id
                     LEFT JOIN Customers c ON t.customer_id = c.customer_id
-                    WHERE d.delivery_type = 'Sales_Delivery'
+                    LEFT JOIN PurchaseOrders po ON d.po_id = po.po_id
+                    LEFT JOIN Suppliers s ON po.supplier_id = s.supplier_id
                     ORDER BY d.delivery_date DESC";
 
                 try
@@ -107,7 +111,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             int total = 0;
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT COUNT(*) FROM Deliveries WHERE delivery_type = 'Sales_Delivery'";
+                string query = "SELECT COUNT(*) FROM Deliveries";
 
                 try
                 {
@@ -132,10 +136,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT COUNT(*) 
-                    FROM Deliveries 
-                    WHERE delivery_type = 'Sales_Delivery' 
-                    AND status IN ('Scheduled', 'In Transit', 'Pending')";
+                    SELECT COUNT(*)
+                    FROM Deliveries
+                    WHERE status IN ('Scheduled', 'In Transit', 'Pending')";
 
                 try
                 {
@@ -250,10 +253,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT 
+                    SELECT
                         d.DeliveryID,
                         CONVERT(VARCHAR, d.delivery_date, 101) AS DeliveryDate,
-                        COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') AS Customer,
+                        CASE WHEN d.delivery_type = 'PO_Delivery' THEN COALESCE(s.supplier_name, 'Purchase Order Delivery')
+                             ELSE COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') END AS Customer,
                         COALESCE(v.plate_number, 'Not Assigned') AS VehicleUsed,
                         (SELECT COUNT(*) FROM DeliveryItems di WHERE di.delivery_id = d.delivery_id) AS QuantityItems,
                         d.status AS Status
@@ -262,8 +266,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
                     LEFT JOIN Vehicles v ON va.vehicle_id = v.vehicle_id
                     LEFT JOIN Transactions t ON d.transaction_id = t.transaction_id
                     LEFT JOIN Customers c ON t.customer_id = c.customer_id
-                    WHERE d.delivery_type = 'Sales_Delivery'
-                    AND d.delivery_date >= @StartDate 
+                    LEFT JOIN PurchaseOrders po ON d.po_id = po.po_id
+                    LEFT JOIN Suppliers s ON po.supplier_id = s.supplier_id
+                    WHERE d.delivery_date >= @StartDate
                     AND d.delivery_date <= @EndDate
                     ORDER BY d.delivery_date DESC";
 
@@ -297,10 +302,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
-                    SELECT 
+                    SELECT
                         d.DeliveryID,
                         CONVERT(VARCHAR, d.delivery_date, 101) AS DeliveryDate,
-                        COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') AS Customer,
+                        CASE WHEN d.delivery_type = 'PO_Delivery' THEN COALESCE(s.supplier_name, 'Purchase Order Delivery')
+                             ELSE COALESCE(c.customer_name, d.customer_name, 'Walk-in Customer') END AS Customer,
                         COALESCE(v.plate_number, 'Not Assigned') AS VehicleUsed,
                         (SELECT COUNT(*) FROM DeliveryItems di WHERE di.delivery_id = d.delivery_id) AS QuantityItems,
                         d.status AS Status
@@ -309,8 +315,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
                     LEFT JOIN Vehicles v ON va.vehicle_id = v.vehicle_id
                     LEFT JOIN Transactions t ON d.transaction_id = t.transaction_id
                     LEFT JOIN Customers c ON t.customer_id = c.customer_id
-                    WHERE d.delivery_type = 'Sales_Delivery'
-                    AND d.status = @Status
+                    LEFT JOIN PurchaseOrders po ON d.po_id = po.po_id
+                    LEFT JOIN Suppliers s ON po.supplier_id = s.supplier_id
+                    WHERE d.status = @Status
                     ORDER BY d.delivery_date DESC";
 
                 try
