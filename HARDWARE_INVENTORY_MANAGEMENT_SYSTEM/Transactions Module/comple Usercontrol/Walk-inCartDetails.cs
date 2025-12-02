@@ -10,6 +10,10 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction;
+using CartItemModel = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models.CartItem;
+
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
@@ -706,7 +710,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 return;
             }
 
-            SharedCartManager.Instance.AddItemToCart(new CartItem
+            SharedCartManager.Instance.AddItemToCart(new CartItemModel
             {
                 ProductInternalID = productInternalId,
                 ProductName = itemName,

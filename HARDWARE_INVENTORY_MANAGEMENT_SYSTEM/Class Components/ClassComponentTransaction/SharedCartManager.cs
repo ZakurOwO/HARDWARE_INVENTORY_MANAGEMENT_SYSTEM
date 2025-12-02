@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 
-namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
+namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction
 {
+    /// <summary>
+    /// Singleton that holds cart items for the current session.
+    /// </summary>
     public class SharedCartManager
     {
         private static SharedCartManager _instance;
-        private List<CartItem> _cartItems;
+        private readonly List<CartItem> _cartItems;
 
         public static SharedCartManager Instance
         {
@@ -35,61 +38,69 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         public void AddItemToCart(CartItem item)
         {
             if (item == null)
-            {
                 throw new ArgumentNullException(nameof(item));
-            }
 
-            if (item.ProductInternalID <= 0)
-            {
-                throw new ArgumentException("A valid ProductInternalID is required to add an item to the cart.", nameof(item));
-            }
+            if (!item.IsValid())
+                throw new ArgumentException("Cart item is not valid.", nameof(item));
 
             var existingItem = _cartItems.Find(x => x.ProductInternalID == item.ProductInternalID);
             if (existingItem != null)
             {
                 existingItem.Quantity += item.Quantity;
-                existingItem.Price = item.Price; // ensure latest price is stored
+                existingItem.Price = item.Price;
                 existingItem.ProductName = item.ProductName;
+                existingItem.ProductID = item.ProductID;
+                existingItem.ImagePath = item.ImagePath;
+                existingItem.AvailableStock = item.AvailableStock;
             }
             else
             {
                 _cartItems.Add(item);
             }
 
-            LogCartAction("Added item to cart", item.ProductInternalID.ToString(),
-                $"{{\"product_id\":{item.ProductInternalID},\"quantity\":{item.Quantity},\"price\":{item.Price}}}");
+            LogCartAction(
+                "Added item to cart",
+                item.ProductInternalID.ToString(),
+                $"{{\"product_id\":{item.ProductInternalID},\"quantity\":{item.Quantity},\"price\":{item.Price}}}"
+            );
         }
 
         public void RemoveItemFromCart(int productInternalId)
         {
             _cartItems.RemoveAll(x => x.ProductInternalID == productInternalId);
 
-            LogCartAction("Removed item from cart", productInternalId.ToString(), null);
+            LogCartAction(
+                "Removed item from cart",
+                productInternalId.ToString(),
+                null
+            );
         }
 
         public void UpdateItemQuantity(int productInternalId, int newQuantity)
         {
             var existingItem = _cartItems.Find(x => x.ProductInternalID == productInternalId);
-            if (existingItem != null)
-            {
-                if (newQuantity <= 0)
-                {
-                    RemoveItemFromCart(productInternalId);
-                }
-                else
-                {
-                    existingItem.Quantity = newQuantity;
-                }
+            if (existingItem == null)
+                return;
 
-                LogCartAction("Updated cart item quantity", productInternalId.ToString(),
-                    $"{{\"quantity\":{newQuantity}}}");
+            if (newQuantity <= 0)
+            {
+                RemoveItemFromCart(productInternalId);
+            }
+            else
+            {
+                existingItem.Quantity = newQuantity;
+
+                LogCartAction(
+                    "Updated cart item quantity",
+                    productInternalId.ToString(),
+                    $"{{\"quantity\":{newQuantity}}}"
+                );
             }
         }
 
         public void ClearCart()
         {
             _cartItems.Clear();
-
             LogCartAction("Cleared cart", null, null);
         }
 
@@ -119,7 +130,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     "Cart",
                     recordId,
                     null,
-                    newValues);
+                    newValues
+                );
             }
             catch (Exception ex)
             {

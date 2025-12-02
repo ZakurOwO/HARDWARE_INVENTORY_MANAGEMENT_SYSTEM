@@ -11,6 +11,10 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries;
 using System.Data.SqlClient;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction;
+using CartItemModel = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models.CartItem;
+
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
@@ -477,31 +481,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-          public void AddItemToCart(int productInternalId, string itemName, decimal price, int quantity = 1)
-          {
-              if (productInternalId <= 0)
-              {
-                  MessageBox.Show("Invalid product selected.", "Product Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                  return;
-              }
+        public void AddItemToCart(int productInternalId, string itemName, decimal price, int quantity = 1)
+        {
+            if (productInternalId <= 0)
+            {
+                MessageBox.Show("Invalid product selected.", "Product Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-              if (quantity <= 0)
-              {
-                  MessageBox.Show("Quantity must be at least 1.", "Quantity Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                  return;
-              }
+            if (quantity <= 0)
+            {
+                MessageBox.Show("Quantity must be at least 1.", "Quantity Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-              SharedCartManager.Instance.AddItemToCart(new CartItem
-              {
-                  ProductInternalID = productInternalId,
-                  ProductName = itemName,
-                  Price = price,
-                  Quantity = quantity
-              });
+            SharedCartManager.Instance.AddItemToCart(new CartItemModel
+            {
+                ProductInternalID = productInternalId,
+                ProductName = itemName,
+                Price = price,
+                Quantity = quantity
+            });
 
-              LoadSharedCartItems();
-          }
-
+            LoadSharedCartItems();
+        }
         public void ClearCart()
         {
             dgvCartDetails.Rows.Clear();

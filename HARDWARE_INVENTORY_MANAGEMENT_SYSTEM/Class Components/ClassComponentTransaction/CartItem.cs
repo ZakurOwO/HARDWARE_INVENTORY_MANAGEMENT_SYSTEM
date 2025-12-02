@@ -3,28 +3,31 @@
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models
 {
     /// <summary>
-    /// Helper class to represent cart items
+    /// Represents a single item in the shopping cart.
     /// </summary>
     public class CartItem
     {
-        public string ProductName { get; set; }
-        public int Quantity { get; set; }
-        public decimal Price { get; set; }
-        public decimal Total => Quantity * Price;
+        // This must exist
         public int ProductInternalID { get; set; }
 
-        // Additional useful properties
         public string ProductID { get; set; }
+        public string ProductName { get; set; }
         public string ImagePath { get; set; }
+
+        public int Quantity { get; set; }
         public int AvailableStock { get; set; }
 
-        // Validation method
+        public decimal Price { get; set; }
+        public decimal Total => Quantity * Price;
+
         public bool IsValid()
         {
-            return Quantity > 0 &&
-                   Quantity <= AvailableStock &&
+            return ProductInternalID > 0 &&
+                   Quantity > 0 &&
                    Price >= 0 &&
-                   !string.IsNullOrEmpty(ProductName);
+                   !string.IsNullOrWhiteSpace(ProductName);
         }
+
+
     }
 }
