@@ -292,7 +292,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             return null;
         }
 
-        using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
+        public static DataTable GetProductHistory(string productId, string sku, string productName)
         {
             connection.Open();
 
@@ -314,11 +314,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 LEFT JOIN Units u ON p.unit_id = u.UnitID
                 WHERE p.ProductID = @productId";
 
-            using (SqlCommand cmd = new SqlCommand(query, connection))
+            using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
             {
                 cmd.Parameters.AddWithValue("@productId", productId);
 
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                string query = @"
+                    SELECT TOP 50 activity, activity_type, record_id, timestamp, new_values, old_values, module
+                    FROM AuditLog
+                    WHERE
+                        (record_id = @productId OR record_id = @sku OR record_id = @productName)
+                        AND (table_affected IS NULL OR table_affected IN ('Products', 'ProductBatches'))
+                    ORDER BY timestamp DESC";
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     if (reader.Read())
                     {
@@ -360,15 +368,46 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             {
                 break;
             }
+
+            return null;
         }
 
         timeline.Sort();
         return timeline;
     }
 
-    private static int? ParseStockValue(string values)
-    {
-        if (string.IsNullOrWhiteSpace(values))
+            foreach (DataRow row in history.Rows)
+            {
+                if (row["Timestamp"] is DateTime timestamp)
+                {
+                    timeline.Add(timestamp);
+                }
+
+                if (timeline.Count >= maxEntries)
+                {
+                    break;
+                }
+            }
+
+            timeline.Sort();
+            return timeline;
+        }
+
+        private static int? ParseStockValue(string values)
+        {
+            if (string.IsNullOrWhiteSpace(values))
+                return null;
+
+            string[] parts = values.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string part in parts)
+            {
+                if (part.Trim().StartsWith("Stock=", StringComparison.OrdinalIgnoreCase))
+                {
+                    string number = part.Split('=')[1].Trim();
+                    if (int.TryParse(number, out int stock))
+                        return stock;
+                }
+            }
             return null;
         }
 
