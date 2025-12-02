@@ -52,10 +52,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
                 // Based on Designer.cs, columns are: User, Activity, Module, Timestamp
                 if (dgv.Columns.Count >= 4)
                 {
-                    dgv.Columns[0].DataPropertyName = "Username";     // User column
-                    dgv.Columns[1].DataPropertyName = "Activity";     // Activity column
-                    dgv.Columns[2].DataPropertyName = "Module";       // Module column
-                    dgv.Columns[3].DataPropertyName = "Timestamp";    // Timestamp column
+                    dgv.Columns[0].DataPropertyName = "Username";   // User column
+                    dgv.Columns[1].DataPropertyName = "Activity";   // Activity column
+                    dgv.Columns[2].DataPropertyName = "Module";     // Module column
+                    dgv.Columns[3].DataPropertyName = "Timestamp";  // Timestamp column
+
+                    // 🔥 Show milliseconds in the grid
+                    dgv.Columns[3].DefaultCellStyle.Format = "yyyy-MM-dd HH:mm:ss.fff";
+                    dgv.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
                 }
 
                 Console.WriteLine($"DataGridView has {dgv.Columns.Count} columns configured");
@@ -139,7 +143,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
                     var first = currentAuditLogs.FirstOrDefault();
                     if (first != null)
                     {
-                        Console.WriteLine($"First entry: User={first.Username}, Activity={first.Activity}, Module={first.Module}, Time={first.Timestamp}");
+                        Console.WriteLine($"First entry: User={first.Username}, Activity={first.Activity}, Module={first.Module}, Time={first.Timestamp:O}");
                     }
 
                     Console.WriteLine($"DataGridView now has {dgv.Rows.Count} rows");
@@ -243,7 +247,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
                 details.AppendLine($"Activity Type: {auditLog.ActivityType}");
                 details.AppendLine($"Table Affected: {auditLog.TableAffected ?? "N/A"}");
                 details.AppendLine($"Record ID: {auditLog.RecordID ?? "N/A"}");
-                details.AppendLine($"Timestamp: {auditLog.Timestamp:yyyy-MM-dd HH:mm:ss}");
+
+                // 🔥 Show milliseconds here as well
+                details.AppendLine($"Timestamp: {auditLog.Timestamp:yyyy-MM-dd HH:mm:ss.fff}");
 
                 if (!string.IsNullOrEmpty(auditLog.OldValues))
                     details.AppendLine($"\nOld Values:\n{auditLog.OldValues}");
