@@ -263,10 +263,10 @@ public static class InventoryDatabaseHelper
                             Description = reader["description"]?.ToString(),
                             CategoryName = reader["category_name"]?.ToString(),
                             UnitName = reader["unit_name"]?.ToString(),
-                            CurrentStock = GetSafeInt(reader, "current_stock"),
-                            ReorderPoint = GetSafeInt(reader, "reorder_point"),
-                            SellingPrice = GetSafeDecimal(reader, "selling_price"),
-                            Active = GetSafeBool(reader, "active"),
+                            CurrentStock = reader["current_stock"] as int? ?? Convert.ToInt32(reader["current_stock"]),
+                            ReorderPoint = reader["reorder_point"] as int? ?? Convert.ToInt32(reader["reorder_point"]),
+                            SellingPrice = reader["selling_price"] as decimal? ?? Convert.ToDecimal(reader["selling_price"]),
+                            Active = reader["active"] is bool active ? active : Convert.ToBoolean(reader["active"]),
                             ImagePath = reader["image_path"]?.ToString()
                         };
                     }
@@ -315,79 +315,6 @@ public static class InventoryDatabaseHelper
             }
         }
         return null;
-    }
-
-    private static int GetSafeInt(SqlDataReader reader, string columnName)
-    {
-        int ordinal = reader.GetOrdinal(columnName);
-        if (reader.IsDBNull(ordinal))
-        {
-            return 0;
-        }
-
-        object raw = reader.GetValue(ordinal);
-        if (raw is int value)
-        {
-            return value;
-        }
-
-        if (int.TryParse(raw?.ToString(), out int parsed))
-        {
-            return parsed;
-        }
-
-        return 0;
-    }
-
-    private static decimal GetSafeDecimal(SqlDataReader reader, string columnName)
-    {
-        int ordinal = reader.GetOrdinal(columnName);
-        if (reader.IsDBNull(ordinal))
-        {
-            return 0m;
-        }
-
-        object raw = reader.GetValue(ordinal);
-        if (raw is decimal value)
-        {
-            return value;
-        }
-
-        if (decimal.TryParse(raw?.ToString(), out decimal parsed))
-        {
-            return parsed;
-        }
-
-        return 0m;
-    }
-
-    private static bool GetSafeBool(SqlDataReader reader, string columnName)
-    {
-        int ordinal = reader.GetOrdinal(columnName);
-        if (reader.IsDBNull(ordinal))
-        {
-            return false;
-        }
-
-        object raw = reader.GetValue(ordinal);
-        if (raw is bool flag)
-        {
-            return flag;
-        }
-
-        if (bool.TryParse(raw?.ToString(), out bool parsed))
-        {
-            return parsed;
-        }
-
-        try
-        {
-            return Convert.ToBoolean(raw);
-        }
-        catch
-        {
-            return false;
-        }
     }
 }
 
