@@ -35,6 +35,7 @@
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
+            this.DeliveryInternalId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DeliveryID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Transaction_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Delivery_Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,6 +65,7 @@
             this.dgvDeliveries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvDeliveries.ColumnHeadersHeight = 45;
             this.dgvDeliveries.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DeliveryInternalId,
             this.DeliveryID,
             this.Transaction_ID,
             this.Delivery_Number,
@@ -130,55 +132,70 @@
             this.searchField1.PromptMessage = "Search Deliveries";
             this.searchField1.Size = new System.Drawing.Size(299, 54);
             this.searchField1.TabIndex = 7;
-            // 
+            //
+            // DeliveryInternalId
+            //
+            this.DeliveryInternalId.DataPropertyName = "delivery_id";
+            this.DeliveryInternalId.HeaderText = "Delivery Internal ID";
+            this.DeliveryInternalId.Name = "DeliveryInternalId";
+            this.DeliveryInternalId.Visible = false;
+            //
             // DeliveryID
-            // 
+            //
+            this.DeliveryID.DataPropertyName = "DeliveryID";
             this.DeliveryID.FillWeight = 120F;
             this.DeliveryID.HeaderText = "Delivery ID";
             this.DeliveryID.Name = "DeliveryID";
             this.DeliveryID.Width = 120;
-            // 
+            //
             // Transaction_ID
-            // 
+            //
+            this.Transaction_ID.DataPropertyName = "transaction_id";
             this.Transaction_ID.FillWeight = 120F;
             this.Transaction_ID.HeaderText = "Transaction ID";
             this.Transaction_ID.Name = "Transaction_ID";
             this.Transaction_ID.Width = 120;
-            // 
+            //
             // Delivery_Number
-            // 
+            //
+            this.Delivery_Number.DataPropertyName = "delivery_number";
             this.Delivery_Number.FillWeight = 120F;
             this.Delivery_Number.HeaderText = "Delivery Number";
             this.Delivery_Number.Name = "Delivery_Number";
             this.Delivery_Number.Width = 120;
-            // 
+            //
             // Delivery_Date
-            // 
+            //
+            this.Delivery_Date.DataPropertyName = "delivery_date";
             this.Delivery_Date.HeaderText = "Delivery Date";
             this.Delivery_Date.Name = "Delivery_Date";
-            // 
+            //
             // Status
-            // 
+            //
+            this.Status.DataPropertyName = "status";
             this.Status.HeaderText = "Status";
             this.Status.Name = "Status";
             this.Status.Width = 120;
-            // 
+            //
             // Customer_name
-            // 
+            //
+            this.Customer_name.DataPropertyName = "customer_name";
             this.Customer_name.FillWeight = 120F;
             this.Customer_name.HeaderText = "Customer Name";
             this.Customer_name.Name = "Customer_name";
             this.Customer_name.Width = 120;
-            // 
+            //
             // Created_At
-            // 
+            //
+            this.Created_At.DataPropertyName = "created_at";
             this.Created_At.FillWeight = 120F;
             this.Created_At.HeaderText = "Created At Date";
             this.Created_At.Name = "Created_At";
             this.Created_At.Width = 120;
-            // 
+            //
             // updated_at
-            // 
+            //
+            this.updated_at.DataPropertyName = "updated_at";
             this.updated_at.FillWeight = 125F;
             this.updated_at.HeaderText = "Update at Date";
             this.updated_at.Name = "updated_at";
@@ -206,6 +223,7 @@
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private Accounts_Module.SearchField searchField1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryInternalId;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Transaction_ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Delivery_Number;
