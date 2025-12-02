@@ -285,6 +285,97 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             var history = GetProductHistory(productId, sku, productName);
             var timeline = new List<DateTime>();
 
+    public static InventoryProductDetails GetProductDetails(string productId)
+    {
+        if (string.IsNullOrWhiteSpace(productId))
+        {
+            return null;
+        }
+
+        public static DataTable GetProductHistory(string productId, string sku, string productName)
+        {
+            connection.Open();
+
+            string query = @"
+                SELECT
+                    p.ProductID,
+                    p.product_name,
+                    p.SKU,
+                    p.description,
+                    c.category_name,
+                    u.unit_name,
+                    p.current_stock,
+                    p.reorder_point,
+                    ISNULL(p.SellingPrice, 0.00) AS selling_price,
+                    p.active,
+                    p.image_path
+                FROM Products p
+                LEFT JOIN Categories c ON p.category_id = c.CategoryID
+                LEFT JOIN Units u ON p.unit_id = u.UnitID
+                WHERE p.ProductID = @productId";
+
+            using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
+            {
+                cmd.Parameters.AddWithValue("@productId", productId);
+
+                string query = @"
+                    SELECT TOP 50 activity, activity_type, record_id, timestamp, new_values, old_values, module
+                    FROM AuditLog
+                    WHERE
+                        (record_id = @productId OR record_id = @sku OR record_id = @productName)
+                        AND (table_affected IS NULL OR table_affected IN ('Products', 'ProductBatches'))
+                    ORDER BY timestamp DESC";
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    if (reader.Read())
+                    {
+                        return new InventoryProductDetails
+                        {
+                            ProductId = reader["ProductID"]?.ToString(),
+                            ProductName = reader["product_name"]?.ToString(),
+                            SKU = reader["SKU"]?.ToString(),
+                            Description = reader["description"]?.ToString(),
+                            CategoryName = reader["category_name"]?.ToString(),
+                            UnitName = reader["unit_name"]?.ToString(),
+                            CurrentStock = reader["current_stock"] as int? ?? Convert.ToInt32(reader["current_stock"]),
+                            ReorderPoint = reader["reorder_point"] as int? ?? Convert.ToInt32(reader["reorder_point"]),
+                            SellingPrice = reader["selling_price"] as decimal? ?? Convert.ToDecimal(reader["selling_price"]),
+                            Active = reader["active"] is bool active ? active : Convert.ToBoolean(reader["active"]),
+                            ImagePath = reader["image_path"]?.ToString()
+                        };
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public static List<DateTime> GetRecentActivityDates(string productId, string sku, string productName, int maxEntries = 4)
+    {
+        var history = GetProductHistory(productId, sku, productName);
+        var timeline = new List<DateTime>();
+
+        foreach (DataRow row in history.Rows)
+        {
+            if (row["Timestamp"] is DateTime timestamp)
+            {
+                timeline.Add(timestamp);
+            }
+
+            if (timeline.Count >= maxEntries)
+            {
+                break;
+            }
+
+            return null;
+        }
+
+        timeline.Sort();
+        return timeline;
+    }
+
             foreach (DataRow row in history.Rows)
             {
                 if (row["Timestamp"] is DateTime timestamp)
@@ -393,19 +484,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
         }
     }
+}
 
-    public class InventoryProductDetails
-    {
-        public string ProductId { get; set; }
-        public string ProductName { get; set; }
-        public string SKU { get; set; }
-        public string Description { get; set; }
-        public string CategoryName { get; set; }
-        public string UnitName { get; set; }
-        public int CurrentStock { get; set; }
-        public int ReorderPoint { get; set; }
-        public decimal SellingPrice { get; set; }
-        public bool Active { get; set; }
-        public string ImagePath { get; set; }
-    }
+public class InventoryProductDetails
+{
+    public string ProductId { get; set; }
+    public string ProductName { get; set; }
+    public string SKU { get; set; }
+    public string Description { get; set; }
+    public string CategoryName { get; set; }
+    public string UnitName { get; set; }
+    public int CurrentStock { get; set; }
+    public int ReorderPoint { get; set; }
+    public decimal SellingPrice { get; set; }
+    public bool Active { get; set; }
+    public string ImagePath { get; set; }
 }
