@@ -5,15 +5,10 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
-    /// <summary>
-    /// Handles creation, display, and disposal of the AdjustStock pop-up and its overlay
-    /// within the inventory page. The overlay and popup are scoped to the InventoryMainPage
-    /// to avoid covering the entire dashboard and to prevent duplicate helpers.
-    /// </summary>
     public class AdjustStockManager
     {
-        private readonly InventoryMainPage inventoryPage;
         private readonly Control parentContainer;
+        private readonly InventoryMainPage inventoryPage;
 
         private Panel overlayPanel;
         private Panel popupContainer;
@@ -42,13 +37,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
         {
             refreshCallback = refreshAction;
 
-            EnsureOverlayAdded();
+            // Get the main form (MainDashBoard)
+            Form mainForm = parentContainer.FindForm();
+            if (mainForm == null) return;
+
+            EnsureOverlayAdded(mainForm);
             EnsurePopupAdded();
 
             adjustStockPopup.ShowAdjustStock(productId, productName, sku, brand, stock, imagePath);
 
             overlayPanel.Visible = true;
             popupContainer.Visible = true;
+            adjustStockPopup.Visible = true;
+
             overlayPanel.BringToFront();
             popupContainer.BringToFront();
             adjustStockPopup.BringToFront();
@@ -62,6 +63,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             if (overlayPanel != null)
             {
                 overlayPanel.Visible = false;
+                overlayPanel.SendToBack();
             }
 
             if (popupContainer != null)
@@ -89,7 +91,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
             popupContainer = new Panel
             {
-                Size = new Size(550, 420),
+                Size = new Size(590, 450),
                 BackColor = Color.White,
                 BorderStyle = BorderStyle.FixedSingle,
                 Visible = false
@@ -97,18 +99,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
             popupContainer.Controls.Add(adjustStockPopup);
             adjustStockPopup.Dock = DockStyle.Fill;
+            adjustStockPopup.Visible = true;
         }
 
         private void InitializeOverlay()
         {
             overlayPanel = new Panel
             {
-                Dock = DockStyle.Fill,
                 Visible = false,
-                BackColor = Color.Transparent,
-                BackgroundImage = Properties.Resources.InventoryOverlay,
+                BackColor = Color.FromArgb(150, 0, 0, 0),
                 BackgroundImageLayout = ImageLayout.Stretch
             };
+
+            try
+            {
+                overlayPanel.BackgroundImage = Properties.Resources.InventoryOverlay;
+            }
+            catch
+            {
+                // Use semi-transparent color instead
+            }
 
             overlayPanel.Controls.Add(popupContainer);
             overlayPanel.SizeChanged += (s, e) => CenterPopup();
@@ -118,18 +128,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
         #region Overlay Management
 
-        private void EnsureOverlayAdded()
+        private void EnsureOverlayAdded(Form mainForm)
         {
-            Control host = inventoryPage ?? parentContainer;
-            if (host == null)
-            {
-                return;
-            }
-
-            if (overlayPanel.Parent != host)
+            if (overlayPanel.Parent != mainForm)
             {
                 overlayPanel.Parent?.Controls.Remove(overlayPanel);
-                host.Controls.Add(overlayPanel);
+
+                // Add to main form and set to fill the entire form
+                mainForm.Controls.Add(overlayPanel);
+                overlayPanel.Dock = DockStyle.Fill;
                 overlayPanel.BringToFront();
             }
         }

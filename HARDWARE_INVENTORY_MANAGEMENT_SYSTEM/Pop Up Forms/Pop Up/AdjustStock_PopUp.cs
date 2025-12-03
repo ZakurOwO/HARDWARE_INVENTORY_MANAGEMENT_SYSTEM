@@ -38,12 +38,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         #region Public API
 
         public void ShowAdjustStock(
-            string productId,
-            string productName,
-            string sku,
-            string brand,
-            int stock,
-            string imagePath)
+     string productId,
+     string productName,
+     string sku,
+     string brand,
+     int stock,
+     string imagePath)
         {
             int productInternalId;
             TryLoadProductContext(productId, out productInternalId);
@@ -54,19 +54,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         #region Public API
 
         public void ShowAdjustStock(
-            int productInternalId,
-            string productId,
-            string productName,
-            string sku,
-            string brand,
-            int stock,
-            string imagePath)
+     int productInternalId,
+     string productId,
+     string productName,
+     string sku,
+     string brand,
+     int stock,
+     string imagePath)
         {
             ApplyProductContext(productInternalId, productId, productName, sku, brand, stock, imagePath);
 
-            Visible = true;
-            BringToFront();
-            Focus();
+            this.Visible = true;
+            this.BringToFront();
+            this.Focus();
         }
 
         public void HideAdjustStock()
@@ -463,3 +463,4 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         #endregion
     }
 }
+#endregion

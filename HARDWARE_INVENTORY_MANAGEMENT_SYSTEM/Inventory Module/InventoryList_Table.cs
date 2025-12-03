@@ -32,10 +32,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private void InventoryList_Table_Load(object sender, EventArgs e)
         {
             LoadDataFromDatabase();
+
+            // Make sure this line is here and not commented out!
             dgvInventoryList.CellClick += dgvInventoryList_CellClick;
+
             dgvInventoryList.CellFormatting += dgvInventoryList_CellFormatting;
             dgvInventoryList.DataError += dgvInventoryList_DataError;
             dgvInventoryList.ClearSelection();
+
+            MessageBox.Show("InventoryList_Table loaded and CellClick event wired!");
+        }
+        private void dgvInventoryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            MessageBox.Show("CellContentClick fired!");
+            dgvInventoryList_CellClick(sender, e);
         }
 
         private void dgvInventoryList_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -236,7 +246,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
             string columnName = dgvInventoryList.Columns[e.ColumnIndex].Name;
 
-            // Adjust Stock button column (gear/settings)
+            // Adjust Stock button column
             if (columnName == "AdjustStock" || columnName == "btnSettings")
             {
                 try
@@ -244,14 +254,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     string productName = dgvInventoryList.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "";
                     string category = dgvInventoryList.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "";
 
-                    // Parse current stock safely
                     int currentStock = 0;
                     if (dgvInventoryList.Rows[e.RowIndex].Cells[3].Value != null)
                     {
                         int.TryParse(dgvInventoryList.Rows[e.RowIndex].Cells[3].Value.ToString(), out currentStock);
                     }
 
-                    // Get image path, SKU, brand, and productId from row Tag
                     string imagePath = "";
                     string sku = "";
                     string brand = "";
@@ -267,11 +275,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         productId = rowData.ProductId ?? "";
                     }
 
-                    // Try to get the main page and call ShowAdjustStockForProduct
                     var mainPage = FindParentOfType<InventoryMainPage>(this);
                     if (mainPage != null && productInternalId > 0 && !string.IsNullOrEmpty(productName))
                     {
-                        mainPage.ShowAdjustStockForProduct(productInternalId, productId, productName, sku, brand, currentStock, imagePath);
+                        mainPage.ShowAdjustStockForProduct(productId, productName, sku, brand, currentStock, imagePath);
                     }
                 }
                 catch (Exception ex)
@@ -279,8 +286,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     MessageBox.Show($"Error opening adjust stock: {ex.Message}");
                 }
             }
-
-            // Deactivate/Activate button column (column 7)
             else if (columnName == "Deactivate")
             {
                 try
@@ -295,7 +300,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         return;
                     }
 
-                    // Determine new status based on current status
                     bool newActiveStatus;
                     string actionText;
                     string confirmationMessage;
@@ -313,7 +317,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         confirmationMessage = $"Are you sure you want to activate '{productName}'?";
                     }
 
-                    // Ask for confirmation
                     DialogResult result = MessageBox.Show(confirmationMessage,
                         $"Confirm {actionText}",
                         MessageBoxButtons.YesNo,
@@ -321,7 +324,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                     if (result == DialogResult.Yes)
                     {
-                        // Update the product status in database
                         bool success = UpdateProductStatus(productName, newActiveStatus);
 
                         if (success)
@@ -330,8 +332,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                                           "Success",
                                           MessageBoxButtons.OK,
                                           MessageBoxIcon.Information);
-
-                            // Refresh the data to show updated status
                             RefreshData();
                         }
                         else
@@ -351,24 +351,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                                   MessageBoxIcon.Error);
                 }
             }
-
-            // View Details button column (column 8)
             else if (columnName == "ViewDetails")
             {
                 try
                 {
                     string productName = dgvInventoryList.Rows[e.RowIndex].Cells[0].Value?.ToString() ?? "";
                     string category = dgvInventoryList.Rows[e.RowIndex].Cells[2].Value?.ToString() ?? "";
-                    string currentStatus = dgvInventoryList.Rows[e.RowIndex].Cells[5].Value?.ToString() ?? "";
 
-                    // Parse current stock safely
                     int currentStock = 0;
                     if (dgvInventoryList.Rows[e.RowIndex].Cells[3].Value != null)
                     {
                         int.TryParse(dgvInventoryList.Rows[e.RowIndex].Cells[3].Value.ToString(), out currentStock);
                     }
 
-                    // Get image path, SKU, brand, and productId from row Tag
                     string imagePath = "";
                     string sku = "";
                     string brand = "";
@@ -382,7 +377,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         productId = rowData.ProductId ?? "";
                     }
 
-                    // Try to get the main page and call ShowItemDescription
                     var mainPage = FindParentOfType<InventoryMainPage>(this);
                     if (mainPage != null && !string.IsNullOrEmpty(productName))
                     {
@@ -395,6 +389,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 }
             }
         }
+
+
+
 
         private bool UpdateProductStatus(string productName, bool isActive)
         {
