@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
@@ -37,6 +38,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             InitializeCartPanel();
             LoadProducts();
             InitializeItemDescriptionPopup();
+
+            SharedCartManager.Instance.InventoryUpdated += () => LoadProducts(); // auto-refresh inventory cards when stock changes
         }
 
         private void InitializeItemDescriptionPopup()
