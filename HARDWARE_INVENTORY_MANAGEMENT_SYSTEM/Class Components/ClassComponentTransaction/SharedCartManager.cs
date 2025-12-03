@@ -17,8 +17,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
         private readonly List<CartItem> _cartItems;
         private readonly string connectionString;
 
-        public event Action CartUpdated;
-        public event Action InventoryUpdated;
+        public event EventHandler CartUpdated;
+        public event EventHandler InventoryUpdated;
 
         public static SharedCartManager Instance
         {
@@ -133,8 +133,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 $"{{\"restored_quantity\":{quantityToRestore}}}"
             );
 
-            CartUpdated?.Invoke();
-            InventoryUpdated?.Invoke();
+            CartUpdated?.Invoke(this, EventArgs.Empty);
+            InventoryUpdated?.Invoke(this, EventArgs.Empty);
 
             return true;
         }
@@ -217,12 +217,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
 
         public void RaiseCartUpdated()
         {
-            CartUpdated?.Invoke();
+            CartUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         public void RaiseInventoryUpdated()
         {
-            InventoryUpdated?.Invoke();
+            InventoryUpdated?.Invoke(this, EventArgs.Empty);
         }
 
         private void LogCartAction(string activity, string recordId, string newValues)
@@ -356,8 +356,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
 
         private void NotifyCartAndInventoryChanged()
         {
-            CartUpdated?.Invoke();
-            InventoryUpdated?.Invoke();
+            CartUpdated?.Invoke(this, EventArgs.Empty);
+            InventoryUpdated?.Invoke(this, EventArgs.Empty);
         }
     }
 }

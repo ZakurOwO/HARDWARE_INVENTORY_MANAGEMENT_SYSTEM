@@ -17,5 +17,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models
         {
             get { return Price * Quantity; }
         }
+
+        public bool IsValid()
+        {
+            return ProductInternalID > 0
+                && Quantity > 0
+                && Price >= 0;
+        }
     }
 }
