@@ -364,6 +364,109 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
             }
         }
 
+        private void ApplyEditLockIfNeeded()
+        {
+            editingLocked = lockFromList || !IsEditWindowOpen();
+
+            if (editingLocked)
+            {
+                DisableEditingControls();
+                MessageBox.Show("This purchase order is more than 12 hours old and is view-only.",
+                    "Update Locked", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void DisableEditingControls()
+        {
+            cbxSupplier.Enabled = false;
+            cbxProduct.Enabled = false;
+            dgvPurchaseItems.Enabled = false;
+            nudUnitPrice.Enabled = false;
+            nudQuantity.Enabled = false;
+            cbxTax.Enabled = false;
+            nudShippingFee.Enabled = false;
+            dtpExpectedDelivery.Enabled = false;
+            rtxNotes.Enabled = false;
+            cbxPaymentStatus.Enabled = false;
+            cbxStatus.Enabled = false;
+            btnAdd.Enabled = false;
+            btnBlue.Enabled = false;
+        }
+
+        private bool IsEditWindowOpen()
+        {
+            if (!currentCreatedAt.HasValue)
+            {
+                return false;
+            }
+
+            return (DateTime.Now - currentCreatedAt.Value) < TimeSpan.FromHours(12);
+        }
+
+        private string BuildAuditSnapshot()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine($"PO Number: {tbxOrderNumber.Text}");
+            builder.AppendLine($"Supplier: {cbxSupplier.Text}");
+            builder.AppendLine($"PO Date: {dtpOrderDate.Value:yyyy-MM-dd HH:mm}");
+            builder.AppendLine($"Expected Date: {dtpExpectedDelivery.Value:yyyy-MM-dd HH:mm}");
+            builder.AppendLine($"Status: {cbxStatus.Text}");
+            builder.AppendLine($"Payment Status: {cbxPaymentStatus.Text}");
+
+            foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
+            {
+                string productName = row.Cells["Product"]?.Value?.ToString();
+                string quantity = row.Cells["Quantity"]?.Value?.ToString();
+                string unitPrice = row.Cells["UnitPrice"]?.Value?.ToString();
+                string total = row.Cells["Total"]?.Value?.ToString();
+
+                builder.AppendLine($"Item: {productName}, Qty: {quantity}, Unit Price: {unitPrice}, Total: {total}");
+            }
+
+            builder.AppendLine($"Grand Total: {lblGrandTotal.Text}");
+            return builder.ToString();
+        }
+
+        private void CloseParentForm()
+        {
+            Form parentForm = this.FindForm();
+            if (parentForm != null)
+            {
+                parentForm.Close();
+            }
+        }
+
+        private void EnsureNotesPlaceholder()
+        {
+            if (string.IsNullOrWhiteSpace(rtxNotes.Text) || rtxNotes.Text == notesPlaceholder)
+            {
+                rtxNotes.Text = notesPlaceholder;
+                rtxNotes.ForeColor = placeholderColor;
+            }
+            else
+            {
+                rtxNotes.ForeColor = normalColor;
+            }
+        }
+
+        private void RtxNotes_Enter(object sender, EventArgs e)
+        {
+            if (rtxNotes.Text == notesPlaceholder)
+            {
+                rtxNotes.Text = string.Empty;
+                rtxNotes.ForeColor = normalColor;
+            }
+        }
+
+        private void RtxNotes_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(rtxNotes.Text))
+            {
+                rtxNotes.Text = notesPlaceholder;
+                rtxNotes.ForeColor = placeholderColor;
+            }
+        }
+
         #endregion
 
 /*
