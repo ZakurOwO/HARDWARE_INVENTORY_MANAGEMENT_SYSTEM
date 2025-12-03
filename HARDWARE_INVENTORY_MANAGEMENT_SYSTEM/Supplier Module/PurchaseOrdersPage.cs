@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.Class_Components_of_Suppliier;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 {
@@ -38,10 +39,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             // Check if View button was clicked
             if (e.ColumnIndex == dgvSupplier.Columns["View"].Index)
             {
-                // TODO: Implement view purchase order details
-                string poId = dgvSupplier.Rows[e.RowIndex].Cells["POID"].Value.ToString();
-                MessageBox.Show($"View PO: {poId}\n(View functionality to be implemented)",
-                    "View Purchase Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string poNumber = dgvSupplier.Rows[e.RowIndex].Cells["POID"].Value.ToString();
+                OpenEditPurchaseOrderForm(poNumber);
             }
             // Check if Cancel button was clicked
             else if (e.ColumnIndex == dgvSupplier.Columns["Cancel"].Index)
@@ -116,6 +115,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             finally
             {
                 if (con.State == ConnectionState.Open) con.Close();
+            }
+        }
+
+        private void OpenEditPurchaseOrderForm(string poNumber)
+        {
+            try
+            {
+                Form popup = new Form();
+                popup.FormBorderStyle = FormBorderStyle.None;
+                popup.StartPosition = FormStartPosition.CenterScreen;
+                popup.BackColor = Color.White;
+                popup.Size = new Size(1000, 700);
+
+                EditPurchaseOrder editForm = new EditPurchaseOrder();
+                editForm.Dock = DockStyle.Fill;
+                editForm.LoadPurchaseOrder(poNumber);
+
+                popup.Controls.Add(editForm);
+                popup.FormClosed += (s, args) => LoadPurchaseOrdersFromDatabase();
+                popup.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open purchase order: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
