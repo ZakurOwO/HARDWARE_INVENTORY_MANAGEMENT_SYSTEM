@@ -11,14 +11,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
     public partial class AdjustStock_PopUp : UserControl
     {
+        private int currentProductInternalId;
         private string currentProductId;
         private string currentProductName;
         private string currentSKU;
         private string currentBrand;
         private int currentStock;
         private string currentImagePath;
+
         private int adjustmentValue;
         private int newTotalStock;
+        private bool suppressTextChange;
 
         public event EventHandler StockAdjusted;
         public event EventHandler Cancelled;
@@ -32,27 +35,38 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             ResetAdjustment();
         }
 
-        public void ShowAdjustStock(string productId, string productName, string sku, string brand, int stock, string imagePath)
+        public AdjustStock_PopUp(int productInternalId) : this()
         {
-            currentProductId = productId;
-            currentProductName = productName;
-            currentSKU = sku;
-            currentBrand = brand;
-            currentStock = stock;
-            currentImagePath = imagePath;
+            currentProductInternalId = productInternalId;
+            TryLoadProductContext(productInternalId);
+        }
 
-            UpdateStaticDisplay();
-            LoadProductImage();
-            ResetAdjustment();
+        #region Public API
+
+        public void ShowAdjustStock(
+            int productInternalId,
+            string productId,
+            string productName,
+            string sku,
+            string brand,
+            int stock,
+            string imagePath)
+        {
+            ApplyProductContext(productInternalId, productId, productName, sku, brand, stock, imagePath);
 
             Visible = true;
             BringToFront();
+            Focus();
         }
 
         public void HideAdjustStock()
         {
             Visible = false;
         }
+
+        #endregion
+
+        #region Initialization
 
         private void SetupPictureBox()
         {
@@ -73,40 +87,41 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void InitializeReasonComboBox()
         {
-            ReasonComboBoxAdjustStock.Items.Clear();
-            ReasonComboBoxAdjustStock.Items.Add("Select Reason");
-
-            List<string> reasons = new List<string>();
-            reasons.Add("DEFAULT");
-            reasons.Add("New Stock Arrival");
-            reasons.Add("Customer Sales");
-            reasons.Add("Physical Count Adjustment");
-            reasons.Add("Internal Use/Consumption");
-            reasons.Add("Supplier Return");
-            reasons.Add("Damaged/Defective Items");
-            reasons.Add("Transfer Between Locations");
-            reasons.Add("Promotional/Sample Use");
-            reasons.Add("Emergency Withdrawal");
-            reasons.Add("Seasonal Stock Preparation");
-            reasons.Add("Expired Items Disposal");
-            reasons.Add("Project Allocation");
-            reasons.Add("Packaging Change");
-            reasons.Add("Quality Control Rejection");
-            reasons.Add("Overstock Reduction");
-            reasons.Add("Found Miscounted Items");
-            reasons.Add("Stock Rotation");
-            reasons.Add("Bulk Order Fulfillment");
-            reasons.Add("Maintenance/Repair Use");
-
-            foreach (string reason in reasons)
+            var reasons = new List<string>
             {
-                ReasonComboBoxAdjustStock.Items.Add(reason);
-            }
+                "Select Reason",
+                "DEFAULT",
+                "New Stock Arrival",
+                "Customer Sales",
+                "Physical Count Adjustment",
+                "Internal Use/Consumption",
+                "Supplier Return",
+                "Damaged/Defective Items",
+                "Transfer Between Locations",
+                "Promotional/Sample Use",
+                "Emergency Withdrawal",
+                "Seasonal Stock Preparation",
+                "Expired Items Disposal",
+                "Project Allocation",
+                "Packaging Change",
+                "Quality Control Rejection",
+                "Overstock Reduction",
+                "Found Miscounted Items",
+                "Stock Rotation",
+                "Bulk Order Fulfillment",
+                "Maintenance/Repair Use"
+            };
 
+            ReasonComboBoxAdjustStock.Items.Clear();
+            ReasonComboBoxAdjustStock.Items.AddRange(reasons.ToArray());
             ReasonComboBoxAdjustStock.MaxDropDownItems = 5;
             ReasonComboBoxAdjustStock.DropDownHeight = ReasonComboBoxAdjustStock.ItemHeight * 5;
             ReasonComboBoxAdjustStock.SelectedIndex = 0;
         }
+
+        #endregion
+
+        #region UI Updates
 
         private void UpdateStaticDisplay()
         {
@@ -122,13 +137,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             {
                 if (!string.IsNullOrEmpty(currentImagePath) && File.Exists(currentImagePath))
                 {
-                    Image productImage = Image.FromFile(currentImagePath);
-                    SetPictureBoxImage(productImage);
+                    SetPictureBoxImage(Image.FromFile(currentImagePath));
                 }
                 else
                 {
-                    Image productImage = ProductImageManager.GetProductImage(currentImagePath);
-                    SetPictureBoxImage(productImage);
+                    SetPictureBoxImage(ProductImageManager.GetProductImage(currentImagePath));
                 }
             }
             catch
@@ -150,7 +163,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void SetDefaultImage()
         {
-            Bitmap defaultImage = new Bitmap(ItemPictureBoxAdjustStock.Width, ItemPictureBoxAdjustStock.Height);
+            using (var defaultImage = new Bitmap(ItemPictureBoxAdjustStock.Width, ItemPictureBoxAdjustStock.Height))
             using (Graphics g = Graphics.FromImage(defaultImage))
             {
                 g.Clear(Color.LightGray);
@@ -163,20 +176,34 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         (defaultImage.Width - textSize.Width) / 2,
                         (defaultImage.Height - textSize.Height) / 2);
                 }
+                SetPictureBoxImage((Image)defaultImage.Clone());
             }
-
-            SetPictureBoxImage(defaultImage);
         }
 
         private void ResetAdjustment()
         {
+            suppressTextChange = true;
             adjustmentValue = 0;
             newTotalStock = currentStock;
             DisplayNumAdjustStock.Text = "0";
+            suppressTextChange = false;
             UpdateTotalsDisplay();
             ApplyBtn.Enabled = false;
             ReasonComboBoxAdjustStock.SelectedIndex = 0;
         }
+
+        private void UpdateTotalsDisplay()
+        {
+            AdjustmentDisplayAdjustStock.Text = adjustmentValue.ToString();
+            NewTotalStockDisplayAdjustStock.Text = newTotalStock.ToString();
+            NewTotalStockDisplayAdjustStock.ForeColor = newTotalStock < 0 ? Color.Red : Color.Black;
+            currentStockDisplayAdjustStock.Text = currentStock.ToString();
+            ApplyBtn.Enabled = ReasonSelected() && newTotalStock >= 0;
+        }
+
+        #endregion
+
+        #region Event Handlers
 
         private void AddAdjustStock_Click(object sender, EventArgs e)
         {
@@ -192,8 +219,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void DisplayNumAdjustStock_TextChanged(object sender, EventArgs e)
         {
-            int parsedValue;
-            if (int.TryParse(DisplayNumAdjustStock.Text, out parsedValue))
+            if (suppressTextChange)
+            {
+                return;
+            }
+
+            if (int.TryParse(DisplayNumAdjustStock.Text, out int parsedValue))
             {
                 adjustmentValue = parsedValue;
             }
@@ -203,35 +234,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
 
             RecalculateNewTotal();
-        }
-
-        private void RecalculateNewTotal()
-        {
-            newTotalStock = currentStock + adjustmentValue;
-            UpdateTotalsDisplay();
-        }
-
-        private void UpdateTotalsDisplay()
-        {
-            AdjustmentDisplayAdjustStock.Text = adjustmentValue.ToString();
-            NewTotalStockDisplayAdjustStock.Text = newTotalStock.ToString();
-
-            if (newTotalStock < 0)
-            {
-                NewTotalStockDisplayAdjustStock.ForeColor = Color.Red;
-            }
-            else
-            {
-                NewTotalStockDisplayAdjustStock.ForeColor = Color.Black;
-            }
-
-            currentStockDisplayAdjustStock.Text = currentStock.ToString();
-            ApplyBtn.Enabled = ReasonSelected() && newTotalStock >= 0;
-        }
-
-        private bool ReasonSelected()
-        {
-            return ReasonComboBoxAdjustStock.SelectedIndex > 0;
         }
 
         private void ReasonComboBoxAdjustStock_SelectedIndexChanged(object sender, EventArgs e)
@@ -266,10 +268,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 {
                     LogInventoryAudit(cleanReason, previousStock);
                     MessageBox.Show("Stock adjusted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (StockAdjusted != null)
-                    {
-                        StockAdjusted(this, EventArgs.Empty);
-                    }
+                    StockAdjusted?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
@@ -282,26 +281,96 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
         }
 
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            Cancelled?.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
+
+        #region Calculation Helpers
+
+        private void ApplyProductContext(int productInternalId, string productId, string productName, string sku, string brand, int stock, string imagePath)
+        {
+            currentProductInternalId = productInternalId;
+            currentProductId = productId;
+            currentProductName = productName;
+            currentSKU = sku;
+            currentBrand = brand;
+            currentStock = stock;
+            currentImagePath = imagePath;
+
+            UpdateStaticDisplay();
+            LoadProductImage();
+            ResetAdjustment();
+        }
+
+        private void RecalculateNewTotal()
+        {
+            newTotalStock = currentStock + adjustmentValue;
+            UpdateTotalsDisplay();
+        }
+
+        private bool ReasonSelected()
+        {
+            return ReasonComboBoxAdjustStock.SelectedIndex > 0;
+        }
+
         private string RemoveNonAscii(string text)
         {
             return System.Text.RegularExpressions.Regex.Replace(text, "[^\\u0000-\\u007F]+", string.Empty);
         }
 
-        private bool UpdateStockInDatabase(string reason)
+        private bool TryLoadProductContext(int productInternalId)
         {
-            SqlConnection connection = null;
-            SqlCommand command = null;
-
             try
             {
-                connection = new SqlConnection(ConnectionString.DataSource);
-                connection.Open();
+                using (var connection = new SqlConnection(ConnectionString.DataSource))
+                using (var command = new SqlCommand(
+                    "SELECT ProductID, product_name, SKU, description, current_stock, image_path FROM Products WHERE ProductInternalID = @internalId",
+                    connection))
+                {
+                    command.Parameters.AddWithValue("@internalId", productInternalId);
+                    connection.Open();
 
-                const string query = "UPDATE Products SET current_stock = @newStock WHERE ProductID = @productId";
-                command = new SqlCommand(query, connection);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string productId = reader["ProductID"].ToString();
+                            string productName = reader["product_name"].ToString();
+                            string sku = reader["SKU"].ToString();
+                            string brand = reader["description"].ToString();
+                            int.TryParse(reader["current_stock"].ToString(), out int stock);
+                            string imagePath = reader["image_path"].ToString();
+
+                            ApplyProductContext(productInternalId, productId, productName, sku, brand, stock, imagePath);
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                // Fallback to caller-provided context
+            }
+
+            return false;
+        }
+
+        #endregion
+
+        #region Data Operations
+
+        private bool UpdateStockInDatabase(string reason)
+        {
+            using (var connection = new SqlConnection(ConnectionString.DataSource))
+            using (var command = new SqlCommand("UPDATE Products SET current_stock = @newStock WHERE ProductInternalID = @productInternalId", connection))
+            {
                 command.Parameters.AddWithValue("@newStock", newTotalStock);
-                command.Parameters.AddWithValue("@productId", currentProductId);
+                command.Parameters.AddWithValue("@productInternalId", currentProductInternalId);
 
+                connection.Open();
                 int rowsAffected = command.ExecuteNonQuery();
                 if (rowsAffected > 0)
                 {
@@ -312,18 +381,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 }
 
                 return false;
-            }
-            finally
-            {
-                if (command != null)
-                {
-                    command.Dispose();
-                }
-
-                if (connection != null)
-                {
-                    connection.Dispose();
-                }
             }
         }
 
@@ -351,49 +408,33 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void LogStockAdjustment(string reason)
         {
-            SqlConnection connection = null;
-            SqlCommand command = null;
-
             try
             {
-                connection = new SqlConnection(ConnectionString.DataSource);
-                connection.Open();
+                using (var connection = new SqlConnection(ConnectionString.DataSource))
+                using (var command = new SqlCommand(
+                    "INSERT INTO StockAdjustmentLog (product_name, new_stock_quantity, adjustment_reason, adjusted_by, adjustment_date) " +
+                    "VALUES (@productName, @newStock, @reason, @adjustedBy, @adjustmentDate)",
+                    connection))
+                {
+                    command.Parameters.AddWithValue("@productName", currentProductName);
+                    command.Parameters.AddWithValue("@newStock", newTotalStock);
+                    command.Parameters.AddWithValue("@reason", reason);
+                    command.Parameters.AddWithValue("@adjustedBy", Environment.UserName);
+                    command.Parameters.AddWithValue("@adjustmentDate", DateTime.Now);
 
-                const string query = "INSERT INTO StockAdjustmentLog (product_name, new_stock_quantity, adjustment_reason, adjusted_by, adjustment_date) VALUES (@productName, @newStock, @reason, @adjustedBy, @adjustmentDate)";
-                command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@productName", currentProductName);
-                command.Parameters.AddWithValue("@newStock", newTotalStock);
-                command.Parameters.AddWithValue("@reason", reason);
-                command.Parameters.AddWithValue("@adjustedBy", Environment.UserName);
-                command.Parameters.AddWithValue("@adjustmentDate", DateTime.Now);
-
-                command.ExecuteNonQuery();
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
             }
             catch
             {
                 // Optional logging failure should not prevent main update
             }
-            finally
-            {
-                if (command != null)
-                {
-                    command.Dispose();
-                }
-
-                if (connection != null)
-                {
-                    connection.Dispose();
-                }
-            }
         }
 
-        private void CloseButton_Click(object sender, EventArgs e)
-        {
-            if (Cancelled != null)
-            {
-                Cancelled(this, EventArgs.Empty);
-            }
-        }
+        #endregion
+
+        #region Disposal
 
         protected override void Dispose(bool disposing)
         {
@@ -408,5 +449,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
             base.Dispose(disposing);
         }
+
+        #endregion
     }
 }

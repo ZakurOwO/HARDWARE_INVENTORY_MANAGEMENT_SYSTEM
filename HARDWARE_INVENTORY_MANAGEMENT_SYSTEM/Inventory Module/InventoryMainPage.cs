@@ -124,9 +124,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
         }
 
-        public void ShowAdjustStockForProduct(string productId, string productName, string sku, string brand, int stock, string imagePath)
+        public void ShowAdjustStockForProduct(int productInternalId, string productId, string productName, string sku, string brand, int stock, string imagePath)
         {
-            adjustStockManager.ShowAdjustStockPopup(productId, productName, sku, brand, stock, imagePath, RefreshInventory);
+            adjustStockManager.ShowAdjustStockPopup(productInternalId, productId, productName, sku, brand, stock, imagePath, RefreshInventory);
         }
 
         public void ShowItemDescriptionForProduct(string productId, string productName, string sku, string category, int currentStock, string brand, string imagePath)
