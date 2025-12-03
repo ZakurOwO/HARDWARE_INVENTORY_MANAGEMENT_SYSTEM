@@ -19,6 +19,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
         private SqlConnection con;
         private string connectionString = ConnectionString.DataSource;
         private int currentPoId = -1;
+        private DateTime? currentCreatedAt = null;
+        private bool editingLocked = false;
 
         #region UI Rules
 
@@ -307,6 +309,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
             int qty = (int)nudQuantity.Value;
             decimal unitPrice = nudUnitPrice.Value;
             decimal total = qty * unitPrice;
+
+            if (qty <= 0 || unitPrice <= 0)
+            {
+                MessageBox.Show("Quantity and unit price must be greater than zero.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             // PREVENT DUPLICATES
             foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
