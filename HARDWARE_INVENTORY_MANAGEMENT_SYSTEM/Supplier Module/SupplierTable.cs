@@ -9,16 +9,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 {
     public partial class SupplierTable : UserControl
     {
-        private SqlConnection con;
-        private DataTable suppliersData;
-        private string connectionString = ConnectionString.DataSource;
+        private readonly string connectionString = ConnectionString.DataSource;
+        private readonly SupplierEditContainer supplierEditContainer = new SupplierEditContainer();
 
         public SupplierTable()
         {
             InitializeComponent();
-
-            // Initialize the connection
-            con = new SqlConnection(connectionString);
 
             // Wire up event handlers programmatically
             this.Load += SupplierTable_Load;
@@ -36,7 +32,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             {
                 dgvSupplier.Rows.Clear();
 
-                string query = @"SELECT 
+                string query = @"SELECT
+                    supplier_id,
                     SupplierID,
                     supplier_name,
                     contact_person,
@@ -45,12 +42,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                     address,
                     created_at,
                     updated_at
-                FROM Suppliers 
+                FROM Suppliers
                 ORDER BY created_at DESC";
 
+                using (SqlConnection con = new SqlConnection(connectionString))
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    suppliersData = new DataTable();
+                    DataTable suppliersData = new DataTable();
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     adapter.Fill(suppliersData);
 
@@ -58,15 +56,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                     {
                         string supplierID = row["SupplierID"].ToString();
                         string supplierName = row["supplier_name"].ToString();
-                        string contactPerson = row["contact_person"].ToString();
                         string contactNumber = row["contact_number"].ToString();
-                        string email = row["email"] != DBNull.Value ? row["email"].ToString() : "N/A";
                         string address = row["address"] != DBNull.Value ? row["address"].ToString() : "N/A";
                         DateTime createdAt = Convert.ToDateTime(row["created_at"]);
 
-                        // Add row to DataGridView
                         int rowIndex = dgvSupplier.Rows.Add(
-                            Properties.Resources.Active1, // Status image (always active for now)
+                            Properties.Resources.Active1,
                             supplierName,
                             contactNumber,
                             address,
@@ -75,7 +70,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                             Properties.Resources.Deactivate_Circle
                         );
 
-                        // Store the SupplierID in the row's Tag for later use
                         dgvSupplier.Rows[rowIndex].Tag = supplierID;
                     }
 
@@ -98,60 +92,42 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
             if (supplierID == null) return;
 
-            // Edit button clicked (column index 5)
             if (e.ColumnIndex == 5)
             {
-                EditSupplier(supplierID, e.RowIndex);
+                EditSupplier(supplierID);
             }
-            // Deactivate button clicked (column index 6)
             else if (e.ColumnIndex == 6)
             {
                 DeactivateSupplier(supplierID, e.RowIndex);
             }
         }
 
-        private void EditSupplier(string supplierID, int rowIndex)
+        private void EditSupplier(string supplierID)
         {
             try
             {
-                // Get supplier details
-                string query = @"SELECT * FROM Suppliers WHERE SupplierID = @SupplierID";
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                SupplierRecord supplier = GetSupplierById(supplierID);
+                if (supplier == null)
                 {
-                    cmd.Parameters.AddWithValue("@SupplierID", supplierID);
-
-                    con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        string message = $"Edit Supplier:\n\n" +
-                                       $"ID: {reader["SupplierID"]}\n" +
-                                       $"Name: {reader["supplier_name"]}\n" +
-                                       $"Contact Person: {reader["contact_person"]}\n" +
-                                       $"Contact Number: {reader["contact_number"]}\n" +
-                                       $"Email: {(reader["email"] != DBNull.Value ? reader["email"].ToString() : "N/A")}\n" +
-                                       $"Address: {(reader["address"] != DBNull.Value ? reader["address"].ToString() : "N/A")}\n\n" +
-                                       $"Edit functionality to be implemented.";
-
-                        MessageBox.Show(message, "Supplier Details",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-
-                    reader.Close();
-                    con.Close();
+                    MessageBox.Show("Unable to locate this supplier record.", "Not Found",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+
+                MainDashBoard main = this.FindForm() as MainDashBoard;
+                if (main == null)
+                {
+                    MessageBox.Show("Unable to open edit form without main dashboard context.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                supplierEditContainer.ShowSupplierEditForm(main, this, supplier);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}", "Error",
+                MessageBox.Show($"Error loading supplier details: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
             }
         }
 
@@ -166,57 +142,114 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
             if (result == DialogResult.Yes)
             {
-                try
+                SupplierRecord supplier = GetSupplierById(supplierID);
+                if (supplier == null)
                 {
-                    string query = "DELETE FROM Suppliers WHERE SupplierID = @SupplierID";
+                    MessageBox.Show("Unable to find this supplier.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                    using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    SqlTransaction transaction = null;
+                    try
                     {
-                        cmd.Parameters.AddWithValue("@SupplierID", supplierID);
-
                         con.Open();
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        con.Close();
+                        transaction = con.BeginTransaction();
 
-                        if (rowsAffected > 0)
+                        using (SqlCommand deleteItems = new SqlCommand(@"DELETE FROM PurchaseOrderItems
+                                WHERE po_id IN (SELECT po_id FROM PurchaseOrders WHERE supplier_id = @SupplierInternalID)", con, transaction))
+                        using (SqlCommand deletePOs = new SqlCommand(@"DELETE FROM PurchaseOrders WHERE supplier_id = @SupplierInternalID", con, transaction))
+                        using (SqlCommand deleteSupplier = new SqlCommand(@"DELETE FROM Suppliers WHERE SupplierID = @SupplierID", con, transaction))
                         {
-                            MessageBox.Show("Supplier deleted successfully!", "Success",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            deleteItems.Parameters.AddWithValue("@SupplierInternalID", supplier.SupplierInternalId);
+                            deletePOs.Parameters.AddWithValue("@SupplierInternalID", supplier.SupplierInternalId);
+                            deleteSupplier.Parameters.AddWithValue("@SupplierID", supplierID);
 
-                            // Remove row from grid
-                            dgvSupplier.Rows.RemoveAt(rowIndex);
+                            deleteItems.ExecuteNonQuery();
+                            deletePOs.ExecuteNonQuery();
+
+                            int rowsAffected = deleteSupplier.ExecuteNonQuery();
+                            if (rowsAffected == 0)
+                            {
+                                throw new InvalidOperationException("Supplier could not be deleted.");
+                            }
+                        }
+
+                        SupplierAuditLogger.LogSupplierAudit(
+                            con,
+                            transaction,
+                            activity: $"Deleted supplier {supplier.SupplierName}",
+                            activityType: "DELETE",
+                            recordId: supplier.SupplierID ?? supplier.SupplierInternalId.ToString(),
+                            oldValues: SupplierAuditLogger.BuildSupplierState(supplier),
+                            newValues: null);
+
+                        transaction.Commit();
+
+                        MessageBox.Show("Supplier deleted successfully!", "Success",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        dgvSupplier.Rows.RemoveAt(rowIndex);
+                    }
+                    catch (SqlException ex)
+                    {
+                        transaction?.Rollback();
+                        if (ex.Number == 547)
+                        {
+                            MessageBox.Show(
+                                "Cannot delete this supplier because it has related records (Purchase Orders, etc.).\n\n" +
+                                "Please delete or reassign related records first.",
+                                "Cannot Delete",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning
+                            );
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Database error: {ex.Message}", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                }
-                catch (SqlException ex)
-                {
-                    if (ex.Number == 547) // Foreign key constraint violation
+                    catch (Exception ex)
                     {
-                        MessageBox.Show(
-                            "Cannot delete this supplier because it has related records (Purchase Orders, etc.).\n\n" +
-                            "Please delete or reassign related records first.",
-                            "Cannot Delete",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning
-                        );
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Database error: {ex.Message}", "Error",
+                        transaction?.Rollback();
+                        MessageBox.Show($"Error: {ex.Message}", "Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                catch (Exception ex)
+            }
+        }
+
+        private SupplierRecord GetSupplierById(string supplierID)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(@"SELECT supplier_id, SupplierID, supplier_name, contact_person, contact_number, address, email
+                    FROM Suppliers WHERE SupplierID = @SupplierID", con))
+            {
+                cmd.Parameters.AddWithValue("@SupplierID", supplierID);
+
+                con.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    MessageBox.Show($"Error: {ex.Message}", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    if (con.State == ConnectionState.Open)
-                        con.Close();
+                    if (reader.Read())
+                    {
+                        return new SupplierRecord
+                        {
+                            SupplierInternalId = Convert.ToInt32(reader["supplier_id"]),
+                            SupplierID = reader["SupplierID"].ToString(),
+                            SupplierName = reader["supplier_name"].ToString(),
+                            ContactPerson = reader["contact_person"].ToString(),
+                            ContactNumber = reader["contact_number"].ToString(),
+                            Address = reader["address"] != DBNull.Value ? reader["address"].ToString() : null,
+                            Email = reader["email"] != DBNull.Value ? reader["email"].ToString() : null
+                        };
+                    }
                 }
             }
+
+            return null;
         }
 
         private Image Action_Set(string EditColBtn)
