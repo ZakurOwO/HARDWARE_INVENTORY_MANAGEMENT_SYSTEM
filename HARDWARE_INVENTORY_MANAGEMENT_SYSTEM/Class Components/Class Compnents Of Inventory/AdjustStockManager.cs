@@ -96,6 +96,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
         private void PreparePopupContainer()
         {
+            if (popupContainer == null)
+            {
+                popupContainer = new Panel();
+                popupContainer.Size = new Size(620, 440);
+                popupContainer.BackColor = Color.White;
+                popupContainer.BorderStyle = BorderStyle.FixedSingle;
+            }
             popupContainer = new Panel();
             popupContainer.Size = new Size(550, 420);
             popupContainer.BackColor = Color.White;
@@ -114,6 +121,54 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
         private void CenterPopupContainer()
         {
+            Control target = GetPopupHost();
+            Control anchor = inventoryPage != null ? (Control)inventoryPage : hostContainer;
+
+            if (popupContainer == null)
+            {
+                return;
+            }
+
+            if (target == null || anchor == null)
+            {
+                popupContainer.Location = new Point(0, 0);
+                return;
+            }
+
+            Point anchorScreen = anchor.PointToScreen(Point.Empty);
+            Point targetScreen = target.PointToScreen(Point.Empty);
+            Point relative = new Point(anchorScreen.X - targetScreen.X, anchorScreen.Y - targetScreen.Y);
+
+            int left = relative.X + (anchor.Width - popupContainer.Width) / 2;
+            int top = relative.Y + (anchor.Height - popupContainer.Height) / 2;
+
+            if (left < 0)
+            {
+                left = 0;
+            }
+
+            if (top < 0)
+            {
+                top = 0;
+            }
+
+            popupContainer.Location = new Point(left, top);
+        }
+
+        private void AddPopupToHost()
+        {
+            Control container = GetPopupHost();
+            if (container == null)
+            {
+                return;
+            }
+
+            if (popupContainer.Parent != null && popupContainer.Parent != container)
+            {
+                popupContainer.Parent.Controls.Remove(popupContainer);
+            }
+
+            popupContainer.Parent = null;
             Control target = hostContainer ?? inventoryPage as Control;
             if (target == null)
             {
@@ -142,6 +197,80 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
         }
 
         private void DisplayOverlay()
+        {
+            if (mainForm != null && mainForm.pcbBlurOverlay != null)
+            {
+                if (mainForm.pcbBlurOverlay.BackgroundImage == null)
+                {
+                    mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.SupplierOverlay;
+                    mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+
+                mainForm.pcbBlurOverlay.Visible = true;
+                mainForm.pcbBlurOverlay.BringToFront();
+            }
+
+            CenterPopupContainer();
+            popupContainer.BringToFront();
+        }
+
+        private void HideOverlay()
+        {
+            if (popupContainer != null && popupContainer.Parent != null)
+            {
+                popupContainer.Parent.Controls.Remove(popupContainer);
+            }
+
+            if (mainForm != null && mainForm.pcbBlurOverlay != null)
+            {
+                mainForm.pcbBlurOverlay.Visible = false;
+            }
+        }
+
+        private Control GetPopupHost()
+        {
+            if (mainForm != null && mainForm.pcbBlurOverlay != null)
+            {
+                return mainForm.pcbBlurOverlay;
+            }
+
+            if (mainForm != null)
+            {
+                return mainForm;
+            }
+
+            if (hostContainer != null && hostContainer.Parent != null)
+            {
+                return hostContainer.Parent;
+            }
+
+            return hostContainer ?? inventoryPage as Control;
+        }
+
+        private MainDashBoard FindMainDashboard(Control startingControl)
+        {
+            Control current = startingControl;
+            while (current != null)
+            {
+                MainDashBoard dashboard = current as MainDashBoard;
+                if (dashboard != null)
+                {
+                    return dashboard;
+                }
+                current = current.Parent;
+            }
+
+            if (startingControl != null)
+            {
+                Form form = startingControl.FindForm();
+                return form as MainDashBoard;
+            }
+
+            return null;
+        }
+
+        private void EnsureMainForm()
+        {
         {
             if (mainForm == null)
             {
