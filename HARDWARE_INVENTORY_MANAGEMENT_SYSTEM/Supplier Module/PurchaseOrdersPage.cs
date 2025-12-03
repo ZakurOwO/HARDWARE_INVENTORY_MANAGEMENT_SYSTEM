@@ -126,7 +126,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 popup.FormBorderStyle = FormBorderStyle.None;
                 popup.StartPosition = FormStartPosition.CenterScreen;
                 popup.BackColor = Color.White;
-                popup.Size = new Size(850, 600);
+                popup.Size = new Size(1000, 700);
 
                 EditPurchaseOrder editForm = new EditPurchaseOrder();
                 editForm.Dock = DockStyle.Fill;
