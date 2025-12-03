@@ -70,6 +70,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             // Hook up product dropdown click event
             cbxCategory.DropDown += CbxCategory_DropDown;
 
+            guna2ComboBox2.SelectedIndexChanged += (s, e) => ApplyStatusBusinessRulesForAdd();
+
             // Hook up events for dynamic calculation
             guna2ComboBox1.SelectedIndexChanged += (s, e) => UpdateCalculations();
             guna2NumericUpDown3.ValueChanged += (s, e) => UpdateCalculations();
@@ -271,7 +273,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private void LoadStatusOptions()
         {
-            guna2ComboBox2.Items.AddRange(new string[] { "Pending", "Approved", "Ordered", "Received", "Cancelled" });
+            guna2ComboBox2.Items.Clear();
+            guna2ComboBox2.Items.AddRange(new string[] { "Pending", "Approved", "Ordered", "Received" });
             guna2ComboBox2.SelectedIndex = 0;
         }
 
@@ -285,6 +288,33 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         {
             guna2ComboBox1.Items.AddRange(new string[] { "VAT (12%)", "No Tax (0%)", "Custom", "3%" });
             guna2ComboBox1.SelectedIndex = 0;
+        }
+
+        private void ApplyStatusBusinessRulesForAdd()
+        {
+            if (guna2ComboBox2.SelectedItem == null)
+            {
+                return;
+            }
+
+            switch (guna2ComboBox2.SelectedItem.ToString())
+            {
+                case "Approved":
+                    if (ExpirationDataComboBox.Value < guna2DateTimePicker1.Value.AddDays(1))
+                    {
+                        ExpirationDataComboBox.Value = guna2DateTimePicker1.Value.AddDays(7);
+                    }
+                    break;
+                case "Ordered":
+                    if (ExpirationDataComboBox.Value < DateTime.Now)
+                    {
+                        ExpirationDataComboBox.Value = DateTime.Now.AddDays(7);
+                    }
+                    break;
+                case "Received":
+                    ExpirationDataComboBox.Value = DateTime.Now;
+                    break;
+            }
         }
 
         private void AdjustGridHeight()
@@ -455,6 +485,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             string notes = kryptonRichTextBox2.Text == _notesPlaceholder
                 ? string.Empty
                 : kryptonRichTextBox2.Text;
+            ApplyStatusBusinessRulesForAdd();
             if (!ValidateForm()) return;
 
             if (!IsPONumberUnique(CompanyNameTextBoxSupplier.Text))
