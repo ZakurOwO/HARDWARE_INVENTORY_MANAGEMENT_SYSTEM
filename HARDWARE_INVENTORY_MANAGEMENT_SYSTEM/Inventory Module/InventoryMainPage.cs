@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
@@ -33,29 +27,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             try
             {
-                // Find the inventory table control
                 inventoryTable = FindControlRecursive<InventoryList_Table>(this);
 
                 if (inventoryTable != null && inventory_Pagination1 != null)
                 {
-                    // Set the pagination control reference
                     inventoryTable.PaginationControl = inventory_Pagination1;
-
-                    // Force pagination to always show
                     inventory_Pagination1.AlwaysShowPagination = true;
                     inventory_Pagination1.Visible = true;
                     inventory_Pagination1.BringToFront();
-
-                    Console.WriteLine("Pagination connected successfully!");
-                }
-                else
-                {
-                    Console.WriteLine("Pagination controls not found!");
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                Console.WriteLine($"Error connecting pagination: {ex.Message}");
+                // Keep page usable even if pagination hookup fails
             }
         }
 
@@ -63,60 +47,98 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             itemDescriptionForm = new ItemDescription_Form();
             itemDescriptionForm.Visible = false;
-            itemDescriptionForm.CloseRequested += (s, e) => HideItemDescription();
-            this.Controls.Add(itemDescriptionForm);
+            itemDescriptionForm.CloseRequested += ItemDescriptionForm_CloseRequested;
+            Controls.Add(itemDescriptionForm);
             itemDescriptionForm.BringToFront();
+        }
+
+        private void ItemDescriptionForm_CloseRequested(object sender, EventArgs e)
+        {
+            HideItemDescription();
         }
 
         private void InitializeSearch()
         {
-            TextBox searchBox = FindTextBoxInSearchField(inventory_SearchField1);
+            TextBox searchBox = FindControlRecursive<TextBox>(inventory_SearchField1);
 
             if (searchBox != null)
             {
-                // Remove the placeholder text - just pass empty string
-                searchTextBox = new SearchTextBox(searchBox, ""); // Empty placeholder
+                searchTextBox = new SearchTextBox(searchBox, string.Empty);
                 searchTextBox.SearchTextChanged += SearchTextBox_SearchTextChanged;
-            }
-            else
-            {
-                MessageBox.Show("Search textbox not found in the search field.");
             }
         }
 
         private void SearchTextBox_SearchTextChanged(object sender, string searchText)
         {
-            // Find the InventoryList_Table user control
-            inventoryTable = FindControlRecursive<InventoryList_Table>(this);
-
-            if (inventoryTable != null)
+            if (inventoryTable == null)
             {
-                // Get the DataGridView from the user control
-                DataGridView dgv = FindControlRecursive<DataGridView>(inventoryTable);
+                inventoryTable = FindControlRecursive<InventoryList_Table>(this);
+            }
 
-                if (dgv != null)
+            if (inventoryTable == null)
+            {
+                return;
+            }
+
+            DataGridView dgv = FindControlRecursive<DataGridView>(inventoryTable);
+            if (dgv == null)
+            {
+                return;
+            }
+
+            ApplyInventorySearchFilter(dgv, searchText);
+        }
+
+        private void ApplyInventorySearchFilter(DataGridView dgv, string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                foreach (DataGridViewRow row in dgv.Rows)
                 {
-                    searchTextBox.FilterDataGridView(dgv, searchText, 0);
+                    if (!row.IsNewRow)
+                    {
+                        row.Visible = true;
+                    }
                 }
+                return;
+            }
+
+            string criteria = searchText.Trim();
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.IsNewRow)
+                {
+                    continue;
+                }
+
+                string productName = row.Cells[0].Value != null ? row.Cells[0].Value.ToString() : string.Empty;
+                string sku = string.Empty;
+                if (row.Tag is InventoryList_Table.InventoryRowData rowData)
+                {
+                    sku = rowData.SKU ?? string.Empty;
+                }
+
+                bool matchName = productName.IndexOf(criteria, StringComparison.OrdinalIgnoreCase) >= 0;
+                bool matchSku = sku.IndexOf(criteria, StringComparison.OrdinalIgnoreCase) >= 0;
+                row.Visible = matchName || matchSku;
             }
         }
 
-        // Method to call when user clicks adjust stock in DataGridView
         public void ShowAdjustStockForProduct(string productId, string productName, string sku, string brand, int stock, string imagePath)
         {
-            adjustStockManager.ShowAdjustStockPopup(productName, sku, brand, stock, imagePath, productId, RefreshInventory);
+            adjustStockManager.ShowAdjustStockPopup(productId, productName, sku, brand, stock, imagePath, RefreshInventory);
         }
 
-        // Method to call when user clicks view details in DataGridView
         public void ShowItemDescriptionForProduct(string productId, string productName, string sku, string category, int currentStock, string brand, string imagePath)
         {
             if (itemDescriptionForm == null)
+            {
                 InitializeItemDescriptionForm();
+            }
 
-            // Center the form in the main page
             itemDescriptionForm.Location = new Point(
-                (this.Width - itemDescriptionForm.Width) / 2,
-                (this.Height - itemDescriptionForm.Height) / 2
+                (Width - itemDescriptionForm.Width) / 2,
+                (Height - itemDescriptionForm.Height) / 2
             );
 
             var productDetails = InventoryDatabaseHelper.GetProductDetails(productId);
@@ -128,22 +150,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
             else
             {
-                // Fallback to whatever data we currently have
                 itemDescriptionForm.PopulateProductData(
-                    productId: productId,
-                    productName: productName,
-                    sku: sku,
-                    category: category,
-                    currentStock: currentStock,
-                    sellingPrice: 0.00m,
-                    status: "Available",
-                    brand: brand,
-                    minimumStock: 0,
-                    costPrice: 0.00m,
-                    unit: "Piece",
-                    description: brand,
-                    imagePath: imagePath
-                );
+                    productId,
+                    productName,
+                    sku,
+                    category,
+                    currentStock,
+                    0.00m,
+                    "Available",
+                    brand,
+                    0,
+                    0.00m,
+                    "Piece",
+                    brand,
+                    imagePath);
             }
 
             itemDescriptionForm.ShowItemDescription();
@@ -151,33 +171,40 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         public void HideItemDescription()
         {
-            itemDescriptionForm?.HideItemDescription();
-        }
-
-        private TextBox FindTextBoxInSearchField(Control searchFieldControl)
-        {
-            return FindControlRecursive<TextBox>(searchFieldControl);
+            if (itemDescriptionForm != null)
+            {
+                itemDescriptionForm.HideItemDescription();
+            }
         }
 
         private T FindControlRecursive<T>(Control parent) where T : Control
         {
-            if (parent == null) return null;
+            if (parent == null)
+            {
+                return null;
+            }
 
             foreach (Control control in parent.Controls)
             {
-                if (control is T found)
-                    return found;
+                T typedControl = control as T;
+                if (typedControl != null)
+                {
+                    return typedControl;
+                }
 
-                var child = FindControlRecursive<T>(control);
+                T child = FindControlRecursive<T>(control);
                 if (child != null)
+                {
                     return child;
+                }
             }
+
             return null;
         }
 
         private void btnAddItem_Click(object sender, EventArgs e)
         {
-            var main = this.FindForm() as MainDashBoard;
+            MainDashBoard main = FindForm() as MainDashBoard;
             if (main != null)
             {
                 addItemContainer.ShowAddItemForm(main);
@@ -196,23 +223,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         public void ClearSearch()
         {
-            searchTextBox?.ClearSearch();
+            if (searchTextBox != null)
+            {
+                searchTextBox.ClearSearch();
+            }
         }
 
         public void RefreshInventory()
         {
             ClearSearch();
-            inventoryTable?.RefreshData();
+            if (inventoryTable != null)
+            {
+                inventoryTable.RefreshData();
+            }
 
-            // Ensure pagination is visible after refresh
-            inventory_Pagination1?.ForceShow();
+            if (inventory_Pagination1 != null)
+            {
+                inventory_Pagination1.ForceShow();
+            }
         }
 
-        // ADD THIS METHOD to ensure pagination stays visible
         protected override void OnVisibleChanged(EventArgs e)
         {
             base.OnVisibleChanged(e);
-            if (this.Visible && inventory_Pagination1 != null)
+            if (Visible && inventory_Pagination1 != null)
             {
                 inventory_Pagination1.ForceShow();
             }
@@ -220,14 +254,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void inventory_SearchField1_Load(object sender, EventArgs e)
         {
-            // Re-initialize search when search field loads
             InitializeSearch();
         }
 
         private void inventory_Pagination1_Load(object sender, EventArgs e)
         {
-            // Ensure pagination is visible when it loads
-            inventory_Pagination1?.ForceShow();
+            if (inventory_Pagination1 != null)
+            {
+                inventory_Pagination1.ForceShow();
+            }
         }
     }
 }
