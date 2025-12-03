@@ -31,10 +31,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
             LoadSuppliers();
             LoadProducts();
 
-            btnAdd.Click += (s, e) => AddItem();
-            btnBlue.Click += (s, e) => SavePurchaseOrder();
-            btnWhite.Click += (s, e) => CloseParent();
-
             // Hook events
             cbxStatus.SelectedIndexChanged += (s, e) => ApplyPOStatusRules(cbxStatus.Text);
             cbxTax.SelectedIndexChanged += (s, e) => UpdateTotals();
@@ -56,7 +52,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                 {
                     connection.Open();
 
-                    using (SqlCommand cmd = new SqlCommand(@"SELECT po_id, po_number, po_date, expected_date, supplier_id, status, total_amount, created_at
+                    using (SqlCommand cmd = new SqlCommand(@"SELECT po_id, po_number, po_date, expected_date, supplier_id, status, total_amount
                                                                FROM PurchaseOrders
                                                                WHERE po_number = @poNumber", connection))
                     {
@@ -73,9 +69,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                             currentPoId = reader.GetInt32(reader.GetOrdinal("po_id"));
                             tbxOrderNumber.Text = reader["po_number"].ToString();
                             dtpOrderDate.Value = Convert.ToDateTime(reader["po_date"]);
-                            currentCreatedAt = reader["created_at"] == DBNull.Value
-                                ? dtpOrderDate.Value
-                                : Convert.ToDateTime(reader["created_at"]);
 
                             if (reader["expected_date"] != DBNull.Value)
                             {
@@ -97,56 +90,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                     LoadPurchaseOrderItems(connection);
                     UpdateTotals();
                     ApplyPOStatusRules(cbxStatus.Text);
-                    ApplyEditTimeLimit();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading purchase order: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void ApplyEditTimeLimit()
-        {
-            if (currentCreatedAt == null)
-            {
-                return;
-            }
-
-            var elapsed = DateTime.Now - currentCreatedAt.Value;
-
-            // Lock edits after 12 hours
-            if (elapsed.TotalHours >= 12)
-            {
-                editingLocked = true;
-                LockEditingControls();
-                MessageBox.Show("This purchase order can no longer be edited because it was created more than 12 hours ago.", "Editing Locked", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void LockEditingControls()
-        {
-            cbxSupplier.Enabled = false;
-            cbxStatus.Enabled = false;
-            cbxPaymentStatus.Enabled = false;
-            dtpExpectedDelivery.Enabled = false;
-            rtxNotes.Enabled = false;
-            cbxTax.Enabled = false;
-            nudShippingFee.Enabled = false;
-            dgvPurchaseItems.Enabled = false;
-            nudUnitPrice.Enabled = false;
-            nudQuantity.Enabled = false;
-            cbxProduct.Enabled = false;
-            btnAdd.Enabled = false;
-            btnBlue.Enabled = false;
-        }
-
-        private void CloseParent()
-        {
-            var host = this.FindForm();
-            if (host != null)
-            {
-                host.Close();
             }
         }
 
@@ -424,12 +372,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
 
         private void SavePurchaseOrder()
         {
-            if (editingLocked)
-            {
-                MessageBox.Show("This purchase order is locked from editing due to age.", "Editing Locked", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
             if (currentPoId <= 0)
             {
                 MessageBox.Show("Load a purchase order before saving changes.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
