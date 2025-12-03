@@ -51,8 +51,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
             if (!item.IsValid())
                 throw new ArgumentException("Cart item is not valid.", nameof(item));
 
-            int additionalQuantity = item.Quantity;
             var existingItem = _cartItems.Find(x => x.ProductInternalID == item.ProductInternalID);
+            int existingQuantity = existingItem != null ? existingItem.Quantity : 0;
+            int desiredQuantity = existingQuantity + item.Quantity;
 
             if (!TryGetCurrentStock(item.ProductInternalID, out int availableStock))
             {
@@ -65,15 +66,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 return false;
             }
 
-            if (additionalQuantity > availableStock)
+            if (desiredQuantity > availableStock)
             {
                 MessageBox.Show($"Insufficient stock. Available: {availableStock}", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            if (!TryAdjustStock(item.ProductInternalID, additionalQuantity, out string errorMessage))
-            {
-                MessageBox.Show(errorMessage, "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -84,10 +79,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 existingItem.ProductName = item.ProductName;
                 existingItem.ProductID = item.ProductID;
                 existingItem.ImagePath = item.ImagePath;
-                existingItem.AvailableStock = item.AvailableStock;
+                existingItem.AvailableStock = availableStock;
             }
             else
             {
+                item.AvailableStock = availableStock;
                 _cartItems.Add(item);
             }
 
@@ -115,22 +111,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 return false;
             }
 
-            int quantityToRestore = quantityOverride.HasValue && quantityOverride.Value > 0
+            int removedQuantity = quantityOverride.HasValue && quantityOverride.Value > 0
                 ? quantityOverride.Value
                 : existingItem.Quantity;
-
-            if (!TryRestoreStock(productInternalId, quantityToRestore, out string errorMessage))
-            {
-                MessageBox.Show(errorMessage, "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
 
             _cartItems.RemoveAll(x => x.ProductInternalID == productInternalId);
 
             LogCartAction(
                 "Removed item from cart",
                 productInternalId.ToString(),
-                $"{{\"restored_quantity\":{quantityToRestore}}}"
+                $"{{\"removed_quantity\":{removedQuantity}}}"
             );
 
             CartUpdated?.Invoke(this, EventArgs.Empty);
@@ -151,14 +141,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
             }
             else
             {
-                int quantityChange = newQuantity - existingItem.Quantity;
-                if (quantityChange != 0)
+                if (!TryGetCurrentStock(productInternalId, out int availableStock))
                 {
-                    if (!TryAdjustStock(productInternalId, quantityChange, out string errorMessage))
-                    {
-                        MessageBox.Show(errorMessage, "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return false;
-                    }
+                    return false;
+                }
+
+                if (newQuantity > availableStock)
+                {
+                    MessageBox.Show($"Insufficient stock. Available: {availableStock}", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
                 }
 
                 existingItem.Quantity = newQuantity;
@@ -177,16 +168,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
 
         public void ClearCart(bool restoreStock)
         {
-            if (restoreStock)
-            {
-                foreach (var item in new List<CartItem>(_cartItems))
-                {
-                    if (!TryAdjustStock(item.ProductInternalID, -item.Quantity, out string errorMessage))
-                    {
-                        MessageBox.Show(errorMessage, "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-            }
+            // restoreStock is ignored because cart changes are now purely in-memory until checkout
 
             _cartItems.Clear();
             LogCartAction("Cleared cart", null, null);
@@ -245,82 +227,51 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
             }
         }
 
-        private bool TryAdjustStock(int productId, int quantityChange, out string errorMessage)
+        /// <summary>
+        /// Apply the current cart quantities to inventory within the provided database transaction.
+        /// This is the only place where product stock levels are modified.
+        /// </summary>
+        public bool ApplyCartToInventory(SqlConnection connection, SqlTransaction transaction, out string errorMessage)
         {
             errorMessage = null;
 
-            if (quantityChange == 0)
+            foreach (var item in _cartItems)
             {
-                return true;
-            }
-
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                string selectQuery = "SELECT current_stock FROM Products WITH (UPDLOCK, HOLDLOCK) WHERE ProductInternalID = @ProductId";
+                using (SqlCommand selectCmd = new SqlCommand(selectQuery, connection, transaction))
                 {
-                    connection.Open();
-                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    selectCmd.Parameters.AddWithValue("@ProductId", item.ProductInternalID);
+                    object result = selectCmd.ExecuteScalar();
+                    if (result == null)
                     {
-                        string selectQuery = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId";
-                        using (SqlCommand selectCmd = new SqlCommand(selectQuery, connection, transaction))
-                        {
-                            selectCmd.Parameters.AddWithValue("@ProductId", productId);
-                            object result = selectCmd.ExecuteScalar();
-                            if (result == null)
-                            {
-                                errorMessage = "Product not found in inventory.";
-                                transaction.Rollback();
-                                return false;
-                            }
+                        errorMessage = "Product not found in inventory.";
+                        return false;
+                    }
 
-                            int currentStock = Convert.ToInt32(result);
-                            if (currentStock <= 0 && quantityChange > 0)
-                            {
-                                errorMessage = "Item is out of stock.";
-                                transaction.Rollback();
-                                return false;
-                            }
+                    int currentStock = Convert.ToInt32(result);
+                    if (currentStock < item.Quantity)
+                    {
+                        errorMessage = $"Insufficient stock for {item.ProductName}. Available: {currentStock}";
+                        return false;
+                    }
+                }
 
-                            int projectedStock = currentStock - quantityChange;
+                string updateQuery = "UPDATE Products SET current_stock = current_stock - @QuantityChange WHERE ProductInternalID = @ProductId";
+                using (SqlCommand updateCmd = new SqlCommand(updateQuery, connection, transaction))
+                {
+                    updateCmd.Parameters.AddWithValue("@QuantityChange", item.Quantity);
+                    updateCmd.Parameters.AddWithValue("@ProductId", item.ProductInternalID);
 
-                            if (projectedStock < 0)
-                            {
-                                errorMessage = $"Insufficient stock. Available: {currentStock}";
-                                transaction.Rollback();
-                                return false;
-                            }
-
-                            string updateQuery = "UPDATE Products SET current_stock = current_stock - @QuantityChange WHERE ProductInternalID = @ProductId";
-                            using (SqlCommand updateCmd = new SqlCommand(updateQuery, connection, transaction))
-                            {
-                                updateCmd.Parameters.AddWithValue("@QuantityChange", quantityChange);
-                                updateCmd.Parameters.AddWithValue("@ProductId", productId);
-                                int rows = updateCmd.ExecuteNonQuery();
-
-                                if (rows == 0)
-                                {
-                                    errorMessage = "Unable to update stock for the selected product.";
-                                    transaction.Rollback();
-                                    return false;
-                                }
-                            }
-
-                            transaction.Commit();
-                            return true;
-                        }
+                    int rows = updateCmd.ExecuteNonQuery();
+                    if (rows == 0)
+                    {
+                        errorMessage = "Unable to update stock for one or more products.";
+                        return false;
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                errorMessage = $"Error updating stock: {ex.Message}";
-                return false;
-            }
-        }
 
-        private bool TryRestoreStock(int productId, int quantityToRestore, out string errorMessage)
-        {
-            return TryAdjustStock(productId, -quantityToRestore, out errorMessage);
+            return true;
         }
 
         private bool TryGetCurrentStock(int productId, out int currentStock)

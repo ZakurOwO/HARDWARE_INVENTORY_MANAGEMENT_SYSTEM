@@ -405,7 +405,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
                     "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    if (SharedCartManager.Instance.RemoveItemAndRestoreStock(productId, quantityInCart))
+                    if (SharedCartManager.Instance.RemoveItemFromCart(productId))
                     {
                         ReloadCartTable();
                         ReloadInventoryList();
@@ -544,6 +544,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             dgvCartDetails.Rows.Clear();
             SharedCartManager.Instance.ClearCart(restoreStock);
             UpdateCartTotals();
+            ReloadInventoryList();
         }
 
         private void LoadSharedCartItems()
@@ -826,6 +827,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         var deliveryHeader = InsertDeliveryHeader(connection, transaction, transactionId, customerName, deliveryNumber);
                         int deliveryId = deliveryHeader.deliveryId;
 
+                        // Commit inventory only once the checkout is confirmed, within the same transaction scope
+                        if (!SharedCartManager.Instance.ApplyCartToInventory(connection, transaction, out string stockError))
+                        {
+                            throw new InvalidOperationException(stockError);
+                        }
+
                         // Save transaction and delivery items
                         foreach (DataGridViewRow row in dgvCartDetails.Rows)
                         {
@@ -874,7 +881,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         MessageBox.Show($"Delivery transaction saved successfully!\n\nTransaction ID: TRX-{transactionId:D5}\nCustomer: {customerName}\nVehicles: {selectedVehicles.Count}\nPayment Method: {paymentMethod}\nTotal: ₱{totalAmount:N2}",
                             "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                        // Commit point: inventory and transaction records saved together
                         ClearCart(false);
+                        ReloadInventoryList();
                         ClearVehicleSelection();
                     }
                     catch (Exception)

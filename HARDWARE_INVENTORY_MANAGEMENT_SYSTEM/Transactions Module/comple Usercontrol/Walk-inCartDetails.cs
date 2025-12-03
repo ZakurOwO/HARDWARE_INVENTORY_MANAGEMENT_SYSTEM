@@ -250,8 +250,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
                 if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
                     "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    if (SharedCartManager.Instance.RemoveItemAndRestoreStock(productId, quantityInCart))
+                { 
+                    if (SharedCartManager.Instance.RemoveItemFromCart(productId))
                     {
                         ReloadCartTable();
                         ReloadInventoryList();
@@ -589,7 +589,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             "Transactions",
                             transactionId.ToString(),
                             null,
-                            $"{{\"customer_id\":{customerId},\"total_amount\":{totalAmount},\"payment_method\":\"{paymentMethod}\",\"cash_received\":{cashReceived},\"change_amount\":{change}}}");
+                            $"{{\\"customer_id\\":{customerId},\\"total_amount\\":{totalAmount},\\"payment_method\\":\\"{paymentMethod}\\",\\"cash_received\\":{cashReceived},\\"change_amount\\":{change}}}");
+
+                        // Commit inventory only at checkout inside the shared transaction
+                        if (!SharedCartManager.Instance.ApplyCartToInventory(connection, dbTransaction, out string stockError))
+                        {
+                            throw new InvalidOperationException(stockError);
+                        }
 
                         foreach (DataGridViewRow row in dgvCartDetails.Rows)
                         {
@@ -622,7 +628,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                 "TransactionItems",
                                 transactionItemId.ToString(),
                                 null,
-                                $"{{\"transaction_id\":{transactionId},\"product_id\":{productId},\"quantity\":{quantity},\"selling_price\":{price}}}");
+                                $"{{\\"transaction_id\\":{transactionId},\\"product_id\\":{productId},\\"quantity\\":{quantity},\\"selling_price\\":{price}}}" );
                         }
 
                         dbTransaction.Commit();
@@ -634,7 +640,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                       $"Total Amount: ₱{totalAmount:N2}",
                             "Transaction Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                        // Commit point: inventory and transaction records saved together
                         ClearCart(false);
+                        ReloadInventoryList();
                     }
                     catch (Exception)
                     {
@@ -649,7 +657,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private int GetOrCreateCustomer(SqlConnection connection, SqlTransaction transaction, string customerName)
         {
             string checkCustomerQuery = "SELECT customer_id FROM Customers WHERE customer_name = @CustomerName";
@@ -680,6 +687,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             UpdateTotals();
             guna2TextBox1.Text = "";
             guna2TextBox1.PlaceholderText = "Optional";
+            ReloadInventoryList();
         }
 
         private (int userId, string username) ResolveAuditUser()
