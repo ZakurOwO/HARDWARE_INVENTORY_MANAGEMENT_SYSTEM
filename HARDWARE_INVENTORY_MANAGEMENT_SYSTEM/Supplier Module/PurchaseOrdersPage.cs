@@ -40,14 +40,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 return;
             }
 
+            DateTime? poDate = null;
+            object poDateTag = dgvSupplier.Rows[e.RowIndex].Cells["DateCreated"].Tag;
+            if (poDateTag is DateTime poDateValue)
+            {
+                poDate = poDateValue;
+            }
+            bool isLocked = poDate.HasValue && (DateTime.Now - poDate.Value) >= TimeSpan.FromHours(12);
+
             // Ensure action buttons respond for both cell click and content click events
             if (e.ColumnIndex == dgvSupplier.Columns["View"].Index)
             {
                 string poNumber = dgvSupplier.Rows[e.RowIndex].Cells["POID"].Value.ToString();
-                OpenEditPurchaseOrderForm(poNumber);
+                OpenEditPurchaseOrderForm(poNumber, isLocked);
             }
             else if (e.ColumnIndex == dgvSupplier.Columns["Cancel"].Index)
             {
+                if (isLocked)
+                {
+                    MessageBox.Show("This purchase order is more than 12 hours old and can no longer be cancelled.",
+                        "Cancellation Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
                 string poId = dgvSupplier.Rows[e.RowIndex].Cells["POID"].Value.ToString();
                 string status = dgvSupplier.Rows[e.RowIndex].Cells["Status"].Value.ToString();
 
@@ -64,13 +79,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
                 if (result == DialogResult.Yes)
                 {
-                    CancelPurchaseOrder(poId, e.RowIndex);
+                    CancelPurchaseOrder(poId, e.RowIndex, poDate);
                 }
             }
         }
 
-        private void CancelPurchaseOrder(string poNumber, int rowIndex)
+        private void CancelPurchaseOrder(string poNumber, int rowIndex, DateTime? poDate)
         {
+            if (poDate.HasValue && (DateTime.Now - poDate.Value) >= TimeSpan.FromHours(12))
+            {
+                MessageBox.Show("This purchase order is more than 12 hours old and can no longer be cancelled.",
+                    "Cancellation Unavailable", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             try
             {
                 if (con.State == ConnectionState.Closed)
@@ -103,6 +125,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                                 "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                             dgvSupplier.Rows[rowIndex].Cells["Status"].Value = "Cancelled";
+                            dgvSupplier.Rows[rowIndex].Cells["Cancel"].ReadOnly = true;
                             return;
                         }
 
@@ -121,7 +144,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             }
         }
 
-        private void OpenEditPurchaseOrderForm(string poNumber)
+        private void OpenEditPurchaseOrderForm(string poNumber, bool lockEditing)
         {
             try
             {
@@ -133,7 +156,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
                 EditPurchaseOrder editForm = new EditPurchaseOrder();
                 editForm.Dock = DockStyle.Fill;
-                editForm.LoadPurchaseOrder(poNumber);
+                editForm.LoadPurchaseOrder(poNumber, lockEditing);
 
                 popup.Controls.Add(editForm);
                 popup.FormClosed += (s, args) => LoadPurchaseOrdersFromDatabase();
@@ -176,6 +199,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                         decimal totalAmount = Convert.ToDecimal(reader["total_amount"]);
                         string status = reader["status"].ToString();
 
+                        bool isLocked = (DateTime.Now - poDate) >= TimeSpan.FromHours(12);
+
                         // Add row to DataGridView
                         int rowIndex = dgvSupplier.Rows.Add(
                             poNumber,
@@ -186,6 +211,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                             Properties.Resources.edit_rectangle, // View/Edit icon
                             Properties.Resources.Deactivate_Circle1 // Cancel icon
                         );
+
+                        dgvSupplier.Rows[rowIndex].Cells["DateCreated"].Tag = poDate;
+                        dgvSupplier.Rows[rowIndex].Cells["Cancel"].ReadOnly = isLocked;
 
                         // Color code the status
                         DataGridViewRow row = dgvSupplier.Rows[rowIndex];
