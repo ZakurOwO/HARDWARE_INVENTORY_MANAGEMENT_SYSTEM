@@ -193,6 +193,36 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             }
         }
 
+        private void LogDeliveryAudit(string activity, AuditActivityType activityType, string recordId)
+        {
+            int userId = 1;                  // TODO: use actual logged-in user id
+            string username = "System";      // TODO: use actual logged-in username
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(@"
+        INSERT INTO AuditLog
+            (user_id, username, module, activity, activity_type,
+             table_affected, record_id, old_values, new_values, ip_address)
+        VALUES
+            (@user_id, @username, @module, @activity, @activity_type,
+             @table_affected, @record_id, @old_values, @new_values, @ip_address);", conn))
+            {
+                cmd.Parameters.AddWithValue("@user_id", userId);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@module", "Deliveries");
+                cmd.Parameters.AddWithValue("@activity", activity);
+                cmd.Parameters.AddWithValue("@activity_type", activityType.ToString());
+                cmd.Parameters.AddWithValue("@table_affected", "Deliveries");
+                cmd.Parameters.AddWithValue("@record_id", (object)recordId ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@old_values", DBNull.Value);
+                cmd.Parameters.AddWithValue("@new_values", DBNull.Value);
+                cmd.Parameters.AddWithValue("@ip_address", "127.0.0.1");
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         // ========================================
         //  DOUBLE CLICK = QUICK DETAILS
         // ========================================

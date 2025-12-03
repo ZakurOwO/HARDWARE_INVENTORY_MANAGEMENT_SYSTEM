@@ -4,6 +4,8 @@ using System.IO;
 using System.Windows.Forms;
 using Krypton.Toolkit;
 using Guna.UI2.WinForms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using System.Data.SqlClient;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 {
@@ -46,15 +48,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
         private void WireUpButtons()
         {
-            // Directly wire the existing buttons
-            if (btnBlue != null)
-            {
-                btnBlue.Click += (s, e) => SaveVehicle();
-            }
+            // We let the designer handle btnBlue.Click -> btnBlue_Click
+            // so we only wire cancel/close here.
 
             if (btnWhite != null)
             {
                 btnWhite.Click += (s, e) => CancelRequested?.Invoke(this, EventArgs.Empty);
+            }
+
+            if (closeButton1 != null)
+            {
                 closeButton1.Click += (s, e) => CancelRequested?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -90,8 +93,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 VehicleStatusComboBox.SelectedItem = vehicle.Status;
             }
 
-            // REMOVED: VehicleRemarkTextBox.Text = vehicle.Remarks ?? "";
-
             // Load image info
             if (!string.IsNullOrEmpty(vehicle.ImagePath))
             {
@@ -100,6 +101,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             }
         }
 
+        // ======================================
+        //  MAIN SAVE + AUDIT
+        // ======================================
         private void SaveVehicle()
         {
             if (!ValidateInputs())
@@ -111,18 +115,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                 {
                     Brand = GetText(tbxVehicleName).Trim(),
                     Model = GetText(VehicleModelTextBox).Trim(),
-                    VehicleType = "Drop-Side Truck",
+                    VehicleType = "Drop-Side Truck", // hard-coded for now
                     Capacity = GetText(YearBoughtTextBox).Trim(),
                     PlateNumber = GetText(PlateNumberTextBox).Trim(),
                     Status = VehicleStatusComboBox.SelectedItem?.ToString() ?? "Available"
-                    // REMOVED: Remarks = VehicleRemarkTextBox.Text.Trim()
                 };
 
                 // Check for duplicate plate number
-                if (vehicleDataAccess.PlateNumberExists(vehicle.PlateNumber, currentVehicle?.VehicleInternalID ?? 0))
+                if (vehicleDataAccess.PlateNumberExists(
+                        vehicle.PlateNumber,
+                        currentVehicle?.VehicleInternalID ?? 0))
                 {
-                    MessageBox.Show("A vehicle with this plate number already exists!", "Duplicate Plate Number",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("A vehicle with this plate number already exists!",
+                        "Duplicate Plate Number",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
                     PlateNumberTextBox.Focus();
                     return;
                 }
@@ -144,20 +151,46 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     vehicle.ImagePath = "2000-Isuzu-mini-dump-truck-970-3730728_1 1.png";
                 }
 
-                // Save to database
+                // -----------------------------
+                //   SAVE + AUDIT
+                // -----------------------------
                 if (currentVehicle == null)
                 {
+                    // ADD
                     vehicleDataAccess.AddVehicle(vehicle);
+
+                    LogVehicleAudit(
+                        activity: $"Added vehicle {vehicle.PlateNumber}",
+                        activityType: "CREATE",
+                        recordId: vehicle.PlateNumber,
+                        oldValues: null,
+                        newValues: BuildVehicleState(vehicle));
+
                     MessageBox.Show("Vehicle added successfully!", "Success",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
+                    // UPDATE (build old state first)
+                    string oldValues = BuildVehicleState(currentVehicle);
+
                     vehicle.VehicleInternalID = currentVehicle.VehicleInternalID;
                     vehicle.VehicleID = currentVehicle.VehicleID;
+
                     vehicleDataAccess.UpdateVehicle(vehicle);
+
+                    LogVehicleAudit(
+                        activity: $"Updated vehicle {vehicle.PlateNumber}",
+                        activityType: "UPDATE",
+                        recordId: vehicle.PlateNumber,
+                        oldValues: oldValues,
+                        newValues: BuildVehicleState(vehicle));
+
                     MessageBox.Show("Vehicle updated successfully!", "Success",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // keep currentVehicle in sync if you re-use this control
+                    currentVehicle = vehicle;
                 }
 
                 VehicleSaved?.Invoke(this, EventArgs.Empty);
@@ -169,6 +202,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             }
         }
 
+        // ======================================
+        //  VALIDATION
+        // ======================================
         private bool ValidateInputs()
         {
             if (!HasText(tbxVehicleName))
@@ -206,12 +242,80 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             return true;
         }
 
-        private bool HasText(Guna2TextBox tb) => tb != null && !string.IsNullOrWhiteSpace(tb.Text);
-        private string GetText(Guna2TextBox tb) => tb?.Text ?? string.Empty;
+        // ======================================
+        //  AUDIT HELPERS
+        // ======================================
+        private void LogVehicleAudit(
+            string activity,
+            string activityType,   // "CREATE", "UPDATE", "DELETE"
+            string recordId,       // e.g. plate number or VehicleID
+            string oldValues,
+            string newValues)
+        {
+            // Use the real logged-in user from UserSession
+            int userId = UserSession.UserId;                 // from your session class
+            string username = UserSession.Username ?? "Unknown";
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString.DataSource))
+            using (SqlCommand cmd = new SqlCommand(@"
+                INSERT INTO AuditLog
+                (user_id, username, module, activity, activity_type,
+                 table_affected, record_id, old_values, new_values, ip_address)
+                VALUES
+                (@user_id, @username, @module, @activity, @activity_type,
+                 @table_affected, @record_id, @old_values, @new_values, @ip_address);", conn))
+            {
+                cmd.Parameters.AddWithValue("@user_id", userId);
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@module", "Vehicles");
+                cmd.Parameters.AddWithValue("@activity", activity);
+                cmd.Parameters.AddWithValue("@activity_type", activityType);
+                cmd.Parameters.AddWithValue("@table_affected", "Vehicles");
+                cmd.Parameters.AddWithValue("@record_id", (object)recordId ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@old_values", (object)oldValues ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@new_values", (object)newValues ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@ip_address", "127.0.0.1"); // TODO: real IP if needed
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private string BuildVehicleState(VehicleRecord v)
+        {
+            if (v == null) return null;
+
+            return
+                $"Brand={v.Brand};" +
+                $"Model={v.Model};" +
+                $"Type={v.VehicleType};" +
+                $"Capacity={v.Capacity};" +
+                $"PlateNumber={v.PlateNumber};" +
+                $"Status={v.Status};" +
+                $"ImagePath={v.ImagePath}";
+        }
+
+        // ======================================
+        //  SMALL HELPERS / EVENTS
+        // ======================================
+        private bool HasText(Guna2TextBox tb) =>
+            tb != null && !string.IsNullOrWhiteSpace(tb.Text);
+
+        private string GetText(Guna2TextBox tb) =>
+            tb?.Text ?? string.Empty;
 
         // Event handlers for designer events
         private void closeButton1_Load(object sender, EventArgs e) { }
 
-        private void btnWhite_Click(object sender, EventArgs e) { }
+        private void btnWhite_Click(object sender, EventArgs e)
+        {
+            CancelRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnBlue_Click(object sender, EventArgs e)
+        {
+            // Designer should be wired to this handler
+            SaveVehicle();
+        }
     }
 }

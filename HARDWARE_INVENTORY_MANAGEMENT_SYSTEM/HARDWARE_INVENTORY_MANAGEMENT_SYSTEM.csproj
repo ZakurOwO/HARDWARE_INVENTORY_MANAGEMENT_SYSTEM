@@ -107,6 +107,7 @@
     <Compile Include="Audit Log\ClassComponent\AuditLogEntry.cs" />
     <Compile Include="Audit Log\ClassComponent\AuditLogManager.cs" />
     <Compile Include="Audit Log\ClassComponent\AuditModule.cs" />
+    <Compile Include="Class Components\CurrentSession.cs" />
     <Compile Include="Pop Up Forms\Add New Form\AddNewUser_Form.cs">
       <SubType>UserControl</SubType>
     </Compile>
