@@ -139,7 +139,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             if (panel1 != null)
             {
                 panel1.Dock = DockStyle.Right;
-                panel1.Width = 294;
+                panel1.Width = 290;
                 panel1.BackColor = Color.White;
                 panel1.Padding = new Padding(0);
                 panel1.BringToFront();

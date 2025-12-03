@@ -148,7 +148,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 {
                     Name = "NoResultsLabel",
                     Text = "No items found matching your search.",
-                    Font = new Font("Segoe UI", 12, FontStyle.Italic),
+                    Font = new Font("LEXEND", 12, FontStyle.Bold),
                     ForeColor = Color.Gray,
                     TextAlign = ContentAlignment.MiddleCenter,
                     AutoSize = false,

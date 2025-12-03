@@ -31,6 +31,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             // Setup DataGridView click events
             dgvSupplier.CellContentClick += DgvSupplier_CellContentClick;
             dgvSupplier.CellClick += DgvSupplier_CellContentClick;
+
         }
 
         private void DgvSupplier_CellContentClick(object sender, DataGridViewCellEventArgs e)

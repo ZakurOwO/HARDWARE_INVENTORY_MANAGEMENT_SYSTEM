@@ -289,7 +289,7 @@
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(30, 30);
             this.guna2Button3.TabIndex = 93;
-       
+            this.guna2Button3.Click += new System.EventHandler(this.X_Click);
             // 
             // panel2
             // 
@@ -320,6 +320,7 @@
             this.btnWhite.Size = new System.Drawing.Size(120, 40);
             this.btnWhite.TabIndex = 80;
             this.btnWhite.Text = "Cancel";
+            this.btnWhite.Click += new System.EventHandler(this.cancel_click);
             // 
             // btnBlue
             // 
@@ -331,7 +332,7 @@
             this.btnBlue.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(110)))), ((int)(((byte)(196)))));
             this.btnBlue.Font = new System.Drawing.Font("Lexend SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBlue.ForeColor = System.Drawing.Color.White;
-            this.btnBlue.Location = new System.Drawing.Point(630, 141);
+            this.btnBlue.Location = new System.Drawing.Point(607, 141);
             this.btnBlue.Name = "btnBlue";
             this.btnBlue.Size = new System.Drawing.Size(190, 40);
             this.btnBlue.TabIndex = 79;
