@@ -20,7 +20,8 @@
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
+        
+#region Component Designer generated code
 
         /// <summary> 
         /// Required method for Designer support - do not modify 
@@ -868,7 +869,6 @@
         }
 
         #endregion
-
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private Guna.UI2.WinForms.Guna2Panel ParentContainer;
         private Guna.UI2.WinForms.Guna2Button guna2Button3;
