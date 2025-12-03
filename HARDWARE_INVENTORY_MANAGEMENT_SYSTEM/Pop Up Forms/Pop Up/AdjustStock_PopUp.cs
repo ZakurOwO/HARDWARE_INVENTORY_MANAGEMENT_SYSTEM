@@ -45,8 +45,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             int stock,
             string imagePath)
         {
-            currentProductInternalId = productInternalId;
-            TryLoadProductContext(productInternalId);
+            int productInternalId;
+            TryLoadProductContext(productId, out productInternalId);
+
+            ShowAdjustStock(productInternalId, productId, productName, sku, brand, stock, imagePath);
         }
 
         #region Public API
@@ -125,6 +127,55 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             ReasonComboBoxAdjustStock.MaxDropDownItems = 5;
             ReasonComboBoxAdjustStock.DropDownHeight = ReasonComboBoxAdjustStock.ItemHeight * 5;
             ReasonComboBoxAdjustStock.SelectedIndex = 0;
+        }
+
+        private void ApplyProductContext(
+            int productInternalId,
+            string productId,
+            string productName,
+            string sku,
+            string brand,
+            int stock,
+            string imagePath)
+        {
+            currentProductInternalId = productInternalId;
+            currentProductId = productId ?? string.Empty;
+            currentProductName = productName ?? string.Empty;
+            currentSKU = sku ?? string.Empty;
+            currentBrand = brand ?? string.Empty;
+            currentStock = stock;
+            currentImagePath = imagePath;
+
+            UpdateStaticDisplay();
+            LoadProductImage();
+            ResetAdjustment();
+        }
+
+        private bool TryLoadProductContext(string productId, out int productInternalId)
+        {
+            productInternalId = 0;
+
+            if (string.IsNullOrWhiteSpace(productId))
+            {
+                return false;
+            }
+
+            using (var connection = new SqlConnection(ConnectionString.DataSource))
+            using (var command = new SqlCommand(
+                "SELECT ProductInternalID FROM Products WHERE ProductID = @productId",
+                connection))
+            {
+                command.Parameters.AddWithValue("@productId", productId);
+
+                connection.Open();
+                object result = command.ExecuteScalar();
+                if (result != null && int.TryParse(result.ToString(), out productInternalId))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         #endregion
@@ -321,10 +372,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private bool UpdateStockInDatabase(string reason)
         {
             using (var connection = new SqlConnection(ConnectionString.DataSource))
-            using (var command = new SqlCommand("UPDATE Products SET current_stock = @newStock WHERE ProductID = @productId", connection))
+            using (var command = new SqlCommand(
+                "UPDATE Products SET current_stock = @newStock WHERE ProductInternalID = @productInternalId OR ProductID = @productId",
+                connection))
             {
                 command.Parameters.AddWithValue("@newStock", newTotalStock);
                 command.Parameters.AddWithValue("@productInternalId", currentProductInternalId);
+                command.Parameters.AddWithValue("@productId", currentProductId);
 
                 connection.Open();
                 int rowsAffected = command.ExecuteNonQuery();
