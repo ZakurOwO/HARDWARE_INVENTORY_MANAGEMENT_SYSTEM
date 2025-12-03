@@ -459,5 +459,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                 con.Close();
             }
         }
+
+        private void ParentContainer_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
