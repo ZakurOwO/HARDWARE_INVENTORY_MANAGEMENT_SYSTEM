@@ -103,6 +103,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 popupContainer.BackColor = Color.White;
                 popupContainer.BorderStyle = BorderStyle.FixedSingle;
             }
+            popupContainer = new Panel();
+            popupContainer.Size = new Size(550, 420);
+            popupContainer.BackColor = Color.White;
+            popupContainer.BorderStyle = BorderStyle.FixedSingle;
+
+            CenterPopupContainer();
 
             popupContainer.Controls.Clear();
             popupContainer.Controls.Add(adjustStockPopUp);
@@ -163,6 +169,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
 
             popupContainer.Parent = null;
+            Control target = hostContainer ?? inventoryPage as Control;
+            if (target == null)
+            {
+                popupContainer.Location = new Point(0, 0);
+                return;
+            }
+
+            int left = (target.Width - 550) / 2;
+            int top = (target.Height - 420) / 2;
+            if (left < 0) left = 0;
+            if (top < 0) top = 0;
+
+            popupContainer.Location = new Point(left, top);
+        }
+
+        private void AddPopupToHost()
+        {
+            Control container = hostContainer ?? inventoryPage as Control;
+            if (container == null)
+            {
+                return;
+            }
+
             container.Controls.Add(popupContainer);
             popupContainer.BringToFront();
         }
@@ -216,6 +245,59 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
 
             return hostContainer ?? inventoryPage as Control;
+        }
+
+        private MainDashBoard FindMainDashboard(Control startingControl)
+        {
+            Control current = startingControl;
+            while (current != null)
+            {
+                MainDashBoard dashboard = current as MainDashBoard;
+                if (dashboard != null)
+                {
+                    return dashboard;
+                }
+                current = current.Parent;
+            }
+
+            if (startingControl != null)
+            {
+                Form form = startingControl.FindForm();
+                return form as MainDashBoard;
+            }
+
+            return null;
+        }
+
+        private void EnsureMainForm()
+        {
+        {
+            if (mainForm == null)
+            {
+                return;
+            }
+
+            if (mainForm.pcbBlurOverlay != null)
+            {
+                if (mainForm.pcbBlurOverlay.BackgroundImage == null)
+                {
+                    mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.SupplierOverlay;
+                    mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+
+                mainForm.pcbBlurOverlay.Visible = true;
+                mainForm.pcbBlurOverlay.BringToFront();
+            }
+
+            popupContainer?.BringToFront();
+        }
+
+        private void HideOverlay()
+        {
+            if (mainForm != null && mainForm.pcbBlurOverlay != null)
+            {
+                mainForm.pcbBlurOverlay.Visible = false;
+            }
         }
 
         private MainDashBoard FindMainDashboard(Control startingControl)
