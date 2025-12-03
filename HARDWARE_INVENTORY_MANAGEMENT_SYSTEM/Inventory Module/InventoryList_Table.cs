@@ -39,12 +39,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             dgvInventoryList.CellFormatting += dgvInventoryList_CellFormatting;
             dgvInventoryList.DataError += dgvInventoryList_DataError;
             dgvInventoryList.ClearSelection();
-
-            MessageBox.Show("InventoryList_Table loaded and CellClick event wired!");
         }
         private void dgvInventoryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show("CellContentClick fired!");
             dgvInventoryList_CellClick(sender, e);
         }
 

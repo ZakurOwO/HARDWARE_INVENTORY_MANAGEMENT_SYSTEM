@@ -91,11 +91,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             guna2Button3.Click += CloseButton_Click;
             CancelBtn.Click += CloseButton_Click;
-            ApplyBtn.Click += ApplyBtn_Click;
-            AddAdjustStock.Click += AddAdjustStock_Click;
-            MinusAdjustStock.Click += MinusAdjustStock_Click;
-            DisplayNumAdjustStock.TextChanged += DisplayNumAdjustStock_TextChanged;
-            ReasonComboBoxAdjustStock.SelectedIndexChanged += ReasonComboBoxAdjustStock_SelectedIndexChanged;
 
             // Make the textbox read-only so users can only use +/- buttons
             DisplayNumAdjustStock.ReadOnly = true;
@@ -321,10 +316,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void DisplayNumAdjustStock_TextChanged(object sender, EventArgs e)
         {
-            // Textbox is read-only, so this shouldn't fire for user input
             if (suppressTextChange)
             {
                 return;
+            }
+
+            int parsedValue;
+            if (int.TryParse(DisplayNumAdjustStock.Text, out parsedValue))
+            {
+                adjustmentValue = parsedValue;
+                RecalculateNewTotal();
+            }
+            else
+            {
+                suppressTextChange = true;
+                DisplayNumAdjustStock.Text = adjustmentValue.ToString();
+                suppressTextChange = false;
             }
         }
 
