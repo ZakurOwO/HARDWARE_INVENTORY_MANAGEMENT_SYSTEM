@@ -1,3 +1,8 @@
+// ==================================================================
+// COMPLETE AdjustStock_PopUp.cs FILE
+// This replaces your entire AdjustStock_PopUp.cs file
+// ==================================================================
+
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -38,12 +43,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         #region Public API
 
         public void ShowAdjustStock(
-     string productId,
-     string productName,
-     string sku,
-     string brand,
-     int stock,
-     string imagePath)
+            string productId,
+            string productName,
+            string sku,
+            string brand,
+            int stock,
+            string imagePath)
         {
             int productInternalId;
             TryLoadProductContext(productId, out productInternalId);
@@ -51,16 +56,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             ShowAdjustStock(productInternalId, productId, productName, sku, brand, stock, imagePath);
         }
 
-        #region Public API
-
         public void ShowAdjustStock(
-     int productInternalId,
-     string productId,
-     string productName,
-     string sku,
-     string brand,
-     int stock,
-     string imagePath)
+            int productInternalId,
+            string productId,
+            string productName,
+            string sku,
+            string brand,
+            int stock,
+            string imagePath)
         {
             ApplyProductContext(productInternalId, productId, productName, sku, brand, stock, imagePath);
 
@@ -93,6 +96,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             MinusAdjustStock.Click += MinusAdjustStock_Click;
             DisplayNumAdjustStock.TextChanged += DisplayNumAdjustStock_TextChanged;
             ReasonComboBoxAdjustStock.SelectedIndexChanged += ReasonComboBoxAdjustStock_SelectedIndexChanged;
+
+            // Make the textbox read-only so users can only use +/- buttons
+            DisplayNumAdjustStock.ReadOnly = true;
         }
 
         private void InitializeReasonComboBox()
@@ -253,10 +259,31 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void UpdateTotalsDisplay()
         {
+            // Update the adjustment display (can be positive or negative)
             AdjustmentDisplayAdjustStock.Text = adjustmentValue.ToString();
+
+            // Color the adjustment based on whether it's adding or removing stock
+            if (adjustmentValue > 0)
+            {
+                AdjustmentDisplayAdjustStock.ForeColor = Color.Green;
+            }
+            else if (adjustmentValue < 0)
+            {
+                AdjustmentDisplayAdjustStock.ForeColor = Color.Red;
+            }
+            else
+            {
+                AdjustmentDisplayAdjustStock.ForeColor = Color.Black;
+            }
+
+            // Update new total stock
             NewTotalStockDisplayAdjustStock.Text = newTotalStock.ToString();
             NewTotalStockDisplayAdjustStock.ForeColor = newTotalStock < 0 ? Color.Red : Color.Black;
+
+            // Update current stock display
             currentStockDisplayAdjustStock.Text = currentStock.ToString();
+
+            // Enable Apply button only if reason is selected and new stock is valid
             ApplyBtn.Enabled = ReasonSelected() && newTotalStock >= 0;
         }
 
@@ -266,33 +293,39 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void AddAdjustStock_Click(object sender, EventArgs e)
         {
-            adjustmentValue++;
+            // Only increment by exactly 1
+            adjustmentValue = adjustmentValue + 1;
+
+            // Update the display
+            suppressTextChange = true;
+            DisplayNumAdjustStock.Text = adjustmentValue.ToString();
+            suppressTextChange = false;
+
+            // Recalculate totals
             RecalculateNewTotal();
         }
 
         private void MinusAdjustStock_Click(object sender, EventArgs e)
         {
-            adjustmentValue--;
+            // Only decrement by exactly 1
+            adjustmentValue = adjustmentValue - 1;
+
+            // Update the display
+            suppressTextChange = true;
+            DisplayNumAdjustStock.Text = adjustmentValue.ToString();
+            suppressTextChange = false;
+
+            // Recalculate totals
             RecalculateNewTotal();
         }
 
         private void DisplayNumAdjustStock_TextChanged(object sender, EventArgs e)
         {
+            // Textbox is read-only, so this shouldn't fire for user input
             if (suppressTextChange)
             {
                 return;
             }
-
-            if (int.TryParse(DisplayNumAdjustStock.Text, out int parsedValue))
-            {
-                adjustmentValue = parsedValue;
-            }
-            else if (string.IsNullOrWhiteSpace(DisplayNumAdjustStock.Text))
-            {
-                adjustmentValue = 0;
-            }
-
-            RecalculateNewTotal();
         }
 
         private void ReasonComboBoxAdjustStock_SelectedIndexChanged(object sender, EventArgs e)
@@ -312,6 +345,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             if (newTotalStock < 0)
             {
                 MessageBox.Show("Stock cannot be negative. Please adjust the quantity.", "Invalid Stock",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (adjustmentValue == 0)
+            {
+                MessageBox.Show("Please enter an adjustment value.", "No Adjustment",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -421,19 +461,49 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             try
             {
                 using (var connection = new SqlConnection(ConnectionString.DataSource))
-                using (var command = new SqlCommand(
-                    "INSERT INTO StockAdjustmentLog (product_name, new_stock_quantity, adjustment_reason, adjusted_by, adjustment_date) " +
-                    "VALUES (@productName, @newStock, @reason, @adjustedBy, @adjustmentDate)",
-                    connection))
                 {
-                    command.Parameters.AddWithValue("@productName", currentProductName);
-                    command.Parameters.AddWithValue("@newStock", newTotalStock);
-                    command.Parameters.AddWithValue("@reason", reason);
-                    command.Parameters.AddWithValue("@adjustedBy", Environment.UserName);
-                    command.Parameters.AddWithValue("@adjustmentDate", DateTime.Now);
-
                     connection.Open();
-                    command.ExecuteNonQuery();
+
+                    // First, check if StockAdjustmentLog table exists
+                    string checkTableQuery = @"
+                        IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'StockAdjustmentLog')
+                        BEGIN
+                            CREATE TABLE StockAdjustmentLog (
+                                log_id INT IDENTITY(1,1) PRIMARY KEY,
+                                product_name VARCHAR(255) NOT NULL,
+                                previous_stock INT NOT NULL,
+                                adjustment_amount INT NOT NULL,
+                                new_stock_quantity INT NOT NULL,
+                                adjustment_reason VARCHAR(255),
+                                adjusted_by VARCHAR(100),
+                                adjustment_date DATETIME DEFAULT GETDATE()
+                            )
+                        END";
+
+                    using (var checkCommand = new SqlCommand(checkTableQuery, connection))
+                    {
+                        checkCommand.ExecuteNonQuery();
+                    }
+
+                    // Now insert the log entry
+                    string insertQuery = @"
+                        INSERT INTO StockAdjustmentLog 
+                        (product_name, previous_stock, adjustment_amount, new_stock_quantity, adjustment_reason, adjusted_by, adjustment_date) 
+                        VALUES 
+                        (@productName, @previousStock, @adjustmentAmount, @newStock, @reason, @adjustedBy, @adjustmentDate)";
+
+                    using (var command = new SqlCommand(insertQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@productName", currentProductName);
+                        command.Parameters.AddWithValue("@previousStock", currentStock - adjustmentValue);
+                        command.Parameters.AddWithValue("@adjustmentAmount", adjustmentValue);
+                        command.Parameters.AddWithValue("@newStock", newTotalStock);
+                        command.Parameters.AddWithValue("@reason", reason);
+                        command.Parameters.AddWithValue("@adjustedBy", Environment.UserName);
+                        command.Parameters.AddWithValue("@adjustmentDate", DateTime.Now);
+
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
             catch
@@ -463,4 +533,3 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         #endregion
     }
 }
-#endregion
