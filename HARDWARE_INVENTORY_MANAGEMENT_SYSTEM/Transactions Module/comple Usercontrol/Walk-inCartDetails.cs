@@ -30,6 +30,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             checkoutContainer = new CheckoutPopUpContainer();
             InitializeDataGridViewColumns();
             InitializeCustomerField();
+            dgvCartDetails.CellContentClick += CartTable_CellContentClick;
             SharedCartManager.Instance.CartUpdated += LoadSharedCartItems; // auto-refresh cart when shared cart changes
             this.Disposed += (s, e) => SharedCartManager.Instance.CartUpdated -= LoadSharedCartItems;
         }
@@ -225,23 +226,34 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             qtyUpDown.Select(0, qtyUpDown.Value.ToString().Length);
         }
 
-        private void dgvCartDetails_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void CartTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvCartDetails.Columns[e.ColumnIndex].Name == "Delete")
+            var dataGridView = sender as DataGridView;
+
+            if (dataGridView == null || e.RowIndex < 0)
             {
+                return;
+            }
+
+            if (dataGridView.Columns[e.ColumnIndex].Name == "Delete")
+            {
+                int productId = GetProductIdFromRow(e.RowIndex);
+                int quantityInCart = 0;
+                int.TryParse(dataGridView.Rows[e.RowIndex].Cells["Quantity"].Value?.ToString(), out quantityInCart);
+
+                if (productId <= 0 || quantityInCart < 0)
+                {
+                    return;
+                }
+
                 if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
                     "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    int productId = GetProductIdFromRow(e.RowIndex);
-                    if (productId > 0)
+                    if (SharedCartManager.Instance.RemoveItemAndRestoreStock(productId, quantityInCart))
                     {
-                        if (!SharedCartManager.Instance.RemoveItemFromCart(productId))
-                        {
-                            return;
-                        }
+                        ReloadCartTable();
+                        ReloadInventoryList();
                     }
-                    LoadSharedCartItems(); // reload grid to keep cart + inventory in sync
-                    UpdateTotals();
                 }
             }
         }
@@ -796,6 +808,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 dgvCartDetails.Rows.Add(item.ProductInternalID, item.ProductName, item.Quantity, $"₱{item.Price:N2}");
             }
             UpdateTotals();
+        }
+
+        private void ReloadCartTable()
+        {
+            LoadSharedCartItems();
+            UpdateTotals();
+        }
+
+        private void ReloadInventoryList()
+        {
+            SharedCartManager.Instance.RaiseInventoryUpdated();
         }
 
         private int GetProductIdFromRow(int rowIndex)
