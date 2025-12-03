@@ -83,7 +83,7 @@
             this.AdjustmentDisplayAdjustStock.TabIndex = 9;
             this.AdjustmentDisplayAdjustStock.Text = "0";
             this.AdjustmentDisplayAdjustStock.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.AdjustmentDisplayAdjustStock.Click += new System.EventHandler(this.AdjustmentDisplayAdjustStock_Click);
+           
             // 
             // label10
             // 
@@ -120,7 +120,7 @@
             this.NewTotalStockDisplayAdjustStock.TabIndex = 10;
             this.NewTotalStockDisplayAdjustStock.Text = "46 pieces";
             this.NewTotalStockDisplayAdjustStock.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.NewTotalStockDisplayAdjustStock.Click += new System.EventHandler(this.NewTotalStockDisplayAdjustStock_Click);
+      
             // 
             // currentStockDisplayAdjustStock
             // 
@@ -133,7 +133,7 @@
             this.currentStockDisplayAdjustStock.TabIndex = 8;
             this.currentStockDisplayAdjustStock.Text = "45 pieces";
             this.currentStockDisplayAdjustStock.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.currentStockDisplayAdjustStock.Click += new System.EventHandler(this.currentStockDisplayAdjustStock_Click);
+          
             // 
             // label9
             // 
@@ -317,7 +317,7 @@
             this.currentStockAdjustStock.Size = new System.Drawing.Size(142, 19);
             this.currentStockAdjustStock.TabIndex = 9;
             this.currentStockAdjustStock.Text = "Current Stock: 45 pieces";
-            this.currentStockAdjustStock.Click += new System.EventHandler(this.currentStockAdjustStock_Click);
+         
             // 
             // brandAdjustStock
             // 
@@ -328,7 +328,7 @@
             this.brandAdjustStock.Size = new System.Drawing.Size(106, 19);
             this.brandAdjustStock.TabIndex = 8;
             this.brandAdjustStock.Text = "Brand:  Vinawood";
-            this.brandAdjustStock.Click += new System.EventHandler(this.brandAdjustStock_Click);
+  
             // 
             // SKUAdjustStock
             // 
@@ -339,7 +339,7 @@
             this.SKUAdjustStock.Size = new System.Drawing.Size(122, 19);
             this.SKUAdjustStock.TabIndex = 7;
             this.SKUAdjustStock.Text = "SKU:  PLW-WDS-001";
-            this.SKUAdjustStock.Click += new System.EventHandler(this.SKUAdjustStock_Click);
+  
             // 
             // ItemNameAdjustStock
             // 
@@ -350,7 +350,7 @@
             this.ItemNameAdjustStock.Size = new System.Drawing.Size(171, 22);
             this.ItemNameAdjustStock.TabIndex = 1;
             this.ItemNameAdjustStock.Text = "Plywood - 1/2\" (12mm)";
-            this.ItemNameAdjustStock.Click += new System.EventHandler(this.ItemNameAdjustStock_Click);
+    
             // 
             // ItemPictureBoxAdjustStock
             // 
@@ -360,7 +360,7 @@
             this.ItemPictureBoxAdjustStock.Size = new System.Drawing.Size(107, 73);
             this.ItemPictureBoxAdjustStock.TabIndex = 0;
             this.ItemPictureBoxAdjustStock.TabStop = false;
-            this.ItemPictureBoxAdjustStock.Click += new System.EventHandler(this.ItemPictureBoxAdjustStock_Click);
+     
             // 
             // label1
             // 
@@ -390,7 +390,7 @@
             this.CancelBtn.Size = new System.Drawing.Size(120, 40);
             this.CancelBtn.TabIndex = 48;
             this.CancelBtn.Text = "Cancel";
-            this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
+        
             // 
             // ApplyBtn
             // 
@@ -427,7 +427,7 @@
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(30, 30);
             this.guna2Button3.TabIndex = 46;
-            this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
+      
             // 
             // AdjustStock_PopUp
             // 

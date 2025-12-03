@@ -35,7 +35,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             ResetAdjustment();
         }
 
-        public AdjustStock_PopUp(int productInternalId) : this()
+        #region Public API
+
+        public void ShowAdjustStock(
+            string productId,
+            string productName,
+            string sku,
+            string brand,
+            int stock,
+            string imagePath)
         {
             currentProductInternalId = productInternalId;
             TryLoadProductContext(productInternalId);
@@ -290,21 +298,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         #region Calculation Helpers
 
-        private void ApplyProductContext(int productInternalId, string productId, string productName, string sku, string brand, int stock, string imagePath)
-        {
-            currentProductInternalId = productInternalId;
-            currentProductId = productId;
-            currentProductName = productName;
-            currentSKU = sku;
-            currentBrand = brand;
-            currentStock = stock;
-            currentImagePath = imagePath;
-
-            UpdateStaticDisplay();
-            LoadProductImage();
-            ResetAdjustment();
-        }
-
         private void RecalculateNewTotal()
         {
             newTotalStock = currentStock + adjustmentValue;
@@ -321,43 +314,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             return System.Text.RegularExpressions.Regex.Replace(text, "[^\\u0000-\\u007F]+", string.Empty);
         }
 
-        private bool TryLoadProductContext(int productInternalId)
-        {
-            try
-            {
-                using (var connection = new SqlConnection(ConnectionString.DataSource))
-                using (var command = new SqlCommand(
-                    "SELECT ProductID, product_name, SKU, description, current_stock, image_path FROM Products WHERE ProductInternalID = @internalId",
-                    connection))
-                {
-                    command.Parameters.AddWithValue("@internalId", productInternalId);
-                    connection.Open();
-
-                    using (var reader = command.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            string productId = reader["ProductID"].ToString();
-                            string productName = reader["product_name"].ToString();
-                            string sku = reader["SKU"].ToString();
-                            string brand = reader["description"].ToString();
-                            int.TryParse(reader["current_stock"].ToString(), out int stock);
-                            string imagePath = reader["image_path"].ToString();
-
-                            ApplyProductContext(productInternalId, productId, productName, sku, brand, stock, imagePath);
-                            return true;
-                        }
-                    }
-                }
-            }
-            catch
-            {
-                // Fallback to caller-provided context
-            }
-
-            return false;
-        }
-
         #endregion
 
         #region Data Operations
@@ -365,7 +321,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private bool UpdateStockInDatabase(string reason)
         {
             using (var connection = new SqlConnection(ConnectionString.DataSource))
-            using (var command = new SqlCommand("UPDATE Products SET current_stock = @newStock WHERE ProductInternalID = @productInternalId", connection))
+            using (var command = new SqlCommand("UPDATE Products SET current_stock = @newStock WHERE ProductID = @productId", connection))
             {
                 command.Parameters.AddWithValue("@newStock", newTotalStock);
                 command.Parameters.AddWithValue("@productInternalId", currentProductInternalId);
