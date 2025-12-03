@@ -104,13 +104,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
 
         public bool RemoveItemFromCart(int productInternalId)
         {
+            return RemoveItemAndRestoreStock(productInternalId);
+        }
+
+        public bool RemoveItemAndRestoreStock(int productInternalId, int? quantityOverride = null)
+        {
             var existingItem = _cartItems.Find(x => x.ProductInternalID == productInternalId);
             if (existingItem == null)
             {
                 return false;
             }
 
-            if (!TryAdjustStock(productInternalId, -existingItem.Quantity, out string errorMessage))
+            int quantityToRestore = quantityOverride.HasValue && quantityOverride.Value > 0
+                ? quantityOverride.Value
+                : existingItem.Quantity;
+
+            if (!TryRestoreStock(productInternalId, quantityToRestore, out string errorMessage))
             {
                 MessageBox.Show(errorMessage, "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -121,10 +130,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
             LogCartAction(
                 "Removed item from cart",
                 productInternalId.ToString(),
-                null
+                $"{{\"restored_quantity\":{quantityToRestore}}}"
             );
 
-            NotifyCartAndInventoryChanged();
+            CartUpdated?.Invoke();
+            InventoryUpdated?.Invoke();
 
             return true;
         }
@@ -203,6 +213,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 subtotal += item.Quantity * item.Price;
             }
             return subtotal;
+        }
+
+        public void RaiseCartUpdated()
+        {
+            CartUpdated?.Invoke();
+        }
+
+        public void RaiseInventoryUpdated()
+        {
+            InventoryUpdated?.Invoke();
         }
 
         private void LogCartAction(string activity, string recordId, string newValues)
@@ -296,6 +316,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 errorMessage = $"Error updating stock: {ex.Message}";
                 return false;
             }
+        }
+
+        private bool TryRestoreStock(int productId, int quantityToRestore, out string errorMessage)
+        {
+            return TryAdjustStock(productId, -quantityToRestore, out errorMessage);
         }
 
         private bool TryGetCurrentStock(int productId, out int currentStock)
