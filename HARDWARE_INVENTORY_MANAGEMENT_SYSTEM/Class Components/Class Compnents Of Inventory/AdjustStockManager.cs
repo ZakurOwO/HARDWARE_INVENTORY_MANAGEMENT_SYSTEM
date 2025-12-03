@@ -6,328 +6,172 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module;
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
     /// <summary>
-    /// Coordinates showing and hiding the AdjustStock_PopUp within the inventory page.
-    /// The manager keeps the overlay scoped to the InventoryMainPage and drives the
-    /// blur effect on the hosting MainDashBoard.
+    /// Handles creation, display, and disposal of the AdjustStock pop-up and its overlay
+    /// within the inventory page. The overlay and popup are scoped to the InventoryMainPage
+    /// to avoid covering the entire dashboard and to prevent duplicate helpers.
     /// </summary>
     public class AdjustStockManager
     {
         private readonly InventoryMainPage inventoryPage;
-        private readonly Control hostContainer;
-        private MainDashBoard mainForm;
+        private readonly Control parentContainer;
+
+        private Panel overlayPanel;
         private Panel popupContainer;
-        private AdjustStock_PopUp adjustStockPopUp;
+        private AdjustStock_PopUp adjustStockPopup;
         private Action refreshCallback;
 
         public AdjustStockManager(Control parentContainer)
         {
+            this.parentContainer = parentContainer ?? throw new ArgumentNullException(nameof(parentContainer));
             inventoryPage = parentContainer as InventoryMainPage;
-            hostContainer = parentContainer;
-            mainForm = FindMainDashboard(parentContainer);
-            InitializeAdjustStockPopup();
+
+            InitializePopup();
+            InitializeOverlay();
         }
 
-        public void ShowAdjustStockPopup(string productId, string productName, string sku, string brand, int stock, string imagePath, Action refreshAction)
+        #region Public API
+
+        public void ShowAdjustStockPopup(
+            string productId,
+            string productName,
+            string sku,
+            string brand,
+            int stock,
+            string imagePath,
+            Action refreshAction)
         {
-            EnsureMainForm();
             refreshCallback = refreshAction;
 
-            if (adjustStockPopUp == null)
-            {
-                InitializeAdjustStockPopup();
-            }
+            EnsureOverlayAdded();
+            EnsurePopupAdded();
 
-            WirePopupEvents();
-            PreparePopupContainer();
+            adjustStockPopup.ShowAdjustStock(productId, productName, sku, brand, stock, imagePath);
 
-            adjustStockPopUp.ShowAdjustStock(productId, productName, sku, brand, stock, imagePath);
-            DisplayOverlay();
-            AddPopupToHost();
+            overlayPanel.Visible = true;
+            popupContainer.Visible = true;
+            overlayPanel.BringToFront();
+            popupContainer.BringToFront();
+            adjustStockPopup.BringToFront();
+
+            CenterPopup();
+            adjustStockPopup.Focus();
         }
 
         public void HideAdjustStockPopup()
         {
-            if (adjustStockPopUp != null)
+            if (overlayPanel != null)
             {
-                adjustStockPopUp.HideAdjustStock();
+                overlayPanel.Visible = false;
             }
 
-            if (popupContainer != null && popupContainer.Parent != null)
+            if (popupContainer != null)
             {
-                popupContainer.Parent.Controls.Remove(popupContainer);
+                popupContainer.Visible = false;
             }
 
-            HideOverlay();
+            adjustStockPopup?.HideAdjustStock();
         }
 
         public bool IsAdjustStockVisible()
         {
-            return adjustStockPopUp != null && adjustStockPopUp.Visible;
+            return overlayPanel != null && overlayPanel.Visible;
         }
 
-        private void InitializeAdjustStockPopup()
-        {
-            adjustStockPopUp = new AdjustStock_PopUp();
-            adjustStockPopUp.Visible = false;
-        }
+        #endregion
 
-        private void WirePopupEvents()
-        {
-            adjustStockPopUp.StockAdjusted -= AdjustStockPopUp_StockAdjusted;
-            adjustStockPopUp.Cancelled -= AdjustStockPopUp_Cancelled;
+        #region Initialization
 
-            adjustStockPopUp.StockAdjusted += AdjustStockPopUp_StockAdjusted;
-            adjustStockPopUp.Cancelled += AdjustStockPopUp_Cancelled;
-        }
-
-        private void AdjustStockPopUp_StockAdjusted(object sender, EventArgs e)
+        private void InitializePopup()
         {
-            HideAdjustStockPopup();
-            if (refreshCallback != null)
+            adjustStockPopup = new AdjustStock_PopUp();
+            adjustStockPopup.StockAdjusted += AdjustStockPopup_StockAdjusted;
+            adjustStockPopup.Cancelled += AdjustStockPopup_Cancelled;
+
+            popupContainer = new Panel
             {
-                refreshCallback();
-            }
+                Size = new Size(550, 420),
+                BackColor = Color.White,
+                BorderStyle = BorderStyle.FixedSingle,
+                Visible = false
+            };
+
+            popupContainer.Controls.Add(adjustStockPopup);
+            adjustStockPopup.Dock = DockStyle.Fill;
         }
 
-        private void AdjustStockPopUp_Cancelled(object sender, EventArgs e)
+        private void InitializeOverlay()
         {
-            HideAdjustStockPopup();
-        }
-
-        private void PreparePopupContainer()
-        {
-            if (popupContainer == null)
+            overlayPanel = new Panel
             {
-                popupContainer = new Panel();
-                popupContainer.Size = new Size(620, 440);
-                popupContainer.BackColor = Color.White;
-                popupContainer.BorderStyle = BorderStyle.FixedSingle;
-            }
-            popupContainer = new Panel();
-            popupContainer.Size = new Size(550, 420);
-            popupContainer.BackColor = Color.White;
-            popupContainer.BorderStyle = BorderStyle.FixedSingle;
+                Dock = DockStyle.Fill,
+                Visible = false,
+                BackColor = Color.Transparent,
+                BackgroundImage = Properties.Resources.InventoryOverlay,
+                BackgroundImageLayout = ImageLayout.Stretch
+            };
 
-            CenterPopupContainer();
-
-            popupContainer.Controls.Clear();
-            popupContainer.Controls.Add(adjustStockPopUp);
-
-            adjustStockPopUp.Dock = DockStyle.Fill;
-            adjustStockPopUp.BringToFront();
-
-            CenterPopupContainer();
+            overlayPanel.Controls.Add(popupContainer);
+            overlayPanel.SizeChanged += (s, e) => CenterPopup();
         }
 
-        private void CenterPopupContainer()
-        {
-            Control target = GetPopupHost();
-            Control anchor = inventoryPage != null ? (Control)inventoryPage : hostContainer;
+        #endregion
 
-            if (popupContainer == null)
+        #region Overlay Management
+
+        private void EnsureOverlayAdded()
+        {
+            Control host = inventoryPage ?? parentContainer;
+            if (host == null)
             {
                 return;
             }
 
-            if (target == null || anchor == null)
+            if (overlayPanel.Parent != host)
             {
-                popupContainer.Location = new Point(0, 0);
+                overlayPanel.Parent?.Controls.Remove(overlayPanel);
+                host.Controls.Add(overlayPanel);
+                overlayPanel.BringToFront();
+            }
+        }
+
+        private void EnsurePopupAdded()
+        {
+            if (popupContainer.Parent != overlayPanel)
+            {
+                popupContainer.Parent?.Controls.Remove(popupContainer);
+                overlayPanel.Controls.Add(popupContainer);
+            }
+
+            CenterPopup();
+        }
+
+        private void CenterPopup()
+        {
+            if (overlayPanel == null || popupContainer == null)
+            {
                 return;
             }
 
-            Point anchorScreen = anchor.PointToScreen(Point.Empty);
-            Point targetScreen = target.PointToScreen(Point.Empty);
-            Point relative = new Point(anchorScreen.X - targetScreen.X, anchorScreen.Y - targetScreen.Y);
-
-            int left = relative.X + (anchor.Width - popupContainer.Width) / 2;
-            int top = relative.Y + (anchor.Height - popupContainer.Height) / 2;
-
-            if (left < 0)
-            {
-                left = 0;
-            }
-
-            if (top < 0)
-            {
-                top = 0;
-            }
-
+            int left = Math.Max((overlayPanel.Width - popupContainer.Width) / 2, 0);
+            int top = Math.Max((overlayPanel.Height - popupContainer.Height) / 2, 0);
             popupContainer.Location = new Point(left, top);
         }
 
-        private void AddPopupToHost()
+        #endregion
+
+        #region Event Handlers
+
+        private void AdjustStockPopup_StockAdjusted(object sender, EventArgs e)
         {
-            Control container = GetPopupHost();
-            if (container == null)
-            {
-                return;
-            }
-
-            if (popupContainer.Parent != null && popupContainer.Parent != container)
-            {
-                popupContainer.Parent.Controls.Remove(popupContainer);
-            }
-
-            popupContainer.Parent = null;
-            Control target = hostContainer ?? inventoryPage as Control;
-            if (target == null)
-            {
-                popupContainer.Location = new Point(0, 0);
-                return;
-            }
-
-            int left = (target.Width - 550) / 2;
-            int top = (target.Height - 420) / 2;
-            if (left < 0) left = 0;
-            if (top < 0) top = 0;
-
-            popupContainer.Location = new Point(left, top);
+            HideAdjustStockPopup();
+            refreshCallback?.Invoke();
         }
 
-        private void AddPopupToHost()
+        private void AdjustStockPopup_Cancelled(object sender, EventArgs e)
         {
-            Control container = hostContainer ?? inventoryPage as Control;
-            if (container == null)
-            {
-                return;
-            }
-
-            container.Controls.Add(popupContainer);
-            popupContainer.BringToFront();
+            HideAdjustStockPopup();
         }
 
-        private void DisplayOverlay()
-        {
-            if (mainForm != null && mainForm.pcbBlurOverlay != null)
-            {
-                if (mainForm.pcbBlurOverlay.BackgroundImage == null)
-                {
-                    mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.SupplierOverlay;
-                    mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
-                }
-
-                mainForm.pcbBlurOverlay.Visible = true;
-                mainForm.pcbBlurOverlay.BringToFront();
-            }
-
-            CenterPopupContainer();
-            popupContainer.BringToFront();
-        }
-
-        private void HideOverlay()
-        {
-            if (popupContainer != null && popupContainer.Parent != null)
-            {
-                popupContainer.Parent.Controls.Remove(popupContainer);
-            }
-
-            if (mainForm != null && mainForm.pcbBlurOverlay != null)
-            {
-                mainForm.pcbBlurOverlay.Visible = false;
-            }
-        }
-
-        private Control GetPopupHost()
-        {
-            if (mainForm != null && mainForm.pcbBlurOverlay != null)
-            {
-                return mainForm.pcbBlurOverlay;
-            }
-
-            if (mainForm != null)
-            {
-                return mainForm;
-            }
-
-            if (hostContainer != null && hostContainer.Parent != null)
-            {
-                return hostContainer.Parent;
-            }
-
-            return hostContainer ?? inventoryPage as Control;
-        }
-
-        private MainDashBoard FindMainDashboard(Control startingControl)
-        {
-            Control current = startingControl;
-            while (current != null)
-            {
-                MainDashBoard dashboard = current as MainDashBoard;
-                if (dashboard != null)
-                {
-                    return dashboard;
-                }
-                current = current.Parent;
-            }
-
-            if (startingControl != null)
-            {
-                Form form = startingControl.FindForm();
-                return form as MainDashBoard;
-            }
-
-            return null;
-        }
-
-        private void EnsureMainForm()
-        {
-        {
-            if (mainForm == null)
-            {
-                return;
-            }
-
-            if (mainForm.pcbBlurOverlay != null)
-            {
-                if (mainForm.pcbBlurOverlay.BackgroundImage == null)
-                {
-                    mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.SupplierOverlay;
-                    mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
-                }
-
-                mainForm.pcbBlurOverlay.Visible = true;
-                mainForm.pcbBlurOverlay.BringToFront();
-            }
-
-            popupContainer?.BringToFront();
-        }
-
-        private void HideOverlay()
-        {
-            if (mainForm != null && mainForm.pcbBlurOverlay != null)
-            {
-                mainForm.pcbBlurOverlay.Visible = false;
-            }
-        }
-
-        private MainDashBoard FindMainDashboard(Control startingControl)
-        {
-            Control current = startingControl;
-            while (current != null)
-            {
-                MainDashBoard dashboard = current as MainDashBoard;
-                if (dashboard != null)
-                {
-                    return dashboard;
-                }
-                current = current.Parent;
-            }
-
-            if (startingControl != null)
-            {
-                Form form = startingControl.FindForm();
-                return form as MainDashBoard;
-            }
-
-            return null;
-        }
-
-        private void EnsureMainForm()
-        {
-            if (mainForm == null)
-            {
-                mainForm = FindMainDashboard(hostContainer);
-            }
-        }
+        #endregion
     }
 }
