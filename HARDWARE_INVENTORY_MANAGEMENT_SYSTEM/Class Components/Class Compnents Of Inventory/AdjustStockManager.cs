@@ -112,49 +112,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
         private void CenterPopupContainer()
         {
-            Control target = GetOverlayHost();
-            Control anchor = hostContainer ?? inventoryPage as Control;
-
-            if (popupContainer == null)
-            {
-                return;
-            }
-
-            if (target == null || anchor == null)
+            Control target = hostContainer ?? inventoryPage as Control;
+            if (target == null)
             {
                 popupContainer.Location = new Point(0, 0);
                 return;
             }
 
-            Point anchorScreen = anchor.PointToScreen(Point.Empty);
-            Point targetScreen = target.PointToScreen(Point.Empty);
-            Point relative = new Point(anchorScreen.X - targetScreen.X, anchorScreen.Y - targetScreen.Y);
-
-            int left = relative.X + (anchor.Width - popupContainer.Width) / 2;
-            int top = relative.Y + (anchor.Height - popupContainer.Height) / 2;
-
-            if (left < 0)
-            {
-                left = 0;
-            }
-
-            if (top < 0)
-            {
-                top = 0;
-            }
+            int left = (target.Width - 550) / 2;
+            int top = (target.Height - 420) / 2;
+            if (left < 0) left = 0;
+            if (top < 0) top = 0;
 
             popupContainer.Location = new Point(left, top);
         }
 
         private void AddPopupToHost()
         {
-            Control container = GetOverlayHost();
+            Control container = hostContainer ?? inventoryPage as Control;
             if (container == null)
             {
                 return;
             }
 
-            popupContainer.Parent = null;
             container.Controls.Add(popupContainer);
             popupContainer.BringToFront();
         }
@@ -178,31 +158,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 mainForm.pcbBlurOverlay.BringToFront();
             }
 
-            CenterPopupContainer();
-            popupContainer.BringToFront();
+            popupContainer?.BringToFront();
         }
 
         private void HideOverlay()
         {
             if (mainForm != null && mainForm.pcbBlurOverlay != null)
             {
-                if (popupContainer != null && popupContainer.Parent == mainForm.pcbBlurOverlay)
-                {
-                    mainForm.pcbBlurOverlay.Controls.Remove(popupContainer);
-                }
-
                 mainForm.pcbBlurOverlay.Visible = false;
             }
-        }
-
-        private Control GetOverlayHost()
-        {
-            if (mainForm != null && mainForm.pcbBlurOverlay != null)
-            {
-                return mainForm.pcbBlurOverlay;
-            }
-
-            return hostContainer ?? inventoryPage as Control;
         }
 
         private MainDashBoard FindMainDashboard(Control startingControl)
