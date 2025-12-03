@@ -15,36 +15,71 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
 {
     public partial class EditPurchaseOrder : UserControl
     {
-
         private SqlConnection con;
         private string connectionString = ConnectionString.DataSource;
         private int currentPoId = -1;
         private DateTime? currentCreatedAt = null;
         private bool editingLocked = false;
+        private bool lockFromList = false;
+        private string originalStatus = string.Empty;
+        private DateTime? originalExpectedDate = null;
+        private string originalAuditSnapshot = string.Empty;
+
+        // Notes placeholder support
+        private readonly Color placeholderColor = Color.Silver;
+        private readonly Color normalColor = Color.Black;
+        private const string notesPlaceholder = "Additional Notes.....";
+
+        private readonly List<string> allowedStatuses = new List<string>
+        {
+            "Pending",
+            "Approved",
+            "Ordered",
+            "Received"
+        };
 
         #region UI Rules
 
         public EditPurchaseOrder()
         {
             InitializeComponent();
+
             con = new SqlConnection(connectionString);
             LoadSuppliers();
             LoadProducts();
+            LoadStatusOptions();
 
             // Hook events
-            cbxStatus.SelectedIndexChanged += (s, e) => ApplyPOStatusRules(cbxStatus.Text);
+            cbxStatus.SelectedIndexChanged += (s, e) =>
+            {
+                ApplyPOStatusRules(cbxStatus.Text);
+                ApplyStatusBusinessRules(cbxStatus.Text);
+            };
+
             cbxTax.SelectedIndexChanged += (s, e) => UpdateTotals();
             nudShippingFee.ValueChanged += (s, e) => UpdateTotals();
             dgvPurchaseItems.CellContentClick += dgvPurchaseItems_CellContentClick;
+
+            btnBlue.Click += (s, e) => SavePurchaseOrder();
+            btnWhite.Click += (s, e) => CloseParentForm();
+            btnAdd.Click += (s, e) => AddItem();
+
+            // Notes placeholder events
+            rtxNotes.Enter += RtxNotes_Enter;
+            rtxNotes.Leave += RtxNotes_Leave;
+            EnsureNotesPlaceholder();
         }
 
-        public void LoadPurchaseOrder(string poNumber)
+        public void LoadPurchaseOrder(string poNumber, bool enforceLock = false)
         {
             if (string.IsNullOrWhiteSpace(poNumber))
             {
-                MessageBox.Show("Invalid purchase order number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Invalid purchase order number.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            lockFromList = enforceLock;
 
             try
             {
@@ -52,9 +87,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                 {
                     connection.Open();
 
-                    using (SqlCommand cmd = new SqlCommand(@"SELECT po_id, po_number, po_date, expected_date, supplier_id, status, total_amount
-                                                               FROM PurchaseOrders
-                                                               WHERE po_number = @poNumber", connection))
+                    using (SqlCommand cmd = new SqlCommand(@"
+                        SELECT po_id, po_number, po_date, expected_date,
+                               supplier_id, status, total_amount
+                        FROM PurchaseOrders
+                        WHERE po_number = @poNumber", connection))
                     {
                         cmd.Parameters.AddWithValue("@poNumber", poNumber);
 
@@ -62,39 +99,47 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                         {
                             if (!reader.Read())
                             {
-                                MessageBox.Show("Purchase order not found.", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("Purchase order not found.", "Not Found",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 return;
                             }
 
                             currentPoId = reader.GetInt32(reader.GetOrdinal("po_id"));
                             tbxOrderNumber.Text = reader["po_number"].ToString();
-                            dtpOrderDate.Value = Convert.ToDateTime(reader["po_date"]);
+
+                            currentCreatedAt = Convert.ToDateTime(reader["po_date"]);
+                            dtpOrderDate.Value = currentCreatedAt.Value;
 
                             if (reader["expected_date"] != DBNull.Value)
                             {
-                                dtpExpectedDelivery.Value = Convert.ToDateTime(reader["expected_date"]);
+                                dtpExpectedDelivery.Value =
+                                    Convert.ToDateTime(reader["expected_date"]);
+                                originalExpectedDate = dtpExpectedDelivery.Value;
                             }
 
-                            cbxSupplier.SelectedValue = Convert.ToInt32(reader["supplier_id"]);
+                            cbxSupplier.SelectedValue =
+                                Convert.ToInt32(reader["supplier_id"]);
 
                             string status = reader["status"].ToString();
-                            if (!cbxStatus.Items.Contains(status))
-                            {
-                                cbxStatus.Items.Add(status);
-                            }
-
-                            cbxStatus.SelectedItem = status;
+                            originalStatus = status;
+                            ConfigureStatusSelection(status);
                         }
                     }
 
                     LoadPurchaseOrderItems(connection);
                     UpdateTotals();
                     ApplyPOStatusRules(cbxStatus.Text);
+                    ApplyStatusBusinessRules(cbxStatus.Text);
+                    originalAuditSnapshot = BuildAuditSnapshot();
+
+                    // Lock if older than 12 hours or opened from "view only" list
+                    ApplyEditLockIfNeeded();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading purchase order: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error loading purchase order: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -103,14 +148,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
             dgvPurchaseItems.Rows.Clear();
 
             if (currentPoId <= 0)
-            {
                 return;
-            }
 
-            using (SqlCommand cmd = new SqlCommand(@"SELECT poi.product_id, p.product_name, poi.quantity_ordered, poi.unit_price, poi.total_amount
-                                                      FROM PurchaseOrderItems poi
-                                                      INNER JOIN Products p ON poi.product_id = p.ProductInternalID
-                                                      WHERE poi.po_id = @poId", connection))
+            using (SqlCommand cmd = new SqlCommand(@"
+                SELECT poi.product_id, p.product_name,
+                       poi.quantity_ordered, poi.unit_price, poi.total_amount
+                FROM PurchaseOrderItems poi
+                INNER JOIN Products p
+                    ON poi.product_id = p.ProductInternalID
+                WHERE poi.po_id = @poId", connection))
             {
                 cmd.Parameters.AddWithValue("@poId", currentPoId);
 
@@ -123,8 +169,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                         decimal unitPrice = Convert.ToDecimal(reader["unit_price"]);
                         decimal total = Convert.ToDecimal(reader["total_amount"]);
 
-                        int rowIndex = dgvPurchaseItems.Rows.Add(productName, quantity, unitPrice.ToString("N2"), total.ToString("N2"), "Delete");
-                        dgvPurchaseItems.Rows[rowIndex].Tag = Convert.ToInt32(reader["product_id"]);
+                        int rowIndex = dgvPurchaseItems.Rows.Add(
+                            productName,
+                            quantity,
+                            unitPrice.ToString("N2"),
+                            total.ToString("N2"),
+                            "Delete");
+
+                        dgvPurchaseItems.Rows[rowIndex].Tag =
+                            Convert.ToInt32(reader["product_id"]);
                     }
                 }
             }
@@ -133,7 +186,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
         private void LoadSuppliers()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("SELECT supplier_id, supplier_name FROM Suppliers ORDER BY supplier_name", connection))
+            using (SqlCommand cmd = new SqlCommand(
+                       "SELECT supplier_id, supplier_name FROM Suppliers ORDER BY supplier_name",
+                       connection))
             {
                 DataTable suppliers = new DataTable();
                 connection.Open();
@@ -148,7 +203,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
         private void LoadProducts()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand("SELECT ProductInternalID, product_name FROM Products ORDER BY product_name", connection))
+            using (SqlCommand cmd = new SqlCommand(
+                       "SELECT ProductInternalID, product_name FROM Products ORDER BY product_name",
+                       connection))
             {
                 DataTable products = new DataTable();
                 connection.Open();
@@ -160,6 +217,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
             }
         }
 
+        private void LoadStatusOptions()
+        {
+            cbxStatus.Items.Clear();
+            cbxStatus.Items.AddRange(allowedStatuses.ToArray());
+        }
+
+        private void ConfigureStatusSelection(string status)
+        {
+            LoadStatusOptions();
+
+            if (allowedStatuses.Contains(status))
+            {
+                cbxStatus.SelectedItem = status;
+                cbxStatus.Enabled = true;
+            }
+            else
+            {
+                cbxStatus.Items.Add(status);
+                cbxStatus.SelectedItem = status;
+                cbxStatus.Enabled = false;
+            }
+        }
+
         private void ApplyPOStatusRules(string status)
         {
             // Always read-only
@@ -168,7 +248,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
 
             switch (status)
             {
-                case "Draft":
+                case "Pending":
                     cbxSupplier.Enabled = true;
                     dgvPurchaseItems.Enabled = true;
                     nudUnitPrice.Enabled = true;
@@ -182,19 +262,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
 
                 case "Approved":
                     cbxSupplier.Enabled = false;
-                    dgvPurchaseItems.Enabled = false;  // no adding/deleting products
+                    dgvPurchaseItems.Enabled = false;
                     nudUnitPrice.Enabled = false;
                     nudQuantity.Enabled = false;
                     cbxTax.Enabled = false;
                     nudShippingFee.Enabled = false;
+                    dtpExpectedDelivery.Enabled = true;
+                    rtxNotes.Enabled = true;
+                    cbxPaymentStatus.Enabled = true;
+                    break;
 
-                    dtpExpectedDelivery.Enabled = true;  // still editable
+                case "Ordered":
+                    cbxSupplier.Enabled = false;
+                    dgvPurchaseItems.Enabled = false;
+                    nudUnitPrice.Enabled = false;
+                    nudQuantity.Enabled = false;
+                    cbxTax.Enabled = false;
+                    nudShippingFee.Enabled = false;
+                    dtpExpectedDelivery.Enabled = true;
                     rtxNotes.Enabled = true;
                     cbxPaymentStatus.Enabled = true;
                     break;
 
                 case "Received":
-                    // Everything locked EXCEPT notes & payment
                     cbxSupplier.Enabled = false;
                     dgvPurchaseItems.Enabled = false;
                     nudUnitPrice.Enabled = false;
@@ -202,41 +292,146 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                     cbxTax.Enabled = false;
                     nudShippingFee.Enabled = false;
                     dtpExpectedDelivery.Enabled = false;
-
                     rtxNotes.Enabled = true;
                     cbxPaymentStatus.Enabled = true;
                     break;
 
-                case "Completed":
-                    // 100% Locked
-                    foreach (Control c in this.Controls)
-                        c.Enabled = false;
+                default:
+                    DisableEditingControls();
                     break;
+            }
+        }
+
+        private void ApplyStatusBusinessRules(string status)
+        {
+            switch (status)
+            {
+                case "Approved":
+                    if (dtpExpectedDelivery.Value < dtpOrderDate.Value.AddDays(1))
+                        dtpExpectedDelivery.Value = dtpOrderDate.Value.AddDays(7);
+                    break;
+
+                case "Ordered":
+                    if (dtpExpectedDelivery.Value < DateTime.Now)
+                        dtpExpectedDelivery.Value = DateTime.Now.AddDays(7);
+                    break;
+
+                case "Received":
+                    dtpExpectedDelivery.Value = DateTime.Now;
+                    break;
+            }
+        }
+
+        private void ApplyEditLockIfNeeded()
+        {
+            editingLocked = lockFromList || !IsEditWindowOpen();
+
+            if (editingLocked)
+            {
+                DisableEditingControls();
+                MessageBox.Show(
+                    "This purchase order is more than 12 hours old and is view-only.",
+                    "Update Locked",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+        }
+
+        private void DisableEditingControls()
+        {
+            cbxSupplier.Enabled = false;
+            cbxProduct.Enabled = false;
+            dgvPurchaseItems.Enabled = false;
+            nudUnitPrice.Enabled = false;
+            nudQuantity.Enabled = false;
+            cbxTax.Enabled = false;
+            nudShippingFee.Enabled = false;
+            dtpExpectedDelivery.Enabled = false;
+            rtxNotes.Enabled = false;
+            cbxPaymentStatus.Enabled = false;
+            cbxStatus.Enabled = false;
+            btnAdd.Enabled = false;
+            btnBlue.Enabled = false;
+        }
+
+        private bool IsEditWindowOpen()
+        {
+            if (!currentCreatedAt.HasValue)
+                return false;
+
+            return (DateTime.Now - currentCreatedAt.Value) < TimeSpan.FromHours(12);
+        }
+
+        private string BuildAuditSnapshot()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine($"PO Number: {tbxOrderNumber.Text}");
+            builder.AppendLine($"Supplier: {cbxSupplier.Text}");
+            builder.AppendLine($"PO Date: {dtpOrderDate.Value:yyyy-MM-dd HH:mm}");
+            builder.AppendLine($"Expected Date: {dtpExpectedDelivery.Value:yyyy-MM-dd HH:mm}");
+            builder.AppendLine($"Status: {cbxStatus.Text}");
+            builder.AppendLine($"Payment Status: {cbxPaymentStatus.Text}");
+
+            foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
+            {
+                string productName = row.Cells["Product"]?.Value?.ToString();
+                string quantity = row.Cells["Quantity"]?.Value?.ToString();
+                string unitPrice = row.Cells["UnitPrice"]?.Value?.ToString();
+                string total = row.Cells["Total"]?.Value?.ToString();
+
+                builder.AppendLine(
+                    $"Item: {productName}, Qty: {quantity}, Unit Price: {unitPrice}, Total: {total}");
+            }
+
+            builder.AppendLine($"Grand Total: {lblGrandTotal.Text}");
+            return builder.ToString();
+        }
+
+        private void CloseParentForm()
+        {
+            Form parentForm = this.FindForm();
+            if (parentForm != null)
+                parentForm.Close();
+        }
+
+        // Placeholder helpers for notes
+        private void EnsureNotesPlaceholder()
+        {
+            if (string.IsNullOrWhiteSpace(rtxNotes.Text) || rtxNotes.Text == notesPlaceholder)
+            {
+                rtxNotes.Text = notesPlaceholder;
+                rtxNotes.ForeColor = placeholderColor;
+            }
+            else
+            {
+                rtxNotes.ForeColor = normalColor;
+            }
+        }
+
+        private void RtxNotes_Enter(object sender, EventArgs e)
+        {
+            if (rtxNotes.Text == notesPlaceholder)
+            {
+                rtxNotes.Text = string.Empty;
+                rtxNotes.ForeColor = normalColor;
+            }
+        }
+
+        private void RtxNotes_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(rtxNotes.Text))
+            {
+                rtxNotes.Text = notesPlaceholder;
+                rtxNotes.ForeColor = placeholderColor;
             }
         }
 
         #endregion
 
-/*
-        private void LoadPurchaseOrder(int poId)
-        {
-            var po = database.GetPO(poId);
-
-            // Load UI with values...
-            tbxOrderNumber.Text = po.OrderNumber;
-            dtpOrderDate.Value = po.OrderDate;
-            cbxSupplier.SelectedValue = po.SupplierId;
-            cbxStatus.Text = po.Status;
-            cbxPaymentStatus.Text = po.PaymentStatus;
-
-            // Apply logic
-            ApplyPOStatusRules(po.Status);
-        }
-*/
- 
         private void cbxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             ApplyPOStatusRules(cbxStatus.Text);
+            ApplyStatusBusinessRules(cbxStatus.Text);
         }
 
         private decimal ComputeSubtotal()
@@ -259,7 +454,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
         {
             decimal subtotal = 0;
 
-            // SUM TOTAL OF ALL ITEMS
             foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
             {
                 if (row.Cells["Total"].Value != null &&
@@ -269,9 +463,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                 }
             }
 
-            // TAX LOGIC
             decimal taxRate = 0;
-
             string taxOption = cbxTax.SelectedItem?.ToString() ?? "0%";
 
             if (taxOption == "12%")
@@ -284,9 +476,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                 taxRate = 0.03m;
 
             decimal tax = subtotal * taxRate;
-
             decimal shippingFee = nudShippingFee.Value;
-
             decimal grandTotal = subtotal + tax + shippingFee;
 
             lblSubtotal.Text = subtotal.ToString("N2");
@@ -295,7 +485,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
             lblGrandTotal.Text = grandTotal.ToString("N2");
         }
 
-        
         private void AddItem()
         {
             if (cbxProduct.SelectedIndex == -1)
@@ -312,11 +501,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
 
             if (qty <= 0 || unitPrice <= 0)
             {
-                MessageBox.Show("Quantity and unit price must be greater than zero.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Quantity and unit price must be greater than zero.",
+                    "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            // PREVENT DUPLICATES
             foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
             {
                 if (row.Cells["Product"].Value.ToString() == productName)
@@ -326,7 +515,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                 }
             }
 
-            dgvPurchaseItems.Rows.Add(productName, qty, unitPrice.ToString("N2"), total.ToString("N2"), "Delete");
+            dgvPurchaseItems.Rows.Add(
+                productName,
+                qty,
+                unitPrice.ToString("N2"),
+                total.ToString("N2"),
+                "Delete");
+
             dgvPurchaseItems.Rows[dgvPurchaseItems.Rows.Count - 1].Tag = productId;
 
             UpdateTotals();
@@ -334,7 +529,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
 
         private void dgvPurchaseItems_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex == dgvPurchaseItems.Columns["Action"].Index)
+            if (e.RowIndex >= 0 &&
+                e.ColumnIndex == dgvPurchaseItems.Columns["Action"].Index)
             {
                 dgvPurchaseItems.Rows.RemoveAt(e.RowIndex);
                 UpdateTotals();
@@ -372,13 +568,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
 
         private void SavePurchaseOrder()
         {
-            if (currentPoId <= 0)
+            if (editingLocked || !IsEditWindowOpen())
             {
-                MessageBox.Show("Load a purchase order before saving changes.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    "This purchase order is more than 12 hours old and cannot be updated.",
+                    "Update Locked",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
                 return;
             }
 
-            if (!ValidateForm()) return;
+            if (currentPoId <= 0)
+            {
+                MessageBox.Show("Load a purchase order before saving changes.",
+                    "Validation",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+                return;
+            }
+
+            if (!ValidateForm())
+                return;
+
+            ApplyStatusBusinessRules(cbxStatus.Text);
 
             try
             {
@@ -390,20 +602,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                     decimal total = 0;
                     foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
                     {
-                        if (row.Cells["Total"].Value != null && decimal.TryParse(row.Cells["Total"].Value.ToString(), out decimal rowTotal))
+                        if (row.Cells["Total"].Value != null &&
+                            decimal.TryParse(row.Cells["Total"].Value.ToString(), out decimal rowTotal))
                         {
                             total += rowTotal;
                         }
                     }
 
-                    string updateSql = @"UPDATE PurchaseOrders
-                                            SET supplier_id = @sup,
-                                                po_date = @date,
-                                                expected_date = @exp,
-                                                status = @status,
-                                                total_amount = @total,
-                                                updated_at = GETDATE()
-                                            WHERE po_id = @poId";
+                    string updateSql = @"
+                        UPDATE PurchaseOrders
+                        SET supplier_id = @sup,
+                            po_date = @date,
+                            expected_date = @exp,
+                            status = @status,
+                            total_amount = @total,
+                            updated_at = GETDATE()
+                        WHERE po_id = @poId";
 
                     SqlCommand cmdHeader = new SqlCommand(updateSql, con, tr);
                     cmdHeader.Parameters.AddWithValue("@sup", cbxSupplier.SelectedValue);
@@ -414,15 +628,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                     cmdHeader.Parameters.AddWithValue("@poId", currentPoId);
                     cmdHeader.ExecuteNonQuery();
 
-                    using (SqlCommand deleteItems = new SqlCommand("DELETE FROM PurchaseOrderItems WHERE po_id = @poId", con, tr))
+                    using (SqlCommand deleteItems =
+                           new SqlCommand("DELETE FROM PurchaseOrderItems WHERE po_id = @poId",
+                               con, tr))
                     {
                         deleteItems.Parameters.AddWithValue("@poId", currentPoId);
                         deleteItems.ExecuteNonQuery();
                     }
 
-                    string itemSql = @"INSERT INTO PurchaseOrderItems
-                                        (po_id, product_id, quantity_ordered, unit_price, total_amount)
-                                        VALUES (@po, @prod, @qty, @price, @total);";
+                    string itemSql = @"
+                        INSERT INTO PurchaseOrderItems
+                            (po_id, product_id, quantity_ordered, unit_price, total_amount)
+                        VALUES
+                            (@po, @prod, @qty, @price, @total);";
 
                     foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
                     {
@@ -432,10 +650,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                         cmdItem.Parameters.AddWithValue("@po", currentPoId);
                         cmdItem.Parameters.AddWithValue("@prod", row.Tag);
                         cmdItem.Parameters.AddWithValue("@qty", row.Cells["Quantity"].Value);
-                        cmdItem.Parameters.AddWithValue("@price", decimal.Parse(row.Cells["UnitPrice"].Value.ToString()));
-                        cmdItem.Parameters.AddWithValue("@total", decimal.Parse(row.Cells["Total"].Value.ToString()));
+                        cmdItem.Parameters.AddWithValue("@price",
+                            decimal.Parse(row.Cells["UnitPrice"].Value.ToString()));
+                        cmdItem.Parameters.AddWithValue("@total",
+                            decimal.Parse(row.Cells["Total"].Value.ToString()));
                         cmdItem.ExecuteNonQuery();
                     }
+
+                    string newAudit = BuildAuditSnapshot();
 
                     AuditHelper.LogWithTransaction(
                         con,
@@ -444,10 +666,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
                         $"Updated purchase order {tbxOrderNumber.Text.Trim()}",
                         AuditActivityType.UPDATE,
                         "PurchaseOrders",
-                        currentPoId.ToString());
+                        currentPoId.ToString(),
+                        originalAuditSnapshot,
+                        newAudit);
 
                     tr.Commit();
                     MessageBox.Show("Purchase Order saved successfully.");
+                    originalAuditSnapshot = newAudit;
                 }
             }
             catch (Exception ex)
@@ -462,7 +687,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form
 
         private void ParentContainer_Paint(object sender, PaintEventArgs e)
         {
-
         }
     }
 }
