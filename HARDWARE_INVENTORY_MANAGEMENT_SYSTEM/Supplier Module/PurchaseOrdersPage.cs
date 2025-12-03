@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.Class_Components_of_Suppliier;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Pop_Up_Forms.Edit_Form;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 {
@@ -28,21 +30,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
             // Setup DataGridView click events
             dgvSupplier.CellContentClick += DgvSupplier_CellContentClick;
+            dgvSupplier.CellClick += DgvSupplier_CellContentClick;
         }
 
         private void DgvSupplier_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
 
-            // Check if View button was clicked
+            // Ensure action buttons respond for both cell click and content click events
             if (e.ColumnIndex == dgvSupplier.Columns["View"].Index)
             {
-                // TODO: Implement view purchase order details
-                string poId = dgvSupplier.Rows[e.RowIndex].Cells["POID"].Value.ToString();
-                MessageBox.Show($"View PO: {poId}\n(View functionality to be implemented)",
-                    "View Purchase Order", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string poNumber = dgvSupplier.Rows[e.RowIndex].Cells["POID"].Value.ToString();
+                OpenEditPurchaseOrderForm(poNumber);
             }
-            // Check if Cancel button was clicked
             else if (e.ColumnIndex == dgvSupplier.Columns["Cancel"].Index)
             {
                 string poId = dgvSupplier.Rows[e.RowIndex].Cells["POID"].Value.ToString();
@@ -70,24 +73,40 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         {
             try
             {
-                string query = "UPDATE PurchaseOrders SET status = 'Cancelled', updated_at = GETDATE() WHERE po_number = @poNumber";
+                if (con.State == ConnectionState.Closed)
+                    con.Open();
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlTransaction transaction = con.BeginTransaction())
                 {
-                    cmd.Parameters.AddWithValue("@poNumber", poNumber);
+                    string query = "UPDATE PurchaseOrders SET status = 'Cancelled', updated_at = GETDATE() WHERE po_number = @poNumber";
 
-                    if (con.State == ConnectionState.Closed)
-                        con.Open();
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected > 0)
+                    using (SqlCommand cmd = new SqlCommand(query, con, transaction))
                     {
-                        MessageBox.Show($"Purchase Order {poNumber} has been cancelled successfully.",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        cmd.Parameters.AddWithValue("@poNumber", poNumber);
 
-                        // Update the status in the grid
-                        dgvSupplier.Rows[rowIndex].Cells["Status"].Value = "Cancelled";
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            AuditHelper.LogWithTransaction(
+                                con,
+                                transaction,
+                                AuditModule.SUPPLIERS,
+                                $"Cancelled purchase order {poNumber}",
+                                AuditActivityType.UPDATE,
+                                "PurchaseOrders",
+                                poNumber);
+
+                            transaction.Commit();
+
+                            MessageBox.Show($"Purchase Order {poNumber} has been cancelled successfully.",
+                                "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            dgvSupplier.Rows[rowIndex].Cells["Status"].Value = "Cancelled";
+                            return;
+                        }
+
+                        transaction.Rollback();
                     }
                 }
             }
@@ -99,6 +118,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             finally
             {
                 if (con.State == ConnectionState.Open) con.Close();
+            }
+        }
+
+        private void OpenEditPurchaseOrderForm(string poNumber)
+        {
+            try
+            {
+                Form popup = new Form();
+                popup.FormBorderStyle = FormBorderStyle.None;
+                popup.StartPosition = FormStartPosition.CenterScreen;
+                popup.BackColor = Color.White;
+                popup.Size = new Size(853, 560);
+
+                EditPurchaseOrder editForm = new EditPurchaseOrder();
+                editForm.Dock = DockStyle.Fill;
+                editForm.LoadPurchaseOrder(poNumber);
+
+                popup.Controls.Add(editForm);
+                popup.FormClosed += (s, args) => LoadPurchaseOrdersFromDatabase();
+                popup.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open purchase order: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -140,8 +183,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                             poDate.ToString("MMM dd, yyyy"),
                             "₱ " + totalAmount.ToString("N2"),
                             status,
-                            Properties.Resources.Group_1048, // View icon
-                            Properties.Resources.trash // Cancel icon
+                            Properties.Resources.edit_rectangle, // View/Edit icon
+                            Properties.Resources.Deactivate_Circle1 // Cancel icon
                         );
 
                         // Color code the status

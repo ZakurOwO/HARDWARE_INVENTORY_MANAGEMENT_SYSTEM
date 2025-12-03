@@ -13,6 +13,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         // Simple class to store row data
         public class InventoryRowData
         {
+            public string ProductId { get; set; }
             public string ImagePath { get; set; }
             public string SKU { get; set; }
             public string Brand { get; set; }
@@ -31,7 +32,36 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         {
             LoadDataFromDatabase();
             dgvInventoryList.CellClick += dgvInventoryList_CellClick;
+            dgvInventoryList.CellFormatting += dgvInventoryList_CellFormatting;
+            dgvInventoryList.DataError += dgvInventoryList_DataError;
             dgvInventoryList.ClearSelection();
+        }
+
+        private void dgvInventoryList_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Prevent default error dialogs when the image column receives non-image values
+            if (e.ColumnIndex >= 0 && dgvInventoryList.Columns[e.ColumnIndex].Name == "Image")
+            {
+                e.ThrowException = false;
+            }
+        }
+
+        private void dgvInventoryList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Convert string image keys to actual resource images on the fly
+            if (e.ColumnIndex >= 0 && dgvInventoryList.Columns[e.ColumnIndex].Name == "Image")
+            {
+                if (e.Value is string imageKey)
+                {
+                    e.Value = ProductImageManager.GetProductImage(imageKey);
+                    e.FormattingApplied = true;
+                }
+                else if (e.Value == null)
+                {
+                    e.Value = ProductImageManager.GetProductImage(null);
+                    e.FormattingApplied = true;
+                }
+            }
         }
 
         public void RefreshData()
@@ -50,7 +80,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 {
                     connection.Open();
                     string query = @"
-                        SELECT 
+                        SELECT
+                            p.ProductID,
                             p.product_name,
                             p.SKU,
                             c.category_name,
@@ -143,6 +174,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                 foreach (DataRow row in pageData.Rows)
                 {
+                    string productId = row["ProductID"].ToString();
                     string productName = row["product_name"].ToString();
                     string sku = row["SKU"].ToString();
                     string category = row["category_name"].ToString();
@@ -174,6 +206,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     {
                         var rowData = new InventoryRowData
                         {
+                            ProductId = productId,
                             ImagePath = imagePath,
                             SKU = sku,
                             Brand = brand
@@ -212,23 +245,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         int.TryParse(dgvInventoryList.Rows[e.RowIndex].Cells[3].Value.ToString(), out currentStock);
                     }
 
-                    // Get image path, SKU, and brand from row Tag
+                    // Get image path, SKU, brand, and productId from row Tag
                     string imagePath = "";
                     string sku = "";
                     string brand = "";
+                    string productId = "";
 
                     if (dgvInventoryList.Rows[e.RowIndex].Tag is InventoryRowData rowData)
                     {
                         imagePath = rowData.ImagePath ?? "";
                         sku = rowData.SKU ?? "";
                         brand = rowData.Brand ?? "";
+                        productId = rowData.ProductId ?? "";
                     }
 
                     // Try to get the main page and call ShowAdjustStockForProduct
                     var mainPage = FindParentOfType<InventoryMainPage>(this);
                     if (mainPage != null && !string.IsNullOrEmpty(productName))
                     {
-                        mainPage.ShowAdjustStockForProduct(productName, sku, brand, currentStock, imagePath);
+                        mainPage.ShowAdjustStockForProduct(productId, productName, sku, brand, currentStock, imagePath);
                     }
                 }
                 catch (Exception ex)
@@ -325,23 +360,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         int.TryParse(dgvInventoryList.Rows[e.RowIndex].Cells[3].Value.ToString(), out currentStock);
                     }
 
-                    // Get image path, SKU, and brand from row Tag
+                    // Get image path, SKU, brand, and productId from row Tag
                     string imagePath = "";
                     string sku = "";
                     string brand = "";
+                    string productId = "";
 
                     if (dgvInventoryList.Rows[e.RowIndex].Tag is InventoryRowData rowData)
                     {
                         imagePath = rowData.ImagePath ?? "";
                         sku = rowData.SKU ?? "";
                         brand = rowData.Brand ?? "";
+                        productId = rowData.ProductId ?? "";
                     }
 
                     // Try to get the main page and call ShowItemDescription
                     var mainPage = FindParentOfType<InventoryMainPage>(this);
                     if (mainPage != null && !string.IsNullOrEmpty(productName))
                     {
-                        mainPage.ShowItemDescriptionForProduct(productName, sku, category, currentStock, brand, imagePath);
+                        mainPage.ShowItemDescriptionForProduct(productId, productName, sku, category, currentStock, brand, imagePath);
                     }
                 }
                 catch (Exception ex)

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
@@ -19,6 +20,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private string currentBrand;
         private int currentStock;
         private string currentImagePath;
+        private string currentProductId;
         private int adjustmentValue = 0;
         private int newTotalStock = 0;
 
@@ -335,6 +337,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                 if (success)
                 {
+                    TryLogInventoryAdjustment(cleanReason);
+
                     MessageBox.Show($"Stock adjusted successfully!\nReason: {cleanReason}", "Success",
                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -387,6 +391,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
         }
 
+        private void TryLogInventoryAdjustment(string reason)
+        {
+            try
+            {
+                string oldValues = $"Stock={currentStock}";
+                string newValues = $"Stock={newTotalStock}; Reason={reason}";
+
+                AuditHelper.LogWithDetails(
+                    AuditModule.INVENTORY,
+                    $"Adjusted stock for {currentProductName}",
+                    AuditActivityType.UPDATE,
+                    tableAffected: "Products",
+                    recordId: currentSKU,
+                    oldValues: oldValues,
+                    newValues: newValues
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Inventory stock audit failed: {ex.Message}");
+            }
+        }
+
         private void LogStockAdjustment(string productName, int newStock, string reason)
         {
             // Optional: Log stock adjustments to a separate table for audit trail
@@ -421,8 +448,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         }
 
         // Method to show the popup (call this from main page)
-        public void ShowAdjustStock(string productName, string sku, string brand, int stock, string imagePath)
+        public void ShowAdjustStock(string productName, string sku, string brand, int stock, string imagePath, string productId)
         {
+            currentProductId = productId;
             PopulateProductData(productName, sku, brand, stock, imagePath);
             this.Visible = true;
             this.BringToFront();

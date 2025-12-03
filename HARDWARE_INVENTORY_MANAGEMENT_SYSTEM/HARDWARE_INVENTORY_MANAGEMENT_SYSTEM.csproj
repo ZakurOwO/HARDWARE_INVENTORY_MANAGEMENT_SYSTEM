@@ -107,13 +107,13 @@
     <Compile Include="Audit Log\ClassComponent\AuditLogEntry.cs" />
     <Compile Include="Audit Log\ClassComponent\AuditLogManager.cs" />
     <Compile Include="Audit Log\ClassComponent\AuditModule.cs" />
+    <Compile Include="Class Components\CurrentSession.cs" />
     <Compile Include="Pop Up Forms\Add New Form\AddNewUser_Form.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Pop Up Forms\Add New Form\AddNewUser_Form.Designer.cs">
       <DependentUpon>AddNewUser_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class Components\Class Components of Accounts\UserSession.cs" />
     <Compile Include="Pop Up Forms\Edit Form\EditPurchaseOrder.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -621,6 +621,7 @@
     </Compile>
     <Compile Include="Class Components\Class Components of Suppliier\AddPurchaseContainer.cs" />
     <Compile Include="Class Components\Class Components of Suppliier\SupplierAddContainer.cs" />
+    <Compile Include="Class Components\Class Components of Suppliier\SupplierEditContainer.cs" />
     <Compile Include="Pop Up Forms\Edit Form\EditFormSupplier.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -651,6 +652,7 @@
     <Compile Include="Supplier Module\SupplierButton.Designer.cs">
       <DependentUpon>SupplierButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Supplier Module\SupplierHelpers.cs" />
     <Compile Include="Supplier Module\SupplierNavBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1753,6 +1755,7 @@
     <None Include="Resources\Categories1.png" />
     <None Include="Resources\CustomerOvelay.jpg" />
     <None Include="Resources\InventoryOverlay %282%29.png" />
+    <None Include="Resources\edit-rectangle2.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <ItemGroup />

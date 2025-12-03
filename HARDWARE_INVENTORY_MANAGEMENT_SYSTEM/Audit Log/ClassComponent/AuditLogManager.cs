@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
@@ -81,6 +81,55 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
                 Console.WriteLine($"=== AuditLogManager.LogActivity END (ERROR) ===");
                 Console.WriteLine($"ERROR: {ex.Message}");
                 Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                return false;
+            }
+        }
+
+        public bool LogActivityWithTransaction(
+            SqlConnection connection,
+            SqlTransaction transaction,
+            int userId,
+            string username,
+            string module,
+            string activity,
+            AuditActivityType activityType,
+            string tableAffected = null,
+            string recordId = null,
+            string oldValues = null,
+            string newValues = null,
+            string ipAddress = null)
+        {
+            try
+            {
+                if (connection == null)
+                    throw new ArgumentNullException(nameof(connection));
+
+                string query = @"
+            INSERT INTO AuditLog (user_id, username, module, activity, activity_type,
+                                table_affected, record_id, old_values, new_values, ip_address)
+            VALUES (@user_id, @username, @module, @activity, @activity_type,
+                   @table_affected, @record_id, @old_values, @new_values, @ip_address)";
+
+                using (SqlCommand cmd = new SqlCommand(query, connection, transaction))
+                {
+                    cmd.Parameters.AddWithValue("@user_id", userId);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@module", module);
+                    cmd.Parameters.AddWithValue("@activity", activity);
+                    cmd.Parameters.AddWithValue("@activity_type", activityType.ToString());
+                    cmd.Parameters.AddWithValue("@table_affected", (object)tableAffected ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@record_id", (object)recordId ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@old_values", (object)oldValues ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@new_values", (object)newValues ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@ip_address", (object)ipAddress ?? DBNull.Value);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR writing audit with transaction: {ex.Message}");
                 return false;
             }
         }

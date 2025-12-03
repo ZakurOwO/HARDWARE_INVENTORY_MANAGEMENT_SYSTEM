@@ -140,6 +140,7 @@
             this.btnBlue.Size = new System.Drawing.Size(120, 40);
             this.btnBlue.TabIndex = 63;
             this.btnBlue.Text = "Add";
+            this.btnBlue.Click += new System.EventHandler(this.btnBlue_Click);
             // 
             // label1
             // 

@@ -16,5 +16,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log
         public string NewValues { get; set; }
         public string IPAddress { get; set; }
         public DateTime Timestamp { get; set; }
+
+        public string ActivityDateDisplay =>
+        Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fff");
     }
 }
