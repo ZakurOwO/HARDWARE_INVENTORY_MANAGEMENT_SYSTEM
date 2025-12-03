@@ -131,6 +131,7 @@
             this.ParentContainer.Controls.Add(this.label1);
             this.ParentContainer.Location = new System.Drawing.Point(0, 0);
             this.ParentContainer.Name = "ParentContainer";
+            this.ParentContainer.Size = new System.Drawing.Size(835, 834);
             this.ParentContainer.Size = new System.Drawing.Size(1000, 834);
             this.ParentContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ParentContainer.TabIndex = 82;
