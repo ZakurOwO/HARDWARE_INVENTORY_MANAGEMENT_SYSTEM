@@ -186,20 +186,22 @@
             this.Status.Name = "Status";
             // 
             // View
-            // 
+            //
             this.View.FillWeight = 20F;
             this.View.HeaderText = "";
             this.View.MinimumWidth = 6;
             this.View.Name = "View";
+            this.View.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.edit_rectangle;
             this.View.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.View.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
+            //
             // Cancel
-            // 
+            //
             this.Cancel.FillWeight = 20F;
             this.Cancel.HeaderText = "";
             this.Cancel.MinimumWidth = 6;
             this.Cancel.Name = "Cancel";
+            this.Cancel.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Deactivate_Circle1;
             this.Cancel.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Cancel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
