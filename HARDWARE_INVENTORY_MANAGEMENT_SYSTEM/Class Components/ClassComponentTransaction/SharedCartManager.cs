@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction
 {
@@ -12,6 +15,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
     {
         private static SharedCartManager _instance;
         private readonly List<CartItem> _cartItems;
+        private readonly string connectionString;
 
         public static SharedCartManager Instance
         {
@@ -28,6 +32,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
         private SharedCartManager()
         {
             _cartItems = new List<CartItem>();
+            connectionString = ConnectionString.DataSource;
         }
 
         public List<CartItem> GetCartItems()
@@ -35,7 +40,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
             return new List<CartItem>(_cartItems);
         }
 
-        public void AddItemToCart(CartItem item)
+        public bool AddItemToCart(CartItem item)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
@@ -43,7 +48,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
             if (!item.IsValid())
                 throw new ArgumentException("Cart item is not valid.", nameof(item));
 
+            int additionalQuantity = item.Quantity;
             var existingItem = _cartItems.Find(x => x.ProductInternalID == item.ProductInternalID);
+
+            if (!TryAdjustStock(item.ProductInternalID, additionalQuantity, out string errorMessage))
+            {
+                MessageBox.Show(errorMessage, "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
             if (existingItem != null)
             {
                 existingItem.Quantity += item.Quantity;
@@ -63,10 +76,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 item.ProductInternalID.ToString(),
                 $"{{\"product_id\":{item.ProductInternalID},\"quantity\":{item.Quantity},\"price\":{item.Price}}}"
             );
+
+            return true;
         }
 
-        public void RemoveItemFromCart(int productInternalId)
+        public bool RemoveItemFromCart(int productInternalId)
         {
+            var existingItem = _cartItems.Find(x => x.ProductInternalID == productInternalId);
+            if (existingItem == null)
+            {
+                return false;
+            }
+
+            if (!TryAdjustStock(productInternalId, -existingItem.Quantity, out string errorMessage))
+            {
+                MessageBox.Show(errorMessage, "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
             _cartItems.RemoveAll(x => x.ProductInternalID == productInternalId);
 
             LogCartAction(
@@ -74,20 +101,32 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 productInternalId.ToString(),
                 null
             );
+
+            return true;
         }
 
-        public void UpdateItemQuantity(int productInternalId, int newQuantity)
+        public bool UpdateItemQuantity(int productInternalId, int newQuantity)
         {
             var existingItem = _cartItems.Find(x => x.ProductInternalID == productInternalId);
             if (existingItem == null)
-                return;
+                return false;
 
             if (newQuantity <= 0)
             {
-                RemoveItemFromCart(productInternalId);
+                return RemoveItemFromCart(productInternalId);
             }
             else
             {
+                int quantityChange = newQuantity - existingItem.Quantity;
+                if (quantityChange != 0)
+                {
+                    if (!TryAdjustStock(productInternalId, quantityChange, out string errorMessage))
+                    {
+                        MessageBox.Show(errorMessage, "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                }
+
                 existingItem.Quantity = newQuantity;
 
                 LogCartAction(
@@ -96,10 +135,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                     $"{{\"quantity\":{newQuantity}}}"
                 );
             }
+
+            return true;
         }
 
-        public void ClearCart()
+        public void ClearCart(bool restoreStock)
         {
+            if (restoreStock)
+            {
+                foreach (var item in new List<CartItem>(_cartItems))
+                {
+                    if (!TryAdjustStock(item.ProductInternalID, -item.Quantity, out string errorMessage))
+                    {
+                        MessageBox.Show(errorMessage, "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+
             _cartItems.Clear();
             LogCartAction("Cleared cart", null, null);
         }
@@ -107,6 +159,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
         public int GetCartItemCount()
         {
             return _cartItems.Count;
+        }
+
+        public int GetItemQuantity(int productInternalId)
+        {
+            var existingItem = _cartItems.Find(x => x.ProductInternalID == productInternalId);
+            return existingItem != null ? existingItem.Quantity : 0;
         }
 
         public decimal CalculateSubtotal()
@@ -136,6 +194,72 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
             catch (Exception ex)
             {
                 Console.WriteLine($"Audit log failed for cart action: {ex.Message}");
+            }
+        }
+
+        private bool TryAdjustStock(int productId, int quantityChange, out string errorMessage)
+        {
+            errorMessage = null;
+
+            if (quantityChange == 0)
+            {
+                return true;
+            }
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlTransaction transaction = connection.BeginTransaction())
+                    {
+                        string selectQuery = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId";
+                        using (SqlCommand selectCmd = new SqlCommand(selectQuery, connection, transaction))
+                        {
+                            selectCmd.Parameters.AddWithValue("@ProductId", productId);
+                            object result = selectCmd.ExecuteScalar();
+                            if (result == null)
+                            {
+                                errorMessage = "Product not found in inventory.";
+                                transaction.Rollback();
+                                return false;
+                            }
+
+                            int currentStock = Convert.ToInt32(result);
+                            int projectedStock = currentStock - quantityChange;
+
+                            if (projectedStock < 0)
+                            {
+                                errorMessage = $"Insufficient stock. Available: {currentStock}";
+                                transaction.Rollback();
+                                return false;
+                            }
+
+                            string updateQuery = "UPDATE Products SET current_stock = current_stock - @QuantityChange WHERE ProductInternalID = @ProductId";
+                            using (SqlCommand updateCmd = new SqlCommand(updateQuery, connection, transaction))
+                            {
+                                updateCmd.Parameters.AddWithValue("@QuantityChange", quantityChange);
+                                updateCmd.Parameters.AddWithValue("@ProductId", productId);
+                                int rows = updateCmd.ExecuteNonQuery();
+
+                                if (rows == 0)
+                                {
+                                    errorMessage = "Unable to update stock for the selected product.";
+                                    transaction.Rollback();
+                                    return false;
+                                }
+                            }
+
+                            transaction.Commit();
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Error updating stock: {ex.Message}";
+                return false;
             }
         }
     }

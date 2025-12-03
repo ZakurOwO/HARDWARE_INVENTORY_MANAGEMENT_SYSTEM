@@ -74,8 +74,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         {
                             walkInCart.AddProductToCartById(product.ProductInternalID, 1);
                         }
-                        MessageBox.Show($"Added {quantity} x {product.ProductName} to Walk-In cart!", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
                 }
@@ -88,8 +86,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         {
                             deliveryCart.AddProductToCartById(product.ProductInternalID, 1);
                         }
-                        MessageBox.Show($"Added {quantity} x {product.ProductName} to Delivery cart!", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
                 }
@@ -416,8 +412,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     if (walkInCart != null)
                     {
                         walkInCart.AddProductToCartById(product.ProductInternalID, 1);
-                        MessageBox.Show($"Added {product.ProductName} to Walk-In cart!", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
                 }
@@ -427,8 +421,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     if (deliveryCart != null)
                     {
                         deliveryCart.AddProductToCartById(product.ProductInternalID, 1);
-                        MessageBox.Show($"Added {product.ProductName} to Delivery cart!", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     }
                 }

@@ -8,6 +8,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public int ProductInternalID { get; set; } // This line is crucial
+        public string ProductID { get; set; }
+        public string ImagePath { get; set; }
+        public int AvailableStock { get; set; }
 
         // Optional: Calculated property
         public decimal TotalPrice
