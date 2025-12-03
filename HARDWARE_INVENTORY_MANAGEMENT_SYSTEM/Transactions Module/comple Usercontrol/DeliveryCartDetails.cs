@@ -907,28 +907,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 deliveryCmd.Parameters.AddWithValue("@ContactNumber", DBNull.Value);
                 deliveryCmd.Parameters.AddWithValue("@Notes", DBNull.Value);
 
-                    using (var reader = deliveryCmd.ExecuteReader())
+                using (var reader = deliveryCmd.ExecuteReader())
+                {
+                    if (!reader.Read())
                     {
-                        if (!reader.Read())
-                        {
-                            throw new InvalidOperationException("Failed to create delivery header.");
+                        throw new InvalidOperationException("Failed to create delivery header.");
                     }
 
-                        int deliveryId = reader.GetInt32(0);
-                        string deliveryCode = reader.IsDBNull(1) ? deliveryId.ToString() : reader.GetString(1);
+                    int deliveryId = reader.GetInt32(0);
+                    string deliveryCode = reader.IsDBNull(1) ? deliveryId.ToString() : reader.GetString(1);
 
-                        LogAuditEntry(connection, transaction,
-                            $"Created delivery record for transaction TRX-{transactionId:D5}",
-                            AuditActivityType.CREATE,
-                            "Deliveries",
-                            deliveryCode,
-                            null,
-                            null);
+                    LogAuditEntry(connection, transaction,
+                        $"Created delivery record for transaction TRX-{transactionId:D5}",
+                        AuditActivityType.CREATE,
+                        "Deliveries",
+                        deliveryCode,
+                        null,
+                        $"transaction_id={transactionId};delivery_number={deliveryNumber};status=Scheduled");
 
-                        return (deliveryId, deliveryCode);
-                    }
+                    return (deliveryId, deliveryCode);
                 }
             }
+        }
 
         private int InsertTransactionItem(SqlConnection connection, SqlTransaction transaction, int transactionId, int productId, int quantity, decimal price)
         {

@@ -45,11 +45,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                         SELECT
                             d.delivery_id,
                             d.DeliveryID,
-                            d.transaction_id,
                             d.delivery_number,
                             d.delivery_date,
                             d.status,
-                            COALESCE(c.customer_name, d.customer_name, s.supplier_name, 'N/A') AS customer_name,
+                            d.delivery_type,
+                            COALESCE(t.TransactionID, po.POID, '') AS ReferenceId,
+                            COALESCE(c.customer_name, d.customer_name, s.supplier_name, 'N/A') AS PartyName,
                             d.created_at,
                             d.updated_at
                         FROM Deliveries d
@@ -69,11 +70,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     {
                         int deliveryInternalId = reader["delivery_id"] == DBNull.Value ? 0 : Convert.ToInt32(reader["delivery_id"]);
                         string deliveryID = reader["DeliveryID"]?.ToString() ?? string.Empty;
-                        string referenceId = reader["transaction_id"] == DBNull.Value ? string.Empty : reader["transaction_id"].ToString();
+                        string referenceId = reader["ReferenceId"]?.ToString() ?? string.Empty;
                         string deliveryNumber = reader["delivery_number"]?.ToString() ?? string.Empty;
                         string deliveryDate = FormatDate(reader["delivery_date"]);
                         string status = reader["status"]?.ToString() ?? string.Empty;
-                        string partyName = reader["customer_name"]?.ToString() ?? string.Empty;
+                        string partyName = reader["PartyName"]?.ToString() ?? string.Empty;
                         string createdAt = FormatDate(reader["created_at"]);
                         string updatedAt = FormatDate(reader["updated_at"]);
 
@@ -133,8 +134,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                             d.delivery_date,
                             d.status,
                             d.delivery_type,
-                            d.transaction_id,
-                            COALESCE(c.customer_name, d.customer_name, s.supplier_name, 'N/A') AS customer_name,
+                            COALESCE(t.TransactionID, po.POID, '') AS ReferenceId,
+                            COALESCE(c.customer_name, d.customer_name, s.supplier_name, 'N/A') AS PartyName,
                             d.created_at,
                             d.updated_at
                         FROM Deliveries d
@@ -162,11 +163,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                     {
                         int deliveryInternalId = reader["delivery_id"] == DBNull.Value ? 0 : Convert.ToInt32(reader["delivery_id"]);
                         string deliveryID = reader["DeliveryID"]?.ToString() ?? string.Empty;
-                        string referenceId = reader["transaction_id"] == DBNull.Value ? string.Empty : reader["transaction_id"].ToString();
+                        string referenceId = reader["ReferenceId"]?.ToString() ?? string.Empty;
                         string deliveryNumber = reader["delivery_number"]?.ToString() ?? string.Empty;
                         string deliveryDate = FormatDate(reader["delivery_date"]);
                         string status = reader["status"]?.ToString() ?? string.Empty;
-                        string partyName = reader["customer_name"]?.ToString() ?? string.Empty;
+                        string partyName = reader["PartyName"]?.ToString() ?? string.Empty;
                         string createdAt = FormatDate(reader["created_at"]);
                         string updatedAt = FormatDate(reader["updated_at"]);
 
@@ -317,6 +318,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                         }
 
                         string deliveryDisplayId = GetDeliveryDisplayId(connection, transaction, deliveryId);
+                        string oldValues = $"status={oldStatus}";
+                        string newValues = $"status={newStatus}";
 
                         AuditHelper.LogWithTransaction(
                             connection,
@@ -325,7 +328,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                             $"Updated status for delivery {deliveryDisplayId} to {newStatus}",
                             AuditActivityType.UPDATE,
                             "Deliveries",
-                            deliveryDisplayId);
+                            deliveryDisplayId,
+                            oldValues,
+                            newValues);
 
                         transaction.Commit();
                     }
@@ -405,6 +410,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                             }
                         }
 
+                        string oldValuesJson = $"status={status};customer_name={customerName}";
+
                         string deleteBatches = "DELETE FROM ProductBatches WHERE delivery_id = @DeliveryId";
                         using (SqlCommand cmd = new SqlCommand(deleteBatches, connection, transaction))
                         {
@@ -438,9 +445,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
                             transaction,
                             AuditModule.DELIVERIES,
                             $"Deleted delivery {deliveryDisplayId ?? deliveryNumber}",
-                            AuditActivityType.DELETE,
+                            AuditActivityType.UPDATE,
                             "Deliveries",
-                            deliveryDisplayId ?? deliveryId.ToString());
+                            deliveryDisplayId ?? deliveryId.ToString(),
+                            oldValuesJson,
+                            null);
 
                         transaction.Commit();
                     }
@@ -460,23 +469,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             {
                 MessageBox.Show($"Error deleting delivery: {ex.Message}", "Database Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void LogDeliveryAudit(string activity, AuditActivityType activityType, string deliveryRecordId)
-        {
-            if (string.IsNullOrWhiteSpace(deliveryRecordId) || string.Equals(deliveryRecordId, "N/A", StringComparison.OrdinalIgnoreCase))
-            {
-                return;
-            }
-
-            try
-            {
-                AuditHelper.Log(AuditModule.DELIVERIES, activity, activityType, "Deliveries", deliveryRecordId);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Audit log failed: {ex.Message}");
             }
         }
 
