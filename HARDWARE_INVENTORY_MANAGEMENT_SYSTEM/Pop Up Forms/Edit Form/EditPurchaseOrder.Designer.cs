@@ -105,6 +105,8 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(853, 560);
             this.guna2Panel1.TabIndex = 0;
+            this.guna2Panel1.Size = new System.Drawing.Size(1000, 700);
+            this.guna2Panel1.TabIndex = 1;
             // 
             // ParentContainer
             // 
@@ -132,6 +134,8 @@
             this.ParentContainer.Location = new System.Drawing.Point(0, 0);
             this.ParentContainer.Name = "ParentContainer";
             this.ParentContainer.Size = new System.Drawing.Size(835, 834);
+            this.ParentContainer.Size = new System.Drawing.Size(1000, 834);
+            this.ParentContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ParentContainer.TabIndex = 82;
             // 
             // label26
@@ -842,7 +846,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.guna2Panel1);
             this.Name = "EditPurchaseOrder";
-            this.Size = new System.Drawing.Size(853, 560);
+            this.Size = new System.Drawing.Size(1000, 700);
             this.guna2Panel1.ResumeLayout(false);
             this.ParentContainer.ResumeLayout(false);
             this.ParentContainer.PerformLayout();
