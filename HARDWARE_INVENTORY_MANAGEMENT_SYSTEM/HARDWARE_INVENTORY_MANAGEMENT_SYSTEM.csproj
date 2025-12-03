@@ -621,6 +621,7 @@
     </Compile>
     <Compile Include="Class Components\Class Components of Suppliier\AddPurchaseContainer.cs" />
     <Compile Include="Class Components\Class Components of Suppliier\SupplierAddContainer.cs" />
+    <Compile Include="Class Components\Class Components of Suppliier\SupplierEditContainer.cs" />
     <Compile Include="Pop Up Forms\Edit Form\EditFormSupplier.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -651,6 +652,7 @@
     <Compile Include="Supplier Module\SupplierButton.Designer.cs">
       <DependentUpon>SupplierButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Supplier Module\SupplierHelpers.cs" />
     <Compile Include="Supplier Module\SupplierNavBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
