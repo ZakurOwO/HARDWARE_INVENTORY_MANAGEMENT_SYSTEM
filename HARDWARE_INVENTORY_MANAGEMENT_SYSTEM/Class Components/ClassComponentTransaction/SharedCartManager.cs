@@ -17,6 +17,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
         private readonly List<CartItem> _cartItems;
         private readonly string connectionString;
 
+        public event Action CartUpdated;
+        public event Action InventoryUpdated;
+
         public static SharedCartManager Instance
         {
             get
@@ -51,6 +54,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
             int additionalQuantity = item.Quantity;
             var existingItem = _cartItems.Find(x => x.ProductInternalID == item.ProductInternalID);
 
+            if (!TryGetCurrentStock(item.ProductInternalID, out int availableStock))
+            {
+                return false;
+            }
+
+            if (availableStock <= 0)
+            {
+                MessageBox.Show("Item is out of stock.", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (additionalQuantity > availableStock)
+            {
+                MessageBox.Show($"Insufficient stock. Available: {availableStock}", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
             if (!TryAdjustStock(item.ProductInternalID, additionalQuantity, out string errorMessage))
             {
                 MessageBox.Show(errorMessage, "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -77,6 +97,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 $"{{\"product_id\":{item.ProductInternalID},\"quantity\":{item.Quantity},\"price\":{item.Price}}}"
             );
 
+            NotifyCartAndInventoryChanged();
+
             return true;
         }
 
@@ -101,6 +123,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 productInternalId.ToString(),
                 null
             );
+
+            NotifyCartAndInventoryChanged();
 
             return true;
         }
@@ -134,6 +158,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                     productInternalId.ToString(),
                     $"{{\"quantity\":{newQuantity}}}"
                 );
+
+                NotifyCartAndInventoryChanged();
             }
 
             return true;
@@ -154,6 +180,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
 
             _cartItems.Clear();
             LogCartAction("Cleared cart", null, null);
+
+            NotifyCartAndInventoryChanged();
         }
 
         public int GetCartItemCount()
@@ -226,6 +254,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                             }
 
                             int currentStock = Convert.ToInt32(result);
+                            if (currentStock <= 0 && quantityChange > 0)
+                            {
+                                errorMessage = "Item is out of stock.";
+                                transaction.Rollback();
+                                return false;
+                            }
+
                             int projectedStock = currentStock - quantityChange;
 
                             if (projectedStock < 0)
@@ -261,6 +296,43 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 errorMessage = $"Error updating stock: {ex.Message}";
                 return false;
             }
+        }
+
+        private bool TryGetCurrentStock(int productId, out int currentStock)
+        {
+            currentStock = 0;
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string selectQuery = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId";
+                    using (SqlCommand cmd = new SqlCommand(selectQuery, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@ProductId", productId);
+                        object result = cmd.ExecuteScalar();
+                        if (result == null)
+                        {
+                            MessageBox.Show("Product not found in inventory.", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return false;
+                        }
+
+                        currentStock = Convert.ToInt32(result);
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error checking stock: {ex.Message}", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private void NotifyCartAndInventoryChanged()
+        {
+            CartUpdated?.Invoke();
+            InventoryUpdated?.Invoke();
         }
     }
 }

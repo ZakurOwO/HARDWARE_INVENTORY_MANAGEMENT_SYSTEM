@@ -37,6 +37,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             connectionString = ConnectionString.DataSource;
             checkoutContainer = new CheckoutPopUpContainer();
             InitializeDataGridViewColumns();
+            SharedCartManager.Instance.CartUpdated += LoadSharedCartItems; // keep cart grid updated across controls
+            this.Disposed += (s, e) => SharedCartManager.Instance.CartUpdated -= LoadSharedCartItems;
         }
 
         private void InitializeDataGridViewColumns()
@@ -371,6 +373,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                           }
                       }
 
+                      LoadSharedCartItems(); // refresh grid so enforced limits are visible immediately
                       UpdateCartTotals();
                   }
               }
@@ -391,7 +394,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             return;
                         }
                     }
-                    dgvCartDetails.Rows.RemoveAt(e.RowIndex);
+                    LoadSharedCartItems(); // removal restores stock and refreshes UI
                     UpdateCartTotals();
                 }
             }
@@ -449,9 +452,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                   {
                     string query = @"
                         SELECT product_name, SellingPrice, current_stock
-                        FROM Products 
-                        WHERE ProductInternalID = @ProductInternalID 
-                        AND active = 1 AND current_stock > 0";
+                        FROM Products
+                        WHERE ProductInternalID = @ProductInternalID
+                        AND active = 1";
 
                     SqlCommand command = new SqlCommand(query, connection);
                     command.Parameters.AddWithValue("@ProductInternalID", productInternalId);
@@ -465,7 +468,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                           decimal sellingPrice = reader.GetDecimal(1);
                           int currentStock = reader.GetInt32(2);
 
-                          if (quantity <= currentStock)
+                          if (currentStock <= 0)
+                          {
+                              MessageBox.Show("Item is out of stock.", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                          }
+                          else if (quantity <= currentStock)
                           {
                               AddItemToCart(productInternalId, productName, sellingPrice, quantity);
                           }
@@ -477,7 +484,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     }
                     else
                     {
-                        MessageBox.Show("Product not found or out of stock.", "Product Error",
+                        MessageBox.Show("Product not found.", "Product Error",
                             MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     reader.Close();
@@ -515,6 +522,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             if (added)
             {
                 LoadSharedCartItems();
+                UpdateCartTotals();
             }
         }
         public void ClearCart(bool restoreStock)
