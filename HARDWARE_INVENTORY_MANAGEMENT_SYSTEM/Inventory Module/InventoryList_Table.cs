@@ -13,6 +13,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         // Simple class to store row data
         public class InventoryRowData
         {
+            public int ProductInternalId { get; set; }
             public string ProductId { get; set; }
             public string ImagePath { get; set; }
             public string SKU { get; set; }
@@ -81,6 +82,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     connection.Open();
                     string query = @"
                         SELECT
+                            p.ProductInternalID,
                             p.ProductID,
                             p.product_name,
                             p.SKU,
@@ -183,6 +185,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     string status = row["status"].ToString();
                     string imagePath = row["image_path"].ToString();
                     string brand = row["brand"].ToString();
+                    int.TryParse(row["ProductInternalID"].ToString(), out int productInternalId);
 
                     Image productImage = ProductImageManager.GetProductImage(imagePath);
                     Image adjustStockIcon = Properties.Resources.AdjustStock;
@@ -206,6 +209,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     {
                         var rowData = new InventoryRowData
                         {
+                            ProductInternalId = productInternalId,
                             ProductId = productId,
                             ImagePath = imagePath,
                             SKU = sku,
@@ -230,8 +234,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             if (e.RowIndex < 0 || e.RowIndex >= dgvInventoryList.Rows.Count) return;
             if (e.ColumnIndex < 0 || e.ColumnIndex >= dgvInventoryList.Columns.Count) return;
 
-            // Adjust Stock button column (column 6)
-            if (e.ColumnIndex == 6)
+            string columnName = dgvInventoryList.Columns[e.ColumnIndex].Name;
+
+            // Adjust Stock button column (gear/settings)
+            if (columnName == "AdjustStock" || columnName == "btnSettings")
             {
                 try
                 {
@@ -250,9 +256,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     string sku = "";
                     string brand = "";
                     string productId = "";
+                    int productInternalId = 0;
 
                     if (dgvInventoryList.Rows[e.RowIndex].Tag is InventoryRowData rowData)
                     {
+                        productInternalId = rowData.ProductInternalId;
                         imagePath = rowData.ImagePath ?? "";
                         sku = rowData.SKU ?? "";
                         brand = rowData.Brand ?? "";
@@ -261,9 +269,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                     // Try to get the main page and call ShowAdjustStockForProduct
                     var mainPage = FindParentOfType<InventoryMainPage>(this);
-                    if (mainPage != null && !string.IsNullOrEmpty(productName))
+                    if (mainPage != null && productInternalId > 0 && !string.IsNullOrEmpty(productName))
                     {
-                        mainPage.ShowAdjustStockForProduct(productId, productName, sku, brand, currentStock, imagePath);
+                        mainPage.ShowAdjustStockForProduct(productInternalId, productId, productName, sku, brand, currentStock, imagePath);
                     }
                 }
                 catch (Exception ex)
@@ -273,7 +281,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
 
             // Deactivate/Activate button column (column 7)
-            else if (e.ColumnIndex == 7)
+            else if (columnName == "Deactivate")
             {
                 try
                 {
@@ -345,7 +353,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
 
             // View Details button column (column 8)
-            else if (e.ColumnIndex == 8)
+            else if (columnName == "ViewDetails")
             {
                 try
                 {
