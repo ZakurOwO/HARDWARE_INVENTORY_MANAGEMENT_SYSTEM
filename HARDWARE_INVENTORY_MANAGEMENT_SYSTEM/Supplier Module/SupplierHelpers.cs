@@ -35,7 +35,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             if (connection == null)
                 throw new ArgumentNullException(nameof(connection));
 
-            var (userId, username) = ResolveUserContext(connection, transaction);
+            int userId = CurrentSession.CurrentUserId > 0
+                ? CurrentSession.CurrentUserId
+                : CurrentSession.GetUserIdOrDefault();
+
+            string username = !string.IsNullOrWhiteSpace(CurrentSession.CurrentUsername)
+                ? CurrentSession.CurrentUsername
+                : CurrentSession.GetUsernameOrDefault();
 
             using (SqlCommand cmd = new SqlCommand(@"INSERT INTO AuditLog
                 (user_id, username, module, activity, activity_type,
@@ -71,66 +77,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             builder.Append($"address={supplier.Address};");
             builder.Append($"email={supplier.Email}");
             return builder.ToString();
-        }
-
-        private static (int userId, string username) ResolveUserContext(SqlConnection connection, SqlTransaction transaction)
-        {
-            int candidateUserId = CurrentSession.CurrentUserId;
-            string candidateUsername = CurrentSession.CurrentUsername;
-
-            if (!string.IsNullOrWhiteSpace(candidateUsername) && ValidateUserByUsername(connection, transaction, candidateUsername, out int resolvedUserId))
-            {
-                return (resolvedUserId, candidateUsername);
-            }
-
-            if (candidateUserId > 0 && ValidateUserById(connection, transaction, candidateUserId))
-            {
-                return (candidateUserId, string.IsNullOrWhiteSpace(candidateUsername) ? CurrentSession.GetUsernameOrDefault() : candidateUsername);
-            }
-
-            int fallbackUserId = CurrentSession.GetUserIdOrDefault();
-            if (ValidateUserById(connection, transaction, fallbackUserId))
-            {
-                return (fallbackUserId, string.IsNullOrWhiteSpace(candidateUsername) ? CurrentSession.GetUsernameOrDefault() : candidateUsername);
-            }
-
-            // Final fallback: attempt to resolve any existing user to satisfy FK
-            using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 user_id, username FROM Users ORDER BY user_id", connection, transaction))
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                if (reader.Read())
-                {
-                    return (Convert.ToInt32(reader["user_id"]), reader["username"].ToString());
-                }
-            }
-
-            // If no users exist, default values (may fail FK but ensures predictable behavior)
-            return (fallbackUserId, CurrentSession.GetUsernameOrDefault());
-        }
-
-        private static bool ValidateUserById(SqlConnection connection, SqlTransaction transaction, int userId)
-        {
-            using (SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users WHERE user_id = @user_id", connection, transaction))
-            {
-                cmd.Parameters.AddWithValue("@user_id", userId);
-                return (int)cmd.ExecuteScalar() > 0;
-            }
-        }
-
-        private static bool ValidateUserByUsername(SqlConnection connection, SqlTransaction transaction, string username, out int userId)
-        {
-            userId = 0;
-            using (SqlCommand cmd = new SqlCommand("SELECT user_id FROM Users WHERE username = @username", connection, transaction))
-            {
-                cmd.Parameters.AddWithValue("@username", username);
-                object result = cmd.ExecuteScalar();
-                if (result != null && result != DBNull.Value)
-                {
-                    userId = Convert.ToInt32(result);
-                    return true;
-                }
-            }
-            return false;
         }
     }
 }
