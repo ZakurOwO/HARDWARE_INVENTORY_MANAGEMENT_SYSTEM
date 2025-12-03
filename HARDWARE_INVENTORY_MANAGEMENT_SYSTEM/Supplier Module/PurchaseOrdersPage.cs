@@ -30,19 +30,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
             // Setup DataGridView click events
             dgvSupplier.CellContentClick += DgvSupplier_CellContentClick;
+            dgvSupplier.CellClick += DgvSupplier_CellContentClick;
         }
 
         private void DgvSupplier_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
 
-            // Check if View button was clicked
+            // Ensure action buttons respond for both cell click and content click events
             if (e.ColumnIndex == dgvSupplier.Columns["View"].Index)
             {
                 string poNumber = dgvSupplier.Rows[e.RowIndex].Cells["POID"].Value.ToString();
                 OpenEditPurchaseOrderForm(poNumber);
             }
-            // Check if Cancel button was clicked
             else if (e.ColumnIndex == dgvSupplier.Columns["Cancel"].Index)
             {
                 string poId = dgvSupplier.Rows[e.RowIndex].Cells["POID"].Value.ToString();
