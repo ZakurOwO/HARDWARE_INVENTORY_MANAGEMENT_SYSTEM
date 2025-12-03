@@ -40,6 +40,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             InitializeItemDescriptionPopup();
 
             SharedCartManager.Instance.InventoryUpdated += (s, e) => LoadProducts(); // auto-refresh inventory cards when stock changes
+            this.Disposed += (s, e) => SharedCartManager.Instance.ClearCart(false); // ensure cart state is discarded when leaving page
         }
 
         private void InitializeItemDescriptionPopup()
