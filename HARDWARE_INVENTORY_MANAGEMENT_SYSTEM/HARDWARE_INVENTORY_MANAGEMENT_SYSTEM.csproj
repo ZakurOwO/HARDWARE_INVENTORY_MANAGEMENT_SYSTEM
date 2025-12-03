@@ -1755,6 +1755,7 @@
     <None Include="Resources\Categories1.png" />
     <None Include="Resources\CustomerOvelay.jpg" />
     <None Include="Resources\InventoryOverlay %282%29.png" />
+    <None Include="Resources\edit-rectangle2.png" />
     <Content Include="Resources\Pending.png" />
   </ItemGroup>
   <ItemGroup />
