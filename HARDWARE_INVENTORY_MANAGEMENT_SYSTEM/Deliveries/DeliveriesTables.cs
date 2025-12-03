@@ -223,6 +223,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
                 MessageBox.Show(details, "Delivery Details",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                LogDeliveryAudit($"Viewed delivery {deliveryID}", AuditActivityType.VIEW, deliveryID);
             }
         }
 
