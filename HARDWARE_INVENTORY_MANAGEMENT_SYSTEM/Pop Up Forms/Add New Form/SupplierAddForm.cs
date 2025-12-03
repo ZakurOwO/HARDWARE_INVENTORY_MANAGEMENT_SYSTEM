@@ -9,7 +9,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 {
     public partial class SupplierAddForm : UserControl
     {
-        private SqlConnection con;
         public event EventHandler CancelRequested;
         public event EventHandler SupplierAdded;
         private string connectionString = ConnectionString.DataSource;
@@ -17,10 +16,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         public SupplierAddForm()
         {
             InitializeComponent();
-
-            // Initialize the connection
-            con = new SqlConnection(connectionString);
-
 
             // Wire up all event handlers programmatically
             closeButton1.Click += (s, e) => CancelRequested?.Invoke(this, EventArgs.Empty);
@@ -92,30 +87,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private bool IsDuplicateSupplier(string companyName)
         {
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = "SELECT COUNT(*) FROM Suppliers WHERE LOWER(supplier_name) = LOWER(@CompanyName)";
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                try
                 {
-                    cmd.Parameters.AddWithValue("@CompanyName", companyName.Trim());
+                    string query = "SELECT COUNT(*) FROM Suppliers WHERE LOWER(supplier_name) = LOWER(@CompanyName)";
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@CompanyName", companyName.Trim());
 
-                    if (con.State == ConnectionState.Closed)
                         con.Open();
-
-                    int count = (int)cmd.ExecuteScalar();
-                    return count > 0;
+                        int count = (int)cmd.ExecuteScalar();
+                        return count > 0;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error checking for duplicate: " + ex.Message,
-                    "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error checking for duplicate: " + ex.Message,
+                        "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
             }
         }
 
@@ -132,53 +123,80 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 return;
             }
 
-            try
+            using (SqlConnection con = new SqlConnection(connectionString))
             {
-                // Insert using the EXACT schema fields
-                string query = @"INSERT INTO Suppliers 
-                    (supplier_name, contact_person, contact_number, email, address) 
-                    VALUES 
-                    (@SupplierName, @ContactPerson, @ContactNumber, @Email, @Address)";
+                SqlTransaction transaction = null;
 
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                try
                 {
-                    cmd.Parameters.AddWithValue("@SupplierName", CompanyNameTextBoxSupplier.Text.Trim());
-                    cmd.Parameters.AddWithValue("@ContactPerson", tbxContactPerson.Text.Trim());
-                    cmd.Parameters.AddWithValue("@ContactNumber", ContactTxtBoxSupplier.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Email",
-                        string.IsNullOrWhiteSpace(tbxEmail.Text) ? (object)DBNull.Value : tbxEmail.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Address",
-                        string.IsNullOrWhiteSpace(LocationSupplierTextBox.Text) ? (object)DBNull.Value : LocationSupplierTextBox.Text.Trim());
+                    // Insert using the EXACT schema fields
+                    string query = @"INSERT INTO Suppliers
+                        (supplier_name, contact_person, contact_number, email, address)
+                        OUTPUT INSERTED.SupplierID, INSERTED.supplier_id
+                        VALUES
+                        (@SupplierName, @ContactPerson, @ContactNumber, @Email, @Address)";
 
                     con.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    con.Close();
+                    transaction = con.BeginTransaction();
 
-                    if (rowsAffected > 0)
+                    SupplierRecord newSupplier = new SupplierRecord();
+
+                    using (SqlCommand cmd = new SqlCommand(query, con, transaction))
                     {
-                        MessageBox.Show("Supplier added successfully!", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        cmd.Parameters.AddWithValue("@SupplierName", CompanyNameTextBoxSupplier.Text.Trim());
+                        cmd.Parameters.AddWithValue("@ContactPerson", tbxContactPerson.Text.Trim());
+                        cmd.Parameters.AddWithValue("@ContactNumber", ContactTxtBoxSupplier.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Email",
+                            string.IsNullOrWhiteSpace(tbxEmail.Text) ? (object)DBNull.Value : tbxEmail.Text.Trim());
+                        cmd.Parameters.AddWithValue("@Address",
+                            string.IsNullOrWhiteSpace(LocationSupplierTextBox.Text) ? (object)DBNull.Value : LocationSupplierTextBox.Text.Trim());
 
-                        SupplierAdded?.Invoke(this, EventArgs.Empty);
-                        ClearFields();
-                        CancelRequested?.Invoke(this, EventArgs.Empty); // Close after add
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                newSupplier.SupplierID = reader["SupplierID"].ToString();
+                                newSupplier.SupplierInternalId = Convert.ToInt32(reader["supplier_id"]);
+                            }
+                        }
+
+                        newSupplier.SupplierName = CompanyNameTextBoxSupplier.Text.Trim();
+                        newSupplier.ContactPerson = tbxContactPerson.Text.Trim();
+                        newSupplier.ContactNumber = ContactTxtBoxSupplier.Text.Trim();
+                        newSupplier.Email = string.IsNullOrWhiteSpace(tbxEmail.Text) ? null : tbxEmail.Text.Trim();
+                        newSupplier.Address = string.IsNullOrWhiteSpace(LocationSupplierTextBox.Text) ? null : LocationSupplierTextBox.Text.Trim();
                     }
+
+                    SupplierAuditLogger.LogSupplierAudit(
+                        con,
+                        transaction,
+                        activity: $"Added supplier {newSupplier.SupplierName}",
+                        activityType: "CREATE",
+                        recordId: newSupplier.SupplierID ?? newSupplier.SupplierInternalId.ToString(),
+                        oldValues: null,
+                        newValues: SupplierAuditLogger.BuildSupplierState(newSupplier));
+
+                    transaction.Commit();
+
+                    MessageBox.Show("Supplier added successfully!", "Success",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    SupplierAdded?.Invoke(this, EventArgs.Empty);
+                    ClearFields();
+                    CancelRequested?.Invoke(this, EventArgs.Empty); // Close after add
                 }
-            }
-            catch (SqlException ex)
-            {
-                MessageBox.Show($"Database error: {ex.Message}",
-                    "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"An error occurred: {ex.Message}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (con.State == ConnectionState.Open)
-                    con.Close();
+                catch (SqlException ex)
+                {
+                    transaction?.Rollback();
+                    MessageBox.Show($"Database error: {ex.Message}",
+                        "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    transaction?.Rollback();
+                    MessageBox.Show($"An error occurred: {ex.Message}",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

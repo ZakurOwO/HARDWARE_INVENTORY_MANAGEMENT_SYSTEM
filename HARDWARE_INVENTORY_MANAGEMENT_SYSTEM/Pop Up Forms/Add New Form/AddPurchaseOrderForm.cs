@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 
@@ -370,6 +371,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 return false;
             }
 
+            foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
+            {
+                if (row.Cells["Quantity"].Value == null ||
+                    !int.TryParse(row.Cells["Quantity"].Value.ToString(), out int qty) ||
+                    qty <= 0)
+                {
+                    MessageBox.Show("Each item must have a valid quantity greater than 0.", "Validation Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
+                if (row.Cells["UnitPrice"].Value == null ||
+                    !TryParseCurrency(row.Cells["UnitPrice"].Value.ToString(), out decimal unitPrice) ||
+                    unitPrice <= 0)
+                {
+                    MessageBox.Show("Each item must have a valid unit price greater than 0.", "Validation Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            }
+
             return true;
         }
 
@@ -378,12 +400,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             try
             {
                 string query = "SELECT COUNT(*) FROM PurchaseOrders WHERE po_number = @poNumber";
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@poNumber", poNumber);
 
-                    if (con.State == ConnectionState.Closed)
-                        con.Open();
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
 
                     int count = (int)cmd.ExecuteScalar();
                     return count == 0;
@@ -411,81 +434,107 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 return;
             }
 
+            decimal totalAmount;
+            if (!TryParseCurrency(label11.Text, out totalAmount) || totalAmount <= 0)
+            {
+                MessageBox.Show("Unable to compute total amount. Please review your items.", "Validation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
-                if (con.State == ConnectionState.Closed)
-                    con.Open();
-
-                using (SqlTransaction transaction = con.BeginTransaction())
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    try
+                    connection.Open();
+
+                    using (SqlTransaction transaction = connection.BeginTransaction())
                     {
-                        string poQuery = @"INSERT INTO PurchaseOrders
+                        try
+                        {
+                            string poQuery = @"INSERT INTO PurchaseOrders
                             (supplier_id, po_number, po_date, expected_date, status, created_by, total_amount)
                             OUTPUT INSERTED.po_id
                             VALUES (@supplierId, @poNumber, @poDate, @expectedDate, @status, @createdBy, @totalAmount)";
 
-                        int poId;
-                        using (SqlCommand cmd = new SqlCommand(poQuery, con, transaction))
-                        {
-                            cmd.Parameters.AddWithValue("@supplierId", guna2ComboBox3.SelectedValue);
-                            cmd.Parameters.AddWithValue("@poNumber", CompanyNameTextBoxSupplier.Text.Trim());
-                            cmd.Parameters.AddWithValue("@poDate", guna2DateTimePicker1.Value);
-                            cmd.Parameters.AddWithValue("@expectedDate", ExpirationDataComboBox.Value);
-                            cmd.Parameters.AddWithValue("@status", guna2ComboBox2.SelectedItem.ToString());
-                            cmd.Parameters.AddWithValue("@createdBy", UserSession.UserId);
+                            int poId;
+                            using (SqlCommand cmd = new SqlCommand(poQuery, connection, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@supplierId", guna2ComboBox3.SelectedValue);
+                                cmd.Parameters.AddWithValue("@poNumber", CompanyNameTextBoxSupplier.Text.Trim());
+                                cmd.Parameters.AddWithValue("@poDate", guna2DateTimePicker1.Value);
+                                cmd.Parameters.AddWithValue("@expectedDate", ExpirationDataComboBox.Value);
+                                cmd.Parameters.AddWithValue("@status", guna2ComboBox2.SelectedItem.ToString());
+                                cmd.Parameters.AddWithValue("@createdBy", UserSession.UserId);
+                                cmd.Parameters.AddWithValue("@totalAmount", totalAmount);
 
-                            decimal total = decimal.Parse(label11.Text.Replace("₱", "").Replace(",", "").Trim());
-                            cmd.Parameters.AddWithValue("@totalAmount", total);
+                                poId = Convert.ToInt32(cmd.ExecuteScalar());
+                            }
 
-                            poId = Convert.ToInt32(cmd.ExecuteScalar());
-                        }
-
-                        string itemQuery = @"INSERT INTO PurchaseOrderItems
+                            string itemQuery = @"INSERT INTO PurchaseOrderItems
                             (po_id, product_id, quantity_ordered, unit_price, total_amount)
                             VALUES (@poId, @productId, @quantity, @unitPrice, @totalAmount)";
 
-                        foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
-                        {
-                            using (SqlCommand cmd = new SqlCommand(itemQuery, con, transaction))
+                            foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
                             {
-                                cmd.Parameters.AddWithValue("@poId", poId);
-                                cmd.Parameters.AddWithValue("@productId", row.Tag);
-                                cmd.Parameters.AddWithValue("@quantity", row.Cells["Quantity"].Value);
+                                if (row.Tag == null)
+                                {
+                                    throw new InvalidOperationException("One or more items are missing product information.");
+                                }
 
-                                decimal unitPrice = decimal.Parse(row.Cells["UnitPrice"].Value.ToString().Replace(",", ""));
-                                cmd.Parameters.AddWithValue("@unitPrice", unitPrice);
+                                if (!int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int quantity) || quantity <= 0)
+                                {
+                                    throw new InvalidOperationException("Invalid quantity detected for one of the items.");
+                                }
 
-                                decimal itemTotal = decimal.Parse(row.Cells["Total"].Value.ToString().Replace(",", ""));
-                                cmd.Parameters.AddWithValue("@totalAmount", itemTotal);
+                                if (!TryParseCurrency(row.Cells["UnitPrice"].Value?.ToString(), out decimal unitPrice) || unitPrice <= 0)
+                                {
+                                    throw new InvalidOperationException("Invalid unit price detected for one of the items.");
+                                }
 
-                                cmd.ExecuteNonQuery();
+                                if (!TryParseCurrency(row.Cells["Total"].Value?.ToString(), out decimal itemTotal) || itemTotal <= 0)
+                                {
+                                    throw new InvalidOperationException("Invalid item total detected for one of the items.");
+                                }
+
+                                using (SqlCommand cmd = new SqlCommand(itemQuery, connection, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@poId", poId);
+                                    cmd.Parameters.AddWithValue("@productId", row.Tag);
+                                    cmd.Parameters.AddWithValue("@quantity", quantity);
+                                    cmd.Parameters.AddWithValue("@unitPrice", unitPrice);
+                                    cmd.Parameters.AddWithValue("@totalAmount", itemTotal);
+
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+
+                            AuditHelper.LogWithTransaction(
+                                connection,
+                                transaction,
+                                AuditModule.SUPPLIERS,
+                                $"Created purchase order {CompanyNameTextBoxSupplier.Text}",
+                                AuditActivityType.CREATE,
+                                "PurchaseOrders",
+                                poId.ToString(),
+                                null,
+                                BuildAuditNewValues());
+
+                            transaction.Commit();
+                            MessageBox.Show($"Purchase Order {CompanyNameTextBoxSupplier.Text} created successfully!",
+                                "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            Form parentForm = this.FindForm();
+                            if (parentForm != null)
+                            {
+                                parentForm.Close();
                             }
                         }
-
-                        AuditHelper.LogWithTransaction(
-                            con,
-                            transaction,
-                            AuditModule.SUPPLIERS,
-                            $"Created purchase order {CompanyNameTextBoxSupplier.Text}",
-                            AuditActivityType.CREATE,
-                            "PurchaseOrders",
-                            poId.ToString());
-
-                        transaction.Commit();
-                        MessageBox.Show($"Purchase Order {CompanyNameTextBoxSupplier.Text} created successfully!",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        Form parentForm = this.FindForm();
-                        if (parentForm != null)
+                        catch (Exception)
                         {
-                            parentForm.Close();
+                            transaction.Rollback();
+                            throw;
                         }
-                    }
-                    catch (Exception)
-                    {
-                        transaction.Rollback();
-                        throw;
                     }
                 }
             }
@@ -494,10 +543,41 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 MessageBox.Show("Error saving purchase order: " + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
+        }
+
+        private string BuildAuditNewValues()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine($"PO Number: {CompanyNameTextBoxSupplier.Text}");
+            builder.AppendLine($"Supplier ID: {guna2ComboBox3.SelectedValue}");
+            builder.AppendLine($"Status: {guna2ComboBox2.SelectedItem}");
+            builder.AppendLine($"PO Date: {guna2DateTimePicker1.Value:yyyy-MM-dd}");
+            builder.AppendLine($"Expected Date: {ExpirationDataComboBox.Value:yyyy-MM-dd}");
+
+            foreach (DataGridViewRow row in dgvPurchaseItems.Rows)
             {
-                if (con.State == ConnectionState.Open) con.Close();
+                string productName = row.Cells["Product"]?.Value?.ToString();
+                string quantity = row.Cells["Quantity"]?.Value?.ToString();
+                string unitPrice = row.Cells["UnitPrice"]?.Value?.ToString();
+                string total = row.Cells["Total"]?.Value?.ToString();
+
+                builder.AppendLine($"Item: {productName}, Qty: {quantity}, Unit Price: {unitPrice}, Total: {total}");
             }
+
+            builder.AppendLine($"Grand Total: {label11.Text}");
+            return builder.ToString();
+        }
+
+        private bool TryParseCurrency(string input, out decimal value)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                value = 0;
+                return false;
+            }
+
+            string sanitized = input.Replace("₱", string.Empty).Replace(",", string.Empty).Trim();
+            return decimal.TryParse(sanitized, NumberStyles.Number | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out value);
         }
 
         // EVENT HANDLERS - KEEP WHATEVER METHOD NAMES YOUR DESIGNER USES
@@ -551,28 +631,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             guna2NumericUpDown2.Value = 0;
         }
 
-        private void btnAdd_Click_1(object sender, EventArgs e)
-        {
-            btnAdd_Click(sender, e);
-        }
-
         private void btnBlue_Click(object sender, EventArgs e)
         {
             SavePurchaseOrder();
-        }
-
-        private void btnBlue_Click_1(object sender, EventArgs e)
-        {
-            SavePurchaseOrder();
-        }
-
-        private void btnWhite_Click(object sender, EventArgs e)
-        {
-            Form parentForm = this.FindForm();
-            if (parentForm != null)
-            {
-                parentForm.Close();
-            }
         }
 
         private void btnWhite_Click_1(object sender, EventArgs e)
