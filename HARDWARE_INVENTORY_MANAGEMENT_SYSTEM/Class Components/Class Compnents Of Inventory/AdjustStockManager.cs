@@ -108,6 +108,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
             adjustStockPopUp.Dock = DockStyle.Fill;
             adjustStockPopUp.BringToFront();
+
+            CenterPopupContainer();
         }
 
         private void CenterPopupContainer()
