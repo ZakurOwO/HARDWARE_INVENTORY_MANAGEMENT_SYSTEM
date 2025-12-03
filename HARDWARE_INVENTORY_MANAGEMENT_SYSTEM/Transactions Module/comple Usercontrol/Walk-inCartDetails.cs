@@ -233,7 +233,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     int productId = GetProductIdFromRow(e.RowIndex);
                     if (productId > 0)
                     {
-                        SharedCartManager.Instance.RemoveItemFromCart(productId);
+                        if (!SharedCartManager.Instance.RemoveItemFromCart(productId))
+                        {
+                            return;
+                        }
                     }
                     dgvCartDetails.Rows.RemoveAt(e.RowIndex);
                     UpdateTotals();
@@ -279,10 +282,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
                     int productId = GetProductIdFromRow(rowIndex);
                     int newQuantity = Convert.ToInt32(qtyUpDown.Value);
+                    int previousQuantity = SharedCartManager.Instance.GetItemQuantity(productId);
 
                     if (productId > 0)
                     {
-                        SharedCartManager.Instance.UpdateItemQuantity(productId, newQuantity);
+                        if (!SharedCartManager.Instance.UpdateItemQuantity(productId, newQuantity))
+                        {
+                            dgvCartDetails.Rows[rowIndex].Cells[columnIndex].Value = previousQuantity;
+                            qtyUpDown.Value = previousQuantity;
+                            return;
+                        }
                     }
 
                     UpdateTotals();
@@ -578,8 +587,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                 throw new InvalidOperationException("Invalid product selected for transaction item.");
                             }
 
-                            int oldStock = GetCurrentStock(connection, dbTransaction, productId);
-
                             string insertItemQuery = @"
                             INSERT INTO TransactionItems (transaction_id, product_id, quantity, selling_price)
                             VALUES (@TransactionId, @ProductId, @Quantity, @SellingPrice);
@@ -599,8 +606,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                 transactionItemId.ToString(),
                                 null,
                                 $"{{\"transaction_id\":{transactionId},\"product_id\":{productId},\"quantity\":{quantity},\"selling_price\":{price}}}");
-
-                            UpdateProductStock(connection, dbTransaction, productId, quantity, oldStock);
                         }
 
                         dbTransaction.Commit();
@@ -612,7 +617,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                       $"Total Amount: ₱{totalAmount:N2}",
                             "Transaction Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        ClearCart();
+                        ClearCart(false);
                     }
                     catch (Exception)
                     {
@@ -651,10 +656,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return (int)insertCmd.ExecuteScalar();
         }
 
-        private void ClearCart()
+        private void ClearCart(bool restoreStock)
         {
             dgvCartDetails.Rows.Clear();
-            SharedCartManager.Instance.ClearCart();
+            SharedCartManager.Instance.ClearCart(restoreStock);
             UpdateTotals();
             guna2TextBox1.Text = "";
             guna2TextBox1.PlaceholderText = "Optional";
@@ -692,7 +697,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             if (MessageBox.Show("Are you sure you want to clear the cart?",
                 "Confirm Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                ClearCart();
+                ClearCart(true);
             }
         }
 
@@ -710,7 +715,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 return;
             }
 
-            SharedCartManager.Instance.AddItemToCart(new CartItemModel
+            bool added = SharedCartManager.Instance.AddItemToCart(new CartItemModel
             {
                 ProductInternalID = productInternalId,
                 ProductName = itemName,
@@ -718,7 +723,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 Quantity = quantity
             });
 
-            LoadSharedCartItems();
+            if (added)
+            {
+                LoadSharedCartItems();
+            }
         }
 
         public void AddProductToCartById(int productInternalId, int quantity = 1)
@@ -809,45 +817,5 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return decimal.TryParse(priceText, out decimal price) ? price : 0m;
         }
 
-        private int GetCurrentStock(SqlConnection connection, SqlTransaction dbTransaction, int productId)
-        {
-            string stockQuery = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId";
-            using (SqlCommand stockCmd = new SqlCommand(stockQuery, connection, dbTransaction))
-            {
-                stockCmd.Parameters.AddWithValue("@ProductId", productId);
-                object result = stockCmd.ExecuteScalar();
-                if (result == null)
-                {
-                    throw new InvalidOperationException("Unable to resolve product stock for transaction.");
-                }
-
-                return Convert.ToInt32(result);
-            }
-        }
-
-        private void UpdateProductStock(SqlConnection connection, SqlTransaction dbTransaction, int productId, int quantity, int oldStock)
-        {
-            string updateStockQuery = @"
-                                UPDATE Products
-                                SET current_stock = current_stock - @Quantity
-                                WHERE ProductInternalID = @ProductId";
-
-            SqlCommand stockCmd = new SqlCommand(updateStockQuery, connection, dbTransaction);
-            stockCmd.Parameters.AddWithValue("@Quantity", quantity);
-            stockCmd.Parameters.AddWithValue("@ProductId", productId);
-            stockCmd.ExecuteNonQuery();
-
-            int newStock = oldStock - quantity;
-            LogAuditEntry(connection, dbTransaction,
-                $"Updated stock for product ID {productId}",
-                AuditActivityType.UPDATE,
-                "Products",
-                productId.ToString(),
-                $"{{\"current_stock\":{oldStock}}}",
-                $"{{\"current_stock\":{newStock}}}");
-        }
-
-       
-
-        }
     }
+}

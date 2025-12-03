@@ -359,10 +359,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
                       int productId = GetProductIdFromRow(rowIndex);
                       int newQuantity = Convert.ToInt32(qtyUpDown.Value);
+                      int previousQuantity = SharedCartManager.Instance.GetItemQuantity(productId);
 
                       if (productId > 0)
                       {
-                          SharedCartManager.Instance.UpdateItemQuantity(productId, newQuantity);
+                          if (!SharedCartManager.Instance.UpdateItemQuantity(productId, newQuantity))
+                          {
+                              dgvCartDetails.Rows[rowIndex].Cells[columnIndex].Value = previousQuantity;
+                              qtyUpDown.Value = previousQuantity;
+                              return;
+                          }
                       }
 
                       UpdateCartTotals();
@@ -380,7 +386,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     int productId = GetProductIdFromRow(e.RowIndex);
                     if (productId > 0)
                     {
-                        SharedCartManager.Instance.RemoveItemFromCart(productId);
+                        if (!SharedCartManager.Instance.RemoveItemFromCart(productId))
+                        {
+                            return;
+                        }
                     }
                     dgvCartDetails.Rows.RemoveAt(e.RowIndex);
                     UpdateCartTotals();
@@ -495,7 +504,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 return;
             }
 
-            SharedCartManager.Instance.AddItemToCart(new CartItemModel
+            bool added = SharedCartManager.Instance.AddItemToCart(new CartItemModel
             {
                 ProductInternalID = productInternalId,
                 ProductName = itemName,
@@ -503,12 +512,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 Quantity = quantity
             });
 
-            LoadSharedCartItems();
+            if (added)
+            {
+                LoadSharedCartItems();
+            }
         }
-        public void ClearCart()
+        public void ClearCart(bool restoreStock)
         {
             dgvCartDetails.Rows.Clear();
-            SharedCartManager.Instance.ClearCart();
+            SharedCartManager.Instance.ClearCart(restoreStock);
             UpdateCartTotals();
         }
 
@@ -800,8 +812,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                   throw new InvalidOperationException("Quantity received must be greater than zero.");
                               }
 
-                              int oldStock = GetCurrentStock(connection, transaction, productId);
-
                               int transactionItemId = InsertTransactionItem(connection, transaction, transactionId, productId, quantity, price);
                               var deliveryItem = InsertDeliveryItem(connection, transaction, deliveryId, productId, quantity);
 
@@ -820,8 +830,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                   deliveryItem.recordId,
                                   null,
                                   $"delivery_id={deliveryId};product_id={productId};quantity_received={quantity}");
-
-                              UpdateProductStock(connection, transaction, productId, quantity, oldStock);
                           }
 
                         InsertVehicleAssignments(connection, transaction, deliveryId);
@@ -833,7 +841,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         MessageBox.Show($"Delivery transaction saved successfully!\n\nTransaction ID: TRX-{transactionId:D5}\nCustomer: {customerName}\nVehicles: {selectedVehicles.Count}\nPayment Method: {paymentMethod}\nTotal: ₱{totalAmount:N2}",
                             "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        ClearCart();
+                        ClearCart(false);
                         ClearVehicleSelection();
                     }
                     catch (Exception)
@@ -1109,46 +1117,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
               string priceText = priceValue.ToString().Replace("₱", string.Empty).Trim();
               return decimal.TryParse(priceText, out decimal price) ? price : 0m;
-          }
-
-          private int GetCurrentStock(SqlConnection connection, SqlTransaction transaction, int productId)
-          {
-              string stockQuery = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId";
-              using (SqlCommand command = new SqlCommand(stockQuery, connection, transaction))
-              {
-                  command.Parameters.AddWithValue("@ProductId", productId);
-                  object result = command.ExecuteScalar();
-                  if (result == null)
-                  {
-                      throw new InvalidOperationException("Unable to resolve current stock for product.");
-                  }
-
-                  return Convert.ToInt32(result);
-              }
-          }
-
-          private void UpdateProductStock(SqlConnection connection, SqlTransaction transaction, int productId, int quantity, int oldStock)
-          {
-              string updateStockQuery = @"
-                          UPDATE Products
-                          SET current_stock = current_stock - @Quantity
-                          WHERE ProductInternalID = @ProductId";
-
-              using (SqlCommand stockCmd = new SqlCommand(updateStockQuery, connection, transaction))
-              {
-                  stockCmd.Parameters.AddWithValue("@Quantity", quantity);
-                  stockCmd.Parameters.AddWithValue("@ProductId", productId);
-                  stockCmd.ExecuteNonQuery();
-              }
-
-              int newStock = oldStock - quantity;
-              LogAuditEntry(connection, transaction,
-                  $"Updated stock for product ID {productId}",
-                  AuditActivityType.UPDATE,
-                  "Products",
-                  productId.ToString(),
-                  $"{{\"current_stock\":{oldStock}}}",
-                  $"{{\"current_stock\":{newStock}}}");
           }
 
         private void ClearVehicleSelection()
