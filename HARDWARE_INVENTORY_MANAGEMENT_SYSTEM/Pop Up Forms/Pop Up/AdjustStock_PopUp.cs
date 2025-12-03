@@ -11,6 +11,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
     public partial class AdjustStock_PopUp : UserControl
     {
+        private int currentProductInternalId;
         private string currentProductId;
         private string currentProductName;
         private string currentSKU;
@@ -44,7 +45,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             int stock,
             string imagePath)
         {
-            PopulateProductData(productId, productName, sku, brand, stock, imagePath);
+            currentProductInternalId = productInternalId;
+            TryLoadProductContext(productInternalId);
+        }
+
+        #region Public API
+
+        public void ShowAdjustStock(
+            int productInternalId,
+            string productId,
+            string productName,
+            string sku,
+            string brand,
+            int stock,
+            string imagePath)
+        {
+            ApplyProductContext(productInternalId, productId, productName, sku, brand, stock, imagePath);
 
             Visible = true;
             BringToFront();
@@ -282,20 +298,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         #region Calculation Helpers
 
-        private void PopulateProductData(string productId, string productName, string sku, string brand, int stock, string imagePath)
-        {
-            currentProductId = productId;
-            currentProductName = productName;
-            currentSKU = sku;
-            currentBrand = brand;
-            currentStock = stock;
-            currentImagePath = imagePath;
-
-            UpdateStaticDisplay();
-            LoadProductImage();
-            ResetAdjustment();
-        }
-
         private void RecalculateNewTotal()
         {
             newTotalStock = currentStock + adjustmentValue;
@@ -322,7 +324,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             using (var command = new SqlCommand("UPDATE Products SET current_stock = @newStock WHERE ProductID = @productId", connection))
             {
                 command.Parameters.AddWithValue("@newStock", newTotalStock);
-                command.Parameters.AddWithValue("@productId", currentProductId);
+                command.Parameters.AddWithValue("@productInternalId", currentProductInternalId);
 
                 connection.Open();
                 int rowsAffected = command.ExecuteNonQuery();

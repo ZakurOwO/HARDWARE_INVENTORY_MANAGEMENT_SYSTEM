@@ -25,14 +25,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             this.parentContainer = parentContainer ?? throw new ArgumentNullException(nameof(parentContainer));
             inventoryPage = parentContainer as InventoryMainPage;
 
-            InitializePopupContainer();
+            InitializePopup();
             InitializeOverlay();
         }
 
         #region Public API
 
         public void ShowAdjustStockPopup(
-            int productInternalId,
             string productId,
             string productName,
             string sku,
@@ -46,8 +45,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             EnsureOverlayAdded();
             EnsurePopupAdded();
 
-            InitializePopup(productInternalId);
-            adjustStockPopup.ShowAdjustStock(productInternalId, productId, productName, sku, brand, stock, imagePath);
+            adjustStockPopup.ShowAdjustStock(productId, productName, sku, brand, stock, imagePath);
 
             overlayPanel.Visible = true;
             popupContainer.Visible = true;
@@ -83,8 +81,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 
         #region Initialization
 
-        private void InitializePopupContainer()
+        private void InitializePopup()
         {
+            adjustStockPopup = new AdjustStock_PopUp();
+            adjustStockPopup.StockAdjusted += AdjustStockPopup_StockAdjusted;
+            adjustStockPopup.Cancelled += AdjustStockPopup_Cancelled;
+
             popupContainer = new Panel
             {
                 Size = new Size(550, 420),
@@ -92,24 +94,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 BorderStyle = BorderStyle.FixedSingle,
                 Visible = false
             };
-        }
 
-        private void InitializePopup(int productInternalId)
-        {
-            if (adjustStockPopup != null)
-            {
-                adjustStockPopup.StockAdjusted -= AdjustStockPopup_StockAdjusted;
-                adjustStockPopup.Cancelled -= AdjustStockPopup_Cancelled;
-                popupContainer.Controls.Remove(adjustStockPopup);
-                adjustStockPopup.Dispose();
-            }
-
-            adjustStockPopup = new AdjustStock_PopUp(productInternalId);
-            adjustStockPopup.StockAdjusted += AdjustStockPopup_StockAdjusted;
-            adjustStockPopup.Cancelled += AdjustStockPopup_Cancelled;
-            adjustStockPopup.Dock = DockStyle.Fill;
-            popupContainer.Controls.Clear();
             popupContainer.Controls.Add(adjustStockPopup);
+            adjustStockPopup.Dock = DockStyle.Fill;
         }
 
         private void InitializeOverlay()
@@ -123,6 +110,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 BackgroundImageLayout = ImageLayout.Stretch
             };
 
+            overlayPanel.Controls.Add(popupContainer);
             overlayPanel.SizeChanged += (s, e) => CenterPopup();
         }
 
