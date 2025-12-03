@@ -19,11 +19,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         private SqlConnection con;
         private string connectionString = ConnectionString.DataSource;
 
+        private readonly string _notesPlaceholder = "Additional Notes...";
+        private readonly Color _placeholderColor = Color.Gray;
+        private readonly Color _normalColor = Color.Black;
         public AddPurchaseOrderForm()
         {
             InitializeComponent();
             guna2Panel1.HorizontalScroll.Enabled = false;
             con = new SqlConnection(connectionString);
+
+            kryptonRichTextBox2.Text = _notesPlaceholder;
+            kryptonRichTextBox2.ForeColor = _placeholderColor;
+            kryptonRichTextBox2.Enter += kryptonRichTextBox2_Enter;
+            kryptonRichTextBox2.Leave += kryptonRichTextBox2_Leave;
 
             // Initialize form
             GeneratePONumber();
@@ -67,6 +75,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
             // Initialize calculation display
             UpdateCalculations();
+            GeneratePONumber();
+            LoadSuppliers();
+        }
+        private void kryptonRichTextBox2_Enter(object sender, EventArgs e)
+        {
+            if (kryptonRichTextBox2.Text == _notesPlaceholder)
+            {
+                kryptonRichTextBox2.Text = string.Empty;
+                kryptonRichTextBox2.ForeColor = _normalColor;
+            }
+        }
+
+        private void kryptonRichTextBox2_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(kryptonRichTextBox2.Text))
+            {
+                kryptonRichTextBox2.ForeColor = _placeholderColor;
+                kryptonRichTextBox2.Text = _notesPlaceholder;
+            }
         }
 
         private void Guna2ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -401,6 +428,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private void SavePurchaseOrder()
         {
+
+            string notes = kryptonRichTextBox2.Text == _notesPlaceholder
+                ? string.Empty
+                : kryptonRichTextBox2.Text;
             if (!ValidateForm()) return;
 
             if (!IsPONumberUnique(CompanyNameTextBoxSupplier.Text))
