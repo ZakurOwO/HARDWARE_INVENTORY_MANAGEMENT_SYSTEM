@@ -121,7 +121,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Simple pagination init error: {ex.Message}");
+                MessageBox.Show($"Error initializing pagination: {ex.Message}", "Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
