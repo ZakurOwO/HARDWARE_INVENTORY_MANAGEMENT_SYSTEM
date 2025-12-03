@@ -180,8 +180,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                             poDate.ToString("MMM dd, yyyy"),
                             "₱ " + totalAmount.ToString("N2"),
                             status,
-                            Properties.Resources.Group_1048, // View icon
-                            Properties.Resources.trash // Cancel icon
+                            Properties.Resources.edit_rectangle, // View/Edit icon
+                            Properties.Resources.Deactivate_Circle1 // Cancel icon
                         );
 
                         // Color code the status
