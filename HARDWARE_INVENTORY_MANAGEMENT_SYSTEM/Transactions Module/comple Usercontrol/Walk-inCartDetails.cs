@@ -22,6 +22,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         NumericUpDown qtyUpDown = new NumericUpDown();
         private string connectionString;
         private CheckoutPopUpContainer checkoutContainer;
+        private EventHandler cartUpdatedHandler;
 
         public Walk_inCartDetails()
         {
@@ -31,8 +32,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             InitializeDataGridViewColumns();
             InitializeCustomerField();
             dgvCartDetails.CellContentClick += CartTable_CellContentClick;
-            SharedCartManager.Instance.CartUpdated += LoadSharedCartItems; // auto-refresh cart when shared cart changes
-            this.Disposed += (s, e) => SharedCartManager.Instance.CartUpdated -= LoadSharedCartItems;
+            cartUpdatedHandler = (s, e) => LoadSharedCartItems();
+            SharedCartManager.Instance.CartUpdated += cartUpdatedHandler; // auto-refresh cart when shared cart changes
+            this.Disposed += (s, e) => SharedCartManager.Instance.CartUpdated -= cartUpdatedHandler;
         }
 
         private void InitializeCustomerField()

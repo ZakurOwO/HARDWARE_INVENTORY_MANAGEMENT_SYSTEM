@@ -39,7 +39,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             LoadProducts();
             InitializeItemDescriptionPopup();
 
-            SharedCartManager.Instance.InventoryUpdated += () => LoadProducts(); // auto-refresh inventory cards when stock changes
+            SharedCartManager.Instance.InventoryUpdated += (s, e) => LoadProducts(); // auto-refresh inventory cards when stock changes
         }
 
         private void InitializeItemDescriptionPopup()

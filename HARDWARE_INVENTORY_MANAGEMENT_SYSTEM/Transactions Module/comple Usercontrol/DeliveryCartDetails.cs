@@ -29,6 +29,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         private Guna.UI2.WinForms.Guna2Button btnMultiSelectVehicles;
         private string connectionString;
         private CheckoutPopUpContainer checkoutContainer;
+        private EventHandler cartUpdatedHandler;
 
         public DeliveryCartDetails()
         {
@@ -38,8 +39,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             checkoutContainer = new CheckoutPopUpContainer();
             InitializeDataGridViewColumns();
             dgvCartDetails.CellContentClick += CartTable_CellContentClick;
-            SharedCartManager.Instance.CartUpdated += LoadSharedCartItems; // keep cart grid updated across controls
-            this.Disposed += (s, e) => SharedCartManager.Instance.CartUpdated -= LoadSharedCartItems;
+            cartUpdatedHandler = (s, e) => LoadSharedCartItems();
+            SharedCartManager.Instance.CartUpdated += cartUpdatedHandler; // keep cart grid updated across controls
+            this.Disposed += (s, e) => SharedCartManager.Instance.CartUpdated -= cartUpdatedHandler;
         }
 
         private void InitializeDataGridViewColumns()
