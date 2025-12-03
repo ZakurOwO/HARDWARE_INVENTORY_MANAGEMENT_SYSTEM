@@ -7,6 +7,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         // Store the latest successful login result
         public static LoginResult LoggedInUser { get; private set; }
 
+        // Convenience properties used by audit logging
+        public static int CurrentUserId => LoggedInUser?.UserId ?? UserSession.UserId;
+
+        public static string CurrentUsername =>
+            string.IsNullOrWhiteSpace(LoggedInUser?.Username)
+                ? UserSession.Username ?? "System"
+                : LoggedInUser.Username;
+
         public static void SetUser(LoginResult loginResult)
         {
             LoggedInUser = loginResult;
