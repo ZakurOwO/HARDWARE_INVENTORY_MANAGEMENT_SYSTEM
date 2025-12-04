@@ -24,6 +24,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         private int customerId;
         private string originalCustomerName;
 
+        public event EventHandler CustomerUpdated;
+
         public EditCustomerForm(int customerId, string customerName, string contactNumber, string address)
         {
             InitializeComponent();
@@ -220,6 +222,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             {
                 return $"+{cleanPhone}";
             }
+            if (cleanPhone.Length == 12 && cleanPhone.StartsWith("63"))
+            {
+                return $"+{cleanPhone}";
+            }
+
+            return phone.Trim();
+        }
+
+        private void UpdateCustomer()
+        {
+            if (!ValidateInputs(out string customerName, out string formattedContactNumber, out string fullAddress))
+                return;
 
             return phone.Trim();
         }

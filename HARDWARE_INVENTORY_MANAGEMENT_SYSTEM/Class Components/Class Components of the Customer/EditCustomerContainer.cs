@@ -49,6 +49,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 CloseEditCustomerForm();
                 RefreshCustomerList();
             };
+
+            editCustomerForm.CustomerUpdated += (s, e) =>
+            {
+                // Refresh immediately after a successful update without waiting for form close
+                RefreshCustomerList();
+            };
         }
 
         public void CloseEditCustomerForm()

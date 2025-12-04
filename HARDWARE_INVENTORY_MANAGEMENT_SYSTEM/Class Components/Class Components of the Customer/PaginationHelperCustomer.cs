@@ -107,13 +107,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
         }
 
-        public void UpdateData(DataTable newData)
+        public void UpdateData(DataTable newData, bool resetToFirstPage = false)
         {
             originalData = newData ?? CreateEmptyDataTable();
             CalculateTotalPages();
 
-            if (currentPage > totalPages)
+            if (resetToFirstPage)
+            {
+                currentPage = 1;
+            }
+            else if (currentPage > totalPages)
+            {
                 currentPage = totalPages;
+            }
 
             OnPageChanged();
         }

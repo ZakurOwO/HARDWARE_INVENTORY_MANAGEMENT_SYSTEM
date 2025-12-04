@@ -8,6 +8,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
     {
         private AddCustomerContainer addCustomerContainer = new AddCustomerContainer();
         private SearchTextBox searchTextBox;
+        private Timer searchDelay;
 
         public CustomerMainPage()
         {
@@ -52,6 +53,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             {
                 searchTextBox = new SearchTextBox(searchBox, "Search customers...");
                 searchTextBox.SearchTextChanged += SearchTextBox_SearchTextChanged;
+                searchDelay = new Timer { Interval = 200 };
+                searchDelay.Tick += SearchDelay_Tick;
             }
         }
 
