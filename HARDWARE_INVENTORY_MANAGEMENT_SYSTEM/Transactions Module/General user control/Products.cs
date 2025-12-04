@@ -141,8 +141,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 try
                 {
                     _cartTable.AddProductToCartById(ProductData.ProductInternalID, 1);
-                    MessageBox.Show($"Added {Product_Name} to cart!", "Success",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 catch (Exception ex)
@@ -180,13 +178,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         _cartTable.AddProductToCartById(product.ProductInternalID, 1);
                     }
 
-                    MessageBox.Show($"Added {quantity} x {product.ProductName} to cart!", "Success",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                  
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error adding to cart: {ex.Message}", "Error",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
             }
             else

@@ -1,40 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SqlClient;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using System.Drawing;
+using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction;
-using CartItemModel = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction.SharedCartManager.CartItem;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
+using CartItem = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction.SharedCartManager.CartItem;
 
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
     public partial class Walk_inCartDetails : UserControl
     {
-        NumericUpDown qtyUpDown = new NumericUpDown();
-        private string connectionString;
-        private CheckoutPopUpContainer checkoutContainer;
-        private EventHandler cartUpdatedHandler;
+        private readonly NumericUpDown qtyUpDown = new NumericUpDown();
+
+        private readonly string connectionString;
+        private readonly CheckoutPopUpContainer checkoutContainer;
+        private readonly EventHandler cartUpdatedHandler;
 
         public Walk_inCartDetails()
         {
             InitializeComponent();
+
             connectionString = ConnectionString.DataSource;
             checkoutContainer = new CheckoutPopUpContainer();
+
             InitializeDataGridViewColumns();
             InitializeCustomerField();
+
             dgvCartDetails.CellContentClick += CartTable_CellContentClick;
+
+            // Keep grid in sync with shared cart
             cartUpdatedHandler = (s, e) => LoadSharedCartItems();
-            SharedCartManager.Instance.CartUpdated += cartUpdatedHandler; // auto-refresh cart when shared cart changes
-            this.Disposed += (s, e) => SharedCartManager.Instance.CartUpdated -= cartUpdatedHandler;
+            SharedCartManager.Instance.CartUpdated += cartUpdatedHandler;
+
+            Disposed += (s, e) =>
+            {
+                SharedCartManager.Instance.CartUpdated -= cartUpdatedHandler;
+            };
+        }
+
+        #region Initialization
+
+        private void Walk_inCartDetails_Load(object sender, EventArgs e)
+        {
+            dgvCartDetails.ClearSelection();
+            SetupNumericUpDown();
+            LoadSharedCartItems();
+            ConfigureLayout();
         }
 
         private void InitializeCustomerField()
@@ -50,12 +65,111 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             if (guna2TextBox1 != null)
             {
                 guna2TextBox1.PlaceholderText = "Optional";
-                guna2TextBox1.Text = "";
+                guna2TextBox1.Text = string.Empty;
                 guna2TextBox1.BorderColor = Color.FromArgb(213, 218, 223);
                 guna2TextBox1.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
                 guna2TextBox1.TextChanged += Guna2TextBox1_TextChanged;
             }
         }
+
+        private void InitializeDataGridViewColumns()
+        {
+            dgvCartDetails.Columns.Clear();
+
+            var productIdColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "ProductInternalID",
+                HeaderText = "Product ID",
+                DataPropertyName = "ProductInternalID",
+                Visible = false
+            };
+            dgvCartDetails.Columns.Add(productIdColumn);
+
+            var itemNameColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "ItemName",
+                HeaderText = "ITEM",
+                DataPropertyName = "ItemName",
+                Width = 140,
+                ReadOnly = true,
+                DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft }
+            };
+            dgvCartDetails.Columns.Add(itemNameColumn);
+
+            var quantityColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "Quantity",
+                HeaderText = "QTY",
+                DataPropertyName = "Quantity",
+                Width = 50,
+                DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter }
+            };
+            dgvCartDetails.Columns.Add(quantityColumn);
+
+            var priceColumn = new DataGridViewTextBoxColumn
+            {
+                Name = "Price",
+                HeaderText = "PRICE",
+                DataPropertyName = "Price",
+                Width = 90,
+                ReadOnly = true,
+                DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleRight }
+            };
+            dgvCartDetails.Columns.Add(priceColumn);
+
+            var deleteColumn = new DataGridViewImageColumn
+            {
+                Name = "Delete",
+                HeaderText = string.Empty,
+                Width = 20,
+                Image = Properties.Resources.trash,
+                ImageLayout = DataGridViewImageCellLayout.Zoom,
+                DefaultCellStyle =
+                {
+                    NullValue = null,
+                    Alignment = DataGridViewContentAlignment.MiddleCenter
+                }
+            };
+            dgvCartDetails.Columns.Add(deleteColumn);
+
+            dgvCartDetails.AutoGenerateColumns = false;
+            dgvCartDetails.AllowUserToAddRows = false;
+            dgvCartDetails.RowHeadersVisible = false;
+            dgvCartDetails.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCartDetails.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCartDetails.ColumnHeadersHeight = 35;
+        }
+
+        private void ConfigureLayout()
+        {
+            if (dgvCartDetails != null)
+            {
+                dgvCartDetails.Anchor = AnchorStyles.None;
+                int gridWidth = 300;
+                int centerX = (Width - gridWidth) / 2;
+                dgvCartDetails.Location = new Point(centerX, dgvCartDetails.Location.Y);
+                dgvCartDetails.Width = gridWidth;
+            }
+
+            AdjustButtonPositions();
+        }
+
+        private void AdjustButtonPositions()
+        {
+            int buttonGap = 15;
+            int totalButtonWidth = btnClear.Width + btnCheckout.Width + buttonGap;
+            int startX = (Width - totalButtonWidth) / 2;
+
+            btnClear.Location = new Point(startX, btnClear.Location.Y);
+            btnCheckout.Location = new Point(startX + btnClear.Width + buttonGap, btnCheckout.Location.Y);
+
+            btnClear.Anchor = AnchorStyles.Bottom;
+            btnCheckout.Anchor = AnchorStyles.Bottom;
+        }
+
+        #endregion
+
+        #region Customer helpers
 
         private void Guna2TextBox1_TextChanged(object sender, EventArgs e)
         {
@@ -72,6 +186,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             {
                 return guna2TextBox1.Text.Trim();
             }
+
             return "Walk-in Customer";
         }
 
@@ -79,98 +194,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         {
             if (guna2TextBox1 != null)
             {
-                guna2TextBox1.Text = string.IsNullOrWhiteSpace(customerName) ? "" : customerName;
+                guna2TextBox1.Text = string.IsNullOrWhiteSpace(customerName) ? string.Empty : customerName;
             }
         }
 
-        private void InitializeDataGridViewColumns()
-        {
-            dgvCartDetails.Columns.Clear();
+        #endregion
 
-            DataGridViewTextBoxColumn productIdColumn = new DataGridViewTextBoxColumn();
-            productIdColumn.Name = "ProductInternalID";
-            productIdColumn.HeaderText = "Product ID";
-            productIdColumn.DataPropertyName = "ProductInternalID";
-            productIdColumn.Visible = false;
-            dgvCartDetails.Columns.Add(productIdColumn);
-
-            DataGridViewTextBoxColumn itemNameColumn = new DataGridViewTextBoxColumn();
-            itemNameColumn.Name = "ItemName";
-            itemNameColumn.HeaderText = "ITEM";
-            itemNameColumn.DataPropertyName = "ItemName";
-            itemNameColumn.Width = 140;
-            itemNameColumn.ReadOnly = true;
-            itemNameColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dgvCartDetails.Columns.Add(itemNameColumn);
-
-            DataGridViewTextBoxColumn quantityColumn = new DataGridViewTextBoxColumn();
-            quantityColumn.Name = "Quantity";
-            quantityColumn.HeaderText = "QTY";
-            quantityColumn.DataPropertyName = "Quantity";
-            quantityColumn.Width = 50;
-            quantityColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCartDetails.Columns.Add(quantityColumn);
-
-            DataGridViewTextBoxColumn priceColumn = new DataGridViewTextBoxColumn();
-            priceColumn.Name = "Price";
-            priceColumn.HeaderText = "PRICE";
-            priceColumn.DataPropertyName = "Price";
-            priceColumn.Width = 90;
-            priceColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            priceColumn.ReadOnly = true;
-            dgvCartDetails.Columns.Add(priceColumn);
-
-            DataGridViewImageColumn deleteColumn = new DataGridViewImageColumn();
-            deleteColumn.Name = "Delete";
-            deleteColumn.HeaderText = "";
-            deleteColumn.Width = 20;
-            deleteColumn.Image = Properties.Resources.trash;
-            deleteColumn.DefaultCellStyle.NullValue = null;
-            deleteColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            deleteColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCartDetails.Columns.Add(deleteColumn);
-
-            dgvCartDetails.AutoGenerateColumns = false;
-            dgvCartDetails.AllowUserToAddRows = false;
-            dgvCartDetails.RowHeadersVisible = false;
-            dgvCartDetails.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCartDetails.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvCartDetails.ColumnHeadersHeight = 35;
-        }
-
-        private void Walk_inCartDetails_Load(object sender, EventArgs e)
-        {
-            dgvCartDetails.ClearSelection();
-            SetupNumericUpDown();
-            LoadSharedCartItems();
-            ConfigureLayout();
-        }
-
-        private void ConfigureLayout()
-        {
-            if (dgvCartDetails != null)
-            {
-                dgvCartDetails.Anchor = AnchorStyles.None;
-                int gridWidth = 300;
-                int centerX = (this.Width - gridWidth) / 2;
-                dgvCartDetails.Location = new Point(centerX, dgvCartDetails.Location.Y);
-                dgvCartDetails.Width = gridWidth;
-            }
-            AdjustButtonPositions();
-        }
-
-        private void AdjustButtonPositions()
-        {
-            int buttonGap = 15;
-            int totalButtonWidth = btnClear.Width + btnCheckout.Width + buttonGap;
-            int startX = (this.Width - totalButtonWidth) / 2;
-
-            btnClear.Location = new Point(startX, btnClear.Location.Y);
-            btnCheckout.Location = new Point(startX + btnClear.Width + buttonGap, btnCheckout.Location.Y);
-
-            btnClear.Anchor = AnchorStyles.Bottom;
-            btnCheckout.Anchor = AnchorStyles.Bottom;
-        }
+        #region Quantity editing (NumericUpDown)
 
         private void SetupNumericUpDown()
         {
@@ -194,7 +224,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void dgvCartDetails_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.ColumnIndex == dgvCartDetails.Columns["Quantity"].Index)
+            if (e.RowIndex >= 0 &&
+                e.ColumnIndex == dgvCartDetails.Columns["Quantity"].Index)
             {
                 ShowNumericUpDown(e.RowIndex, e.ColumnIndex);
             }
@@ -228,38 +259,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             qtyUpDown.Select(0, qtyUpDown.Value.ToString().Length);
         }
 
-        private void CartTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var dataGridView = sender as DataGridView;
-
-            if (dataGridView == null || e.RowIndex < 0)
-            {
-                return;
-            }
-
-            if (dataGridView.Columns[e.ColumnIndex].Name == "Delete")
-            {
-                int productId = GetProductIdFromRow(e.RowIndex);
-                int quantityInCart = 0;
-                int.TryParse(dataGridView.Rows[e.RowIndex].Cells["Quantity"].Value?.ToString(), out quantityInCart);
-
-                if (productId <= 0 || quantityInCart < 0)
-                {
-                    return;
-                }
-
-                if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
-                    "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                { 
-                    if (SharedCartManager.Instance.RemoveItemFromCart(productId))
-                    {
-                        ReloadCartTable();
-                        ReloadInventoryList();
-                    }
-                }
-            }
-        }
-
         private void QtyUpDown_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -287,51 +286,312 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void SaveNumericValue()
         {
-            if (qtyUpDown.Tag is Point cellLocation)
+            if (!(qtyUpDown.Tag is Point cellLocation))
+                return;
+
+            int rowIndex = cellLocation.X;
+            int columnIndex = cellLocation.Y;
+
+            if (rowIndex < 0 || rowIndex >= dgvCartDetails.Rows.Count)
+                return;
+
+            dgvCartDetails.Rows[rowIndex].Cells[columnIndex].Value = qtyUpDown.Value;
+
+            int productId = GetProductIdFromRow(rowIndex);
+            int newQuantity = Convert.ToInt32(qtyUpDown.Value);
+            int previousQuantity = SharedCartManager.Instance.GetItemQuantity(productId);
+
+            if (productId > 0)
             {
-                int rowIndex = cellLocation.X;
-                int columnIndex = cellLocation.Y;
-
-                if (rowIndex >= 0 && rowIndex < dgvCartDetails.Rows.Count)
+                if (!SharedCartManager.Instance.UpdateItemQuantity(productId, newQuantity))
                 {
-                    dgvCartDetails.Rows[rowIndex].Cells[columnIndex].Value = qtyUpDown.Value;
-
-                    int productId = GetProductIdFromRow(rowIndex);
-                    int newQuantity = Convert.ToInt32(qtyUpDown.Value);
-                    int previousQuantity = SharedCartManager.Instance.GetItemQuantity(productId);
-
-                    if (productId > 0)
-                    {
-                        if (!SharedCartManager.Instance.UpdateItemQuantity(productId, newQuantity))
-                        {
-                            dgvCartDetails.Rows[rowIndex].Cells[columnIndex].Value = previousQuantity;
-                            qtyUpDown.Value = previousQuantity;
-                            return;
-                        }
-                    }
-
-                    LoadSharedCartItems(); // ensure UI reflects enforced stock limits
-                    UpdateTotals();
-                    UpdateRowAppearance(rowIndex);
+                    // Revert if shared cart rejected this quantity
+                    dgvCartDetails.Rows[rowIndex].Cells[columnIndex].Value = previousQuantity;
+                    qtyUpDown.Value = previousQuantity;
+                    return;
                 }
             }
+
+            LoadSharedCartItems(); // reflect enforced stock limits
+            UpdateTotals();
+            UpdateRowAppearance(rowIndex);
         }
 
         private void UpdateRowAppearance(int rowIndex)
         {
-            if (dgvCartDetails.Rows[rowIndex].Cells["Quantity"].Value != null)
+            if (dgvCartDetails.Rows[rowIndex].Cells["Quantity"].Value == null)
+                return;
+
+            int quantity = Convert.ToInt32(dgvCartDetails.Rows[rowIndex].Cells["Quantity"].Value);
+
+            dgvCartDetails.Rows[rowIndex].DefaultCellStyle.BackColor =
+                quantity > 10 ? Color.LightYellow : Color.White;
+        }
+
+        #endregion
+
+        #region Cart / shared cart sync
+
+        private void CartTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (!(sender is DataGridView grid) || e.RowIndex < 0)
+                return;
+
+            if (grid.Columns[e.ColumnIndex].Name != "Delete")
+                return;
+
+            int productId = GetProductIdFromRow(e.RowIndex);
+            int.TryParse(grid.Rows[e.RowIndex].Cells["Quantity"].Value?.ToString(), out int quantityInCart);
+
+            if (productId <= 0 || quantityInCart < 0)
+                return;
+
+            if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
+                    "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                int quantity = Convert.ToInt32(dgvCartDetails.Rows[rowIndex].Cells["Quantity"].Value);
-                if (quantity > 10)
+                if (SharedCartManager.Instance.RemoveItemFromCart(productId))
                 {
-                    dgvCartDetails.Rows[rowIndex].DefaultCellStyle.BackColor = Color.LightYellow;
-                }
-                else
-                {
-                    dgvCartDetails.Rows[rowIndex].DefaultCellStyle.BackColor = Color.White;
+                    ReloadCartTable();
+                    ReloadInventoryList();
                 }
             }
         }
+
+        private void LoadSharedCartItems()
+        {
+            dgvCartDetails.Rows.Clear();
+
+            var sharedItems = SharedCartManager.Instance.GetCartItems();
+            foreach (var item in sharedItems)
+            {
+                dgvCartDetails.Rows.Add(
+                    item.ProductInternalID,
+                    item.ProductName,
+                    item.Quantity,
+                    $"₱{item.Price:N2}"
+                );
+            }
+
+            UpdateTotals();
+        }
+
+        private void ReloadCartTable()
+        {
+            LoadSharedCartItems();
+            UpdateTotals();
+        }
+
+        private void ReloadInventoryList()
+        {
+            SharedCartManager.Instance.RaiseInventoryUpdated();
+        }
+
+        private void ClearCart(bool restoreStock)
+        {
+            dgvCartDetails.Rows.Clear();
+            SharedCartManager.Instance.ClearCart();
+            UpdateTotals();
+
+            guna2TextBox1.Text = string.Empty;
+            guna2TextBox1.PlaceholderText = "Optional";
+
+            ReloadInventoryList();
+        }
+
+        #endregion
+
+        #region Totals / calculations
+
+        public void UpdateTotals()
+        {
+            decimal subtotal = CalculateSubtotal();
+            decimal tax = CalculateTax(subtotal);
+            decimal total = subtotal + tax;
+
+            label4.Text = $"₱ {subtotal:N2}";
+            label3.Text = $"₱ {tax:N2}";
+            label7.Text = $"₱ {total:N2}";
+
+            label4.TextAlign = ContentAlignment.MiddleRight;
+            label3.TextAlign = ContentAlignment.MiddleRight;
+            label7.TextAlign = ContentAlignment.MiddleRight;
+        }
+
+        private decimal CalculateSubtotal()
+        {
+            decimal subtotal = 0;
+
+            foreach (DataGridViewRow row in dgvCartDetails.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                if (row.Cells["Price"].Value == null || row.Cells["Quantity"].Value == null)
+                    continue;
+
+                string priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
+
+                if (!decimal.TryParse(priceText, out decimal price))
+                    continue;
+
+                if (!int.TryParse(row.Cells["Quantity"].Value.ToString(), out int quantity))
+                    continue;
+
+                subtotal += price * quantity;
+            }
+
+            return subtotal;
+        }
+
+        private decimal CalculateTax(decimal subtotal) => subtotal * 0.12m;
+
+        public decimal GetCartTotal()
+        {
+            decimal subtotal = CalculateSubtotal();
+            return subtotal + CalculateTax(subtotal);
+        }
+
+        public List<CartItem> GetCartItems()
+        {
+            var items = new List<CartItem>();
+
+            foreach (DataGridViewRow row in dgvCartDetails.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                if (row.Cells["ItemName"].Value == null ||
+                    row.Cells["Quantity"].Value == null ||
+                    row.Cells["Price"].Value == null)
+                {
+                    continue;
+                }
+
+                string priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
+                if (!decimal.TryParse(priceText, out decimal price))
+                    continue;
+
+                items.Add(new CartItem
+                {
+                    ProductName = row.Cells["ItemName"].Value.ToString(),
+                    Quantity = Convert.ToInt32(row.Cells["Quantity"].Value),
+                    Price = price
+                });
+            }
+
+            return items;
+        }
+
+        #endregion
+
+        #region Add items from inventory
+
+        public void AddItemToCart(
+       int productInternalId,
+       string itemName,
+       decimal price,
+       int quantity = 1,
+       string productId = "",
+       string sku = "")
+        {
+            if (productInternalId <= 0)
+            {
+                MessageBox.Show("Invalid product selected.", "Product Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (quantity <= 0)
+            {
+                MessageBox.Show("Quantity must be at least 1.", "Quantity Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // CartItem is the alias:
+            // using CartItem = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
+            //     .Class_Components.ClassComponentTransaction.SharedCartManager.CartItem;
+
+            bool added = SharedCartManager.Instance.AddItemToCart(new CartItem
+            {
+                
+                ProductInternalId = productInternalId,
+                ProductId         = productId,
+                Name              = itemName,
+                Sku               = sku,
+                UnitPrice         = price,
+                Quantity          = quantity
+            });
+
+            if (added)
+            {
+                LoadSharedCartItems();
+                UpdateTotals();
+            }
+        }
+
+        public void AddProductToCartById(int productInternalId, int quantity = 1)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    const string query = @"
+                        SELECT product_name, SellingPrice, current_stock, ProductID, SKU
+                        FROM Products
+                        WHERE ProductInternalID = @ProductInternalID
+                          AND active = 1";
+
+                    var command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@ProductInternalID", productInternalId);
+
+                    connection.Open();
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (!reader.Read())
+                        {
+                            MessageBox.Show("Product not found.", "Product Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        string productName = reader.GetString(0);
+                        decimal sellingPrice = reader.GetDecimal(1);
+                        int currentStock = reader.GetInt32(2);
+                        string productId = reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
+                        string sku = reader.IsDBNull(4) ? string.Empty : reader.GetString(4);
+
+                        int reserved = SharedCartManager.Instance.GetItemQuantity(productInternalId);
+                        int available = currentStock - reserved;
+
+                        if (currentStock <= 0)
+                        {
+                            MessageBox.Show("Item is out of stock.", "Stock Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else if (quantity <= available)
+                        {
+                            AddItemToCart(productInternalId, productName, sellingPrice,
+                                quantity, productId, sku);
+                        }
+                        else
+                        {
+                            MessageBox.Show(
+                                $"Insufficient stock for {productName}. Available: {available}",
+                                "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding product to cart: {ex.Message}", "Database Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        #endregion
+
+        #region Checkout / validation / persistence
 
         private void btnCheckout_Click(object sender, EventArgs e)
         {
@@ -366,86 +626,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return true;
         }
 
-        private void ShowCheckoutPopup()
-        {
-            decimal subtotal = CalculateSubtotal();
-            decimal tax = CalculateTax(subtotal);
-            decimal totalAmount = subtotal + tax;
-
-            // Find the main form directly
-            MainDashBoard mainForm = FindMainForm();
-            if (mainForm != null)
-            {
-                CheckoutPopUpContainer checkoutContainer = new CheckoutPopUpContainer();
-                checkoutContainer.ShowCheckoutPopUp(mainForm, totalAmount, subtotal, tax, "WalkIn", this);
-            }
-            else
-            {
-                MessageBox.Show("Unable to find main form.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private MainDashBoard FindMainForm()
-        {
-            Control parent = this.Parent;
-            while (parent != null)
-            {
-                if (parent is MainDashBoard mainForm)
-                    return mainForm;
-                parent = parent.Parent;
-            }
-            return null;
-        }
-
-        public decimal GetCartTotal()
-        {
-            return CalculateSubtotal() + CalculateTax(CalculateSubtotal());
-        }
-
-        public List<CartItem> GetCartItems()
-        {
-            var items = new List<CartItem>();
-            foreach (DataGridViewRow row in dgvCartDetails.Rows)
-            {
-                if (row.IsNewRow) continue;
-
-                if (row.Cells["ItemName"].Value != null &&
-                    row.Cells["Quantity"].Value != null &&
-                    row.Cells["Price"].Value != null)
-                {
-                    string priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
-                    if (decimal.TryParse(priceText, out decimal price))
-                    {
-                        items.Add(new CartItem
-                        {
-                            ProductName = row.Cells["ItemName"].Value.ToString(),
-                            Quantity = Convert.ToInt32(row.Cells["Quantity"].Value),
-                            Price = price
-                        });
-                    }
-                }
-            }
-            return items;
-        }
-        public void ProcessWalkInTransaction(string paymentMethod, decimal cashReceived, decimal change)
-        {
-            try
-            {
-                string customerName = GetCustomerName();
-                decimal subtotal = CalculateSubtotal();
-                decimal tax = CalculateTax(subtotal);
-                decimal totalAmount = subtotal + tax;
-
-                SaveWalkInTransactionToDatabase(customerName, subtotal, tax, totalAmount, paymentMethod, cashReceived, change);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error processing transaction: {ex.Message}", "Transaction Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private bool ValidateQuantities()
         {
             foreach (DataGridViewRow row in dgvCartDetails.Rows)
@@ -464,39 +644,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return true;
         }
 
-        private decimal CalculateSubtotal()
-        {
-            decimal subtotal = 0;
-            foreach (DataGridViewRow row in dgvCartDetails.Rows)
-            {
-                if (row.IsNewRow) continue;
-
-                if (decimal.TryParse(row.Cells["Price"].Value?.ToString().Replace("₱", "").Trim(), out decimal price) &&
-                    int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int quantity))
-                {
-                    subtotal += price * quantity;
-                }
-            }
-            return subtotal;
-        }
-
-        private decimal CalculateTax(decimal subtotal)
-        {
-            return subtotal * 0.12m;
-        }
-
         private bool ValidateStockAvailability()
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (var connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
                     foreach (var item in SharedCartManager.Instance.GetItems())
                     {
-                        string query = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId AND active = 1";
-                        SqlCommand command = new SqlCommand(query, connection);
+                        const string query =
+                            "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId AND active = 1";
+
+                        var command = new SqlCommand(query, connection);
                         command.Parameters.AddWithValue("@ProductId", item.ProductInternalId);
 
                         var result = command.ExecuteScalar();
@@ -510,12 +671,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         int availableStock = Convert.ToInt32(result);
                         if (item.Quantity > availableStock)
                         {
-                            MessageBox.Show($"Insufficient stock. Available: {availableStock}, Requested: {item.Quantity}",
+                            MessageBox.Show(
+                                $"Insufficient stock. Available: {availableStock}, Requested: {item.Quantity}",
                                 "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return false;
                         }
                     }
                 }
+
                 return true;
             }
             catch (Exception ex)
@@ -526,21 +689,79 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        private void SaveWalkInTransactionToDatabase(string customerName, decimal subtotal, decimal tax, decimal totalAmount, string paymentMethod, decimal cashReceived, decimal change)
+        private void ShowCheckoutPopup()
+        {
+            decimal subtotal = CalculateSubtotal();
+            decimal tax = CalculateTax(subtotal);
+            decimal totalAmount = subtotal + tax;
+
+            MainDashBoard mainForm = FindMainForm();
+            if (mainForm != null)
+            {
+                var container = new CheckoutPopUpContainer();
+                container.ShowCheckoutPopUp(mainForm, totalAmount, subtotal, tax, "WalkIn", this);
+            }
+            else
+            {
+                MessageBox.Show("Unable to find main form.", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private MainDashBoard FindMainForm()
+        {
+            Control parent = Parent;
+            while (parent != null)
+            {
+                if (parent is MainDashBoard mainForm)
+                    return mainForm;
+                parent = parent.Parent;
+            }
+            return null;
+        }
+
+        public void ProcessWalkInTransaction(string paymentMethod, decimal cashReceived, decimal change)
+        {
+            try
+            {
+                string customerName = GetCustomerName();
+                decimal subtotal = CalculateSubtotal();
+                decimal tax = CalculateTax(subtotal);
+                decimal totalAmount = subtotal + tax;
+
+                SaveWalkInTransactionToDatabase(customerName, subtotal, tax, totalAmount,
+                    paymentMethod, cashReceived, change);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error processing transaction: {ex.Message}", "Transaction Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SaveWalkInTransactionToDatabase(
+            string customerName,
+            decimal subtotal,
+            decimal tax,
+            decimal totalAmount,
+            string paymentMethod,
+            decimal cashReceived,
+            decimal change)
         {
             var cartItems = SharedCartManager.Instance.GetItems();
             if (cartItems == null || cartItems.Count == 0)
             {
-                MessageBox.Show("Cart is empty. Please add items before checking out.", "Checkout Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Cart is empty. Please add items before checking out.",
+                    "Checkout Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (var connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlTransaction dbTransaction = connection.BeginTransaction();
+                    var dbTransaction = connection.BeginTransaction();
 
                     try
                     {
@@ -548,7 +769,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         var (cashierId, _) = ResolveAuditUser();
                         string transactionIdentifier = $"TRX-{DateTime.Now:yyyyMMddHHmmssfff}";
 
-                        string insertTransactionQuery = @"
+                        const string insertTransactionQuery = @"
                             INSERT INTO Transactions (
                                 TransactionID,
                                 transaction_date,
@@ -573,7 +794,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                                 NULL
                             );";
 
-                        SqlCommand transactionCmd = new SqlCommand(insertTransactionQuery, connection, dbTransaction);
+                        var transactionCmd = new SqlCommand(insertTransactionQuery, connection, dbTransaction);
                         transactionCmd.Parameters.AddWithValue("@TransactionID", transactionIdentifier);
                         transactionCmd.Parameters.AddWithValue("@CustomerId", customerId);
                         transactionCmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
@@ -590,12 +811,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             "Transactions",
                             transactionId.ToString(),
                             null,
-                            $"{{\\"customer_id\\":{customerId},\\"total_amount\\":{totalAmount},\\"payment_method\\":\\"{paymentMethod}\\",\\"cash_received\\":{cashReceived},\\"change_amount\\":{change}}}");
+                            $"customer_id={customerId};total_amount={totalAmount};payment_method={paymentMethod};cash_received={cashReceived};change_amount={change}");
 
                         foreach (var item in cartItems)
                         {
-                            SqlCommand itemCmd = new SqlCommand(@"INSERT INTO TransactionItems (transaction_id, product_id, quantity, selling_price)
-                            VALUES (@TransactionId, @ProductId, @Quantity, @SellingPrice);", connection, dbTransaction);
+                            var itemCmd = new SqlCommand(@"
+                                INSERT INTO TransactionItems (transaction_id, product_id, quantity, selling_price)
+                                VALUES (@TransactionId, @ProductId, @Quantity, @SellingPrice);",
+                                connection, dbTransaction);
 
                             itemCmd.Parameters.AddWithValue("@TransactionId", transactionId);
                             itemCmd.Parameters.AddWithValue("@ProductId", item.ProductInternalId);
@@ -603,9 +826,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             itemCmd.Parameters.AddWithValue("@SellingPrice", item.UnitPrice);
                             itemCmd.ExecuteNonQuery();
 
-                            SqlCommand updateStockCmd = new SqlCommand(@"UPDATE Products
+                            var updateStockCmd = new SqlCommand(@"
+                                UPDATE Products
                                 SET current_stock = current_stock - @Quantity
-                                WHERE ProductInternalID = @ProductId AND current_stock >= @Quantity;", connection, dbTransaction);
+                                WHERE ProductInternalID = @ProductId
+                                  AND current_stock >= @Quantity;",
+                                connection, dbTransaction);
 
                             updateStockCmd.Parameters.AddWithValue("@Quantity", item.Quantity);
                             updateStockCmd.Parameters.AddWithValue("@ProductId", item.ProductInternalId);
@@ -619,18 +845,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
                         dbTransaction.Commit();
 
-                        MessageBox.Show($"Walk-in transaction completed successfully!\n\n" +
-                                      $"Transaction ID: {transactionIdentifier}\n" +
-                                      $"Customer: {customerName}\n" +
-                                      $"Payment Method: {paymentMethod}\n" +
-                                      $"Total Amount: ₱{totalAmount:N2}",
-                            "Transaction Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(
+                            $"Walk-in transaction completed successfully!\n\n" +
+                            $"Transaction ID: {transactionIdentifier}\n" +
+                            $"Customer: {customerName}\n" +
+                            $"Payment Method: {paymentMethod}\n" +
+                            $"Total Amount: ₱{totalAmount:N2}",
+                            "Transaction Successful",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
 
                         SharedCartManager.Instance.ClearCart();
                         LoadSharedCartItems();
                         ReloadInventoryList();
                     }
-                    catch (Exception)
+                    catch
                     {
                         dbTransaction.Rollback();
                         throw;
@@ -639,14 +868,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Checkout failed. No changes were saved.\n\nDetails: {ex.Message}", "Database Error",
+                MessageBox.Show(
+                    $"Checkout failed. No changes were saved.\n\nDetails: {ex.Message}",
+                    "Database Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        #endregion
+
+        #region DB helpers / audit
+
         private int GetOrCreateCustomer(SqlConnection connection, SqlTransaction transaction, string customerName)
         {
-            string checkCustomerQuery = "SELECT customer_id FROM Customers WHERE customer_name = @CustomerName";
-            SqlCommand checkCmd = new SqlCommand(checkCustomerQuery, connection, transaction);
+            const string checkCustomerQuery =
+                "SELECT customer_id FROM Customers WHERE customer_name = @CustomerName";
+
+            var checkCmd = new SqlCommand(checkCustomerQuery, connection, transaction);
             checkCmd.Parameters.AddWithValue("@CustomerName", customerName);
 
             var existingCustomer = checkCmd.ExecuteScalar();
@@ -655,187 +893,56 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 return (int)existingCustomer;
             }
 
-            string insertCustomerQuery = @"
+            const string insertCustomerQuery = @"
                 INSERT INTO Customers (customer_name, created_at)
                 VALUES (@CustomerName, GETDATE());
                 SELECT CAST(SCOPE_IDENTITY() as int);";
 
-            SqlCommand insertCmd = new SqlCommand(insertCustomerQuery, connection, transaction);
+            var insertCmd = new SqlCommand(insertCustomerQuery, connection, transaction);
             insertCmd.Parameters.AddWithValue("@CustomerName", customerName);
 
             return (int)insertCmd.ExecuteScalar();
         }
 
-        private void ClearCart(bool restoreStock)
-        {
-            dgvCartDetails.Rows.Clear();
-            SharedCartManager.Instance.ClearCart();
-            UpdateTotals();
-            guna2TextBox1.Text = "";
-            guna2TextBox1.PlaceholderText = "Optional";
-            ReloadInventoryList();
-        }
-
         private (int userId, string username) ResolveAuditUser()
         {
             int userId = UserSession.UserId > 0 ? UserSession.UserId : 1;
-            string username = !string.IsNullOrWhiteSpace(UserSession.Username) ? UserSession.Username : "System";
+            string username = !string.IsNullOrWhiteSpace(UserSession.Username)
+                ? UserSession.Username
+                : "System";
             return (userId, username);
         }
 
-        private void LogAuditEntry(SqlConnection connection, SqlTransaction transaction, string activity, AuditActivityType activityType, string tableAffected, string recordId, string oldValues, string newValues)
+        private void LogAuditEntry(
+            SqlConnection connection,
+            SqlTransaction transaction,
+            string activity,
+            AuditActivityType activityType,
+            string tableAffected,
+            string recordId,
+            string oldValues,
+            string newValues)
         {
-            AuditHelper.LogWithTransaction(connection, transaction, AuditModule.SALES, activity, activityType, tableAffected, recordId, oldValues, newValues);
-        }
-
-        public void UpdateTotals()
-        {
-            decimal subtotal = CalculateSubtotal();
-            decimal tax = CalculateTax(subtotal);
-            decimal total = subtotal + tax;
-
-            label4.Text = $"₱ {subtotal:N2}";
-            label3.Text = $"₱ {tax:N2}";
-            label7.Text = $"₱ {total:N2}";
-
-            label4.TextAlign = ContentAlignment.MiddleRight;
-            label3.TextAlign = ContentAlignment.MiddleRight;
-            label7.TextAlign = ContentAlignment.MiddleRight;
-        }
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Are you sure you want to clear the cart?",
-                "Confirm Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                ClearCart(true);
-            }
-        }
-
-        public void AddItemToCart(int productInternalId, string itemName, decimal price, int quantity = 1, string productId = "", string sku = "")
-        {
-            if (productInternalId <= 0)
-            {
-                MessageBox.Show("Invalid product selected.", "Product Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (quantity <= 0)
-            {
-                MessageBox.Show("Quantity must be at least 1.", "Quantity Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            bool added = SharedCartManager.Instance.AddItemToCart(new CartItemModel
-            {
-                ProductInternalID = productInternalId,
-                ProductName = itemName,
-                ProductId = productId,
-                Sku = sku,
-                Price = price,
-                Quantity = quantity
-            });
-
-            if (added)
-            {
-                LoadSharedCartItems();
-                UpdateTotals();
-            }
-        }
-
-        public void AddProductToCartById(int productInternalId, int quantity = 1)
-        {
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    string query = @"
-                        SELECT product_name, SellingPrice, current_stock, ProductID, SKU
-                        FROM Products
-                        WHERE ProductInternalID = @ProductInternalID
-                        AND active = 1";
-
-                    SqlCommand command = new SqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@ProductInternalID", productInternalId);
-
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        string productName = reader.GetString(0);
-                        decimal sellingPrice = reader.GetDecimal(1);
-                        int currentStock = reader.GetInt32(2);
-                        string productId = reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
-                        string sku = reader.IsDBNull(4) ? string.Empty : reader.GetString(4);
-
-                        int reserved = SharedCartManager.Instance.GetItemQuantity(productInternalId);
-                        int available = currentStock - reserved;
-
-                        if (currentStock <= 0)
-                        {
-                            MessageBox.Show("Item is out of stock.", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        else if (quantity <= available)
-                        {
-                            AddItemToCart(productInternalId, productName, sellingPrice, quantity, productId, sku);
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Insufficient stock for {productName}. Available: {available}",
-                                "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Product not found.", "Product Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    reader.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error adding product to cart: {ex.Message}", "Database Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void LoadSharedCartItems()
-        {
-            dgvCartDetails.Rows.Clear();
-            var sharedItems = SharedCartManager.Instance.GetCartItems();
-
-            foreach (var item in sharedItems)
-            {
-                dgvCartDetails.Rows.Add(item.ProductInternalID, item.ProductName, item.Quantity, $"₱{item.Price:N2}");
-            }
-            UpdateTotals();
-        }
-
-        private void ReloadCartTable()
-        {
-            LoadSharedCartItems();
-            UpdateTotals();
-        }
-
-        private void ReloadInventoryList()
-        {
-            SharedCartManager.Instance.RaiseInventoryUpdated();
+            AuditHelper.LogWithTransaction(
+                connection,
+                transaction,
+                AuditModule.SALES,
+                activity,
+                activityType,
+                tableAffected,
+                recordId,
+                oldValues,
+                newValues);
         }
 
         private int GetProductIdFromRow(int rowIndex)
         {
             if (rowIndex < 0 || rowIndex >= dgvCartDetails.Rows.Count)
-            {
                 return 0;
-            }
 
-            var value = dgvCartDetails.Rows[rowIndex].Cells["ProductInternalID"].Value;
+            object value = dgvCartDetails.Rows[rowIndex].Cells["ProductInternalID"].Value;
             if (value == null)
-            {
                 return 0;
-            }
 
             return int.TryParse(value.ToString(), out int productId) ? productId : 0;
         }
@@ -843,13 +950,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         private decimal ParsePrice(object priceValue)
         {
             if (priceValue == null)
-            {
                 return 0m;
-            }
 
             string priceText = priceValue.ToString().Replace("₱", string.Empty).Trim();
             return decimal.TryParse(priceText, out decimal price) ? price : 0m;
         }
 
+        #endregion
+
+        #region UI actions
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to clear the cart?",
+                    "Confirm Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                ClearCart(true);
+            }
+        }
+
+        #endregion
     }
 }

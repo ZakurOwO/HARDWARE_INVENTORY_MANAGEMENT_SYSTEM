@@ -8,17 +8,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models
     public class CartItem
     {
         // This must exist
-        public int ProductInternalID { get; set; }
-
-        public string ProductID { get; set; }
-        public string ProductName { get; set; }
-        public string ImagePath { get; set; }
-
+        public int ProductInternalId { get; set; }
+        public string ProductId { get; set; }
+        public string Name { get; set; }
+        public string Sku { get; set; }
+        public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public int AvailableStock { get; set; }
 
-        public decimal Price { get; set; }
-        public decimal Total => Quantity * Price;
+        public decimal LineTotal => UnitPrice * Quantity;
+
+        // Backward-compat aliases (for old code)
+        public int ProductInternalID { get => ProductInternalId; set => ProductInternalId = value; }
+        public string ProductID { get => ProductId; set => ProductId = value; }
+        public string ProductName { get => Name; set => Name = value; }
+        public string SKU { get => Sku; set => Sku = value; }
+        public decimal Price { get => UnitPrice; set => UnitPrice = value; }
 
         public bool IsValid()
         {

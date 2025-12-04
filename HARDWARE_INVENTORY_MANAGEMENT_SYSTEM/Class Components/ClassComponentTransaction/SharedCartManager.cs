@@ -25,6 +25,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
                 return _instance;
             }
         }
+        public void ClearCart(bool restoreStock)
+        {
+            // For backward compatibility — ignore parameter
+            ClearCart();
+        }
+
+        public IReadOnlyList<CartItem> GetCartItems()
+        {
+            return GetItems();
+        }
 
         private SharedCartManager()
         {
@@ -37,18 +47,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
         {
             public int ProductInternalId { get; set; }
             public int ProductInternalID { get => ProductInternalId; set => ProductInternalId = value; }
+
             public string ProductId { get; set; }
             public string ProductID { get => ProductId; set => ProductId = value; }
+
             public string Name { get; set; }
             public string ProductName { get => Name; set => Name = value; }
+
             public string Sku { get; set; }
             public string SKU { get => Sku; set => Sku = value; }
+
             public decimal UnitPrice { get; set; }
             public decimal Price { get => UnitPrice; set => UnitPrice = value; }
+
             public int Quantity { get; set; }
+
             public int AvailableStock { get; set; }
+
             public decimal LineTotal => UnitPrice * Quantity;
         }
+
 
         public void AddOrUpdateItem(CartItem item)
         {
@@ -162,6 +180,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
 
         private CartItem CloneItem(CartItem item)
         {
+
+
             return new CartItem
             {
                 ProductInternalId = item.ProductInternalId,
