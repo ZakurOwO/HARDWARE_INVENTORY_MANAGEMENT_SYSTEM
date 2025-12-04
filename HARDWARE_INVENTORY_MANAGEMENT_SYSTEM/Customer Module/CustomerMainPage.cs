@@ -60,28 +60,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 
         private void SearchTextBox_SearchTextChanged(object sender, string searchText)
         {
-            // debounce to avoid full refresh on every keystroke while keeping UX responsive
-            if (searchDelay != null)
-            {
-                searchDelay.Tag = searchText;
-                searchDelay.Stop();
-                searchDelay.Start();
-            }
-            else
-            {
-                ApplySearch(searchText);
-            }
-        }
-
-        private void SearchDelay_Tick(object sender, EventArgs e)
-        {
-            searchDelay.Stop();
-            string searchText = searchDelay.Tag as string;
-            ApplySearch(searchText);
-        }
-
-        private void ApplySearch(string searchText)
-        {
             var dataGridTable = FindControlRecursive<DataGridTable>(this);
             if (dataGridTable != null)
             {

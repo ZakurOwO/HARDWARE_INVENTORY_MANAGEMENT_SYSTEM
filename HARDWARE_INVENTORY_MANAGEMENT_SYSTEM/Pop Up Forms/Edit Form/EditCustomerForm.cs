@@ -222,6 +222,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             {
                 return $"+{cleanPhone}";
             }
+            if (cleanPhone.Length == 12 && cleanPhone.StartsWith("63"))
+            {
+                return $"+{cleanPhone}";
+            }
+
+            return phone.Trim();
+        }
+
+        private void UpdateCustomer()
+        {
+            if (!ValidateInputs(out string customerName, out string formattedContactNumber, out string fullAddress))
+                return;
 
             return phone.Trim();
         }
@@ -274,7 +286,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                     {
                         MessageBox.Show("Customer updated successfully!", "Success",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        CustomerUpdated?.Invoke(this, EventArgs.Empty);
                         this.Close();
                     }
                     else

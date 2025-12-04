@@ -217,7 +217,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
             if (PaginationControl != null)
             {
-                PaginationControl.UpdateData(filtered, resetToFirstPage: true);
+                PaginationControl.UpdateData(filtered);
                 RefreshGridData();
             }
             else
