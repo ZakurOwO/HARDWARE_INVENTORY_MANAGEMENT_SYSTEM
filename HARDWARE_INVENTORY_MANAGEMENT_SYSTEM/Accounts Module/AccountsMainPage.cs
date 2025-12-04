@@ -21,6 +21,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
         private ViewAccountsDetail_PopUp userDetailPopup;
         private Panel mainContentPanel;
         private List<UserAccountsPanel> userPanels = new List<UserAccountsPanel>();
+        private MainDashBoard mainForm;
 
         public AccountsMainPage()
         {
@@ -32,6 +33,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
 
             mainContentPanel = guna2Panel1;
             //addNewUserButton1.AddUserClicked += (s, e) => ShowAddUserForm();
+            mainForm = this.FindForm() as MainDashBoard;
         }
 
         private void LoadExistingUsersFromDatabase()
@@ -126,7 +128,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             if (userDetailPopup == null)
             {
                 userDetailPopup = new ViewAccountsDetail_PopUp();
-                userDetailPopup.Size = new Size(600, 400);
+                userDetailPopup.Size = new Size(565, 320);
                 userDetailPopup.Visible = false;
 
                 userDetailPopup.ClosePopup += (s, e) =>
@@ -142,10 +144,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module
             mainContentPanel.Visible = false;
             userDetailPopup.PopulateFromDataRow(latestData ?? userData);
 
-            userDetailPopup.Location = new Point(
-                (this.Width - userDetailPopup.Width) / 2,
-                (this.Height - userDetailPopup.Height) / 2
-            );
+            userDetailPopup.Location = new Point(111, 112);
 
             // Log viewing account details
             try

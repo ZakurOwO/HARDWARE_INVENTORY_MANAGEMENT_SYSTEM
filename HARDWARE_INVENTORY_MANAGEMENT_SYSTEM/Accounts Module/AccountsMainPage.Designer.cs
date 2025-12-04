@@ -30,10 +30,10 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.btnMainButtonIcon = new Guna.UI2.WinForms.Guna2Button();
             this.LayoutAccounts = new System.Windows.Forms.FlowLayoutPanel();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
-            this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,6 +63,15 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(940, 605);
             this.guna2Panel1.TabIndex = 0;
+            // 
+            // searchField1
+            // 
+            this.searchField1.BackColor = System.Drawing.Color.Transparent;
+            this.searchField1.Location = new System.Drawing.Point(21, 51);
+            this.searchField1.Name = "searchField1";
+            this.searchField1.PromptMessage = null;
+            this.searchField1.Size = new System.Drawing.Size(299, 54);
+            this.searchField1.TabIndex = 13;
             // 
             // btnMainButtonIcon
             // 
@@ -97,15 +106,6 @@
             this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
             this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
             this.inventoryFilter_Button1.TabIndex = 6;
-            // 
-            // searchField1
-            // 
-            this.searchField1.BackColor = System.Drawing.Color.Transparent;
-            this.searchField1.Location = new System.Drawing.Point(21, 51);
-            this.searchField1.Name = "searchField1";
-            this.searchField1.PromptMessage = null;
-            this.searchField1.Size = new System.Drawing.Size(299, 54);
-            this.searchField1.TabIndex = 13;
             // 
             // AccountsMainPage
             // 

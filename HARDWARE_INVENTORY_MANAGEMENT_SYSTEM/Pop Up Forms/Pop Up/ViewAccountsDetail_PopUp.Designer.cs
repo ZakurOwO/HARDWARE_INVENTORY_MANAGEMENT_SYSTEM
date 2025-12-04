@@ -44,6 +44,7 @@
             this.lblPosition = new System.Windows.Forms.Label();
             this.lblUserName = new System.Windows.Forms.Label();
             this.guna2CirclePictureBox1 = new Guna.UI2.WinForms.Guna2CirclePictureBox();
+            this.guna2ShadowPanel1 = new Guna.UI2.WinForms.Guna2ShadowPanel();
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -247,6 +248,19 @@
             this.guna2CirclePictureBox1.TabIndex = 27;
             this.guna2CirclePictureBox1.TabStop = false;
             // 
+            // guna2ShadowPanel1
+            // 
+            this.guna2ShadowPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2ShadowPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.guna2ShadowPanel1.FillColor = System.Drawing.Color.White;
+            this.guna2ShadowPanel1.Location = new System.Drawing.Point(0, 0);
+            this.guna2ShadowPanel1.Name = "guna2ShadowPanel1";
+            this.guna2ShadowPanel1.ShadowColor = System.Drawing.Color.DimGray;
+            this.guna2ShadowPanel1.ShadowShift = 10;
+            this.guna2ShadowPanel1.ShadowStyle = Guna.UI2.WinForms.Guna2ShadowPanel.ShadowMode.ForwardDiagonal;
+            this.guna2ShadowPanel1.Size = new System.Drawing.Size(565, 320);
+            this.guna2ShadowPanel1.TabIndex = 43;
+            // 
             // ViewAccountsDetail_PopUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,6 +282,7 @@
             this.Controls.Add(this.lblPosition);
             this.Controls.Add(this.lblUserName);
             this.Controls.Add(this.guna2CirclePictureBox1);
+            this.Controls.Add(this.guna2ShadowPanel1);
             this.Name = "ViewAccountsDetail_PopUp";
             this.Size = new System.Drawing.Size(565, 320);
             ((System.ComponentModel.ISupportInitialize)(this.guna2CirclePictureBox1)).EndInit();
@@ -294,5 +309,6 @@
         private System.Windows.Forms.Label lblPosition;
         private System.Windows.Forms.Label lblUserName;
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox1;
+        private Guna.UI2.WinForms.Guna2ShadowPanel guna2ShadowPanel1;
     }
 }

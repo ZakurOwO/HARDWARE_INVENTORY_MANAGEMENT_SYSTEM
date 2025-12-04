@@ -19,6 +19,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
         {
             Console.WriteLine("SettingsMainPage_Load called");
             ShowAccounts(); // Show default page
+            
         }
 
         public void ShowAccounts()
@@ -75,6 +76,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
             {
                 control.Visible = true;
             }
+
+            if (mainForm != null)
+                mainForm.pcbBlurOverlay.Visible = false;
 
             // Load dashboard
             var dashboard = new Dashboard.DashboardMainPage();
