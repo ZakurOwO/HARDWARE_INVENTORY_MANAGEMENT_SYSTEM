@@ -13,7 +13,7 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction;
-using CartItemModel = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models.CartItem;
+using CartItemModel = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction.SharedCartManager.CartItem;
 
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
@@ -458,14 +458,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             return baseFee;
         }
 
-          public void AddProductToCartById(int productInternalId, int quantity = 1)
-          {
-              try
-              {
-                  using (SqlConnection connection = new SqlConnection(connectionString))
-                  {
+        public void AddProductToCartById(int productInternalId, int quantity = 1)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
                     string query = @"
-                        SELECT product_name, SellingPrice, current_stock
+                        SELECT product_name, SellingPrice, current_stock, ProductID, SKU
                         FROM Products
                         WHERE ProductInternalID = @ProductInternalID
                         AND active = 1";
@@ -478,21 +478,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
                     if (reader.Read())
                     {
-                          string productName = reader.GetString(0);
-                          decimal sellingPrice = reader.GetDecimal(1);
-                          int currentStock = reader.GetInt32(2);
+                        string productName = reader.GetString(0);
+                        decimal sellingPrice = reader.GetDecimal(1);
+                        int currentStock = reader.GetInt32(2);
+                        string productId = reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
+                        string sku = reader.IsDBNull(4) ? string.Empty : reader.GetString(4);
 
-                          if (currentStock <= 0)
-                          {
-                              MessageBox.Show("Item is out of stock.", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                          }
-                          else if (quantity <= currentStock)
-                          {
-                              AddItemToCart(productInternalId, productName, sellingPrice, quantity);
-                          }
-                          else
-                          {
-                            MessageBox.Show($"Insufficient stock for {productName}. Available: {currentStock}",
+                        int reserved = SharedCartManager.Instance.GetItemQuantity(productInternalId);
+                        int available = currentStock - reserved;
+
+                        if (currentStock <= 0)
+                        {
+                            MessageBox.Show("Item is out of stock.", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else if (quantity <= available)
+                        {
+                            AddItemToCart(productInternalId, productName, sellingPrice, quantity, productId, sku);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Insufficient stock for {productName}. Available: {available}",
                                 "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
@@ -511,7 +516,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
         }
 
-        public void AddItemToCart(int productInternalId, string itemName, decimal price, int quantity = 1)
+        public void AddItemToCart(int productInternalId, string itemName, decimal price, int quantity = 1, string productId = "", string sku = "")
         {
             if (productInternalId <= 0)
             {
@@ -529,6 +534,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             {
                 ProductInternalID = productInternalId,
                 ProductName = itemName,
+                ProductId = productId,
+                Sku = sku,
                 Price = price,
                 Quantity = quantity
             });
@@ -542,7 +549,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         public void ClearCart(bool restoreStock)
         {
             dgvCartDetails.Rows.Clear();
-            SharedCartManager.Instance.ClearCart(restoreStock);
+            SharedCartManager.Instance.ClearCart();
             UpdateCartTotals();
             ReloadInventoryList();
         }
@@ -724,23 +731,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 {
                     connection.Open();
 
-                    foreach (DataGridViewRow row in dgvCartDetails.Rows)
+                    foreach (var item in SharedCartManager.Instance.GetItems())
                     {
-                        if (row.IsNewRow) continue;
-
-                        int productId = GetProductIdFromRow(row.Index);
-                        int cartQuantity = Convert.ToInt32(row.Cells["Quantity"].Value);
-
-                        if (productId <= 0)
-                        {
-                            MessageBox.Show("Invalid product in cart.",
-                                "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return false;
-                        }
-
                         string query = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId AND active = 1";
                         SqlCommand command = new SqlCommand(query, connection);
-                        command.Parameters.AddWithValue("@ProductId", productId);
+                        command.Parameters.AddWithValue("@ProductId", item.ProductInternalId);
 
                         var result = command.ExecuteScalar();
                         if (result == null)
@@ -751,9 +746,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         }
 
                         int availableStock = Convert.ToInt32(result);
-                        if (cartQuantity > availableStock)
+                        if (item.Quantity > availableStock)
                         {
-                            MessageBox.Show($"Insufficient stock. Available: {availableStock}, Requested: {cartQuantity}",
+                            MessageBox.Show($"Insufficient stock. Available: {availableStock}, Requested: {item.Quantity}",
                                 "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return false;
                         }
@@ -771,6 +766,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void SaveDeliveryTransactionToDatabase(string customerName, decimal subtotal, decimal tax, decimal shippingFee, decimal totalAmount, string paymentMethod, decimal cashReceived, decimal change)
         {
+            var cartItems = SharedCartManager.Instance.GetItems();
+            if (cartItems == null || cartItems.Count == 0)
+            {
+                MessageBox.Show("Cart is empty. Please add items before checking out.", "Checkout Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -782,30 +784,35 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     {
                         int customerId = GetOrCreateCustomer(connection, transaction, customerName);
                         var (cashierId, _) = ResolveAuditUser();
+                        string transactionIdentifier = $"TRX-{DateTime.Now:yyyyMMddHHmmssfff}";
 
-                        // Insert transaction with payment info
                         string insertTransactionQuery = @"
                     INSERT INTO Transactions (
+                        TransactionID,
                         transaction_date,
                         customer_id,
                         total_amount,
                         cashier,
                         payment_method,
                         cash_received,
-                        change_amount
+                        change_amount,
+                        delivery_id
                     )
+                    OUTPUT INSERTED.transaction_id
                     VALUES (
+                        @TransactionID,
                         GETDATE(),
                         @CustomerId,
                         @TotalAmount,
                         @Cashier,
                         @PaymentMethod,
                         @CashReceived,
-                        @ChangeAmount
-                    );
-                    SELECT CAST(SCOPE_IDENTITY() as int);";
+                        @ChangeAmount,
+                        NULL
+                    );";
 
                         SqlCommand transactionCmd = new SqlCommand(insertTransactionQuery, connection, transaction);
+                        transactionCmd.Parameters.AddWithValue("@TransactionID", transactionIdentifier);
                         transactionCmd.Parameters.AddWithValue("@CustomerId", customerId);
                         transactionCmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
                         transactionCmd.Parameters.AddWithValue("@Cashier", cashierId);
@@ -816,61 +823,51 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         int transactionId = (int)transactionCmd.ExecuteScalar();
 
                         LogAuditEntry(connection, transaction,
-                            $"Created delivery transaction TRX-{transactionId:D5}",
+                            $"Created delivery transaction {transactionIdentifier}",
                             AuditActivityType.CREATE,
                             "Transactions",
                             transactionId.ToString(),
                             null,
-                            $"{{\"customer_id\":{customerId},\"total_amount\":{totalAmount},\"payment_method\":\"{paymentMethod}\",\"cash_received\":{cashReceived},\"change_amount\":{change}}}");
+                            $"{{\\"customer_id\\":{customerId},\\"total_amount\\":{totalAmount},\\"payment_method\\":\\"{paymentMethod}\\",\\"cash_received\\":{cashReceived},\\"change_amount\\":{change}}}");
 
                         string deliveryNumber = GenerateDeliveryNumber(connection, transaction);
                         var deliveryHeader = InsertDeliveryHeader(connection, transaction, transactionId, customerName, deliveryNumber);
                         int deliveryId = deliveryHeader.deliveryId;
 
-                        // Commit inventory only once the checkout is confirmed, within the same transaction scope
-                        if (!SharedCartManager.Instance.ApplyCartToInventory(connection, transaction, out string stockError))
+                        foreach (var item in cartItems)
                         {
-                            throw new InvalidOperationException(stockError);
+                            int transactionItemId = InsertTransactionItem(connection, transaction, transactionId, item.ProductInternalId, item.Quantity, item.UnitPrice);
+                            var deliveryItem = InsertDeliveryItem(connection, transaction, deliveryId, item.ProductInternalId, item.Quantity);
+
+                            SqlCommand updateStockCmd = new SqlCommand(@"UPDATE Products
+                                SET current_stock = current_stock - @Quantity
+                                WHERE ProductInternalID = @ProductId AND current_stock >= @Quantity;", connection, transaction);
+
+                            updateStockCmd.Parameters.AddWithValue("@Quantity", item.Quantity);
+                            updateStockCmd.Parameters.AddWithValue("@ProductId", item.ProductInternalId);
+
+                            int updated = updateStockCmd.ExecuteNonQuery();
+                            if (updated == 0)
+                            {
+                                throw new InvalidOperationException($"Insufficient stock for {item.Name}.");
+                            }
+
+                            LogAuditEntry(connection, transaction,
+                                $"Added delivery item to transaction {transactionIdentifier}",
+                                AuditActivityType.CREATE,
+                                "TransactionItems",
+                                transactionItemId.ToString(),
+                                null,
+                                $"{{\\"transaction_id\\":{transactionId},\\"product_id\\":{item.ProductInternalId},\\"quantity\\":{item.Quantity},\\"selling_price\\":{item.UnitPrice}}}");
+
+                            LogAuditEntry(connection, transaction,
+                                $"Created delivery line item for delivery {deliveryHeader.deliveryCode}",
+                                AuditActivityType.CREATE,
+                                "DeliveryItems",
+                                deliveryItem.recordId,
+                                null,
+                                $"delivery_id={deliveryId};product_id={item.ProductInternalId};quantity_received={item.Quantity}");
                         }
-
-                        // Save transaction and delivery items
-                        foreach (DataGridViewRow row in dgvCartDetails.Rows)
-                        {
-                            if (row.IsNewRow) continue;
-
-                              int productId = GetProductIdFromRow(row.Index);
-                              int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
-                              decimal price = ParsePrice(row.Cells["Price"].Value);
-
-                              if (productId <= 0)
-                              {
-                                  throw new InvalidOperationException("Invalid product selected for transaction item.");
-                              }
-
-                              if (quantity <= 0)
-                              {
-                                  throw new InvalidOperationException("Quantity received must be greater than zero.");
-                              }
-
-                              int transactionItemId = InsertTransactionItem(connection, transaction, transactionId, productId, quantity, price);
-                              var deliveryItem = InsertDeliveryItem(connection, transaction, deliveryId, productId, quantity);
-
-                              LogAuditEntry(connection, transaction,
-                                  $"Added delivery item to transaction TRX-{transactionId:D5}",
-                                  AuditActivityType.CREATE,
-                                  "TransactionItems",
-                                  transactionItemId.ToString(),
-                                  null,
-                                  $"{{\"transaction_id\":{transactionId},\"product_id\":{productId},\"quantity\":{quantity},\"selling_price\":{price}}}");
-
-                              LogAuditEntry(connection, transaction,
-                                  $"Created delivery line item for delivery {deliveryHeader.deliveryCode}",
-                                  AuditActivityType.CREATE,
-                                  "DeliveryItems",
-                                  deliveryItem.recordId,
-                                  null,
-                                  $"delivery_id={deliveryId};product_id={productId};quantity_received={quantity}");
-                          }
 
                         InsertVehicleAssignments(connection, transaction, deliveryId);
 
@@ -878,11 +875,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
                         transaction.Commit();
 
-                        MessageBox.Show($"Delivery transaction saved successfully!\n\nTransaction ID: TRX-{transactionId:D5}\nCustomer: {customerName}\nVehicles: {selectedVehicles.Count}\nPayment Method: {paymentMethod}\nTotal: ₱{totalAmount:N2}",
+                        MessageBox.Show($"Delivery transaction saved successfully!\n\nTransaction ID: {transactionIdentifier}\nCustomer: {customerName}\nVehicles: {selectedVehicles.Count}\nPayment Method: {paymentMethod}\nTotal: ₱{totalAmount:N2}",
                             "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        // Commit point: inventory and transaction records saved together
-                        ClearCart(false);
+                        SharedCartManager.Instance.ClearCart();
+                        LoadSharedCartItems();
                         ReloadInventoryList();
                         ClearVehicleSelection();
                     }
@@ -895,7 +892,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saving delivery transaction: {ex.Message}", "Database Error",
+                MessageBox.Show($"Checkout failed. No changes were saved.\n\nDetails: {ex.Message}", "Database Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

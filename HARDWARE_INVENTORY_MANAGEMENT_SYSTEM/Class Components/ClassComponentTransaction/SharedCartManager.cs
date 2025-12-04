@@ -1,24 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using System.Linq;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction
 {
     /// <summary>
-    /// Singleton that holds cart items for the current session.
+    /// Centralized in-memory cart manager shared across transaction forms.
+    /// No database updates occur here; persistence happens only during checkout.
     /// </summary>
     public class SharedCartManager
     {
         private static SharedCartManager _instance;
-        private readonly List<CartItem> _cartItems;
-        private readonly string connectionString;
-
-        public event EventHandler CartUpdated;
-        public event EventHandler InventoryUpdated;
+        private readonly Dictionary<int, CartItem> _cartItems = new Dictionary<int, CartItem>();
+        private readonly Dictionary<int, int> _originalQuantities = new Dictionary<int, int>();
 
         public static SharedCartManager Instance
         {
@@ -34,167 +28,75 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
 
         private SharedCartManager()
         {
-            _cartItems = new List<CartItem>();
-            connectionString = ConnectionString.DataSource;
         }
 
-        public List<CartItem> GetCartItems()
+        public event EventHandler CartUpdated;
+        public event EventHandler InventoryUpdated;
+
+        public class CartItem
         {
-            return new List<CartItem>(_cartItems);
+            public int ProductInternalId { get; set; }
+            public int ProductInternalID { get => ProductInternalId; set => ProductInternalId = value; }
+            public string ProductId { get; set; }
+            public string ProductID { get => ProductId; set => ProductId = value; }
+            public string Name { get; set; }
+            public string ProductName { get => Name; set => Name = value; }
+            public string Sku { get; set; }
+            public string SKU { get => Sku; set => Sku = value; }
+            public decimal UnitPrice { get; set; }
+            public decimal Price { get => UnitPrice; set => UnitPrice = value; }
+            public int Quantity { get; set; }
+            public int AvailableStock { get; set; }
+            public decimal LineTotal => UnitPrice * Quantity;
         }
 
-        public bool AddItemToCart(CartItem item)
+        public void AddOrUpdateItem(CartItem item)
         {
             if (item == null)
+            {
                 throw new ArgumentNullException(nameof(item));
-
-            if (!item.IsValid())
-                throw new ArgumentException("Cart item is not valid.", nameof(item));
-
-            var existingItem = _cartItems.Find(x => x.ProductInternalID == item.ProductInternalID);
-            int existingQuantity = existingItem != null ? existingItem.Quantity : 0;
-            int desiredQuantity = existingQuantity + item.Quantity;
-
-            if (!TryGetCurrentStock(item.ProductInternalID, out int availableStock))
-            {
-                return false;
             }
 
-            if (availableStock <= 0)
+            if (!_originalQuantities.ContainsKey(item.ProductInternalId))
             {
-                MessageBox.Show("Item is out of stock.", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
+                _originalQuantities[item.ProductInternalId] = 0;
             }
 
-            if (desiredQuantity > availableStock)
-            {
-                MessageBox.Show($"Insufficient stock. Available: {availableStock}", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            if (existingItem != null)
-            {
-                existingItem.Quantity += item.Quantity;
-                existingItem.Price = item.Price;
-                existingItem.ProductName = item.ProductName;
-                existingItem.ProductID = item.ProductID;
-                existingItem.ImagePath = item.ImagePath;
-                existingItem.AvailableStock = availableStock;
-            }
-            else
-            {
-                item.AvailableStock = availableStock;
-                _cartItems.Add(item);
-            }
-
-            LogCartAction(
-                "Added item to cart",
-                item.ProductInternalID.ToString(),
-                $"{{\"product_id\":{item.ProductInternalID},\"quantity\":{item.Quantity},\"price\":{item.Price}}}"
-            );
-
-            NotifyCartAndInventoryChanged();
-
-            return true;
+            _cartItems[item.ProductInternalId] = CloneItem(item);
+            RaiseCartUpdated();
+            RaiseInventoryUpdated();
         }
 
-        public bool RemoveItemFromCart(int productInternalId)
+        public void RemoveItem(int productInternalId)
         {
-            return RemoveItemAndRestoreStock(productInternalId);
-        }
-
-        public bool RemoveItemAndRestoreStock(int productInternalId, int? quantityOverride = null)
-        {
-            var existingItem = _cartItems.Find(x => x.ProductInternalID == productInternalId);
-            if (existingItem == null)
+            if (_cartItems.Remove(productInternalId))
             {
-                return false;
+                RaiseCartUpdated();
+                RaiseInventoryUpdated();
             }
-
-            int removedQuantity = quantityOverride.HasValue && quantityOverride.Value > 0
-                ? quantityOverride.Value
-                : existingItem.Quantity;
-
-            _cartItems.RemoveAll(x => x.ProductInternalID == productInternalId);
-
-            LogCartAction(
-                "Removed item from cart",
-                productInternalId.ToString(),
-                $"{{\"removed_quantity\":{removedQuantity}}}"
-            );
-
-            CartUpdated?.Invoke(this, EventArgs.Empty);
-            InventoryUpdated?.Invoke(this, EventArgs.Empty);
-
-            return true;
-        }
-
-        public bool UpdateItemQuantity(int productInternalId, int newQuantity)
-        {
-            var existingItem = _cartItems.Find(x => x.ProductInternalID == productInternalId);
-            if (existingItem == null)
-                return false;
-
-            if (newQuantity <= 0)
-            {
-                return RemoveItemFromCart(productInternalId);
-            }
-            else
-            {
-                if (!TryGetCurrentStock(productInternalId, out int availableStock))
-                {
-                    return false;
-                }
-
-                if (newQuantity > availableStock)
-                {
-                    MessageBox.Show($"Insufficient stock. Available: {availableStock}", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-
-                existingItem.Quantity = newQuantity;
-
-                LogCartAction(
-                    "Updated cart item quantity",
-                    productInternalId.ToString(),
-                    $"{{\"quantity\":{newQuantity}}}"
-                );
-
-                NotifyCartAndInventoryChanged();
-            }
-
-            return true;
-        }
-
-        public void ClearCart(bool restoreStock)
-        {
-            // restoreStock is ignored because cart changes are now purely in-memory until checkout
-
-            _cartItems.Clear();
-            LogCartAction("Cleared cart", null, null);
-
-            NotifyCartAndInventoryChanged();
-        }
-
-        public int GetCartItemCount()
-        {
-            return _cartItems.Count;
         }
 
         public int GetItemQuantity(int productInternalId)
         {
-            var existingItem = _cartItems.Find(x => x.ProductInternalID == productInternalId);
-            return existingItem != null ? existingItem.Quantity : 0;
+            return _cartItems.TryGetValue(productInternalId, out var item) ? item.Quantity : 0;
         }
 
-        public decimal CalculateSubtotal()
+        public IReadOnlyList<CartItem> GetItems()
         {
-            decimal subtotal = 0;
-            foreach (var item in _cartItems)
-            {
-                subtotal += item.Quantity * item.Price;
-            }
-            return subtotal;
+            return _cartItems.Values.Select(CloneItem).ToList();
+        }
+
+        public void ClearCart()
+        {
+            _cartItems.Clear();
+            _originalQuantities.Clear();
+            RaiseCartUpdated();
+            RaiseInventoryUpdated();
+        }
+
+        public void RemoveItemAndRestoreStock(int productInternalId)
+        {
+            RemoveItem(productInternalId);
         }
 
         public void RaiseCartUpdated()
@@ -207,108 +109,69 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTr
             InventoryUpdated?.Invoke(this, EventArgs.Empty);
         }
 
-        private void LogCartAction(string activity, string recordId, string newValues)
+        // Compatibility helpers for existing UI code -------------------------
+        public bool AddItemToCart(CartItem item)
         {
-            try
-            {
-                AuditHelper.LogWithDetails(
-                    AuditModule.SALES,
-                    activity,
-                    AuditActivityType.UPDATE,
-                    "Cart",
-                    recordId,
-                    null,
-                    newValues
-                );
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Audit log failed for cart action: {ex.Message}");
-            }
-        }
-
-        /// <summary>
-        /// Apply the current cart quantities to inventory within the provided database transaction.
-        /// This is the only place where product stock levels are modified.
-        /// </summary>
-        public bool ApplyCartToInventory(SqlConnection connection, SqlTransaction transaction, out string errorMessage)
-        {
-            errorMessage = null;
-
-            foreach (var item in _cartItems)
-            {
-                string selectQuery = "SELECT current_stock FROM Products WITH (UPDLOCK, HOLDLOCK) WHERE ProductInternalID = @ProductId";
-                using (SqlCommand selectCmd = new SqlCommand(selectQuery, connection, transaction))
-                {
-                    selectCmd.Parameters.AddWithValue("@ProductId", item.ProductInternalID);
-                    object result = selectCmd.ExecuteScalar();
-                    if (result == null)
-                    {
-                        errorMessage = "Product not found in inventory.";
-                        return false;
-                    }
-
-                    int currentStock = Convert.ToInt32(result);
-                    if (currentStock < item.Quantity)
-                    {
-                        errorMessage = $"Insufficient stock for {item.ProductName}. Available: {currentStock}";
-                        return false;
-                    }
-                }
-
-                string updateQuery = "UPDATE Products SET current_stock = current_stock - @QuantityChange WHERE ProductInternalID = @ProductId";
-                using (SqlCommand updateCmd = new SqlCommand(updateQuery, connection, transaction))
-                {
-                    updateCmd.Parameters.AddWithValue("@QuantityChange", item.Quantity);
-                    updateCmd.Parameters.AddWithValue("@ProductId", item.ProductInternalID);
-
-                    int rows = updateCmd.ExecuteNonQuery();
-                    if (rows == 0)
-                    {
-                        errorMessage = "Unable to update stock for one or more products.";
-                        return false;
-                    }
-                }
-            }
-
+            var newItem = CloneItem(item);
+            int existingQuantity = GetItemQuantity(newItem.ProductInternalId);
+            newItem.Quantity = existingQuantity + newItem.Quantity;
+            AddOrUpdateItem(newItem);
             return true;
         }
 
-        private bool TryGetCurrentStock(int productId, out int currentStock)
+        public bool UpdateItemQuantity(int productInternalId, int newQuantity)
         {
-            currentStock = 0;
-            try
+            if (newQuantity <= 0)
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    connection.Open();
-                    string selectQuery = "SELECT current_stock FROM Products WHERE ProductInternalID = @ProductId";
-                    using (SqlCommand cmd = new SqlCommand(selectQuery, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@ProductId", productId);
-                        object result = cmd.ExecuteScalar();
-                        if (result == null)
-                        {
-                            MessageBox.Show("Product not found in inventory.", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return false;
-                        }
+                RemoveItem(productInternalId);
+                return true;
+            }
 
-                        currentStock = Convert.ToInt32(result);
-                        return true;
-                    }
-                }
-            }
-            catch (Exception ex)
+            if (_cartItems.TryGetValue(productInternalId, out var existing))
             {
-                MessageBox.Show($"Error checking stock: {ex.Message}", "Stock Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                var updated = CloneItem(existing);
+                updated.Quantity = newQuantity;
+                AddOrUpdateItem(updated);
+                return true;
             }
+
+            return false;
         }
 
-        private void NotifyCartAndInventoryChanged()
+        public bool RemoveItemFromCart(int productInternalId)
         {
-            CartUpdated?.Invoke(this, EventArgs.Empty);
-            InventoryUpdated?.Invoke(this, EventArgs.Empty);
+            if (!_cartItems.ContainsKey(productInternalId))
+            {
+                return false;
+            }
+
+            RemoveItem(productInternalId);
+            return true;
+        }
+
+        public int GetCartItemCount()
+        {
+            return _cartItems.Count;
+        }
+
+        public decimal CalculateSubtotal()
+        {
+            return _cartItems.Values.Sum(i => i.UnitPrice * i.Quantity);
+        }
+        // --------------------------------------------------------------------
+
+        private CartItem CloneItem(CartItem item)
+        {
+            return new CartItem
+            {
+                ProductInternalId = item.ProductInternalId,
+                ProductId = item.ProductId,
+                Name = item.Name,
+                Sku = item.Sku,
+                UnitPrice = item.UnitPrice,
+                Quantity = item.Quantity,
+                AvailableStock = item.AvailableStock
+            };
         }
     }
 }
