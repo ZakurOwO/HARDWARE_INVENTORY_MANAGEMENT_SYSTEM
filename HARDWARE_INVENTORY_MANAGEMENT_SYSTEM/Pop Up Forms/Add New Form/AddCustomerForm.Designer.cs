@@ -363,7 +363,7 @@
             this.ProvinceCombobox.Name = "ProvinceCombobox";
             this.ProvinceCombobox.Size = new System.Drawing.Size(228, 36);
             this.ProvinceCombobox.TabIndex = 62;
-            this.ProvinceCombobox.SelectedIndexChanged += new System.EventHandler(this.ProvinceCombobox_SelectedIndexChanged);
+          
             // 
             // closeButton1
             // 
@@ -535,7 +535,7 @@
             this.CityCombobox.Name = "CityCombobox";
             this.CityCombobox.Size = new System.Drawing.Size(228, 36);
             this.CityCombobox.TabIndex = 61;
-            this.CityCombobox.SelectedIndexChanged += new System.EventHandler(this.CityCombobox_SelectedIndexChanged);
+          
             // 
             // label11
             // 

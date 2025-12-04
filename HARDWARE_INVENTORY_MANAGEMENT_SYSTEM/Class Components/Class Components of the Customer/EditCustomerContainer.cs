@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
@@ -10,120 +9,121 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 {
     public class EditCustomerContainer
     {
-        private Panel scrollContainer;
-        private EditCustomerForm editCustomerForm;
-        private MainDashBoard mainForm;
-
-        public void ShowEditCustomerForm(MainDashBoard main, int customerId, string customerName, string contactNumber, string address)
+        public CustomerDetailsModel GetCustomerDetails(int customerId)
         {
-            mainForm = main;
+            if (customerId <= 0) return null;
 
-            editCustomerForm = new EditCustomerForm(customerId, customerName, contactNumber, address)
+            using (var con = new SqlConnection(ConnectionString.DataSource))
             {
-                Container = this
-            };
-            editCustomerForm.TopLevel = false;
-            editCustomerForm.FormBorderStyle = FormBorderStyle.None;
-            editCustomerForm.Dock = DockStyle.None;
+                con.Open();
+                var columns = GetCustomerColumns(con);
 
-            scrollContainer = new Panel
-            {
-                Size = new Size(583, 505),
-                Location = new Point(472, 100),
-                BorderStyle = BorderStyle.FixedSingle
-            };
+                var selectCols = new List<string>();
+                void AddIfExists(string col)
+                {
+                    if (columns.Contains(col))
+                        selectCols.Add(col);
+                }
 
-            scrollContainer.Controls.Add(editCustomerForm);
-            editCustomerForm.Size = new Size(583, 813);
-            editCustomerForm.Location = new Point(0, 0);
-            editCustomerForm.Show();
+                AddIfExists("customer_id");
+                AddIfExists("customer_name");
+                AddIfExists("contact_person");
+                AddIfExists("contact_number");
+                AddIfExists("email");
+                AddIfExists("address");
+                AddIfExists("city");
+                AddIfExists("province");
+                AddIfExists("status");
 
-            if (mainForm?.pcbBlurOverlay != null)
-            {
-                mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.CustomerOvelay;
-                mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
-                mainForm.pcbBlurOverlay.Visible = true;
-                mainForm.pcbBlurOverlay.BringToFront();
+                string query = $"SELECT {string.Join(",", selectCols)} FROM Customers WHERE customer_id = @id";
+
+                using (var cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@id", customerId);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (!reader.Read()) return null;
+
+                        var details = new CustomerDetailsModel
+                        {
+                            CustomerId = customerId
+                        };
+
+                        if (columns.Contains("customer_name"))
+                            details.CompanyName = reader["customer_name"] as string;
+                        if (columns.Contains("contact_person"))
+                            details.ContactPerson = reader["contact_person"] as string;
+                        if (columns.Contains("contact_number"))
+                            details.ContactNumber = reader["contact_number"] as string;
+                        if (columns.Contains("email"))
+                            details.Email = reader["email"] as string;
+                        if (columns.Contains("address"))
+                            details.AddressLine = reader["address"] as string;
+                        if (columns.Contains("city"))
+                            details.City = reader["city"] as string;
+                        if (columns.Contains("province"))
+                            details.Province = reader["province"] as string;
+                        if (columns.Contains("status"))
+                            details.Status = reader["status"] as string;
+
+                        return details;
+                    }
+                }
             }
-
-            mainForm?.Controls.Add(scrollContainer);
-            scrollContainer.BringToFront();
-
-            editCustomerForm.FormClosed += (s, e) =>
-            {
-                CloseEditCustomerForm();
-                RefreshCustomerList();
-            };
-
-            editCustomerForm.CustomerUpdated += (s, e) =>
-            {
-                RefreshCustomerList();
-            };
         }
 
-        public bool UpdateCustomer(CustomerDetailsModel customer, out string errorMessage)
+        public bool UpdateCustomer(CustomerDetailsModel details, out string errorMessage)
         {
             errorMessage = string.Empty;
-            if (customer == null)
+
+            if (details == null || details.CustomerId <= 0)
             {
-                errorMessage = "Missing customer details.";
+                errorMessage = "Invalid customer details.";
                 return false;
             }
 
             try
             {
-                using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
+                using (var con = new SqlConnection(ConnectionString.DataSource))
                 {
                     con.Open();
-                    HashSet<string> columns = GetCustomerColumns(con);
+                    var columns = GetCustomerColumns(con);
 
-                    string[] requiredColumns = { "customer_id", "customer_name", "contact_number", "address" };
-                    if (!requiredColumns.All(columns.Contains))
+                    var sets = new List<string>();
+                    void AddSet(string col, string param)
                     {
-                        errorMessage = "Customers table is missing required columns.";
+                        if (columns.Contains(col))
+                            sets.Add($"{col} = {param}");
+                    }
+
+                    AddSet("customer_name", "@customer_name");
+                    AddSet("contact_person", "@contact_person");
+                    AddSet("contact_number", "@contact_number");
+                    AddSet("email", "@email");
+                    AddSet("address", "@address");
+                    AddSet("city", "@city");
+                    AddSet("province", "@province");
+                    AddSet("status", "@status");
+
+                    if (sets.Count == 0)
+                    {
+                        errorMessage = "No updatable columns found in Customers table.";
                         return false;
                     }
 
-                    List<string> setClauses = new List<string>
+                    string query = $"UPDATE Customers SET {string.Join(",", sets)} WHERE customer_id = @id";
+
+                    using (var cmd = new SqlCommand(query, con))
                     {
-                        "customer_name = @customer_name",
-                        "contact_number = @contact_number",
-                        "address = @address"
-                    };
-
-                    void AddOptional(string columnName)
-                    {
-                        if (columns.Contains(columnName))
-                        {
-                            setClauses.Add($"{columnName} = @{columnName}");
-                        }
-                    }
-
-                    AddOptional("contact_person");
-                    AddOptional("email");
-                    AddOptional("city");
-                    AddOptional("province");
-                    AddOptional("status");
-
-                    string query = $"UPDATE Customers SET {string.Join(",", setClauses)} WHERE customer_id = @customer_id";
-
-                    using (SqlCommand cmd = new SqlCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@customer_name", customer.CompanyName);
-                        cmd.Parameters.AddWithValue("@contact_number", string.IsNullOrWhiteSpace(customer.ContactNumber) ? (object)DBNull.Value : customer.ContactNumber);
-                        cmd.Parameters.AddWithValue("@address", string.IsNullOrWhiteSpace(customer.BuildFullAddress()) ? (object)DBNull.Value : customer.BuildFullAddress());
-                        cmd.Parameters.AddWithValue("@customer_id", customer.CustomerId);
-
-                        if (columns.Contains("contact_person"))
-                            cmd.Parameters.AddWithValue("@contact_person", string.IsNullOrWhiteSpace(customer.ContactPerson) ? (object)DBNull.Value : customer.ContactPerson);
-                        if (columns.Contains("email"))
-                            cmd.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(customer.Email) ? (object)DBNull.Value : customer.Email);
-                        if (columns.Contains("city"))
-                            cmd.Parameters.AddWithValue("@city", string.IsNullOrWhiteSpace(customer.City) ? (object)DBNull.Value : customer.City);
-                        if (columns.Contains("province"))
-                            cmd.Parameters.AddWithValue("@province", string.IsNullOrWhiteSpace(customer.Province) ? (object)DBNull.Value : customer.Province);
-                        if (columns.Contains("status"))
-                            cmd.Parameters.AddWithValue("@status", string.IsNullOrWhiteSpace(customer.Status) ? (object)DBNull.Value : customer.Status);
+                        cmd.Parameters.AddWithValue("@id", details.CustomerId);
+                        cmd.Parameters.AddWithValue("@customer_name", details.CompanyName ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@contact_person", details.ContactPerson ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@contact_number", string.IsNullOrWhiteSpace(details.ContactNumber) ? (object)DBNull.Value : details.ContactNumber);
+                        cmd.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(details.Email) ? (object)DBNull.Value : details.Email);
+                        cmd.Parameters.AddWithValue("@address", string.IsNullOrWhiteSpace(details.BuildFullAddress()) ? (object)DBNull.Value : details.BuildFullAddress());
+                        cmd.Parameters.AddWithValue("@city", string.IsNullOrWhiteSpace(details.City) ? (object)DBNull.Value : details.City);
+                        cmd.Parameters.AddWithValue("@province", string.IsNullOrWhiteSpace(details.Province) ? (object)DBNull.Value : details.Province);
+                        cmd.Parameters.AddWithValue("@status", string.IsNullOrWhiteSpace(details.Status) ? (object)DBNull.Value : details.Status);
 
                         return cmd.ExecuteNonQuery() > 0;
                     }
@@ -135,92 +135,39 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 return false;
             }
         }
-
-        public CustomerDetailsModel GetCustomerDetails(int customerId)
+        public void ShowEditCustomerForm(MainDashBoard main, int customerId, string customerName, string contactNumber, string address)
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
+                // Create the form
+                EditCustomerForm editForm = new EditCustomerForm(customerId, customerName, contactNumber, address);
+
+                // Connect container
+                editForm.Container = this;
+
+                // Open as overlay
+                main.OpenOverlayPanel(editForm);
+
+                // When user saves, refresh table
+                editForm.CustomerUpdated += (s, e) =>
                 {
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand("SELECT * FROM Customers WHERE customer_id = @customerId", con))
-                    {
-                        cmd.Parameters.AddWithValue("@customerId", customerId);
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                return new CustomerDetailsModel
-                                {
-                                    CustomerId = customerId,
-                                    CompanyName = reader["customer_name"]?.ToString(),
-                                    ContactPerson = SafeRead(reader, "contact_person"),
-                                    ContactNumber = reader["contact_number"]?.ToString(),
-                                    Email = SafeRead(reader, "email"),
-                                    AddressLine = reader["address"]?.ToString(),
-                                    City = SafeRead(reader, "city"),
-                                    Province = SafeRead(reader, "province"),
-                                    Status = SafeRead(reader, "status")
-                                };
-                            }
-                        }
-                    }
-                }
+                    main.refreshbtnn();
+                };
             }
-            catch
+            catch (Exception ex)
             {
-                // handled upstream with user-friendly messaging
-            }
-            return null;
-        }
-
-        public void CloseEditCustomerForm()
-        {
-            if (mainForm != null)
-                mainForm.pcbBlurOverlay.Visible = false;
-
-            if (editCustomerForm != null)
-            {
-                editCustomerForm.Dispose();
-                editCustomerForm = null;
-            }
-
-            if (scrollContainer != null)
-            {
-                scrollContainer.Controls.Clear();
-                scrollContainer.Parent?.Controls.Remove(scrollContainer);
-                scrollContainer.Dispose();
-                scrollContainer = null;
+                MessageBox.Show("Error opening edit customer form: " + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void RefreshCustomerList()
-        {
-            var customerMainPage = FindControlRecursive<CustomerMainPage>(mainForm);
-            customerMainPage?.RefreshCustomerList();
-        }
 
-        private T FindControlRecursive<T>(Control parent) where T : Control
-        {
-            if (parent == null) return null;
-
-            foreach (Control control in parent.Controls)
-            {
-                if (control is T found)
-                    return found;
-
-                var child = FindControlRecursive<T>(control);
-                if (child != null)
-                    return child;
-            }
-            return null;
-        }
 
         private HashSet<string> GetCustomerColumns(SqlConnection con)
         {
-            HashSet<string> columns = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            using (SqlCommand cmd = new SqlCommand("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Customers'", con))
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            var columns = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            using (var cmd = new SqlCommand("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Customers'", con))
+            using (var reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
                 {
@@ -228,18 +175,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 }
             }
             return columns;
-        }
-
-        private string SafeRead(SqlDataReader reader, string column)
-        {
-            try
-            {
-                return reader[column]?.ToString();
-            }
-            catch
-            {
-                return null;
-            }
         }
     }
 }

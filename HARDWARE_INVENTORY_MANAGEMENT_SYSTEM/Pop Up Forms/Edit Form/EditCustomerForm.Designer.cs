@@ -59,7 +59,7 @@
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.cbxCategory = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.cbxStatus = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.SupplierDatePick = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -641,21 +641,21 @@
             this.label18.TabIndex = 107;
             this.label18.Text = "*";
             // 
-            // cbxCategory
+            // cbxStatus
             // 
-            this.cbxCategory.BackColor = System.Drawing.Color.Transparent;
-            this.cbxCategory.BorderRadius = 8;
-            this.cbxCategory.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxCategory.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cbxCategory.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cbxCategory.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.cbxCategory.ItemHeight = 30;
-            this.cbxCategory.Location = new System.Drawing.Point(23, 502);
-            this.cbxCategory.Name = "cbxCategory";
-            this.cbxCategory.Size = new System.Drawing.Size(228, 36);
-            this.cbxCategory.TabIndex = 125;
+            this.cbxStatus.BackColor = System.Drawing.Color.Transparent;
+            this.cbxStatus.BorderRadius = 8;
+            this.cbxStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxStatus.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbxStatus.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbxStatus.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cbxStatus.ItemHeight = 30;
+            this.cbxStatus.Location = new System.Drawing.Point(23, 502);
+            this.cbxStatus.Name = "cbxStatus";
+            this.cbxStatus.Size = new System.Drawing.Size(228, 36);
+            this.cbxStatus.TabIndex = 125;
             // 
             // label14
             // 
@@ -736,7 +736,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(561, 625);
-            this.Controls.Add(this.cbxCategory);
+            this.Controls.Add(this.cbxStatus);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.SupplierDatePick);
@@ -812,7 +812,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
-        private Guna.UI2.WinForms.Guna2ComboBox cbxCategory;
+        private Guna.UI2.WinForms.Guna2ComboBox cbxStatus;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label19;
         private Guna.UI2.WinForms.Guna2DateTimePicker SupplierDatePick;

@@ -96,5 +96,56 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
         {
 
         }
+
+        public void OpenOverlayPanel(Form form)
+        {
+            try
+            {
+                // Create overlay panel
+                Panel overlay = new Panel
+                {
+                    Name = "CustomerEditOverlay",
+                    Size = new Size(600, 550),
+                    BackColor = Color.White,
+                    Location = new Point(
+                        (this.Width - 600) / 2,
+                        (this.Height - 550) / 2
+                    )
+                };
+
+                // Optional blur overlay
+                if (pcbBlurOverlay != null)
+                    pcbBlurOverlay.Visible = true;
+
+                form.TopLevel = false;
+                form.Dock = DockStyle.Fill;
+                overlay.Controls.Add(form);
+
+                this.Controls.Add(overlay);
+                overlay.BringToFront();
+                form.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error opening overlay panel: " + ex.Message);
+            }
+        }
+        public void refreshbtnn()
+        {
+            try
+            {
+                // Find the Customer Main Page
+                var customerPage = MainContentPanel.Controls
+                    .OfType<Customer_Module.CustomerMainPage>()
+                    .FirstOrDefault();
+
+                customerPage?.RefreshCustomerList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error refreshing customer page: " + ex.Message);
+            }
+        }
+
     }
 }

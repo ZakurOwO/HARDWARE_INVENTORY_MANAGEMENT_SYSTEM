@@ -172,6 +172,7 @@
             //
             // lblEmptyHistory
             //
+            this.lblEmptyHistory = new System.Windows.Forms.Label();
             this.lblEmptyHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEmptyHistory.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Italic);
             this.lblEmptyHistory.ForeColor = System.Drawing.Color.DimGray;

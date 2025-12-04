@@ -1,5 +1,6 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
@@ -26,7 +27,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         {
             try
             {
-                // Find the DataGridTable control
                 var dataGridTable = FindControlRecursive<DataGridTable>(this);
                 var paginationControl = FindControlRecursive<PageNumber>(this);
 
@@ -34,8 +34,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 {
                     dataGridTable.PaginationControl = paginationControl;
 
-                    // Load initial data
+                    // Initial load (no search filter)
                     dataGridTable.RefreshData();
+                    paginationControl.RefreshPagination();
                 }
             }
             catch (Exception ex)
@@ -46,25 +47,61 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 
         private void InitializeSearch()
         {
-            // Find the search textbox in your searchField1 control
             TextBox searchBox = FindTextBoxInSearchField(searchField1);
 
             if (searchBox != null)
             {
-                searchTextBox = new SearchTextBox(searchBox, "Search customers...");
-                searchTextBox.SearchTextChanged += SearchTextBox_SearchTextChanged;
-                searchDelay = new Timer { Interval = 200 };
-                searchDelay.Tick += SearchDelay_Tick;
+                searchBox.ForeColor = Color.Gray;
+                searchBox.Text = "Search customers...";
+
+                // When user focuses, clear placeholder
+                searchBox.GotFocus += (s, e) =>
+                {
+                    if (searchBox.Text == "Search customers...")
+                    {
+                        searchBox.Text = "";
+                        searchBox.ForeColor = Color.Black;
+                    }
+                };
+
+                // When user leaves and text is empty, restore placeholder
+                searchBox.LostFocus += (s, e) =>
+                {
+                    if (string.IsNullOrWhiteSpace(searchBox.Text))
+                    {
+                        searchBox.Text = "Search customers...";
+                        searchBox.ForeColor = Color.Gray;
+                    }
+                };
             }
         }
 
+
         private void SearchTextBox_SearchTextChanged(object sender, string searchText)
         {
+            if (searchDelay == null) return;
+
+            // debounce: restart timer on each keystroke
+            searchDelay.Stop();
+            searchDelay.Start();
+        }
+
+        private void SearchDelay_Tick(object sender, EventArgs e)
+        {
+            searchDelay.Stop();
+
+            string searchText = searchTextBox?.GetSearchText() ?? string.Empty;
+
             var dataGridTable = FindControlRecursive<DataGridTable>(this);
+            var paginationControl = FindControlRecursive<PageNumber>(this);
+
             if (dataGridTable != null)
             {
+                // DataGridTable already knows how to apply search text
                 dataGridTable.ApplySearch(searchText);
             }
+
+            paginationControl?.RefreshPagination();
         }
 
         private TextBox FindTextBoxInSearchField(Control searchFieldControl)
@@ -94,22 +131,40 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 
             if (main != null)
             {
+                // Container handles blur + overlay + refresh events
                 addCustomerContainer.ShowAddCustomerForm(main);
-                // Refresh customer list after adding new customer
-                RefreshCustomerList();
             }
         }
 
+        /// <summary>
+        /// Called after add/edit/delete to reload the grid and keep the current search filter.
+        /// </summary>
         public void RefreshCustomerList()
         {
             var dataGridTable = FindControlRecursive<DataGridTable>(this);
-            string activeSearch = searchTextBox?.GetSearchText();
-            dataGridTable?.RefreshData(activeSearch);
-
             var paginationControl = FindControlRecursive<PageNumber>(this);
+
+            if (dataGridTable == null) return;
+
+            string activeSearch = searchTextBox?.GetSearchText() ?? string.Empty;
+
+            dataGridTable.ApplySearch(activeSearch);
             paginationControl?.RefreshPagination();
         }
 
-        // ... rest of your existing event handlers
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void refreshbtnn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridTable1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

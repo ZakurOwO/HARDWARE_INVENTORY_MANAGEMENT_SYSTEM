@@ -17,7 +17,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         private AddCustomerForm addCustomerForm;
         private MainDashBoard mainForm;
 
-        public void ShowAddCustomerForm(MainDashBoard main)
+        public AddCustomerForm ShowAddCustomerForm(MainDashBoard main)
         {
             try
             {
@@ -55,11 +55,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 scrollContainer.BringToFront();
 
                 addCustomerForm.FormClosed += OnAddCustomerFormClosed;
+
+                return addCustomerForm;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error showing customer form: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
         }
 
