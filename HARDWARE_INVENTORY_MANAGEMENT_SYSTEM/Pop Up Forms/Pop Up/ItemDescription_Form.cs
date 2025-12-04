@@ -278,11 +278,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     dgvProductHistory.Rows.Add(directionIcon, quantity, reference, timestampText);
                 }
 
+                lblEmptyHistory.Visible = history.Rows.Count == 0;
+                dgvProductHistory.Visible = history.Rows.Count > 0;
                 dgvProductHistory.ClearSelection();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Failed to load product history: {ex.Message}");
+                lblEmptyHistory.Visible = true;
+                dgvProductHistory.Visible = false;
             }
         }
 
