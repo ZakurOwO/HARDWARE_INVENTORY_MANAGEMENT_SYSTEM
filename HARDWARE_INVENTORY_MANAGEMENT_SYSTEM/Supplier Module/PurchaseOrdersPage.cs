@@ -19,11 +19,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
     {
         private SqlConnection con;
         private string connectionString = ConnectionString.DataSource;
+        private MainDashBoard mainForm;
 
         public PurchaseOrdersPage()
         {
             InitializeComponent();
             con = new SqlConnection(connectionString);
+            mainForm = Application.OpenForms.OfType<MainDashBoard>().FirstOrDefault();
 
             // Load purchase orders when the page loads
             LoadPurchaseOrdersFromDatabase();
@@ -149,6 +151,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
         {
             try
             {
+                mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.SupplierOverlay;
+                mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
+                mainForm.pcbBlurOverlay.Visible = true;
+                mainForm.pcbBlurOverlay.BringToFront();
+
                 Form popup = new Form();
                 popup.FormBorderStyle = FormBorderStyle.None;
                 popup.StartPosition = FormStartPosition.CenterScreen;
@@ -160,7 +167,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
                 editForm.LoadPurchaseOrder(poNumber, lockEditing);
 
                 popup.Controls.Add(editForm);
-                popup.FormClosed += (s, args) => LoadPurchaseOrdersFromDatabase();
+                popup.FormClosed += (s, args) =>
+                {
+                    mainForm.pcbBlurOverlay.Visible = false;
+                    LoadPurchaseOrdersFromDatabase();
+                };
                 popup.ShowDialog();
             }
             catch (Exception ex)
@@ -254,19 +265,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
         private void btnMainButtonIcon_Click(object sender, EventArgs e)
         {
+            mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.SupplierOverlay;
+            mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
+            mainForm.pcbBlurOverlay.Visible = true;
+            mainForm.pcbBlurOverlay.BringToFront();
+
             Form popup = new Form();
             popup.FormBorderStyle = FormBorderStyle.None;
             popup.StartPosition = FormStartPosition.CenterScreen;
             popup.BackColor = Color.White;
-            popup.Size = new Size(850, 600);
+            popup.Size = new Size(853, 600);
+            
 
             AddPurchaseOrderForm addForm = new AddPurchaseOrderForm();
             addForm.Dock = DockStyle.Fill;
+            
 
             popup.Controls.Add(addForm);
 
             // Reload purchase orders after the form is closed
-            popup.FormClosed += (s, args) => LoadPurchaseOrdersFromDatabase();
+            popup.FormClosed += (s, args) =>
+            {
+                mainForm.pcbBlurOverlay.Visible = false;
+                LoadPurchaseOrdersFromDatabase();
+            };
 
             popup.ShowDialog();
         }

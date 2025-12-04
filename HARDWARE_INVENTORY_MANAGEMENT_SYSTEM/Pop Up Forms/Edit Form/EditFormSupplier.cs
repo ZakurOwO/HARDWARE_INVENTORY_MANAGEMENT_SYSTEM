@@ -26,7 +26,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             // Hide unused status field (not part of schema)
             label8.Visible = false;
             label9.Visible = false;
-            cbxCategory.Visible = false;
+            cbxStatus.Visible = false;
         }
 
         public void LoadSupplier(SupplierRecord supplier)

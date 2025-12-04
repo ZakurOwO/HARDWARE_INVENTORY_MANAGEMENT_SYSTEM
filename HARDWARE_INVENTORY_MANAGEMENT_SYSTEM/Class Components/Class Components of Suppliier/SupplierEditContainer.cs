@@ -35,7 +35,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             editForm.CancelRequested += cancelHandler;
 
             scrollContainer = new Panel();
-            scrollContainer.Size = new Size(600, 520);
+            scrollContainer.Size = new Size(578, 603);
             scrollContainer.Location = new Point(
                 (main.Width - scrollContainer.Width) / 2,
                 (main.Height - scrollContainer.Height) / 2
@@ -45,7 +45,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
 
             scrollContainer.Controls.Add(editForm);
 
-            editForm.Size = new Size(600, 850);
+            editForm.Size = new Size(578, 603);
             editForm.Location = new Point(0, 0);
             editForm.Show();
 

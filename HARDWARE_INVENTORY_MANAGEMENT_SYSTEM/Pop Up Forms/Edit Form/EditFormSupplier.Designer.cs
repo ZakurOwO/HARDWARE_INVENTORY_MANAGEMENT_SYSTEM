@@ -32,7 +32,7 @@
             this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.CancelSupplierFormBtn = new Guna.UI2.WinForms.Guna2Button();
             this.AddSupplierFormBtn = new Guna.UI2.WinForms.Guna2Button();
-            this.cbxCategory = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.cbxStatus = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.SupplierDatePick = new Guna.UI2.WinForms.Guna2DateTimePicker();
@@ -127,21 +127,21 @@
             this.AddSupplierFormBtn.TabIndex = 120;
             this.AddSupplierFormBtn.Text = "Update";
             // 
-            // cbxCategory
+            // cbxStatus
             // 
-            this.cbxCategory.BackColor = System.Drawing.Color.Transparent;
-            this.cbxCategory.BorderRadius = 8;
-            this.cbxCategory.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxCategory.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cbxCategory.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.cbxCategory.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxCategory.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.cbxCategory.ItemHeight = 30;
-            this.cbxCategory.Location = new System.Drawing.Point(28, 455);
-            this.cbxCategory.Name = "cbxCategory";
-            this.cbxCategory.Size = new System.Drawing.Size(228, 36);
-            this.cbxCategory.TabIndex = 119;
+            this.cbxStatus.BackColor = System.Drawing.Color.Transparent;
+            this.cbxStatus.BorderRadius = 8;
+            this.cbxStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbxStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxStatus.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbxStatus.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.cbxStatus.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cbxStatus.ItemHeight = 30;
+            this.cbxStatus.Location = new System.Drawing.Point(28, 455);
+            this.cbxStatus.Name = "cbxStatus";
+            this.cbxStatus.Size = new System.Drawing.Size(228, 36);
+            this.cbxStatus.TabIndex = 119;
             // 
             // label8
             // 
@@ -484,7 +484,7 @@
             this.Controls.Add(this.guna2Button3);
             this.Controls.Add(this.CancelSupplierFormBtn);
             this.Controls.Add(this.AddSupplierFormBtn);
-            this.Controls.Add(this.cbxCategory);
+            this.Controls.Add(this.cbxStatus);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.SupplierDatePick);
@@ -519,7 +519,7 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button3;
         private Guna.UI2.WinForms.Guna2Button CancelSupplierFormBtn;
         private Guna.UI2.WinForms.Guna2Button AddSupplierFormBtn;
-        private Guna.UI2.WinForms.Guna2ComboBox cbxCategory;
+        private Guna.UI2.WinForms.Guna2ComboBox cbxStatus;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private Guna.UI2.WinForms.Guna2DateTimePicker SupplierDatePick;

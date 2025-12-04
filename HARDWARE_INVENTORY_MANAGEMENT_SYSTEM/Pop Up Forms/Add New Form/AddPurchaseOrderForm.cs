@@ -716,6 +716,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module
             }
         }
 
+
+
         private void guna2Panel1_Paint(object sender, PaintEventArgs e)
         {
         }
