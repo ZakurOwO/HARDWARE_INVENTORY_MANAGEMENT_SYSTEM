@@ -76,7 +76,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
             // Create scroll container
             scrollContainer = new Panel();
-            scrollContainer.Size = new Size(578, 550);
+            scrollContainer.Size = new Size(578, 597);
             scrollContainer.Location = new Point(
                 (main.Width - scrollContainer.Width) / 2,
                 (main.Height - scrollContainer.Height) / 2
@@ -86,7 +86,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
             
             // Add form to container
             scrollContainer.Controls.Add(editForm);
-            editForm.Size = new Size(578, 550);
+            editForm.Size = new Size(578, 597);
             editForm.Location = new Point(0, 0);
 
             // Set up main form overlay

@@ -453,7 +453,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 return;
 
             int productId = GetProductIdFromRow(e.RowIndex);
-            int.TryParse(grid.Rows[e.RowIndex].Cells["Quantity"].Value?.ToString(), out int quantityInCart);
+            bool v = int.TryParse(grid.Rows[e.RowIndex].Cells["Quantity"].Value?.ToString(), out int quantityInCart);
 
             if (productId <= 0 || quantityInCart < 0)
                 return;

@@ -109,6 +109,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
         {
             bool anyResultsFound = false;
 
+            dataGridView.ClearSelection();
+            dataGridView.CurrentCell = null;
+
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
                 if (row.IsNewRow) continue;
