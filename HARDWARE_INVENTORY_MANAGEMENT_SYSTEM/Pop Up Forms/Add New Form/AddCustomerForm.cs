@@ -15,6 +15,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         // Dictionary to store city-province relationships
         private Dictionary<string, List<string>> cityProvinceMap;
 
+        public event EventHandler CustomerAdded;
+
         public AddCustomerForm()
         {
             InitializeComponent();
@@ -158,7 +160,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                         {
                             MessageBox.Show("Customer added successfully!", "Success",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            ClearForm();
+                            CustomerAdded?.Invoke(this, EventArgs.Empty);
+                            Close();
                         }
                         else
                         {

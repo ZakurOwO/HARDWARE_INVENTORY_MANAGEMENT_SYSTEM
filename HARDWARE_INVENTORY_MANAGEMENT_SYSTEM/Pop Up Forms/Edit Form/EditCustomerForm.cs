@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using System.Text.RegularExpressions;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 {
@@ -52,6 +53,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 
             // Initialize combo boxes
             InitializeComboBoxes();
+            LoadCustomerDetails();
+            tbxContactNumber.Leave += (s, e) => tbxContactNumber.Text = FormatPhoneNumber(tbxContactNumber.Text);
         }
 
         // Initialize city-province relationships
@@ -124,33 +127,114 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             }
         }
 
-        private void UpdateCustomer()
+        private void LoadCustomerDetails()
         {
-            string customerName = tbxCompanyName.Text.Trim();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT customer_name, contact_number, address FROM Customers WHERE customer_id = @customerId";
+                    SqlCommand cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@customerId", customerId);
+
+                    con.Open();
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            tbxCompanyName.Text = reader["customer_name"]?.ToString() ?? tbxCompanyName.Text;
+                            tbxContactNumber.Text = reader["contact_number"]?.ToString() ?? tbxContactNumber.Text;
+                            tbxAddress.Text = reader["address"]?.ToString() ?? tbxAddress.Text;
+                            originalCustomerName = tbxCompanyName.Text;
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to load customer details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private bool ValidateInputs(out string customerName, out string formattedContactNumber, out string fullAddress)
+        {
+            customerName = tbxCompanyName.Text.Trim();
             string contactNumber = tbxContactNumber.Text.Trim();
             string address = tbxAddress.Text.Trim();
             string city = CityCombobox.SelectedItem?.ToString() ?? "";
             string province = ProvinceCombobox.SelectedItem?.ToString() ?? "";
 
-            // Build full address
+            fullAddress = BuildFullAddress(address, city, province);
+            formattedContactNumber = FormatPhoneNumber(contactNumber);
+
+            if (string.IsNullOrEmpty(customerName))
+            {
+                MessageBox.Show("Please enter the customer name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbxCompanyName.Focus();
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(contactNumber) && !IsValidPhoneNumber(contactNumber))
+            {
+                MessageBox.Show("Please enter a valid contact number (10-11 digits).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbxContactNumber.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        private string BuildFullAddress(string address, string city, string province)
+        {
             string fullAddress = address;
             if (!string.IsNullOrEmpty(city))
                 fullAddress += $", {city}";
             if (!string.IsNullOrEmpty(province))
                 fullAddress += $", {province}";
 
-            if (string.IsNullOrEmpty(customerName))
+            return fullAddress;
+        }
+
+        private bool IsValidPhoneNumber(string phone)
+        {
+            string cleanPhone = Regex.Replace(phone, @"[^\d]", "");
+            return cleanPhone.Length >= 10 && cleanPhone.Length <= 11;
+        }
+
+        private string FormatPhoneNumber(string phone)
+        {
+            if (string.IsNullOrWhiteSpace(phone)) return string.Empty;
+
+            string cleanPhone = Regex.Replace(phone, @"[^\d]", "");
+
+            if (cleanPhone.Length == 10)
             {
-                MessageBox.Show("Please enter the customer name.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                return $"+63{cleanPhone.Substring(1)}";
             }
+            if (cleanPhone.Length == 11 && cleanPhone.StartsWith("0"))
+            {
+                return $"+63{cleanPhone.Substring(1)}";
+            }
+            if (cleanPhone.Length == 12 && cleanPhone.StartsWith("63"))
+            {
+                return $"+{cleanPhone}";
+            }
+
+            return phone.Trim();
+        }
+
+        private void UpdateCustomer()
+        {
+            if (!ValidateInputs(out string customerName, out string formattedContactNumber, out string fullAddress))
+                return;
 
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
-                    // Check if customer name already exists (excluding current customer)
+                    con.Open();
+
                     if (customerName != originalCustomerName)
                     {
                         string checkQuery = "SELECT COUNT(*) FROM Customers WHERE customer_name = @customerName AND customer_id != @customerId";
@@ -158,9 +242,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                         checkCmd.Parameters.AddWithValue("@customerName", customerName);
                         checkCmd.Parameters.AddWithValue("@customerId", customerId);
 
-                        con.Open();
                         int existingCount = (int)checkCmd.ExecuteScalar();
-                        con.Close();
 
                         if (existingCount > 0)
                         {
@@ -170,21 +252,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                         }
                     }
 
-                    // Update customer using direct SQL command
                     string updateQuery = @"
-                        UPDATE Customers 
-                        SET customer_name = @customerName, 
-                            contact_number = @contactNumber, 
-                            address = @address 
+                        UPDATE Customers
+                        SET customer_name = @customerName,
+                            contact_number = @contactNumber,
+                            address = @address
                         WHERE customer_id = @customerId";
 
                     SqlCommand updateCmd = new SqlCommand(updateQuery, con);
                     updateCmd.Parameters.AddWithValue("@customerName", customerName);
-                    updateCmd.Parameters.AddWithValue("@contactNumber", string.IsNullOrEmpty(contactNumber) ? (object)DBNull.Value : contactNumber);
+                    updateCmd.Parameters.AddWithValue("@contactNumber", string.IsNullOrEmpty(formattedContactNumber) ? (object)DBNull.Value : formattedContactNumber);
                     updateCmd.Parameters.AddWithValue("@address", string.IsNullOrEmpty(fullAddress) ? (object)DBNull.Value : fullAddress);
                     updateCmd.Parameters.AddWithValue("@customerId", customerId);
 
-                    con.Open();
                     int rowsAffected = updateCmd.ExecuteNonQuery();
                     con.Close();
 
@@ -192,7 +272,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                     {
                         MessageBox.Show("Customer updated successfully!", "Success",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close(); // Close the form
+                        this.Close();
                     }
                     else
                     {
