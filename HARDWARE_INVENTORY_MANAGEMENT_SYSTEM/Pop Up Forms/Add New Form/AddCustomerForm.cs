@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
@@ -14,6 +15,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 
         // Dictionary to store city-province relationships
         private Dictionary<string, List<string>> cityProvinceMap;
+
+        public event EventHandler CustomerAdded;
 
         public AddCustomerForm()
         {
@@ -137,6 +140,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 return;
             }
 
+            string formattedContact = FormatPhoneNumber(contactNumber);
+
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
@@ -148,7 +153,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                     {
                         // Use company name as customer_name in database
                         command.Parameters.AddWithValue("@name", companyName);
-                        command.Parameters.AddWithValue("@contact", string.IsNullOrEmpty(contactNumber) ? (object)DBNull.Value : contactNumber);
+                        command.Parameters.AddWithValue("@contact", string.IsNullOrEmpty(formattedContact) ? (object)DBNull.Value : formattedContact);
                         command.Parameters.AddWithValue("@address", string.IsNullOrEmpty(fullAddress) ? (object)DBNull.Value : fullAddress);
 
                         con.Open();
@@ -158,7 +163,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                         {
                             MessageBox.Show("Customer added successfully!", "Success",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            ClearForm();
+                            CustomerAdded?.Invoke(this, EventArgs.Empty);
+                            Close();
                         }
                         else
                         {
@@ -233,6 +239,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 MessageBox.Show($"Error initializing ComboBoxes: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private string FormatPhoneNumber(string phone)
+        {
+            if (string.IsNullOrWhiteSpace(phone)) return string.Empty;
+
+            string cleanPhone = Regex.Replace(phone, @"[^\d]", "");
+
+            if (cleanPhone.Length == 10)
+            {
+                return $"+63{cleanPhone.Substring(1)}";
+            }
+            if (cleanPhone.Length == 11 && cleanPhone.StartsWith("0"))
+            {
+                return $"+63{cleanPhone.Substring(1)}";
+            }
+            if (cleanPhone.Length == 12 && cleanPhone.StartsWith("63"))
+            {
+                return $"+{cleanPhone}";
+            }
+
+            return phone.Trim();
         }
 
         // Add search functionality to ComboBoxes

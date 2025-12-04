@@ -21,6 +21,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 addCustomerForm.TopLevel = false;
                 addCustomerForm.FormBorderStyle = FormBorderStyle.None;
                 addCustomerForm.Dock = DockStyle.Fill;
+                addCustomerForm.CustomerAdded += AddCustomerForm_CustomerAdded;
 
                 // SCROLL CONTAINER
                 scrollContainer = new Panel();
@@ -54,7 +55,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 scrollContainer.BringToFront();
 
                 // Handle form closed event
-                addCustomerForm.FormClosed += (s, e) => CloseAddCustomerForm();
+                addCustomerForm.FormClosed += OnAddCustomerFormClosed;
 
                 // Test form functionality after a short delay
                 TestFormFunctionality();
@@ -128,9 +129,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                 // Clean up form
                 if (addCustomerForm != null)
                 {
+                    addCustomerForm.CustomerAdded -= AddCustomerForm_CustomerAdded;
+                    addCustomerForm.FormClosed -= OnAddCustomerFormClosed;
                     if (!addCustomerForm.IsDisposed)
                     {
-                        addCustomerForm.FormClosed -= (s, e) => CloseAddCustomerForm();
                         addCustomerForm.Dispose();
                     }
                     addCustomerForm = null;
@@ -152,6 +154,38 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             {
                 addCustomerForm.Refresh();
             }
+        }
+
+        private void AddCustomerForm_CustomerAdded(object sender, EventArgs e)
+        {
+            RefreshCustomerList();
+        }
+
+        private void OnAddCustomerFormClosed(object sender, FormClosedEventArgs e)
+        {
+            CloseAddCustomerForm();
+        }
+
+        private void RefreshCustomerList()
+        {
+            var customerMainPage = FindControlRecursive<CustomerMainPage>(mainForm);
+            customerMainPage?.RefreshCustomerList();
+        }
+
+        private T FindControlRecursive<T>(Control parent) where T : Control
+        {
+            if (parent == null) return null;
+
+            foreach (Control control in parent.Controls)
+            {
+                if (control is T found)
+                    return found;
+
+                var child = FindControlRecursive<T>(control);
+                if (child != null)
+                    return child;
+            }
+            return null;
         }
 
         // Method to test if data is being saved (for debugging)

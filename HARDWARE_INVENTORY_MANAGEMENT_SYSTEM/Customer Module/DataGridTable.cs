@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
@@ -11,6 +12,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
     {
         public PageNumber PaginationControl { get; set; }
         private EditCustomerContainer editCustomerContainer = new EditCustomerContainer();
+        private DataTable customerData;
+        private string currentSearchTerm = string.Empty;
+        private bool isInitialized;
 
         public DataGridTable()
         {
@@ -19,9 +23,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
         private void DataGridTable_Load(object sender, EventArgs e)
         {
+            if (isInitialized) return;
+
             AddDataColumns();
-            LoadCustomerData();
+            RefreshData();
             dgvCustomers.ClearSelection();
+            isInitialized = true;
         }
 
         private void AddDataColumns()
@@ -103,22 +110,35 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
 
        
             dgvCustomers.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCustomers.AllowUserToResizeColumns = false;
         }
-        public void LoadCustomerData()
+        public void LoadCustomerData(string searchText = null)
         {
             try
             {
                 using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
                 {
-                    string query = "SELECT customer_id, customer_name, contact_number, address FROM Customers ORDER BY customer_name";
+                    string query = @"SELECT customer_id, customer_name, contact_number, address
+                                     FROM Customers
+                                     WHERE (@search IS NULL OR @search = '')
+                                        OR (customer_name LIKE @pattern OR contact_number LIKE @pattern OR address LIKE @pattern)
+                                     ORDER BY customer_name";
                     SqlDataAdapter da = new SqlDataAdapter(query, con);
+                    string searchTerm = searchText?.Trim() ?? string.Empty;
+                    da.SelectCommand.Parameters.AddWithValue("@search", searchTerm);
+                    da.SelectCommand.Parameters.AddWithValue("@pattern", $"%{searchTerm}%");
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
+                    customerData = dt;
+                    currentSearchTerm = searchTerm;
+
                     if (PaginationControl != null)
                     {
+                        PaginationControl.PageChanged -= PaginationControl_PageChanged;
                         PaginationControl.InitializePagination(dt, dgvCustomers, 10);
-                        PaginationControl.PageChanged += (s, page) => RefreshGridData();
+                        PaginationControl.PageChanged += PaginationControl_PageChanged;
                         RefreshGridData();
                     }
                     else
@@ -141,6 +161,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             dgvCustomers.ClearSelection();
         }
 
+        private void PaginationControl_PageChanged(object sender, int page)
+        {
+            RefreshGridData();
+        }
+
         private void RefreshGridData()
         {
             if (PaginationControl != null)
@@ -149,9 +174,58 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
             }
         }
 
-        public void RefreshData()
+        private DataTable FilterCustomerData(string searchText)
         {
-            LoadCustomerData();
+            if (string.IsNullOrWhiteSpace(searchText))
+                return customerData;
+
+            string term = searchText.Trim();
+            var filteredRows = customerData
+                .AsEnumerable()
+                .Where(row => ContainsCaseInsensitive(row.Field<string>("customer_name"), term)
+                           || ContainsCaseInsensitive(row.Field<string>("contact_number"), term)
+                           || ContainsCaseInsensitive(row.Field<string>("address"), term));
+
+            if (!filteredRows.Any())
+                return customerData.Clone();
+
+            return filteredRows.CopyToDataTable();
+        }
+
+        private bool ContainsCaseInsensitive(string source, string term)
+        {
+            if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(term))
+                return false;
+
+            return source.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        public void RefreshData(string searchText = null)
+        {
+            LoadCustomerData(searchText ?? currentSearchTerm);
+        }
+
+        public void ApplySearch(string searchText)
+        {
+            if (customerData == null)
+            {
+                LoadCustomerData(searchText);
+                return;
+            }
+
+            var filtered = FilterCustomerData(searchText);
+
+            if (PaginationControl != null)
+            {
+                PaginationControl.UpdateData(filtered, resetToFirstPage: true);
+                RefreshGridData();
+            }
+            else
+            {
+                dgvCustomers.DataSource = filtered;
+            }
+
+            currentSearchTerm = searchText?.Trim() ?? string.Empty;
         }
 
         private void dgvCurrentStockReport_CellClick(object sender, DataGridViewCellEventArgs e)

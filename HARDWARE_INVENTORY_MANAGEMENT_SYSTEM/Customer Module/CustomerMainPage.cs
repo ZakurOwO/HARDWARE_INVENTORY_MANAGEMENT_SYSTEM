@@ -8,6 +8,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
     {
         private AddCustomerContainer addCustomerContainer = new AddCustomerContainer();
         private SearchTextBox searchTextBox;
+        private Timer searchDelay;
 
         public CustomerMainPage()
         {
@@ -52,20 +53,39 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             {
                 searchTextBox = new SearchTextBox(searchBox, "Search customers...");
                 searchTextBox.SearchTextChanged += SearchTextBox_SearchTextChanged;
+                searchDelay = new Timer { Interval = 200 };
+                searchDelay.Tick += SearchDelay_Tick;
             }
         }
 
         private void SearchTextBox_SearchTextChanged(object sender, string searchText)
         {
-            // Find the DataGridTable and filter data
+            // debounce to avoid full refresh on every keystroke while keeping UX responsive
+            if (searchDelay != null)
+            {
+                searchDelay.Tag = searchText;
+                searchDelay.Stop();
+                searchDelay.Start();
+            }
+            else
+            {
+                ApplySearch(searchText);
+            }
+        }
+
+        private void SearchDelay_Tick(object sender, EventArgs e)
+        {
+            searchDelay.Stop();
+            string searchText = searchDelay.Tag as string;
+            ApplySearch(searchText);
+        }
+
+        private void ApplySearch(string searchText)
+        {
             var dataGridTable = FindControlRecursive<DataGridTable>(this);
             if (dataGridTable != null)
             {
-                var dgv = FindControlRecursive<DataGridView>(dataGridTable);
-                if (dgv != null)
-                {
-                    searchTextBox.FilterDataGridView(dgv, searchText, 0); // Search in first column (customer name)
-                }
+                dataGridTable.ApplySearch(searchText);
             }
         }
 
@@ -105,7 +125,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         public void RefreshCustomerList()
         {
             var dataGridTable = FindControlRecursive<DataGridTable>(this);
-            dataGridTable?.RefreshData();
+            string activeSearch = searchTextBox?.GetSearchText();
+            dataGridTable?.RefreshData(activeSearch);
 
             var paginationControl = FindControlRecursive<PageNumber>(this);
             paginationControl?.RefreshPagination();
