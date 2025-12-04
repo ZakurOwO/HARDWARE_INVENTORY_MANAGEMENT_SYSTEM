@@ -16,6 +16,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         public event EventHandler<CheckoutEventArgs> ProceedToPayClicked;
         public event EventHandler CloseRequested; // ADD THIS LINE - missing event
 
+        private decimal currentTotal;
+
         public Checkout_PopUp()
         {
             InitializeComponent();
@@ -38,6 +40,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             if (label5 != null) label5.Text = $"₱{subtotal:N2}";
             if (label6 != null) label6.Text = $"₱{tax:N2}";
             if (Totallbl != null) Totallbl.Text = $"₱{total:N2}";
+
+            currentTotal = total;
+            CalculateChange();
         }
 
         private void cbxPaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,23 +78,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void CalculateChange()
         {
-            if (decimal.TryParse(tbxCashReceived.Text, out decimal cashReceived))
-            {
-                if (decimal.TryParse(Totallbl.Text.Replace("₱", "").Trim(), out decimal totalAmount))
-                {
-                    decimal change = cashReceived - totalAmount;
-                    lblChangeAmount.Text = $"₱{change:N2}";
+            if (!pnlChangeAmount.Visible) return;
 
-                    if (change >= 0)
-                    {
-                        lblChangeAmount.ForeColor = Color.Green;
-                    }
-                    else
-                    {
-                        lblChangeAmount.ForeColor = Color.Red;
-                    }
-                }
-            }
+            decimal totalAmount = currentTotal;
+            decimal cashReceived = 0;
+            decimal change = 0;
+
+            bool hasCash = decimal.TryParse(tbxCashReceived.Text, out cashReceived);
+            change = hasCash ? cashReceived - totalAmount : -totalAmount;
+
+            lblChangeAmount.Text = $"₱{change:N2}";
+
+            bool hasEnoughCash = hasCash && change >= 0;
+
+            lblChangeAmount.ForeColor = hasEnoughCash ? Color.White : Color.White;
+            pnlChangeAmount.FillColor = hasEnoughCash
+                ? Color.FromArgb(76, 175, 80) // green
+                : Color.FromArgb(244, 67, 54); // red
+
+            pnlChangeAmount.BorderColor = Color.Transparent;
         }
 
         private void tbxCashReceived_TextChanged(object sender, EventArgs e)
