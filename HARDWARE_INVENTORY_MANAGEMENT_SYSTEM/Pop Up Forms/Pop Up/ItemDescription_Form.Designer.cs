@@ -161,15 +161,29 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.lblEmptyHistory);
             this.panel5.Controls.Add(this.dgvProductHistory);
             this.panel5.Controls.Add(this.label17);
             this.panel5.Location = new System.Drawing.Point(299, 191);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(514, 248);
             this.panel5.TabIndex = 64;
-            // 
+
+            //
+            // lblEmptyHistory
+            //
+            this.lblEmptyHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblEmptyHistory.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Italic);
+            this.lblEmptyHistory.ForeColor = System.Drawing.Color.DimGray;
+            this.lblEmptyHistory.Location = new System.Drawing.Point(0, 0);
+            this.lblEmptyHistory.Name = "lblEmptyHistory";
+            this.lblEmptyHistory.Size = new System.Drawing.Size(514, 248);
+            this.lblEmptyHistory.TabIndex = 55;
+            this.lblEmptyHistory.Text = "No product history available yet.";
+            this.lblEmptyHistory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            //
             // dgvProductHistory
-            // 
+            //
             this.dgvProductHistory.AllowUserToAddRows = false;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
             this.dgvProductHistory.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
@@ -603,6 +617,7 @@
         private System.Windows.Forms.Label brandDesc;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label lblEmptyHistory;
         private Guna.UI2.WinForms.Guna2DataGridView dgvProductHistory;
         private System.Windows.Forms.DataGridViewImageColumn OutOrIn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;

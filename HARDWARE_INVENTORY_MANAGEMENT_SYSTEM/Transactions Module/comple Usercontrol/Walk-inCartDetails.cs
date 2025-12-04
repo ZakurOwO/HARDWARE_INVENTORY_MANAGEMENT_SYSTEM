@@ -19,6 +19,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         private readonly string connectionString;
         private readonly CheckoutPopUpContainer checkoutContainer;
         private readonly EventHandler cartUpdatedHandler;
+        private bool deletionInProgress;
 
         public Walk_inCartDetails()
         {
@@ -30,6 +31,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             InitializeDataGridViewColumns();
             InitializeCustomerField();
 
+            dgvCartDetails.CellContentClick -= CartTable_CellContentClick; // ensure single subscription
             dgvCartDetails.CellContentClick += CartTable_CellContentClick;
 
             // Keep grid in sync with shared cart
@@ -334,7 +336,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void CartTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (!(sender is DataGridView grid) || e.RowIndex < 0)
+            if (deletionInProgress)
+                return;
+
+            if (!(sender is DataGridView grid) || e.RowIndex < 0 || e.RowIndex >= grid.Rows.Count)
                 return;
 
             if (grid.Columns[e.ColumnIndex].Name != "Delete")
@@ -349,10 +354,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
                     "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (SharedCartManager.Instance.RemoveItemFromCart(productId))
+                deletionInProgress = true;
+                try
                 {
-                    ReloadCartTable();
-                    ReloadInventoryList();
+                    if (SharedCartManager.Instance.RemoveItemFromCart(productId))
+                    {
+                        ReloadCartTable();
+                        ReloadInventoryList();
+                    }
+                }
+                finally
+                {
+                    deletionInProgress = false;
                 }
             }
         }
