@@ -9,7 +9,7 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
 {
-    public partial class DeliveriesPage1 : UserControl
+    public partial class DeliveriesPage1 : UserControl, IReportExportable
     {
         private DeliveriesDataAccess deliveriesData;
         private DataTable deliveriesDataTable;
@@ -94,7 +94,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
         {
             btnExportPdf = new Button
             {
-                Text = "Export to PDF",
+                Text = "Export CSV",
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 AutoSize = true,
                 BackColor = Color.FromArgb(76, 175, 80),
@@ -103,13 +103,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
             };
             btnExportPdf.FlatAppearance.BorderSize = 0;
             btnExportPdf.Location = new Point(this.Width - 180, 10);
-            //btnExportPdf.Click += BtnExportPdf_Click;
+            btnExportPdf.Click += BtnExportBtn_Click;
             this.Controls.Add(btnExportPdf);
             btnExportPdf.BringToFront();
             this.Resize += (s, e) =>
             {
                 btnExportPdf.Location = new Point(this.Width - btnExportPdf.Width - 20, btnExportPdf.Location.Y);
             };
+        }
+
+        private void BtnExportBtn_Click(object sender, EventArgs e)
+        {
+            var report = BuildReportForExport();
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
+            if (exported)
+            {
+                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         //private void BtnExportPdf_Click(object sender, EventArgs e)
@@ -419,6 +435,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
         public int GetRecordCount()
         {
             return deliveriesDataTable?.Rows.Count ?? 0;
+        }
+
+        public ReportTable BuildReportForExport()
+        {
+            DataTable sourceTable = deliveriesDataTable ?? dgvCurrentStockReport.DataSource as DataTable;
+            if (sourceTable == null || sourceTable.Rows.Count == 0)
+            {
+                return null;
+            }
+
+            return ReportTableFactory.FromDataTable(sourceTable, "Deliveries Summary Report", "All deliveries");
         }
 
         // Get summary statistics

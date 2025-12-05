@@ -31,7 +31,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
             // Similar properties to your existing Guna button
             ExportPDFBtn.Name = "ExportPDFBtn";
-            ExportPDFBtn.Text = "Export PDF";
+            ExportPDFBtn.Text = "Export CSV";
 
             ExportPDFBtn.Location = new Point(631, 7);
             ExportPDFBtn.Size = new Size(135, 35);
@@ -247,23 +247,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 return;
             }
 
-            using (var sfd = new SaveFileDialog())
+            Cursor.Current = Cursors.WaitCursor;
+            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
+            Cursor.Current = Cursors.Default;
+
+            if (exported)
             {
-                sfd.Filter = "PDF Files (*.pdf)|*.pdf";
-                sfd.Title = "Save Report as PDF";
-                sfd.FileName = (report.Title ?? "Report") + ".pdf";
-
-                if (sfd.ShowDialog() != DialogResult.OK) return;
-
-                Cursor.Current = Cursors.WaitCursor;
-                bool exported = ReportPdfExporter1.ExportReportTableToPath(report, sfd.FileName);
-                Cursor.Current = Cursors.Default;
-
-                if (exported)
-                {
-                    MessageBox.Show("Report exported to PDF successfully.", "Export",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                MessageBox.Show("Report exported to CSV successfully.", "Export",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

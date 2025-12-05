@@ -5,17 +5,19 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 {
-    public partial class SalesPage2 : UserControl
+    public partial class SalesPage2 : UserControl, IReportExportable
     {
         private SalesReportDataAccess dataAccess;
         private DateTime? filterStartDate;
         private DateTime? filterEndDate;
+        private List<SalesCustomerReport> currentData;
 
         public SalesPage2()
         {
@@ -65,6 +67,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 
                 // Get sales data from database
                 var salesData = dataAccess.GetSalesByCustomer(startDate, endDate);
+                currentData = salesData;
 
 
                 // Bind to DataGridView
@@ -105,6 +108,58 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
         public List<SalesCustomerReport> GetCurrentData()
         {
             return dgvCurrentStockReport.DataSource as List<SalesCustomerReport>;
+        }
+
+        public ReportTable BuildReportForExport()
+        {
+            var data = currentData ?? GetCurrentData();
+            if (data == null || data.Count == 0)
+            {
+                return null;
+            }
+
+            var report = new ReportTable
+            {
+                Title = "Sales by Customer Report",
+                Subtitle = GetDateRangeSubtitle()
+            };
+
+            report.Headers.AddRange(new[]
+            {
+                "Customer ID",
+                "Customer Name",
+                "Contact",
+                "Total Orders",
+                "Total Quantity",
+                "Total Sales"
+            });
+
+            foreach (var item in data)
+            {
+                report.Rows.Add(new List<string>
+                {
+                    item.CustomerID,
+                    item.CustomerName,
+                    item.Contact,
+                    item.TotalOrders.ToString(CultureInfo.InvariantCulture),
+                    item.TotalQuantity.ToString(CultureInfo.InvariantCulture),
+                    item.TotalSales.ToString("N2", CultureInfo.InvariantCulture)
+                });
+            }
+
+            return report;
+        }
+
+        private string GetDateRangeSubtitle()
+        {
+            if (!filterStartDate.HasValue && !filterEndDate.HasValue)
+            {
+                return "All Dates";
+            }
+
+            string start = filterStartDate.HasValue ? filterStartDate.Value.ToString("yyyy-MM-dd") : "...";
+            string end = filterEndDate.HasValue ? filterEndDate.Value.ToString("yyyy-MM-dd") : "...";
+            return "Date Range: " + start + " - " + end;
         }
 
         //private void ExportPDFBtn_Click(object sender, EventArgs e)
