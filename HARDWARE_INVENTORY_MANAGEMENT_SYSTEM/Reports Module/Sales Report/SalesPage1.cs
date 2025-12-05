@@ -164,24 +164,40 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 
         private void ConfigureExportButton()
         {
-            btnExportPdf = new Button
+            exportCsvButton = new Button
             {
-                Text = "Export to PDF",
+                Text = "Export CSV",
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 AutoSize = true,
                 BackColor = Color.FromArgb(76, 175, 80),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
             };
-            btnExportPdf.FlatAppearance.BorderSize = 0;
-            btnExportPdf.Location = new Point(this.Width - 180, 10);
-         //   btnExportPdf.Click += BtnExportPdf_Click;
-            this.Controls.Add(btnExportPdf);
-            btnExportPdf.BringToFront();
+            exportCsvButton.FlatAppearance.BorderSize = 0;
+            exportCsvButton.Location = new Point(this.Width - 180, 10);
+            exportCsvButton.Click += ExportCsvButton_Click;
+            this.Controls.Add(exportCsvButton);
+            exportCsvButton.BringToFront();
             this.Resize += (s, e) =>
             {
-                btnExportPdf.Location = new Point(this.Width - btnExportPdf.Width - 20, btnExportPdf.Location.Y);
+                exportCsvButton.Location = new Point(this.Width - exportCsvButton.Width - 20, exportCsvButton.Location.Y);
             };
+        }
+
+        private void ExportCsvButton_Click(object sender, EventArgs e)
+        {
+            var report = BuildReportForExport();
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
+            if (exported)
+            {
+                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         //private void BtnExportPdf_Click(object sender, EventArgs e)

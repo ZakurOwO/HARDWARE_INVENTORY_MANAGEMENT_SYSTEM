@@ -24,6 +24,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             InitializeComponent();
             dataAccess = new SalesReportDataAccess();
             this.Load += SalesPage2_Load;
+            ExportPDFBtn.Text = "Export CSV";
+            ExportPDFBtn.Click += ExportPDFBtn_Click;
         }
 
         private void SalesPage2_Load(object sender, EventArgs e)
@@ -103,6 +105,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
         public void RefreshData()
         {
             LoadSalesData(filterStartDate, filterEndDate);
+        }
+
+        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        {
+            var report = BuildReportForExport();
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
+            if (exported)
+            {
+                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         public List<SalesCustomerReport> GetCurrentData()

@@ -13,7 +13,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
     {
         private DeliveriesDataAccess deliveriesData;
         private DataTable deliveriesDataTable;
-        private Button btnExportPdf;
 
         public DeliveriesPage1()
         {
@@ -22,7 +21,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
 
             // Initialize on load
             this.Load += DeliveriesPage1_Load;
-            ConfigureExportButton();
+            ExportPDFBtn.Text = "Export CSV";
+            ExportPDFBtn.Click += ExportPDFBtn_Click;
         }
 
         private void DeliveriesPage1_Load(object sender, EventArgs e)
@@ -90,9 +90,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
             }
         }
 
-        private void ConfigureExportButton()
+        private void ExportPDFBtn_Click(object sender, EventArgs e)
         {
-            btnExportPdf = new Button
+            var report = BuildReportForExport();
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
             {
                 Text = "Export CSV",
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
@@ -108,8 +109,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
             btnExportPdf.BringToFront();
             this.Resize += (s, e) =>
             {
-                btnExportPdf.Location = new Point(this.Width - btnExportPdf.Width - 20, btnExportPdf.Location.Y);
-            };
+                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void BtnExportBtn_Click(object sender, EventArgs e)
