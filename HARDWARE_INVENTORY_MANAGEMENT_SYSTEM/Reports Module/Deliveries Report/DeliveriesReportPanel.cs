@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data;
 
@@ -19,6 +20,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private int currentPage = 1;
         private int itemsPerPage = 10;
         private int totalPages = 1;
+        private Guna2ComboBox exportScopeComboBox;
+        private Guna2Button ExportCSVBtn;
 
         public DeliveriesReportPanel()
         {
@@ -29,6 +32,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             // Setup pagination controls
             HidePaginationControls();
 
+            CreateExportControls();
+
             // Wire up navigation buttons
             guna2Button6.Click += GunaPreviousButton_Click; // < button
             guna2Button4.Click += GunaNextButton_Click;     // > button
@@ -37,6 +42,42 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void DeliveriesReportPanel_Load(object sender, EventArgs e)
         {
             LoadDeliveryReportData();
+        }
+
+        private void CreateExportControls()
+        {
+            ExportCSVBtn = new Guna2Button();
+            ExportCSVBtn.Name = "ExportCSVBtn";
+            ExportCSVBtn.Text = "Export CSV";
+            ExportCSVBtn.Location = new Point(780, 11);
+            ExportCSVBtn.Size = new Size(135, 35);
+            ExportCSVBtn.BorderRadius = 8;
+            ExportCSVBtn.FillColor = Color.FromArgb(0, 110, 196);
+            ExportCSVBtn.ForeColor = Color.White;
+            ExportCSVBtn.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
+            ExportCSVBtn.Click += ExportCSVBtn_Click;
+            ExportCSVBtn.BorderColor = Color.Black;
+
+            exportScopeComboBox = new Guna2ComboBox();
+            exportScopeComboBox.Name = "exportScopeComboBox";
+            exportScopeComboBox.Items.AddRange(new object[] { "Export This Page", "Export Current Module" });
+            exportScopeComboBox.SelectedIndex = 0;
+            exportScopeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            exportScopeComboBox.Location = new Point(620, 11);
+            exportScopeComboBox.Size = new Size(150, 35);
+            exportScopeComboBox.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
+            exportScopeComboBox.FillColor = Color.White;
+            exportScopeComboBox.ForeColor = Color.FromArgb(29, 28, 35);
+            exportScopeComboBox.ItemHeight = 30;
+            exportScopeComboBox.BorderRadius = 8;
+            exportScopeComboBox.BorderThickness = 1;
+            exportScopeComboBox.BorderColor = Color.LightGray;
+            exportScopeComboBox.DrawMode = DrawMode.OwnerDrawFixed;
+
+            this.Controls.Add(exportScopeComboBox);
+            this.Controls.Add(ExportCSVBtn);
+            exportScopeComboBox.BringToFront();
+            ExportCSVBtn.BringToFront();
         }
 
         private void HidePaginationControls()
@@ -187,6 +228,54 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         public void RefreshReport()
         {
             LoadDeliveryReportData();
+        }
+
+        private void ExportCSVBtn_Click(object sender, EventArgs e)
+        {
+            bool exportModule = exportScopeComboBox != null && exportScopeComboBox.SelectedIndex == 1;
+
+            ReportTable report;
+            if (exportModule)
+            {
+                report = BuildFullReportForExport();
+            }
+            else
+            {
+                report = BuildCurrentPageReportForExport();
+            }
+
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            bool exported = ReportCsvExporter2.ExportReportTable(report);
+            if (exported)
+            {
+                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private ReportTable BuildCurrentPageReportForExport()
+        {
+            DataTable currentPageData = GetCurrentPageData();
+            if (currentPageData == null || currentPageData.Rows.Count == 0)
+            {
+                return null;
+            }
+
+            return ReportTableFactory.FromDataTable(currentPageData, "Deliveries Summary Report", "Current page");
+        }
+
+        private ReportTable BuildFullReportForExport()
+        {
+            if (deliveriesDataTable == null || deliveriesDataTable.Rows.Count == 0)
+            {
+                return null;
+            }
+
+            return ReportTableFactory.FromDataTable(deliveriesDataTable, "Deliveries Summary Report", "All deliveries");
         }
 
         // Optional: Add filter functionality if needed
