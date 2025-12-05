@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Customers_Report;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Supplier_Reports;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
@@ -20,31 +13,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         public SupplierReportsPanel()
         {
             InitializeComponent();
-            this.Load += SupplierReportsPanel_load;
+            this.Load += SupplierReportsPanel_Load;
 
-            ExportPDFBtn.ButtonName = "Export CSV";
-            ExportPDFBtn.Click += ExportPDFBtn_Click;
+            ExportCSVBtn.ButtonName = "Export CSV";
+            ExportCSVBtn.Click += ExportCSVBtn_Click;
         }
 
-        private Guna.UI2.WinForms.Guna2ComboBox exportScopeComboBox;
-
-        private void guna2Button5_Click(object sender, EventArgs e)
+        private void SupplierReportsPanel_Load(object sender, EventArgs e)
         {
-            //Page 1
-            ShowPage(1);
+            ShowPage(currentPage);
+            UpdatePaginationButtons();
         }
 
-        private void guna2Button2_Click(object sender, EventArgs e)
-        {
-            //Page 2
-            ShowPage(2);
-        }
-
-        private void guna2Button1_Click(object sender, EventArgs e)
-        {
-            //Page 3
-            ShowPage(3);
-        }
+        private void guna2Button5_Click(object sender, EventArgs e) => ShowPage(1); // page 1
+        private void guna2Button2_Click(object sender, EventArgs e) => ShowPage(2); // page 2
+        private void guna2Button1_Click(object sender, EventArgs e) => ShowPage(3); // page 3
 
         private void guna2Button6_Click(object sender, EventArgs e) // "<"
         {
@@ -67,8 +50,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void ShowPage(int page)
         {
             panel1.Controls.Clear();
-            UserControl pageControl = CreatePageControl(page);
 
+            UserControl pageControl = CreatePageControl(page);
             if (pageControl != null)
             {
                 pageControl.Dock = DockStyle.Fill;
@@ -76,24 +59,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             }
 
             currentPage = page;
+            UpdatePaginationButtons();
         }
 
-        private void SupplierReportsPanel_load(object sender, EventArgs e)
+        private UserControl CreatePageControl(int page)
         {
-            ShowPage(currentPage);
-        }
-
-        private void mainButton2_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ExportPDFBtn_Click(object sender, EventArgs e)
-        {
-            if (panel1.Controls.Count == 0)
+            // ✅ CHANGE THESE if your class names differ
+            switch (page)
             {
-                return;
+                case 1: return new SupplierPage1();
+                case 2: return new SupplierPage2();
+                case 3: return new SupplierPage3();
+                default: return null;
             }
+        }
+
+        private void UpdatePaginationButtons()
+        {
+            guna2Button6.Enabled = currentPage > 1;
+            guna2Button4.Enabled = currentPage < totalPages;
+        }
+
+        private void ExportCSVBtn_Click(object sender, EventArgs e)
+        {
+            if (panel1.Controls.Count == 0) return;
 
             var exportable = panel1.Controls[0] as IReportExportable;
             if (exportable == null)

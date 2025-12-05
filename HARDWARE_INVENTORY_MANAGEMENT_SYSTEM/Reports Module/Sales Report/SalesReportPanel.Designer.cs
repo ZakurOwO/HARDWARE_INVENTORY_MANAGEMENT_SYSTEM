@@ -1,6 +1,6 @@
 ﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
-    partial class SalesPage
+    partial class SalesReportPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -36,9 +36,6 @@
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
-            this.ExportPDFBtn = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButton();
-            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
-            this.mainButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButton();
             this.SuspendLayout();
             // 
             // label1
@@ -165,41 +162,11 @@
             this.guna2Button2.Text = "2";
             this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
             // 
-            // ExportPDFBtn
-            // 
-            this.ExportPDFBtn.ButtonName = "Export CSV";
-            this.ExportPDFBtn.Location = new System.Drawing.Point(632, 7);
-            this.ExportPDFBtn.Margin = new System.Windows.Forms.Padding(4);
-            this.ExportPDFBtn.Name = "ExportPDFBtn";
-            this.ExportPDFBtn.Size = new System.Drawing.Size(141, 44);
-            this.ExportPDFBtn.TabIndex = 33;
-            // 
-            // inventoryFilter_Button1
-            // 
-            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(522, 8);
-            this.inventoryFilter_Button1.Margin = new System.Windows.Forms.Padding(4);
-            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
-            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
-            this.inventoryFilter_Button1.TabIndex = 32;
-            // 
-            // mainButton1
-            // 
-            this.mainButton1.ButtonName = "Generate Report";
-            this.mainButton1.Location = new System.Drawing.Point(781, 7);
-            this.mainButton1.Margin = new System.Windows.Forms.Padding(4);
-            this.mainButton1.Name = "mainButton1";
-            this.mainButton1.Size = new System.Drawing.Size(141, 44);
-            this.mainButton1.TabIndex = 31;
-            // 
-            // SalesPage
+            // SalesReportPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.ExportPDFBtn);
-            this.Controls.Add(this.inventoryFilter_Button1);
-            this.Controls.Add(this.mainButton1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.guna2Button5);
             this.Controls.Add(this.guna2Button6);
@@ -208,7 +175,7 @@
             this.Controls.Add(this.guna2Button2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-            this.Name = "SalesPage";
+            this.Name = "SalesReportPanel";
             this.Size = new System.Drawing.Size(937, 570);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -224,8 +191,5 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button4;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
-        private UserControlFiles.MainButton ExportPDFBtn;
-        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
-        private UserControlFiles.MainButton mainButton1;
     }
 }

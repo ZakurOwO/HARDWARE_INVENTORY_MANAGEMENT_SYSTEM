@@ -35,8 +35,6 @@
             this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
-            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
-            this.mainButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButton();
             this.SuspendLayout();
             // 
             // label1
@@ -144,31 +142,11 @@
             this.guna2Button2.Text = "2";
             this.guna2Button2.Visible = false;
             // 
-            // inventoryFilter_Button1
-            // 
-            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(524, 8);
-            this.inventoryFilter_Button1.Margin = new System.Windows.Forms.Padding(4);
-            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
-            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
-            this.inventoryFilter_Button1.TabIndex = 35;
-            // 
-            // mainButton1
-            // 
-            this.mainButton1.ButtonName = "Generate Report";
-            this.mainButton1.Location = new System.Drawing.Point(783, 7);
-            this.mainButton1.Margin = new System.Windows.Forms.Padding(4);
-            this.mainButton1.Name = "mainButton1";
-            this.mainButton1.Size = new System.Drawing.Size(141, 44);
-            this.mainButton1.TabIndex = 34;
-            // 
             // DeliveriesReportPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.inventoryFilter_Button1);
-            this.Controls.Add(this.mainButton1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.guna2Button5);
             this.Controls.Add(this.guna2Button6);
@@ -191,7 +169,5 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button6;
         private Guna.UI2.WinForms.Guna2Button guna2Button4;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
-        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
-        private UserControlFiles.MainButton mainButton1;
     }
 }

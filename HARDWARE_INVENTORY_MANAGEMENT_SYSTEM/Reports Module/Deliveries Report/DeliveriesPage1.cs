@@ -21,7 +21,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
 
             // Initialize on load
             this.Load += DeliveriesPage1_Load;
-            ExportPDFBtn.Text = "Export CSV";
+            ExportCSVBtn.Text = "Export CSV";
            
         }
 
@@ -108,36 +108,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
             }
         }
 
-        //private void BtnExportPdf_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        var table = deliveriesDataTable ?? dgvCurrentStockReport.DataSource as DataTable;
-        //        if (table == null || table.Rows.Count == 0)
-        //        {
-        //            MessageBox.Show("No data available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //            return;
-        //        }
-
-        //        var exportData = table.Rows.Cast<DataRow>().Select(row => new DeliverySummaryReportModel
-        //        {
-        //            DeliveryDate = DateTime.TryParse(row["DeliveryDate"]?.ToString(), out DateTime parsedDate) ? parsedDate : DateTime.MinValue,
-        //            Status = row["Status"]?.ToString() ?? string.Empty,
-        //            DeliveryCount = 1,
-        //            TotalItems = int.TryParse(row["QuantityItems"]?.ToString(), out int qty) ? qty : 0
-        //        }).ToList();
-
-        //        bool exported = ReportPdfExporter.ExportDeliverySummary(exportData, "Deliveries Summary Report", null, null);
-        //        if (exported)
-        //        {
-        //            MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Failed to export report: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
+     
 
         private void LoadAllData()
         {

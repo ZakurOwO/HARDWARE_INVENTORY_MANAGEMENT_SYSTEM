@@ -184,6 +184,7 @@
     <Compile Include="Audit Log\ClassComponent\AuditLogEntry.cs" />
     <Compile Include="Audit Log\ClassComponent\AuditLogManager.cs" />
     <Compile Include="Audit Log\ClassComponent\AuditModule.cs" />
+    <Compile Include="Class Components\ClassComponentTransaction\ReceiptModels.cs" />
     <Compile Include="Class Components\CurrentSession.cs" />
     <Compile Include="Pop Up Forms\Add New Form\AddNewUser_Form.cs">
       <SubType>UserControl</SubType>
@@ -520,6 +521,7 @@
     <Compile Include="MainDashBoard.Designer.cs">
       <DependentUpon>MainDashBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports Module\Reports\ReportTableCombiner.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -826,6 +828,12 @@
       <DependentUpon>Pagination.cs</DependentUpon>
     </Compile>
     <Compile Include="Class Components\ClassComponentTransaction\Product.cs" />
+    <Compile Include="Transactions Module\ReceiptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Transactions Module\ReceiptForm.Designer.cs">
+      <DependentUpon>ReceiptForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControlFiles\BlueAndWhite_Button.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1303,6 +1311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Transactions Module\General user control\Pagination.resx">
       <DependentUpon>Pagination.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Transactions Module\ReceiptForm.resx">
+      <DependentUpon>ReceiptForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControlFiles\BlueAndWhite_Button.resx">
       <DependentUpon>BlueAndWhite_Button.cs</DependentUpon>
