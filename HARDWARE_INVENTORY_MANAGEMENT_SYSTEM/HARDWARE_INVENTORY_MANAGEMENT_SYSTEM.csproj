@@ -591,6 +591,7 @@
       <DependentUpon>InventoryPage4.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports Module\Reports\ReportCsvExporter.cs" />
+    <Compile Include="Reports Module\Reports\ReportCsvExporter2.cs" />
     <Compile Include="Reports Module\Reports\ReportQueries.cs" />
     <Compile Include="Reports Module\Reports\IReportExportable.cs" />
     <Compile Include="Reports Module\Reports\ReportTableFactory.cs" />
