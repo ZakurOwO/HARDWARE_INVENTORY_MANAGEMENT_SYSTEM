@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 {
@@ -205,6 +206,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
                 PeriodCount = data.Count,
                 IsMonthlyView = showMonthlyView
             };
+        }
+
+        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var data = dgvCurrentStockReport.DataSource as List<SalesSummaryReport>;
+                if (data == null || data.Count == 0)
+                {
+                    MessageBox.Show("No data available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                string title = showMonthlyView ? "Monthly Sales Summary Report" : "Daily Sales Summary Report";
+                bool exported = ReportPdfExporter.ExportSalesSummary(data, title, filterStartDate, filterEndDate);
+                if (exported)
+                {
+                    MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to export report: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 
