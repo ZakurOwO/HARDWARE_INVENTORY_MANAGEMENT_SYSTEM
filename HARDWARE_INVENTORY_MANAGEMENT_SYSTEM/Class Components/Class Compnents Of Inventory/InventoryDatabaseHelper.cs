@@ -52,11 +52,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             string imageFileName,
             int reorderPoint,
             bool active,
+            decimal sellingPrice,
+            string manualSku,
             out string productId,
             out string sku)
         {
             // Generate SKU automatically
-            sku = GenerateSKU(productName, categoryId);
+            sku = !string.IsNullOrWhiteSpace(manualSku)
+                ? manualSku.Trim()
+                : GenerateSKU(productName, categoryId);
             productId = null;
 
             using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
@@ -65,11 +69,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                 string query = @"
                     INSERT INTO Products
                         (product_name, SKU, description, category_id, unit_id,
-                         current_stock, image_path, reorder_point, active)
+                         current_stock, image_path, reorder_point, active, SellingPrice)
                     OUTPUT inserted.ProductID
                     VALUES
                         (@productName, @sku, @description, @categoryId, @unitId,
-                         @currentStock, @imagePath, @reorderPoint, @active)";
+                         @currentStock, @imagePath, @reorderPoint, @active, @sellingPrice)";
 
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
@@ -82,6 +86,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                     cmd.Parameters.AddWithValue("@imagePath", imageFileName ?? string.Empty);
                     cmd.Parameters.AddWithValue("@reorderPoint", reorderPoint);
                     cmd.Parameters.AddWithValue("@active", active);
+                    cmd.Parameters.AddWithValue("@sellingPrice", sellingPrice);
 
                     var result = cmd.ExecuteScalar();
                     productId = result?.ToString();

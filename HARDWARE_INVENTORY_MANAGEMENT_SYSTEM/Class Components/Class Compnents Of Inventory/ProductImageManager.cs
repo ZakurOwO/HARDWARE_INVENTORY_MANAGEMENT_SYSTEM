@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
@@ -10,44 +11,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
     {
         public static Image GetProductImage(string imageName)
         {
-            try
+            Image productImage = ImageService.GetImage(imageName, ImageCategory.Product);
+            if (productImage != null)
             {
-                if (string.IsNullOrWhiteSpace(imageName))
-                {
-                    return CreateDefaultImage();
-                }
-
-                // Try to fetch the image directly using the key as stored in the database
-                object resourceImage = Resources.ResourceManager.GetObject(imageName);
-
-                // If not found, try again without the file extension to cover both naming styles
-                if (resourceImage == null)
-                {
-                    string resourceKey = Path.GetFileNameWithoutExtension(imageName);
-                    resourceImage = Resources.ResourceManager.GetObject(resourceKey);
-                }
-
-                if (resourceImage is Image foundImage)
-                {
-                    return ResizeImage(foundImage, 50, 50);
-                }
-
-                return CreateDefaultImage();
+                return productImage;
             }
-            catch
-            {
-                return CreateDefaultImage();
-            }
-        }
 
-        private static Image ResizeImage(Image image, int width, int height)
-        {
-            Bitmap resizedImage = new Bitmap(width, height);
-            using (Graphics g = Graphics.FromImage(resizedImage))
-            {
-                g.DrawImage(image, 0, 0, width, height);
-            }
-            return resizedImage;
+            return CreateDefaultImage();
         }
 
         private static Image CreateDefaultImage()
