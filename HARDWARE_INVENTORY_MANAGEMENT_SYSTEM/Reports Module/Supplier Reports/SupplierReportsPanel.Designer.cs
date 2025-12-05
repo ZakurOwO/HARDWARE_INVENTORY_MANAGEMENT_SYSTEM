@@ -185,7 +185,7 @@
             // 
             // ExportPDFBtn
             // 
-            this.ExportPDFBtn.ButtonName = "Export PDF";
+            this.ExportPDFBtn.ButtonName = "Export CSV";
             this.ExportPDFBtn.Location = new System.Drawing.Point(614, 11);
             this.ExportPDFBtn.Margin = new System.Windows.Forms.Padding(4);
             this.ExportPDFBtn.Name = "ExportPDFBtn";

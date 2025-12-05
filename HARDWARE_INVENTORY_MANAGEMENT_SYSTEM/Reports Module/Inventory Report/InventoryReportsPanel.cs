@@ -21,9 +21,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             InitializeComponent();
             this.Load += InventoryReportsPanel_Load;
 
-            CreateExportPdfButton(); 
+            CreateExportPdfButton();
+            CreateExportScopeComboBox();
         }
         private Guna.UI2.WinForms.Guna2Button ExportPDFBtn;
+        private Guna.UI2.WinForms.Guna2ComboBox exportScopeComboBox;
 
         private void CreateExportPdfButton()
         {
@@ -31,7 +33,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
             // Similar properties to your existing Guna button
             ExportPDFBtn.Name = "ExportPDFBtn";
-            ExportPDFBtn.Text = "Export PDF";
+            ExportPDFBtn.Text = "Export CSV";
 
             ExportPDFBtn.Location = new Point(631, 7);
             ExportPDFBtn.Size = new Size(135, 35);
@@ -64,6 +66,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             // headerPanel.Controls.Add(ExportPDFBtn);
 
             ExportPDFBtn.BringToFront();
+        }
+
+        private void CreateExportScopeComboBox()
+        {
+            exportScopeComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
+            exportScopeComboBox.Name = "exportScopeComboBox";
+            exportScopeComboBox.Items.AddRange(new object[] { "Export This Page", "Export Current Module" });
+            exportScopeComboBox.SelectedIndex = 0;
+            exportScopeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            exportScopeComboBox.Location = new Point(470, 7);
+            exportScopeComboBox.Size = new Size(150, 35);
+            exportScopeComboBox.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
+            exportScopeComboBox.FillColor = Color.White;
+            exportScopeComboBox.ForeColor = Color.FromArgb(29, 28, 35);
+            exportScopeComboBox.ItemHeight = 30;
+            exportScopeComboBox.BorderRadius = 8;
+            exportScopeComboBox.BorderThickness = 1;
+            exportScopeComboBox.BorderColor = Color.LightGray;
+            exportScopeComboBox.DrawMode = DrawMode.OwnerDrawFixed;
+
+            this.Controls.Add(exportScopeComboBox);
+            exportScopeComboBox.BringToFront();
         }
 
 
@@ -125,16 +149,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             switch (page)
             {
                 case 1:
-                    pageControl = new InventoryPage1();
+                    pageControl = CreatePageControl(1);
                     break;
                 case 2:
-                    pageControl = new InventoryPage2();
+                    pageControl = CreatePageControl(2);
                     break;
                 case 3:
-                    pageControl = new InventoryPage3();
+                    pageControl = CreatePageControl(3);
                     break;
                 case 4:
-                    pageControl = new InventoryPage4();
+                    pageControl = CreatePageControl(4);
                     break;
             }
 
@@ -236,8 +260,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 return;
             }
 
+            bool exportModule = exportScopeComboBox != null && exportScopeComboBox.SelectedIndex == 1;
+
             Cursor.Current = Cursors.WaitCursor;
-            var report = exportable.BuildReportForExport();
+            var report = exportModule ? BuildModuleReportForExport() : exportable.BuildReportForExport();
             Cursor.Current = Cursors.Default;
 
             if (report == null || report.Rows == null || report.Rows.Count == 0)
@@ -247,23 +273,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 return;
             }
 
-            using (var sfd = new SaveFileDialog())
+            Cursor.Current = Cursors.WaitCursor;
+            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
+            Cursor.Current = Cursors.Default;
+
+            if (exported)
             {
-                sfd.Filter = "PDF Files (*.pdf)|*.pdf";
-                sfd.Title = "Save Report as PDF";
-                sfd.FileName = (report.Title ?? "Report") + ".pdf";
-
-                if (sfd.ShowDialog() != DialogResult.OK) return;
-
-                Cursor.Current = Cursors.WaitCursor;
-                bool exported = ReportPdfExporter1.ExportReportTableToPath(report, sfd.FileName);
-                Cursor.Current = Cursors.Default;
-
-                if (exported)
-                {
-                    MessageBox.Show("Report exported to PDF successfully.", "Export",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                MessageBox.Show("Report exported to CSV successfully.", "Export",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -277,6 +294,50 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void mainButton1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private UserControl CreatePageControl(int page)
+        {
+            switch (page)
+            {
+                case 1:
+                    return new InventoryPage1();
+                case 2:
+                    return new InventoryPage2();
+                case 3:
+                    return new InventoryPage3();
+                case 4:
+                    return new InventoryPage4();
+                default:
+                    return null;
+            }
+        }
+
+        private ReportTable BuildModuleReportForExport()
+        {
+            var reports = new List<ReportTable>();
+            for (int page = 1; page <= totalPages; page++)
+            {
+                var control = CreatePageControl(page) as IReportExportable;
+                if (control == null)
+                {
+                    continue;
+                }
+
+                var report = control.BuildReportForExport();
+                if (report != null && report.Rows != null && report.Rows.Count > 0)
+                {
+                    reports.Add(report);
+                }
+            }
+
+            if (reports.Count == 0)
+            {
+                return null;
+            }
+
+            string subtitle = "Combined export generated on " + DateTime.Now.ToString("g");
+            return ReportTableCombiner.BuildModuleReport("Inventory Module Reports", subtitle, reports);
         }
     }
 }

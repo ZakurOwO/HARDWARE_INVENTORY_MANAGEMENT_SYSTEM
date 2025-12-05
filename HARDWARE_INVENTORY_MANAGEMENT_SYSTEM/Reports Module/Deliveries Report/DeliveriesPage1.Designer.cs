@@ -136,7 +136,7 @@
             this.ExportPDFBtn.Name = "ExportPDFBtn";
             this.ExportPDFBtn.Size = new System.Drawing.Size(150, 30);
             this.ExportPDFBtn.TabIndex = 3;
-            this.ExportPDFBtn.Text = "Export PDF";
+            this.ExportPDFBtn.Text = "Export CSV";
             this.ExportPDFBtn.UseVisualStyleBackColor = false;
           
             //

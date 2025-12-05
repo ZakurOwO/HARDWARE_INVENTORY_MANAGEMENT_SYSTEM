@@ -588,7 +588,8 @@
     <Compile Include="Reports Module\Inventory Report\InventoryPage4.Designer.cs">
       <DependentUpon>InventoryPage4.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports Module\Reports\ReportPdfExporter1.cs" />
+    <Compile Include="Reports Module\Reports\ReportTableCombiner.cs" />
+    <Compile Include="Reports Module\Reports\ReportCsvExporter.cs" />
     <Compile Include="Reports Module\Reports\ReportQueries.cs" />
     <Compile Include="Reports Module\Reports\IReportExportable.cs" />
     <Compile Include="Reports Module\Reports\ReportTableFactory.cs" />
