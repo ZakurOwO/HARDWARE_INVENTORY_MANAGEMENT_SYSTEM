@@ -20,7 +20,52 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             InitializeComponent();
             this.Load += InventoryReportsPanel_Load;
+
+            CreateExportPdfButton(); 
         }
+        private Guna.UI2.WinForms.Guna2Button ExportPDFBtn;
+
+        private void CreateExportPdfButton()
+        {
+            ExportPDFBtn = new Guna.UI2.WinForms.Guna2Button();
+
+            // Similar properties to your existing Guna button
+            ExportPDFBtn.Name = "ExportPDFBtn";
+            ExportPDFBtn.Text = "Export PDF";
+
+            ExportPDFBtn.Location = new Point(631, 7);
+            ExportPDFBtn.Size = new Size(135, 35);
+
+            ExportPDFBtn.Animated = false;
+            ExportPDFBtn.AutoRoundedCorners = false;
+            ExportPDFBtn.BorderRadius = 8;
+            ExportPDFBtn.BorderThickness = 0;
+            ExportPDFBtn.BorderColor = Color.Black; // (your screenshot shows BorderColor black)
+            ExportPDFBtn.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+
+            ExportPDFBtn.FillColor = Color.FromArgb(0, 110, 196);
+            ExportPDFBtn.ForeColor = Color.White;
+
+            ExportPDFBtn.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
+            ExportPDFBtn.TextAlign = HorizontalAlignment.Center;
+
+            ExportPDFBtn.UseTransparentBackground = false;
+            ExportPDFBtn.Visible = true;
+            ExportPDFBtn.Enabled = true;
+
+            // Hook the click event to your export logic
+            ExportPDFBtn.Click += ExportPDFBtn_Click;
+
+            // Add it to the panel (IMPORTANT: choose the correct container)
+            // If your page navigation buttons are on the same UserControl surface:
+            this.Controls.Add(ExportPDFBtn);
+
+            // If you have a top bar panel (like headerPanel), use that instead:
+            // headerPanel.Controls.Add(ExportPDFBtn);
+
+            ExportPDFBtn.BringToFront();
+        }
+
 
         private void InventoryReportsPanel_Load(object sender, EventArgs e)
         {
