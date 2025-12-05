@@ -1,11 +1,13 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,12 +19,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
     public partial class AddNewItem_Form : UserControl
     {
         private string imageFilePath = "";
+        private string savedImagePath = string.Empty;
+        private PictureBox imagePreviewBox;
 
         public AddNewItem_Form()
         {
             InitializeComponent();
             LoadCategoriesAndUnits();
             InitializeForm();
+            InitializeImagePreview();
 
             // Enable mouse wheel scrolling
             this.AutoScroll = true;
@@ -88,6 +93,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             nudCostPrice.Value = 0;
             nudSellingPrice.Value = 0;
             ExpirationDataComboBox.Value = DateTime.Now.AddYears(1);
+            UpdateImagePreview(null);
+        }
+
+        private void InitializeImagePreview()
+        {
+            imagePreviewBox = new PictureBox();
+            imagePreviewBox.Size = new Size(180, 120);
+            imagePreviewBox.Location = new Point(329, 410);
+            imagePreviewBox.BorderStyle = BorderStyle.FixedSingle;
+            imagePreviewBox.SizeMode = PictureBoxSizeMode.Zoom;
+            imagePreviewBox.BackColor = Color.White;
+            imagePreviewBox.Margin = new Padding(3, 4, 3, 4);
+
+            if (panel1 != null)
+            {
+                panel1.Controls.Add(imagePreviewBox);
+                imagePreviewBox.BringToFront();
+            }
+
+            UpdateImagePreview(null);
         }
 
         private void closeButton1_Click(object sender, EventArgs e)
@@ -98,27 +123,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void tbxImageUpload_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            try
             {
-                ofd.Filter = "Images|*.png;*.jpg;*.jpeg;*.gif;*.bmp";
-                ofd.Title = "Select Product Image";
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    imageFilePath = ofd.FileName;
-                    ImageUploadBox.Text = Path.GetFileName(ofd.FileName);
+                string suggestedName = !string.IsNullOrWhiteSpace(SKUtxtbox.Text)
+                    ? SKUtxtbox.Text.Trim()
+                    : ProductNametxtbox.Text.Trim();
 
-                    // Show preview (optional)
-                    try
-                    {
-                        // If you have a PictureBox for preview, uncomment this:
-                        // pictureBoxPreview.Image = Image.FromFile(imageFilePath);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error loading image preview: {ex.Message}",
-                                      "Image Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                string storedPath;
+                bool saved = ImageService.TrySelectAndSaveImage(
+                    ImageCategory.Product,
+                    suggestedName,
+                    out storedPath,
+                    out imageFilePath);
+
+                if (saved)
+                {
+                    savedImagePath = storedPath;
+                    ImageUploadBox.Text = Path.GetFileName(storedPath);
+                    UpdateImagePreview(savedImagePath);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading image preview: {ex.Message}",
+                              "Image Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -177,6 +205,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 return false;
             }
 
+            decimal sellingPrice;
+            if (!TryParseSellingPrice(out sellingPrice) || sellingPrice < 0)
+            {
+                MessageBox.Show("Please enter a valid selling price.", "Validation Error",
+                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                nudSellingPrice.Focus();
+                return false;
+            }
+
             // Check for duplicate product name
             if (InventoryDatabaseHelper.IsProductNameExists(ProductNametxtbox.Text.Trim()))
             {
@@ -201,36 +238,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 int currentStock = (int)nudCurrentStock.Value;
                 int reorderPoint = (int)nudMinimumStock.Value;
                 bool active = StatusComboBox.SelectedItem?.ToString() == "Active";
+                decimal sellingPrice;
 
-                // SIMPLE IMAGE HANDLING
-                string imageFileName = "";
-                if (!string.IsNullOrEmpty(imageFilePath))
+                if (!TryParseSellingPrice(out sellingPrice))
                 {
-                    // Just use the original filename
-                    imageFileName = Path.GetFileName(imageFilePath);
-
-                    // Create ImageInventory folder if it doesn't exist
-                    string imageFolder = Path.Combine(Application.StartupPath, "ImageInventory");
-                    if (!Directory.Exists(imageFolder))
-                    {
-                        Directory.CreateDirectory(imageFolder);
-                    }
-
-                    // Copy image to ImageInventory folder
-                    string destPath = Path.Combine(imageFolder, imageFileName);
-                    File.Copy(imageFilePath, destPath, true);
-
-                    Console.WriteLine($"Image copied to: {destPath}");
+                    MessageBox.Show("Invalid selling price. Please enter a numeric value.", "Validation Error",
+                                  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
+
+                string imageFileName = savedImagePath ?? string.Empty;
 
                 bool success = InventoryDatabaseHelper.AddProduct(
                     productName, description, categoryId, unitId,
                     currentStock, imageFileName, reorderPoint, active,
+                    sellingPrice, SKUtxtbox.Text.Trim(),
                     out string productId, out string generatedSku
                 );
 
                 if (success)
                 {
+                    SKUtxtbox.Text = generatedSku;
                     TryLogInventoryCreate(productId, productName, generatedSku, categoryId, unitId, currentStock, reorderPoint, active);
 
                     MessageBox.Show("Product added successfully!", "Success",
@@ -267,6 +295,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             nudSellingPrice.Value = 0;
             ExpirationDataComboBox.Value = DateTime.Now.AddYears(1);
             imageFilePath = "";
+            savedImagePath = string.Empty;
+            UpdateImagePreview(null);
             ProductNametxtbox.Focus();
         }
 
@@ -309,6 +339,64 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private void StatusComboBox_SelectedIndexChanged(object sender, EventArgs e) { }
         private void ExpirationDataComboBox_ValueChanged(object sender, EventArgs e) { }
         private void PrimarySupplierComboBox_SelectedIndexChanged(object sender, EventArgs e) { }
+
+        private bool TryParseSellingPrice(out decimal sellingPrice)
+        {
+            sellingPrice = 0m;
+            string rawInput = nudSellingPrice.Text;
+
+            if (string.IsNullOrWhiteSpace(rawInput))
+            {
+                rawInput = nudSellingPrice.Value.ToString();
+            }
+
+            if (string.IsNullOrWhiteSpace(rawInput))
+            {
+                return false;
+            }
+
+            string cleaned = rawInput.Trim();
+            cleaned = cleaned.Replace("₱", string.Empty);
+            cleaned = cleaned.Replace("PHP", string.Empty);
+            cleaned = cleaned.Replace("php", string.Empty);
+            cleaned = cleaned.Replace("Php", string.Empty);
+            cleaned = cleaned.Replace(",", string.Empty);
+
+            decimal parsedValue;
+            if (decimal.TryParse(cleaned, NumberStyles.Number | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out parsedValue))
+            {
+                sellingPrice = parsedValue;
+                return true;
+            }
+
+            if (decimal.TryParse(cleaned, NumberStyles.Number | NumberStyles.AllowDecimalPoint, CultureInfo.CurrentCulture, out parsedValue))
+            {
+                sellingPrice = parsedValue;
+                return true;
+            }
+
+            return false;
+        }
+
+        private void UpdateImagePreview(string imagePath)
+        {
+            if (imagePreviewBox == null)
+            {
+                return;
+            }
+
+            try
+            {
+                Image previewImage = ImageService.GetImage(imagePath, ImageCategory.Product);
+                imagePreviewBox.Image = previewImage;
+                imagePreviewBox.SizeMode = PictureBoxSizeMode.Zoom;
+                imagePreviewBox.BackColor = Color.White;
+            }
+            catch
+            {
+                imagePreviewBox.Image = null;
+            }
+        }
 
         private void closeButton1_Load(object sender, EventArgs e)
         {

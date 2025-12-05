@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
 {
@@ -14,27 +15,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
             return GetProductImage(imageFileName, 50, 50);
         }
 
-        // Get product image with custom dimensions - ADD THIS OVERLOAD
+        // Get product image with custom dimensions
         public static Image GetProductImage(string imageFileName, int width, int height)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(imageFileName))
-                {
-                    return CreateDefaultImage(width, height);
-                }
+                Image productImage = ImageService.GetImage(imageFileName, ImageCategory.Product);
 
-                object resourceImage = Resources.ResourceManager.GetObject(imageFileName);
-
-                if (resourceImage == null)
+                if (productImage != null)
                 {
-                    string resourceKey = Path.GetFileNameWithoutExtension(imageFileName);
-                    resourceImage = Resources.ResourceManager.GetObject(resourceKey);
-                }
-
-                if (resourceImage is Image foundImage)
-                {
-                    return ResizeImage(foundImage, width, height);
+                    return ResizeImage(productImage, width, height);
                 }
 
                 return CreateDefaultImage(width, height);
@@ -45,7 +35,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.ClasComponentsTransaction
             }
         }
 
-        // Rest of your existing methods remain the same...
         private static Image ResizeImage(Image image, int width, int height)
         {
             Bitmap resizedImage = new Bitmap(width, height);
