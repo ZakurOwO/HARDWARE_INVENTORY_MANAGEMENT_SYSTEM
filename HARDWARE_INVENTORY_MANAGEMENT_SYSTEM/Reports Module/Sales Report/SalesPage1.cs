@@ -17,7 +17,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
         private SalesReportDataAccess dataAccess;
         private DateTime? filterStartDate;
         private DateTime? filterEndDate;
-        private Button exportCsvButton;
+        private Button btnExportPdf;
         private List<SalesProductReport> currentData;
 
         public SalesPage1()
