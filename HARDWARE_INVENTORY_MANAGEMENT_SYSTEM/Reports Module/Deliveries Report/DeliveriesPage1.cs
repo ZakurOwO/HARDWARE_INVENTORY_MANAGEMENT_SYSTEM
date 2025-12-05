@@ -22,7 +22,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
             // Initialize on load
             this.Load += DeliveriesPage1_Load;
             ExportPDFBtn.Text = "Export CSV";
-            ExportPDFBtn.Click += ExportPDFBtn_Click;
+           
         }
 
         private void DeliveriesPage1_Load(object sender, EventArgs e)
@@ -90,28 +90,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
             }
         }
 
-        private void ExportPDFBtn_Click(object sender, EventArgs e)
-        {
-            var report = BuildReportForExport();
-            if (report == null || report.Rows == null || report.Rows.Count == 0)
-            {
-                Text = "Export CSV",
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                AutoSize = true,
-                BackColor = Color.FromArgb(76, 175, 80),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-            btnExportPdf.FlatAppearance.BorderSize = 0;
-            btnExportPdf.Location = new Point(this.Width - 180, 10);
-            btnExportPdf.Click += BtnExportBtn_Click;
-            this.Controls.Add(btnExportPdf);
-            btnExportPdf.BringToFront();
-            this.Resize += (s, e) =>
-            {
-                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
+        
 
         private void BtnExportBtn_Click(object sender, EventArgs e)
         {
