@@ -87,7 +87,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
         private static Table BuildTable(ReportTable report)
         {
-            int columnCount = report.Headers != null ? report.Headers.Count : 0;
+            int columnCount = Math.Max(report.Headers != null ? report.Headers.Count : 0, 1);
+            List<List<string>> normalizedRows = NormalizeRows(report.Rows, columnCount);
+
             Table table = new Table(columnCount)
                 .SetWidth(UnitValue.CreatePercentValue(100))
                 .SetMarginTop(10f);
@@ -105,12 +107,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 }
             }
 
-            if (report.Rows != null)
+            if (normalizedRows != null)
             {
-                for (int i = 0; i < report.Rows.Count; i++)
+                for (int i = 0; i < normalizedRows.Count; i++)
                 {
-                    List<string> row = report.Rows[i];
-                    for (int j = 0; j < row.Count; j++)
+                    List<string> row = normalizedRows[i];
+                    if (row == null)
+                    {
+                        continue;
+                    }
+
+                    for (int j = 0; j < columnCount; j++)
                     {
                         string value = row[j] ?? string.Empty;
                         Cell cell = new Cell()
@@ -122,6 +129,38 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             }
 
             return table;
+        }
+
+        private static List<List<string>> NormalizeRows(List<List<string>> rows, int columnCount)
+        {
+            List<List<string>> normalized = new List<List<string>>();
+
+            if (rows == null)
+            {
+                return normalized;
+            }
+
+            for (int i = 0; i < rows.Count; i++)
+            {
+                List<string> currentRow = rows[i] ?? new List<string>();
+                List<string> normalizedRow = new List<string>(columnCount);
+
+                for (int j = 0; j < columnCount; j++)
+                {
+                    if (j < currentRow.Count)
+                    {
+                        normalizedRow.Add(currentRow[j] ?? string.Empty);
+                    }
+                    else
+                    {
+                        normalizedRow.Add(string.Empty);
+                    }
+                }
+
+                normalized.Add(normalizedRow);
+            }
+
+            return normalized;
         }
 
         private static bool TryGetSavePath(string reportTitle, out string path)

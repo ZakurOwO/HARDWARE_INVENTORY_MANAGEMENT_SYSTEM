@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Customers_Report
 {
-    public partial class CustomersPage1 : UserControl
+    public partial class CustomersPage1 : UserControl, IReportExportable
     {
         private CustomerDataAccess customerData;
         private CustomerPaginationHelper paginationHelper;
@@ -52,6 +53,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Customers_Report
                 MessageBox.Show($"Error loading customer data: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public ReportTable BuildReportForExport()
+        {
+            DataTable dt = customersData;
+            return ReportTableFactory.FromDataTable(dt, "Customers Report", "Customer purchase summary");
         }
 
         public void RefreshAllData()
