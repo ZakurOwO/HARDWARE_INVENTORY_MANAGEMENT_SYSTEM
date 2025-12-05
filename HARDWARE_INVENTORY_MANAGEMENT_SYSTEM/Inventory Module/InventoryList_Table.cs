@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
@@ -61,12 +62,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             {
                 if (e.Value is string imageKey)
                 {
-                    e.Value = ProductImageManager.GetProductImage(imageKey);
+                    e.Value = ImageService.GetImage(imageKey, ImageCategory.Product);
                     e.FormattingApplied = true;
                 }
                 else if (e.Value == null)
                 {
-                    e.Value = ProductImageManager.GetProductImage(null);
+                    e.Value = ImageService.GetImage(null, ImageCategory.Product);
                     e.FormattingApplied = true;
                 }
             }
@@ -194,7 +195,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     string brand = row["brand"].ToString();
                     int.TryParse(row["ProductInternalID"].ToString(), out int productInternalId);
 
-                    Image productImage = ProductImageManager.GetProductImage(imagePath);
+                    Image productImage = ImageService.GetImage(imagePath, ImageCategory.Product);
                     Image adjustStockIcon = Properties.Resources.AdjustStock;
                     Image deactivateIcon = Properties.Resources.Deactivate_Circle1;
                     Image viewDetailsIcon = Properties.Resources.Group_10481;

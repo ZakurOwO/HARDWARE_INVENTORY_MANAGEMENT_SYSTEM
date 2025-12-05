@@ -9,6 +9,7 @@ using System.Text;
 using Guna.UI2.WinForms;
 using System.IO;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 {
@@ -369,20 +370,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries
 
         private void LoadVehicleImage(VehicleRecord vehicle, VehiclesInfoBox vehicleControl)
         {
-            if (!string.IsNullOrEmpty(vehicle.ImagePath))
+            try
             {
-                try
+                Image vehicleImage = ImageService.GetImage(vehicle.ImagePath, ImageCategory.Vehicle);
+                if (vehicleImage != null)
                 {
-                    var vehicleImage = VehicleImageManager.GetVehicleImage(vehicle.ImagePath);
-                    if (vehicleImage != null)
-                    {
-                        vehicleControl.Image = vehicleImage;
-                    }
+                    vehicleControl.Image = vehicleImage;
                 }
-                catch (Exception ex)
-                {
-                    // Image loading failed, control will use default image
-                }
+            }
+            catch (Exception ex)
+            {
+                // Image loading failed, control will use default image
             }
         }
 
