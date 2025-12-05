@@ -69,6 +69,47 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services
             return loadedImage;
         }
 
+        public static bool TrySelectAndSaveImage(ImageCategory category, string suggestedName, out string savedRelativePath, out string originalFilePath)
+        {
+            savedRelativePath = null;
+            originalFilePath = null;
+
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.gif;*.bmp;*.webp";
+                dialog.Title = "Select Image";
+
+                if (dialog.ShowDialog() != DialogResult.OK)
+                {
+                    return false;
+                }
+
+                originalFilePath = dialog.FileName;
+
+                string baseFolder = GetCategoryFolder(category, Application.StartupPath);
+                if (string.IsNullOrEmpty(baseFolder))
+                {
+                    baseFolder = Path.Combine(Application.StartupPath, "Images");
+                }
+
+                if (!Directory.Exists(baseFolder))
+                {
+                    Directory.CreateDirectory(baseFolder);
+                }
+
+                string extension = Path.GetExtension(dialog.FileName);
+                string sanitizedName = SanitizeFileName(string.IsNullOrWhiteSpace(suggestedName) ? "PRODUCT" : suggestedName);
+                string uniqueFileName = string.Format("{0}_{1:yyyyMMddHHmmssfff}{2}", sanitizedName, DateTime.Now, extension);
+                string destination = Path.Combine(baseFolder, uniqueFileName);
+
+                File.Copy(dialog.FileName, destination, true);
+
+                savedRelativePath = GetRelativePath(Application.StartupPath, destination);
+                ClearCache();
+                return true;
+            }
+        }
+
         public static string ResolvePath(string dbImagePath, ImageCategory category)
         {
             try
@@ -142,6 +183,60 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services
                 Cache.Clear();
                 Cache[PlaceholderKey] = GetPlaceholder();
             }
+        }
+
+        private static string GetRelativePath(string basePath, string fullPath)
+        {
+            try
+            {
+                Uri baseUri = new Uri(AddTrailingSlash(basePath));
+                Uri fullUri = new Uri(fullPath);
+                Uri relativeUri = baseUri.MakeRelativeUri(fullUri);
+                string relativePath = Uri.UnescapeDataString(relativeUri.ToString());
+                return relativePath.Replace('/', Path.DirectorySeparatorChar);
+            }
+            catch
+            {
+                return fullPath;
+            }
+        }
+
+        private static string AddTrailingSlash(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return path;
+            }
+
+            if (!path.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                return path + Path.DirectorySeparatorChar;
+            }
+
+            return path;
+        }
+
+        private static string SanitizeFileName(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return "FILE";
+            }
+
+            string sanitized = fileName.Trim();
+            foreach (char invalidChar in Path.GetInvalidFileNameChars())
+            {
+                sanitized = sanitized.Replace(invalidChar.ToString(), "_");
+            }
+
+            sanitized = sanitized.Replace(" ", "_");
+
+            if (sanitized.Length > 50)
+            {
+                sanitized = sanitized.Substring(0, 50);
+            }
+
+            return sanitized;
         }
 
         private static Image LoadImageSafely(string path)

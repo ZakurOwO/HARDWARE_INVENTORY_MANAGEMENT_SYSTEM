@@ -18,6 +18,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
     {
         NumericUpDown qtyUpDown = new NumericUpDown();
         private string connectionString;
+        private const decimal DefaultTaxRate = 0.12m;
 
         public AddedToCartTable()
         {
@@ -27,7 +28,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         }
 
 
-        public DialogResult ShowReceiptPreview(IWin32Window owner, decimal taxRate = 0.12m)
+        public DialogResult ShowReceiptPreview(IWin32Window owner, decimal taxRate = DefaultTaxRate)
         {
             var items = GetReceiptItems();
             if (items == null || items.Count == 0)
@@ -80,6 +81,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             priceColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             priceColumn.ReadOnly = true;
             dgvCartDetails.Columns.Add(priceColumn);
+
+            DataGridViewTextBoxColumn unitPriceRawColumn = new DataGridViewTextBoxColumn();
+            unitPriceRawColumn.Name = "UnitPriceRaw";
+            unitPriceRawColumn.HeaderText = "UnitPriceRaw";
+            unitPriceRawColumn.Visible = false;
+            unitPriceRawColumn.ValueType = typeof(decimal);
+            dgvCartDetails.Columns.Add(unitPriceRawColumn);
 
             // Delete Column
             DataGridViewImageColumn deleteColumn = new DataGridViewImageColumn();
@@ -217,24 +225,60 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             if (rowIndex >= 0 && rowIndex < dgvCartDetails.Rows.Count)
             {
                 var row = dgvCartDetails.Rows[rowIndex];
-                if (row.Cells["Quantity"].Value != null && row.Cells["Price"].Value != null)
+                if (row.Cells["Quantity"].Value != null)
                 {
                     int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
-                    string priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
-                    if (decimal.TryParse(priceText, out decimal price))
-                    {
-                        decimal total = quantity * price;
-                        // You can display this in another column if you add a "Total" column
-                    }
+                    decimal price = GetPriceFromRow(row);
+                    decimal total = quantity * price;
+                    // You can display this in another column if you add a "Total" column
                 }
             }
         }
         void UpdateTotals()
         {
             decimal subtotal = CalculateSubtotal();
-            decimal tax = CalculateTax(subtotal);
+            decimal tax = CalculateTax(DefaultTaxRate);
             decimal total = subtotal + tax;
 
+        }
+
+        private string FormatPrice(decimal price)
+        {
+            return string.Format("₱{0:N2}", price);
+        }
+
+        private decimal GetPriceFromRow(DataGridViewRow row)
+        {
+            try
+            {
+                object rawValue = row.Cells["UnitPriceRaw"].Value;
+                if (rawValue != null && rawValue != DBNull.Value)
+                {
+                    return Convert.ToDecimal(rawValue);
+                }
+
+                object priceCell = row.Cells["Price"].Value;
+                if (priceCell != null)
+                {
+                    string priceText = priceCell.ToString().Replace("₱", string.Empty).Replace(",", string.Empty).Trim();
+                    decimal parsed;
+                    if (decimal.TryParse(priceText, NumberStyles.Number | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out parsed))
+                    {
+                        return parsed;
+                    }
+
+                    if (decimal.TryParse(priceText, NumberStyles.Number | NumberStyles.AllowDecimalPoint, CultureInfo.CurrentCulture, out parsed))
+                    {
+                        return parsed;
+                    }
+                }
+            }
+            catch
+            {
+                // Ignore parsing errors and fall back to zero
+            }
+
+            return 0m;
         }
 
         private void DebugCartContents()
@@ -289,6 +333,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     // Item exists, update quantity
                     int currentQty = Convert.ToInt32(row.Cells["Quantity"].Value);
                     row.Cells["Quantity"].Value = currentQty + quantity;
+                    row.Cells["UnitPriceRaw"].Value = price;
                     UpdateTotals();
                     Console.WriteLine($"Updated existing item: {itemName}, new quantity: {currentQty + quantity}");
                     DebugCartContents(); // Debug
@@ -298,7 +343,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
             // Item doesn't exist, add new row
             Console.WriteLine($"Adding new item to cart: {itemName}");
-            dgvCartDetails.Rows.Add(itemName, quantity, $"₱{price:N2}");
+            int newRowIndex = dgvCartDetails.Rows.Add(itemName, quantity, FormatPrice(price));
+            DataGridViewRow newRow = dgvCartDetails.Rows[newRowIndex];
+            newRow.Cells["UnitPriceRaw"].Value = price;
             UpdateTotals();
 
             // Force UI refresh
@@ -450,26 +497,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             {
                 if (row.IsNewRow) continue;
 
-                if (row.Cells["Quantity"].Value != null && row.Cells["Price"].Value != null)
+                if (row.Cells["Quantity"].Value != null)
                 {
                     int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
-                    string priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
-                    if (decimal.TryParse(priceText, out decimal price))
-                    {
-                        subtotal += quantity * price;
-                    }
+                    decimal price = GetPriceFromRow(row);
+                    subtotal += quantity * price;
                 }
             }
             return subtotal;
         }
 
-        public decimal CalculateTax(decimal taxRate = 0.12m)
+        public decimal CalculateTax(decimal taxRate = DefaultTaxRate)
         {
             decimal subtotal = CalculateSubtotal();
             return subtotal * taxRate;
         }
 
-        public decimal CalculateTotal(decimal taxRate = 0.12m)
+        public decimal CalculateTotal(decimal taxRate = DefaultTaxRate)
         {
             return CalculateSubtotal() + CalculateTax(taxRate);
         }
@@ -496,19 +540,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 if (row.IsNewRow) continue;
 
                 if (row.Cells["ItemName"].Value != null &&
-                    row.Cells["Quantity"].Value != null &&
-                    row.Cells["Price"].Value != null)
+                    row.Cells["Quantity"].Value != null)
                 {
-                    string priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
-                    if (decimal.TryParse(priceText, out decimal price))
+                    decimal price = GetPriceFromRow(row);
+                    items.Add(new CartItem
                     {
-                        items.Add(new CartItem
-                        {
-                            Name = row.Cells["ItemName"].Value.ToString(),
-                            UnitPrice = price,
-                            Quantity = Convert.ToInt32(row.Cells["Quantity"].Value)
-                        });
-                    }
+                        Name = row.Cells["ItemName"].Value.ToString(),
+                        UnitPrice = price,
+                        Quantity = Convert.ToInt32(row.Cells["Quantity"].Value)
+                    });
                 }
             }
 
@@ -588,15 +628,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 string name = nameObj.ToString();
                 int qty = Convert.ToInt32(qtyObj);
 
-                // Price is stored in the grid like "₱{price:N2}" in AddItemToCart:contentReference[oaicite:4]{index=4}
-                string priceText = priceObj.ToString().Replace("₱", "").Replace(",", "").Trim();
-
-                decimal unitPrice;
-                if (!decimal.TryParse(priceText, NumberStyles.Number | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out unitPrice))
-                {
-                    // fallback parse
-                    decimal.TryParse(priceText, out unitPrice);
-                }
+                decimal unitPrice = GetPriceFromRow(row);
 
                 ReceiptItem ri = new ReceiptItem();
                 ri.ItemName = name;
