@@ -5,24 +5,28 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 {
-    public partial class SalesPage3 : UserControl
+    public partial class SalesPage3 : UserControl, IReportExportable
     {
         private SalesReportDataAccess dataAccess;
         private DateTime? filterStartDate;
         private DateTime? filterEndDate;
         private bool showMonthlyView = false; // false = daily, true = monthly
+        private List<SalesSummaryReport> currentData;
 
         public SalesPage3()
         {
             InitializeComponent();
             dataAccess = new SalesReportDataAccess();
             this.Load += SalesPage3_Load;
+            ExportPDFBtn.Text = "Export CSV";
+            ExportPDFBtn.Click += ExportPDFBtn_Click;
         }
 
         private void SalesPage3_Load(object sender, EventArgs e)
@@ -88,6 +92,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
                     Date.HeaderText = "Date";
                     Date.DefaultCellStyle.Format = "yyyy-MM-dd";
                 }
+
+                currentData = salesData;
 
                 // Bind to DataGridView
                 dgvCurrentStockReport.DataSource = null;
@@ -177,12 +183,80 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             LoadSalesData(filterStartDate, filterEndDate);
         }
 
+        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        {
+            var report = BuildReportForExport();
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
+            if (exported)
+            {
+                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         /// <summary>
         /// Get current displayed data for export
         /// </summary>
         public List<SalesSummaryReport> GetCurrentData()
         {
             return dgvCurrentStockReport.DataSource as List<SalesSummaryReport>;
+        }
+
+        public ReportTable BuildReportForExport()
+        {
+            var data = currentData ?? GetCurrentData();
+            if (data == null || data.Count == 0)
+            {
+                return null;
+            }
+
+            var report = new ReportTable
+            {
+                Title = showMonthlyView ? "Monthly Sales Summary" : "Daily Sales Summary",
+                Subtitle = GetDateRangeSubtitle() + " | View: " + (showMonthlyView ? "Monthly" : "Daily")
+            };
+
+            report.Headers.AddRange(new[]
+            {
+                showMonthlyView ? "Month" : "Date",
+                "Transactions",
+                "Quantity Sold",
+                "Total Sales",
+                "Total Profit",
+                "Avg Sale / Transaction"
+            });
+
+            foreach (var item in data)
+            {
+                report.Rows.Add(new List<string>
+                {
+                    item.Date.ToString(showMonthlyView ? "yyyy-MM" : "yyyy-MM-dd"),
+                    item.NoOfTransactions.ToString(CultureInfo.InvariantCulture),
+                    item.TotalQuantitySold.ToString(CultureInfo.InvariantCulture),
+                    item.TotalSales.ToString("N2", CultureInfo.InvariantCulture),
+                    item.TotalProfit.ToString("N2", CultureInfo.InvariantCulture),
+                    item.AvgSalePerTransaction.ToString("N2", CultureInfo.InvariantCulture)
+                });
+            }
+
+            return report;
+        }
+
+        private string GetDateRangeSubtitle()
+        {
+            if (!filterStartDate.HasValue && !filterEndDate.HasValue)
+            {
+                return "All Dates";
+            }
+
+            string start = filterStartDate.HasValue ? filterStartDate.Value.ToString("yyyy-MM-dd") : "...";
+            string end = filterEndDate.HasValue ? filterEndDate.Value.ToString("yyyy-MM-dd") : "...";
+            return "Date Range: " + start + " - " + end;
         }
 
         /// <summary>

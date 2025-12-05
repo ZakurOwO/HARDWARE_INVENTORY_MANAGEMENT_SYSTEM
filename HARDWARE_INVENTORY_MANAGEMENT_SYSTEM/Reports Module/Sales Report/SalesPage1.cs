@@ -5,18 +5,20 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 {
-    public partial class SalesPage1 : UserControl
+    public partial class SalesPage1 : UserControl, IReportExportable
     {
         private SalesReportDataAccess dataAccess;
         private DateTime? filterStartDate;
         private DateTime? filterEndDate;
-        private Button btnExportPdf;
+        private Button exportCsvButton;
+        private List<SalesProductReport> currentData;
 
         public SalesPage1()
         {
@@ -124,6 +126,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             {
                 // Get sales data from database
                 var salesData = dataAccess.GetSalesByProduct(startDate, endDate);
+                currentData = salesData;
 
                 // Bind to DataGridView
                 dgvCurrentStockReport.DataSource = null;
@@ -161,24 +164,40 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 
         private void ConfigureExportButton()
         {
-            btnExportPdf = new Button
+            exportCsvButton = new Button
             {
-                Text = "Export to PDF",
+                Text = "Export CSV",
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 AutoSize = true,
                 BackColor = Color.FromArgb(76, 175, 80),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
             };
-            btnExportPdf.FlatAppearance.BorderSize = 0;
-            btnExportPdf.Location = new Point(this.Width - 180, 10);
-         //   btnExportPdf.Click += BtnExportPdf_Click;
-            this.Controls.Add(btnExportPdf);
-            btnExportPdf.BringToFront();
+            exportCsvButton.FlatAppearance.BorderSize = 0;
+            exportCsvButton.Location = new Point(this.Width - 180, 10);
+            exportCsvButton.Click += ExportCsvButton_Click;
+            this.Controls.Add(exportCsvButton);
+            exportCsvButton.BringToFront();
             this.Resize += (s, e) =>
             {
-                btnExportPdf.Location = new Point(this.Width - btnExportPdf.Width - 20, btnExportPdf.Location.Y);
+                exportCsvButton.Location = new Point(this.Width - exportCsvButton.Width - 20, exportCsvButton.Location.Y);
             };
+        }
+
+        private void ExportCsvButton_Click(object sender, EventArgs e)
+        {
+            var report = BuildReportForExport();
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
+            if (exported)
+            {
+                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         //private void BtnExportPdf_Click(object sender, EventArgs e)
@@ -218,6 +237,58 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
         public List<SalesProductReport> GetCurrentData()
         {
             return dgvCurrentStockReport.DataSource as List<SalesProductReport>;
+        }
+
+        public ReportTable BuildReportForExport()
+        {
+            var data = currentData ?? GetCurrentData();
+            if (data == null || data.Count == 0)
+            {
+                return null;
+            }
+
+            var report = new ReportTable
+            {
+                Title = "Sales by Product Report",
+                Subtitle = GetDateRangeSubtitle()
+            };
+
+            report.Headers.AddRange(new[]
+            {
+                "Product ID",
+                "Product Name",
+                "Category",
+                "Quantity Sold",
+                "Unit Price",
+                "Total Sales"
+            });
+
+            foreach (var item in data)
+            {
+                report.Rows.Add(new List<string>
+                {
+                    item.ProductID,
+                    item.ProductName,
+                    item.Category,
+                    item.QuantitySold.ToString(CultureInfo.InvariantCulture),
+                    item.UnitPrice.ToString("N2", CultureInfo.InvariantCulture),
+                    item.TotalSales.ToString("N2", CultureInfo.InvariantCulture)
+                });
+            }
+
+            return report;
+        }
+
+        private string GetDateRangeSubtitle()
+        {
+            if (!filterStartDate.HasValue && !filterEndDate.HasValue)
+            {
+                return "All Dates";
+            }
+
+            string start = filterStartDate.HasValue ? filterStartDate.Value.ToString("yyyy-MM-dd") : "...";
+            string end = filterEndDate.HasValue ? filterEndDate.Value.ToString("yyyy-MM-dd") : "...";
+            return "Date Range: " + start + " - " + end;
         }
     }
 }
