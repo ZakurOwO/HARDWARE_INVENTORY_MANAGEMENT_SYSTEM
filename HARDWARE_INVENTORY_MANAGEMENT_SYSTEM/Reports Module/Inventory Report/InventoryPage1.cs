@@ -9,6 +9,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
     public partial class InventoryPage1 : UserControl
     {
         private InventoryReportsDataAccess dataAccess;
+        private ReportTable currentReport;
 
         public InventoryPage1()
         {
@@ -60,15 +61,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
 
         private void LoadInventoryTable()
         {
-            ReportTable report = ReportQueries.BuildInventoryCurrentStockReport();
+            currentReport = ReportQueries.BuildInventoryCurrentStockReport();
             DataGridView dgv = FindDataGridView(reportsTable1);
 
             if (dgv != null)
             {
                 dgv.Rows.Clear();
-                for (int i = 0; i < report.Rows.Count; i++)
+                for (int i = 0; i < currentReport.Rows.Count; i++)
                 {
-                    List<string> row = report.Rows[i];
+                    List<string> row = currentReport.Rows[i];
                     dgv.Rows.Add(row.ToArray());
                 }
             }
@@ -76,8 +77,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
 
         private void ExportPDFBtn_Click(object sender, EventArgs e)
         {
-            ReportTable report = ReportQueries.BuildInventoryCurrentStockReport();
-            bool exported = ReportPdfExporter.ExportReportTable(report);
+            if (currentReport == null)
+            {
+                currentReport = ReportQueries.BuildInventoryCurrentStockReport();
+            }
+
+            bool exported = ReportPdfExporter.ExportReportTable(currentReport);
             if (exported)
             {
                 MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -15,12 +15,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
     public static class ReportPdfExporter
     {
-        private static readonly PdfFont RegularFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
-        private static readonly PdfFont BoldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
-
         public static bool ExportReportTable(ReportTable report)
         {
-            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            if (report == null)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            if (report.Headers == null || report.Headers.Count == 0)
+            {
+                MessageBox.Show("Report has no headers to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            if (report.Rows == null || report.Rows.Count == 0)
             {
                 MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
@@ -34,6 +43,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
             try
             {
+                PdfFont regularFont = GetRegularFont();
+                PdfFont boldFont = GetBoldFont();
+                int columnCount = Math.Max(report.Headers.Count, 1);
+                List<List<string>> normalizedRows = NormalizeRows(report.Rows, columnCount);
+
                 using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                 using (PdfWriter pdfWriter = new PdfWriter(stream))
                 using (PdfDocument pdfDocument = new PdfDocument(pdfWriter))
@@ -43,8 +57,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                     using (Document document = new Document(pdfDocument))
                     {
                         document.SetMargins(40, 36, 40, 36);
-                        AddDocumentHeader(document, report);
-                        Table table = BuildTable(report);
+                        AddDocumentHeader(document, report, regularFont, boldFont);
+                        Table table = BuildTable(report.Headers, normalizedRows, regularFont, boldFont, columnCount);
                         document.Add(table);
                     }
                 }
@@ -53,15 +67,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Failed to export report: " + ex.Message, "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    "Failed to export report: " + ex.GetType().FullName + ": " + ex.Message + "\n" + ex.StackTrace,
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 return false;
             }
         }
 
-        private static void AddDocumentHeader(Document document, ReportTable report)
+        private static PdfFont GetRegularFont()
+        {
+            return PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+        }
+
+        private static PdfFont GetBoldFont()
+        {
+            return PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+        }
+
+        private static void AddDocumentHeader(Document document, ReportTable report, PdfFont regularFont, PdfFont boldFont)
         {
             Paragraph title = new Paragraph(report.Title ?? "Report")
-                .SetFont(BoldFont)
+                .SetFont(boldFont)
                 .SetFontSize(16)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetMarginBottom(6f);
@@ -78,26 +106,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             }
 
             Paragraph subtitle = new Paragraph(subtitleText)
-                .SetFont(RegularFont)
+                .SetFont(regularFont)
                 .SetFontSize(10)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetMarginBottom(12f);
             document.Add(subtitle);
         }
 
-        private static Table BuildTable(ReportTable report)
+        private static Table BuildTable(List<string> headers, List<List<string>> rows, PdfFont regularFont, PdfFont boldFont, int columnCount)
         {
-            int columnCount = report.Headers != null ? report.Headers.Count : 0;
             Table table = new Table(columnCount)
                 .SetWidth(UnitValue.CreatePercentValue(100))
                 .SetMarginTop(10f);
 
-            if (report.Headers != null)
+            if (headers != null)
             {
-                foreach (string header in report.Headers)
+                foreach (string header in headers)
                 {
                     Cell cell = new Cell()
-                        .Add(new Paragraph(header).SetFont(BoldFont).SetFontSize(10))
+                        .Add(new Paragraph(header ?? string.Empty).SetFont(boldFont).SetFontSize(10))
                         .SetBackgroundColor(new DeviceRgb(230, 230, 230))
                         .SetPadding(5)
                         .SetTextAlignment(TextAlignment.CENTER);
@@ -105,16 +132,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 }
             }
 
-            if (report.Rows != null)
+            if (rows != null)
             {
-                for (int i = 0; i < report.Rows.Count; i++)
+                for (int i = 0; i < rows.Count; i++)
                 {
-                    List<string> row = report.Rows[i];
-                    for (int j = 0; j < row.Count; j++)
+                    List<string> row = rows[i];
+                    for (int j = 0; j < columnCount; j++)
                     {
                         string value = row[j] ?? string.Empty;
                         Cell cell = new Cell()
-                            .Add(new Paragraph(value).SetFont(RegularFont).SetFontSize(10))
+                            .Add(new Paragraph(value).SetFont(regularFont).SetFontSize(10))
                             .SetPadding(5);
                         table.AddCell(cell);
                     }
@@ -122,6 +149,38 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             }
 
             return table;
+        }
+
+        private static List<List<string>> NormalizeRows(List<List<string>> rows, int headerCount)
+        {
+            List<List<string>> normalized = new List<List<string>>();
+
+            if (rows == null)
+            {
+                return normalized;
+            }
+
+            for (int i = 0; i < rows.Count; i++)
+            {
+                List<string> currentRow = rows[i] ?? new List<string>();
+                List<string> normalizedRow = new List<string>(headerCount);
+
+                for (int j = 0; j < headerCount; j++)
+                {
+                    if (j < currentRow.Count)
+                    {
+                        normalizedRow.Add(currentRow[j] ?? string.Empty);
+                    }
+                    else
+                    {
+                        normalizedRow.Add(string.Empty);
+                    }
+                }
+
+                normalized.Add(normalizedRow);
+            }
+
+            return normalized;
         }
 
         private static bool TryGetSavePath(string reportTitle, out string path)
