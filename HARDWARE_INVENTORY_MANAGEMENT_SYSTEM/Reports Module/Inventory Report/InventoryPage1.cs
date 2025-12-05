@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
 {
@@ -15,6 +16,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             InitializeComponent();
             dataAccess = new InventoryReportsDataAccess();
             this.Load += InventoryPage1_Load;
+        }
+
+        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        {
+            var grid = FindDataGridView(reportsTable1);
+
+            if (grid == null)
+            {
+                MessageBox.Show("No data grid available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (grid.Rows.Count == 0 || grid.Rows.Cast<DataGridViewRow>().All(r => r.IsNewRow))
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            bool exported = ReportPdfExporter.ExportDataGridView(grid, "Inventory Current Stock Report", null, null);
+            if (exported)
+            {
+                MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void InventoryPage1_Load(object sender, EventArgs e)

@@ -13,6 +13,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
     {
         private readonly string connectionString;
 
+        private static void AddDateRangeParameters(SqlCommand command, DateTime? startDate, DateTime? endDate)
+        {
+            if (startDate.HasValue)
+            {
+                command.Parameters.AddWithValue("@StartDate", startDate.Value.Date);
+            }
+
+            if (endDate.HasValue)
+            {
+                command.Parameters.AddWithValue("@EndDate", endDate.Value.Date.AddDays(1).AddSeconds(-1));
+            }
+        }
+
         public SalesReportDataAccess()
         {
             connectionString = ConnectionString.DataSource;
@@ -51,29 +64,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
                         GROUP BY p.ProductID, p.product_name, c.category_name, ti.selling_price
                         ORDER BY SUM(ti.quantity * ti.selling_price) DESC";
 
-                    SqlCommand command = new SqlCommand(query, connection);
-
-                    if (startDate.HasValue)
-                        command.Parameters.AddWithValue("@StartDate", startDate.Value);
-                    if (endDate.HasValue)
-                        command.Parameters.AddWithValue("@EndDate", endDate.Value.Date.AddDays(1).AddSeconds(-1));
-
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        salesData.Add(new SalesProductReport
+                        AddDateRangeParameters(command, startDate, endDate);
+
+                        connection.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
                         {
-                            ProductID = reader.GetString(0),
-                            ProductName = reader.GetString(1),
-                            Category = reader.GetString(2),
-                            QuantitySold = reader.GetInt32(3),
-                            UnitPrice = reader.GetDecimal(4),
-                            TotalSales = reader.GetDecimal(5)
-                        });
+                            salesData.Add(new SalesProductReport
+                            {
+                                ProductID = reader.GetString(0),
+                                ProductName = reader.GetString(1),
+                                Category = reader.GetString(2),
+                                QuantitySold = reader.GetInt32(3),
+                                UnitPrice = reader.GetDecimal(4),
+                                TotalSales = reader.GetDecimal(5)
+                            });
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
                 }
             }
             catch (Exception ex)
@@ -118,29 +129,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
                         GROUP BY c.CustomerID, c.customer_name, c.contact_number
                         ORDER BY SUM(t.total_amount) DESC";
 
-                    SqlCommand command = new SqlCommand(query, connection);
-
-                    if (startDate.HasValue)
-                        command.Parameters.AddWithValue("@StartDate", startDate.Value);
-                    if (endDate.HasValue)
-                        command.Parameters.AddWithValue("@EndDate", endDate.Value.Date.AddDays(1).AddSeconds(-1));
-
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        salesData.Add(new SalesCustomerReport
+                        AddDateRangeParameters(command, startDate, endDate);
+
+                        connection.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
                         {
-                            CustomerID = reader.GetString(0),
-                            CustomerName = reader.GetString(1),
-                            Contact = reader.IsDBNull(2) ? "N/A" : reader.GetString(2),
-                            TotalOrders = reader.GetInt32(3),
-                            TotalQuantity = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
-                            TotalSales = reader.GetDecimal(5)
-                        });
+                            salesData.Add(new SalesCustomerReport
+                            {
+                                CustomerID = reader.GetString(0),
+                                CustomerName = reader.GetString(1),
+                                Contact = reader.IsDBNull(2) ? "N/A" : reader.GetString(2),
+                                TotalOrders = reader.GetInt32(3),
+                                TotalQuantity = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
+                                TotalSales = reader.GetDecimal(5)
+                            });
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
                 }
             }
             catch (Exception ex)
@@ -184,29 +193,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
                         GROUP BY CAST(t.transaction_date AS DATE)
                         ORDER BY CAST(t.transaction_date AS DATE) DESC";
 
-                    SqlCommand command = new SqlCommand(query, connection);
-
-                    if (startDate.HasValue)
-                        command.Parameters.AddWithValue("@StartDate", startDate.Value);
-                    if (endDate.HasValue)
-                        command.Parameters.AddWithValue("@EndDate", endDate.Value.Date.AddDays(1).AddSeconds(-1));
-
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        salesData.Add(new SalesSummaryReport
+                        AddDateRangeParameters(command, startDate, endDate);
+
+                        connection.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
                         {
-                            Date = reader.GetDateTime(0),
-                            NoOfTransactions = reader.GetInt32(1),
-                            TotalQuantitySold = reader.GetInt32(2),
-                            TotalSales = reader.GetDecimal(3),
-                            TotalProfit = reader.GetDecimal(4),
-                            AvgSalePerTransaction = reader.GetDecimal(5)
-                        });
+                            salesData.Add(new SalesSummaryReport
+                            {
+                                Date = reader.GetDateTime(0),
+                                NoOfTransactions = reader.GetInt32(1),
+                                TotalQuantitySold = reader.GetInt32(2),
+                                TotalSales = reader.GetDecimal(3),
+                                TotalProfit = reader.GetDecimal(4),
+                                AvgSalePerTransaction = reader.GetDecimal(5)
+                            });
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
                 }
             }
             catch (Exception ex)
@@ -246,29 +253,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
                         GROUP BY YEAR(t.transaction_date), MONTH(t.transaction_date)
                         ORDER BY YEAR(t.transaction_date) DESC, MONTH(t.transaction_date) DESC";
 
-                    SqlCommand command = new SqlCommand(query, connection);
-
-                    if (startDate.HasValue)
-                        command.Parameters.AddWithValue("@StartDate", startDate.Value);
-                    if (endDate.HasValue)
-                        command.Parameters.AddWithValue("@EndDate", endDate.Value.Date.AddDays(1).AddSeconds(-1));
-
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (SqlCommand command = new SqlCommand(query, connection))
                     {
-                        salesData.Add(new SalesSummaryReport
+                        AddDateRangeParameters(command, startDate, endDate);
+
+                        connection.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
                         {
-                            Date = reader.GetDateTime(0),
-                            NoOfTransactions = reader.GetInt32(1),
-                            TotalQuantitySold = reader.GetInt32(2),
-                            TotalSales = reader.GetDecimal(3),
-                            TotalProfit = reader.GetDecimal(4),
-                            AvgSalePerTransaction = reader.GetDecimal(5)
-                        });
+                            salesData.Add(new SalesSummaryReport
+                            {
+                                Date = reader.GetDateTime(0),
+                                NoOfTransactions = reader.GetInt32(1),
+                                TotalQuantitySold = reader.GetInt32(2),
+                                TotalSales = reader.GetDecimal(3),
+                                TotalProfit = reader.GetDecimal(4),
+                                AvgSalePerTransaction = reader.GetDecimal(5)
+                            });
+                        }
+                        reader.Close();
                     }
-                    reader.Close();
                 }
             }
             catch (Exception ex)
