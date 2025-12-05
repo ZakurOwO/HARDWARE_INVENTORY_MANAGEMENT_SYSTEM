@@ -5,13 +5,22 @@ using System.Linq;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+using iText.IO.Font.Constants;
+using iText.Kernel.Colors;
+using iText.Kernel.Font;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
     public static class ReportPdfExporter
     {
+        private static readonly PdfFont RegularFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+        private static readonly PdfFont BoldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+
         public static bool ExportSalesByProduct(IEnumerable<SalesProductReport> data, string reportTitle, DateTime? startDate, DateTime? endDate)
         {
             return ExportReport(data, reportTitle, startDate, endDate, BuildSalesByProductTable);
@@ -58,15 +67,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
             try
             {
-                using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
-                using (var document = new Document(PageSize.A4.Rotate(), 36, 36, 54, 54))
-                {
-                    PdfWriter.GetInstance(document, stream);
-                    document.Open();
+                using var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None);
+                using var pdfWriter = new PdfWriter(stream);
+                using var pdfDocument = new PdfDocument(pdfWriter);
 
-                    AddDocumentHeader(document, reportTitle, startDate, endDate);
-                    tableBuilder(document, dataList);
-                }
+                pdfDocument.SetDefaultPageSize(PageSize.A4.Rotate());
+
+                using var document = new Document(pdfDocument);
+                document.SetMargins(54, 36, 54, 36);
+
+                AddDocumentHeader(document, reportTitle, startDate, endDate);
+                tableBuilder(document, dataList);
 
                 return true;
             }
@@ -98,14 +109,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
         private static void AddDocumentHeader(Document document, string reportTitle, DateTime? startDate, DateTime? endDate)
         {
-            var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
-            var subTitleFont = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-
-            var title = new Paragraph(reportTitle, titleFont)
-            {
-                Alignment = Element.ALIGN_CENTER,
-                SpacingAfter = 6f
-            };
+            var title = new Paragraph(reportTitle)
+                .SetFont(BoldFont)
+                .SetFontSize(16)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetMarginBottom(6f);
             document.Add(title);
 
             string dateRange = "All Dates";
@@ -116,11 +124,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 dateRange = $"Date Range: {startText} - {endText}";
             }
 
-            var subTitle = new Paragraph($"{dateRange}\nGenerated: {DateTime.Now:yyyy-MM-dd HH:mm}", subTitleFont)
-            {
-                Alignment = Element.ALIGN_CENTER,
-                SpacingAfter = 12f
-            };
+            var subTitle = new Paragraph($"{dateRange}\nGenerated: {DateTime.Now:yyyy-MM-dd HH:mm}")
+                .SetFont(RegularFont)
+                .SetFontSize(10)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetMarginBottom(12f);
             document.Add(subTitle);
         }
 
@@ -136,12 +144,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 totalQuantity += item.QuantitySold;
                 totalSales += item.TotalSales;
 
-                table.AddCell(item.ProductID);
-                table.AddCell(item.ProductName);
-                table.AddCell(item.Category);
-                table.AddCell(item.QuantitySold.ToString());
-                table.AddCell(item.UnitPrice.ToString("₱#,##0.00"));
-                table.AddCell(item.TotalSales.ToString("₱#,##0.00"));
+                table.AddCell(CreateBodyCell(item.ProductID));
+                table.AddCell(CreateBodyCell(item.ProductName));
+                table.AddCell(CreateBodyCell(item.Category));
+                table.AddCell(CreateBodyCell(item.QuantitySold.ToString()));
+                table.AddCell(CreateBodyCell(item.UnitPrice.ToString("₱#,##0.00")));
+                table.AddCell(CreateBodyCell(item.TotalSales.ToString("₱#,##0.00")));
             }
 
             AddTotalsRow(table, new[] { "Totals", string.Empty, string.Empty, totalQuantity.ToString(), string.Empty, totalSales.ToString("₱#,##0.00") });
@@ -162,12 +170,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 totalQuantity += item.TotalQuantity;
                 totalSales += item.TotalSales;
 
-                table.AddCell(item.CustomerID);
-                table.AddCell(item.CustomerName);
-                table.AddCell(item.Contact);
-                table.AddCell(item.TotalOrders.ToString());
-                table.AddCell(item.TotalQuantity.ToString());
-                table.AddCell(item.TotalSales.ToString("₱#,##0.00"));
+                table.AddCell(CreateBodyCell(item.CustomerID));
+                table.AddCell(CreateBodyCell(item.CustomerName));
+                table.AddCell(CreateBodyCell(item.Contact));
+                table.AddCell(CreateBodyCell(item.TotalOrders.ToString()));
+                table.AddCell(CreateBodyCell(item.TotalQuantity.ToString()));
+                table.AddCell(CreateBodyCell(item.TotalSales.ToString("₱#,##0.00")));
             }
 
             AddTotalsRow(table, new[] { "Totals", string.Empty, string.Empty, totalOrders.ToString(), totalQuantity.ToString(), totalSales.ToString("₱#,##0.00") });
@@ -190,12 +198,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 totalSales += item.TotalSales;
                 totalProfit += item.TotalProfit;
 
-                table.AddCell(item.Date.ToString("yyyy-MM-dd"));
-                table.AddCell(item.NoOfTransactions.ToString());
-                table.AddCell(item.TotalQuantitySold.ToString());
-                table.AddCell(item.TotalSales.ToString("₱#,##0.00"));
-                table.AddCell(item.TotalProfit.ToString("₱#,##0.00"));
-                table.AddCell(item.AvgSalePerTransaction.ToString("₱#,##0.00"));
+                table.AddCell(CreateBodyCell(item.Date.ToString("yyyy-MM-dd")));
+                table.AddCell(CreateBodyCell(item.NoOfTransactions.ToString()));
+                table.AddCell(CreateBodyCell(item.TotalQuantitySold.ToString()));
+                table.AddCell(CreateBodyCell(item.TotalSales.ToString("₱#,##0.00")));
+                table.AddCell(CreateBodyCell(item.TotalProfit.ToString("₱#,##0.00")));
+                table.AddCell(CreateBodyCell(item.AvgSalePerTransaction.ToString("₱#,##0.00")));
             }
 
             AddTotalsRow(table, new[]
@@ -223,10 +231,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 totalDeliveries += item.DeliveryCount;
                 totalItems += item.TotalItems;
 
-                table.AddCell(item.DeliveryDate.ToString("yyyy-MM-dd"));
-                table.AddCell(item.Status);
-                table.AddCell(item.DeliveryCount.ToString());
-                table.AddCell(item.TotalItems.ToString());
+                table.AddCell(CreateBodyCell(item.DeliveryDate.ToString("yyyy-MM-dd")));
+                table.AddCell(CreateBodyCell(item.Status));
+                table.AddCell(CreateBodyCell(item.DeliveryCount.ToString()));
+                table.AddCell(CreateBodyCell(item.TotalItems.ToString()));
             }
 
             AddTotalsRow(table, new[] { "Totals", string.Empty, totalDeliveries.ToString(), totalItems.ToString() });
@@ -242,13 +250,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             {
                 totalAssignments += item.DeliveryAssignments;
 
-                table.AddCell(item.VehicleID);
-                table.AddCell(item.PlateNumber);
-                table.AddCell(item.Brand);
-                table.AddCell(item.Model);
-                table.AddCell(item.VehicleType);
-                table.AddCell(item.Status);
-                table.AddCell(item.DeliveryAssignments.ToString());
+                table.AddCell(CreateBodyCell(item.VehicleID));
+                table.AddCell(CreateBodyCell(item.PlateNumber));
+                table.AddCell(CreateBodyCell(item.Brand));
+                table.AddCell(CreateBodyCell(item.Model));
+                table.AddCell(CreateBodyCell(item.VehicleType));
+                table.AddCell(CreateBodyCell(item.Status));
+                table.AddCell(CreateBodyCell(item.DeliveryAssignments.ToString()));
             }
 
             AddTotalsRow(table, new[] { "Totals", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, totalAssignments.ToString() });
@@ -263,49 +271,52 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             foreach (var item in data)
             {
                 totalDeliveries += item.DeliveriesHandled;
-                table.AddCell(item.AssignmentDate.ToString("yyyy-MM-dd"));
-                table.AddCell(item.PlateNumber);
-                table.AddCell(item.DeliveriesHandled.ToString());
+                table.AddCell(CreateBodyCell(item.AssignmentDate.ToString("yyyy-MM-dd")));
+                table.AddCell(CreateBodyCell(item.PlateNumber));
+                table.AddCell(CreateBodyCell(item.DeliveriesHandled.ToString()));
             }
 
             AddTotalsRow(table, new[] { "Totals", string.Empty, totalDeliveries.ToString() });
             document.Add(table);
         }
 
-        private static PdfPTable CreateTable(int columnCount, IEnumerable<string> headers)
+        private static Table CreateTable(int columnCount, IEnumerable<string> headers)
         {
-            var table = new PdfPTable(columnCount)
-            {
-                WidthPercentage = 100,
-                SpacingBefore = 10f
-            };
+            var table = new Table(columnCount)
+                .SetWidth(UnitValue.CreatePercentValue(100))
+                .SetMarginTop(10f);
 
-            var headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+            var headerFont = BoldFont;
             foreach (var header in headers)
             {
-                var cell = new PdfPCell(new Phrase(header, headerFont))
-                {
-                    BackgroundColor = new BaseColor(230, 230, 230),
-                    Padding = 5,
-                    HorizontalAlignment = Element.ALIGN_CENTER
-                };
+                var cell = new Cell()
+                    .Add(new Paragraph(header).SetFont(headerFont).SetFontSize(10))
+                    .SetBackgroundColor(new DeviceRgb(230, 230, 230))
+                    .SetPadding(5)
+                    .SetTextAlignment(TextAlignment.CENTER);
                 table.AddCell(cell);
             }
 
             return table;
         }
 
-        private static void AddTotalsRow(PdfPTable table, string[] totals)
+        private static void AddTotalsRow(Table table, string[] totals)
         {
-            var boldFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
             foreach (var value in totals)
             {
-                table.AddCell(new PdfPCell(new Phrase(value, boldFont))
-                {
-                    Padding = 5,
-                    HorizontalAlignment = Element.ALIGN_RIGHT
-                });
+                var cell = new Cell()
+                    .Add(new Paragraph(value).SetFont(BoldFont).SetFontSize(10))
+                    .SetPadding(5)
+                    .SetTextAlignment(TextAlignment.RIGHT);
+                table.AddCell(cell);
             }
+        }
+
+        private static Cell CreateBodyCell(string text)
+        {
+            return new Cell()
+                .Add(new Paragraph(text).SetFont(RegularFont).SetFontSize(10))
+                .SetPadding(5);
         }
 
         private static string SanitizeFileName(string input)
