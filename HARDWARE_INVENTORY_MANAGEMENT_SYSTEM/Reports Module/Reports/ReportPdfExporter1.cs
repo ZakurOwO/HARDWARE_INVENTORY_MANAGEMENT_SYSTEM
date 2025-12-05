@@ -143,6 +143,42 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             return false;
         }
 
+        public static bool ExportReportTableToPath(ReportTable report, string filePath)
+        {
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            try
+            {
+                using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (PdfWriter pdfWriter = new PdfWriter(stream))
+                using (PdfDocument pdfDocument = new PdfDocument(pdfWriter))
+                {
+                    pdfDocument.SetDefaultPageSize(PageSize.A4.Rotate());
+
+                    using (Document document = new Document(pdfDocument))
+                    {
+                        document.SetMargins(40, 36, 40, 36);
+                        AddDocumentHeader(document, report);
+                        Table table = BuildTable(report);
+                        document.Add(table);
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to export report: " + ex.Message, "Export Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+
+
         private static string SanitizeFileName(string input)
         {
             if (string.IsNullOrEmpty(input))

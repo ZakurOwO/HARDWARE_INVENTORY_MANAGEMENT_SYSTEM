@@ -119,13 +119,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             LoadData();
         }
 
-        private void EnsureExportHandler()
-        {
-            if (this.ExportPDFBtn != null)
-            {
-                this.ExportPDFBtn.Click -= ExportPDFBtn_Click;
-                this.ExportPDFBtn.Click += ExportPDFBtn_Click;
-            }
-        }
+      
     }
 }

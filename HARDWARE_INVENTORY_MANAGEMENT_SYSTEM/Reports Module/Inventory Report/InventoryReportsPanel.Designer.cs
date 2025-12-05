@@ -38,7 +38,6 @@
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.ExportPDFBtn = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButton();
             this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.mainButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButton();
             this.guna2Panel1.SuspendLayout();
@@ -192,7 +191,6 @@
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.Transparent;
             this.guna2Panel1.BorderRadius = 15;
-            this.guna2Panel1.Controls.Add(this.ExportPDFBtn);
             this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Controls.Add(this.mainButton1);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -201,17 +199,6 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(937, 570);
             this.guna2Panel1.TabIndex = 31;
-            // 
-            // ExportPDFBtn
-            // 
-            this.ExportPDFBtn.ButtonName = "Export PDF";
-            this.ExportPDFBtn.Location = new System.Drawing.Point(631, 7);
-            this.ExportPDFBtn.Margin = new System.Windows.Forms.Padding(4);
-            this.ExportPDFBtn.Name = "ExportPDFBtn";
-            this.ExportPDFBtn.Size = new System.Drawing.Size(141, 44);
-            this.ExportPDFBtn.TabIndex = 36;
-            this.ExportPDFBtn.Load += new System.EventHandler(this.ExportPDFBtn_Load);
-            this.ExportPDFBtn.Click += new System.EventHandler(this.ExportPDFBtn_Click);
             // 
             // inventoryFilter_Button1
             // 
@@ -230,6 +217,7 @@
             this.mainButton1.Name = "mainButton1";
             this.mainButton1.Size = new System.Drawing.Size(141, 44);
             this.mainButton1.TabIndex = 34;
+            this.mainButton1.Load += new System.EventHandler(this.mainButton1_Load);
             // 
             // InventoryReportsPanel
             // 
@@ -266,7 +254,6 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2Button guna2Button2;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private UserControlFiles.MainButton ExportPDFBtn;
         private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private UserControlFiles.MainButton mainButton1;
     }

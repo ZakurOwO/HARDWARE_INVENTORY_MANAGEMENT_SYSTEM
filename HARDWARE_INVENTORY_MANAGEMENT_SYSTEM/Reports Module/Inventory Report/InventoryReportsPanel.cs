@@ -178,17 +178,35 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             // Panel paint event
         }
-
         private void ExportPDFBtn_Click(object sender, EventArgs e)
         {
             if (panel1.Controls.Count == 0) return;
 
-            var currentControl = panel1.Controls[0];
-
-            if (currentControl is InventoryPage1 page1)
+            if (!(panel1.Controls[0] is InventoryPage1 page1))
             {
-                var report = page1.GetCurrentReport();
-                bool exported = ReportPdfExporter.ExportReportTable(report);
+                MessageBox.Show("Export is only implemented for Page 1 right now.",
+                    "Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Build report (runs immediately on UI thread)
+            Cursor.Current = Cursors.WaitCursor;
+            var report = page1.GetCurrentReport();
+            Cursor.Current = Cursors.Default;
+
+            // Pick path (UI thread)
+            using (var sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "PDF Files (*.pdf)|*.pdf";
+                sfd.Title = "Save Report as PDF";
+                sfd.FileName = "InventoryReport.pdf"; // <- no date/time
+
+                if (sfd.ShowDialog() != DialogResult.OK) return;
+
+                // Export (runs immediately on UI thread)
+                Cursor.Current = Cursors.WaitCursor;
+                bool exported = ReportPdfExporter.ExportReportTableToPath(report, sfd.FileName);
+                Cursor.Current = Cursors.Default;
 
                 if (exported)
                 {
@@ -196,15 +214,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            else
-            {
-                MessageBox.Show("Export is only implemented for Page 1 right now.",
-                    "Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
 
+
         private void ExportPDFBtn_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mainButton1_Load(object sender, EventArgs e)
         {
 
         }
