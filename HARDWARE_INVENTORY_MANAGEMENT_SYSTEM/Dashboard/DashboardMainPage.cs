@@ -259,10 +259,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
             int pendingDeliveries = GetPendingDeliveriesCount();
             int activeProducts = GetActiveProductsCount();
 
-            decimal totalSalesAllTime = GetSalesTotal(null, null);
-            int totalOrders = GetTransactionsCount(null, null);
-            int totalStocks = GetTotalStocks();
-
             SetLabelTextSafe(this, "lblTodaySales", "₱" + todaySales.ToString("N2"));
             SetLabelTextSafe(this, "lblMonthlySales", "₱" + monthSales.ToString("N2"));
             SetLabelTextSafe(this, "lblTodayTransactions", transactionsToday.ToString());
@@ -270,45 +266,38 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
             SetLabelTextSafe(this, "lblOutOfStockCount", outOfStockCount.ToString());
             SetLabelTextSafe(this, "lblPendingDeliveries", pendingDeliveries.ToString());
             SetLabelTextSafe(this, "lblActiveProducts", activeProducts.ToString());
-
-            SetKeyMetricsValue(reportsKeyMetrics1, "Total Sales", FormatCurrency(totalSalesAllTime));
-            SetKeyMetricsValue(reportsKeyMetrics2, "Total Orders", totalOrders.ToString());
-            SetKeyMetricsValue(reportsKeyMetrics3, "Low Stock Alert", lowStockCount.ToString());
-            SetKeyMetricsValue(reportsKeyMetrics4, "Total Stocks", totalStocks.ToString());
         }
 
-        private decimal GetSalesTotal(DateTime? startDate, DateTime? endDate)
+        private decimal GetSalesTotal(DateTime startDate, DateTime endDate)
         {
             string query = @"
                 SELECT ISNULL(SUM(TI.quantity * TI.selling_price), 0)
                 FROM Transactions T
                 INNER JOIN TransactionItems TI ON T.transaction_id = TI.transaction_id
-                WHERE (@startDate IS NULL OR T.transaction_date >= @startDate)
-                    AND (@endDate IS NULL OR T.transaction_date < @endDate);
+                WHERE T.transaction_date >= @startDate AND T.transaction_date < @endDate;
             ";
 
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@startDate", (object)startDate ?? DBNull.Value),
-                new SqlParameter("@endDate", (object)endDate ?? DBNull.Value)
+                new SqlParameter("@startDate", startDate),
+                new SqlParameter("@endDate", endDate)
             };
 
             return ExecuteScalarDecimal(query, parameters);
         }
 
-        private int GetTransactionsCount(DateTime? startDate, DateTime? endDate)
+        private int GetTransactionsCount(DateTime startDate, DateTime endDate)
         {
             string query = @"
                 SELECT COUNT(*)
                 FROM Transactions
-                WHERE (@startDate IS NULL OR transaction_date >= @startDate)
-                    AND (@endDate IS NULL OR transaction_date < @endDate);
+                WHERE transaction_date >= @startDate AND transaction_date < @endDate;
             ";
 
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@startDate", (object)startDate ?? DBNull.Value),
-                new SqlParameter("@endDate", (object)endDate ?? DBNull.Value)
+                new SqlParameter("@startDate", startDate),
+                new SqlParameter("@endDate", endDate)
             };
 
             return ExecuteScalarInt(query, parameters);
@@ -351,17 +340,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
         {
             string query = @"
                 SELECT COUNT(*)
-                FROM Products
-                WHERE active = 1;
-            ";
-
-            return ExecuteScalarInt(query, null);
-        }
-
-        private int GetTotalStocks()
-        {
-            string query = @"
-                SELECT ISNULL(SUM(current_stock), 0)
                 FROM Products
                 WHERE active = 1;
             ";
@@ -460,20 +438,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
             {
                 // Label placeholder for developers to map later if renamed
             }
-        }
-
-        private void SetKeyMetricsValue(Reports_Module.ReportsKeyMetrics control, string title, string value)
-        {
-            if (control != null)
-            {
-                control.Title = title;
-                control.ValueText = value;
-            }
-        }
-
-        private string FormatCurrency(decimal amount)
-        {
-            return "₱" + amount.ToString("N2");
         }
     }
 }
