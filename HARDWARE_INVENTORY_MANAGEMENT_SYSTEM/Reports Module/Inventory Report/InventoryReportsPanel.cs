@@ -178,5 +178,35 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             // Panel paint event
         }
+
+        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        {
+            if (panel1.Controls.Count == 0) return;
+
+            var currentControl = panel1.Controls[0];
+
+            if (currentControl is InventoryPage1 page1)
+            {
+                var report = page1.GetCurrentReport();
+                bool exported = ReportPdfExporter.ExportReportTable(report);
+
+                if (exported)
+                {
+                    MessageBox.Show("Report exported to PDF successfully.", "Export",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Export is only implemented for Page 1 right now.",
+                    "Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
+        private void ExportPDFBtn_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

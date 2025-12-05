@@ -17,8 +17,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
     {
         public static bool ExportReportTable(ReportTable report)
         {
-            string filePath;
-            if (!TryGetSavePath(report != null ? report.Title : null, out filePath))
+            if (report == null)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            if (report.Headers == null || report.Headers.Count == 0)
+            {
+                MessageBox.Show("Report has no headers to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            if (report.Rows == null || report.Rows.Count == 0)
             {
                 return false;
             }
@@ -69,43 +80,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             }
             catch (Exception ex)
             {
-                if (showMessages)
-                {
-                    MessageBox.Show(
-                        "Failed to export report: " + ex.GetType().FullName + ": " + ex.Message + "\n" + ex.StackTrace,
-                        "Export Error",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
-                    return false;
-                }
-
-                throw;
+                MessageBox.Show(
+                    "Failed to export report: " + ex.GetType().FullName + ": " + ex.Message + "\n" + ex.StackTrace,
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return false;
             }
-        }
-
-        private static bool ValidateReport(ReportTable report, bool showMessages, out string error)
-        {
-            error = null;
-
-            if (report == null)
-            {
-                error = "No data to export.";
-            }
-            else if (report.Headers == null || report.Headers.Count == 0)
-            {
-                error = "Report has no headers to export.";
-            }
-            else if (report.Rows == null || report.Rows.Count == 0)
-            {
-                error = "No data to export.";
-            }
-
-            if (!string.IsNullOrEmpty(error) && showMessages)
-            {
-                MessageBox.Show(error, "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
-            return string.IsNullOrEmpty(error);
         }
 
         private static PdfFont GetRegularFont()
@@ -215,7 +196,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             return normalized;
         }
 
-        public static bool TryGetSavePath(string reportTitle, out string path)
+        private static bool TryGetSavePath(string reportTitle, out string path)
         {
             path = null;
             using (SaveFileDialog saveDialog = new SaveFileDialog())
