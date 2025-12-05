@@ -60,7 +60,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 return false;
             }
 
-            if (!TryGetSavePath(reportTitle, out string? filePath))
+            string filePath;
+            if (!TryGetSavePath(reportTitle, out filePath))
             {
                 return false;
             }
@@ -88,7 +89,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             }
         }
 
-        private static bool TryGetSavePath(string reportTitle, out string? path)
+        private static bool TryGetSavePath(string reportTitle, out string path)
         {
             path = null;
             using (var saveDialog = new SaveFileDialog())
@@ -321,7 +322,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
         private static string SanitizeFileName(string input)
         {
-            foreach (char c in Path.GetInvalidFileNameChars())
+            foreach (char c in System.IO.Path.GetInvalidFileNameChars())
             {
                 input = input.Replace(c, '_');
             }
