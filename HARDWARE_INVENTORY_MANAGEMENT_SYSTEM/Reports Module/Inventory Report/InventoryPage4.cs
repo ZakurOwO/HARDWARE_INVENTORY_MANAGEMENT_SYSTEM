@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
 {
-    public partial class InventoryPage4 : UserControl
+    public partial class InventoryPage4 : UserControl, IReportExportable
     {
         private InventoryReportsDataAccess dataAccess;
+        private DataTable stockOutHistoryData;
 
         public InventoryPage4()
         {
@@ -46,6 +48,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             DateTime startDate = endDate.AddDays(-30);
 
             DataTable dt = dataAccess.GetStockOutHistory(startDate, endDate);
+            stockOutHistoryData = dt;
 
             // Clear existing rows
             dgvCurrentStockReport.Rows.Clear();
@@ -78,6 +81,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             try
             {
                 DataTable dt = dataAccess.GetStockOutHistory(startDate, endDate);
+                stockOutHistoryData = dt;
 
                 dgvCurrentStockReport.Rows.Clear();
 
@@ -100,6 +104,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                 MessageBox.Show($"Error loading stock out history: {ex.Message}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public ReportTable BuildReportForExport()
+        {
+            if (stockOutHistoryData == null)
+            {
+                return null;
+            }
+
+            return ReportTableFactory.FromDataTable(
+                stockOutHistoryData,
+                "Stock Out History",
+                label2.Text);
         }
     }
 }

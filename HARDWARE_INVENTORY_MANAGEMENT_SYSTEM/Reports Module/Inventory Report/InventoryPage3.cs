@@ -3,11 +3,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
 {
-    public partial class InventoryPage3 : UserControl
+    public partial class InventoryPage3 : UserControl, IReportExportable
     {
+        private DataTable stockInHistoryData;
+
         public InventoryPage3()
         {
             InitializeComponent();
@@ -41,6 +44,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                 DateTime startDate = endDate.AddDays(-30);
 
                 DataTable dt = GetStockInHistory(startDate, endDate);
+                stockInHistoryData = dt;
 
                 // Clear existing rows
                 dgvCurrentStockReport.Rows.Clear();
@@ -120,6 +124,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             try
             {
                 DataTable dt = GetStockInHistory(startDate, endDate);
+                stockInHistoryData = dt;
 
                 dgvCurrentStockReport.Rows.Clear();
 
@@ -142,6 +147,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                 MessageBox.Show($"Error loading stock in history: {ex.Message}",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public ReportTable BuildReportForExport()
+        {
+            if (stockInHistoryData == null)
+            {
+                return null;
+            }
+
+            return ReportTableFactory.FromDataTable(
+                stockInHistoryData,
+                "Stock In History",
+                label2.Text);
         }
     }
 }
