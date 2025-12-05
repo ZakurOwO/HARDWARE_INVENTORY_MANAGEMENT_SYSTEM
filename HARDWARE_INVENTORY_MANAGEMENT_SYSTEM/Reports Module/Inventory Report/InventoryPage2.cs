@@ -11,17 +11,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
     {
         private DataTable lowStockData;
         private DataTable expiryAlertData;
-        private bool lastFocusedExpiry;
 
         public InventoryPage2()
         {
             InitializeComponent();
             this.Load += InventoryPage2_Load;
 
-            dgvCurrentStockReport.Enter += (_, __) => lastFocusedExpiry = false;
-            dgvCurrentStockReport.Click += (_, __) => lastFocusedExpiry = false;
-            guna2DataGridView1.Enter += (_, __) => lastFocusedExpiry = true;
-            guna2DataGridView1.Click += (_, __) => lastFocusedExpiry = true;
+            dgvCurrentStockReport.Enter += (_, __) => lastFocusedSection = AlertSection.LowStock;
+            dgvCurrentStockReport.Click += (_, __) => lastFocusedSection = AlertSection.LowStock;
+            guna2DataGridView1.Enter += (_, __) => lastFocusedSection = AlertSection.Expiry;
+            guna2DataGridView1.Click += (_, __) => lastFocusedSection = AlertSection.Expiry;
         }
 
         private void InventoryPage2_Load(object sender, EventArgs e)
@@ -59,7 +58,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                 if (dt.Rows.Count == 0)
                 {
                     // Show message in the grid or just leave empty
-                    lastFocusedExpiry = true;
+                    lastFocusedSection = AlertSection.Expiry;
                     return;
                 }
 
@@ -76,7 +75,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                     );
                 }
 
-                lastFocusedExpiry = false;
+                lastFocusedSection = AlertSection.LowStock;
             }
             catch (Exception ex)
             {
@@ -130,7 +129,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                 if (dt.Rows.Count == 0)
                 {
                     // Show message or just leave empty
-                    lastFocusedExpiry = false;
+                    lastFocusedSection = AlertSection.LowStock;
                     return;
                 }
 
@@ -147,7 +146,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                     );
                 }
 
-                lastFocusedExpiry = true;
+                lastFocusedSection = AlertSection.Expiry;
             }
             catch (Exception ex)
             {
@@ -193,35 +192,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
 
         public ReportTable BuildReportForExport()
         {
-            bool hasLowStock = lowStockData != null && lowStockData.Rows.Count > 0;
-            bool hasExpiry = expiryAlertData != null && expiryAlertData.Rows.Count > 0;
-
-            // Choose based on the last focused grid, but gracefully fall back if that dataset is empty
-            if (lastFocusedExpiry && hasExpiry)
+            // Prefer the grid currently focused; fallback to low stock then expiry alerts
+            if (dgvCurrentStockReport.Focused || (!guna2DataGridView1.Focused && lowStockData != null))
             {
-                return ReportTableFactory.FromDataTable(
-                    expiryAlertData,
-                    "Expiry Alerts",
-                    "Products nearing or past expiry");
-            }
+                if (lowStockData == null)
+                {
+                    return null;
+                }
 
-            if (hasLowStock)
-            {
                 return ReportTableFactory.FromDataTable(
                     lowStockData,
                     "Low Stock Alerts",
                     "Products at or below reorder point");
             }
 
-            if (hasExpiry)
+            if (expiryAlertData == null)
             {
-                return ReportTableFactory.FromDataTable(
-                    expiryAlertData,
-                    "Expiry Alerts",
-                    "Products nearing or past expiry");
+                return null;
             }
 
-            return null;
+            return ReportTableFactory.FromDataTable(
+                expiryAlertData,
+                "Expiry Alerts",
+                "Products nearing or past expiry");
         }
     }
 }
