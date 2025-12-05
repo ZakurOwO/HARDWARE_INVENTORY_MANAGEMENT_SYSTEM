@@ -8,8 +8,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
     public partial class CustomerMainPage : UserControl
     {
         private AddCustomerContainer addCustomerContainer = new AddCustomerContainer();
-        private SearchTextBox searchTextBox;
-        private Timer searchDelay;
+        private TextBox searchBox;
 
         public CustomerMainPage()
         {
@@ -42,25 +41,46 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             catch (Exception ex)
             {
                 Console.WriteLine($"Error connecting pagination: {ex.Message}");
+                MessageBox.Show($"Error connecting pagination: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void InitializeSearch()
         {
-            TextBox searchBox = FindTextBoxInSearchField(searchField1);
-
-            if (searchBox != null)
+            try
             {
+                // Find the search textbox
+                searchBox = FindTextBoxInSearchField(searchField1);
+
+                if (searchBox == null)
+                {
+                    Console.WriteLine("Search box not found!");
+                    return;
+                }
+
+                Console.WriteLine("Search box found and initialized");
+
+                // Clear any existing event handlers to prevent duplicates
+                searchBox.TextChanged -= SearchBox_TextChanged;
+                searchBox.KeyUp -= SearchBox_KeyUp;
+
+                // Set up placeholder text
                 searchBox.ForeColor = Color.Gray;
                 searchBox.Text = "Search customers...";
+
+                // Hook up multiple events for comprehensive search
+                searchBox.TextChanged += SearchBox_TextChanged;
+                searchBox.KeyUp += SearchBox_KeyUp;
 
                 // When user focuses, clear placeholder
                 searchBox.GotFocus += (s, e) =>
                 {
-                    if (searchBox.Text == "Search customers...")
+                    if (searchBox.Text == "Search customers..." && searchBox.ForeColor == Color.Gray)
                     {
                         searchBox.Text = "";
                         searchBox.ForeColor = Color.Black;
+                        // Trigger search with empty text
+                        PerformSearch("");
                     }
                 };
 
@@ -71,41 +91,105 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                     {
                         searchBox.Text = "Search customers...";
                         searchBox.ForeColor = Color.Gray;
+                        // Reset to show all customers
+                        PerformSearch("");
                     }
                 };
+
+                Console.WriteLine("Search events attached successfully");
             }
-        }
-
-
-        private void SearchTextBox_SearchTextChanged(object sender, string searchText)
-        {
-            if (searchDelay == null) return;
-
-            // debounce: restart timer on each keystroke
-            searchDelay.Stop();
-            searchDelay.Start();
-        }
-
-        private void SearchDelay_Tick(object sender, EventArgs e)
-        {
-            searchDelay.Stop();
-
-            string searchText = searchTextBox?.GetSearchText() ?? string.Empty;
-
-            var dataGridTable = FindControlRecursive<DataGridTable>(this);
-            var paginationControl = FindControlRecursive<PageNumber>(this);
-
-            if (dataGridTable != null)
+            catch (Exception ex)
             {
-                // DataGridTable already knows how to apply search text
-                dataGridTable.ApplySearch(searchText);
+                Console.WriteLine($"Error initializing search: {ex.Message}");
+                MessageBox.Show($"Error initializing search: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
 
-            paginationControl?.RefreshPagination();
+        private void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Ignore if it's the placeholder text
+                if (searchBox.Text == "Search customers..." && searchBox.ForeColor == Color.Gray)
+                {
+                    return;
+                }
+
+                string searchText = searchBox.Text.Trim();
+                Console.WriteLine($"Search text changed: '{searchText}'");
+                PerformSearch(searchText);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SearchBox_TextChanged: {ex.Message}");
+            }
+        }
+
+        private void SearchBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                // Ignore if it's the placeholder text
+                if (searchBox.Text == "Search customers..." && searchBox.ForeColor == Color.Gray)
+                {
+                    return;
+                }
+
+                string searchText = searchBox.Text.Trim();
+                Console.WriteLine($"Key up - Search text: '{searchText}'");
+                PerformSearch(searchText);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in SearchBox_KeyUp: {ex.Message}");
+            }
+        }
+
+        private void PerformSearch(string searchText)
+        {
+            try
+            {
+                Console.WriteLine($"Performing search with text: '{searchText}'");
+
+                var dataGridTable = FindControlRecursive<DataGridTable>(this);
+                var paginationControl = FindControlRecursive<PageNumber>(this);
+
+                if (dataGridTable == null)
+                {
+                    Console.WriteLine("DataGridTable not found!");
+                    return;
+                }
+
+                Console.WriteLine("Applying search to DataGridTable...");
+
+                // Apply strict search filter immediately
+                dataGridTable.ApplySearch(searchText);
+
+                Console.WriteLine("Search applied successfully");
+
+                // Refresh pagination after search
+                if (paginationControl != null)
+                {
+                    paginationControl.RefreshPagination();
+                    Console.WriteLine("Pagination refreshed");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error performing search: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+                MessageBox.Show($"Search error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private TextBox FindTextBoxInSearchField(Control searchFieldControl)
         {
+            if (searchFieldControl == null)
+            {
+                Console.WriteLine("searchField1 is null!");
+                return null;
+            }
+
             return FindControlRecursive<TextBox>(searchFieldControl);
         }
 
@@ -113,10 +197,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         {
             if (parent == null) return null;
 
+            // Check if parent itself is T
+            if (parent is T found)
+                return found;
+
             foreach (Control control in parent.Controls)
             {
-                if (control is T found)
-                    return found;
+                if (control is T result)
+                    return result;
 
                 var child = FindControlRecursive<T>(control);
                 if (child != null)
@@ -141,15 +229,36 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         /// </summary>
         public void RefreshCustomerList()
         {
-            var dataGridTable = FindControlRecursive<DataGridTable>(this);
-            var paginationControl = FindControlRecursive<PageNumber>(this);
+            try
+            {
+                var dataGridTable = FindControlRecursive<DataGridTable>(this);
+                var paginationControl = FindControlRecursive<PageNumber>(this);
 
-            if (dataGridTable == null) return;
+                if (dataGridTable == null)
+                {
+                    Console.WriteLine("DataGridTable not found in RefreshCustomerList");
+                    return;
+                }
 
-            string activeSearch = searchTextBox?.GetSearchText() ?? string.Empty;
+                // Get current search text
+                string activeSearch = string.Empty;
+                if (searchBox != null &&
+                    searchBox.Text != "Search customers..." &&
+                    searchBox.ForeColor != Color.Gray)
+                {
+                    activeSearch = searchBox.Text.Trim();
+                }
 
-            dataGridTable.ApplySearch(activeSearch);
-            paginationControl?.RefreshPagination();
+                Console.WriteLine($"Refreshing with search: '{activeSearch}'");
+
+                dataGridTable.ApplySearch(activeSearch);
+                paginationControl?.RefreshPagination();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in RefreshCustomerList: {ex.Message}");
+                MessageBox.Show($"Error refreshing customer list: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void guna2Button1_Click(object sender, EventArgs e)
@@ -159,7 +268,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 
         private void refreshbtnn_Click(object sender, EventArgs e)
         {
+            // Clear search and refresh
+            if (searchBox != null)
+            {
+                searchBox.Text = "Search customers...";
+                searchBox.ForeColor = Color.Gray;
+            }
 
+            RefreshCustomerList();
         }
 
         private void dataGridTable1_Load(object sender, EventArgs e)

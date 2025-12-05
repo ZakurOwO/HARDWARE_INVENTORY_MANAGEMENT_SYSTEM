@@ -13,6 +13,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
     {
         private DeliveriesDataAccess deliveriesData;
         private DataTable deliveriesDataTable;
+        private Button btnExportPdf;
 
         public DeliveriesPage1()
         {
@@ -21,6 +22,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
 
             // Initialize on load
             this.Load += DeliveriesPage1_Load;
+            ConfigureExportButton();
         }
 
         private void DeliveriesPage1_Load(object sender, EventArgs e)
@@ -88,7 +90,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
             }
         }
 
-        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        private void ConfigureExportButton()
+        {
+            btnExportPdf = new Button
+            {
+                Text = "Export to PDF",
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                AutoSize = true,
+                BackColor = Color.FromArgb(76, 175, 80),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnExportPdf.FlatAppearance.BorderSize = 0;
+            btnExportPdf.Location = new Point(this.Width - 180, 10);
+            btnExportPdf.Click += BtnExportPdf_Click;
+            this.Controls.Add(btnExportPdf);
+            btnExportPdf.BringToFront();
+            this.Resize += (s, e) =>
+            {
+                btnExportPdf.Location = new Point(this.Width - btnExportPdf.Width - 20, btnExportPdf.Location.Y);
+            };
+        }
+
+        private void BtnExportPdf_Click(object sender, EventArgs e)
         {
             try
             {
