@@ -1,14 +1,28 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
 {
     public class DeliveriesDataAccess
     {
-        private string connectionString;
+        private readonly string connectionString;
+
+        private static void AddDateRangeParameters(SqlCommand command, DateTime? startDate, DateTime? endDate)
+        {
+            if (startDate.HasValue)
+            {
+                command.Parameters.AddWithValue("@StartDate", startDate.Value.Date);
+            }
+
+            if (endDate.HasValue)
+            {
+                command.Parameters.AddWithValue("@EndDate", endDate.Value.Date.AddDays(1).AddSeconds(-1));
+            }
+        }
 
         public DeliveriesDataAccess()
         {
@@ -341,5 +355,228 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data
             }
             return dt;
         }
+
+        public async Task<List<DeliverySummaryReportModel>> GetDeliveriesSummaryAsync(DateTime? startDate = null, DateTime? endDate = null)
+        {
+            var results = new List<DeliverySummaryReportModel>();
+
+            string query = @"
+                SELECT
+                    CAST(d.delivery_date AS DATE) AS DeliveryDate,
+                    d.status,
+                    COUNT(DISTINCT d.delivery_id) AS DeliveryCount,
+                    ISNULL(SUM(di.quantity_received), 0) AS TotalItems
+                FROM Deliveries d
+                LEFT JOIN DeliveryItems di ON d.delivery_id = di.delivery_id
+                WHERE 1=1";
+
+            if (startDate.HasValue)
+                query += " AND d.delivery_date >= @StartDate";
+            if (endDate.HasValue)
+                query += " AND d.delivery_date <= @EndDate";
+
+            query += @"
+                GROUP BY CAST(d.delivery_date AS DATE), d.status
+                ORDER BY CAST(d.delivery_date AS DATE) DESC, d.status";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                AddDateRangeParameters(cmd, startDate, endDate);
+
+                await conn.OpenAsync();
+                using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        results.Add(new DeliverySummaryReportModel
+                        {
+                            DeliveryDate = reader.GetDateTime(0),
+                            Status = reader.GetString(1),
+                            DeliveryCount = reader.GetInt32(2),
+                            TotalItems = reader.GetInt32(3)
+                        });
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public async Task<List<DeliveryVehicleUtilizationReport>> GetDeliveryVehicleUtilizationAsync(DateTime? startDate = null, DateTime? endDate = null)
+        {
+            var results = new List<DeliveryVehicleUtilizationReport>();
+
+            string query = @"
+                SELECT
+                    v.VehicleID,
+                    v.plate_number,
+                    v.brand,
+                    v.model,
+                    v.vehicle_type,
+                    v.status,
+                    COUNT(DISTINCT va.assignment_id) AS DeliveryAssignments
+                FROM Vehicles v
+                LEFT JOIN VehicleAssignments va ON v.vehicle_id = va.vehicle_id
+                WHERE v.status != 'Inactive'";
+
+            if (startDate.HasValue)
+                query += " AND va.assignment_date >= @StartDate";
+            if (endDate.HasValue)
+                query += " AND va.assignment_date <= @EndDate";
+
+            query += @"
+                GROUP BY v.VehicleID, v.plate_number, v.brand, v.model, v.vehicle_type, v.status
+                ORDER BY DeliveryAssignments DESC, v.plate_number";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                AddDateRangeParameters(cmd, startDate, endDate);
+
+                await conn.OpenAsync();
+                using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        results.Add(new DeliveryVehicleUtilizationReport
+                        {
+                            VehicleID = reader.GetString(0),
+                            PlateNumber = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                            Brand = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                            Model = reader.IsDBNull(3) ? "" : reader.GetString(3),
+                            VehicleType = reader.IsDBNull(4) ? "" : reader.GetString(4),
+                            Status = reader.IsDBNull(5) ? "" : reader.GetString(5),
+                            DeliveryAssignments = reader.GetInt32(6)
+                        });
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public async Task<List<DeliveryStatusBreakdownReport>> GetDeliveryStatusBreakdownAsync(DateTime? startDate = null, DateTime? endDate = null)
+        {
+            var results = new List<DeliveryStatusBreakdownReport>();
+
+            string query = @"
+                SELECT
+                    d.status,
+                    COUNT(DISTINCT d.delivery_id) AS DeliveryCount,
+                    ISNULL(SUM(di.quantity_received), 0) AS TotalItems
+                FROM Deliveries d
+                LEFT JOIN DeliveryItems di ON d.delivery_id = di.delivery_id
+                WHERE 1=1";
+
+            if (startDate.HasValue)
+                query += " AND d.delivery_date >= @StartDate";
+            if (endDate.HasValue)
+                query += " AND d.delivery_date <= @EndDate";
+
+            query += @"
+                GROUP BY d.status
+                ORDER BY DeliveryCount DESC";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                AddDateRangeParameters(cmd, startDate, endDate);
+
+                await conn.OpenAsync();
+                using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        results.Add(new DeliveryStatusBreakdownReport
+                        {
+                            Status = reader.GetString(0),
+                            DeliveryCount = reader.GetInt32(1),
+                            TotalItems = reader.GetInt32(2)
+                        });
+                    }
+                }
+            }
+
+            return results;
+        }
+
+        public async Task<List<VehicleUsageTimelineReport>> GetVehicleUsageTimelineAsync(DateTime? startDate = null, DateTime? endDate = null)
+        {
+            var results = new List<VehicleUsageTimelineReport>();
+
+            string query = @"
+                SELECT
+                    CAST(va.assignment_date AS DATE) AS AssignmentDate,
+                    v.plate_number,
+                    COUNT(DISTINCT va.delivery_id) AS DeliveriesHandled
+                FROM VehicleAssignments va
+                INNER JOIN Vehicles v ON va.vehicle_id = v.vehicle_id
+                WHERE 1=1";
+
+            if (startDate.HasValue)
+                query += " AND va.assignment_date >= @StartDate";
+            if (endDate.HasValue)
+                query += " AND va.assignment_date <= @EndDate";
+
+            query += @"
+                GROUP BY CAST(va.assignment_date AS DATE), v.plate_number
+                ORDER BY CAST(va.assignment_date AS DATE) DESC, v.plate_number";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                AddDateRangeParameters(cmd, startDate, endDate);
+
+                await conn.OpenAsync();
+                using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        results.Add(new VehicleUsageTimelineReport
+                        {
+                            AssignmentDate = reader.GetDateTime(0),
+                            PlateNumber = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                            DeliveriesHandled = reader.GetInt32(2)
+                        });
+                    }
+                }
+            }
+
+            return results;
+        }
+    }
+
+    public class DeliverySummaryReportModel
+    {
+        public DateTime DeliveryDate { get; set; }
+        public string Status { get; set; }
+        public int DeliveryCount { get; set; }
+        public int TotalItems { get; set; }
+    }
+
+    public class DeliveryVehicleUtilizationReport
+    {
+        public string VehicleID { get; set; }
+        public string PlateNumber { get; set; }
+        public string Brand { get; set; }
+        public string Model { get; set; }
+        public string VehicleType { get; set; }
+        public string Status { get; set; }
+        public int DeliveryAssignments { get; set; }
+    }
+
+    public class DeliveryStatusBreakdownReport
+    {
+        public string Status { get; set; }
+        public int DeliveryCount { get; set; }
+        public int TotalItems { get; set; }
+    }
+
+    public class VehicleUsageTimelineReport
+    {
+        public DateTime AssignmentDate { get; set; }
+        public string PlateNumber { get; set; }
+        public int DeliveriesHandled { get; set; }
     }
 }
