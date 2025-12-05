@@ -251,36 +251,63 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
             DateTime monthStart = StartOfMonth(now);
             DateTime nextMonthStart = monthStart.AddMonths(1);
 
-            decimal todaySales = GetSalesTotal(todayStart, tomorrowStart);
-            decimal monthSales = GetSalesTotal(monthStart, nextMonthStart);
-            int transactionsToday = GetTransactionsCount(todayStart, tomorrowStart);
-            int lowStockCount = GetLowStockCount();
-            int outOfStockCount = GetOutOfStockCount();
-            int pendingDeliveries = GetPendingDeliveriesCount();
-            int activeProducts = GetActiveProductsCount();
+            // 1) Total Sales (Today or Month? Your card title says Total Sales)
+            // If you want TODAY sales on the card:
+            decimal totalSalesToday = GetSalesTotal(todayStart, tomorrowStart);
 
-            SetLabelTextSafe(this, "lblTodaySales", "₱" + todaySales.ToString("N2"));
-            SetLabelTextSafe(this, "lblMonthlySales", "₱" + monthSales.ToString("N2"));
-            SetLabelTextSafe(this, "lblTodayTransactions", transactionsToday.ToString());
-            SetLabelTextSafe(this, "lblLowStockCount", lowStockCount.ToString());
-            SetLabelTextSafe(this, "lblOutOfStockCount", outOfStockCount.ToString());
-            SetLabelTextSafe(this, "lblPendingDeliveries", pendingDeliveries.ToString());
-            SetLabelTextSafe(this, "lblActiveProducts", activeProducts.ToString());
+            // If you want MONTH sales instead, use this:
+            // decimal totalSalesMonth = GetSalesTotal(monthStart, nextMonthStart);
+
+            // 2) Total Orders (most likely Transactions count today OR total transactions)
+            // If it means today's transactions:
+            int totalOrdersToday = GetTransactionsCount(todayStart, tomorrowStart);
+
+            // If it means ALL transactions:
+            // int totalOrdersAll = ExecuteScalarInt("SELECT COUNT(*) FROM Transactions;", null);
+
+            // 3) Low Stock Alert
+            int lowStockCount = GetLowStockCount();
+
+            // 4) Total Stocks (sum of current_stock)
+            int totalStocks = GetTotalStocks();
+
+            // Update the custom key metric cards
+            reportsKeyMetrics1.ValueText = "₱" + totalSalesToday.ToString("N2");
+            // optional if your control uses Value too:
+            // reportsKeyMetrics1.Value = (int)totalSalesToday; // only if Value is int and you really need it
+
+            reportsKeyMetrics2.ValueText = totalOrdersToday.ToString();
+            reportsKeyMetrics3.ValueText = lowStockCount.ToString();
+            reportsKeyMetrics4.ValueText = totalStocks.ToString();
+
+            // Optional: if you want titles to be dynamic too
+            // reportsKeyMetrics1.Title = "Total Sales (Today)";
+            // reportsKeyMetrics2.Title = "Total Orders (Today)";
+        }
+
+        private int GetTotalStocks()
+        {
+            string query = @"
+        SELECT ISNULL(SUM(current_stock), 0)
+        FROM Products
+        WHERE active = 1;
+    ";
+
+            return ExecuteScalarInt(query, null);
         }
 
         private decimal GetSalesTotal(DateTime startDate, DateTime endDate)
         {
             string query = @"
-                SELECT ISNULL(SUM(TI.quantity * TI.selling_price), 0)
-                FROM Transactions T
-                INNER JOIN TransactionItems TI ON T.transaction_id = TI.transaction_id
-                WHERE T.transaction_date >= @startDate AND T.transaction_date < @endDate;
-            ";
+        SELECT ISNULL(SUM(total_amount), 0)
+        FROM Transactions
+        WHERE transaction_date >= @startDate AND transaction_date < @endDate;
+    ";
 
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@startDate", startDate),
-                new SqlParameter("@endDate", endDate)
+        new SqlParameter("@startDate", startDate),
+        new SqlParameter("@endDate", endDate)
             };
 
             return ExecuteScalarDecimal(query, parameters);
@@ -289,27 +316,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
         private int GetTransactionsCount(DateTime startDate, DateTime endDate)
         {
             string query = @"
-                SELECT COUNT(*)
-                FROM Transactions
-                WHERE transaction_date >= @startDate AND transaction_date < @endDate;
-            ";
+        SELECT COUNT(*)
+        FROM Transactions
+        WHERE transaction_date >= @startDate AND transaction_date < @endDate;
+    ";
 
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@startDate", startDate),
-                new SqlParameter("@endDate", endDate)
+        new SqlParameter("@startDate", startDate),
+        new SqlParameter("@endDate", endDate)
             };
 
             return ExecuteScalarInt(query, parameters);
         }
 
+
         private int GetLowStockCount()
         {
             string query = @"
-                SELECT COUNT(*)
-                FROM Products
-                WHERE current_stock <= reorder_point AND active = 1;
-            ";
+        SELECT COUNT(*)
+        FROM Products
+        WHERE current_stock <= reorder_point AND active = 1;
+    ";
 
             return ExecuteScalarInt(query, null);
         }
@@ -317,35 +345,41 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Dashboard
         private int GetOutOfStockCount()
         {
             string query = @"
-                SELECT COUNT(*)
-                FROM Products
-                WHERE current_stock <= 0 AND active = 1;
-            ";
+        SELECT COUNT(*)
+        FROM Products
+        WHERE current_stock <= 0 AND active = 1;
+    ";
 
             return ExecuteScalarInt(query, null);
         }
+
 
         private int GetPendingDeliveriesCount()
         {
+            // Count deliveries that are NOT completed
+            // Treat Scheduled / Assigned / Pending / On Delivery as "pending"
             string query = @"
-                SELECT COUNT(*)
-                FROM Deliveries
-                WHERE status IS NULL OR status <> 'Completed' OR status IN ('Scheduled', 'Assigned', 'Pending');
-            ";
+        SELECT COUNT(*)
+        FROM Deliveries
+        WHERE status IN ('Scheduled', 'Assigned', 'Pending', 'On Delivery')
+              OR status IS NULL;
+    ";
 
             return ExecuteScalarInt(query, null);
         }
+
 
         private int GetActiveProductsCount()
         {
             string query = @"
-                SELECT COUNT(*)
-                FROM Products
-                WHERE active = 1;
-            ";
+        SELECT COUNT(*)
+        FROM Products
+        WHERE active = 1;
+    ";
 
             return ExecuteScalarInt(query, null);
         }
+
 
         private decimal ExecuteScalarDecimal(string query, SqlParameter[] parameters)
         {

@@ -393,6 +393,7 @@
             this.reportsKeyMetrics4.TabIndex = 13;
             this.reportsKeyMetrics4.Title = "Total Stocks";
             this.reportsKeyMetrics4.Value = 1234;
+            this.reportsKeyMetrics4.ValueText = "1234";
             // 
             // reportsKeyMetrics3
             // 
@@ -404,6 +405,7 @@
             this.reportsKeyMetrics3.TabIndex = 12;
             this.reportsKeyMetrics3.Title = "Low Stock Alert";
             this.reportsKeyMetrics3.Value = 25;
+            this.reportsKeyMetrics3.ValueText = "25";
             // 
             // reportsKeyMetrics2
             // 
@@ -415,6 +417,7 @@
             this.reportsKeyMetrics2.TabIndex = 11;
             this.reportsKeyMetrics2.Title = "Total Orders";
             this.reportsKeyMetrics2.Value = 234;
+            this.reportsKeyMetrics2.ValueText = "234";
             // 
             // reportsKeyMetrics1
             // 
@@ -426,6 +429,7 @@
             this.reportsKeyMetrics1.TabIndex = 10;
             this.reportsKeyMetrics1.Title = "Total Sales";
             this.reportsKeyMetrics1.Value = 12345;
+            this.reportsKeyMetrics1.ValueText = "12345";
             // 
             // DashboardMainPage
             // 
