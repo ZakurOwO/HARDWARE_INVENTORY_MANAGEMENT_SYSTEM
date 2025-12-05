@@ -42,32 +42,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             return ExportReport(data, reportTitle, startDate, endDate, BuildVehicleTimelineTable);
         }
 
-        public static bool ExportDataGridView(DataGridView grid, string reportTitle, DateTime? startDate, DateTime? endDate)
-        {
-            if (grid == null)
-            {
-                MessageBox.Show("No grid available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
-            }
-
-            var columns = grid.Columns.Cast<DataGridViewColumn>()
-                .Where(c => c.Visible)
-                .OrderBy(c => c.DisplayIndex)
-                .ToList();
-
-            var rows = grid.Rows.Cast<DataGridViewRow>()
-                .Where(r => !r.IsNewRow)
-                .ToList();
-
-            if (!columns.Any() || !rows.Any())
-            {
-                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
-            }
-
-            return ExportReport(rows, reportTitle, startDate, endDate, (doc, dataRows) => BuildGridTable(doc, columns, dataRows));
-        }
-
         private static bool ExportReport<T>(IEnumerable<T> data, string reportTitle, DateTime? startDate, DateTime? endDate, Action<Document, IEnumerable<T>> tableBuilder)
         {
             var dataList = data?.ToList() ?? new List<T>();
@@ -233,22 +207,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 totalProfit.ToString("₱#,##0.00"),
                 string.Empty
             });
-
-            document.Add(table);
-        }
-
-        private static void BuildGridTable(Document document, IList<DataGridViewColumn> columns, IEnumerable<DataGridViewRow> rows)
-        {
-            var table = CreateTable(columns.Count, columns.Select(c => c.HeaderText));
-
-            foreach (var row in rows)
-            {
-                foreach (var column in columns)
-                {
-                    var cellValue = row.Cells[column.Index].Value;
-                    table.AddCell(cellValue?.ToString() ?? string.Empty);
-                }
-            }
 
             document.Add(table);
         }

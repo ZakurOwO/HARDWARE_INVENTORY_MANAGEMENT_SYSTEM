@@ -90,5 +90,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             ShowPage(currentPage);
         }
+
+        private void mainButton2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
