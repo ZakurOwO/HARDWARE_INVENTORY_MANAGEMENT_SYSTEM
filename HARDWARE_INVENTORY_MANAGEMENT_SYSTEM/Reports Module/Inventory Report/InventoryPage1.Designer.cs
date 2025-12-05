@@ -34,7 +34,6 @@
             this.reportsKeyMetrics3 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
-            this.ExportPDFBtn = new System.Windows.Forms.Button();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -101,28 +100,11 @@
             this.reportsKeyMetrics1.Title = "Total Products";
             this.reportsKeyMetrics1.Value = 1234;
             // 
-            // ExportPDFBtn
-            // 
-            this.ExportPDFBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExportPDFBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.ExportPDFBtn.FlatAppearance.BorderSize = 0;
-            this.ExportPDFBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExportPDFBtn.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold);
-            this.ExportPDFBtn.ForeColor = System.Drawing.Color.White;
-            this.ExportPDFBtn.Location = new System.Drawing.Point(747, 12);
-            this.ExportPDFBtn.Name = "ExportPDFBtn";
-            this.ExportPDFBtn.Size = new System.Drawing.Size(150, 30);
-            this.ExportPDFBtn.TabIndex = 10;
-            this.ExportPDFBtn.Text = "Export PDF";
-            this.ExportPDFBtn.UseVisualStyleBackColor = false;
-            this.ExportPDFBtn.Click += new System.EventHandler(this.ExportPDFBtn_Click);
-            // 
             // InventoryPage1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.ExportPDFBtn);
             this.Controls.Add(this.reportsTable1);
             this.Controls.Add(this.panel3);
             this.Name = "InventoryPage1";
@@ -140,6 +122,5 @@
         private ReportsKeyMetrics reportsKeyMetrics3;
         private ReportsKeyMetrics reportsKeyMetrics2;
         private ReportsKeyMetrics reportsKeyMetrics1;
-        private System.Windows.Forms.Button ExportPDFBtn;
     }
 }

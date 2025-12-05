@@ -210,6 +210,7 @@
             this.ExportPDFBtn.Name = "ExportPDFBtn";
             this.ExportPDFBtn.Size = new System.Drawing.Size(141, 44);
             this.ExportPDFBtn.TabIndex = 36;
+            this.ExportPDFBtn.Load += new System.EventHandler(this.ExportPDFBtn_Load);
             this.ExportPDFBtn.Click += new System.EventHandler(this.ExportPDFBtn_Click);
             // 
             // inventoryFilter_Button1

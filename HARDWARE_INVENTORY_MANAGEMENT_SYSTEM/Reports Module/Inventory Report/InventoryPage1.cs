@@ -16,13 +16,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             InitializeComponent();
             dataAccess = new InventoryReportsDataAccess();
             this.Load += InventoryPage1_Load;
-            this.ExportPDFBtn.Click += ExportPDFBtn_Click;
+           
+           
         }
 
         private void InventoryPage1_Load(object sender, EventArgs e)
         {
             LoadData();
         }
+
+        public ReportTable GetCurrentReport()
+        {
+            if (currentReport == null)
+                currentReport = ReportQueries.BuildInventoryCurrentStockReport();
+
+            return currentReport;
+        }
+
 
         private void LoadData()
         {
@@ -75,20 +85,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             }
         }
 
-        private void ExportPDFBtn_Click(object sender, EventArgs e)
-        {
-            if (currentReport == null)
-            {
-                currentReport = ReportQueries.BuildInventoryCurrentStockReport();
-            }
-
-            bool exported = ReportPdfExporter.ExportReportTable(currentReport);
-            if (exported)
-            {
-                MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
+       
         private DataGridView FindDataGridView(Control parent)
         {
             for (int i = 0; i < parent.Controls.Count; i++)
