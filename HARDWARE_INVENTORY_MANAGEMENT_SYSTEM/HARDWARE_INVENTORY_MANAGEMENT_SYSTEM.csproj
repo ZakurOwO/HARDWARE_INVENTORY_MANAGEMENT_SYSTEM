@@ -522,6 +522,7 @@
       <DependentUpon>MainDashBoard.cs</DependentUpon>
     </Compile>
     <Compile Include="Reports Module\Reports\ReportTableCombiner.cs" />
+    <Compile Include="Reports Module\Supplier Reports\SupplierReportDataAccess.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

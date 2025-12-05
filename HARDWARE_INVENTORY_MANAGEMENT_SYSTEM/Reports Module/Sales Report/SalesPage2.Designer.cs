@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
             this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
             this.CustomerID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,7 +40,6 @@
             this.TotalQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalSales = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
-            this.ExportCSVBtn = new System.Windows.Forms.Button();
             this.pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +51,6 @@
             this.pnlTable.BorderColor = System.Drawing.Color.LightGray;
             this.pnlTable.BorderRadius = 10;
             this.pnlTable.BorderThickness = 1;
-            this.pnlTable.Controls.Add(this.ExportCSVBtn);
             this.pnlTable.Controls.Add(this.dgvCurrentStockReport);
             this.pnlTable.Controls.Add(this.label2);
             this.pnlTable.Location = new System.Drawing.Point(2, 3);
@@ -63,17 +61,17 @@
             // dgvCurrentStockReport
             // 
             this.dgvCurrentStockReport.AllowUserToAddRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.dgvCurrentStockReport.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvCurrentStockReport.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCurrentStockReport.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.DimGray;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCurrentStockReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Lexend SemiBold", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(226)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.DimGray;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCurrentStockReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCurrentStockReport.ColumnHeadersHeight = 45;
             this.dgvCurrentStockReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dgvCurrentStockReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -83,14 +81,14 @@
             this.TotalOrders,
             this.TotalQuantity,
             this.TotalSales});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCurrentStockReport.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCurrentStockReport.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvCurrentStockReport.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvCurrentStockReport.Location = new System.Drawing.Point(21, 48);
             this.dgvCurrentStockReport.Name = "dgvCurrentStockReport";
@@ -166,22 +164,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Sales by Customer";
             // 
-            // ExportCSVBtn
-            //
-            this.ExportCSVBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExportCSVBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.ExportCSVBtn.FlatAppearance.BorderSize = 0;
-            this.ExportCSVBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExportCSVBtn.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold);
-            this.ExportCSVBtn.ForeColor = System.Drawing.Color.White;
-            this.ExportCSVBtn.Location = new System.Drawing.Point(729, 12);
-            this.ExportCSVBtn.Name = "ExportCSVBtn";
-            this.ExportCSVBtn.Size = new System.Drawing.Size(150, 30);
-            this.ExportCSVBtn.TabIndex = 3;
-            this.ExportCSVBtn.Text = "Export CSV";
-            this.ExportCSVBtn.UseVisualStyleBackColor = false;
-            this.ExportCSVBtn.Click += new System.EventHandler(this.ExportCSVBtn_Click);
-            // 
             // SalesPage2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -208,6 +190,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalOrders;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalQuantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalSales;
-        private System.Windows.Forms.Button ExportCSVBtn;
     }
 }

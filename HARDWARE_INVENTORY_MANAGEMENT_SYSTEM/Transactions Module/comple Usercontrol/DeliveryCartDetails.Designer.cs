@@ -117,7 +117,7 @@
             this.btnBlue.Size = new System.Drawing.Size(120, 40);
             this.btnBlue.TabIndex = 24;
             this.btnBlue.Text = "Checkout";
-            this.btnBlue.Click += new System.EventHandler(this.btnBlue_Click);
+
             // 
             // dgvCartDetails
             // 

@@ -31,7 +31,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.ExportCSVBtn = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.MainButton();
             this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
@@ -65,19 +64,9 @@
             this.label2.Size = new System.Drawing.Size(140, 13);
             this.label2.TabIndex = 30;
             this.label2.Text = "Showing 1 out of 40 records";
-            //
-            // ExportCSVBtn
-            //
-            this.ExportCSVBtn.ButtonName = "Export CSV";
-            this.ExportCSVBtn.Location = new System.Drawing.Point(764, 11);
-            this.ExportCSVBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.ExportCSVBtn.Name = "ExportCSVBtn";
-            this.ExportCSVBtn.Size = new System.Drawing.Size(149, 44);
-            this.ExportCSVBtn.TabIndex = 31;
-            this.ExportCSVBtn.Click += new System.EventHandler(this.ExportCSVBtn_Click);
-            //
+            // 
             // guna2Button5
-            //
+            // 
             this.guna2Button5.BorderColor = System.Drawing.Color.LightGray;
             this.guna2Button5.BorderRadius = 5;
             this.guna2Button5.BorderThickness = 1;
@@ -178,7 +167,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.ExportCSVBtn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.guna2Button5);
             this.Controls.Add(this.guna2Button6);
@@ -198,7 +186,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
-        private UserControlFiles.MainButton ExportCSVBtn;
         private Guna.UI2.WinForms.Guna2Button guna2Button5;
         private Guna.UI2.WinForms.Guna2Button guna2Button6;
         private Guna.UI2.WinForms.Guna2Button guna2Button4;

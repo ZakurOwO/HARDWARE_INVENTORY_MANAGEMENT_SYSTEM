@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Customers_Report;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
@@ -16,14 +12,56 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
     {
         private CustomersPage1 customersPage;
 
+        private Guna2ComboBox exportScopeComboBox;
+        private Guna2Button exportCSVBtn;
+
         public CustomersReportPanel()
         {
             InitializeComponent();
-            this.Load += CustomersReportPanel_load;
-            CreateExportScopeComboBox();
+            this.Load += CustomersReportPanel_Load;
+
+            CreateExportControls();
         }
 
-        private Guna2ComboBox exportScopeComboBox;
+        private void CreateExportControls()
+        {
+            // === Export Scope Dropdown ===
+            exportScopeComboBox = new Guna2ComboBox();
+            exportScopeComboBox.Width = 200;
+            exportScopeComboBox.Height = 35;
+            exportScopeComboBox.Location = new Point(595, 10);
+            exportScopeComboBox.BorderRadius = 8;
+            exportScopeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            exportScopeComboBox.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
+
+            exportScopeComboBox.Items.Add("Current Page Only");
+            exportScopeComboBox.Items.Add("Export Entire Module");
+            exportScopeComboBox.SelectedIndex = 0;
+
+            Controls.Add(exportScopeComboBox);
+            exportScopeComboBox.BringToFront();
+
+            // === Export CSV Button ===
+            exportCSVBtn = new Guna2Button();
+            exportCSVBtn.Text = "Export CSV";
+            exportCSVBtn.Width = 135;
+            exportCSVBtn.Height = 35;
+            exportCSVBtn.Location = new Point(800, 10);
+            exportCSVBtn.FillColor = Color.FromArgb(0, 110, 196);
+            exportCSVBtn.ForeColor = Color.White;
+            exportCSVBtn.Font = new Font("Lexend SemiBold", 9, FontStyle.Bold);
+            exportCSVBtn.BorderRadius = 8;
+
+            exportCSVBtn.Click += ExportCSVBtn_Click;
+
+            Controls.Add(exportCSVBtn);
+            exportCSVBtn.BringToFront();
+        }
+
+        private void CustomersReportPanel_Load(object sender, EventArgs e)
+        {
+            ShowCustomerPage();
+        }
 
         private void ShowCustomerPage()
         {
@@ -34,54 +72,58 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             panel1.Controls.Add(customersPage);
         }
 
-        private void CustomersReportPanel_load(object sender, EventArgs e)
-        {
-            ShowCustomerPage();
-        }
-
-        private void mainButton1_Load(object sender, EventArgs e)
-        {
-            // Generate report button
-        }
-
         private void mainButton1_Click(object sender, EventArgs e)
         {
-            // Refresh all data from database
             if (customersPage != null)
-            {
                 customersPage.RefreshAllData();
-            }
         }
 
-        private void exportButton_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void exportButton_Click(object sender, EventArgs e)
+        private void ExportCSVBtn_Click(object sender, EventArgs e)
         {
             if (customersPage == null)
             {
-                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No data to export.",
+                    "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            ReportTable report = customersPage.BuildReportForExport();
+            bool exportModule = exportScopeComboBox.SelectedIndex == 1;
+
+            ReportTable report;
+
+            if (exportModule)
+            {
+                // Customers only has 1 page, but we still support module export
+                report = BuildModuleReport();
+            }
+            else
+            {
+                report = customersPage.BuildReportForExport();
+            }
+
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.",
+                    "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             bool exported = ReportCsvExporter2.ExportReportTable(report);
 
             if (exported)
             {
-                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Report exported successfully!",
+                    "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        // Remove all page navigation methods that are no longer needed:
-        // - guna2Button5_Click
-        // - guna2Button2_Click  
-        // - guna2Button6_Click
-        // - guna2Button4_Click
-        // - ShowPage
-        // - UpdatePageButtons
-        // - StyleNavigationButtons
-        // - UpdatePageInfo
+        private ReportTable BuildModuleReport()
+        {
+            // Supports module export (even though we have just one page)
+            if (customersPage == null)
+                return null;
+
+            return customersPage.BuildReportForExport();
+        }
     }
 }

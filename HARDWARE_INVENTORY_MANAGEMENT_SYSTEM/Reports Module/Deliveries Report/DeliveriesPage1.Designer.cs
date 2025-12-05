@@ -31,7 +31,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.ExportCSVBtn = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.reportsKeyMetrics4 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics3 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
@@ -107,32 +106,15 @@
             this.pnlTable.BorderColor = System.Drawing.Color.LightGray;
             this.pnlTable.BorderRadius = 10;
             this.pnlTable.BorderThickness = 1;
-            this.pnlTable.Controls.Add(this.ExportCSVBtn);
             this.pnlTable.Controls.Add(this.dgvCurrentStockReport);
             this.pnlTable.Controls.Add(this.label2);
             this.pnlTable.Location = new System.Drawing.Point(3, 102);
             this.pnlTable.Name = "pnlTable";
             this.pnlTable.Size = new System.Drawing.Size(900, 365);
             this.pnlTable.TabIndex = 14;
-            //
-            // ExportCSVBtn
-            //
-            this.ExportCSVBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExportCSVBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.ExportCSVBtn.FlatAppearance.BorderSize = 0;
-            this.ExportCSVBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExportCSVBtn.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold);
-            this.ExportCSVBtn.ForeColor = System.Drawing.Color.White;
-            this.ExportCSVBtn.Location = new System.Drawing.Point(729, 12);
-            this.ExportCSVBtn.Name = "ExportCSVBtn";
-            this.ExportCSVBtn.Size = new System.Drawing.Size(150, 30);
-            this.ExportCSVBtn.TabIndex = 3;
-            this.ExportCSVBtn.Text = "Export CSV";
-            this.ExportCSVBtn.UseVisualStyleBackColor = false;
-            this.ExportCSVBtn.Click += new System.EventHandler(this.ExportCSVBtn_Click);
-            //
+            // 
             // dgvCurrentStockReport
-            //
+            // 
             this.dgvCurrentStockReport.AllowUserToAddRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             this.dgvCurrentStockReport.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
@@ -212,8 +194,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button ExportCSVBtn;
         private System.Windows.Forms.Panel panel3;
         private ReportsKeyMetrics reportsKeyMetrics4;
         private ReportsKeyMetrics reportsKeyMetrics3;

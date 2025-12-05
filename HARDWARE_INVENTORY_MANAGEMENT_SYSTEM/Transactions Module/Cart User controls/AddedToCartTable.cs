@@ -26,6 +26,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             InitializeDataGridViewColumns();
         }
 
+
+        public DialogResult ShowReceiptPreview(IWin32Window owner, decimal taxRate = 0.12m)
+        {
+            var items = GetReceiptItems();
+            if (items == null || items.Count == 0)
+            {
+                MessageBox.Show("Cart is empty.", "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return DialogResult.Abort;
+            }
+
+            var subtotal = CalculateSubtotal();
+            var tax = CalculateTax(taxRate);
+            var total = CalculateTotal(taxRate);
+
+            using (var dlg = new ReceiptPreviewForm(items, subtotal, tax, total, taxRate))
+            {
+                var result = dlg.ShowDialog(owner);
+                return result;
+            }
+        }
+
+
         private void InitializeDataGridViewColumns()
         {
             // Clear existing columns

@@ -20,6 +20,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         private readonly EventHandler cartUpdatedHandler;
         private bool deletionInProgress;
 
+
+
         public Walk_inCartDetails()
         {
             InitializeComponent();
@@ -42,6 +44,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 SharedCartManager.Instance.CartUpdated -= cartUpdatedHandler;
             };
         }
+     
+
 
         #region Initialization
 
@@ -605,7 +609,47 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             CheckoutWalkIn();
         }
 
-        private void CheckoutWalkIn()
+           private bool ShowReceiptPreview_WalkIn()
+        {
+            var data = new ReceiptData
+            {
+                DocumentTitle = "Receipt",
+                TransactionType = "Walk-in",
+                PaymentMethod = "-", // set after payment if needed
+                TransactionId = "TRX-" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),
+                TransactionDate = DateTime.Now
+            };
+
+            // Build items from grid
+            var items = new List<ReceiptItem>();
+            foreach (DataGridViewRow row in dgvCartDetails.Rows)
+            {
+                if (row.IsNewRow) continue;
+                if (row.Cells["ItemName"].Value == null ||
+                    row.Cells["Quantity"].Value == null ||
+                    row.Cells["Price"].Value == null) continue;
+
+                var name = row.Cells["ItemName"].Value.ToString();
+                var qty = Convert.ToInt32(row.Cells["Quantity"].Value);
+                var priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
+                decimal unitPrice; if (!decimal.TryParse(priceText, out unitPrice)) continue;
+
+                items.Add(new ReceiptItem { ItemName = name, Quantity = qty, UnitPrice = unitPrice });
+            }
+            data.Items = items;
+
+            // Totals using your existing methods
+            var subtotal = CalculateSubtotal();
+            var tax = CalculateTax(subtotal);
+            data.Subtotal = subtotal; data.Tax = tax; data.Total = subtotal + tax;
+
+            using (var dlg = new ReceiptPreviewForm(data))
+            {
+                return dlg.ShowDialog(this) == DialogResult.OK;
+            }
+        }
+
+         private void CheckoutWalkIn()
         {
             try
             {
@@ -613,11 +657,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 if (!ValidateQuantities()) return;
                 if (!ValidateStockAvailability()) return;
 
-                ShowCheckoutPopup();
+                if (!ShowReceiptPreview_WalkIn()) return;   // ⬅️ stop if user cancels preview
+                ShowCheckoutPopup();                         // proceed to your existing payment popup
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error during checkout: {ex.Message}", "Checkout Error",
+                MessageBox.Show("Error during checkout: " + ex.Message, "Checkout Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

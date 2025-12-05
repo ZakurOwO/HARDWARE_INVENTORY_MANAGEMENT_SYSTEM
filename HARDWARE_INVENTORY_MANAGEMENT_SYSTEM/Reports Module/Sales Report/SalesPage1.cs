@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
+using System.ComponentModel;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 {
@@ -33,7 +34,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             dataAccess = new SalesReportDataAccess();
             this.Load += SalesPage1_Load;
 
-            ConfigureExportButton();
         }
 
         private void SalesPage1_Load(object sender, EventArgs e)
@@ -154,43 +154,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             LoadSalesData(null, null);
         }
 
-        // ✅ FIXED: button variable matches field
-        private void ConfigureExportButton()
-        {
-            // prevent duplicates if designer also adds controls or you recreate
-            if (exportCsvButton != null)
-            {
-                exportCsvButton.Click -= ExportCsvButton_Click;
-                this.Controls.Remove(exportCsvButton);
-                exportCsvButton.Dispose();
-                exportCsvButton = null;
-            }
-
-            exportCsvButton = new Button
-            {
-                Name = "exportCsvButton",
-                Text = "Export CSV",
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                AutoSize = true,
-                BackColor = Color.FromArgb(76, 175, 80),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-
-            exportCsvButton.FlatAppearance.BorderSize = 0;
-
-            // initial placement (adjust if you want exact)
-            exportCsvButton.Location = new Point(this.Width - exportCsvButton.Width - 20, 10);
-
-            exportCsvButton.Click += ExportCsvButton_Click;
-
-            this.Controls.Add(exportCsvButton);
-            exportCsvButton.BringToFront();
-
-            // keep it pinned to the right on resize
-            this.Resize -= SalesPage1_ResizeRepositionButton;
-            this.Resize += SalesPage1_ResizeRepositionButton;
-        }
+      
 
         private void SalesPage1_ResizeRepositionButton(object sender, EventArgs e)
         {
@@ -221,8 +185,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 
         public List<SalesProductReport> GetCurrentData()
         {
-            return dgvCurrentStockReport.DataSource as List<SalesProductReport>;
+            if (dgvCurrentStockReport.DataSource is List<SalesProductReport> list)
+                return list;
+
+            if (dgvCurrentStockReport.DataSource is BindingList<SalesProductReport> binding)
+                return binding.ToList();
+
+            return new List<SalesProductReport>();
         }
+
 
         public ReportTable BuildReportForExport()
         {

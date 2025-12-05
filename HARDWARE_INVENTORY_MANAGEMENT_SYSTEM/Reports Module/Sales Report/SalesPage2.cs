@@ -24,9 +24,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             InitializeComponent();
             dataAccess = new SalesReportDataAccess();
             this.Load += SalesPage2_Load;
-            ExportCSVBtn.Text = "Export CSV";
         }
-
         private void SalesPage2_Load(object sender, EventArgs e)
         {
             ConfigureDataGridView();
@@ -124,8 +122,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 
         public List<SalesCustomerReport> GetCurrentData()
         {
-            return dgvCurrentStockReport.DataSource as List<SalesCustomerReport>;
+            if (dgvCurrentStockReport.DataSource is List<SalesCustomerReport> list)
+                return list;
+
+            if (dgvCurrentStockReport.DataSource is BindingList<SalesCustomerReport> binding)
+                return binding.ToList();
+
+            return new List<SalesCustomerReport>();
         }
+
 
         public ReportTable BuildReportForExport()
         {
@@ -179,28 +184,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             return "Date Range: " + start + " - " + end;
         }
 
-        //private void ExportCSVBtn_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        var data = dgvCurrentStockReport.DataSource as List<SalesCustomerReport>;
-        //        if (data == null || data.Count == 0)
-        //        {
-        //            MessageBox.Show("No data available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //            return;
-        //        }
-
-        //        bool exported = ReportPdfExporter.ExportSalesByCustomer(data, "Sales by Customer Report", filterStartDate, filterEndDate);
-        //        if (exported)
-        //        {
-        //            MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Failed to export report: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
+      
 
         public List<SalesCustomerReport> GetTopCustomers(int count = 10)
         {

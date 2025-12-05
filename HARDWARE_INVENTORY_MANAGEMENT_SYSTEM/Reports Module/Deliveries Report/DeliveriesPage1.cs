@@ -18,11 +18,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
         {
             InitializeComponent();
             deliveriesData = new DeliveriesDataAccess();
-
-            // Initialize on load
             this.Load += DeliveriesPage1_Load;
-            ExportCSVBtn.Text = "Export CSV";
-
         }
 
         private void DeliveriesPage1_Load(object sender, EventArgs e)
