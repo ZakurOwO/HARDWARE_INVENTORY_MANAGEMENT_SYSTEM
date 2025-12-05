@@ -21,6 +21,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             InitializeComponent();
             this.Load += SupplierReportsPanel_load;
+
+            ExportPDFBtn.ButtonName = "Export CSV";
+            ExportPDFBtn.Click += ExportPDFBtn_Click;
         }
 
         private void guna2Button5_Click(object sender, EventArgs e)
@@ -94,6 +97,40 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void mainButton2_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        {
+            if (panel1.Controls.Count == 0)
+            {
+                return;
+            }
+
+            var exportable = panel1.Controls[0] as IReportExportable;
+            if (exportable == null)
+            {
+                MessageBox.Show("This report page does not support export yet.",
+                    "Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Cursor.Current = Cursors.WaitCursor;
+            var report = exportable.BuildReportForExport();
+            Cursor.Current = Cursors.Default;
+
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
+            if (exported)
+            {
+                MessageBox.Show("Report exported to CSV successfully.", "Export",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }
