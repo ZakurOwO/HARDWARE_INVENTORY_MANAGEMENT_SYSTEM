@@ -1,211 +1,274 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report;
+using Guna.UI2.WinForms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 {
     public partial class DeliveriesReportPanel : UserControl
     {
         private DeliveriesDataAccess deliveriesData;
+
         private DataTable deliveriesDataTable;
         private int currentPage = 1;
         private int itemsPerPage = 10;
         private int totalPages = 1;
 
+        private Guna2ComboBox exportScopeComboBox;
+        private Guna2Button exportCSVBtn;
+
         public DeliveriesReportPanel()
         {
             InitializeComponent();
             deliveriesData = new DeliveriesDataAccess();
+
             this.Load += DeliveriesReportPanel_Load;
 
-            // Setup pagination controls
-            HidePaginationControls();
-
-            // Wire up navigation buttons
-            guna2Button6.Click += GunaPreviousButton_Click; // < button
-            guna2Button4.Click += GunaNextButton_Click;     // > button
+            HidePaginationButtons();
+            CreateExportControls();
         }
 
+        // -----------------------------------------------------
+        //  EXPORT CONTROLS (UNIFIED WITH ALL OTHER MODULES)
+        // -----------------------------------------------------
+        private void CreateExportControls()
+        {
+            // === Export Scope ComboBox ===
+            exportScopeComboBox = new Guna2ComboBox();
+            exportScopeComboBox.Width = 200;
+            exportScopeComboBox.Height = 35;
+            exportScopeComboBox.Location = new Point(595, 10);
+            exportScopeComboBox.BorderRadius = 8;
+            exportScopeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            exportScopeComboBox.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
+
+            exportScopeComboBox.Items.Add("Current Page Only");
+            exportScopeComboBox.Items.Add("Export Entire Module");
+            exportScopeComboBox.SelectedIndex = 0;
+
+            Controls.Add(exportScopeComboBox);
+
+            // === Export CSV Button ===
+            exportCSVBtn = new Guna2Button();
+            exportCSVBtn.Text = "Export CSV";
+            exportCSVBtn.Width = 135;
+            exportCSVBtn.Height = 35;
+            exportCSVBtn.Location = new Point(800, 10);
+            exportCSVBtn.BorderRadius = 8;
+            exportCSVBtn.FillColor = Color.FromArgb(0, 110, 196);
+            exportCSVBtn.ForeColor = Color.White;
+            exportCSVBtn.Font = new Font("Lexend SemiBold", 9, FontStyle.Bold);
+
+            exportCSVBtn.Click += ExportCSVBtn_Click;
+
+            Controls.Add(exportCSVBtn);
+
+            // Make sure they appear above everything
+            exportScopeComboBox.BringToFront();
+            exportCSVBtn.BringToFront();
+        }
+
+        // -----------------------------------------------------
+        //  LOAD REPORT
+        // -----------------------------------------------------
         private void DeliveriesReportPanel_Load(object sender, EventArgs e)
         {
-            LoadDeliveryReportData();
+            LoadDeliveryData();
         }
 
-        private void HidePaginationControls()
+        private void LoadDeliveryData()
         {
-            // Hide only page number buttons (1, 2)
-            if (guna2Button2 != null) guna2Button2.Visible = false;
-            if (guna2Button5 != null) guna2Button5.Visible = false;
+            panel1.Controls.Clear();
 
-            // Keep navigation arrows visible (<, >)
-            if (guna2Button6 != null) guna2Button6.Visible = true; // < button
-            if (guna2Button4 != null) guna2Button4.Visible = true; // > button
+            deliveriesDataTable = deliveriesData.GetDeliverySummary();
 
-            // Keep the label2 (record count) visible
-            if (label2 != null) label2.Visible = true;
+            if (deliveriesDataTable == null)
+            {
+                MessageBox.Show("Error loading delivery report data.");
+                return;
+            }
+
+            totalPages = (int)Math.Ceiling(deliveriesDataTable.Rows.Count / (double)itemsPerPage);
+            if (totalPages < 1) totalPages = 1;
+
+            DeliveriesPage1 page = new DeliveriesPage1();
+            page.LoadDataDirectly(GetCurrentPageData());
+            page.Dock = DockStyle.Fill;
+
+            panel1.Controls.Add(page);
+
+            UpdatePaginationLabel();
+            UpdateNavigationButtons();
         }
 
-        private void LoadDeliveryReportData()
-        {
-            try
-            {
-                Console.WriteLine("=".PadRight(60, '='));
-                Console.WriteLine("📊 LoadDeliveryReportData called");
-
-                // Clear panel
-                panel1.Controls.Clear();
-
-                // Get all data first
-                Console.WriteLine("🔍 Fetching data from database...");
-                deliveriesDataTable = deliveriesData.GetDeliverySummary();
-
-                if (deliveriesDataTable == null)
-                {
-                    Console.WriteLine("❌ GetDeliverySummary returned NULL!");
-                    MessageBox.Show("Failed to retrieve delivery data from database.", "Database Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                Console.WriteLine($"✓ Retrieved {deliveriesDataTable.Rows.Count} total records from database");
-                Console.WriteLine($"✓ Columns: {string.Join(", ", deliveriesDataTable.Columns.Cast<DataColumn>().Select(c => c.ColumnName))}");
-
-                // Calculate pagination
-                if (deliveriesDataTable != null && deliveriesDataTable.Rows.Count > 0)
-                {
-                    totalPages = (int)Math.Ceiling((double)deliveriesDataTable.Rows.Count / itemsPerPage);
-                    currentPage = Math.Max(1, Math.Min(currentPage, totalPages));
-                    Console.WriteLine($"📄 Pagination: {totalPages} total pages, showing page {currentPage}");
-                }
-                else
-                {
-                    totalPages = 1;
-                    currentPage = 1;
-                    Console.WriteLine("⚠ No data for pagination");
-                }
-
-                // Create DeliveriesPage1 to display in the panel
-                DeliveriesPage1 reportPage = new DeliveriesPage1();
-
-                // Load current page data
-                DataTable currentPageData = GetCurrentPageData();
-                Console.WriteLine($"📋 Current page data: {currentPageData.Rows.Count} rows");
-
-                reportPage.LoadDataDirectly(currentPageData);
-
-                reportPage.Dock = DockStyle.Fill;
-                panel1.Controls.Add(reportPage);
-
-                // Update pagination UI
-                UpdatePaginationUI();
-
-                Console.WriteLine($"✓ Delivery report loaded - Page {currentPage} of {totalPages}");
-                Console.WriteLine("=".PadRight(60, '='));
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"❌ ERROR in LoadDeliveryReportData: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
-                MessageBox.Show($"Error loading delivery report: {ex.Message}\n\nCheck console for details.", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
+        // -----------------------------------------------------
+        //  PAGINATION
+        // -----------------------------------------------------
         private DataTable GetCurrentPageData()
         {
-            Console.WriteLine($"🔍 GetCurrentPageData called for page {currentPage}");
+            DataTable dt = deliveriesDataTable.Clone();
+            int start = (currentPage - 1) * itemsPerPage;
+            int end = Math.Min(start + itemsPerPage, deliveriesDataTable.Rows.Count);
 
-            if (deliveriesDataTable == null || deliveriesDataTable.Rows.Count == 0)
-            {
-                Console.WriteLine("⚠ No data available to paginate");
-                return new DataTable();
-            }
+            for (int i = start; i < end; i++)
+                dt.ImportRow(deliveriesDataTable.Rows[i]);
 
-            DataTable pageData = deliveriesDataTable.Clone(); // Clone structure
-
-            int startIndex = (currentPage - 1) * itemsPerPage;
-            int endIndex = Math.Min(startIndex + itemsPerPage, deliveriesDataTable.Rows.Count);
-
-            Console.WriteLine($"📄 Extracting rows {startIndex} to {endIndex - 1} (total: {deliveriesDataTable.Rows.Count})");
-
-            for (int i = startIndex; i < endIndex; i++)
-            {
-                pageData.ImportRow(deliveriesDataTable.Rows[i]);
-            }
-
-            Console.WriteLine($"✓ Page data created with {pageData.Rows.Count} rows");
-
-            return pageData;
+            return dt;
         }
 
-        private void UpdatePaginationUI()
+        private void UpdatePaginationLabel()
         {
-            // Update label
-            int totalRecords = deliveriesDataTable?.Rows.Count ?? 0;
-            int startRecord = totalRecords > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0;
-            int endRecord = Math.Min(currentPage * itemsPerPage, totalRecords);
+            int totalRecords = deliveriesDataTable.Rows.Count;
+            int startRec = (currentPage - 1) * itemsPerPage + 1;
+            int endRec = Math.Min(currentPage * itemsPerPage, totalRecords);
 
-            label2.Text = $"Showing {startRecord}-{endRecord} of {totalRecords} records (Page {currentPage}/{totalPages})";
+            if (totalRecords == 0) startRec = 0;
 
-            // Enable/disable navigation buttons
-            guna2Button6.Enabled = currentPage > 1; // < button
-            guna2Button4.Enabled = currentPage < totalPages; // > button
-
-            // Update button appearance
-            guna2Button6.FillColor = guna2Button6.Enabled ?
-                Color.Transparent : Color.FromArgb(220, 220, 220);
-            guna2Button4.FillColor = guna2Button4.Enabled ?
-                Color.Transparent : Color.FromArgb(220, 220, 220);
+            label2.Text = $"Showing {startRec}-{endRec} of {totalRecords} records (Page {currentPage}/{totalPages})";
         }
 
-        private void GunaPreviousButton_Click(object sender, EventArgs e)
+        private void UpdateNavigationButtons()
+        {
+            guna2Button6.Enabled = currentPage > 1;          // <
+            guna2Button4.Enabled = currentPage < totalPages;  // >
+        }
+
+        private void HidePaginationButtons()
+        {
+            if (guna2Button5 != null) guna2Button5.Visible = false;
+            if (guna2Button2 != null) guna2Button2.Visible = false;
+
+            guna2Button6.Visible = true;  // <
+            guna2Button4.Visible = true;  // >
+            label2.Visible = true;
+        }
+
+        private void guna2Button6_Click(object sender, EventArgs e)
         {
             if (currentPage > 1)
             {
                 currentPage--;
-                LoadDeliveryReportData();
+                LoadDeliveryData();
             }
         }
 
-        private void GunaNextButton_Click(object sender, EventArgs e)
+        private void guna2Button4_Click(object sender, EventArgs e)
         {
             if (currentPage < totalPages)
             {
                 currentPage++;
-                LoadDeliveryReportData();
+                LoadDeliveryData();
             }
         }
 
         public void RefreshReport()
         {
-            LoadDeliveryReportData();
+            LoadDeliveryData();
+        }
+        private void ExportCSVBtn_Click(object sender, EventArgs e)
+        {
+            if (panel1.Controls.Count == 0)
+                return;
+
+            IReportExportable exportable = panel1.Controls[0] as IReportExportable;
+
+            if (exportable == null)
+            {
+                MessageBox.Show("This report page cannot be exported.");
+                return;
+            }
+
+            bool exportModule = exportScopeComboBox.SelectedIndex == 1;
+
+            bool exported = false;
+
+            if (exportModule)
+            {
+                List<ReportTable> reports = BuildModuleReportsForExport();
+
+                if (reports.Count == 0)
+                {
+                    MessageBox.Show("No data to export.");
+                    return;
+                }
+
+                exported = ReportCsvExporter2.ExportModule("Supplier", reports);
+            }
+            else
+            {
+                ReportTable table = exportable.BuildReportForExport();
+
+                if (table == null || table.Rows.Count == 0)
+                {
+                    MessageBox.Show("No data to export.");
+                    return;
+                }
+
+                exported = ReportCsvExporter2.ExportReportTable(table);
+            }
+
+            // ❌ Stop showing success when CANCEL is clicked!
+            if (!exported)
+                return;
+
+            // ✔ Only show when SaveFileDialog result == OK
+            MessageBox.Show("Report exported successfully!",
+                "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        private List<ReportTable> BuildModuleReportsForExport()
+        {
+            List<ReportTable> reports = new List<ReportTable>();
+
+            // Iterate through all pages of the module
+            for (int page = 1; page <= totalPages; page++)
+            {
+                // Get data for the current page
+                DataTable pageData = GetPageData(page);
+
+                // Convert the page data into a ReportTable
+                ReportTable reportTable = ConvertDataTableToReportTable(pageData, $"Page {page}");
+
+                if (reportTable != null)
+                {
+                    reports.Add(reportTable);
+                }
+            }
+
+            return reports;
         }
 
-        // Optional: Add filter functionality if needed
-        public void FilterByStatus(string status)
+        private DataTable GetPageData(int page)
         {
-            var reportPage = panel1.Controls.OfType<DeliveriesPage1>().FirstOrDefault();
-            if (reportPage != null)
-            {
-                reportPage.FilterByStatus(status);
-            }
+            DataTable dt = deliveriesDataTable.Clone();
+            int start = (page - 1) * itemsPerPage;
+            int end = Math.Min(start + itemsPerPage, deliveriesDataTable.Rows.Count);
+
+            for (int i = start; i < end; i++)
+                dt.ImportRow(deliveriesDataTable.Rows[i]);
+
+            return dt;
         }
 
-        public void FilterByDateRange(DateTime startDate, DateTime endDate)
+        private ReportTable ConvertDataTableToReportTable(DataTable dataTable, string title)
         {
-            var reportPage = panel1.Controls.OfType<DeliveriesPage1>().FirstOrDefault();
-            if (reportPage != null)
+            if (dataTable == null || dataTable.Rows.Count == 0)
+                return null;
+
+            ReportTable reportTable = new ReportTable
             {
-                reportPage.FilterByDateRange(startDate, endDate);
-            }
+                Title = title,
+                Headers = dataTable.Columns.Cast<DataColumn>().Select(c => c.ColumnName).ToList(),
+                Rows = dataTable.Rows.Cast<DataRow>().Select(r => r.ItemArray.Select(i => i.ToString()).ToList()).ToList()
+            };
+
+            return reportTable;
         }
+
     }
 }

@@ -45,7 +45,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void ShowSales()
         {
             pnlMainPanel.Controls.Clear();
-            var salesReportUC = new SalesPage();
+            var salesReportUC = new SalesReportPanel();
             salesReportUC.Dock = DockStyle.Fill;
             pnlMainPanel.Controls.Add(salesReportUC);
         }

@@ -35,11 +35,6 @@
             this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
             this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.PONumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UnitCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
             this.SuspendLayout();
@@ -74,12 +69,6 @@
             this.dgvCurrentStockReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCurrentStockReport.ColumnHeadersHeight = 45;
             this.dgvCurrentStockReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvCurrentStockReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.PONumber,
-            this.ProductName,
-            this.Quantity,
-            this.UnitCost,
-            this.Subtotal});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -135,35 +124,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Purchase Order Details";
             // 
-            // PONumber
-            // 
-            this.PONumber.HeaderText = "PO Number";
-            this.PONumber.Name = "PONumber";
-            // 
-            // ProductName
-            // 
-            this.ProductName.FillWeight = 130F;
-            this.ProductName.HeaderText = "Product Name";
-            this.ProductName.Name = "ProductName";
-            // 
-            // Quantity
-            // 
-            this.Quantity.FillWeight = 80F;
-            this.Quantity.HeaderText = "Quantity";
-            this.Quantity.Name = "Quantity";
-            // 
-            // UnitCost
-            // 
-            this.UnitCost.FillWeight = 80F;
-            this.UnitCost.HeaderText = "Unit Cost";
-            this.UnitCost.Name = "UnitCost";
-            // 
-            // Subtotal
-            // 
-            this.Subtotal.FillWeight = 80F;
-            this.Subtotal.HeaderText = "Subtotal";
-            this.Subtotal.Name = "Subtotal";
-            // 
             // SupplierPage3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -184,10 +144,5 @@
         private Guna.UI2.WinForms.Guna2Panel pnlTable;
         private Guna.UI2.WinForms.Guna2DataGridView dgvCurrentStockReport;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PONumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ProductName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UnitCost;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Subtotal;
     }
 }

@@ -33,14 +33,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
             this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.ExportPDFBtn = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.CustomerID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CustomerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Contact = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalOrders = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalSales = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
             this.pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +51,6 @@
             this.pnlTable.BorderColor = System.Drawing.Color.LightGray;
             this.pnlTable.BorderRadius = 10;
             this.pnlTable.BorderThickness = 1;
-            this.pnlTable.Controls.Add(this.ExportPDFBtn);
             this.pnlTable.Controls.Add(this.dgvCurrentStockReport);
             this.pnlTable.Controls.Add(this.label2);
             this.pnlTable.Location = new System.Drawing.Point(2, 3);
@@ -120,32 +118,6 @@
             this.dgvCurrentStockReport.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvCurrentStockReport.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
-            // ExportPDFBtn
-            //
-            this.ExportPDFBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExportPDFBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.ExportPDFBtn.FlatAppearance.BorderSize = 0;
-            this.ExportPDFBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExportPDFBtn.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold);
-            this.ExportPDFBtn.ForeColor = System.Drawing.Color.White;
-            this.ExportPDFBtn.Location = new System.Drawing.Point(729, 12);
-            this.ExportPDFBtn.Name = "ExportPDFBtn";
-            this.ExportPDFBtn.Size = new System.Drawing.Size(150, 30);
-            this.ExportPDFBtn.TabIndex = 3;
-            this.ExportPDFBtn.Text = "Export PDF";
-            this.ExportPDFBtn.UseVisualStyleBackColor = false;
-        
-            //
-            // label2
-            //
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Lexend SemiBold", 11F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(27, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(149, 24);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Sales by Customer";
-            // 
             // CustomerID
             // 
             this.CustomerID.FillWeight = 80F;
@@ -182,6 +154,16 @@
             this.TotalSales.HeaderText = "Total Sales";
             this.TotalSales.Name = "TotalSales";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Lexend SemiBold", 11F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(27, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(149, 24);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Sales by Customer";
+            // 
             // SalesPage2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -201,7 +183,6 @@
 
         private Guna.UI2.WinForms.Guna2Panel pnlTable;
         private Guna.UI2.WinForms.Guna2DataGridView dgvCurrentStockReport;
-        private System.Windows.Forms.Button ExportPDFBtn;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn CustomerID;
         private System.Windows.Forms.DataGridViewTextBoxColumn CustomerName;

@@ -32,14 +32,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
-            this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.ExportPDFBtn = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.reportsKeyMetrics4 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics3 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.reportsKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
+            this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
+            this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
@@ -56,6 +55,50 @@
             this.panel3.Size = new System.Drawing.Size(900, 90);
             this.panel3.TabIndex = 13;
             // 
+            // reportsKeyMetrics4
+            // 
+            this.reportsKeyMetrics4.BackColor = System.Drawing.Color.Transparent;
+            this.reportsKeyMetrics4.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Increase_Arrow_Icon;
+            this.reportsKeyMetrics4.Location = new System.Drawing.Point(692, 2);
+            this.reportsKeyMetrics4.Name = "reportsKeyMetrics4";
+            this.reportsKeyMetrics4.Size = new System.Drawing.Size(201, 86);
+            this.reportsKeyMetrics4.TabIndex = 3;
+            this.reportsKeyMetrics4.Title = "Active Vehicles";
+            this.reportsKeyMetrics4.Value = 1234;
+            // 
+            // reportsKeyMetrics3
+            // 
+            this.reportsKeyMetrics3.BackColor = System.Drawing.Color.Transparent;
+            this.reportsKeyMetrics3.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Bar_graph_icon;
+            this.reportsKeyMetrics3.Location = new System.Drawing.Point(468, 2);
+            this.reportsKeyMetrics3.Name = "reportsKeyMetrics3";
+            this.reportsKeyMetrics3.Size = new System.Drawing.Size(201, 86);
+            this.reportsKeyMetrics3.TabIndex = 2;
+            this.reportsKeyMetrics3.Title = "Total Vehicles";
+            this.reportsKeyMetrics3.Value = 1234;
+            // 
+            // reportsKeyMetrics2
+            // 
+            this.reportsKeyMetrics2.BackColor = System.Drawing.Color.Transparent;
+            this.reportsKeyMetrics2.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.shopping_cart_icon;
+            this.reportsKeyMetrics2.Location = new System.Drawing.Point(242, 2);
+            this.reportsKeyMetrics2.Name = "reportsKeyMetrics2";
+            this.reportsKeyMetrics2.Size = new System.Drawing.Size(201, 86);
+            this.reportsKeyMetrics2.TabIndex = 1;
+            this.reportsKeyMetrics2.Title = "Pending Deliveries";
+            this.reportsKeyMetrics2.Value = 1234;
+            // 
+            // reportsKeyMetrics1
+            // 
+            this.reportsKeyMetrics1.BackColor = System.Drawing.Color.Transparent;
+            this.reportsKeyMetrics1.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Group_1000004200;
+            this.reportsKeyMetrics1.Location = new System.Drawing.Point(17, 2);
+            this.reportsKeyMetrics1.Name = "reportsKeyMetrics1";
+            this.reportsKeyMetrics1.Size = new System.Drawing.Size(201, 86);
+            this.reportsKeyMetrics1.TabIndex = 0;
+            this.reportsKeyMetrics1.Title = "Total Deliveries";
+            this.reportsKeyMetrics1.Value = 1234;
+            // 
             // pnlTable
             // 
             this.pnlTable.AutoScroll = true;
@@ -63,7 +106,6 @@
             this.pnlTable.BorderColor = System.Drawing.Color.LightGray;
             this.pnlTable.BorderRadius = 10;
             this.pnlTable.BorderThickness = 1;
-            this.pnlTable.Controls.Add(this.ExportPDFBtn);
             this.pnlTable.Controls.Add(this.dgvCurrentStockReport);
             this.pnlTable.Controls.Add(this.label2);
             this.pnlTable.Location = new System.Drawing.Point(3, 102);
@@ -124,24 +166,8 @@
             this.dgvCurrentStockReport.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvCurrentStockReport.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
-            // ExportPDFBtn
-            //
-            this.ExportPDFBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExportPDFBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.ExportPDFBtn.FlatAppearance.BorderSize = 0;
-            this.ExportPDFBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExportPDFBtn.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold);
-            this.ExportPDFBtn.ForeColor = System.Drawing.Color.White;
-            this.ExportPDFBtn.Location = new System.Drawing.Point(729, 12);
-            this.ExportPDFBtn.Name = "ExportPDFBtn";
-            this.ExportPDFBtn.Size = new System.Drawing.Size(150, 30);
-            this.ExportPDFBtn.TabIndex = 3;
-            this.ExportPDFBtn.Text = "Export PDF";
-            this.ExportPDFBtn.UseVisualStyleBackColor = false;
-          
-            //
             // label2
-            //
+            // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Lexend SemiBold", 11F, System.Drawing.FontStyle.Bold);
             this.label2.Location = new System.Drawing.Point(27, 14);
@@ -149,50 +175,6 @@
             this.label2.Size = new System.Drawing.Size(150, 24);
             this.label2.TabIndex = 1;
             this.label2.Text = "Delivery Summary";
-            // 
-            // reportsKeyMetrics4
-            // 
-            this.reportsKeyMetrics4.BackColor = System.Drawing.Color.Transparent;
-            this.reportsKeyMetrics4.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Increase_Arrow_Icon;
-            this.reportsKeyMetrics4.Location = new System.Drawing.Point(692, 2);
-            this.reportsKeyMetrics4.Name = "reportsKeyMetrics4";
-            this.reportsKeyMetrics4.Size = new System.Drawing.Size(201, 86);
-            this.reportsKeyMetrics4.TabIndex = 3;
-            this.reportsKeyMetrics4.Title = "Active Vehicles";
-            this.reportsKeyMetrics4.Value = 1234;
-            // 
-            // reportsKeyMetrics3
-            // 
-            this.reportsKeyMetrics3.BackColor = System.Drawing.Color.Transparent;
-            this.reportsKeyMetrics3.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Bar_graph_icon;
-            this.reportsKeyMetrics3.Location = new System.Drawing.Point(468, 2);
-            this.reportsKeyMetrics3.Name = "reportsKeyMetrics3";
-            this.reportsKeyMetrics3.Size = new System.Drawing.Size(201, 86);
-            this.reportsKeyMetrics3.TabIndex = 2;
-            this.reportsKeyMetrics3.Title = "Total Vehicles";
-            this.reportsKeyMetrics3.Value = 1234;
-            // 
-            // reportsKeyMetrics2
-            // 
-            this.reportsKeyMetrics2.BackColor = System.Drawing.Color.Transparent;
-            this.reportsKeyMetrics2.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.shopping_cart_icon;
-            this.reportsKeyMetrics2.Location = new System.Drawing.Point(242, 2);
-            this.reportsKeyMetrics2.Name = "reportsKeyMetrics2";
-            this.reportsKeyMetrics2.Size = new System.Drawing.Size(201, 86);
-            this.reportsKeyMetrics2.TabIndex = 1;
-            this.reportsKeyMetrics2.Title = "Pending Deliveries";
-            this.reportsKeyMetrics2.Value = 1234;
-            // 
-            // reportsKeyMetrics1
-            // 
-            this.reportsKeyMetrics1.BackColor = System.Drawing.Color.Transparent;
-            this.reportsKeyMetrics1.Icon = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Group_1000004200;
-            this.reportsKeyMetrics1.Location = new System.Drawing.Point(17, 2);
-            this.reportsKeyMetrics1.Name = "reportsKeyMetrics1";
-            this.reportsKeyMetrics1.Size = new System.Drawing.Size(201, 86);
-            this.reportsKeyMetrics1.TabIndex = 0;
-            this.reportsKeyMetrics1.Title = "Total Deliveries";
-            this.reportsKeyMetrics1.Value = 1234;
             // 
             // DeliveriesPage1
             // 
@@ -212,7 +194,6 @@
         }
 
         #endregion
-
         private System.Windows.Forms.Panel panel3;
         private ReportsKeyMetrics reportsKeyMetrics4;
         private ReportsKeyMetrics reportsKeyMetrics3;
@@ -220,7 +201,6 @@
         private ReportsKeyMetrics reportsKeyMetrics1;
         private Guna.UI2.WinForms.Guna2Panel pnlTable;
         private Guna.UI2.WinForms.Guna2DataGridView dgvCurrentStockReport;
-        private System.Windows.Forms.Button ExportPDFBtn;
         private System.Windows.Forms.Label label2;
     }
 }

@@ -13,16 +13,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
     {
         private DeliveriesDataAccess deliveriesData;
         private DataTable deliveriesDataTable;
-        private Button btnExportPdf;
 
         public DeliveriesPage1()
         {
             InitializeComponent();
             deliveriesData = new DeliveriesDataAccess();
-
-            // Initialize on load
             this.Load += DeliveriesPage1_Load;
-            ConfigureExportButton();
         }
 
         private void DeliveriesPage1_Load(object sender, EventArgs e)
@@ -90,29 +86,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
             }
         }
 
-        private void ConfigureExportButton()
-        {
-            btnExportPdf = new Button
-            {
-                Text = "Export CSV",
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                AutoSize = true,
-                BackColor = Color.FromArgb(76, 175, 80),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-            btnExportPdf.FlatAppearance.BorderSize = 0;
-            btnExportPdf.Location = new Point(this.Width - 180, 10);
-            btnExportPdf.Click += BtnExportBtn_Click;
-            this.Controls.Add(btnExportPdf);
-            btnExportPdf.BringToFront();
-            this.Resize += (s, e) =>
-            {
-                btnExportPdf.Location = new Point(this.Width - btnExportPdf.Width - 20, btnExportPdf.Location.Y);
-            };
-        }
+        
 
-        private void BtnExportBtn_Click(object sender, EventArgs e)
+        private void ExportCSVBtn_Click(object sender, EventArgs e)
         {
             var report = BuildReportForExport();
             if (report == null || report.Rows == null || report.Rows.Count == 0)
@@ -121,43 +97,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
                 return;
             }
 
-            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
+            bool exported = ReportCsvExporter2.ExportReportTable(report);
             if (exported)
             {
                 MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
-        //private void BtnExportPdf_Click(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        var table = deliveriesDataTable ?? dgvCurrentStockReport.DataSource as DataTable;
-        //        if (table == null || table.Rows.Count == 0)
-        //        {
-        //            MessageBox.Show("No data available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //            return;
-        //        }
-
-        //        var exportData = table.Rows.Cast<DataRow>().Select(row => new DeliverySummaryReportModel
-        //        {
-        //            DeliveryDate = DateTime.TryParse(row["DeliveryDate"]?.ToString(), out DateTime parsedDate) ? parsedDate : DateTime.MinValue,
-        //            Status = row["Status"]?.ToString() ?? string.Empty,
-        //            DeliveryCount = 1,
-        //            TotalItems = int.TryParse(row["QuantityItems"]?.ToString(), out int qty) ? qty : 0
-        //        }).ToList();
-
-        //        bool exported = ReportPdfExporter.ExportDeliverySummary(exportData, "Deliveries Summary Report", null, null);
-        //        if (exported)
-        //        {
-        //            MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show($"Failed to export report: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        //}
+     
 
         private void LoadAllData()
         {

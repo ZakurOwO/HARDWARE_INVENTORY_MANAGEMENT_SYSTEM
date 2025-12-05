@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Guna.UI2.WinForms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
@@ -16,56 +14,51 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private int currentPage = 1;
         private int totalPages = 4;
 
+        private Guna2ComboBox exportScopeComboBox;
+        private Guna2Button exportCSVBtn;
+
         public InventoryReportsPanel()
         {
             InitializeComponent();
             this.Load += InventoryReportsPanel_Load;
 
-            CreateExportPdfButton(); 
+            CreateExportControls();
         }
-        private Guna.UI2.WinForms.Guna2Button ExportPDFBtn;
 
-        private void CreateExportPdfButton()
+        private void CreateExportControls()
         {
-            ExportPDFBtn = new Guna.UI2.WinForms.Guna2Button();
+            // === Export Scope Dropdown ===
+            exportScopeComboBox = new Guna2ComboBox();
+            exportScopeComboBox.Width = 200;
+            exportScopeComboBox.Height = 35;
+            exportScopeComboBox.Location = new Point(595, 10);
+            exportScopeComboBox.BorderRadius = 8;
+            exportScopeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            exportScopeComboBox.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
 
-            // Similar properties to your existing Guna button
-            ExportPDFBtn.Name = "ExportPDFBtn";
-            ExportPDFBtn.Text = "Export CSV";
+            exportScopeComboBox.Items.Add("Current Page Only");
+            exportScopeComboBox.Items.Add("Export Entire Module");
+            exportScopeComboBox.SelectedIndex = 0;
 
-            ExportPDFBtn.Location = new Point(631, 7);
-            ExportPDFBtn.Size = new Size(135, 35);
+            Controls.Add(exportScopeComboBox);
+            exportScopeComboBox.BringToFront();
 
-            ExportPDFBtn.Animated = false;
-            ExportPDFBtn.AutoRoundedCorners = false;
-            ExportPDFBtn.BorderRadius = 8;
-            ExportPDFBtn.BorderThickness = 0;
-            ExportPDFBtn.BorderColor = Color.Black; // (your screenshot shows BorderColor black)
-            ExportPDFBtn.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            // === Export CSV Button ===
+            exportCSVBtn = new Guna2Button();
+            exportCSVBtn.Text = "Export CSV";
+            exportCSVBtn.Width = 135;
+            exportCSVBtn.Height = 35;
+            exportCSVBtn.Location = new Point(800, 10);
+            exportCSVBtn.FillColor = Color.FromArgb(0, 110, 196);
+            exportCSVBtn.ForeColor = Color.White;
+            exportCSVBtn.Font = new Font("Lexend SemiBold", 9, FontStyle.Bold);
+            exportCSVBtn.BorderRadius = 8;
 
-            ExportPDFBtn.FillColor = Color.FromArgb(0, 110, 196);
-            ExportPDFBtn.ForeColor = Color.White;
+            exportCSVBtn.Click += ExportCSVBtn_Click;
 
-            ExportPDFBtn.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
-            ExportPDFBtn.TextAlign = HorizontalAlignment.Center;
-
-            ExportPDFBtn.UseTransparentBackground = false;
-            ExportPDFBtn.Visible = true;
-            ExportPDFBtn.Enabled = true;
-
-            // Hook the click event to your export logic
-            ExportPDFBtn.Click += ExportPDFBtn_Click;
-
-            // Add it to the panel (IMPORTANT: choose the correct container)
-            // If your page navigation buttons are on the same UserControl surface:
-            this.Controls.Add(ExportPDFBtn);
-
-            // If you have a top bar panel (like headerPanel), use that instead:
-            // headerPanel.Controls.Add(ExportPDFBtn);
-
-            ExportPDFBtn.BringToFront();
+            Controls.Add(exportCSVBtn);
+            exportCSVBtn.BringToFront();
         }
-
 
         private void InventoryReportsPanel_Load(object sender, EventArgs e)
         {
@@ -73,201 +66,129 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             UpdatePaginationButtons();
         }
 
-        private void guna2Button5_Click(object sender, EventArgs e)
-        {
-            // Page 1
-            ShowPage(1);
-        }
-
-        private void guna2Button2_Click(object sender, EventArgs e)
-        {
-            // Page 2
-            ShowPage(2);
-        }
-
-        private void guna2Button1_Click(object sender, EventArgs e)
-        {
-            // Page 3
-            ShowPage(3);
-        }
-
-        private void guna2Button3_Click(object sender, EventArgs e)
-        {
-            // Page 4
-            ShowPage(4);
-        }
+        // Page buttons
+        private void guna2Button5_Click(object sender, EventArgs e) => ShowPage(1);
+        private void guna2Button2_Click(object sender, EventArgs e) => ShowPage(2);
+        private void guna2Button1_Click(object sender, EventArgs e) => ShowPage(3);
+        private void guna2Button3_Click(object sender, EventArgs e) => ShowPage(4);
 
         private void guna2Button6_Click(object sender, EventArgs e)
         {
-            // Previous page "<"
             if (currentPage > 1)
-            {
-                currentPage--;
-                ShowPage(currentPage);
-            }
+                ShowPage(--currentPage);
         }
 
         private void guna2Button4_Click(object sender, EventArgs e)
         {
-            // Next page ">"
             if (currentPage < totalPages)
-            {
-                currentPage++;
-                ShowPage(currentPage);
-            }
+                ShowPage(++currentPage);
         }
 
         private void ShowPage(int page)
         {
             panel1.Controls.Clear();
-            UserControl pageControl = null;
 
-            switch (page)
+            var ctrl = CreatePageControl(page);
+            if (ctrl != null)
             {
-                case 1:
-                    pageControl = new InventoryPage1();
-                    break;
-                case 2:
-                    pageControl = new InventoryPage2();
-                    break;
-                case 3:
-                    pageControl = new InventoryPage3();
-                    break;
-                case 4:
-                    pageControl = new InventoryPage4();
-                    break;
-            }
-
-            if (pageControl != null)
-            {
-                pageControl.Dock = DockStyle.Fill;
-                panel1.Controls.Add(pageControl);
+                ctrl.Dock = DockStyle.Fill;
+                panel1.Controls.Add(ctrl);
             }
 
             currentPage = page;
             UpdatePaginationButtons();
         }
 
-        private void UpdatePaginationButtons()
+        private UserControl CreatePageControl(int page)
         {
-            // Update label
-            label2.Text = $"Page {currentPage} of {totalPages}";
-
-            // Reset all button styles
-            ResetButtonStyles();
-
-            // Highlight current page button
-            switch (currentPage)
+            switch (page)
             {
-                case 1:
-                    HighlightButton(guna2Button5);
-                    break;
-                case 2:
-                    HighlightButton(guna2Button2);
-                    break;
-                case 3:
-                    HighlightButton(guna2Button1);
-                    break;
-                case 4:
-                    HighlightButton(guna2Button3);
-                    break;
+                case 1: return new InventoryPage1();
+                case 2: return new InventoryPage2();
+                case 3: return new InventoryPage3();
+                case 4: return new InventoryPage4();
             }
 
-            // Enable/disable arrow buttons
-            guna2Button6.Enabled = currentPage > 1;
-            guna2Button4.Enabled = currentPage < totalPages;
-
-            // Update arrow button styles
-            UpdateArrowButtonStyle(guna2Button6, guna2Button6.Enabled);
-            UpdateArrowButtonStyle(guna2Button4, guna2Button4.Enabled);
+            return null;
         }
 
-        private void ResetButtonStyles()
+        private void UpdatePaginationButtons()
         {
-            // Reset all page number buttons to default style
-            ResetButtonStyle(guna2Button5);
-            ResetButtonStyle(guna2Button2);
-            ResetButtonStyle(guna2Button1);
-            ResetButtonStyle(guna2Button3);
+            label2.Text = $"Page {currentPage} of {totalPages}";
+
+            guna2Button6.Enabled = currentPage > 1;           // <
+            guna2Button4.Enabled = currentPage < totalPages;   // >
         }
 
-        private void ResetButtonStyle(Guna.UI2.WinForms.Guna2Button button)
+        private List<ReportTable> BuildModuleReportsForExport()
         {
-            button.FillColor = Color.Transparent;
-            button.ForeColor = Color.FromArgb(29, 28, 35);
-            button.BorderColor = Color.LightGray;
-        }
+            List<ReportTable> reports = new List<ReportTable>();
 
-        private void HighlightButton(Guna.UI2.WinForms.Guna2Button button)
-        {
-            button.FillColor = Color.FromArgb(0, 110, 196);
-            button.ForeColor = Color.White;
-            button.BorderColor = Color.FromArgb(0, 110, 196);
-        }
-
-        private void UpdateArrowButtonStyle(Guna.UI2.WinForms.Guna2Button button, bool enabled)
-        {
-            if (enabled)
+            for (int page = 1; page <= totalPages; page++)
             {
-                button.FillColor = Color.Transparent;
-                button.BorderColor = Color.LightGray;
+                IReportExportable ctrl = CreatePageControl(page) as IReportExportable;
+                if (ctrl == null)
+                    continue;
+
+                ReportTable report = ctrl.BuildReportForExport();
+
+                if (report != null && report.Rows != null && report.Rows.Count > 0)
+                    reports.Add(report);
+            }
+
+            return reports;
+        }
+
+        private void ExportCSVBtn_Click(object sender, EventArgs e)
+        {
+            if (panel1.Controls.Count == 0)
+                return;
+
+            IReportExportable exportable = panel1.Controls[0] as IReportExportable;
+
+            if (exportable == null)
+            {
+                MessageBox.Show("This report page cannot be exported.");
+                return;
+            }
+
+            bool exportModule = exportScopeComboBox.SelectedIndex == 1;
+
+            bool exported = false;
+
+            if (exportModule)
+            {
+                List<ReportTable> reports = BuildModuleReportsForExport();
+
+                if (reports.Count == 0)
+                {
+                    MessageBox.Show("No data to export.");
+                    return;
+                }
+
+                exported = ReportCsvExporter2.ExportModule("Supplier", reports);
             }
             else
             {
-                button.FillColor = Color.FromArgb(240, 240, 240);
-                button.BorderColor = Color.FromArgb(220, 220, 220);
+                ReportTable table = exportable.BuildReportForExport();
+
+                if (table == null || table.Rows.Count == 0)
+                {
+                    MessageBox.Show("No data to export.");
+                    return;
+                }
+
+                exported = ReportCsvExporter2.ExportReportTable(table);
             }
-        }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-            // Panel paint event
-        }
-        private void ExportPDFBtn_Click(object sender, EventArgs e)
-        {
-            if (panel1.Controls.Count == 0) return;
-
-            var currentPage = panel1.Controls[0];
-
-            if (!(currentPage is IReportExportable exportable))
-            {
-                MessageBox.Show("This report page does not support export yet.",
-                    "Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            // ❌ Stop showing success when CANCEL is clicked!
+            if (!exported)
                 return;
-            }
 
-            Cursor.Current = Cursors.WaitCursor;
-            var report = exportable.BuildReportForExport();
-            Cursor.Current = Cursors.Default;
-
-            if (report == null || report.Rows == null || report.Rows.Count == 0)
-            {
-                MessageBox.Show("No data to export.", "Export",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            Cursor.Current = Cursors.WaitCursor;
-            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
-            Cursor.Current = Cursors.Default;
-
-            if (exported)
-            {
-                MessageBox.Show("Report exported to CSV successfully.", "Export",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            // ✔ Only show when SaveFileDialog result == OK
+            MessageBox.Show("Report exported successfully!",
+                "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-
-
-        private void ExportPDFBtn_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mainButton1_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

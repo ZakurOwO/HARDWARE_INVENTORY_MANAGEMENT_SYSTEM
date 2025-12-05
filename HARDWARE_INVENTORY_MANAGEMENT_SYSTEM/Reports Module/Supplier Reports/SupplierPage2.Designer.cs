@@ -35,12 +35,6 @@
             this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
             this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.PONumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SupplierName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateOrdered = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateReceived = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
             this.SuspendLayout();
@@ -75,13 +69,6 @@
             this.dgvCurrentStockReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCurrentStockReport.ColumnHeadersHeight = 45;
             this.dgvCurrentStockReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvCurrentStockReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.PONumber,
-            this.SupplierName,
-            this.DateOrdered,
-            this.DateReceived,
-            this.TotalCost,
-            this.Status});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Lexend Light", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -137,36 +124,6 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Purchase Orders Summary";
             // 
-            // PONumber
-            // 
-            this.PONumber.HeaderText = "PO Number";
-            this.PONumber.Name = "PONumber";
-            // 
-            // SupplierName
-            // 
-            this.SupplierName.HeaderText = "Supplier Name";
-            this.SupplierName.Name = "SupplierName";
-            // 
-            // DateOrdered
-            // 
-            this.DateOrdered.HeaderText = "Date Ordered";
-            this.DateOrdered.Name = "DateOrdered";
-            // 
-            // DateReceived
-            // 
-            this.DateReceived.HeaderText = "Date Received";
-            this.DateReceived.Name = "DateReceived";
-            // 
-            // TotalCost
-            // 
-            this.TotalCost.HeaderText = "Total Cost";
-            this.TotalCost.Name = "TotalCost";
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            // 
             // SupplierPage2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,12 +143,6 @@
 
         private Guna.UI2.WinForms.Guna2Panel pnlTable;
         private Guna.UI2.WinForms.Guna2DataGridView dgvCurrentStockReport;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PONumber;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SupplierName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateOrdered;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateReceived;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TotalCost;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.Label label2;
     }
 }

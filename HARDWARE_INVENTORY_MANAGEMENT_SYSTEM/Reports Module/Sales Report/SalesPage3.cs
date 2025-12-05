@@ -181,13 +181,36 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             LoadSalesData(filterStartDate, filterEndDate);
         }
 
+        private void ExportCSVBtn_Click(object sender, EventArgs e)
+        {
+            var report = BuildReportForExport();
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            bool exported = ReportCsvExporter2.ExportReportTable(report);
+            if (exported)
+            {
+                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         /// <summary>
         /// Get current displayed data for export
         /// </summary>
         public List<SalesSummaryReport> GetCurrentData()
         {
-            return dgvCurrentStockReport.DataSource as List<SalesSummaryReport>;
+            if (dgvCurrentStockReport.DataSource is List<SalesSummaryReport> list)
+                return list;
+
+            if (dgvCurrentStockReport.DataSource is BindingList<SalesSummaryReport> binding)
+                return binding.ToList();
+
+            return new List<SalesSummaryReport>();
         }
+
 
         public ReportTable BuildReportForExport()
         {
@@ -264,34 +287,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             };
         }
 
-        //    private void ExportPDFBtn_Click(object sender, EventArgs e)
-        //    {
-        //        try
-        //        {
-        //            var data = dgvCurrentStockReport.DataSource as List<SalesSummaryReport>;
-        //            if (data == null || data.Count == 0)
-        //            {
-        //                MessageBox.Show("No data available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //                return;
-        //            }
-
-        //            string title = showMonthlyView ? "Monthly Sales Summary Report" : "Daily Sales Summary Report";
-        //            bool exported = ReportPdfExporter.ExportSalesSummary(data, title, filterStartDate, filterEndDate);
-        //            if (exported)
-        //            {
-        //                MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show($"Failed to export report: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        }
-        //    }
-        //}
-
-        /// <summary>
-        /// Summary statistics helper class
-        /// </summary>
+      
         public class SalesSummaryStats
         {
             public int TotalTransactions { get; set; }

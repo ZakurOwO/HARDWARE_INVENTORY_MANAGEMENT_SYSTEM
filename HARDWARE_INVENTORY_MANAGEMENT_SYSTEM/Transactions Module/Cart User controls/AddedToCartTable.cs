@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
+using System.Globalization;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
@@ -24,6 +25,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             connectionString = ConnectionString.DataSource;
             InitializeDataGridViewColumns();
         }
+
+
+        public DialogResult ShowReceiptPreview(IWin32Window owner, decimal taxRate = 0.12m)
+        {
+            var items = GetReceiptItems();
+            if (items == null || items.Count == 0)
+            {
+                MessageBox.Show("Cart is empty.", "Checkout", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return DialogResult.Abort;
+            }
+
+            var subtotal = CalculateSubtotal();
+            var tax = CalculateTax(taxRate);
+            var total = CalculateTotal(taxRate);
+
+            using (var dlg = new ReceiptPreviewForm(items, subtotal, tax, total, taxRate))
+            {
+                var result = dlg.ShowDialog(owner);
+                return result;
+            }
+        }
+
 
         private void InitializeDataGridViewColumns()
         {
@@ -206,7 +229,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 }
             }
         }
-         void UpdateTotals()
+        void UpdateTotals()
         {
             decimal subtotal = CalculateSubtotal();
             decimal tax = CalculateTax(subtotal);
@@ -252,38 +275,38 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         /// <summary>
         /// Adds a product to the cart from the database
         /// </summary>
-       public void AddItemToCart(string itemName, decimal price, int quantity = 1)
-{
-    Console.WriteLine($"AddItemToCart called: {itemName}, {price}, {quantity}");
-    
-    // Check if item already exists in cart
-    foreach (DataGridViewRow row in dgvCartDetails.Rows)
-    {
-        if (row.IsNewRow) continue;
-
-        if (row.Cells["ItemName"].Value?.ToString() == itemName)
+        public void AddItemToCart(string itemName, decimal price, int quantity = 1)
         {
-            // Item exists, update quantity
-            int currentQty = Convert.ToInt32(row.Cells["Quantity"].Value);
-            row.Cells["Quantity"].Value = currentQty + quantity;
-            UpdateTotals();
-            Console.WriteLine($"Updated existing item: {itemName}, new quantity: {currentQty + quantity}");
-            DebugCartContents(); // Debug
-            return;
-        }
-    }
+            Console.WriteLine($"AddItemToCart called: {itemName}, {price}, {quantity}");
 
-    // Item doesn't exist, add new row
-    Console.WriteLine($"Adding new item to cart: {itemName}");
-    dgvCartDetails.Rows.Add(itemName, quantity, $"₱{price:N2}");
-    UpdateTotals();
-    
-    // Force UI refresh
-    dgvCartDetails.Refresh();
-    DebugCartContents(); // Debug
-    
-    Console.WriteLine($"Item added successfully. Total items: {GetCartItemCount()}");
-}
+            // Check if item already exists in cart
+            foreach (DataGridViewRow row in dgvCartDetails.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                if (row.Cells["ItemName"].Value?.ToString() == itemName)
+                {
+                    // Item exists, update quantity
+                    int currentQty = Convert.ToInt32(row.Cells["Quantity"].Value);
+                    row.Cells["Quantity"].Value = currentQty + quantity;
+                    UpdateTotals();
+                    Console.WriteLine($"Updated existing item: {itemName}, new quantity: {currentQty + quantity}");
+                    DebugCartContents(); // Debug
+                    return;
+                }
+            }
+
+            // Item doesn't exist, add new row
+            Console.WriteLine($"Adding new item to cart: {itemName}");
+            dgvCartDetails.Rows.Add(itemName, quantity, $"₱{price:N2}");
+            UpdateTotals();
+
+            // Force UI refresh
+            dgvCartDetails.Refresh();
+            DebugCartContents(); // Debug
+
+            Console.WriteLine($"Item added successfully. Total items: {GetCartItemCount()}");
+        }
 
         /// <summary>
         /// Adds a product to cart by ProductInternalID from database
@@ -546,6 +569,45 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 return false;
             }
         }
-    }
+    
 
+    public List<ReceiptItem> GetReceiptItems()
+        {
+            List<ReceiptItem> items = new List<ReceiptItem>();
+
+            foreach (DataGridViewRow row in dgvCartDetails.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                object nameObj = row.Cells["ItemName"].Value;
+                object qtyObj = row.Cells["Quantity"].Value;
+                object priceObj = row.Cells["Price"].Value;
+
+                if (nameObj == null || qtyObj == null || priceObj == null) continue;
+
+                string name = nameObj.ToString();
+                int qty = Convert.ToInt32(qtyObj);
+
+                // Price is stored in the grid like "₱{price:N2}" in AddItemToCart:contentReference[oaicite:4]{index=4}
+                string priceText = priceObj.ToString().Replace("₱", "").Replace(",", "").Trim();
+
+                decimal unitPrice;
+                if (!decimal.TryParse(priceText, NumberStyles.Number | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out unitPrice))
+                {
+                    // fallback parse
+                    decimal.TryParse(priceText, out unitPrice);
+                }
+
+                ReceiptItem ri = new ReceiptItem();
+                ri.ItemName = name;
+                ri.Quantity = qty;
+                ri.UnitPrice = unitPrice;
+                items.Add(ri);
+            }
+
+            return items;
+        }
+
+
+    }
 }
