@@ -40,7 +40,7 @@
             this.TotalQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalSales = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
-            this.ExportPDFBtn = new System.Windows.Forms.Button();
+            this.ExportCSVBtn = new System.Windows.Forms.Button();
             this.pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
             this.SuspendLayout();
@@ -52,7 +52,7 @@
             this.pnlTable.BorderColor = System.Drawing.Color.LightGray;
             this.pnlTable.BorderRadius = 10;
             this.pnlTable.BorderThickness = 1;
-            this.pnlTable.Controls.Add(this.ExportPDFBtn);
+            this.pnlTable.Controls.Add(this.ExportCSVBtn);
             this.pnlTable.Controls.Add(this.dgvCurrentStockReport);
             this.pnlTable.Controls.Add(this.label2);
             this.pnlTable.Location = new System.Drawing.Point(2, 3);
@@ -166,20 +166,21 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Sales by Customer";
             // 
-            // ExportPDFBtn
-            // 
-            this.ExportPDFBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExportPDFBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
-            this.ExportPDFBtn.FlatAppearance.BorderSize = 0;
-            this.ExportPDFBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExportPDFBtn.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold);
-            this.ExportPDFBtn.ForeColor = System.Drawing.Color.White;
-            this.ExportPDFBtn.Location = new System.Drawing.Point(729, 12);
-            this.ExportPDFBtn.Name = "ExportPDFBtn";
-            this.ExportPDFBtn.Size = new System.Drawing.Size(150, 30);
-            this.ExportPDFBtn.TabIndex = 3;
-            this.ExportPDFBtn.Text = "Export CSV";
-            this.ExportPDFBtn.UseVisualStyleBackColor = false;
+            // ExportCSVBtn
+            //
+            this.ExportCSVBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExportCSVBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.ExportCSVBtn.FlatAppearance.BorderSize = 0;
+            this.ExportCSVBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExportCSVBtn.Font = new System.Drawing.Font("Lexend", 9F, System.Drawing.FontStyle.Bold);
+            this.ExportCSVBtn.ForeColor = System.Drawing.Color.White;
+            this.ExportCSVBtn.Location = new System.Drawing.Point(729, 12);
+            this.ExportCSVBtn.Name = "ExportCSVBtn";
+            this.ExportCSVBtn.Size = new System.Drawing.Size(150, 30);
+            this.ExportCSVBtn.TabIndex = 3;
+            this.ExportCSVBtn.Text = "Export CSV";
+            this.ExportCSVBtn.UseVisualStyleBackColor = false;
+            this.ExportCSVBtn.Click += new System.EventHandler(this.ExportCSVBtn_Click);
             // 
             // SalesPage2
             // 
@@ -207,6 +208,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalOrders;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalQuantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn TotalSales;
-        private System.Windows.Forms.Button ExportPDFBtn;
+        private System.Windows.Forms.Button ExportCSVBtn;
     }
 }

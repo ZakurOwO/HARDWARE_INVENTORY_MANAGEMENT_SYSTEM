@@ -23,48 +23,48 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
             CreateExportCSVButton(); 
         }
-        private Guna.UI2.WinForms.Guna2Button ExportPDFBtn;
+        private Guna.UI2.WinForms.Guna2Button ExportCSVBtn;
         private Guna.UI2.WinForms.Guna2ComboBox exportScopeComboBox;
 
         private void CreateExportCSVButton()
         {
-            ExportPDFBtn = new Guna.UI2.WinForms.Guna2Button();
+            ExportCSVBtn = new Guna.UI2.WinForms.Guna2Button();
 
             // Similar properties to your existing Guna button
-            ExportPDFBtn.Name = "ExportCSVBtn";
-            ExportPDFBtn.Text = "Export CSV";
+            ExportCSVBtn.Name = "ExportCSVBtn";
+            ExportCSVBtn.Text = "Export CSV";
 
-            ExportPDFBtn.Location = new Point(780, 7);
-            ExportPDFBtn.Size = new Size(135, 35);
+            ExportCSVBtn.Location = new Point(780, 7);
+            ExportCSVBtn.Size = new Size(135, 35);
 
-            ExportPDFBtn.Animated = false;
-            ExportPDFBtn.AutoRoundedCorners = false;
-            ExportPDFBtn.BorderRadius = 8;
-            ExportPDFBtn.BorderThickness = 0;
-            ExportPDFBtn.BorderColor = Color.Black; // (your screenshot shows BorderColor black)
-            ExportPDFBtn.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            ExportCSVBtn.Animated = false;
+            ExportCSVBtn.AutoRoundedCorners = false;
+            ExportCSVBtn.BorderRadius = 8;
+            ExportCSVBtn.BorderThickness = 0;
+            ExportCSVBtn.BorderColor = Color.Black; // (your screenshot shows BorderColor black)
+            ExportCSVBtn.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
 
-            ExportPDFBtn.FillColor = Color.FromArgb(0, 110, 196);
-            ExportPDFBtn.ForeColor = Color.White;
+            ExportCSVBtn.FillColor = Color.FromArgb(0, 110, 196);
+            ExportCSVBtn.ForeColor = Color.White;
 
-            ExportPDFBtn.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
-            ExportPDFBtn.TextAlign = HorizontalAlignment.Center;
+            ExportCSVBtn.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
+            ExportCSVBtn.TextAlign = HorizontalAlignment.Center;
 
-            ExportPDFBtn.UseTransparentBackground = false;
-            ExportPDFBtn.Visible = true;
-            ExportPDFBtn.Enabled = true;
+            ExportCSVBtn.UseTransparentBackground = false;
+            ExportCSVBtn.Visible = true;
+            ExportCSVBtn.Enabled = true;
 
             // Hook the click event to your export logic
-            ExportPDFBtn.Click += ExportPDFBtn_Click;
+            ExportCSVBtn.Click += ExportCSVBtn_Click;
 
             // Add it to the panel (IMPORTANT: choose the correct container)
             // If your page navigation buttons are on the same UserControl surface:
-            this.Controls.Add(ExportPDFBtn);
+            this.Controls.Add(ExportCSVBtn);
 
             // If you have a top bar panel (like headerPanel), use that instead:
-            // headerPanel.Controls.Add(ExportPDFBtn);
+            // headerPanel.Controls.Add(ExportCSVBtn);
 
-            ExportPDFBtn.BringToFront();
+            ExportCSVBtn.BringToFront();
         }
 
         private void CreateExportScopeComboBox()
@@ -246,7 +246,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             // Panel paint event
         }
-        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        private void ExportCSVBtn_Click(object sender, EventArgs e)
         {
             if (panel1.Controls.Count == 0) return;
 
@@ -285,7 +285,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
 
 
-        private void ExportPDFBtn_Load(object sender, EventArgs e)
+        private void ExportCSVBtn_Load(object sender, EventArgs e)
         {
 
         }

@@ -25,8 +25,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             InitializeComponent();
             dataAccess = new SalesReportDataAccess();
             this.Load += SalesPage3_Load;
-            ExportPDFBtn.Text = "Export CSV";
-            ExportPDFBtn.Click += ExportPDFBtn_Click;
+            ExportCSVBtn.Text = "Export CSV";
         }
 
         private void SalesPage3_Load(object sender, EventArgs e)
@@ -183,7 +182,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             LoadSalesData(filterStartDate, filterEndDate);
         }
 
-        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        private void ExportCSVBtn_Click(object sender, EventArgs e)
         {
             var report = BuildReportForExport();
             if (report == null || report.Rows == null || report.Rows.Count == 0)
@@ -282,7 +281,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             };
         }
 
-        //    private void ExportPDFBtn_Click(object sender, EventArgs e)
+        //    private void ExportCSVBtn_Click(object sender, EventArgs e)
         //    {
         //        try
         //        {

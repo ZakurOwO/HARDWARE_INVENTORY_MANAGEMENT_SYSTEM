@@ -16,7 +16,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             this.Load += SupplierReportsPanel_Load;
 
             ExportCSVBtn.ButtonName = "Export CSV";
-            ExportCSVBtn.Click += ExportCSVBtn_Click;
         }
 
         private void SupplierReportsPanel_Load(object sender, EventArgs e)

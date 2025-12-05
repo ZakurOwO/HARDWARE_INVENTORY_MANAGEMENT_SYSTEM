@@ -16,9 +16,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             InitializeComponent();
             this.Load += SalesReportPanel_Load;
 
-            // If ExportPDFBtn is your custom control with ButtonName property:
+            // Export button setup
             ExportCSVBtn.ButtonName = "Export CSV";
-            ExportCSVBtn.Click += ExportCSVBtn_Click;
         }
 
         private void SalesReportPanel_Load(object sender, EventArgs e)
