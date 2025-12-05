@@ -429,6 +429,11 @@
             this.guna2NumericUpDown3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2NumericUpDown3.Location = new System.Drawing.Point(184, 32);
             this.guna2NumericUpDown3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2NumericUpDown3.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
             this.guna2NumericUpDown3.Name = "guna2NumericUpDown3";
             this.guna2NumericUpDown3.Size = new System.Drawing.Size(154, 36);
             this.guna2NumericUpDown3.TabIndex = 91;
@@ -561,6 +566,11 @@
             this.guna2NumericUpDown2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2NumericUpDown2.Location = new System.Drawing.Point(456, 80);
             this.guna2NumericUpDown2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2NumericUpDown2.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.guna2NumericUpDown2.Name = "guna2NumericUpDown2";
             this.guna2NumericUpDown2.Size = new System.Drawing.Size(154, 36);
             this.guna2NumericUpDown2.TabIndex = 87;
@@ -700,6 +710,11 @@
             this.guna2NumericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2NumericUpDown1.Location = new System.Drawing.Point(275, 80);
             this.guna2NumericUpDown1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.guna2NumericUpDown1.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
             this.guna2NumericUpDown1.Name = "guna2NumericUpDown1";
             this.guna2NumericUpDown1.Size = new System.Drawing.Size(154, 36);
             this.guna2NumericUpDown1.TabIndex = 80;

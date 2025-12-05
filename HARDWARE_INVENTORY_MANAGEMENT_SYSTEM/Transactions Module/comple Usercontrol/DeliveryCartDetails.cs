@@ -830,6 +830,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             if (mainForm != null)
             {
                 checkoutContainer.ShowCheckoutPopUp(mainForm, totalAmount, subtotal, tax, "Delivery", this);
+                
             }
             else
             {

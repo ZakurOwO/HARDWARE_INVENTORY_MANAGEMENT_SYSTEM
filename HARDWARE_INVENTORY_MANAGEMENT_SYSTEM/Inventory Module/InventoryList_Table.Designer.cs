@@ -34,15 +34,15 @@
             this.dataGridViewImageColumn5 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn6 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn7 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Image = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ReorderLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AdjustStock = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Deactivate = new System.Windows.Forms.DataGridViewImageColumn();
             this.ViewDetails = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Deactivate = new System.Windows.Forms.DataGridViewImageColumn();
+            this.AdjustStock = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReorderLevel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Image = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventoryList)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -210,55 +210,16 @@
             this.dataGridViewImageColumn7.ToolTipText = "View Details";
             this.dataGridViewImageColumn7.Width = 35;
             // 
-            // ProductName
+            // ViewDetails
             // 
-            this.ProductName.FillWeight = 120F;
-            this.ProductName.HeaderText = "Product Name";
-            this.ProductName.Name = "ProductName";
-            // 
-            // Image
-            // 
-            this.Image.FillWeight = 80F;
-            this.Image.HeaderText = "Image";
-            this.Image.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Boysen1;
-            this.Image.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.Image.Name = "Image";
-            this.Image.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Image.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Category
-            // 
-            this.Category.FillWeight = 120F;
-            this.Category.HeaderText = "Category";
-            this.Category.Name = "Category";
-            // 
-            // Quantity
-            // 
-            this.Quantity.FillWeight = 70F;
-            this.Quantity.HeaderText = "Quantity";
-            this.Quantity.Name = "Quantity";
-            // 
-            // ReorderLevel
-            // 
-            this.ReorderLevel.FillWeight = 70F;
-            this.ReorderLevel.HeaderText = "Reorder Level";
-            this.ReorderLevel.Name = "ReorderLevel";
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Status";
-            this.Status.Name = "Status";
-            // 
-            // AdjustStock
-            // 
-            this.AdjustStock.FillWeight = 23F;
-            this.AdjustStock.HeaderText = "";
-            this.AdjustStock.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.AdjustStock;
-            this.AdjustStock.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.AdjustStock.Name = "AdjustStock";
-            this.AdjustStock.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.AdjustStock.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.AdjustStock.ToolTipText = "Adjust Stock";
+            this.ViewDetails.FillWeight = 23F;
+            this.ViewDetails.HeaderText = "";
+            this.ViewDetails.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Group_10481;
+            this.ViewDetails.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.ViewDetails.Name = "ViewDetails";
+            this.ViewDetails.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ViewDetails.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ViewDetails.ToolTipText = "View Details";
             // 
             // Deactivate
             // 
@@ -271,16 +232,55 @@
             this.Deactivate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Deactivate.ToolTipText = "Deactivate";
             // 
-            // ViewDetails
+            // AdjustStock
             // 
-            this.ViewDetails.FillWeight = 23F;
-            this.ViewDetails.HeaderText = "";
-            this.ViewDetails.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Group_10481;
-            this.ViewDetails.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.ViewDetails.Name = "ViewDetails";
-            this.ViewDetails.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ViewDetails.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.ViewDetails.ToolTipText = "View Details";
+            this.AdjustStock.FillWeight = 23F;
+            this.AdjustStock.HeaderText = "";
+            this.AdjustStock.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.AdjustStock;
+            this.AdjustStock.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.AdjustStock.Name = "AdjustStock";
+            this.AdjustStock.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.AdjustStock.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.AdjustStock.ToolTipText = "Adjust Stock";
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            // 
+            // ReorderLevel
+            // 
+            this.ReorderLevel.FillWeight = 70F;
+            this.ReorderLevel.HeaderText = "Reorder Level";
+            this.ReorderLevel.Name = "ReorderLevel";
+            // 
+            // Quantity
+            // 
+            this.Quantity.FillWeight = 70F;
+            this.Quantity.HeaderText = "Quantity";
+            this.Quantity.Name = "Quantity";
+            // 
+            // Category
+            // 
+            this.Category.FillWeight = 120F;
+            this.Category.HeaderText = "Category";
+            this.Category.Name = "Category";
+            // 
+            // Image
+            // 
+            this.Image.FillWeight = 80F;
+            this.Image.HeaderText = "Image";
+            this.Image.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Boysen1;
+            this.Image.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.Image.Name = "Image";
+            this.Image.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Image.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // ProductName
+            // 
+            this.ProductName.FillWeight = 120F;
+            this.ProductName.HeaderText = "Product Name";
+            this.ProductName.Name = "ProductName";
             // 
             // InventoryList_Table
             // 

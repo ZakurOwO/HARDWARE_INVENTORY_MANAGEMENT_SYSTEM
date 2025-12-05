@@ -101,6 +101,7 @@
     <Compile Include="Accounts Module\AddNewUserButton.Designer.cs">
       <DependentUpon>AddNewUserButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="Class Components\Class Compnents Of Inventory\EditItemContainer.cs" />
     <Compile Include="Class Components\Class Components of Accounts\AddUserContainer.cs" />
     <Compile Include="Audit Log\ClassComponent\AuditActivityType.cs" />
     <Compile Include="Audit Log\ClassComponent\AuditHelper.cs" />
