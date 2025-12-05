@@ -12,13 +12,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
         private DataTable lowStockData;
         private DataTable expiryAlertData;
 
+        // ✅ Added to fix CS0103 errors
+        private enum AlertSection
+        {
+            LowStock,
+            Expiry
+        }
+
+        // ✅ Track which grid the user last interacted with
+        private AlertSection lastFocusedSection = AlertSection.LowStock;
+
         public InventoryPage2()
         {
             InitializeComponent();
             this.Load += InventoryPage2_Load;
 
+            // Track which table is "active" for export
             dgvCurrentStockReport.Enter += (_, __) => lastFocusedSection = AlertSection.LowStock;
             dgvCurrentStockReport.Click += (_, __) => lastFocusedSection = AlertSection.LowStock;
+
             guna2DataGridView1.Enter += (_, __) => lastFocusedSection = AlertSection.Expiry;
             guna2DataGridView1.Click += (_, __) => lastFocusedSection = AlertSection.Expiry;
         }
@@ -32,16 +44,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
         {
             try
             {
-                // Load Low Stock Alerts
                 LoadLowStockAlerts();
-
-                // Load Expiry Alerts
                 LoadExpiryAlerts();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading alerts: {ex.Message}\n\n{ex.StackTrace}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"Error loading alerts: {ex.Message}\n\n{ex.StackTrace}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -52,17 +64,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                 DataTable dt = GetLowStockAlerts();
                 lowStockData = dt;
 
-                // Clear existing rows
                 dgvCurrentStockReport.Rows.Clear();
 
                 if (dt.Rows.Count == 0)
                 {
-                    // Show message in the grid or just leave empty
-                    lastFocusedSection = AlertSection.Expiry;
+                    // Leave grid empty; do NOT flip lastFocusedSection automatically
                     return;
                 }
 
-                // Populate the grid
                 foreach (DataRow row in dt.Rows)
                 {
                     dgvCurrentStockReport.Rows.Add(
@@ -74,8 +83,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                         row["Status"].ToString()
                     );
                 }
-
-                lastFocusedSection = AlertSection.LowStock;
             }
             catch (Exception ex)
             {
@@ -123,17 +130,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                 DataTable dt = GetExpiryAlerts();
                 expiryAlertData = dt;
 
-                // Clear existing rows
                 guna2DataGridView1.Rows.Clear();
 
                 if (dt.Rows.Count == 0)
                 {
-                    // Show message or just leave empty
-                    lastFocusedSection = AlertSection.LowStock;
+                    // Leave grid empty; do NOT flip lastFocusedSection automatically
                     return;
                 }
 
-                // Populate the grid
                 foreach (DataRow row in dt.Rows)
                 {
                     guna2DataGridView1.Rows.Add(
@@ -145,8 +149,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                         row["Status"].ToString()
                     );
                 }
-
-                lastFocusedSection = AlertSection.Expiry;
             }
             catch (Exception ex)
             {
@@ -190,31 +192,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             LoadData();
         }
 
+        // ✅ Used by your shared Export PDF button
         public ReportTable BuildReportForExport()
         {
-            // Prefer the grid currently focused; fallback to low stock then expiry alerts
-            if (dgvCurrentStockReport.Focused || (!guna2DataGridView1.Focused && lowStockData != null))
+            bool exportLowStock = (lastFocusedSection == AlertSection.LowStock);
+
+            if (exportLowStock)
             {
-                if (lowStockData == null)
-                {
-                    return null;
-                }
+                if (lowStockData == null || lowStockData.Rows.Count == 0) return null;
 
                 return ReportTableFactory.FromDataTable(
                     lowStockData,
                     "Low Stock Alerts",
                     "Products at or below reorder point");
             }
-
-            if (expiryAlertData == null)
+            else
             {
-                return null;
-            }
+                if (expiryAlertData == null || expiryAlertData.Rows.Count == 0) return null;
 
-            return ReportTableFactory.FromDataTable(
-                expiryAlertData,
-                "Expiry Alerts",
-                "Products nearing or past expiry");
+                return ReportTableFactory.FromDataTable(
+                    expiryAlertData,
+                    "Expiry Alerts",
+                    "Products nearing or past expiry");
+            }
         }
     }
 }
