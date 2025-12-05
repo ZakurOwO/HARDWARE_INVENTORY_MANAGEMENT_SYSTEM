@@ -21,6 +21,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
         private string title;
         private int _value;
+        private string valueText;
         private Image icon;
 
         [Category("Custom Properties")]
@@ -34,7 +35,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         public int Value
         {
             get { return _value; }
-            set { _value = value; lblValue.Text = value.ToString(); }
+            set
+            {
+                _value = value;
+                ValueText = value.ToString();
+            }
+        }
+
+        [Category("Custom Properties")]
+        public string ValueText
+        {
+            get { return valueText; }
+            set { valueText = value; lblValue.Text = value; }
         }
 
         [Category("Custom Properties")]
