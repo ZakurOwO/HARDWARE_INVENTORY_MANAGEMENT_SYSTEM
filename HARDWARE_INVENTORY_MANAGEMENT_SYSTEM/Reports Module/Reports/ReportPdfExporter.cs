@@ -31,13 +31,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
             if (report.Rows == null || report.Rows.Count == 0)
             {
-                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
 
-            string filePath;
-            if (!TryGetSavePath(report.Title, out filePath))
+            return ExportReportTableToPath(report, filePath, true);
+        }
+
+        public static bool ExportReportTableToPath(ReportTable report, string filePath, bool showMessages)
+        {
+            string validationError;
+            if (!ValidateReport(report, showMessages, out validationError))
             {
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(filePath))
+            {
+                if (showMessages)
+                {
+                    MessageBox.Show("No file path provided for export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 return false;
             }
 

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report;
@@ -22,7 +24,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
 
         private void InventoryPage1_Load(object sender, EventArgs e)
         {
+            Debug.WriteLine("InventoryPage1_Load start");
             LoadData();
+            Debug.WriteLine("InventoryPage1_Load end");
         }
 
         public ReportTable GetCurrentReport()
@@ -113,6 +117,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
         public void RefreshData()
         {
             LoadData();
+        }
+
+        private void EnsureExportHandler()
+        {
+            if (this.ExportPDFBtn != null)
+            {
+                this.ExportPDFBtn.Click -= ExportPDFBtn_Click;
+                this.ExportPDFBtn.Click += ExportPDFBtn_Click;
+            }
         }
     }
 }
