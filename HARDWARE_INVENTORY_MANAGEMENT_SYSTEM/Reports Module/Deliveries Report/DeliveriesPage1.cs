@@ -22,7 +22,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
             // Initialize on load
             this.Load += DeliveriesPage1_Load;
             ExportPDFBtn.Text = "Export CSV";
-            ExportPDFBtn.Click += ExportPDFBtn_Click;
+           
         }
 
         private void DeliveriesPage1_Load(object sender, EventArgs e)
@@ -90,7 +90,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
             }
         }
 
-        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        
+
+        private void BtnExportBtn_Click(object sender, EventArgs e)
         {
             var report = BuildReportForExport();
             if (report == null || report.Rows == null || report.Rows.Count == 0)

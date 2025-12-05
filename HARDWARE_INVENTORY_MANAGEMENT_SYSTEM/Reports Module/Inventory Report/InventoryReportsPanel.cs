@@ -21,21 +21,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             InitializeComponent();
             this.Load += InventoryReportsPanel_Load;
 
-            CreateExportPdfButton();
-            CreateExportScopeComboBox();
+            CreateExportCSVButton(); 
         }
         private Guna.UI2.WinForms.Guna2Button ExportPDFBtn;
         private Guna.UI2.WinForms.Guna2ComboBox exportScopeComboBox;
 
-        private void CreateExportPdfButton()
+        private void CreateExportCSVButton()
         {
             ExportPDFBtn = new Guna.UI2.WinForms.Guna2Button();
 
             // Similar properties to your existing Guna button
-            ExportPDFBtn.Name = "ExportPDFBtn";
+            ExportPDFBtn.Name = "ExportCSVBtn";
             ExportPDFBtn.Text = "Export CSV";
 
-            ExportPDFBtn.Location = new Point(631, 7);
+            ExportPDFBtn.Location = new Point(780, 7);
             ExportPDFBtn.Size = new Size(135, 35);
 
             ExportPDFBtn.Animated = false;
