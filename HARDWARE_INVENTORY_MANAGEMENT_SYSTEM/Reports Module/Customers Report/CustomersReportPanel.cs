@@ -65,71 +65,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 return;
             }
 
-            bool exportModule = exportScopeComboBox != null && exportScopeComboBox.SelectedIndex == 1;
+            ReportTable report = customersPage.BuildReportForExport();
+            bool exported = ReportCsvExporter2.ExportReportTable(report);
 
-            if (exportModule)
+            if (exported)
             {
-                List<ReportTable> reports = BuildModuleReportsForExport();
-
-                if (reports == null || reports.Count == 0)
-                {
-                    MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                bool exportedModule = ReportCsvExporter2.ExportModule("Customers", reports);
-                if (exportedModule)
-                {
-                    // Exporter handles confirmation
-                }
+                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else
-            {
-                ReportTable report = customersPage.BuildReportForExport();
-                bool exported = ReportCsvExporter2.ExportReportTable(report);
-
-                if (exported)
-                {
-                    MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-        }
-
-        private void CreateExportScopeComboBox()
-        {
-            exportScopeComboBox = new Guna2ComboBox();
-            exportScopeComboBox.Name = "exportScopeComboBox";
-            exportScopeComboBox.Items.AddRange(new object[] { "Export This Page", "Export Current Module" });
-            exportScopeComboBox.SelectedIndex = 0;
-            exportScopeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            exportScopeComboBox.Location = new Point(606, 11);
-            exportScopeComboBox.Size = new Size(151, 36);
-            exportScopeComboBox.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
-            exportScopeComboBox.FillColor = Color.White;
-            exportScopeComboBox.ForeColor = Color.FromArgb(29, 28, 35);
-            exportScopeComboBox.ItemHeight = 30;
-            exportScopeComboBox.BorderRadius = 8;
-            exportScopeComboBox.BorderThickness = 1;
-            exportScopeComboBox.BorderColor = Color.LightGray;
-            exportScopeComboBox.DrawMode = DrawMode.OwnerDrawFixed;
-
-            this.Controls.Add(exportScopeComboBox);
-            exportScopeComboBox.BringToFront();
-        }
-
-        private List<ReportTable> BuildModuleReportsForExport()
-        {
-            List<ReportTable> reports = new List<ReportTable>();
-            if (customersPage != null)
-            {
-                ReportTable report = customersPage.BuildReportForExport();
-                if (report != null && report.Rows != null && report.Rows.Count > 0)
-                {
-                    reports.Add(report);
-                }
-            }
-
-            return reports;
         }
 
         // Remove all page navigation methods that are no longer needed:

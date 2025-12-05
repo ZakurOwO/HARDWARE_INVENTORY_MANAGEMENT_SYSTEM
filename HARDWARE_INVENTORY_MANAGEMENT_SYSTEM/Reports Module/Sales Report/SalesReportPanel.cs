@@ -149,32 +149,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             }
         }
 
-        private void CreateExportScopeComboBox()
-        {
-            exportScopeComboBox = new Guna2ComboBox();
-            exportScopeComboBox.Name = "exportScopeComboBox";
-            exportScopeComboBox.Items.AddRange(new object[] { "Export This Page", "Export Current Module" });
-            exportScopeComboBox.SelectedIndex = 0;
-            exportScopeComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            exportScopeComboBox.Location = new Point(606, 11);
-            exportScopeComboBox.Size = new Size(151, 36);
-            exportScopeComboBox.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
-            exportScopeComboBox.FillColor = Color.White;
-            exportScopeComboBox.ForeColor = Color.FromArgb(29, 28, 35);
-            exportScopeComboBox.ItemHeight = 30;
-            exportScopeComboBox.BorderRadius = 8;
-            exportScopeComboBox.BorderThickness = 1;
-            exportScopeComboBox.BorderColor = Color.LightGray;
-            exportScopeComboBox.DrawMode = DrawMode.OwnerDrawFixed;
-
-            this.Controls.Add(exportScopeComboBox);
-            exportScopeComboBox.BringToFront();
-        }
-
-        private List<ReportTable> BuildModuleReportsForExport()
-        {
-            List<ReportTable> reports = new List<ReportTable>();
-            for (int page = 1; page <= totalPages; page++)
+            bool exported = ReportCsvExporter2.ExportReportTable(report);
+            if (exported)
             {
                 IReportExportable control = CreatePageControl(page) as IReportExportable;
                 if (control == null)
