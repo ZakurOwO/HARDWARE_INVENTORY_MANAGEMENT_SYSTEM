@@ -256,7 +256,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 if (sfd.ShowDialog() != DialogResult.OK) return;
 
                 Cursor.Current = Cursors.WaitCursor;
-                bool exported = ReportPdfExporter.ExportReportTableToPath(report, sfd.FileName);
+                bool exported = ReportPdfExporter1.ExportReportTableToPath(report, sfd.FileName);
                 Cursor.Current = Cursors.Default;
 
                 if (exported)
