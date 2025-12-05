@@ -172,7 +172,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             };
             btnExportPdf.FlatAppearance.BorderSize = 0;
             btnExportPdf.Location = new Point(this.Width - 180, 10);
-            btnExportPdf.Click += BtnExportPdf_Click;
+         //   btnExportPdf.Click += BtnExportPdf_Click;
             this.Controls.Add(btnExportPdf);
             btnExportPdf.BringToFront();
             this.Resize += (s, e) =>
@@ -181,28 +181,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             };
         }
 
-        private void BtnExportPdf_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var data = dgvCurrentStockReport.DataSource as List<SalesProductReport>;
-                if (data == null || data.Count == 0)
-                {
-                    MessageBox.Show("No data available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
+        //private void BtnExportPdf_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        var data = dgvCurrentStockReport.DataSource as List<SalesProductReport>;
+        //        if (data == null || data.Count == 0)
+        //        {
+        //            MessageBox.Show("No data available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            return;
+        //        }
 
-                bool exported = ReportPdfExporter.ExportSalesByProduct(data, "Sales by Product Report", filterStartDate, filterEndDate);
-                if (exported)
-                {
-                    MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to export report: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        //      //  bool exported = ReportPdfExporter.ExportSalesByProduct(data, "Sales by Product Report", filterStartDate, filterEndDate);
+        //        if (exported)
+        //        {
+        //            MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Failed to export report: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
         /// <summary>
         /// Refresh all data from database

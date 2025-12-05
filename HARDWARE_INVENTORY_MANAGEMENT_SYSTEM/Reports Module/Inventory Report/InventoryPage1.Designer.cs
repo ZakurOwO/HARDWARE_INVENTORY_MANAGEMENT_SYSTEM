@@ -115,7 +115,7 @@
             this.ExportPDFBtn.TabIndex = 10;
             this.ExportPDFBtn.Text = "Export PDF";
             this.ExportPDFBtn.UseVisualStyleBackColor = false;
-            this.ExportPDFBtn.Click += new System.EventHandler(this.ExportPDFBtn_Click);
+           // this.ExportPDFBtn.Click += new System.EventHandler(this.ExportPDFBtn_Click);
             // 
             // InventoryPage1
             // 

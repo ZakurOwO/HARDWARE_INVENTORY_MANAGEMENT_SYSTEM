@@ -134,7 +134,7 @@
             this.ExportPDFBtn.TabIndex = 3;
             this.ExportPDFBtn.Text = "Export PDF";
             this.ExportPDFBtn.UseVisualStyleBackColor = false;
-            this.ExportPDFBtn.Click += new System.EventHandler(this.ExportPDFBtn_Click);
+          
             //
             // label2
             //

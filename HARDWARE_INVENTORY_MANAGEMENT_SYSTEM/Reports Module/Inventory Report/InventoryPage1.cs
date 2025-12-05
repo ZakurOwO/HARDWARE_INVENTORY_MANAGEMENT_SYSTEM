@@ -17,29 +17,39 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             dataAccess = new InventoryReportsDataAccess();
             this.Load += InventoryPage1_Load;
         }
-
-        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        private static bool IsOnlyNewRow(DataGridView grid)
         {
-            var grid = FindDataGridView(reportsTable1);
-
-            if (grid == null)
+            for (int i = 0; i < grid.Rows.Count; i++)
             {
-                MessageBox.Show("No data grid available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                if (!grid.Rows[i].IsNewRow)
+                    return false;
             }
-
-            if (grid.Rows.Count == 0 || grid.Rows.Cast<DataGridViewRow>().All(r => r.IsNewRow))
-            {
-                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            bool exported = ReportPdfExporter.ExportDataGridView(grid, "Inventory Current Stock Report", null, null);
-            if (exported)
-            {
-                MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            return true;
         }
+
+            //private void ExportPDFBtn_Click(object sender, EventArgs e)
+            //{
+            //    var grid = FindDataGridView(reportsTable1);
+
+            //    if (grid == null)
+            //    {
+            //        MessageBox.Show("No data grid available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        return;
+            //    }
+
+            //    if (grid.Rows.Count == 0 || IsOnlyNewRow(grid))
+
+            //    {
+            //        MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        return;
+            //    }
+
+            //    bool exported = ReportPdfExporter.ExportDataGridView(grid, "Inventory Current Stock Report", null, null);
+            //    if (exported)
+            //    {
+            //        MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
 
         private void InventoryPage1_Load(object sender, EventArgs e)
         {
