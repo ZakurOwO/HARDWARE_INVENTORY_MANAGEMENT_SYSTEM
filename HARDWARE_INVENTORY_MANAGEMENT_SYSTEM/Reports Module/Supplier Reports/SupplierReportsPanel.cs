@@ -26,6 +26,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             ExportPDFBtn.Click += ExportPDFBtn_Click;
         }
 
+        private Guna.UI2.WinForms.Guna2ComboBox exportScopeComboBox;
+
         private void guna2Button5_Click(object sender, EventArgs e)
         {
             //Page 1
@@ -65,20 +67,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void ShowPage(int page)
         {
             panel1.Controls.Clear();
-            UserControl pageControl = null;
-
-            switch (page)
-            {
-                case 1:
-                    pageControl = new SupplierPage1();
-                    break;
-                case 2:
-                    pageControl = new SupplierPage2();
-                    break;
-                case 3:
-                    pageControl = new SupplierPage3();
-                    break;
-            }
+            UserControl pageControl = CreatePageControl(page);
 
             if (pageControl != null)
             {
