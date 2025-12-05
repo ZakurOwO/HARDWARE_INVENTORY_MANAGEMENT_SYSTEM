@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Data;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
 {
@@ -12,6 +13,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
     {
         private DeliveriesDataAccess deliveriesData;
         private DataTable deliveriesDataTable;
+        private Button btnExportPdf;
 
         public DeliveriesPage1()
         {
@@ -20,6 +22,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
 
             // Initialize on load
             this.Load += DeliveriesPage1_Load;
+            ConfigureExportButton();
         }
 
         private void DeliveriesPage1_Load(object sender, EventArgs e)
@@ -87,6 +90,59 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
             }
         }
 
+        private void ConfigureExportButton()
+        {
+            btnExportPdf = new Button
+            {
+                Text = "Export to PDF",
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                AutoSize = true,
+                BackColor = Color.FromArgb(76, 175, 80),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnExportPdf.FlatAppearance.BorderSize = 0;
+            btnExportPdf.Location = new Point(this.Width - 180, 10);
+            btnExportPdf.Click += BtnExportPdf_Click;
+            this.Controls.Add(btnExportPdf);
+            btnExportPdf.BringToFront();
+            this.Resize += (s, e) =>
+            {
+                btnExportPdf.Location = new Point(this.Width - btnExportPdf.Width - 20, btnExportPdf.Location.Y);
+            };
+        }
+
+        private void BtnExportPdf_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var table = deliveriesDataTable ?? dgvCurrentStockReport.DataSource as DataTable;
+                if (table == null || table.Rows.Count == 0)
+                {
+                    MessageBox.Show("No data available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                var exportData = table.Rows.Cast<DataRow>().Select(row => new DeliverySummaryReportModel
+                {
+                    DeliveryDate = DateTime.TryParse(row["DeliveryDate"]?.ToString(), out DateTime parsedDate) ? parsedDate : DateTime.MinValue,
+                    Status = row["Status"]?.ToString() ?? string.Empty,
+                    DeliveryCount = 1,
+                    TotalItems = int.TryParse(row["QuantityItems"]?.ToString(), out int qty) ? qty : 0
+                }).ToList();
+
+                bool exported = ReportPdfExporter.ExportDeliverySummary(exportData, "Deliveries Summary Report", null, null);
+                if (exported)
+                {
+                    MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to export report: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void LoadAllData()
         {
             try
@@ -144,6 +200,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Deliveries_Report
                 {
                     Console.WriteLine($"  - Column: {col.Name}");
                 }
+
+                dgvCurrentStockReport.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
                 // Set column headers and widths
                 if (dgvCurrentStockReport.Columns.Contains("DeliveryID"))
