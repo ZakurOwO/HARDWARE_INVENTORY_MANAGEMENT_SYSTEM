@@ -8,7 +8,7 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
 {
-    public partial class InventoryPage1 : UserControl
+    public partial class InventoryPage1 : UserControl, IReportExportable
     {
         private InventoryReportsDataAccess dataAccess;
         private ReportTable currentReport;
@@ -35,6 +35,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                 currentReport = ReportQueries.BuildInventoryCurrentStockReport();
 
             return currentReport;
+        }
+
+        public ReportTable BuildReportForExport()
+        {
+            return GetCurrentReport();
         }
 
 
