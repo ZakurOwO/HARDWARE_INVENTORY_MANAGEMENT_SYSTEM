@@ -102,7 +102,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 return;
             }
 
-            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
+            bool exported = ReportCsvExporter2.ExportReportTable(report);
             if (exported)
             {
                 MessageBox.Show("Report exported to CSV successfully.", "Export",

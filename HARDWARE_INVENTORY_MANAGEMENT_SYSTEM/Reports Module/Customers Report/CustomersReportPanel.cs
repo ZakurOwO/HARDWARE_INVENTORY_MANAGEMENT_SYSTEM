@@ -50,6 +50,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             }
         }
 
+        private void exportButton_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void exportButton_Click(object sender, EventArgs e)
+        {
+            if (customersPage == null)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            ReportTable report = customersPage.BuildReportForExport();
+            bool exported = ReportCsvExporter2.ExportReportTable(report);
+
+            if (exported)
+            {
+                MessageBox.Show("Report exported to CSV successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         // Remove all page navigation methods that are no longer needed:
         // - guna2Button5_Click
         // - guna2Button2_Click  

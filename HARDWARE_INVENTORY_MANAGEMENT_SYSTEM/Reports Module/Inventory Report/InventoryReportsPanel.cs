@@ -21,7 +21,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             InitializeComponent();
             this.Load += InventoryReportsPanel_Load;
 
-            CreateExportCSVButton(); 
+            CreateExportCSVButton();
+            CreateExportScopeComboBox();
         }
         private Guna.UI2.WinForms.Guna2Button ExportCSVBtn;
         private Guna.UI2.WinForms.Guna2ComboBox exportScopeComboBox;
@@ -261,25 +262,50 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
             bool exportModule = exportScopeComboBox != null && exportScopeComboBox.SelectedIndex == 1;
 
-            Cursor.Current = Cursors.WaitCursor;
-            var report = exportModule ? BuildModuleReportForExport() : exportable.BuildReportForExport();
-            Cursor.Current = Cursors.Default;
-
-            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            if (exportModule)
             {
-                MessageBox.Show("No data to export.", "Export",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                Cursor.Current = Cursors.WaitCursor;
+                List<ReportTable> moduleReports = BuildModuleReportsForExport();
+                Cursor.Current = Cursors.Default;
+
+                if (moduleReports == null || moduleReports.Count == 0)
+                {
+                    MessageBox.Show("No data to export.", "Export",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                Cursor.Current = Cursors.WaitCursor;
+                bool exportedModule = ReportCsvExporter2.ExportModule("Inventory", moduleReports);
+                Cursor.Current = Cursors.Default;
+
+                if (exportedModule)
+                {
+                    // Success message handled by exporter
+                }
             }
-
-            Cursor.Current = Cursors.WaitCursor;
-            bool exported = ReportCsvExporter.ExportReportTableToCsv(report);
-            Cursor.Current = Cursors.Default;
-
-            if (exported)
+            else
             {
-                MessageBox.Show("Report exported to CSV successfully.", "Export",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Cursor.Current = Cursors.WaitCursor;
+                ReportTable report = exportable.BuildReportForExport();
+                Cursor.Current = Cursors.Default;
+
+                if (report == null || report.Rows == null || report.Rows.Count == 0)
+                {
+                    MessageBox.Show("No data to export.", "Export",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                Cursor.Current = Cursors.WaitCursor;
+                bool exported = ReportCsvExporter2.ExportReportTable(report);
+                Cursor.Current = Cursors.Default;
+
+                if (exported)
+                {
+                    MessageBox.Show("Report exported to CSV successfully.", "Export",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
@@ -312,31 +338,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
             }
         }
 
-        private ReportTable BuildModuleReportForExport()
+        private List<ReportTable> BuildModuleReportsForExport()
         {
-            var reports = new List<ReportTable>();
+            List<ReportTable> reports = new List<ReportTable>();
             for (int page = 1; page <= totalPages; page++)
             {
-                var control = CreatePageControl(page) as IReportExportable;
+                IReportExportable control = CreatePageControl(page) as IReportExportable;
                 if (control == null)
                 {
                     continue;
                 }
 
-                var report = control.BuildReportForExport();
+                ReportTable report = control.BuildReportForExport();
                 if (report != null && report.Rows != null && report.Rows.Count > 0)
                 {
                     reports.Add(report);
                 }
             }
 
-            if (reports.Count == 0)
-            {
-                return null;
-            }
-
-            string subtitle = "Combined export generated on " + DateTime.Now.ToString("g");
-            return ReportTableCombiner.BuildModuleReport("Inventory Module Reports", subtitle, reports);
+            return reports;
         }
     }
 }
