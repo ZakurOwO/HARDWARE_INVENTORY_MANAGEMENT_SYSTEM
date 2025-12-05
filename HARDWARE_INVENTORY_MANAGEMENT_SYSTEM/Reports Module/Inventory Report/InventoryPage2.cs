@@ -16,6 +16,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
         {
             InitializeComponent();
             this.Load += InventoryPage2_Load;
+
+            dgvCurrentStockReport.Enter += (_, __) => lastFocusedSection = AlertSection.LowStock;
+            dgvCurrentStockReport.Click += (_, __) => lastFocusedSection = AlertSection.LowStock;
+            guna2DataGridView1.Enter += (_, __) => lastFocusedSection = AlertSection.Expiry;
+            guna2DataGridView1.Click += (_, __) => lastFocusedSection = AlertSection.Expiry;
         }
 
         private void InventoryPage2_Load(object sender, EventArgs e)
@@ -53,6 +58,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                 if (dt.Rows.Count == 0)
                 {
                     // Show message in the grid or just leave empty
+                    lastFocusedSection = AlertSection.Expiry;
                     return;
                 }
 
@@ -68,6 +74,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                         row["Status"].ToString()
                     );
                 }
+
+                lastFocusedSection = AlertSection.LowStock;
             }
             catch (Exception ex)
             {
@@ -121,6 +129,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                 if (dt.Rows.Count == 0)
                 {
                     // Show message or just leave empty
+                    lastFocusedSection = AlertSection.LowStock;
                     return;
                 }
 
@@ -136,6 +145,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
                         row["Status"].ToString()
                     );
                 }
+
+                lastFocusedSection = AlertSection.Expiry;
             }
             catch (Exception ex)
             {
