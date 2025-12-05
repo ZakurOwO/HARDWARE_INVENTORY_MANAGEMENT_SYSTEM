@@ -1,0 +1,237 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Windows.Forms;
+using iText.IO.Font.Constants;
+using iText.Kernel.Colors;
+using iText.Kernel.Font;
+using iText.Kernel.Geom;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+
+namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
+{
+    public static class ReportPdfExporter
+    {
+        private static readonly PdfFont RegularFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA);
+        private static readonly PdfFont BoldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+
+        public static bool ExportReportTable(ReportTable report)
+        {
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            string filePath;
+            if (!TryGetSavePath(report.Title, out filePath))
+            {
+                return false;
+            }
+
+            try
+            {
+                using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (PdfWriter pdfWriter = new PdfWriter(stream))
+                using (PdfDocument pdfDocument = new PdfDocument(pdfWriter))
+                {
+                    pdfDocument.SetDefaultPageSize(PageSize.A4.Rotate());
+
+                    using (Document document = new Document(pdfDocument))
+                    {
+                        document.SetMargins(40, 36, 40, 36);
+                        AddDocumentHeader(document, report);
+                        Table table = BuildTable(report);
+                        document.Add(table);
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to export report: " + ex.Message, "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private static void AddDocumentHeader(Document document, ReportTable report)
+        {
+            Paragraph title = new Paragraph(report.Title ?? "Report")
+                .SetFont(BoldFont)
+                .SetFontSize(16)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetMarginBottom(6f);
+            document.Add(title);
+
+            string subtitleText = report.Subtitle;
+            if (string.IsNullOrEmpty(subtitleText))
+            {
+                subtitleText = "Generated: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            }
+            else
+            {
+                subtitleText = subtitleText + "\nGenerated: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+            }
+
+            Paragraph subtitle = new Paragraph(subtitleText)
+                .SetFont(RegularFont)
+                .SetFontSize(10)
+                .SetTextAlignment(TextAlignment.CENTER)
+                .SetMarginBottom(12f);
+            document.Add(subtitle);
+        }
+
+        private static Table BuildTable(ReportTable report)
+        {
+            int columnCount = Math.Max(report.Headers != null ? report.Headers.Count : 0, 1);
+            List<List<string>> normalizedRows = NormalizeRows(report.Rows, columnCount);
+
+            Table table = new Table(columnCount)
+                .SetWidth(UnitValue.CreatePercentValue(100))
+                .SetMarginTop(10f);
+
+            if (report.Headers != null)
+            {
+                foreach (string header in report.Headers)
+                {
+                    Cell cell = new Cell()
+                        .Add(new Paragraph(header).SetFont(BoldFont).SetFontSize(10))
+                        .SetBackgroundColor(new DeviceRgb(230, 230, 230))
+                        .SetPadding(5)
+                        .SetTextAlignment(TextAlignment.CENTER);
+                    table.AddCell(cell);
+                }
+            }
+
+            if (normalizedRows != null)
+            {
+                for (int i = 0; i < normalizedRows.Count; i++)
+                {
+                    List<string> row = normalizedRows[i];
+                    if (row == null)
+                    {
+                        continue;
+                    }
+
+                    for (int j = 0; j < columnCount; j++)
+                    {
+                        string value = row[j] ?? string.Empty;
+                        Cell cell = new Cell()
+                            .Add(new Paragraph(value).SetFont(RegularFont).SetFontSize(10))
+                            .SetPadding(5);
+                        table.AddCell(cell);
+                    }
+                }
+            }
+
+            return table;
+        }
+
+        private static List<List<string>> NormalizeRows(List<List<string>> rows, int columnCount)
+        {
+            List<List<string>> normalized = new List<List<string>>();
+
+            if (rows == null)
+            {
+                return normalized;
+            }
+
+            for (int i = 0; i < rows.Count; i++)
+            {
+                List<string> currentRow = rows[i] ?? new List<string>();
+                List<string> normalizedRow = new List<string>(columnCount);
+
+                for (int j = 0; j < columnCount; j++)
+                {
+                    if (j < currentRow.Count)
+                    {
+                        normalizedRow.Add(currentRow[j] ?? string.Empty);
+                    }
+                    else
+                    {
+                        normalizedRow.Add(string.Empty);
+                    }
+                }
+
+                normalized.Add(normalizedRow);
+            }
+
+            return normalized;
+        }
+
+        private static bool TryGetSavePath(string reportTitle, out string path)
+        {
+            path = null;
+            using (SaveFileDialog saveDialog = new SaveFileDialog())
+            {
+                saveDialog.Filter = "PDF Files (*.pdf)|*.pdf";
+                saveDialog.Title = "Save Report as PDF";
+                saveDialog.FileName = SanitizeFileName((reportTitle ?? "report") + "_" + DateTime.Now.ToString("yyyyMMdd")) + ".pdf";
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    path = saveDialog.FileName;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool ExportReportTableToPath(ReportTable report, string filePath)
+        {
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            try
+            {
+                using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (PdfWriter pdfWriter = new PdfWriter(stream))
+                using (PdfDocument pdfDocument = new PdfDocument(pdfWriter))
+                {
+                    pdfDocument.SetDefaultPageSize(PageSize.A4.Rotate());
+
+                    using (Document document = new Document(pdfDocument))
+                    {
+                        document.SetMargins(40, 36, 40, 36);
+                        AddDocumentHeader(document, report);
+                        Table table = BuildTable(report);
+                        document.Add(table);
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to export report: " + ex.Message, "Export Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+
+
+        private static string SanitizeFileName(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return "report";
+            }
+
+            for (int i = 0; i < System.IO.Path.GetInvalidFileNameChars().Length; i++)
+            {
+                char c = System.IO.Path.GetInvalidFileNameChars()[i];
+                input = input.Replace(c, '_');
+            }
+
+            return input;
+        }
+    }
+}

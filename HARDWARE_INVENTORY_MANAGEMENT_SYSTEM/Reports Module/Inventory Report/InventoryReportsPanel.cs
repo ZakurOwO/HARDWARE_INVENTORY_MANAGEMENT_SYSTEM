@@ -20,7 +20,52 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             InitializeComponent();
             this.Load += InventoryReportsPanel_Load;
+
+            CreateExportPdfButton(); 
         }
+        private Guna.UI2.WinForms.Guna2Button ExportPDFBtn;
+
+        private void CreateExportPdfButton()
+        {
+            ExportPDFBtn = new Guna.UI2.WinForms.Guna2Button();
+
+            // Similar properties to your existing Guna button
+            ExportPDFBtn.Name = "ExportPDFBtn";
+            ExportPDFBtn.Text = "Export PDF";
+
+            ExportPDFBtn.Location = new Point(631, 7);
+            ExportPDFBtn.Size = new Size(135, 35);
+
+            ExportPDFBtn.Animated = false;
+            ExportPDFBtn.AutoRoundedCorners = false;
+            ExportPDFBtn.BorderRadius = 8;
+            ExportPDFBtn.BorderThickness = 0;
+            ExportPDFBtn.BorderColor = Color.Black; // (your screenshot shows BorderColor black)
+            ExportPDFBtn.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+
+            ExportPDFBtn.FillColor = Color.FromArgb(0, 110, 196);
+            ExportPDFBtn.ForeColor = Color.White;
+
+            ExportPDFBtn.Font = new Font("Lexend SemiBold", 9F, FontStyle.Bold);
+            ExportPDFBtn.TextAlign = HorizontalAlignment.Center;
+
+            ExportPDFBtn.UseTransparentBackground = false;
+            ExportPDFBtn.Visible = true;
+            ExportPDFBtn.Enabled = true;
+
+            // Hook the click event to your export logic
+            ExportPDFBtn.Click += ExportPDFBtn_Click;
+
+            // Add it to the panel (IMPORTANT: choose the correct container)
+            // If your page navigation buttons are on the same UserControl surface:
+            this.Controls.Add(ExportPDFBtn);
+
+            // If you have a top bar panel (like headerPanel), use that instead:
+            // headerPanel.Controls.Add(ExportPDFBtn);
+
+            ExportPDFBtn.BringToFront();
+        }
+
 
         private void InventoryReportsPanel_Load(object sender, EventArgs e)
         {
@@ -177,6 +222,61 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
             // Panel paint event
+        }
+        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        {
+            if (panel1.Controls.Count == 0) return;
+
+            var currentPage = panel1.Controls[0];
+
+            if (!(currentPage is IReportExportable exportable))
+            {
+                MessageBox.Show("This report page does not support export yet.",
+                    "Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Cursor.Current = Cursors.WaitCursor;
+            var report = exportable.BuildReportForExport();
+            Cursor.Current = Cursors.Default;
+
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            using (var sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "PDF Files (*.pdf)|*.pdf";
+                sfd.Title = "Save Report as PDF";
+                sfd.FileName = (report.Title ?? "Report") + ".pdf";
+
+                if (sfd.ShowDialog() != DialogResult.OK) return;
+
+                Cursor.Current = Cursors.WaitCursor;
+                bool exported = ReportPdfExporter.ExportReportTableToPath(report, sfd.FileName);
+                Cursor.Current = Cursors.Default;
+
+                if (exported)
+                {
+                    MessageBox.Show("Report exported to PDF successfully.", "Export",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+
+
+        private void ExportPDFBtn_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void mainButton1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

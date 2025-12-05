@@ -1,47 +1,49 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 {
+    /// <summary>
+    /// Hosts the AddCustomerForm and handles persistence + cleanup.
+    /// </summary>
     public class AddCustomerContainer
     {
         private Panel scrollContainer;
         private AddCustomerForm addCustomerForm;
         private MainDashBoard mainForm;
 
-        public void ShowAddCustomerForm(MainDashBoard main)
+        public AddCustomerForm ShowAddCustomerForm(MainDashBoard main)
         {
             try
             {
                 mainForm = main;
 
-                // Create the AddCustomerForm
-                addCustomerForm = new AddCustomerForm();
+                addCustomerForm = new AddCustomerForm(this);
                 addCustomerForm.TopLevel = false;
                 addCustomerForm.FormBorderStyle = FormBorderStyle.None;
                 addCustomerForm.Dock = DockStyle.Fill;
+                addCustomerForm.CustomerAdded += AddCustomerForm_CustomerAdded;
 
-                // SCROLL CONTAINER
-                scrollContainer = new Panel();
-                scrollContainer.Size = new Size(583, 505);
-                scrollContainer.Location = new Point(
-                (main.Width - scrollContainer.Width) / 2,
-                (main.Height - scrollContainer.Height) / 2
-            );
-                scrollContainer.BorderStyle = BorderStyle.FixedSingle;
-                scrollContainer.AutoScroll = true;
+                scrollContainer = new Panel
+                {
+                    Size = new Size(583, 505),
+                    Location = new Point((main.Width - 583) / 2, (main.Height - 505) / 2),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    AutoScroll = true
+                };
 
-                // Add form into scroll container
                 scrollContainer.Controls.Add(addCustomerForm);
                 addCustomerForm.Dock = DockStyle.Fill;
 
-                // Make sure the form is properly shown
                 addCustomerForm.Show();
                 addCustomerForm.BringToFront();
 
-                // Setup overlay
-                if (mainForm.pcbBlurOverlay != null)
+                if (mainForm?.pcbBlurOverlay != null)
                 {
                     mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.CustomerOvelay;
                     mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
@@ -49,92 +51,113 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
                     mainForm.pcbBlurOverlay.BringToFront();
                 }
 
-                // Add container to main form and bring to front
-                mainForm.Controls.Add(scrollContainer);
+                mainForm?.Controls.Add(scrollContainer);
                 scrollContainer.BringToFront();
 
-                // Handle form closed event
-                addCustomerForm.FormClosed += (s, e) => CloseAddCustomerForm();
+                addCustomerForm.FormClosed += OnAddCustomerFormClosed;
 
-                // Test form functionality after a short delay
-                TestFormFunctionality();
+                return addCustomerForm;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error showing customer form: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
         }
 
-        private void TestFormFunctionality()
+        /// <summary>
+        /// Inserts a customer record using available schema columns.
+        /// </summary>
+        public bool AddCustomer(CustomerDetailsModel customer, out string errorMessage)
         {
-            // Add a small delay to ensure form is fully loaded
-            var timer = new Timer();
-            timer.Interval = 100;
-            timer.Tick += (s, e) =>
+            errorMessage = string.Empty;
+            if (customer == null)
             {
-                timer.Stop();
-                timer.Dispose();
+                errorMessage = "Missing customer details.";
+                return false;
+            }
 
-                // Test if we can access form controls
-                if (addCustomerForm != null && !addCustomerForm.IsDisposed)
-                {
-                    DebugFormControls();
-                }
-            };
-            timer.Start();
-        }
-
-        private void DebugFormControls()
-        {
             try
             {
-                // Debug method to check if form controls are accessible
-                bool hasCompanyName = addCustomerForm.Controls.Find("tbxCompanyName", true).Length > 0;
-                bool hasContactPerson = addCustomerForm.Controls.Find("tbxContactPerson", true).Length > 0;
-                bool hasCityCombo = addCustomerForm.Controls.Find("CityCombobox", true).Length > 0;
-                bool hasProvinceCombo = addCustomerForm.Controls.Find("ProvinceCombobox", true).Length > 0;
-                bool hasAddButton = addCustomerForm.Controls.Find("btnBlue", true).Length > 0;
+                using (SqlConnection con = new SqlConnection(ConnectionString.DataSource))
+                {
+                    con.Open();
+                    HashSet<string> columns = GetCustomerColumns(con);
 
-                string debugInfo = $"Form Controls Found:\n" +
-                                 $"Company Name: {hasCompanyName}\n" +
-                                 $"Contact Person: {hasContactPerson}\n" +
-                                 $"City Combo: {hasCityCombo}\n" +
-                                 $"Province Combo: {hasProvinceCombo}\n" +
-                                 $"Add Button: {hasAddButton}";
+                    // Ensure required schema exists
+                    string[] requiredColumns = { "customer_name", "contact_number", "address" };
+                    if (!requiredColumns.All(columns.Contains))
+                    {
+                        errorMessage = "Customers table is missing required columns.";
+                        return false;
+                    }
 
-                // Uncomment below for debugging
-                // MessageBox.Show(debugInfo, "Form Debug Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    List<string> columnNames = new List<string> { "customer_name", "contact_number", "address" };
+                    List<string> parameterNames = new List<string> { "@customer_name", "@contact_number", "@address" };
+
+                    void AddOptional(string columnName, string parameterName)
+                    {
+                        if (columns.Contains(columnName))
+                        {
+                            columnNames.Add(columnName);
+                            parameterNames.Add(parameterName);
+                        }
+                    }
+
+                    AddOptional("contact_person", "@contact_person");
+                    AddOptional("email", "@email");
+                    AddOptional("city", "@city");
+                    AddOptional("province", "@province");
+                    AddOptional("status", "@status");
+
+                    string query = $"INSERT INTO Customers ({string.Join(",", columnNames)}) VALUES ({string.Join(",", parameterNames)})";
+
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@customer_name", customer.CompanyName);
+                        cmd.Parameters.AddWithValue("@contact_number", string.IsNullOrWhiteSpace(customer.ContactNumber) ? (object)DBNull.Value : customer.ContactNumber);
+                        cmd.Parameters.AddWithValue("@address", string.IsNullOrWhiteSpace(customer.BuildFullAddress()) ? (object)DBNull.Value : customer.BuildFullAddress());
+
+                        if (columns.Contains("contact_person"))
+                            cmd.Parameters.AddWithValue("@contact_person", string.IsNullOrWhiteSpace(customer.ContactPerson) ? (object)DBNull.Value : customer.ContactPerson);
+                        if (columns.Contains("email"))
+                            cmd.Parameters.AddWithValue("@email", string.IsNullOrWhiteSpace(customer.Email) ? (object)DBNull.Value : customer.Email);
+                        if (columns.Contains("city"))
+                            cmd.Parameters.AddWithValue("@city", string.IsNullOrWhiteSpace(customer.City) ? (object)DBNull.Value : customer.City);
+                        if (columns.Contains("province"))
+                            cmd.Parameters.AddWithValue("@province", string.IsNullOrWhiteSpace(customer.Province) ? (object)DBNull.Value : customer.Province);
+                        if (columns.Contains("status"))
+                            cmd.Parameters.AddWithValue("@status", string.IsNullOrWhiteSpace(customer.Status) ? (object)DBNull.Value : customer.Status);
+
+                        return cmd.ExecuteNonQuery() > 0;
+                    }
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Debug error: {ex.Message}", "Debug Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                errorMessage = ex.Message;
+                return false;
             }
-        }
-
-        private void AddCustomerForm(object sender, EventArgs e)
-        {
-            CloseAddCustomerForm();
         }
 
         public void CloseAddCustomerForm()
         {
-            if (mainForm != null)
+            if (mainForm != null && mainForm.pcbBlurOverlay != null)
             {
                 mainForm.pcbBlurOverlay.Visible = false;
             }
 
-                // Clean up form
-                if (addCustomerForm != null)
+            if (addCustomerForm != null)
+            {
+                addCustomerForm.CustomerAdded -= AddCustomerForm_CustomerAdded;
+                addCustomerForm.FormClosed -= OnAddCustomerFormClosed;
+                if (!addCustomerForm.IsDisposed)
                 {
-                    if (!addCustomerForm.IsDisposed)
-                    {
-                        addCustomerForm.FormClosed -= (s, e) => CloseAddCustomerForm();
-                        addCustomerForm.Dispose();
-                    }
-                    addCustomerForm = null;
+                    addCustomerForm.Dispose();
                 }
+                addCustomerForm = null;
+            }
 
             if (scrollContainer != null)
             {
@@ -145,23 +168,50 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             }
         }
 
-        // Public method to refresh the form if needed
-        public void RefreshForm()
+        private void AddCustomerForm_CustomerAdded(object sender, EventArgs e)
         {
-            if (addCustomerForm != null && !addCustomerForm.IsDisposed)
-            {
-                addCustomerForm.Refresh();
-            }
+            RefreshCustomerList();
         }
 
-        // Method to test if data is being saved (for debugging)
-        public void TestSaveFunctionality()
+        private void OnAddCustomerFormClosed(object sender, FormClosedEventArgs e)
         {
-            if (addCustomerForm != null && !addCustomerForm.IsDisposed)
+            CloseAddCustomerForm();
+        }
+
+        private void RefreshCustomerList()
+        {
+            var customerMainPage = FindControlRecursive<CustomerMainPage>(mainForm);
+            customerMainPage?.RefreshCustomerList();
+        }
+
+        private T FindControlRecursive<T>(Control parent) where T : Control
+        {
+            if (parent == null) return null;
+
+            foreach (Control control in parent.Controls)
             {
-                // Call the test method on the form
-                addCustomerForm.TestForm();
+                if (control is T found)
+                    return found;
+
+                var child = FindControlRecursive<T>(control);
+                if (child != null)
+                    return child;
             }
+            return null;
+        }
+
+        private HashSet<string> GetCustomerColumns(SqlConnection con)
+        {
+            HashSet<string> columns = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            using (SqlCommand cmd = new SqlCommand("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Customers'", con))
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    columns.Add(reader.GetString(0));
+                }
+            }
+            return columns;
         }
     }
 }

@@ -3,15 +3,36 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
 {
-    public partial class InventoryPage2 : UserControl
+    public partial class InventoryPage2 : UserControl, IReportExportable
     {
+        private DataTable lowStockData;
+        private DataTable expiryAlertData;
+
+        // ✅ Added to fix CS0103 errors
+        private enum AlertSection
+        {
+            LowStock,
+            Expiry
+        }
+
+        // ✅ Track which grid the user last interacted with
+        private AlertSection lastFocusedSection = AlertSection.LowStock;
+
         public InventoryPage2()
         {
             InitializeComponent();
             this.Load += InventoryPage2_Load;
+
+            // Track which table is "active" for export
+            dgvCurrentStockReport.Enter += (_, __) => lastFocusedSection = AlertSection.LowStock;
+            dgvCurrentStockReport.Click += (_, __) => lastFocusedSection = AlertSection.LowStock;
+
+            guna2DataGridView1.Enter += (_, __) => lastFocusedSection = AlertSection.Expiry;
+            guna2DataGridView1.Click += (_, __) => lastFocusedSection = AlertSection.Expiry;
         }
 
         private void InventoryPage2_Load(object sender, EventArgs e)
@@ -23,16 +44,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
         {
             try
             {
-                // Load Low Stock Alerts
                 LoadLowStockAlerts();
-
-                // Load Expiry Alerts
                 LoadExpiryAlerts();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error loading alerts: {ex.Message}\n\n{ex.StackTrace}",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"Error loading alerts: {ex.Message}\n\n{ex.StackTrace}",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -41,17 +62,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             try
             {
                 DataTable dt = GetLowStockAlerts();
+                lowStockData = dt;
 
-                // Clear existing rows
                 dgvCurrentStockReport.Rows.Clear();
 
                 if (dt.Rows.Count == 0)
                 {
-                    // Show message in the grid or just leave empty
+                    // Leave grid empty; do NOT flip lastFocusedSection automatically
                     return;
                 }
 
-                // Populate the grid
                 foreach (DataRow row in dt.Rows)
                 {
                     dgvCurrentStockReport.Rows.Add(
@@ -108,17 +128,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             try
             {
                 DataTable dt = GetExpiryAlerts();
+                expiryAlertData = dt;
 
-                // Clear existing rows
                 guna2DataGridView1.Rows.Clear();
 
                 if (dt.Rows.Count == 0)
                 {
-                    // Show message or just leave empty
+                    // Leave grid empty; do NOT flip lastFocusedSection automatically
                     return;
                 }
 
-                // Populate the grid
                 foreach (DataRow row in dt.Rows)
                 {
                     guna2DataGridView1.Rows.Add(
@@ -171,6 +190,31 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
         public void RefreshData()
         {
             LoadData();
+        }
+
+        // ✅ Used by your shared Export PDF button
+        public ReportTable BuildReportForExport()
+        {
+            bool exportLowStock = (lastFocusedSection == AlertSection.LowStock);
+
+            if (exportLowStock)
+            {
+                if (lowStockData == null || lowStockData.Rows.Count == 0) return null;
+
+                return ReportTableFactory.FromDataTable(
+                    lowStockData,
+                    "Low Stock Alerts",
+                    "Products at or below reorder point");
+            }
+            else
+            {
+                if (expiryAlertData == null || expiryAlertData.Rows.Count == 0) return null;
+
+                return ReportTableFactory.FromDataTable(
+                    expiryAlertData,
+                    "Expiry Alerts",
+                    "Products nearing or past expiry");
+            }
         }
     }
 }

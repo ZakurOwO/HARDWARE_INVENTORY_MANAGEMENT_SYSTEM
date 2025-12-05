@@ -99,9 +99,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             UpdatePaginationDisplay();
         }
 
-        public void UpdateData(DataTable newData)
+        public void UpdateData(DataTable newData, bool resetToFirstPage = false)
         {
-            paginationHelper?.UpdateData(newData);
+            paginationHelper?.UpdateData(newData, resetToFirstPage);
         }
 
         private void PageNumber_Load(object sender, EventArgs e)

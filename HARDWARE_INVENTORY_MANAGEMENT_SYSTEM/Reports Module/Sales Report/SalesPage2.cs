@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 {
@@ -105,6 +106,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
         {
             return dgvCurrentStockReport.DataSource as List<SalesCustomerReport>;
         }
+
+        //private void ExportPDFBtn_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        var data = dgvCurrentStockReport.DataSource as List<SalesCustomerReport>;
+        //        if (data == null || data.Count == 0)
+        //        {
+        //            MessageBox.Show("No data available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            return;
+        //        }
+
+        //        bool exported = ReportPdfExporter.ExportSalesByCustomer(data, "Sales by Customer Report", filterStartDate, filterEndDate);
+        //        if (exported)
+        //        {
+        //            MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Failed to export report: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
         public List<SalesCustomerReport> GetTopCustomers(int count = 10)
         {

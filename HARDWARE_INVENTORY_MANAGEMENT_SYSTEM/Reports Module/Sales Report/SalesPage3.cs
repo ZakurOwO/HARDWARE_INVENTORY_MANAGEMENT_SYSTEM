@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 {
@@ -206,19 +207,44 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
                 IsMonthlyView = showMonthlyView
             };
         }
-    }
 
-    /// <summary>
-    /// Summary statistics helper class
-    /// </summary>
-    public class SalesSummaryStats
-    {
-        public int TotalTransactions { get; set; }
-        public int TotalQuantity { get; set; }
-        public decimal TotalSales { get; set; }
-        public decimal TotalProfit { get; set; }
-        public decimal AvgSalePerTransaction { get; set; }
-        public int PeriodCount { get; set; }
-        public bool IsMonthlyView { get; set; }
+        //    private void ExportPDFBtn_Click(object sender, EventArgs e)
+        //    {
+        //        try
+        //        {
+        //            var data = dgvCurrentStockReport.DataSource as List<SalesSummaryReport>;
+        //            if (data == null || data.Count == 0)
+        //            {
+        //                MessageBox.Show("No data available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //                return;
+        //            }
+
+        //            string title = showMonthlyView ? "Monthly Sales Summary Report" : "Daily Sales Summary Report";
+        //            bool exported = ReportPdfExporter.ExportSalesSummary(data, title, filterStartDate, filterEndDate);
+        //            if (exported)
+        //            {
+        //                MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show($"Failed to export report: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //    }
+        //}
+
+        /// <summary>
+        /// Summary statistics helper class
+        /// </summary>
+        public class SalesSummaryStats
+        {
+            public int TotalTransactions { get; set; }
+            public int TotalQuantity { get; set; }
+            public decimal TotalSales { get; set; }
+            public decimal TotalProfit { get; set; }
+            public decimal AvgSalePerTransaction { get; set; }
+            public int PeriodCount { get; set; }
+            public bool IsMonthlyView { get; set; }
+        }
     }
 }

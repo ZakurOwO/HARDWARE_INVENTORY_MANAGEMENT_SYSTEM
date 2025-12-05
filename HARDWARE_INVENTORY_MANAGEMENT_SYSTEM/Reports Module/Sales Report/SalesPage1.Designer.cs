@@ -38,13 +38,13 @@
             this.reportsKeyMetrics1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.ReportsKeyMetrics();
             this.pnlTable = new Guna.UI2.WinForms.Guna2Panel();
             this.dgvCurrentStockReport = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
             this.ProductID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Category = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.QuantitySold = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UnitPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TotalSales = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.pnlTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCurrentStockReport)).BeginInit();
@@ -179,16 +179,6 @@
             this.dgvCurrentStockReport.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvCurrentStockReport.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Lexend SemiBold", 11F, System.Drawing.FontStyle.Bold);
-            this.label2.Location = new System.Drawing.Point(27, 14);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(137, 24);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Sales by Product";
-            // 
             // ProductID
             // 
             this.ProductID.HeaderText = "Product ID";
@@ -223,6 +213,16 @@
             this.TotalSales.FillWeight = 70F;
             this.TotalSales.HeaderText = "Total Sales";
             this.TotalSales.Name = "TotalSales";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Lexend SemiBold", 11F, System.Drawing.FontStyle.Bold);
+            this.label2.Location = new System.Drawing.Point(27, 14);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(137, 24);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Sales by Product";
             // 
             // SalesPage1
             // 

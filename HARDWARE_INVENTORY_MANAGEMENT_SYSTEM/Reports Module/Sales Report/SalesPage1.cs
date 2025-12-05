@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
 {
@@ -15,12 +16,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
         private SalesReportDataAccess dataAccess;
         private DateTime? filterStartDate;
         private DateTime? filterEndDate;
+        private Button btnExportPdf;
 
         public SalesPage1()
         {
             InitializeComponent();
             dataAccess = new SalesReportDataAccess();
             this.Load += SalesPage1_Load;
+            ConfigureExportButton();
         }
 
         private void SalesPage1_Load(object sender, EventArgs e)
@@ -67,11 +70,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
                 LoadKeyMetrics();
 
                 // Load sales by product data
-                LoadSalesData(filterStartDate, filterEndDate);
+            LoadSalesData(filterStartDate, filterEndDate);
 
-                this.Cursor = Cursors.Default;
-            }
-            catch (Exception ex)
+            this.Cursor = Cursors.Default;
+        }
+        catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
                 MessageBox.Show($"Error loading sales data: {ex.Message}",
@@ -155,6 +158,51 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Sales_Report
             filterEndDate = null;
             LoadSalesData(null, null);
         }
+
+        private void ConfigureExportButton()
+        {
+            btnExportPdf = new Button
+            {
+                Text = "Export to PDF",
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                AutoSize = true,
+                BackColor = Color.FromArgb(76, 175, 80),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+            btnExportPdf.FlatAppearance.BorderSize = 0;
+            btnExportPdf.Location = new Point(this.Width - 180, 10);
+         //   btnExportPdf.Click += BtnExportPdf_Click;
+            this.Controls.Add(btnExportPdf);
+            btnExportPdf.BringToFront();
+            this.Resize += (s, e) =>
+            {
+                btnExportPdf.Location = new Point(this.Width - btnExportPdf.Width - 20, btnExportPdf.Location.Y);
+            };
+        }
+
+        //private void BtnExportPdf_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        var data = dgvCurrentStockReport.DataSource as List<SalesProductReport>;
+        //        if (data == null || data.Count == 0)
+        //        {
+        //            MessageBox.Show("No data available to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //            return;
+        //        }
+
+        //      //  bool exported = ReportPdfExporter.ExportSalesByProduct(data, "Sales by Product Report", filterStartDate, filterEndDate);
+        //        if (exported)
+        //        {
+        //            MessageBox.Show("Report exported to PDF successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Failed to export report: {ex.Message}", "Export Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
         /// <summary>
         /// Refresh all data from database

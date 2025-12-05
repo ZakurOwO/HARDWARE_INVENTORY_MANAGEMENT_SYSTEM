@@ -9,7 +9,6 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransa
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
 using CartItem = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction.SharedCartManager.CartItem;
 
-
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 {
     public partial class Walk_inCartDetails : UserControl
@@ -19,6 +18,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         private readonly string connectionString;
         private readonly CheckoutPopUpContainer checkoutContainer;
         private readonly EventHandler cartUpdatedHandler;
+        private bool deletionInProgress;
 
         public Walk_inCartDetails()
         {
@@ -30,6 +30,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             InitializeDataGridViewColumns();
             InitializeCustomerField();
 
+            dgvCartDetails.CellContentClick -= CartTable_CellContentClick; // ensure single subscription
             dgvCartDetails.CellContentClick += CartTable_CellContentClick;
 
             // Keep grid in sync with shared cart
@@ -334,7 +335,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void CartTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (!(sender is DataGridView grid) || e.RowIndex < 0)
+            if (deletionInProgress)
+                return;
+
+            if (!(sender is DataGridView grid) || e.RowIndex < 0 || e.RowIndex >= grid.Rows.Count)
                 return;
 
             if (grid.Columns[e.ColumnIndex].Name != "Delete")
@@ -349,10 +353,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
                     "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (SharedCartManager.Instance.RemoveItemFromCart(productId))
+                deletionInProgress = true;
+                try
                 {
-                    ReloadCartTable();
-                    ReloadInventoryList();
+                    if (SharedCartManager.Instance.RemoveItemFromCart(productId))
+                    {
+                        ReloadCartTable();
+                        ReloadInventoryList();
+                    }
+                }
+                finally
+                {
+                    deletionInProgress = false;
                 }
             }
         }
@@ -485,12 +497,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         #region Add items from inventory
 
         public void AddItemToCart(
-       int productInternalId,
-       string itemName,
-       decimal price,
-       int quantity = 1,
-       string productId = "",
-       string sku = "")
+            int productInternalId,
+            string itemName,
+            decimal price,
+            int quantity = 1,
+            string productId = "",
+            string sku = "")
         {
             if (productInternalId <= 0)
             {
@@ -506,19 +518,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 return;
             }
 
-            // CartItem is the alias:
-            // using CartItem = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
-            //     .Class_Components.ClassComponentTransaction.SharedCartManager.CartItem;
-
             bool added = SharedCartManager.Instance.AddItemToCart(new CartItem
             {
-                
                 ProductInternalId = productInternalId,
-                ProductId         = productId,
-                Name              = itemName,
-                Sku               = sku,
-                UnitPrice         = price,
-                Quantity          = quantity
+                ProductId = productId,
+                Name = itemName,
+                Sku = sku,
+                UnitPrice = price,
+                Quantity = quantity
             });
 
             if (added)
@@ -768,31 +775,29 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         int customerId = GetOrCreateCustomer(connection, dbTransaction, customerName);
                         var (cashierId, _) = ResolveAuditUser();
                         string transactionIdentifier = $"TRX-{DateTime.Now:yyyyMMddHHmmssfff}";
-
                         const string insertTransactionQuery = @"
-                            INSERT INTO Transactions (
-                                TransactionID,
-                                transaction_date,
-                                customer_id,
-                                total_amount,
-                                cashier,
-                                payment_method,
-                                cash_received,
-                                change_amount,
-                                delivery_id
-                            )
-                            OUTPUT INSERTED.transaction_id
-                            VALUES (
-                                @TransactionID,
-                                GETDATE(),
-                                @CustomerId,
-                                @TotalAmount,
-                                @Cashier,
-                                @PaymentMethod,
-                                @CashReceived,
-                                @ChangeAmount,
-                                NULL
-                            );";
+    INSERT INTO Transactions (
+        transaction_date,
+        customer_id,
+        total_amount,
+        cashier,
+        payment_method,
+        cash_received,
+        change_amount,
+        delivery_id
+    )
+    OUTPUT INSERTED.transaction_id
+    VALUES (
+        GETDATE(),
+        @CustomerId,
+        @TotalAmount,
+        @Cashier,
+        @PaymentMethod,
+        @CashReceived,
+        @ChangeAmount,
+        NULL
+    );";
+
 
                         var transactionCmd = new SqlCommand(insertTransactionQuery, connection, dbTransaction);
                         transactionCmd.Parameters.AddWithValue("@TransactionID", transactionIdentifier);

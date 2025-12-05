@@ -1,63 +1,50 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 {
     public partial class EditCustomerForm : Form
     {
-        // Use the shared connection string from Class_Components
-        private string connectionString = ConnectionString.DataSource;
-
-        // Dictionary to store city-province relationships
-        private Dictionary<string, List<string>> cityProvinceMap;
-
+        private readonly Dictionary<string, List<string>> cityProvinceMap;
         private int customerId;
         private string originalCustomerName;
+
+        public event EventHandler CustomerUpdated;
+        public EditCustomerContainer Container { get; set; }
 
         public EditCustomerForm(int customerId, string customerName, string contactNumber, string address)
         {
             InitializeComponent();
 
             this.customerId = customerId;
-            this.originalCustomerName = customerName;
+            originalCustomerName = customerName;
 
-            // Connect button click events
             btnBlue.Click += btnBlue_Click;
             btnWhite.Click += btnWhite_Click;
-
-            // Connect ComboBox events
             CityCombobox.SelectedIndexChanged += CityCombobox_SelectedIndexChanged;
             ProvinceCombobox.SelectedIndexChanged += ProvinceCombobox_SelectedIndexChanged;
+            tbxContactNumber.Leave += (s, e) => tbxContactNumber.Text = FormatPhoneNumber(tbxContactNumber.Text);
 
-            // Initialize city-province mapping
-            InitializeCityProvinceMap();
+            closeButton1.CloseClicked += (s, e) => Close();
+            TopLevel = false;
+            FormBorderStyle = FormBorderStyle.None;
 
-            // Pre-fill the form with existing data
-            tbxCompanyName.Text = customerName;
-            tbxContactNumber.Text = contactNumber ?? "";
-            tbxAddress.Text = address ?? "";
-
-            closeButton1.CloseClicked += (s, e) => this.Close();
-            this.TopLevel = false;
-            this.FormBorderStyle = FormBorderStyle.None;
-
-            // Initialize combo boxes
+            cityProvinceMap = BuildCityProvinceMap();
             InitializeComboBoxes();
+
+            tbxCompanyName.Text = customerName;
+            tbxContactNumber.Text = contactNumber ?? string.Empty;
+            tbxAddress.Text = address ?? string.Empty;
+            LoadCustomerDetails();
         }
 
-        // Initialize city-province relationships
-        private void InitializeCityProvinceMap()
+        private Dictionary<string, List<string>> BuildCityProvinceMap()
         {
-            cityProvinceMap = new Dictionary<string, List<string>>
+            return new Dictionary<string, List<string>>
             {
                 ["NCR"] = new List<string>
                 {
@@ -101,117 +88,237 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             };
         }
 
-        // Initialize ComboBoxes when form loads
         private void InitializeComboBoxes()
         {
             try
             {
-                // Ensure ComboBoxes are properly initialized
-                if (CityCombobox != null && CityCombobox.Items.Count > 0)
-                {
-                    CityCombobox.SelectedIndex = -1; // No selection by default
-                }
+                ProvinceCombobox.Items.Clear();
+                CityCombobox.Items.Clear();
 
-                if (ProvinceCombobox != null && ProvinceCombobox.Items.Count > 0)
+                ProvinceCombobox.Items.AddRange(cityProvinceMap.Keys.ToArray());
+                ProvinceCombobox.SelectedIndex = -1;
+
+                ResetCityComboBox();
+                CityCombobox.SelectedIndex = -1;
+
+                cbxStatus.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error initializing location fields: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void ResetCityComboBox()
+        {
+            CityCombobox.Items.Clear();
+            CityCombobox.Items.AddRange(cityProvinceMap.Values.SelectMany(c => c).ToArray());
+        }
+
+        private void LoadCustomerDetails()
+        {
+            try
+            {
+                var details = Container?.GetCustomerDetails(customerId);
+                if (details != null)
                 {
-                    ProvinceCombobox.SelectedIndex = -1; // No selection by default
+                    tbxCompanyName.Text = details.CompanyName ?? tbxCompanyName.Text;
+                    tbxContactPerson.Text = details.ContactPerson ?? string.Empty;
+                    tbxContactNumber.Text = details.ContactNumber ?? string.Empty;
+                    tbxEmail.Text = details.Email ?? string.Empty;
+                    tbxAddress.Text = details.AddressLine ?? string.Empty;
+
+                    if (!string.IsNullOrWhiteSpace(details.Province) && ProvinceCombobox.Items.Contains(details.Province))
+                    {
+                        ProvinceCombobox.SelectedItem = details.Province;
+                        FilterCitiesByProvince(details.Province);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(details.City) && CityCombobox.Items.Contains(details.City))
+                    {
+                        CityCombobox.SelectedItem = details.City;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(details.Status) && cbxStatus.Items.Contains(details.Status))
+                    {
+                        cbxStatus.SelectedItem = details.Status;
+                    }
+
+                    originalCustomerName = details.CompanyName;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error initializing ComboBoxes: {ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Unable to load customer details: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private bool ValidateInputs(out CustomerDetailsModel details)
+        {
+            details = new CustomerDetailsModel
+            {
+                CustomerId = customerId,
+                CompanyName = tbxCompanyName.Text.Trim(),
+                ContactPerson = tbxContactPerson.Text.Trim(),
+                ContactNumber = tbxContactNumber.Text.Trim(),
+                Email = tbxEmail.Text.Trim(),
+                AddressLine = tbxAddress.Text.Trim(),
+                City = CityCombobox.SelectedItem?.ToString(),
+                Province = ProvinceCombobox.SelectedItem?.ToString(),
+                Status = cbxStatus.SelectedItem?.ToString()
+            };
+
+            if (string.IsNullOrWhiteSpace(details.CompanyName))
+            {
+                MessageBox.Show("Please enter the customer name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbxCompanyName.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(details.ContactPerson))
+            {
+                MessageBox.Show("Please enter the contact person.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbxContactPerson.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(details.ContactNumber))
+            {
+                MessageBox.Show("Please enter the contact number.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbxContactNumber.Focus();
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(details.Email) && !IsValidEmail(details.Email))
+            {
+                MessageBox.Show("Please enter a valid email address.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbxEmail.Focus();
+                return false;
+            }
+
+            if (!IsValidPhoneNumber(details.ContactNumber))
+            {
+                MessageBox.Show("Please enter a valid contact number (10-11 digits).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbxContactNumber.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(details.AddressLine))
+            {
+                MessageBox.Show("Please enter the address.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tbxAddress.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(details.Province))
+            {
+                MessageBox.Show("Please select a province.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ProvinceCombobox.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(details.City))
+            {
+                MessageBox.Show("Please select a city/municipality.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                CityCombobox.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(details.Status))
+            {
+                MessageBox.Show("Please select a status.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbxStatus.Focus();
+                return false;
+            }
+
+            details.ContactNumber = FormatPhoneNumber(details.ContactNumber);
+            return true;
+        }
+
+        private bool IsValidPhoneNumber(string phone)
+        {
+            string cleanPhone = Regex.Replace(phone, @"[^\d]", "");
+            return cleanPhone.Length >= 10 && cleanPhone.Length <= 11;
+        }
+
+        private string FormatPhoneNumber(string phone)
+        {
+            if (string.IsNullOrWhiteSpace(phone)) return string.Empty;
+
+            string cleanPhone = Regex.Replace(phone, @"[^\d]", "");
+
+            if (cleanPhone.Length == 10)
+            {
+                return $"+63{cleanPhone.Substring(1)}";
+            }
+            if (cleanPhone.Length == 11 && cleanPhone.StartsWith("0"))
+            {
+                return $"+63{cleanPhone.Substring(1)}";
+            }
+            if (cleanPhone.Length == 12 && cleanPhone.StartsWith("63"))
+            {
+                return $"+{cleanPhone}";
+            }
+
+            return phone.Trim();
+        }
+
+        private bool CheckDuplicateName(string customerName)
+        {
+            try
+            {
+                if (!string.Equals(customerName, originalCustomerName, StringComparison.OrdinalIgnoreCase))
+                {
+                    using (var con = new System.Data.SqlClient.SqlConnection(ConnectionString.DataSource))
+                    using (var cmd = new System.Data.SqlClient.SqlCommand("SELECT COUNT(*) FROM Customers WHERE customer_name = @name AND customer_id <> @id", con))
+                    {
+                        cmd.Parameters.AddWithValue("@name", customerName);
+                        cmd.Parameters.AddWithValue("@id", customerId);
+                        con.Open();
+                        int count = (int)cmd.ExecuteScalar();
+                        return count > 0;
+                    }
+                }
+            }
+            catch
+            {
+                // handled by caller
+            }
+            return false;
         }
 
         private void UpdateCustomer()
         {
-            string customerName = tbxCompanyName.Text.Trim();
-            string contactNumber = tbxContactNumber.Text.Trim();
-            string address = tbxAddress.Text.Trim();
-            string city = CityCombobox.SelectedItem?.ToString() ?? "";
-            string province = ProvinceCombobox.SelectedItem?.ToString() ?? "";
+            if (!ValidateInputs(out CustomerDetailsModel details))
+                return;
 
-            // Build full address
-            string fullAddress = address;
-            if (!string.IsNullOrEmpty(city))
-                fullAddress += $", {city}";
-            if (!string.IsNullOrEmpty(province))
-                fullAddress += $", {province}";
-
-            if (string.IsNullOrEmpty(customerName))
+            if (Container == null)
             {
-                MessageBox.Show("Please enter the customer name.", "Validation Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Unable to update: container not initialized.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            try
+            if (CheckDuplicateName(details.CompanyName))
             {
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    // Check if customer name already exists (excluding current customer)
-                    if (customerName != originalCustomerName)
-                    {
-                        string checkQuery = "SELECT COUNT(*) FROM Customers WHERE customer_name = @customerName AND customer_id != @customerId";
-                        SqlCommand checkCmd = new SqlCommand(checkQuery, con);
-                        checkCmd.Parameters.AddWithValue("@customerName", customerName);
-                        checkCmd.Parameters.AddWithValue("@customerId", customerId);
-
-                        con.Open();
-                        int existingCount = (int)checkCmd.ExecuteScalar();
-                        con.Close();
-
-                        if (existingCount > 0)
-                        {
-                            MessageBox.Show("A customer with this name already exists. Please use a different name.",
-                                "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-                    }
-
-                    // Update customer using direct SQL command
-                    string updateQuery = @"
-                        UPDATE Customers 
-                        SET customer_name = @customerName, 
-                            contact_number = @contactNumber, 
-                            address = @address 
-                        WHERE customer_id = @customerId";
-
-                    SqlCommand updateCmd = new SqlCommand(updateQuery, con);
-                    updateCmd.Parameters.AddWithValue("@customerName", customerName);
-                    updateCmd.Parameters.AddWithValue("@contactNumber", string.IsNullOrEmpty(contactNumber) ? (object)DBNull.Value : contactNumber);
-                    updateCmd.Parameters.AddWithValue("@address", string.IsNullOrEmpty(fullAddress) ? (object)DBNull.Value : fullAddress);
-                    updateCmd.Parameters.AddWithValue("@customerId", customerId);
-
-                    con.Open();
-                    int rowsAffected = updateCmd.ExecuteNonQuery();
-                    con.Close();
-
-                    if (rowsAffected > 0)
-                    {
-                        MessageBox.Show("Customer updated successfully!", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Close(); // Close the form
-                    }
-                    else
-                    {
-                        MessageBox.Show("No changes were made to the customer.", "Information",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
+                MessageBox.Show("A customer with this name already exists. Please use a different name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            catch (Exception ex)
+
+            if (Container.UpdateCustomer(details, out string errorMessage))
             {
-                MessageBox.Show("Error updating customer: " + ex.Message, "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Customer updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CustomerUpdated?.Invoke(this, EventArgs.Empty);
+                Close();
+            }
+            else
+            {
+                MessageBox.Show($"Error updating customer: {errorMessage}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // ComboBox event handlers
         private void CityCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Auto-detect province based on city selection
             if (CityCombobox.SelectedItem != null)
             {
                 string selectedCity = CityCombobox.SelectedItem.ToString();
@@ -226,7 +333,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
 
         private void ProvinceCombobox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Filter cities based on selected province
             if (ProvinceCombobox.SelectedItem != null)
             {
                 string selectedProvince = ProvinceCombobox.SelectedItem.ToString();
@@ -234,7 +340,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             }
         }
 
-        // Detect province from city selection
         private string DetectProvinceFromCity(string city)
         {
             foreach (var province in cityProvinceMap.Keys)
@@ -247,7 +352,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             return null;
         }
 
-        // Filter cities by selected province
         private void FilterCitiesByProvince(string province)
         {
             if (cityProvinceMap.ContainsKey(province))
@@ -257,51 +361,39 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
             }
             else
             {
-                // If province not in map, show all cities
                 ResetCityComboBox();
             }
+            CityCombobox.SelectedIndex = -1;
         }
 
-        // Reset city combo box to show all cities
-        private void ResetCityComboBox()
+        private bool IsValidEmail(string email)
         {
-            CityCombobox.Items.Clear();
-            CityCombobox.Items.AddRange(GetAllCities().ToArray());
-        }
-
-        private List<string> GetAllCities()
-        {
-            var cities = new List<string>();
-            foreach (var province in cityProvinceMap.Keys)
+            try
             {
-                cities.AddRange(cityProvinceMap[province]);
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
             }
-            return cities;
+            catch
+            {
+                return false;
+            }
         }
 
-        // Update customer when the blue button is clicked
         private void btnBlue_Click(object sender, EventArgs e)
         {
             UpdateCustomer();
         }
 
-        // Cancel and close the form when the white button is clicked
         private void btnWhite_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        // Event handler for close button
-        private void closeButton1_Load(object sender, EventArgs e)
-        {
-            // Already handled in constructor
-        }
-
-        // Empty event handlers for other controls
         private void tbxCompanyName_TextChanged(object sender, EventArgs e) { }
         private void tbxContactNumber_TextChanged(object sender, EventArgs e) { }
         private void tbxAddress_TextChanged(object sender, EventArgs e) { }
         private void tbxEmail_TextChanged(object sender, EventArgs e) { }
         private void tbxContactPerson_TextChanged(object sender, EventArgs e) { }
+        private void closeButton1_Load(object sender, EventArgs e) { }
     }
 }

@@ -8,7 +8,6 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction;
 using CartItem = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction.SharedCartManager.CartItem;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
@@ -28,6 +27,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         private readonly string connectionString;
         private readonly CheckoutPopUpContainer checkoutContainer;
         private readonly EventHandler cartUpdatedHandler;
+        private bool deletionInProgress;
 
         public DeliveryCartDetails()
         {
@@ -39,6 +39,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
             InitializeDataGridViewColumns();
 
+            dgvCartDetails.CellContentClick -= CartTable_CellContentClick; // avoid duplicate subscription
             dgvCartDetails.CellContentClick += CartTable_CellContentClick;
 
             // Keep grid in sync with shared cart
@@ -446,7 +447,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void CartTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (!(sender is DataGridView grid) || e.RowIndex < 0)
+            if (deletionInProgress)
+                return;
+
+            if (!(sender is DataGridView grid) || e.RowIndex < 0 || e.RowIndex >= grid.Rows.Count)
                 return;
 
             if (grid.Columns[e.ColumnIndex].Name != "Delete")
@@ -461,10 +465,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             if (MessageBox.Show("Are you sure you want to remove this item from the cart?",
                     "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (SharedCartManager.Instance.RemoveItemFromCart(productId))
+                deletionInProgress = true;
+                try
                 {
-                    ReloadCartTable();
-                    ReloadInventoryList();
+                    if (SharedCartManager.Instance.RemoveItemFromCart(productId))
+                    {
+                        ReloadCartTable();
+                        ReloadInventoryList();
+                    }
+                }
+                finally
+                {
+                    deletionInProgress = false;
                 }
             }
         }
@@ -504,7 +516,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             SharedCartManager.Instance.ClearCart();
             UpdateCartTotals();
             ReloadInventoryList();
-
         }
 
         #endregion
@@ -591,13 +602,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 return;
             }
 
-            // Use CartItem instead of CartItemModel
             bool added = SharedCartManager.Instance.AddItemToCart(new CartItem
             {
-                ProductInternalID = productInternalId,
-                ProductName = itemName,
-                ProductID = productId,
-                Price = price,
+                ProductInternalId = productInternalId,
+                ProductId = productId,
+                Name = itemName,
+                Sku = sku,
+                UnitPrice = price,
                 Quantity = quantity
             });
 
@@ -912,29 +923,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         string transactionIdentifier = $"TRX-{DateTime.Now:yyyyMMddHHmmssfff}";
 
                         const string insertTransactionQuery = @"
-                            INSERT INTO Transactions (
-                                TransactionID,
-                                transaction_date,
-                                customer_id,
-                                total_amount,
-                                cashier,
-                                payment_method,
-                                cash_received,
-                                change_amount,
-                                delivery_id
-                            )
-                            OUTPUT INSERTED.transaction_id
-                            VALUES (
-                                @TransactionID,
-                                GETDATE(),
-                                @CustomerId,
-                                @TotalAmount,
-                                @Cashier,
-                                @PaymentMethod,
-                                @CashReceived,
-                                @ChangeAmount,
-                                NULL
-                            );";
+    INSERT INTO Transactions (
+        transaction_date,
+        customer_id,
+        total_amount,
+        cashier,
+        payment_method,
+        cash_received,
+        change_amount,
+        delivery_id
+    )
+    OUTPUT INSERTED.transaction_id
+    VALUES (
+        GETDATE(),
+        @CustomerId,
+        @TotalAmount,
+        @Cashier,
+        @PaymentMethod,
+        @CashReceived,
+        @ChangeAmount,
+        NULL
+    );";
+
 
                         var transactionCmd = new SqlCommand(insertTransactionQuery, connection, transaction);
                         transactionCmd.Parameters.AddWithValue("@TransactionID", transactionIdentifier);
