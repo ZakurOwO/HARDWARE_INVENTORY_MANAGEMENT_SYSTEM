@@ -178,5 +178,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             // Panel paint event
         }
+
+        private void ExportPDFBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
