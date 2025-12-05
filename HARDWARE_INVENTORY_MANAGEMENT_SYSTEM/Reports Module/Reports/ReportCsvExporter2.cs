@@ -61,14 +61,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 return false;
             }
 
-            bool hasColumns = grid.Columns != null && grid.Columns.Count > 0;
-            bool hasRows = grid.Rows != null && grid.Rows.Count > 0;
-            if (!hasColumns || !hasRows)
-            {
-                MessageBox.Show("No data to export.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return false;
-            }
-
             ReportTable report = new ReportTable();
             report.Title = title;
             report.Subtitle = subtitle;
