@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
@@ -10,6 +12,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
     {
         private int currentPage = 1;
         private int totalPages = 3;
+        private Guna2ComboBox exportScopeComboBox;
 
         public SalesReportPanel()
         {
@@ -18,6 +21,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
             // Export button setup
             ExportCSVBtn.ButtonName = "Export CSV";
+            CreateExportScopeComboBox();
         }
 
         private void SalesReportPanel_Load(object sender, EventArgs e)
@@ -96,23 +100,72 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
                 return;
             }
 
-            Cursor.Current = Cursors.WaitCursor;
-            var report = exportable.BuildReportForExport();
-            Cursor.Current = Cursors.Default;
+            bool exportModule = exportScopeComboBox != null && exportScopeComboBox.SelectedIndex == 1;
 
-            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            if (exportModule)
             {
-                MessageBox.Show("No data to export.", "Export",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                Cursor.Current = Cursors.WaitCursor;
+                List<ReportTable> reports = BuildModuleReportsForExport();
+                Cursor.Current = Cursors.Default;
+
+                if (reports == null || reports.Count == 0)
+                {
+                    MessageBox.Show("No data to export.", "Export",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                Cursor.Current = Cursors.WaitCursor;
+                bool exportedModule = ReportCsvExporter2.ExportModule("Sales", reports);
+                Cursor.Current = Cursors.Default;
+
+                if (exportedModule)
+                {
+                    // Success message handled by exporter
+                }
             }
+            else
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                var report = exportable.BuildReportForExport();
+                Cursor.Current = Cursors.Default;
+
+                if (report == null || report.Rows == null || report.Rows.Count == 0)
+                {
+                    MessageBox.Show("No data to export.", "Export",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                Cursor.Current = Cursors.WaitCursor;
+                bool exported = ReportCsvExporter2.ExportReportTable(report);
+                Cursor.Current = Cursors.Default;
+
+                if (exported)
+                {
+                    MessageBox.Show("Report exported to CSV successfully.", "Export",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
 
             bool exported = ReportCsvExporter2.ExportReportTable(report);
             if (exported)
             {
-                MessageBox.Show("Report exported to CSV successfully.", "Export",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                IReportExportable control = CreatePageControl(page) as IReportExportable;
+                if (control == null)
+                {
+                    continue;
+                }
+
+                ReportTable report = control.BuildReportForExport();
+                if (report != null && report.Rows != null && report.Rows.Count > 0)
+                {
+                    reports.Add(report);
+                }
             }
+
+            return reports;
         }
     }
 }

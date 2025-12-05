@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +20,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             InitializeComponent();
             this.Load += CustomersReportPanel_load;
+            CreateExportScopeComboBox();
         }
+
+        private Guna2ComboBox exportScopeComboBox;
 
         private void ShowCustomerPage()
         {
