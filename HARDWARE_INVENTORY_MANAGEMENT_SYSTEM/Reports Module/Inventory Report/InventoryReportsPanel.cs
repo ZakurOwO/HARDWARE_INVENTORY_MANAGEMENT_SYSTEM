@@ -227,28 +227,34 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
         {
             if (panel1.Controls.Count == 0) return;
 
-            if (!(panel1.Controls[0] is InventoryPage1 page1))
+            var currentPage = panel1.Controls[0];
+
+            if (!(currentPage is IReportExportable exportable))
             {
-                MessageBox.Show("Export is only implemented for Page 1 right now.",
+                MessageBox.Show("This report page does not support export yet.",
                     "Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Build report (runs immediately on UI thread)
             Cursor.Current = Cursors.WaitCursor;
-            var report = page1.GetCurrentReport();
+            var report = exportable.BuildReportForExport();
             Cursor.Current = Cursors.Default;
 
-            // Pick path (UI thread)
+            if (report == null || report.Rows == null || report.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export.", "Export",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             using (var sfd = new SaveFileDialog())
             {
                 sfd.Filter = "PDF Files (*.pdf)|*.pdf";
                 sfd.Title = "Save Report as PDF";
-                sfd.FileName = "InventoryReport.pdf"; // <- no date/time
+                sfd.FileName = (report.Title ?? "Report") + ".pdf";
 
                 if (sfd.ShowDialog() != DialogResult.OK) return;
 
-                // Export (runs immediately on UI thread)
                 Cursor.Current = Cursors.WaitCursor;
                 bool exported = ReportPdfExporter.ExportReportTableToPath(report, sfd.FileName);
                 Cursor.Current = Cursors.Default;
