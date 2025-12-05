@@ -68,26 +68,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module
 
             try
             {
-                using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
-                {
-                    using (var pdfWriter = new PdfWriter(stream))
-                    {
-                        using (var pdfDocument = new PdfDocument(pdfWriter))
-                        {
-                            pdfDocument.SetDefaultPageSize(PageSize.A4.Rotate());
+                using var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None);
+                using var pdfWriter = new PdfWriter(stream);
+                using var pdfDocument = new PdfDocument(pdfWriter);
 
-                            using (var document = new Document(pdfDocument))
-                            {
-                                document.SetMargins(54, 36, 54, 36);
+                pdfDocument.SetDefaultPageSize(PageSize.A4.Rotate());
 
-                                AddDocumentHeader(document, reportTitle, startDate, endDate);
-                                tableBuilder(document, dataList);
+                using var document = new Document(pdfDocument);
+                document.SetMargins(54, 36, 54, 36);
 
-                                return true;
-                            }
-                        }
-                    }
-                }
+                AddDocumentHeader(document, reportTitle, startDate, endDate);
+                tableBuilder(document, dataList);
+
+                return true;
             }
             catch (Exception ex)
             {
