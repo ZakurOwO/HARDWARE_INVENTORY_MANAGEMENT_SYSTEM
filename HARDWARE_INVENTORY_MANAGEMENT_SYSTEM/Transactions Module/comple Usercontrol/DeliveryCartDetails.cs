@@ -8,7 +8,6 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction;
 using CartItem = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction.SharedCartManager.CartItem;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
@@ -517,7 +516,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             SharedCartManager.Instance.ClearCart();
             UpdateCartTotals();
             ReloadInventoryList();
-
         }
 
         #endregion
@@ -604,13 +602,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 return;
             }
 
-            // Use CartItem instead of CartItemModel
             bool added = SharedCartManager.Instance.AddItemToCart(new CartItem
             {
-                ProductInternalID = productInternalId,
-                ProductName = itemName,
-                ProductID = productId,
-                Price = price,
+                ProductInternalId = productInternalId,
+                ProductId = productId,
+                Name = itemName,
+                Sku = sku,
+                UnitPrice = price,
                 Quantity = quantity
             });
 
@@ -924,29 +922,28 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         string transactionIdentifier = $"TRX-{DateTime.Now:yyyyMMddHHmmssfff}";
 
                         const string insertTransactionQuery = @"
-                            INSERT INTO Transactions (
-                                TransactionID,
-                                transaction_date,
-                                customer_id,
-                                total_amount,
-                                cashier,
-                                payment_method,
-                                cash_received,
-                                change_amount,
-                                delivery_id
-                            )
-                            OUTPUT INSERTED.transaction_id
-                            VALUES (
-                                @TransactionID,
-                                GETDATE(),
-                                @CustomerId,
-                                @TotalAmount,
-                                @Cashier,
-                                @PaymentMethod,
-                                @CashReceived,
-                                @ChangeAmount,
-                                NULL
-                            );";
+    INSERT INTO Transactions (
+        transaction_date,
+        customer_id,
+        total_amount,
+        cashier,
+        payment_method,
+        cash_received,
+        change_amount,
+        delivery_id
+    )
+    OUTPUT INSERTED.transaction_id
+    VALUES (
+        GETDATE(),
+        @CustomerId,
+        @TotalAmount,
+        @Cashier,
+        @PaymentMethod,
+        @CashReceived,
+        @ChangeAmount,
+        NULL
+    );";
+
 
                         var transactionCmd = new SqlCommand(insertTransactionQuery, connection, transaction);
                         transactionCmd.Parameters.AddWithValue("@TransactionID", transactionIdentifier);
