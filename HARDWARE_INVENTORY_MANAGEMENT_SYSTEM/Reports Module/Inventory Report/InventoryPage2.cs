@@ -3,11 +3,15 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
 {
-    public partial class InventoryPage2 : UserControl
+    public partial class InventoryPage2 : UserControl, IReportExportable
     {
+        private DataTable lowStockData;
+        private DataTable expiryAlertData;
+
         public InventoryPage2()
         {
             InitializeComponent();
@@ -41,6 +45,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             try
             {
                 DataTable dt = GetLowStockAlerts();
+                lowStockData = dt;
 
                 // Clear existing rows
                 dgvCurrentStockReport.Rows.Clear();
@@ -108,6 +113,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
             try
             {
                 DataTable dt = GetExpiryAlerts();
+                expiryAlertData = dt;
 
                 // Clear existing rows
                 guna2DataGridView1.Rows.Clear();
@@ -171,6 +177,33 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Reports_Module.Inventory_Report
         public void RefreshData()
         {
             LoadData();
+        }
+
+        public ReportTable BuildReportForExport()
+        {
+            // Prefer the grid currently focused; fallback to low stock then expiry alerts
+            if (dgvCurrentStockReport.Focused || (!guna2DataGridView1.Focused && lowStockData != null))
+            {
+                if (lowStockData == null)
+                {
+                    return null;
+                }
+
+                return ReportTableFactory.FromDataTable(
+                    lowStockData,
+                    "Low Stock Alerts",
+                    "Products at or below reorder point");
+            }
+
+            if (expiryAlertData == null)
+            {
+                return null;
+            }
+
+            return ReportTableFactory.FromDataTable(
+                expiryAlertData,
+                "Expiry Alerts",
+                "Products nearing or past expiry");
         }
     }
 }
