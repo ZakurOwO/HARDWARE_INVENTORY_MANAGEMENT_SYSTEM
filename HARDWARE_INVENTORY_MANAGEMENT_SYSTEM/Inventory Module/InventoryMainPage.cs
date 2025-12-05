@@ -270,5 +270,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 inventory_Pagination1.ForceShow();
             }
         }
+
+        public void ShowEditItemForm(string productId, PictureBox overlay)
+        {
+            EditItem_Form edit = new EditItem_Form(productId, overlay);
+            edit.OnProductUpdated += (s, e) => RefreshInventory();
+
+            // Add to page
+            edit.Dock = DockStyle.None;
+            edit.Location = new Point(
+                (this.Width - edit.Width) / 2,
+                (this.Height - edit.Height) / 2
+            );
+
+            this.Controls.Add(edit);
+            edit.BringToFront();
+        }
     }
 }

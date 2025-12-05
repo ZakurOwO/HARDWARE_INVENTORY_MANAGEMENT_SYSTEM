@@ -13,15 +13,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_
     {
         private Panel scrollContainer;
         private MainDashBoard mainForm;
-        private EditItemForm editForm;
+        private EditItem_Form editForm;
         private EventHandler cancelHandler;
 
-        public void ShowEditItemForm(MainDashBoard main)
+        public void ShowEditItemForm(MainDashBoard main, string productId)
         {
             mainForm = main;
 
             // Create the AddNewItem_Form
-            editForm = new EditItemForm();
+            editForm = new EditItem_Form(productId, main.pcbBlurOverlay);
             //editForm.OnProductUpdated += AddForm_OnProductUpdated;
 
             // Create scroll container

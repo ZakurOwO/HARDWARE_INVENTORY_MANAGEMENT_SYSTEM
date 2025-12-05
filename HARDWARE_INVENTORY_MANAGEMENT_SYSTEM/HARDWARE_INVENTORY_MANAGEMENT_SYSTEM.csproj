@@ -1727,6 +1727,7 @@
     <None Include="Resources\peso orange.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\View Details.png" />
     <None Include="Resources\SupplierOverlay.png" />
     <None Include="Resources\POOverlay.png" />
     <None Include="Resources\VehicleOverlay.png" />

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services;
+using ScottPlot.Colormaps;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
-using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
@@ -196,9 +197,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     int.TryParse(row["ProductInternalID"].ToString(), out int productInternalId);
 
                     Image productImage = ImageService.GetImage(imagePath, ImageCategory.Product);
-                    Image adjustStockIcon = Properties.Resources.AdjustStock;
-                    Image deactivateIcon = Properties.Resources.Deactivate_Circle1;
-                    Image viewDetailsIcon = Properties.Resources.Group_10481;
+                    
 
                     int rowIndex = dgvInventoryList.Rows.Add(
                         productName,
@@ -207,9 +206,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         currentStock,
                         reorderPoint,
                         status,
-                        adjustStockIcon,
-                        deactivateIcon,
-                        viewDetailsIcon
+                        null,
+                        null,
+                        null,
+                        null
+
                     );
 
                     // Store data in the row's Tag property
@@ -386,6 +387,30 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     MessageBox.Show($"Error opening item description: {ex.Message}");
                 }
             }
+            else if (columnName == "Edit")
+            {
+                try
+                {
+                    if (dgvInventoryList.Rows[e.RowIndex].Tag is InventoryRowData rowData)
+                    {
+                        string productId = rowData.ProductId;
+
+                        var mainPage = FindParentOfType<InventoryMainPage>(this);
+                        if (mainPage == null) return;
+
+                        var main = mainPage.FindForm() as MainDashBoard;
+                        if (main == null) return;
+
+                        mainPage.ShowEditItemForm(productId, main.pcbBlurOverlay);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error opening edit item form: {ex.Message}");
+                }
+            }
+
+
         }
 
 

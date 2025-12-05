@@ -1,12 +1,11 @@
 ﻿namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
-    partial class EditItemForm
+    partial class EditItem_Form
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
         /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
@@ -30,6 +29,8 @@
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.nudCostPrice = new Guna.UI2.WinForms.Guna2TextBox();
+            this.nudSellingPrice = new Guna.UI2.WinForms.Guna2TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -48,9 +49,7 @@
             this.lblCustomerID = new System.Windows.Forms.Label();
             this.dateCreated = new System.Windows.Forms.Label();
             this.CustmrID = new System.Windows.Forms.Label();
-            this.nudSellingPrice = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.nudMinimumStock = new Guna.UI2.WinForms.Guna2NumericUpDown();
-            this.nudCostPrice = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.PrimarySupplierComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -81,9 +80,7 @@
             this.guna2Panel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSellingPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumStock)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCostPrice)).BeginInit();
             this.SuspendLayout();
             // 
             // guna2Panel1
@@ -101,6 +98,8 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.nudCostPrice);
+            this.panel1.Controls.Add(this.nudSellingPrice);
             this.panel1.Controls.Add(this.label27);
             this.panel1.Controls.Add(this.label26);
             this.panel1.Controls.Add(this.label23);
@@ -113,9 +112,7 @@
             this.panel1.Controls.Add(this.label18);
             this.panel1.Controls.Add(this.label17);
             this.panel1.Controls.Add(this.guna2Panel2);
-            this.panel1.Controls.Add(this.nudSellingPrice);
             this.panel1.Controls.Add(this.nudMinimumStock);
-            this.panel1.Controls.Add(this.nudCostPrice);
             this.panel1.Controls.Add(this.PrimarySupplierComboBox);
             this.panel1.Controls.Add(this.label14);
             this.panel1.Controls.Add(this.label13);
@@ -148,6 +145,52 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(583, 813);
             this.panel1.TabIndex = 1;
+            // 
+            // nudCostPrice
+            // 
+            this.nudCostPrice.AutoScroll = true;
+            this.nudCostPrice.BorderRadius = 8;
+            this.nudCostPrice.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.nudCostPrice.DefaultText = "";
+            this.nudCostPrice.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.nudCostPrice.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.nudCostPrice.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.nudCostPrice.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.nudCostPrice.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.nudCostPrice.Font = new System.Drawing.Font("Lexend Light", 9F);
+            this.nudCostPrice.ForeColor = System.Drawing.Color.Gray;
+            this.nudCostPrice.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.nudCostPrice.Location = new System.Drawing.Point(30, 615);
+            this.nudCostPrice.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.nudCostPrice.Name = "nudCostPrice";
+            this.nudCostPrice.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.nudCostPrice.PlaceholderText = "Ex. 100";
+            this.nudCostPrice.SelectedText = "";
+            this.nudCostPrice.Size = new System.Drawing.Size(228, 36);
+            this.nudCostPrice.TabIndex = 116;
+            // 
+            // nudSellingPrice
+            // 
+            this.nudSellingPrice.AutoScroll = true;
+            this.nudSellingPrice.BorderRadius = 8;
+            this.nudSellingPrice.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.nudSellingPrice.DefaultText = "";
+            this.nudSellingPrice.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.nudSellingPrice.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.nudSellingPrice.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.nudSellingPrice.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.nudSellingPrice.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.nudSellingPrice.Font = new System.Drawing.Font("Lexend Light", 9F);
+            this.nudSellingPrice.ForeColor = System.Drawing.Color.Gray;
+            this.nudSellingPrice.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.nudSellingPrice.Location = new System.Drawing.Point(329, 615);
+            this.nudSellingPrice.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.nudSellingPrice.Name = "nudSellingPrice";
+            this.nudSellingPrice.PlaceholderForeColor = System.Drawing.Color.Gray;
+            this.nudSellingPrice.PlaceholderText = "Ex. 100";
+            this.nudSellingPrice.SelectedText = "";
+            this.nudSellingPrice.Size = new System.Drawing.Size(228, 36);
+            this.nudSellingPrice.TabIndex = 115;
             // 
             // label27
             // 
@@ -359,29 +402,6 @@
             this.CustmrID.TabIndex = 7;
             this.CustmrID.Text = "Customer ID";
             // 
-            // nudSellingPrice
-            // 
-            this.nudSellingPrice.BackColor = System.Drawing.Color.Transparent;
-            this.nudSellingPrice.BorderRadius = 8;
-            this.nudSellingPrice.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.nudSellingPrice.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudSellingPrice.ForeColor = System.Drawing.Color.DimGray;
-            this.nudSellingPrice.Location = new System.Drawing.Point(329, 613);
-            this.nudSellingPrice.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.nudSellingPrice.Name = "nudSellingPrice";
-            this.nudSellingPrice.Size = new System.Drawing.Size(228, 36);
-            this.nudSellingPrice.TabIndex = 39;
-            this.nudSellingPrice.UpDownButtonFillColor = System.Drawing.Color.White;
-            this.nudSellingPrice.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // nudMinimumStock
             // 
             this.nudMinimumStock.BackColor = System.Drawing.Color.Transparent;
@@ -394,29 +414,6 @@
             this.nudMinimumStock.Size = new System.Drawing.Size(228, 36);
             this.nudMinimumStock.TabIndex = 38;
             this.nudMinimumStock.UpDownButtonFillColor = System.Drawing.Color.White;
-            // 
-            // nudCostPrice
-            // 
-            this.nudCostPrice.BackColor = System.Drawing.Color.Transparent;
-            this.nudCostPrice.BorderRadius = 8;
-            this.nudCostPrice.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.nudCostPrice.Font = new System.Drawing.Font("Lexend Light", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudCostPrice.ForeColor = System.Drawing.Color.DimGray;
-            this.nudCostPrice.Location = new System.Drawing.Point(30, 614);
-            this.nudCostPrice.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.nudCostPrice.Name = "nudCostPrice";
-            this.nudCostPrice.Size = new System.Drawing.Size(228, 36);
-            this.nudCostPrice.TabIndex = 37;
-            this.nudCostPrice.UpDownButtonFillColor = System.Drawing.Color.White;
-            this.nudCostPrice.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // PrimarySupplierComboBox
             // 
@@ -561,6 +558,7 @@
             this.ImageUploadBox.SelectedText = "";
             this.ImageUploadBox.Size = new System.Drawing.Size(228, 36);
             this.ImageUploadBox.TabIndex = 25;
+            this.ImageUploadBox.Click += new System.EventHandler(this.ImageUploadBox_Click);
             // 
             // label10
             // 
@@ -796,22 +794,20 @@
             this.AddBtn.TabIndex = 40;
             this.AddBtn.Text = "Update";
             // 
-            // EditItemForm
+            // EditItem_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.guna2Panel1);
-            this.Name = "EditItemForm";
+            this.Name = "EditItem_Form";
             this.Size = new System.Drawing.Size(600, 505);
             this.guna2Panel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.guna2Panel2.ResumeLayout(false);
             this.guna2Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSellingPrice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumStock)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudCostPrice)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -820,9 +816,7 @@
 
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private System.Windows.Forms.Panel panel1;
-        private Guna.UI2.WinForms.Guna2NumericUpDown nudSellingPrice;
         private Guna.UI2.WinForms.Guna2NumericUpDown nudMinimumStock;
-        private Guna.UI2.WinForms.Guna2NumericUpDown nudCostPrice;
         private Guna.UI2.WinForms.Guna2ComboBox PrimarySupplierComboBox;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
@@ -868,5 +862,7 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
+        private Guna.UI2.WinForms.Guna2TextBox nudSellingPrice;
+        private Guna.UI2.WinForms.Guna2TextBox nudCostPrice;
     }
 }
