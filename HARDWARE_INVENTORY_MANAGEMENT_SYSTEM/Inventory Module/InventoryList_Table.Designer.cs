@@ -220,9 +220,10 @@
             this.ProductName.Name = "ProductName";
             // 
             // Image
-            // 
+            //
             this.Image.FillWeight = 50F;
             this.Image.HeaderText = "Image";
+            this.Image.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
             this.Image.Name = "Image";
             // 
             // Category
