@@ -43,7 +43,6 @@
             this.View = new System.Windows.Forms.DataGridViewImageColumn();
             this.Cancel = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnMainButtonIcon = new Guna.UI2.WinForms.Guna2Button();
-            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.searchFieldForSupplier1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Supplier_Module.SearchFieldForSupplier();
             this.guna2Panel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -59,7 +58,6 @@
             this.guna2Panel1.Controls.Add(this.panel1);
             this.guna2Panel1.Controls.Add(this.dgvSupplier);
             this.guna2Panel1.Controls.Add(this.btnMainButtonIcon);
-            this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Controls.Add(this.searchFieldForSupplier1);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.FillColor = System.Drawing.Color.White;
@@ -219,19 +217,10 @@
             this.btnMainButtonIcon.Text = "Add Purchase Order";
             this.btnMainButtonIcon.Click += new System.EventHandler(this.btnMainButtonIcon_Click);
             // 
-            // inventoryFilter_Button1
-            // 
-            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(315, 22);
-            this.inventoryFilter_Button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
-            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
-            this.inventoryFilter_Button1.TabIndex = 6;
-            // 
             // searchFieldForSupplier1
             // 
             this.searchFieldForSupplier1.Location = new System.Drawing.Point(17, 23);
-            this.searchFieldForSupplier1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.searchFieldForSupplier1.Margin = new System.Windows.Forms.Padding(4);
             this.searchFieldForSupplier1.Name = "searchFieldForSupplier1";
             this.searchFieldForSupplier1.Size = new System.Drawing.Size(291, 40);
             this.searchFieldForSupplier1.TabIndex = 3;
@@ -255,7 +244,6 @@
         #endregion
 
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private SearchFieldForSupplier searchFieldForSupplier1;
         private Guna.UI2.WinForms.Guna2Button btnMainButtonIcon;
         private Guna.UI2.WinForms.Guna2DataGridView dgvSupplier;

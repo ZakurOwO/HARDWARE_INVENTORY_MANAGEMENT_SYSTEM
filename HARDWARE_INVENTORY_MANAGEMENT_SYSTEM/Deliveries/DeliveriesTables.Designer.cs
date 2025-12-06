@@ -42,7 +42,6 @@
             this.Created_At = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.updated_at = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
-            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDeliveries)).BeginInit();
             this.guna2Panel1.SuspendLayout();
@@ -175,7 +174,6 @@
             this.guna2Panel1.BorderColor = System.Drawing.Color.Gainsboro;
             this.guna2Panel1.BorderRadius = 15;
             this.guna2Panel1.BorderThickness = 1;
-            this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Controls.Add(this.searchField1);
             this.guna2Panel1.Controls.Add(this.dgvDeliveries);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -183,14 +181,6 @@
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(935, 593);
             this.guna2Panel1.TabIndex = 2;
-            // 
-            // inventoryFilter_Button1
-            // 
-            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(330, 14);
-            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
-            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
-            this.inventoryFilter_Button1.TabIndex = 8;
             // 
             // searchField1
             // 
@@ -221,7 +211,6 @@
 
         private System.Windows.Forms.DataGridView dgvDeliveries;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private Accounts_Module.SearchField searchField1;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryInternalId;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeliveryID;

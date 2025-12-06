@@ -33,7 +33,6 @@
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.btnMainButtonIcon = new Guna.UI2.WinForms.Guna2Button();
             this.LayoutAccounts = new System.Windows.Forms.FlowLayoutPanel();
-            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +56,6 @@
             this.guna2Panel1.Controls.Add(this.btnMainButtonIcon);
             this.guna2Panel1.Controls.Add(this.LayoutAccounts);
             this.guna2Panel1.Controls.Add(this.label1);
-            this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.Location = new System.Drawing.Point(0, 0);
             this.guna2Panel1.Name = "guna2Panel1";
@@ -99,14 +97,6 @@
             this.LayoutAccounts.TabIndex = 11;
             this.LayoutAccounts.Paint += new System.Windows.Forms.PaintEventHandler(this.Layout_Paint);
             // 
-            // inventoryFilter_Button1
-            // 
-            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(327, 53);
-            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
-            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
-            this.inventoryFilter_Button1.TabIndex = 6;
-            // 
             // AccountsMainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -122,7 +112,6 @@
         }
 
         #endregion
-        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private System.Windows.Forms.FlowLayoutPanel LayoutAccounts;

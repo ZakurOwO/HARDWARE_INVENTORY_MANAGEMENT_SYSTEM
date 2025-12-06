@@ -31,7 +31,6 @@
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.searchField1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Accounts_Module.SearchField();
             this.deliveries_btncs1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.Deliveries_btncs();
-            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.vehiclesInfoBox2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
             this.vehiclesInfoBox1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries.VehiclesInfoBox();
@@ -51,7 +50,6 @@
             this.guna2Panel1.BorderThickness = 1;
             this.guna2Panel1.Controls.Add(this.searchField1);
             this.guna2Panel1.Controls.Add(this.deliveries_btncs1);
-            this.guna2Panel1.Controls.Add(this.inventoryFilter_Button1);
             this.guna2Panel1.Controls.Add(this.flowLayoutPanel1);
             this.guna2Panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.guna2Panel1.FillColor = System.Drawing.Color.White;
@@ -76,14 +74,6 @@
             this.deliveries_btncs1.Size = new System.Drawing.Size(157, 47);
             this.deliveries_btncs1.TabIndex = 9;
             this.deliveries_btncs1.Load += new System.EventHandler(this.deliveries_btncs1_Load);
-            // 
-            // inventoryFilter_Button1
-            // 
-            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(330, 11);
-            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
-            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
-            this.inventoryFilter_Button1.TabIndex = 6;
             // 
             // flowLayoutPanel1
             // 
@@ -210,8 +200,6 @@
         }
 
         #endregion
-
-        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
         private VehiclesInfoBox vehiclesInfoBox3;
         private VehiclesInfoBox vehiclesInfoBox2;

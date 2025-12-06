@@ -33,7 +33,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.auditDataGrid2 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditDataGrid();
             this.btnMainButtonIcon = new Guna.UI2.WinForms.Guna2Button();
-            this.inventoryFilter_Button1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module.InventoryFilter_Button();
             this.auditDataGrid1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log.AuditDataGrid();
             this.pnlAuditLog.SuspendLayout();
             this.SuspendLayout();
@@ -47,7 +46,6 @@
             this.pnlAuditLog.Controls.Add(this.label1);
             this.pnlAuditLog.Controls.Add(this.auditDataGrid2);
             this.pnlAuditLog.Controls.Add(this.btnMainButtonIcon);
-            this.pnlAuditLog.Controls.Add(this.inventoryFilter_Button1);
             this.pnlAuditLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlAuditLog.Location = new System.Drawing.Point(0, 0);
             this.pnlAuditLog.Name = "pnlAuditLog";
@@ -113,14 +111,6 @@
             this.btnMainButtonIcon.TabIndex = 7;
             this.btnMainButtonIcon.Text = "Download as CSV";
             // 
-            // inventoryFilter_Button1
-            // 
-            this.inventoryFilter_Button1.BackColor = System.Drawing.Color.Transparent;
-            this.inventoryFilter_Button1.Location = new System.Drawing.Point(332, 53);
-            this.inventoryFilter_Button1.Name = "inventoryFilter_Button1";
-            this.inventoryFilter_Button1.Size = new System.Drawing.Size(102, 43);
-            this.inventoryFilter_Button1.TabIndex = 6;
-            // 
             // auditDataGrid1
             // 
             this.auditDataGrid1.Location = new System.Drawing.Point(21, 80);
@@ -149,7 +139,6 @@
         private Guna.UI2.WinForms.Guna2Panel pnlAuditLog;
         private AuditDataGrid auditDataGrid1;
         private Guna.UI2.WinForms.Guna2Button btnMainButtonIcon;
-        private Inventory_Module.InventoryFilter_Button inventoryFilter_Button1;
         private AuditDataGrid auditDataGrid2;
         private System.Windows.Forms.Label label1;
         private Guna.UI2.WinForms.Guna2TextBox tbxSearchField;
