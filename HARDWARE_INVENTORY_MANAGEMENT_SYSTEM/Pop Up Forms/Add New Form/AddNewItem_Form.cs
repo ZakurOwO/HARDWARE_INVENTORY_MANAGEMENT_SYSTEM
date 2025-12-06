@@ -27,7 +27,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             InitializeComponent();
             LoadCategoriesAndUnits();
             InitializeForm();
-            InitializeImagePreview();
+           
 
             // Enable mouse wheel scrolling
             this.AutoScroll = true;
@@ -93,27 +93,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             nudCostPrice.Value = 0;
             nudSellingPrice.Value = 0;
             ExpirationDataComboBox.Value = DateTime.Now.AddYears(1);
-            UpdateImagePreview(null);
+          
         }
 
-        private void InitializeImagePreview()
-        {
-            imagePreviewBox = new PictureBox();
-            imagePreviewBox.Size = new Size(180, 120);
-            imagePreviewBox.Location = new Point(329, 410);
-            imagePreviewBox.BorderStyle = BorderStyle.FixedSingle;
-            imagePreviewBox.SizeMode = PictureBoxSizeMode.Zoom;
-            imagePreviewBox.BackColor = Color.White;
-            imagePreviewBox.Margin = new Padding(3, 4, 3, 4);
-
-            if (panel1 != null)
-            {
-                panel1.Controls.Add(imagePreviewBox);
-                imagePreviewBox.BringToFront();
-            }
-
-            UpdateImagePreview(null);
-        }
+       
 
         private void closeButton1_Click(object sender, EventArgs e)
         {
@@ -140,7 +123,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 {
                     savedImagePath = storedPath;
                     ImageUploadBox.Text = Path.GetFileName(storedPath);
-                    UpdateImagePreview(savedImagePath);
+                   
                 }
             }
             catch (Exception ex)
@@ -296,7 +279,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             ExpirationDataComboBox.Value = DateTime.Now.AddYears(1);
             imageFilePath = "";
             savedImagePath = string.Empty;
-            UpdateImagePreview(null);
+           
             ProductNametxtbox.Focus();
         }
 
@@ -378,25 +361,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             return false;
         }
 
-        private void UpdateImagePreview(string imagePath)
-        {
-            if (imagePreviewBox == null)
-            {
-                return;
-            }
-
-            try
-            {
-                Image previewImage = ImageService.GetImage(imagePath, ImageCategory.Product);
-                imagePreviewBox.Image = previewImage;
-                imagePreviewBox.SizeMode = PictureBoxSizeMode.Zoom;
-                imagePreviewBox.BackColor = Color.White;
-            }
-            catch
-            {
-                imagePreviewBox.Image = null;
-            }
-        }
+       
 
         private void closeButton1_Load(object sender, EventArgs e)
         {
