@@ -25,7 +25,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         public Products()
         {
             InitializeComponent();
-            pbxProductImage.SizeMode = PictureBoxSizeMode.CenterImage;
+            pbxProductImage.SizeMode = PictureBoxSizeMode.Zoom;
             InitializeItemDescriptionPopup();
         }
 
