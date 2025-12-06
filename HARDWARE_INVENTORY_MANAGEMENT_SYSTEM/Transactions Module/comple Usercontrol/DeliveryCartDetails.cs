@@ -8,6 +8,7 @@ using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Deliveries;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Models;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.History_Module;
 using CartItem = HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.ClassComponentTransaction.SharedCartManager.CartItem;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
@@ -918,8 +919,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 decimal shippingFee = CalculateShippingFee();
                 decimal totalAmount = subtotal + tax + shippingFee;
 
-                SaveDeliveryTransactionToDatabase(customerName, subtotal, tax, shippingFee,
-                    totalAmount, paymentMethod, cashReceived, change);
+                ReceiptData receiptData;
+                if (!SaveTransactionAndItems(customerName, subtotal, tax, shippingFee,
+                    totalAmount, paymentMethod, cashReceived, change, out receiptData))
+                {
+                    return;
+                }
+
+                ReloadTransactionHistory();
+                OpenReceiptPreview(receiptData);
             }
             catch (Exception ex)
             {
@@ -932,7 +940,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         #region Database persistence
 
-        private void SaveDeliveryTransactionToDatabase(
+        private bool SaveTransactionAndItems(
             string customerName,
             decimal subtotal,
             decimal tax,
@@ -940,14 +948,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             decimal totalAmount,
             string paymentMethod,
             decimal cashReceived,
-            decimal change)
+            decimal change,
+            out ReceiptData receiptData)
         {
+            receiptData = null;
             var cartItems = SharedCartManager.Instance.GetItems();
             if (cartItems == null || cartItems.Count == 0)
             {
                 MessageBox.Show("Cart is empty. Please add items before checking out.",
                     "Checkout Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                return false;
             }
 
             try
@@ -961,7 +971,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     {
                         int customerId = GetOrCreateCustomer(connection, transaction, customerName);
                         var (cashierId, _) = ResolveAuditUser();
-                        string transactionIdentifier = $"TRX-{DateTime.Now:yyyyMMddHHmmssfff}";
+                        string transactionIdentifier = "TRX-" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
 
                         const string insertTransactionQuery = @"
     INSERT INTO Transactions (
@@ -996,7 +1006,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         transactionCmd.Parameters.AddWithValue("@CashReceived", cashReceived);
                         transactionCmd.Parameters.AddWithValue("@ChangeAmount", change);
 
-                        int transactionId = (int)transactionCmd.ExecuteScalar();
+                        int transactionId = Convert.ToInt32(transactionCmd.ExecuteScalar());
+
+                        var idLookupCmd = new SqlCommand(
+                            "SELECT TransactionID, transaction_date FROM Transactions WHERE transaction_id = @Id",
+                            connection, transaction);
+                        idLookupCmd.Parameters.AddWithValue("@Id", transactionId);
+
+                        DateTime transactionDate = DateTime.Now;
+                        using (var reader = idLookupCmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                if (!reader.IsDBNull(0))
+                                    transactionIdentifier = reader.GetString(0);
+                                if (!reader.IsDBNull(1))
+                                    transactionDate = reader.GetDateTime(1);
+                            }
+                        }
 
                         LogAuditEntry(connection, transaction,
                             $"Created delivery transaction {transactionIdentifier}",
@@ -1057,20 +1084,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         UpdateTransactionDeliveryLink(connection, transaction, transactionId, deliveryId, deliveryHeader.deliveryCode);
 
                         transaction.Commit();
+                        receiptData = new ReceiptData
+                        {
+                            DocumentTitle = "Invoice",
+                            TransactionType = "Delivery",
+                            PaymentMethod = paymentMethod,
+                            TransactionId = transactionIdentifier,
+                            TransactionDate = transactionDate,
+                            Subtotal = subtotal,
+                            Tax = tax,
+                            Total = totalAmount,
+                            Items = BuildReceiptItems(cartItems)
+                        };
 
-                        MessageBox.Show(
-                            $"Delivery transaction saved successfully!\n\n" +
-                            $"Transaction ID: {transactionIdentifier}\n" +
-                            $"Customer: {customerName}\n" +
-                            $"Vehicles: {selectedVehicles.Count}\n" +
-                            $"Payment Method: {paymentMethod}\n" +
-                            $"Total: ₱{totalAmount:N2}",
-                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        SharedCartManager.Instance.ClearCart();
-                        LoadSharedCartItems();
-                        ReloadInventoryList();
-                        ClearVehicleSelection();
+                        return true;
                     }
                     catch
                     {
@@ -1085,6 +1112,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     $"Checkout failed. No changes were saved.\n\nDetails: {ex.Message}",
                     "Database Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 
@@ -1404,6 +1432,73 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 recordId,
                 oldValues,
                 newValues);
+        }
+
+        private List<ReceiptItem> BuildReceiptItems(List<CartItem> cartItems)
+        {
+            var items = new List<ReceiptItem>();
+            foreach (var item in cartItems)
+            {
+                items.Add(new ReceiptItem
+                {
+                    ItemName = item.Name,
+                    Quantity = item.Quantity,
+                    UnitPrice = item.UnitPrice
+                });
+            }
+
+            return items;
+        }
+
+        private void OpenReceiptPreview(ReceiptData receiptData)
+        {
+            if (receiptData == null)
+                return;
+
+            using (var dlg = new ReceiptPreviewForm(receiptData))
+            {
+                var result = dlg.ShowDialog(this);
+                if (result == DialogResult.OK)
+                {
+                    ResetForNewTransaction();
+                }
+            }
+        }
+
+        private void ResetForNewTransaction()
+        {
+            SharedCartManager.Instance.ClearCart();
+            LoadSharedCartItems();
+            ReloadInventoryList();
+            ClearVehicleSelection();
+            ReloadTransactionHistory();
+        }
+
+        private void ReloadTransactionHistory()
+        {
+            var main = FindMainForm();
+            if (main == null)
+                return;
+
+            foreach (Control control in main.Controls)
+            {
+                ReloadHistoryRecursive(control);
+            }
+        }
+
+        private void ReloadHistoryRecursive(Control control)
+        {
+            var history = control as DatGridTableHistory;
+            if (history != null)
+            {
+                history.LoadTransactionHistory();
+                return;
+            }
+
+            foreach (Control child in control.Controls)
+            {
+                ReloadHistoryRecursive(child);
+            }
         }
 
         #endregion
