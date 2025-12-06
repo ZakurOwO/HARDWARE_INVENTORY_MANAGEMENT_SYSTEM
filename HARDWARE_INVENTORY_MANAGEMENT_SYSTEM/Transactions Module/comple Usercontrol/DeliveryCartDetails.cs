@@ -43,6 +43,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             dgvCartDetails.CellContentClick -= CartTable_CellContentClick; // avoid duplicate subscription
             dgvCartDetails.CellContentClick += CartTable_CellContentClick;
 
+            btnBlue.Click += (s, e) => CheckoutDelivery();
+
             // Keep grid in sync with shared cart
             cartUpdatedHandler = (s, e) => LoadSharedCartItems();
             SharedCartManager.Instance.CartUpdated += cartUpdatedHandler;
@@ -489,14 +491,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         {
             dgvCartDetails.Rows.Clear();
 
-            var sharedItems = SharedCartManager.Instance.GetCartItems();
+            var sharedItems = SharedCartManager.Instance.GetItems();
             foreach (var item in sharedItems)
             {
                 dgvCartDetails.Rows.Add(
-                    item.ProductInternalID,
-                    item.ProductName,
+                    item.ProductInternalId,
+                    item.Name,
                     item.Quantity,
-                    $"₱{item.Price:N2}"
+                    $"₱{item.UnitPrice:N2}"
                 );
             }
 
@@ -725,46 +727,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
 
 
-        private bool ShowReceiptPreview_Delivery()
-        {
-            var data = new ReceiptData
-            {
-                DocumentTitle = "Receipt",
-                TransactionType = "Delivery Order",
-                PaymentMethod = "-",
-                TransactionId = "TRX-" + DateTime.Now.ToString("yyyyMMddHHmmssfff"),
-                TransactionDate = DateTime.Now
-            };
-
-            var items = new List<ReceiptItem>();
-            foreach (DataGridViewRow row in dgvCartDetails.Rows)
-            {
-                if (row.IsNewRow) continue;
-                if (row.Cells["ItemName"].Value == null ||
-                    row.Cells["Quantity"].Value == null ||
-                    row.Cells["Price"].Value == null) continue;
-
-                var name = row.Cells["ItemName"].Value.ToString();
-                var qty = Convert.ToInt32(row.Cells["Quantity"].Value);
-                var priceText = row.Cells["Price"].Value.ToString().Replace("₱", "").Trim();
-                decimal unitPrice; if (!decimal.TryParse(priceText, out unitPrice)) continue;
-
-                items.Add(new ReceiptItem { ItemName = name, Quantity = qty, UnitPrice = unitPrice });
-            }
-            data.Items = items;
-
-            var subtotal = CalculateSubtotal();
-            var tax = CalculateTax(subtotal);
-            var shipping = CalculateShippingFee();   // delivery includes shipping
-            data.Subtotal = subtotal; data.Tax = tax; data.Total = subtotal + tax + shipping;
-
-            using (var dlg = new ReceiptPreviewForm(data))
-            {
-                return dlg.ShowDialog(this) == DialogResult.OK;
-            }
-        }
-
-      
         private void CheckoutDelivery()
         {
             try
@@ -773,8 +735,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 if (!ValidateQuantities()) return;
                 if (!ValidateStockAvailability()) return;
 
-                if (!ShowReceiptPreview_Delivery()) return; // ⬅️ stop if user cancels
-                ShowCheckoutPopup();                        // proceed to your existing popup
+                ShowCheckoutPopup();                        // proceed to payment popup
             }
             catch (Exception ex)
             {
@@ -998,7 +959,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
 
                         var transactionCmd = new SqlCommand(insertTransactionQuery, connection, transaction);
-                        transactionCmd.Parameters.AddWithValue("@TransactionID", transactionIdentifier);
                         transactionCmd.Parameters.AddWithValue("@CustomerId", customerId);
                         transactionCmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
                         transactionCmd.Parameters.AddWithValue("@Cashier", cashierId);
@@ -1013,6 +973,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                             connection, transaction);
                         idLookupCmd.Parameters.AddWithValue("@Id", transactionId);
 
+                        transactionIdentifier = $"TRX-{transactionId:D5}";
                         DateTime transactionDate = DateTime.Now;
                         using (var reader = idLookupCmd.ExecuteReader())
                         {
@@ -1084,6 +1045,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                         UpdateTransactionDeliveryLink(connection, transaction, transactionId, deliveryId, deliveryHeader.deliveryCode);
 
                         transaction.Commit();
+                        SharedCartManager.Instance.RaiseInventoryUpdated();
                         receiptData = new ReceiptData
                         {
                             DocumentTitle = "Invoice",
