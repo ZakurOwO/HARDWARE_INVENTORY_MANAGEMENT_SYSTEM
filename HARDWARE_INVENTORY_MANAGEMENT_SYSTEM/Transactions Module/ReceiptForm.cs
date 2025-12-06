@@ -27,6 +27,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private Button btnClose;
         private Button btnPrint;
+        private Button btnNewTransaction;
 
         private PrintDocument _printDoc;
         private PrintPreviewDialog _preview;
@@ -202,8 +203,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             btnClose = new Button
             {
                 Text = "Close",
-                Size = new Size(180, 46),
-                Location = new Point((ClientSize.Width / 2) - 200, btnY),
+                Size = new Size(140, 46),
+                Location = new Point((ClientSize.Width / 2) - 230, btnY),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.White,
                 ForeColor = Color.FromArgb(17, 24, 39),
@@ -214,11 +215,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             btnClose.Click += (s, e) => Close();
             root.Controls.Add(btnClose);
 
+            btnNewTransaction = new Button
+            {
+                Text = "New Transaction",
+                Size = new Size(170, 46),
+                Location = new Point((ClientSize.Width / 2) - 70, btnY),
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.FromArgb(16, 185, 129),
+                ForeColor = Color.White,
+                Font = MakeFont(10.5f, true)
+            };
+            btnNewTransaction.FlatAppearance.BorderSize = 0;
+            btnNewTransaction.Click += BtnNewTransaction_Click;
+            root.Controls.Add(btnNewTransaction);
+
             btnPrint = new Button
             {
                 Text = "Print Preview",
                 Size = new Size(180, 46),
-                Location = new Point((ClientSize.Width / 2) + 20, btnY),
+                Location = new Point((ClientSize.Width / 2) + 120, btnY),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.FromArgb(37, 99, 235),
                 ForeColor = Color.White,
@@ -418,6 +433,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             {
                 MessageBox.Show("Print preview failed: " + ex.Message, "Print Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void BtnNewTransaction_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private void PrintDoc_PrintPage(object sender, PrintPageEventArgs e)
