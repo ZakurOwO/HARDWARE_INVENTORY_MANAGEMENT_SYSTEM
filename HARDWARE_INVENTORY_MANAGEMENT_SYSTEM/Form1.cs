@@ -32,6 +32,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                 MessageBox.Show("Unable to connect to the database. Please check your connection settings.",
                     "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            BypassLogin.Visible = false; // Set to true for testing purposes only
         }
 
         private void pictureBoxEye_Click(object sender, EventArgs e)

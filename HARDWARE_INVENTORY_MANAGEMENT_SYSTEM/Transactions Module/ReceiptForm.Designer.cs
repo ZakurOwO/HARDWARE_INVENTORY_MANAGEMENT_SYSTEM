@@ -62,7 +62,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private void InitializeComponent()
         {
-            
+            this.SuspendLayout();
+            // 
+            // ReceiptPreviewForm
+            // 
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(551, 400);
+            this.Name = "ReceiptPreviewForm";
+            this.ResumeLayout(false);
 
         }
 

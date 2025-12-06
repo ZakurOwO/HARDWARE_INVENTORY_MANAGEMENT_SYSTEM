@@ -37,10 +37,6 @@
             this.btnWhite = new Guna.UI2.WinForms.Guna2Button();
             this.btnBlue = new Guna.UI2.WinForms.Guna2Button();
             this.dgvCartDetails = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -57,6 +53,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cbxChooseCustomer = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2DateTimePicker1 = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            this.ItemName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Delete = new System.Windows.Forms.DataGridViewImageColumn();
             this.guna2Panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCartDetails)).BeginInit();
             this.SuspendLayout();
@@ -117,7 +117,6 @@
             this.btnBlue.Size = new System.Drawing.Size(120, 40);
             this.btnBlue.TabIndex = 24;
             this.btnBlue.Text = "Checkout";
-
             // 
             // dgvCartDetails
             // 
@@ -206,39 +205,6 @@
             this.dgvCartDetails.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
             this.dgvCartDetails.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCartDetails_CellClick);
             this.dgvCartDetails.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CartTable_CellContentClick);
-            // 
-            // ItemName
-            // 
-            this.ItemName.FillWeight = 164.0886F;
-            this.ItemName.HeaderText = "Items Name";
-            this.ItemName.Name = "ItemName";
-            this.ItemName.ReadOnly = true;
-            // 
-            // Quantity
-            // 
-            this.Quantity.FillWeight = 76.70746F;
-            this.Quantity.HeaderText = "QTY";
-            this.Quantity.Name = "Quantity";
-            this.Quantity.ReadOnly = true;
-            this.Quantity.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // Price
-            // 
-            this.Price.FillWeight = 101.5229F;
-            this.Price.HeaderText = "Price";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            // 
-            // Delete
-            // 
-            this.Delete.FillWeight = 57.68112F;
-            this.Delete.HeaderText = "";
-            this.Delete.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Delete__2_;
-            this.Delete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.Delete.Name = "Delete";
-            this.Delete.ReadOnly = true;
-            this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // label9
             // 
@@ -449,6 +415,40 @@
             this.guna2DateTimePicker1.TabIndex = 31;
             this.guna2DateTimePicker1.Value = new System.DateTime(2025, 11, 16, 22, 30, 13, 754);
             // 
+            // ItemName
+            // 
+            this.ItemName.FillWeight = 164.0886F;
+            this.ItemName.HeaderText = "Items Name";
+            this.ItemName.Name = "ItemName";
+            this.ItemName.ReadOnly = true;
+            // 
+            // Quantity
+            // 
+            this.Quantity.FillWeight = 76.70746F;
+            this.Quantity.HeaderText = "QTY";
+            this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
+            this.Quantity.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // Price
+            // 
+            this.Price.FillWeight = 101.5229F;
+            this.Price.HeaderText = "Price";
+            this.Price.Name = "Price";
+            this.Price.ReadOnly = true;
+            // 
+            // Delete
+            // 
+            this.Delete.FillWeight = 57.68112F;
+            this.Delete.HeaderText = "";
+            this.Delete.Image = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.Delete__2_;
+            this.Delete.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
+            this.Delete.Name = "Delete";
+            this.Delete.ReadOnly = true;
+            this.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Delete.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Delete.ToolTipText = "Delete";
+            // 
             // DeliveryCartDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -491,11 +491,11 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private Guna.UI2.WinForms.Guna2DataGridView dgvCartDetails;
+        private Guna.UI2.WinForms.Guna2Button btnWhite;
+        private Guna.UI2.WinForms.Guna2Button btnBlue;
         private System.Windows.Forms.DataGridViewTextBoxColumn ItemName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn Price;
         private System.Windows.Forms.DataGridViewImageColumn Delete;
-        private Guna.UI2.WinForms.Guna2Button btnWhite;
-        private Guna.UI2.WinForms.Guna2Button btnBlue;
     }
 }

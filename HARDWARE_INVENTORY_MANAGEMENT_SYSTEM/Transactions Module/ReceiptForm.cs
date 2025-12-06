@@ -65,7 +65,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-            ClientSize = new Size(720, 860);
+            ClientSize = new Size(720, 500);
 
             root = new Panel { Dock = DockStyle.Fill, BackColor = Color.White };
             Controls.Add(root);
@@ -132,7 +132,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             root.Controls.Add(card);
 
             // Table header
-            var header = new Panel { Location = new Point(0, 18), Size = new Size(card.Width, 42), BackColor = Color.FromArgb(240, 246, 255) };
+            var header = new Panel
+            {
+                Location = new Point(0, 18),
+                Size = new Size(card.Width, 42),
+                BackColor = Color.FromArgb(240, 246, 255)
+            };
             card.Controls.Add(header);
 
             header.Controls.Add(NewHeader("Item", 20, 0, 260, ContentAlignment.MiddleLeft));
@@ -149,13 +154,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             };
             card.Controls.Add(itemsPanel);
 
+            // If you want it to keep bottom when panel size changes:
+            itemsPanel.Resize += (s, e) => ScrollItemsToBottom();
+
             // Totals area
             int totalsY = 330;
             lblSubtotal = NewTotalLine(card, "Subtotal:", totalsY); totalsY += 15;
             lblTax = NewTotalLine(card, "Tax:", totalsY); totalsY += 15;
 
             // Total bar
-            var totalBar = new Panel { Location = new Point(0, card.Height - 64), Size = new Size(card.Width, 64), BackColor = Color.FromArgb(37, 99, 235) };
+            var totalBar = new Panel
+            {
+                Location = new Point(0, card.Height - 64),
+                Size = new Size(card.Width, 64),
+                BackColor = Color.FromArgb(37, 99, 235)
+            };
             card.Controls.Add(totalBar);
 
             var t1 = new Label
@@ -163,7 +176,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 Text = "TOTAL",
                 AutoSize = true,
                 Font = MakeFont(14f, true),
-                ForeColor = Color.Transparent,
+                ForeColor = Color.White,
                 Location = new Point(20, 20)
             };
             totalBar.Controls.Add(t1);
@@ -173,7 +186,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 Text = "₱0.00",
                 AutoSize = true,
                 Font = MakeFont(14f, true),
-                ForeColor = Color.Transparent
+                ForeColor = Color.White
             };
             totalBar.Controls.Add(lblTotal);
 
@@ -185,6 +198,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
             // Buttons
             int btnY = card.Bottom + 40;
+
             btnClose = new Button
             {
                 Text = "Close",
@@ -234,12 +248,19 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             lblPayment.Text = "Payment:         " + payment;
 
             itemsPanel.Controls.Clear();
+
             int y = 0;
             foreach (var item in _items)
             {
                 itemsPanel.Controls.Add(NewRow(item, y));
                 y += 36;
             }
+
+            // Make scroll area explicit (helps AutoScroll)
+            itemsPanel.AutoScrollMinSize = new Size(0, y + 10);
+
+            // Scroll after layout completes (reliable)
+            ScrollItemsToBottom();
 
             lblSubtotal.Text = FormatPeso(_subtotal);
             lblTax.Text = FormatPeso(_tax);
@@ -248,7 +269,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
 
         private Control NewRow(ReceiptItem item, int y)
         {
-            var row = new Panel { Location = new Point(0, y), Size = new Size(itemsPanel.Width - 18, 36), BackColor = Color.Transparent };
+            var row = new Panel
+            {
+                Location = new Point(0, y),
+                Size = new Size(itemsPanel.Width - 18, 36),
+                BackColor = Color.Transparent
+            };
 
             row.Controls.Add(NewCell(item.ItemName, 20, 8, 260, ContentAlignment.MiddleLeft));
             row.Controls.Add(NewCell(item.Quantity.ToString(), 290, 8, 60, ContentAlignment.MiddleCenter));
@@ -433,5 +459,36 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 g.DrawString("TOTAL:    " + lblTotal.Text, titleFont, Brushes.Black, x + 220, y);
             }
         }
+
+        // ✅ Reliable auto-scroll to bottom (after layout)
+        private void ScrollItemsToBottom()
+        {
+            if (itemsPanel == null) return;
+
+            void doScroll()
+            {
+                if (itemsPanel.Controls.Count == 0) return;
+
+                var last = itemsPanel.Controls[itemsPanel.Controls.Count - 1];
+                itemsPanel.ScrollControlIntoView(last);
+            }
+
+            // If handle isn't ready yet, wait for it.
+            if (!itemsPanel.IsHandleCreated)
+            {
+                EventHandler handler = null;
+                handler = (s, e) =>
+                {
+                    itemsPanel.HandleCreated -= handler;
+                    itemsPanel.BeginInvoke((Action)doScroll);
+                };
+                itemsPanel.HandleCreated += handler;
+                return;
+            }
+
+            // Handle exists: safe to BeginInvoke now
+            itemsPanel.BeginInvoke((Action)doScroll);
+        }
+
     }
 }

@@ -64,6 +64,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
             dgvCartDetails.ClearSelection();
             SetupNumericUpDown();
             LoadSharedCartItems();
+
         }
 
         private void InitializeDataGridViewColumns()
@@ -115,7 +116,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 Name = "Delete",
                 HeaderText = string.Empty,
                 Width = 42,
-                Image = Properties.Resources.trash,
+                Image = Properties.Resources.Delete__2_,
                 ImageLayout = DataGridViewImageCellLayout.Zoom,
                 DefaultCellStyle = { NullValue = null }
             };

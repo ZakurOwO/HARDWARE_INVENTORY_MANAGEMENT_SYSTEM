@@ -127,7 +127,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 Name = "Delete",
                 HeaderText = string.Empty,
                 Width = 20,
-                Image = Properties.Resources.trash,
+                Image = Properties.Resources.Delete__2_,
                 ImageLayout = DataGridViewImageCellLayout.Zoom,
                 DefaultCellStyle =
                 {
