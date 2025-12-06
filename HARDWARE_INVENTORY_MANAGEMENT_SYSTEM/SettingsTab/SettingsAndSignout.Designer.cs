@@ -96,6 +96,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
             this.Controls.Add(this.panel1);
             this.Name = "Settings_Signout";
             this.Size = new System.Drawing.Size(155, 88);
+            this.Load += new System.EventHandler(this.Settings_Signout_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

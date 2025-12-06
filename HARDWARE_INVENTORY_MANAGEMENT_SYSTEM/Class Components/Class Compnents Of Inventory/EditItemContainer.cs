@@ -50,6 +50,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_
             // Add container to main form
             mainForm.Controls.Add(scrollContainer);
             scrollContainer.BringToFront();
+
+            editForm.ParentScrollContainer = scrollContainer;
         }
 
         public void CloseEditItemForm()

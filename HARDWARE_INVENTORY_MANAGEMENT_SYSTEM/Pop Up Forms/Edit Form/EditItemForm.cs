@@ -14,6 +14,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private string currentProductId = "";
         private string imageFilePath = "";
         private string originalProductName = "";
+        public Panel ParentScrollContainer { get; set; }
 
         // 🔥 Added overlay reference
         private PictureBox pcbBlurOverlay;
@@ -120,14 +121,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         // ============================= PICK IMAGE =============================
         
 
-        // ============================= UPDATE PRODUCT =============================
-        private void UpdateBtn_Click(object sender, EventArgs e)
-        {
-            if (!ValidateInputs())
-                return;
-
-            UpdateProduct();
-        }
+       
 
         private bool ValidateInputs()
         {
@@ -194,7 +188,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         description=@d,
                         category_id=@c,
                         unit_id=@u,
-                        current_stock=@s,
                         reorder_point=@rp,
                         SellingPrice=@sp,
                         active=@a,
@@ -223,19 +216,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             CloseEditForm();
         }
 
-        // ============================= CLOSE FORM =============================
-        private void CloseBtn_Click(object sender, EventArgs e)
-        {
-            CloseEditForm();
-        }
 
         private void CloseEditForm()
         {
-            // Hide overlay
             if (pcbBlurOverlay != null)
                 pcbBlurOverlay.Visible = false;
 
+            // Dispose the scroll container that holds this form
+            if (ParentScrollContainer != null)
+            {
+                if (ParentScrollContainer.Parent != null)
+                    ParentScrollContainer.Parent.Controls.Remove(ParentScrollContainer);
+
+                ParentScrollContainer.Dispose();
+                ParentScrollContainer = null;
+            }
+
             this.Dispose();
+
+
         }
 
         private void ImageUploadBox_Click(object sender, EventArgs e)
@@ -252,6 +251,24 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     // No preview
                 }
             }
+        }
+
+        private void ClearBtn_Click(object sender, EventArgs e)
+        {
+            CloseEditForm();
+        }
+
+        private void guna2Button3_Click(object sender, EventArgs e)
+        {
+            CloseEditForm();
+        }
+
+        private void AddBtn_Click(object sender, EventArgs e)
+        {
+            if (!ValidateInputs())
+                return;
+
+            UpdateProduct();
         }
     }
 }

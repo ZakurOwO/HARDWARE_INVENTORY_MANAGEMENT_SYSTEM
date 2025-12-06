@@ -56,7 +56,6 @@
             this.StatusComboBox = new Guna.UI2.WinForms.Guna2ComboBox();
             this.ExpirationDataComboBox = new Guna.UI2.WinForms.Guna2DateTimePicker();
             this.label12 = new System.Windows.Forms.Label();
-            this.closeButton1 = new HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles.CloseButton();
             this.label11 = new System.Windows.Forms.Label();
             this.DescriptionRichTextBox = new Krypton.Toolkit.KryptonRichTextBox();
             this.ImageUploadBox = new Guna.UI2.WinForms.Guna2TextBox();
@@ -77,6 +76,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.ClearBtn = new Guna.UI2.WinForms.Guna2Button();
             this.AddBtn = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.guna2Panel2.SuspendLayout();
@@ -98,6 +98,7 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.Controls.Add(this.guna2Button3);
             this.panel1.Controls.Add(this.nudCostPrice);
             this.panel1.Controls.Add(this.nudSellingPrice);
             this.panel1.Controls.Add(this.label27);
@@ -119,7 +120,6 @@
             this.panel1.Controls.Add(this.StatusComboBox);
             this.panel1.Controls.Add(this.ExpirationDataComboBox);
             this.panel1.Controls.Add(this.label12);
-            this.panel1.Controls.Add(this.closeButton1);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.DescriptionRichTextBox);
             this.panel1.Controls.Add(this.ImageUploadBox);
@@ -380,7 +380,7 @@
             this.lblCustomerID.Name = "lblCustomerID";
             this.lblCustomerID.Size = new System.Drawing.Size(64, 19);
             this.lblCustomerID.TabIndex = 9;
-            this.lblCustomerID.Text = "CUS-0001";
+            this.lblCustomerID.Text = "PRD-0001";
             // 
             // dateCreated
             // 
@@ -398,9 +398,9 @@
             this.CustmrID.Font = new System.Drawing.Font("Lexend SemiBold", 9F);
             this.CustmrID.Location = new System.Drawing.Point(18, 18);
             this.CustmrID.Name = "CustmrID";
-            this.CustmrID.Size = new System.Drawing.Size(86, 19);
+            this.CustmrID.Size = new System.Drawing.Size(77, 19);
             this.CustmrID.TabIndex = 7;
-            this.CustmrID.Text = "Customer ID";
+            this.CustmrID.Text = "Product ID";
             // 
             // nudMinimumStock
             // 
@@ -504,14 +504,6 @@
             this.label12.Size = new System.Drawing.Size(188, 25);
             this.label12.TabIndex = 29;
             this.label12.Text = "Edit Item Information";
-            // 
-            // closeButton1
-            // 
-            this.closeButton1.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton1.Location = new System.Drawing.Point(532, 20);
-            this.closeButton1.Name = "closeButton1";
-            this.closeButton1.Size = new System.Drawing.Size(35, 35);
-            this.closeButton1.TabIndex = 28;
             // 
             // label11
             // 
@@ -777,6 +769,7 @@
             this.ClearBtn.Size = new System.Drawing.Size(120, 40);
             this.ClearBtn.TabIndex = 41;
             this.ClearBtn.Text = "Cancel";
+            this.ClearBtn.Click += new System.EventHandler(this.ClearBtn_Click);
             // 
             // AddBtn
             // 
@@ -793,6 +786,27 @@
             this.AddBtn.Size = new System.Drawing.Size(120, 40);
             this.AddBtn.TabIndex = 40;
             this.AddBtn.Text = "Update";
+            this.AddBtn.Click += new System.EventHandler(this.AddBtn_Click);
+            // 
+            // guna2Button3
+            // 
+            this.guna2Button3.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Button3.BackgroundImage = global::HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Properties.Resources.remove;
+            this.guna2Button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.guna2Button3.BorderColor = System.Drawing.Color.Transparent;
+            this.guna2Button3.BorderRadius = 8;
+            this.guna2Button3.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button3.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button3.FillColor = System.Drawing.Color.Transparent;
+            this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button3.ForeColor = System.Drawing.Color.White;
+            this.guna2Button3.Location = new System.Drawing.Point(528, 23);
+            this.guna2Button3.Name = "guna2Button3";
+            this.guna2Button3.Size = new System.Drawing.Size(30, 30);
+            this.guna2Button3.TabIndex = 117;
+            this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
             // 
             // EditItem_Form
             // 
@@ -823,7 +837,6 @@
         private Guna.UI2.WinForms.Guna2ComboBox StatusComboBox;
         private Guna.UI2.WinForms.Guna2DateTimePicker ExpirationDataComboBox;
         private System.Windows.Forms.Label label12;
-        private UserControlFiles.CloseButton closeButton1;
         private System.Windows.Forms.Label label11;
         private Krypton.Toolkit.KryptonRichTextBox DescriptionRichTextBox;
         private Guna.UI2.WinForms.Guna2TextBox ImageUploadBox;
@@ -864,5 +877,6 @@
         private System.Windows.Forms.Label label17;
         private Guna.UI2.WinForms.Guna2TextBox nudSellingPrice;
         private Guna.UI2.WinForms.Guna2TextBox nudCostPrice;
+        private Guna.UI2.WinForms.Guna2Button guna2Button3;
     }
 }

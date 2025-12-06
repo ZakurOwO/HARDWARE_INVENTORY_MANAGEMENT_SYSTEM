@@ -133,5 +133,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.UserControlFiles
         {
             guna2Button1_Click(sender, e);
         }
+
+        private void Settings_Signout_Load(object sender, EventArgs e)
+        {
+            if (!UserSession.IsAdmin())
+            {
+                btnSettings.Enabled = false;
+                btnSettings.Visible = false;
+
+                guna2Button1.Location = btnSettings.Location;
+            }
+        }
     }
 }
