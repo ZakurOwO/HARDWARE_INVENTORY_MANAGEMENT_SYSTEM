@@ -43,6 +43,20 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             dgvInventoryList.DataError += dgvInventoryList_DataError;
             dgvInventoryList.ClearSelection();
         }
+        private sealed class ProductRowModel
+        {
+            public int ProductInternalId { get; set; }
+            public string ProductId { get; set; }
+            public string ProductName { get; set; }
+            public string SKU { get; set; }
+            public string Category { get; set; }
+            public int CurrentStock { get; set; }
+            public int ReorderPoint { get; set; }
+            public string Status { get; set; }
+            public string ImagePath { get; set; }
+            public string Brand { get; set; }
+        }
+
 
         private void dgvInventoryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -168,62 +182,92 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             try
             {
                 dgvInventoryList.Rows.Clear();
-                ProductGridImageBinder.ClearCache();
+                ImageService.ClearCache(); // optional (if you want refresh each page). You can remove if not needed.
 
                 DataTable pageData;
 
                 if (PaginationControl != null && paginationHelper != null)
-                {
                     pageData = paginationHelper.GetCurrentPageData();
-                }
                 else if (paginationHelper != null)
-                {
                     pageData = paginationHelper.GetCurrentPageData();
-                }
                 else
-                {
-                    // No pagination, show all data
                     pageData = allProductsData;
-                }
-
-                var rowModels = new BindingList<ProductGridImageBinder.ProductRowModel>();
 
                 foreach (DataRow row in pageData.Rows)
                 {
                     int.TryParse(row["ProductInternalID"].ToString(), out int productInternalId);
-                    byte[] productImage = null;
-                    if (pageData.Columns.Contains("product_image") && row["product_image"] != DBNull.Value)
+
+                    string productId = row["ProductID"]?.ToString() ?? "";
+                    string productName = row["product_name"]?.ToString() ?? "";
+                    string sku = row["SKU"]?.ToString() ?? "";
+                    string category = row["category_name"]?.ToString() ?? "";
+                    int currentStock = row["current_stock"] != DBNull.Value ? Convert.ToInt32(row["current_stock"]) : 0;
+                    int reorderPoint = row["reorder_point"] != DBNull.Value ? Convert.ToInt32(row["reorder_point"]) : 0;
+                    string status = row["status"]?.ToString() ?? "";
+                    string imagePath = row["image_path"]?.ToString() ?? "";
+                    string brand = row["brand"]?.ToString() ?? "";
+
+                    // Load image from saved path (or placeholder)
+                    Image img = null;
+                    if (dgvInventoryList.Columns.Contains("ProductImage"))
                     {
-                        productImage = (byte[])row["product_image"];
+                        img = ImageService.GetImage(imagePath, ImageCategory.Product);
                     }
 
-                    rowModels.Add(new ProductGridImageBinder.ProductRowModel
+                    // IMPORTANT:
+                    // This assumes your grid has these columns by NAME.
+                    // Set values by column name so index order can’t break.
+                    int rowIndex = dgvInventoryList.Rows.Add();
+                    var gridRow = dgvInventoryList.Rows[rowIndex];
+
+                    if (dgvInventoryList.Columns.Contains("ProductName"))
+                        gridRow.Cells["ProductName"].Value = productName;
+                    else
+                        gridRow.Cells[0].Value = productName; // fallback
+
+                    if (dgvInventoryList.Columns.Contains("SKU"))
+                        gridRow.Cells["SKU"].Value = sku;
+
+                    if (dgvInventoryList.Columns.Contains("Category"))
+                        gridRow.Cells["Category"].Value = category;
+
+                    if (dgvInventoryList.Columns.Contains("CurrentStock"))
+                        gridRow.Cells["CurrentStock"].Value = currentStock;
+
+                    if (dgvInventoryList.Columns.Contains("ReorderPoint"))
+                        gridRow.Cells["ReorderPoint"].Value = reorderPoint;
+
+                    if (dgvInventoryList.Columns.Contains("Status"))
+                        gridRow.Cells["Status"].Value = status;
+
+                    if (dgvInventoryList.Columns.Contains("ProductImage"))
+                        gridRow.Cells["ProductImage"].Value = img;
+
+                    // Store everything in Tag for click handlers
+                    gridRow.Tag = new ProductRowModel
                     {
                         ProductInternalId = productInternalId,
-                        ProductId = row["ProductID"].ToString(),
-                        ProductName = row["product_name"].ToString(),
-                        SKU = row["SKU"].ToString(),
-                        Category = row["category_name"].ToString(),
-                        CurrentStock = Convert.ToInt32(row["current_stock"]),
-                        ReorderPoint = Convert.ToInt32(row["reorder_point"]),
-                        Status = row["status"].ToString(),
-                        ImagePath = row["image_path"].ToString(),
-                        ProductImage = productImage,
-                        Brand = row["brand"].ToString()
-                    });
+                        ProductId = productId,
+                        ProductName = productName,
+                        SKU = sku,
+                        Category = category,
+                        CurrentStock = currentStock,
+                        ReorderPoint = reorderPoint,
+                        Status = status,
+                        ImagePath = imagePath,
+                        Brand = brand
+                    };
                 }
 
-                ProductGridImageBinder.BindRows(dgvInventoryList, rowModels);
-
-                // Update pagination display
                 PaginationControl?.RefreshPagination();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading page data: {ex.Message}", "Error",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void dgvInventoryList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -252,7 +296,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     string productId = "";
                     int productInternalId = 0;
 
-                    if (dgvInventoryList.Rows[e.RowIndex].Tag is ProductGridImageBinder.ProductRowModel rowData)
+                    if (dgvInventoryList.Rows[e.RowIndex].Tag is ProductRowModel rowData)
+
                     {
                         productInternalId = rowData.ProductInternalId;
                         imagePath = rowData.ImagePath ?? "";
@@ -354,14 +399,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     string sku = "";
                     string brand = "";
                     string productId = "";
-
-                    if (dgvInventoryList.Rows[e.RowIndex].Tag is ProductGridImageBinder.ProductRowModel rowData)
+                    if (dgvInventoryList.Rows[e.RowIndex].Tag is ProductRowModel rowData)
                     {
                         imagePath = rowData.ImagePath ?? "";
                         sku = rowData.SKU ?? "";
                         brand = rowData.Brand ?? "";
                         productId = rowData.ProductId ?? "";
                     }
+
 
                     var mainPage = FindParentOfType<InventoryMainPage>(this);
                     if (mainPage != null && !string.IsNullOrEmpty(productName))
@@ -378,7 +423,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             {
                 try
                 {
-                    if (dgvInventoryList.Rows[e.RowIndex].Tag is ProductGridImageBinder.ProductRowModel rowData)
+                    if (dgvInventoryList.Rows[e.RowIndex].Tag is ProductRowModel rowData)
                     {
                         string productId = rowData.ProductId;
 

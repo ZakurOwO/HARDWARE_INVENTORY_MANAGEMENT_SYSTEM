@@ -115,9 +115,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                 string productName = row.Cells[0].Value != null ? row.Cells[0].Value.ToString() : string.Empty;
                 string sku = string.Empty;
-                if (row.Tag is ProductGridImageBinder.ProductRowModel rowData)
+                if (dgv.Columns.Contains("SKU") && row.Cells["SKU"].Value != null)
                 {
-                    sku = rowData.SKU ?? string.Empty;
+                    sku = row.Cells["SKU"].Value.ToString();
+                }
+                else if (row.Cells.Count > 1 && row.Cells[1].Value != null)
+                {
+                    sku = row.Cells[1].Value.ToString(); // fallback if your SKU is column index 1
                 }
 
                 bool matchName = productName.IndexOf(criteria, StringComparison.OrdinalIgnoreCase) >= 0;
