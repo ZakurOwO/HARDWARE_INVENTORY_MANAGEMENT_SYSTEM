@@ -66,7 +66,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private void dgvInventoryList_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             // Prevent default error dialogs when the image column receives non-image values
-            if (e.ColumnIndex >= 0 && dgvInventoryList.Columns[e.ColumnIndex].Name == "ProductImage")
+            if (e.ColumnIndex >= 0 && dgvInventoryList.Columns[e.ColumnIndex].Name == "Image")
             {
                 e.ThrowException = false;
             }
@@ -182,7 +182,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             try
             {
                 dgvInventoryList.Rows.Clear();
-                ImageService.ClearCache(); // optional (if you want refresh each page). You can remove if not needed.
 
                 DataTable pageData;
 
@@ -192,6 +191,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     pageData = paginationHelper.GetCurrentPageData();
                 else
                     pageData = allProductsData;
+
+                bool hasImageColumn = pageData != null && pageData.Columns.Contains("product_image");
 
                 foreach (DataRow row in pageData.Rows)
                 {
@@ -207,11 +208,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     string imagePath = row["image_path"]?.ToString() ?? "";
                     string brand = row["brand"]?.ToString() ?? "";
 
+                    byte[] productImageBytes = hasImageColumn && row["product_image"] != DBNull.Value
+                        ? (byte[])row["product_image"]
+                        : null;
+
                     // Load image from saved path (or placeholder)
                     Image img = null;
-                    if (dgvInventoryList.Columns.Contains("ProductImage"))
+                    if (dgvInventoryList.Columns.Contains("Image"))
                     {
-                        img = ImageService.GetImage(imagePath, ImageCategory.Product);
+                        if (productImageBytes != null && productImageBytes.Length > 0)
+                        {
+                            img = ImageService.ConvertBytesToImage(productImageBytes);
+                        }
+                        else
+                        {
+                            img = ImageService.GetImage(imagePath, ImageCategory.Product);
+                        }
                     }
 
                     // IMPORTANT:
@@ -231,17 +243,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     if (dgvInventoryList.Columns.Contains("Category"))
                         gridRow.Cells["Category"].Value = category;
 
-                    if (dgvInventoryList.Columns.Contains("CurrentStock"))
-                        gridRow.Cells["CurrentStock"].Value = currentStock;
+                    if (dgvInventoryList.Columns.Contains("Quantity"))
+                        gridRow.Cells["Quantity"].Value = currentStock;
 
-                    if (dgvInventoryList.Columns.Contains("ReorderPoint"))
-                        gridRow.Cells["ReorderPoint"].Value = reorderPoint;
+                    if (dgvInventoryList.Columns.Contains("ReorderLevel"))
+                        gridRow.Cells["ReorderLevel"].Value = reorderPoint;
 
                     if (dgvInventoryList.Columns.Contains("Status"))
                         gridRow.Cells["Status"].Value = status;
 
-                    if (dgvInventoryList.Columns.Contains("ProductImage"))
-                        gridRow.Cells["ProductImage"].Value = img;
+                    if (dgvInventoryList.Columns.Contains("Image"))
+                    {
+                        gridRow.Cells["Image"].Value = img;
+                        if (dgvInventoryList.Columns["Image"] is DataGridViewImageColumn imageColumn)
+                        {
+                            imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+                        }
+                    }
 
                     // Store everything in Tag for click handlers
                     gridRow.Tag = new ProductRowModel

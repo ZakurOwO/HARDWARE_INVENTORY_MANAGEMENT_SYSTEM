@@ -30,12 +30,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services
             Cache[PlaceholderKey] = placeholderImage;
         }
 
-        public static bool TrySelectImageBytes(ImageCategory category, string suggestedName, out byte[] imageBytes, out string originalFilePath)
+        public static bool TrySelectImageBytes(
+            ImageCategory category,
+            string suggestedName,
+            out byte[] imageBytes,
+            out string savedRelativePath,
+            out string originalFilePath)
         {
             imageBytes = null;
+            savedRelativePath = null;
             originalFilePath = null;
 
-            if (!TrySelectAndSaveImage(category, suggestedName, out string savedRelativePath, out originalFilePath))
+            if (!TrySelectAndSaveImage(category, suggestedName, out savedRelativePath, out originalFilePath))
             {
                 return false;
             }

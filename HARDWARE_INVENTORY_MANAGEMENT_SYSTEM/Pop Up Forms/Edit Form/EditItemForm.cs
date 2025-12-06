@@ -15,12 +15,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private string currentProductId = "";
         private string imageFilePath = "";
         private string originalProductName = "";
+        private string originalImagePath = "";
+        private byte[] originalImageBytes;
         private byte[] selectedImageBytes;
         public Panel ParentScrollContainer { get; set; }
 
         // 🔥 Added overlay reference
         private PictureBox pcbBlurOverlay;
         private PictureBox imagePreviewBox;
+        private bool hasProductImageColumn;
 
         public event EventHandler OnProductUpdated;
 
@@ -30,6 +33,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             InitializeComponent();
             currentProductId = productId;
             pcbBlurOverlay = blurOverlay;
+            hasProductImageColumn = InventoryDatabaseHelper.ProductImageColumnExists();
 
             // Show overlay when form opens
             if (pcbBlurOverlay != null)
@@ -134,16 +138,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
             StatusComboBox.SelectedItem = details.Active ? "Active" : "Inactive";
             selectedImageBytes = details.ProductImage;
+            originalImageBytes = details.ProductImage;
             imageFilePath = details.ImagePath;
+            originalImagePath = details.ImagePath;
+
             if (selectedImageBytes == null && !string.IsNullOrWhiteSpace(imageFilePath))
             {
                 selectedImageBytes = ImageService.ConvertImageToBytes(ImageService.GetImage(imageFilePath, ImageCategory.Product));
             }
+
             if (!string.IsNullOrWhiteSpace(imageFilePath))
             {
                 ImageUploadBox.Text = Path.GetFileName(imageFilePath);
             }
-            UpdateImagePreview(selectedImageBytes);
+
+            UpdateImagePreview(selectedImageBytes, imageFilePath);
 
         }
 
@@ -193,7 +202,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
             bool active = StatusComboBox.SelectedItem.ToString() == "Active";
 
-            string imageFileName = ImageUploadBox.Text.Trim();
+            string imageFileName = string.IsNullOrWhiteSpace(imageFilePath)
+                ? ImageUploadBox.Text.Trim()
+                : imageFilePath;
 
             using (SqlConnection conn = new SqlConnection(ConnectionString.DataSource))
             {
@@ -246,6 +257,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 }
             }
 
+            ImageService.ClearCache();
+
+            TryLogInventoryUpdate(
+                currentProductId,
+                originalProductName,
+                originalImagePath,
+                originalImageBytes,
+                newName,
+                imageFilePath,
+                selectedImageBytes);
+
             MessageBox.Show("Product updated successfully!", "Success");
 
             OnProductUpdated?.Invoke(this, EventArgs.Empty);
@@ -279,12 +301,22 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 ? SKUtxtbox.Text.Trim()
                 : ProductNametxtbox.Text.Trim();
 
-            if (ImageService.TrySelectAndSaveImage(ImageCategory.Product, suggestedName, out string savedPath, out string originalPath))
+            if (hasProductImageColumn)
+            {
+                if (ImageService.TrySelectImageBytes(ImageCategory.Product, suggestedName, out byte[] imageBytes, out string savedPath, out string originalPath))
+                {
+                    imageFilePath = savedPath;
+                    selectedImageBytes = imageBytes;
+                    ImageUploadBox.Text = Path.GetFileName(savedPath);
+                    UpdateImagePreview(selectedImageBytes, imageFilePath);
+                }
+            }
+            else if (ImageService.TrySelectAndSaveImage(ImageCategory.Product, suggestedName, out string savedPath, out string originalPath))
             {
                 imageFilePath = savedPath;
                 selectedImageBytes = ImageService.ConvertImageToBytes(ImageService.GetImage(savedPath, ImageCategory.Product));
                 ImageUploadBox.Text = Path.GetFileName(savedPath);
-                UpdateImagePreview(selectedImageBytes);
+                UpdateImagePreview(selectedImageBytes, imageFilePath);
             }
         }
 
@@ -306,14 +338,55 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             UpdateProduct();
         }
 
-        private void UpdateImagePreview(byte[] imageBytes)
+        private void UpdateImagePreview(byte[] imageBytes, string imagePath = null)
         {
             if (imagePreviewBox == null)
             {
                 return;
             }
 
-            imagePreviewBox.Image = ImageService.ConvertBytesToImage(imageBytes);
+            if (imageBytes != null && imageBytes.Length > 0)
+            {
+                imagePreviewBox.Image = ImageService.ConvertBytesToImage(imageBytes);
+            }
+            else if (!string.IsNullOrWhiteSpace(imagePath))
+            {
+                imagePreviewBox.Image = ImageService.GetImage(imagePath, ImageCategory.Product);
+            }
+            else
+            {
+                imagePreviewBox.Image = ImageService.GetPlaceholderImage();
+            }
+        }
+
+        private void TryLogInventoryUpdate(
+            string productId,
+            string oldName,
+            string oldImagePath,
+            byte[] oldImageBytes,
+            string newName,
+            string newImagePath,
+            byte[] newImageBytes)
+        {
+            try
+            {
+                string oldValues = $"Name={oldName}; ImagePath={oldImagePath}; HasImageBytes={(oldImageBytes != null)}";
+                string newValues = $"Name={newName}; ImagePath={newImagePath}; HasImageBytes={(newImageBytes != null)}";
+
+                AuditHelper.LogWithDetails(
+                    AuditModule.INVENTORY,
+                    $"Updated product {newName}",
+                    AuditActivityType.UPDATE,
+                    tableAffected: "Products",
+                    recordId: productId,
+                    oldValues: oldValues,
+                    newValues: newValues
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Inventory audit log failed: {ex.Message}");
+            }
         }
     }
 }
