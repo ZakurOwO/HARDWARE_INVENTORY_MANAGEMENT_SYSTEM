@@ -1,5 +1,6 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Audit_Log;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -14,10 +15,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private string currentProductId = "";
         private string imageFilePath = "";
         private string originalProductName = "";
+        private byte[] selectedImageBytes;
         public Panel ParentScrollContainer { get; set; }
 
         // 🔥 Added overlay reference
         private PictureBox pcbBlurOverlay;
+        private PictureBox imagePreviewBox;
 
         public event EventHandler OnProductUpdated;
 
@@ -33,7 +36,23 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 pcbBlurOverlay.Visible = true;
 
             LoadCategoriesAndUnits();
+            InitializeImagePreview();
             LoadProductData();
+        }
+
+        private void InitializeImagePreview()
+        {
+            imagePreviewBox = new PictureBox
+            {
+                Size = new Size(120, 120),
+                Location = new Point(570, 440),
+                BorderStyle = BorderStyle.FixedSingle,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Image = ImageService.GetPlaceholderImage()
+            };
+
+            Controls.Add(imagePreviewBox);
+            imagePreviewBox.BringToFront();
         }
 
         // ============================= LOAD CATEGORY + UNIT =============================
@@ -114,8 +133,18 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             }
 
             StatusComboBox.SelectedItem = details.Active ? "Active" : "Inactive";
+            selectedImageBytes = details.ProductImage;
+            imageFilePath = details.ImagePath;
+            if (selectedImageBytes == null && !string.IsNullOrWhiteSpace(imageFilePath))
+            {
+                selectedImageBytes = ImageService.ConvertImageToBytes(ImageService.GetImage(imageFilePath, ImageCategory.Product));
+            }
+            if (!string.IsNullOrWhiteSpace(imageFilePath))
+            {
+                ImageUploadBox.Text = Path.GetFileName(imageFilePath);
+            }
+            UpdateImagePreview(selectedImageBytes);
 
-            
         }
 
         // ============================= PICK IMAGE =============================
@@ -166,23 +195,26 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
             string imageFileName = ImageUploadBox.Text.Trim();
 
-            if (!string.IsNullOrEmpty(imageFilePath))
-            {
-                string folder = Path.Combine(Application.StartupPath, "ImageInventory");
-                if (!Directory.Exists(folder))
-                    Directory.CreateDirectory(folder);
-
-                string dest = Path.Combine(folder, Path.GetFileName(imageFilePath));
-                File.Copy(imageFilePath, dest, true);
-
-                imageFileName = Path.GetFileName(imageFilePath);
-            }
-
             using (SqlConnection conn = new SqlConnection(ConnectionString.DataSource))
             {
                 conn.Open();
 
-                string query = @"
+                bool hasImageColumn = InventoryDatabaseHelper.ProductImageColumnExists();
+
+                string query = hasImageColumn
+                    ? @"
+                    UPDATE Products SET
+                        product_name=@n,
+                        description=@d,
+                        category_id=@c,
+                        unit_id=@u,
+                        reorder_point=@rp,
+                        SellingPrice=@sp,
+                        active=@a,
+                        image_path=@img,
+                        product_image=@productImage
+                    WHERE ProductID=@id"
+                    : @"
                     UPDATE Products SET
                         product_name=@n,
                         description=@d,
@@ -199,11 +231,15 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     cmd.Parameters.AddWithValue("@n", newName);
                     cmd.Parameters.AddWithValue("@d", description);
                     cmd.Parameters.AddWithValue("@c", categoryId);
-                    cmd.Parameters.AddWithValue("@u", unitId);                    
+                    cmd.Parameters.AddWithValue("@u", unitId);
                     cmd.Parameters.AddWithValue("@rp", reorderPoint);
                     cmd.Parameters.AddWithValue("@sp", sellingPrice);
                     cmd.Parameters.AddWithValue("@a", active);
                     cmd.Parameters.AddWithValue("@img", imageFileName);
+                    if (hasImageColumn)
+                    {
+                        cmd.Parameters.AddWithValue("@productImage", (object)selectedImageBytes ?? DBNull.Value);
+                    }
                     cmd.Parameters.AddWithValue("@id", currentProductId);
 
                     cmd.ExecuteNonQuery();
@@ -239,17 +275,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
         private void ImageUploadBox_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            string suggestedName = !string.IsNullOrWhiteSpace(SKUtxtbox.Text)
+                ? SKUtxtbox.Text.Trim()
+                : ProductNametxtbox.Text.Trim();
+
+            if (ImageService.TrySelectAndSaveImage(ImageCategory.Product, suggestedName, out string savedPath, out string originalPath))
             {
-                ofd.Filter = "Images|*.png;*.jpg;*.jpeg;*.bmp";
-
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    imageFilePath = ofd.FileName;
-                    ImageUploadBox.Text = Path.GetFileName(ofd.FileName);
-
-                    // No preview
-                }
+                imageFilePath = savedPath;
+                selectedImageBytes = ImageService.ConvertImageToBytes(ImageService.GetImage(savedPath, ImageCategory.Product));
+                ImageUploadBox.Text = Path.GetFileName(savedPath);
+                UpdateImagePreview(selectedImageBytes);
             }
         }
 
@@ -269,6 +304,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 return;
 
             UpdateProduct();
+        }
+
+        private void UpdateImagePreview(byte[] imageBytes)
+        {
+            if (imagePreviewBox == null)
+            {
+                return;
+            }
+
+            imagePreviewBox.Image = ImageService.ConvertBytesToImage(imageBytes);
         }
     }
 }

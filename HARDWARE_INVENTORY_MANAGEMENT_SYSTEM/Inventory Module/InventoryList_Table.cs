@@ -10,20 +10,12 @@ using System.Windows.Forms;
 
 // IMPORTANT: This must match the namespace where EditItemContainer really lives
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_Of_Inventory;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
     public partial class InventoryList_Table : UserControl
     {
-        // Simple class to store row data
-        public class InventoryRowData
-        {
-            public int ProductInternalId { get; set; }
-            public string ProductId { get; set; }
-            public string ImagePath { get; set; }
-            public string SKU { get; set; }
-            public string Brand { get; set; }
-        }
 
         private EditItemContainer _editItemContainer;
 
@@ -48,7 +40,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             // Make sure this line is here and not commented out!
             dgvInventoryList.CellClick += dgvInventoryList_CellClick;
 
-            dgvInventoryList.CellFormatting += dgvInventoryList_CellFormatting;
             dgvInventoryList.DataError += dgvInventoryList_DataError;
             dgvInventoryList.ClearSelection();
         }
@@ -61,27 +52,9 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
         private void dgvInventoryList_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             // Prevent default error dialogs when the image column receives non-image values
-            if (e.ColumnIndex >= 0 && dgvInventoryList.Columns[e.ColumnIndex].Name == "Image")
+            if (e.ColumnIndex >= 0 && dgvInventoryList.Columns[e.ColumnIndex].Name == "ProductImage")
             {
                 e.ThrowException = false;
-            }
-        }
-
-        private void dgvInventoryList_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            // Convert string image keys to actual resource images on the fly
-            if (e.ColumnIndex >= 0 && dgvInventoryList.Columns[e.ColumnIndex].Name == "Image")
-            {
-                if (e.Value is string imageKey)
-                {
-                    e.Value = ImageService.GetImage(imageKey, ImageCategory.Product);
-                    e.FormattingApplied = true;
-                }
-                else if (e.Value == null)
-                {
-                    e.Value = ImageService.GetImage(null, ImageCategory.Product);
-                    e.FormattingApplied = true;
-                }
             }
         }
 
@@ -100,7 +73,25 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
                 {
                     connection.Open();
-                    string query = @"
+                    bool hasImageColumn = InventoryDatabaseHelper.ProductImageColumnExists();
+                    string query = hasImageColumn
+                        ? @"
+                        SELECT
+                            p.ProductInternalID,
+                            p.ProductID,
+                            p.product_name,
+                            p.SKU,
+                            c.category_name,
+                            p.current_stock,
+                            p.reorder_point,
+                            CASE WHEN p.active = 1 THEN 'Active' ELSE 'Inactive' END as status,
+                            p.image_path,
+                            p.product_image,
+                            p.description as brand
+                        FROM Products p
+                        INNER JOIN Categories c ON p.category_id = c.CategoryID
+                        ORDER BY p.product_name"
+                        : @"
                         SELECT
                             p.ProductInternalID,
                             p.ProductID,
@@ -177,6 +168,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             try
             {
                 dgvInventoryList.Rows.Clear();
+                ProductGridImageBinder.ClearCache();
 
                 DataTable pageData;
 
@@ -194,48 +186,34 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     pageData = allProductsData;
                 }
 
+                var rowModels = new BindingList<ProductGridImageBinder.ProductRowModel>();
+
                 foreach (DataRow row in pageData.Rows)
                 {
-                    string productId = row["ProductID"].ToString();
-                    string productName = row["product_name"].ToString();
-                    string sku = row["SKU"].ToString();
-                    string category = row["category_name"].ToString();
-                    int currentStock = Convert.ToInt32(row["current_stock"]);
-                    int reorderPoint = Convert.ToInt32(row["reorder_point"]);
-                    string status = row["status"].ToString();
-                    string imagePath = row["image_path"].ToString();
-                    string brand = row["brand"].ToString();
                     int.TryParse(row["ProductInternalID"].ToString(), out int productInternalId);
-
-                    Image productImage = ImageService.GetImage(imagePath, ImageCategory.Product);
-
-                    int rowIndex = dgvInventoryList.Rows.Add(
-                        productName,
-                        productImage,
-                        category,
-                        currentStock,
-                        reorderPoint,
-                        status,
-                        null,
-                        null,
-                        null,
-                        null
-                    );
-
-                    // Store data in the row's Tag property
-                    if (rowIndex >= 0 && rowIndex < dgvInventoryList.Rows.Count)
+                    byte[] productImage = null;
+                    if (pageData.Columns.Contains("product_image") && row["product_image"] != DBNull.Value)
                     {
-                        var rowData = new InventoryRowData
-                        {
-                            ProductInternalId = productInternalId,
-                            ProductId = productId,
-                            ImagePath = imagePath,
-                            SKU = sku,
-                            Brand = brand
-                        };
-                        dgvInventoryList.Rows[rowIndex].Tag = rowData;
+                        productImage = (byte[])row["product_image"];
                     }
+
+                    rowModels.Add(new ProductGridImageBinder.ProductRowModel
+                    {
+                        ProductInternalId = productInternalId,
+                        ProductId = row["ProductID"].ToString(),
+                        ProductName = row["product_name"].ToString(),
+                        SKU = row["SKU"].ToString(),
+                        Category = row["category_name"].ToString(),
+                        CurrentStock = Convert.ToInt32(row["current_stock"]),
+                        ReorderPoint = Convert.ToInt32(row["reorder_point"]),
+                        Status = row["status"].ToString(),
+                        ImagePath = row["image_path"].ToString(),
+                        ProductImage = productImage,
+                        Brand = row["brand"].ToString()
+                    });
                 }
+
+                ProductGridImageBinder.BindRows(dgvInventoryList, rowModels);
 
                 // Update pagination display
                 PaginationControl?.RefreshPagination();
@@ -274,7 +252,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     string productId = "";
                     int productInternalId = 0;
 
-                    if (dgvInventoryList.Rows[e.RowIndex].Tag is InventoryRowData rowData)
+                    if (dgvInventoryList.Rows[e.RowIndex].Tag is ProductGridImageBinder.ProductRowModel rowData)
                     {
                         productInternalId = rowData.ProductInternalId;
                         imagePath = rowData.ImagePath ?? "";
@@ -377,7 +355,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     string brand = "";
                     string productId = "";
 
-                    if (dgvInventoryList.Rows[e.RowIndex].Tag is InventoryRowData rowData)
+                    if (dgvInventoryList.Rows[e.RowIndex].Tag is ProductGridImageBinder.ProductRowModel rowData)
                     {
                         imagePath = rowData.ImagePath ?? "";
                         sku = rowData.SKU ?? "";
@@ -400,7 +378,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             {
                 try
                 {
-                    if (dgvInventoryList.Rows[e.RowIndex].Tag is InventoryRowData rowData)
+                    if (dgvInventoryList.Rows[e.RowIndex].Tag is ProductGridImageBinder.ProductRowModel rowData)
                     {
                         string productId = rowData.ProductId;
 

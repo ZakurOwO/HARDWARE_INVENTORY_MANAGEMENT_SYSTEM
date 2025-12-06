@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -18,6 +18,16 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
 
             return CreateDefaultImage();
+        }
+
+        public static Image GetProductImage(byte[] imageBytes, string imageName)
+        {
+            if (imageBytes != null && imageBytes.Length > 0)
+            {
+                return ImageService.ConvertBytesToImage(imageBytes);
+            }
+
+            return GetProductImage(imageName);
         }
 
         private static Image CreateDefaultImage()
