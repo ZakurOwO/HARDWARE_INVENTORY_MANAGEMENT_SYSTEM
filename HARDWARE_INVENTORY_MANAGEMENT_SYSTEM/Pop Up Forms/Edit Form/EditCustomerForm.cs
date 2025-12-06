@@ -583,5 +583,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Customer_Module
         private void tbxContactPerson_TextChanged(object sender, EventArgs e) { }
         private void closeButton1_Load(object sender, EventArgs e) { }
         #endregion
+
+        private void btnWhite_Click_1(object sender, EventArgs e)
+        {
+            Form parentForm = this.FindForm();
+            if (parentForm != null)
+            {
+                parentForm.Close();
+            }
+        }
     }
 }

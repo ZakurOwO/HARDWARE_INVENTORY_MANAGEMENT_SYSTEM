@@ -1,11 +1,7 @@
 ﻿using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_Of_Inventory
 {
@@ -14,23 +10,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_
         private Panel scrollContainer;
         private MainDashBoard mainForm;
         private EditItem_Form editForm;
-        private EventHandler cancelHandler;
+
+        // MOVEABLE: expose the container panel so the caller can adjust position safely
+        public Panel ActiveContainerPanel => scrollContainer;
 
         public void ShowEditItemForm(MainDashBoard main, string productId)
         {
             mainForm = main;
 
-            // Create the AddNewItem_Form
+            // Create the EditItem_Form
             editForm = new EditItem_Form(productId, main.pcbBlurOverlay);
-            //editForm.OnProductUpdated += AddForm_OnProductUpdated;
 
             // Create scroll container
             scrollContainer = new Panel();
             scrollContainer.Size = new Size(600, 505);
+
+            // CENTER PLACEMENT (MOVEABLE): this is the default placement
             scrollContainer.Location = new Point(
                 (main.Width - scrollContainer.Width) / 2,
                 (main.Height - scrollContainer.Height) / 2
             );
+
             scrollContainer.BorderStyle = BorderStyle.FixedSingle;
             scrollContainer.AutoScroll = true;
 
@@ -41,8 +41,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_
             editForm.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             scrollContainer.Controls.Add(editForm);
 
-            
-            // Set up main form
+            // Set up main form overlay
             mainForm.pcbBlurOverlay.BackgroundImage = Properties.Resources.InventoryOverlay;
             mainForm.pcbBlurOverlay.BackgroundImageLayout = ImageLayout.Stretch;
             mainForm.pcbBlurOverlay.Visible = true;
@@ -60,7 +59,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_
 
             if (editForm != null)
             {
-
                 editForm.Dispose();
                 editForm = null;
             }
@@ -68,13 +66,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_
             if (scrollContainer != null)
             {
                 scrollContainer.Controls.Clear();
-                if (mainForm.Controls.Contains(scrollContainer))
+                if (mainForm != null && mainForm.Controls.Contains(scrollContainer))
                     mainForm.Controls.Remove(scrollContainer);
+
                 scrollContainer.Dispose();
                 scrollContainer = null;
             }
-
         }
-
     }
 }

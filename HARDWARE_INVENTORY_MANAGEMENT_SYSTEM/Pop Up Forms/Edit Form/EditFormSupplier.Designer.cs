@@ -91,6 +91,7 @@
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(30, 30);
             this.guna2Button3.TabIndex = 122;
+            this.guna2Button3.Click += new System.EventHandler(this.guna2Button3_Click);
             // 
             // CancelSupplierFormBtn
             // 

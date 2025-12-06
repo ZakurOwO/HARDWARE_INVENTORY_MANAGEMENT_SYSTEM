@@ -271,6 +271,7 @@
             this.btnWhite.Size = new System.Drawing.Size(120, 40);
             this.btnWhite.TabIndex = 80;
             this.btnWhite.Text = "Cancel";
+            this.btnWhite.Click += new System.EventHandler(this.btnWhite_Click_1);
             // 
             // btnBlue
             // 

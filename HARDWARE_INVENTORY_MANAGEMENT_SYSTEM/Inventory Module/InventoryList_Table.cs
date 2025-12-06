@@ -8,6 +8,9 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Windows.Forms;
 
+// IMPORTANT: This must match the namespace where EditItemContainer really lives
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components.Class_Compnents_Of_Inventory;
+
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
     public partial class InventoryList_Table : UserControl
@@ -21,6 +24,13 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             public string SKU { get; set; }
             public string Brand { get; set; }
         }
+
+        private EditItemContainer _editItemContainer;
+
+        // MOVEABLE: tweak these if you want it “a little left” later
+        // Example: set _editOverlayOffsetX = -25; to move left 25px
+        private int _editOverlayOffsetX = 0;
+        private int _editOverlayOffsetY = 0;
 
         private PaginationHelperCustomer paginationHelper;
         private DataTable allProductsData;
@@ -42,6 +52,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             dgvInventoryList.DataError += dgvInventoryList_DataError;
             dgvInventoryList.ClearSelection();
         }
+
         private void dgvInventoryList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             dgvInventoryList_CellClick(sender, e);
@@ -197,7 +208,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     int.TryParse(row["ProductInternalID"].ToString(), out int productInternalId);
 
                     Image productImage = ImageService.GetImage(imagePath, ImageCategory.Product);
-                    
 
                     int rowIndex = dgvInventoryList.Rows.Add(
                         productName,
@@ -210,7 +220,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         null,
                         null,
                         null
-
                     );
 
                     // Store data in the row's Tag property
@@ -401,7 +410,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                         var main = mainPage.FindForm() as MainDashBoard;
                         if (main == null) return;
 
-                        mainPage.ShowEditItemForm(productId, main.pcbBlurOverlay);
+                        // Create container once (re-use it)
+                        if (_editItemContainer == null)
+                            _editItemContainer = new EditItemContainer();
+
+                        // Show the edit form using your container
+                        _editItemContainer.ShowEditItemForm(main, productId);
+
+                        // MOVEABLE: adjust placement AFTER it is shown
+                        // This is safe because the container exposes the panel reference.
+                        Panel p = _editItemContainer.ActiveContainerPanel;
+                        if (p != null)
+                        {
+                            p.Location = new Point(p.Location.X + _editOverlayOffsetX, p.Location.Y + _editOverlayOffsetY);
+                            p.BringToFront();
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -409,12 +432,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     MessageBox.Show($"Error opening edit item form: {ex.Message}");
                 }
             }
-
-
         }
-
-
-
 
         private bool UpdateProductStatus(string productName, bool isActive)
         {
