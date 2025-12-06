@@ -14,6 +14,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
     public partial class ItemDescription_Form : UserControl
     {
         private string currentImagePath;
+        private byte[] currentImageBytes;
         private string currentProductId;
         public event EventHandler CloseRequested; // Add this event
 
@@ -55,6 +56,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             string imagePath)
         {
             currentProductId = productId;
+            currentImagePath = imagePath;
+            currentImageBytes = null;
 
             // Item Name
             ItemNameDesc.Text = productName;
@@ -117,6 +120,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
             string statusText = details.Active ? "Available" : "Inactive";
             int minimumStock = details.ReorderPoint;
+            currentImageBytes = details.ProductImage;
 
             PopulateProductData(
                 productId: details.ProductId,
@@ -230,7 +234,14 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                     ItemImageDesc.Image = null;
                 }
 
-                if (!string.IsNullOrEmpty(currentImagePath))
+                if (currentImageBytes != null && currentImageBytes.Length > 0)
+                {
+                    Image productImage = ProductImageManager.GetProductImage(currentImageBytes, currentImagePath);
+                    ItemImageDesc.Image = productImage;
+                    ItemImageDesc.SizeMode = PictureBoxSizeMode.StretchImage;
+                    ItemImageDesc.Refresh();
+                }
+                else if (!string.IsNullOrEmpty(currentImagePath))
                 {
                     // Load new image
                     Image productImage = ProductImageManager.GetProductImage(currentImagePath);

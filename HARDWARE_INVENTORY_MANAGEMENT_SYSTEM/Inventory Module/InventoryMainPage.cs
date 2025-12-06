@@ -3,6 +3,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components;
+using HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module;
 
 namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 {
@@ -114,7 +115,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                 string productName = row.Cells[0].Value != null ? row.Cells[0].Value.ToString() : string.Empty;
                 string sku = string.Empty;
-                if (row.Tag is InventoryList_Table.InventoryRowData rowData)
+                if (row.Tag is ProductGridImageBinder.ProductRowModel rowData)
                 {
                     sku = rowData.SKU ?? string.Empty;
                 }

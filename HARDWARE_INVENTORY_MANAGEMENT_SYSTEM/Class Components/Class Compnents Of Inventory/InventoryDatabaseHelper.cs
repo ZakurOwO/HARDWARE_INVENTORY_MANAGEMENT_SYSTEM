@@ -7,6 +7,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
 {
     public static class InventoryDatabaseHelper
     {
+        private static bool? productImageColumnExists;
+
         public static DataTable LoadCategoriesFromDatabase()
         {
             DataTable dt = new DataTable();
@@ -50,6 +52,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             string unitId,
             int currentStock,
             string imageFileName,
+            byte[] productImage,
             int reorderPoint,
             bool active,
             decimal sellingPrice,
@@ -66,7 +69,17 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
             {
                 connection.Open();
-                string query = @"
+                bool hasImageColumn = ProductImageColumnExists(connection);
+                string query = hasImageColumn
+                    ? @"
+                    INSERT INTO Products
+                        (product_name, SKU, description, category_id, unit_id,
+                         current_stock, image_path, product_image, reorder_point, active, SellingPrice)
+                    OUTPUT inserted.ProductID
+                    VALUES
+                        (@productName, @sku, @description, @categoryId, @unitId,
+                         @currentStock, @imagePath, @productImage, @reorderPoint, @active, @sellingPrice)"
+                    : @"
                     INSERT INTO Products
                         (product_name, SKU, description, category_id, unit_id,
                          current_stock, image_path, reorder_point, active, SellingPrice)
@@ -84,6 +97,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                     cmd.Parameters.AddWithValue("@unitId", unitId);
                     cmd.Parameters.AddWithValue("@currentStock", currentStock);
                     cmd.Parameters.AddWithValue("@imagePath", imageFileName ?? string.Empty);
+                    if (hasImageColumn)
+                    {
+                        cmd.Parameters.AddWithValue("@productImage", (object)productImage ?? DBNull.Value);
+                    }
                     cmd.Parameters.AddWithValue("@reorderPoint", reorderPoint);
                     cmd.Parameters.AddWithValue("@active", active);
                     cmd.Parameters.AddWithValue("@sellingPrice", sellingPrice);
@@ -251,7 +268,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             {
                 connection.Open();
 
-                string query = @"
+                bool hasImageColumn = ProductImageColumnExists(connection);
+                string query = hasImageColumn
+                    ? @"
+                    SELECT
+                        p.ProductID,
+                        p.product_name,
+                        p.SKU,
+                        p.description,
+                        c.category_name,
+                        u.unit_name,
+                        p.current_stock,
+                        p.reorder_point,
+                        ISNULL(p.SellingPrice, 0.00) AS selling_price,
+                        p.active,
+                        p.image_path,
+                        p.product_image
+                    FROM Products p
+                    LEFT JOIN Categories c ON p.category_id = c.CategoryID
+                    LEFT JOIN Units u ON p.unit_id = u.UnitID
+                    WHERE p.ProductID = @productId"
+                    : @"
                     SELECT
                         p.ProductID,
                         p.product_name,
@@ -289,7 +326,8 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
                                 ReorderPoint = GetSafeInt(reader, "reorder_point"),
                                 SellingPrice = GetSafeDecimal(reader, "selling_price"),
                                 Active = GetSafeBool(reader, "active"),
-                                ImagePath = reader["image_path"] != DBNull.Value ? reader["image_path"].ToString() : null
+                                ImagePath = reader["image_path"] != DBNull.Value ? reader["image_path"].ToString() : null,
+                                ProductImage = hasImageColumn && reader["product_image"] != DBNull.Value ? (byte[])reader["product_image"] : null
                             };
                         }
                     }
@@ -297,6 +335,31 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
             }
 
             return null;
+        }
+
+        public static bool ProductImageColumnExists()
+        {
+            using (SqlConnection connection = new SqlConnection(ConnectionString.DataSource))
+            {
+                connection.Open();
+                return ProductImageColumnExists(connection);
+            }
+        }
+
+        private static bool ProductImageColumnExists(SqlConnection connection)
+        {
+            if (productImageColumnExists.HasValue)
+            {
+                return productImageColumnExists.Value;
+            }
+
+            const string query = @"SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Products' AND COLUMN_NAME = 'product_image'";
+            using (SqlCommand cmd = new SqlCommand(query, connection))
+            {
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                productImageColumnExists = count > 0;
+                return productImageColumnExists.Value;
+            }
         }
 
         public static List<DateTime> GetRecentActivityDates(
@@ -439,5 +502,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Class_Components
         public decimal SellingPrice { get; set; }
         public bool Active { get; set; }
         public string ImagePath { get; set; }
+        public byte[] ProductImage { get; set; }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 
@@ -27,6 +28,90 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Services
         {
             placeholderImage = CreatePlaceholderImage();
             Cache[PlaceholderKey] = placeholderImage;
+        }
+
+        public static bool TrySelectImageBytes(ImageCategory category, string suggestedName, out byte[] imageBytes, out string originalFilePath)
+        {
+            imageBytes = null;
+            originalFilePath = null;
+
+            if (!TrySelectAndSaveImage(category, suggestedName, out string savedRelativePath, out originalFilePath))
+            {
+                return false;
+            }
+
+            try
+            {
+                Image loaded = GetImage(savedRelativePath, category);
+                imageBytes = ConvertImageToBytes(loaded);
+                return imageBytes != null;
+            }
+            catch
+            {
+                imageBytes = null;
+                return false;
+            }
+        }
+
+        public static byte[] ConvertImageToBytes(Image image)
+        {
+            if (image == null)
+            {
+                return null;
+            }
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
+
+        public static Image ConvertBytesToImage(byte[] bytes)
+        {
+            if (bytes == null || bytes.Length == 0)
+            {
+                return GetPlaceholder();
+            }
+
+            try
+            {
+                using (MemoryStream ms = new MemoryStream(bytes))
+                {
+                    using (Image source = Image.FromStream(ms))
+                    {
+                        return new Bitmap(source);
+                    }
+                }
+            }
+            catch
+            {
+                return GetPlaceholder();
+            }
+        }
+
+        public static Image CreateThumbnail(Image source, int width, int height)
+        {
+            if (source == null)
+            {
+                return GetPlaceholder();
+            }
+
+            Bitmap thumbnail = new Bitmap(width, height);
+            using (Graphics graphics = Graphics.FromImage(thumbnail))
+            {
+                graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.Clear(Color.Transparent);
+                graphics.DrawImage(source, new Rectangle(0, 0, width, height));
+            }
+
+            return thumbnail;
+        }
+
+        public static Image GetPlaceholderImage()
+        {
+            return GetPlaceholder();
         }
 
         public static Image GetImage(string dbImagePath, ImageCategory category)

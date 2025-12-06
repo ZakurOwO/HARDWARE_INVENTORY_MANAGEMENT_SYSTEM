@@ -20,6 +20,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
     {
         private string imageFilePath = "";
         private string savedImagePath = string.Empty;
+        private byte[] selectedImageBytes;
         private PictureBox imagePreviewBox;
 
         public AddNewItem_Form()
@@ -27,11 +28,27 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             InitializeComponent();
             LoadCategoriesAndUnits();
             InitializeForm();
-           
+            InitializeImagePreview();
+
 
             // Enable mouse wheel scrolling
             this.AutoScroll = true;
             this.MouseWheel += AddNewItem_Form_MouseWheel;
+        }
+
+        private void InitializeImagePreview()
+        {
+            imagePreviewBox = new PictureBox
+            {
+                Size = new Size(120, 120),
+                Location = new Point(570, 360),
+                BorderStyle = BorderStyle.FixedSingle,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Image = ImageService.GetPlaceholderImage()
+            };
+
+            Controls.Add(imagePreviewBox);
+            imagePreviewBox.BringToFront();
         }
 
         private void AddNewItem_Form_MouseWheel(object sender, MouseEventArgs e)
@@ -122,8 +139,10 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
                 if (saved)
                 {
                     savedImagePath = storedPath;
+                    selectedImageBytes = ImageService.ConvertImageToBytes(ImageService.GetImage(savedImagePath, ImageCategory.Product));
                     ImageUploadBox.Text = Path.GetFileName(storedPath);
-                   
+                    UpdateImagePreview(selectedImageBytes);
+
                 }
             }
             catch (Exception ex)
@@ -216,11 +235,11 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             {
                 string productName = ProductNametxtbox.Text.Trim();
                 string description = DescriptionRichTextBox.Text.Trim();
-                string categoryId = (CategoryCombobox.SelectedItem as ComboboxItem)?.Value;
-                string unitId = (UnitOfMeasurementComboBox.SelectedItem as ComboboxItem)?.Value;
-                int currentStock = (int)nudCurrentStock.Value;
-                int reorderPoint = (int)nudMinimumStock.Value;
-                bool active = StatusComboBox.SelectedItem?.ToString() == "Active";
+            string categoryId = (CategoryCombobox.SelectedItem as ComboboxItem)?.Value;
+            string unitId = (UnitOfMeasurementComboBox.SelectedItem as ComboboxItem)?.Value;
+            int currentStock = (int)nudCurrentStock.Value;
+            int reorderPoint = (int)nudMinimumStock.Value;
+            bool active = StatusComboBox.SelectedItem?.ToString() == "Active";
                 decimal sellingPrice;
 
                 if (!TryParseSellingPrice(out sellingPrice))
@@ -234,7 +253,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
 
                 bool success = InventoryDatabaseHelper.AddProduct(
                     productName, description, categoryId, unitId,
-                    currentStock, imageFileName, reorderPoint, active,
+                    currentStock, imageFileName, selectedImageBytes, reorderPoint, active,
                     sellingPrice, SKUtxtbox.Text.Trim(),
                     out string productId, out string generatedSku
                 );
@@ -279,8 +298,21 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Inventory_Module
             ExpirationDataComboBox.Value = DateTime.Now.AddYears(1);
             imageFilePath = "";
             savedImagePath = string.Empty;
-           
+            selectedImageBytes = null;
+            UpdateImagePreview(null);
+
             ProductNametxtbox.Focus();
+        }
+
+        private void UpdateImagePreview(byte[] imageBytes)
+        {
+            if (imagePreviewBox == null)
+            {
+                return;
+            }
+
+            Image preview = ImageService.ConvertBytesToImage(imageBytes);
+            imagePreviewBox.Image = preview;
         }
 
         private void TryLogInventoryCreate(string productId, string productName, string sku, string categoryId, string unitId, int stock, int reorderPoint, bool active)
