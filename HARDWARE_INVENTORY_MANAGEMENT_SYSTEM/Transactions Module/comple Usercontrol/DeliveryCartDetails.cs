@@ -1434,11 +1434,12 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                 newValues);
         }
 
-        private List<ReceiptItem> BuildReceiptItems(List<CartItem> cartItems)
+        private List<ReceiptItem> BuildReceiptItems(IReadOnlyList<CartItem> cartItems)
         {
             var items = new List<ReceiptItem>();
-            foreach (var item in cartItems)
+            for (int i = 0; i < cartItems.Count; i++)
             {
+                CartItem item = cartItems[i];
                 items.Add(new ReceiptItem
                 {
                     ItemName = item.Name,
@@ -1446,7 +1447,6 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
                     UnitPrice = item.UnitPrice
                 });
             }
-
             return items;
         }
 

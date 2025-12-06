@@ -43,7 +43,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM.Transactions_Module
         private Label lblPaymentMethodValue;
 
         private Label lblFooterText;
-        private Guna2Button btnNewTransaction;
+       
         private Guna2Button btnPrintInvoice;
 
         /// <summary>

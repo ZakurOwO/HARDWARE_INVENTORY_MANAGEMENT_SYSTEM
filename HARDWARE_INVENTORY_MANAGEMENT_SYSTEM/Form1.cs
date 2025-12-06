@@ -33,7 +33,7 @@ namespace HARDWARE_INVENTORY_MANAGEMENT_SYSTEM
                     "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            BypassLogin.Visible = false; // Set to true for testing purposes only
+            BypassLogin.Visible = true; // Set to true for testing purposes only
         }
 
         private void pictureBoxEye_Click(object sender, EventArgs e)
